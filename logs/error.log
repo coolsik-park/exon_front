@@ -1,0 +1,31 @@
+2021-06-29 11:24:43 Error: [Cake\Http\Exception\MissingControllerException] Controller class Images could not be found. in /Users/coolsik/Document/_project/src/livemolo/exon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php on line 229
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => NULL,
+  'prefix' => NULL,
+  '_ext' => NULL,
+)
+Stack Trace:
+- /Users/coolsik/Document/_project/src/livemolo/exon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:65
+- /Users/coolsik/Document/_project/src/livemolo/exon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:311
+- /Users/coolsik/Document/_project/src/livemolo/exon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /Users/coolsik/Document/_project/src/livemolo/exon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /Users/coolsik/Document/_project/src/livemolo/exon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /Users/coolsik/Document/_project/src/livemolo/exon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /Users/coolsik/Document/_project/src/livemolo/exon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /Users/coolsik/Document/_project/src/livemolo/exon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /Users/coolsik/Document/_project/src/livemolo/exon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /Users/coolsik/Document/_project/src/livemolo/exon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:77
+- /Users/coolsik/Document/_project/src/livemolo/exon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /Users/coolsik/Document/_project/src/livemolo/exon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /Users/coolsik/Document/_project/src/livemolo/exon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /Users/coolsik/Document/_project/src/livemolo/exon/exon_front/vendor/cakephp/debug_kit/src/Middleware/DebugKitMiddleware.php:60
+- /Users/coolsik/Document/_project/src/livemolo/exon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /Users/coolsik/Document/_project/src/livemolo/exon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /Users/coolsik/Document/_project/src/livemolo/exon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /Users/coolsik/Document/_project/src/livemolo/exon/exon_front/webroot/index.php:40
+
+Request URL: /images/favicon.ico
+Referer URL: http://localhost:8765/
+
+

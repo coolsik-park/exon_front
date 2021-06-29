@@ -14,44 +14,83 @@
  * @var \App\View\AppView $this
  */
 
-$cakeDescription = 'CakePHP: the rapid development php framework';
 ?>
 <!DOCTYPE html>
-<html>
+<!--[if IE 9]> <html class="no-js ie9 fixed-layout" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js " lang="en"> <!--<![endif]-->
 <head>
-    <?= $this->Html->charset() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>
-        <?= $cakeDescription ?>:
-        <?= $this->fetch('title') ?>
-    </title>
-    <?= $this->Html->meta('icon') ?>
 
-    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+    <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Mobile Meta -->
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- Site Meta -->
+    <title>EXON</title>
+	<meta property="og:type" content="website"/>
+	<meta property="og:title" content="exon"/>
+	<meta property="og:description" content="exon"/>
+	<meta property="og:image" content="http://www.exon.co.kr"/>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
 
-    <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake']) ?>
+	<!-- Google Fonts -->
+ 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,700" rel="stylesheet"> 
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-    <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
 </head>
-<body>
-    <nav class="top-nav">
-        <div class="top-nav-title">
-            <a href="<?= $this->Url->build('/') ?>"><span>Cake</span>PHP</a>
-        </div>
-        <div class="top-nav-links">
-            <a target="_blank" rel="noopener" href="https://book.cakephp.org/4/">Documentation</a>
-            <a target="_blank" rel="noopener" href="https://api.cakephp.org/">API</a>
-        </div>
-    </nav>
-    <main class="main">
-        <div class="container">
+ <body>
+	
+	<header class="header site-header">
+			<div class="container">
+                헤더
+			</div><!-- end container -->
+		</header><!-- end header -->
+
+        
+
+
+        
+
             <?= $this->Flash->render() ?>
             <?= $this->fetch('content') ?>
-        </div>
-    </main>
-    <footer>
-    </footer>
+        
+
+        <footer class="footer primary-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="widget clearfix">
+                            <h4 class="widget-title">EXON</h4>
+                            <div class="">
+                                <p>(우)11111 라이브몰로 <br><br> 대표전화: 080-111-2222 / 팩스: 02-111-2222</p>
+                               
+                            </div><!-- end newsletter -->
+                        </div><!-- end widget -->
+                    </div><!-- end col -->                   
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </footer><!-- end primary-footer -->
+        <footer class="footer secondary-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>&copy;LiveMolo, All rights reserved.  (근무시간: 9시~18시 / 토,일,공휴일 제외)</p>
+                    </div>
+
+                </div><!-- end row -->
+            </div><!-- end container -->
+		</footer><!-- end second footer -->
+
+    </div><!-- end wrapper -->
+
+
 </body>
 </html>

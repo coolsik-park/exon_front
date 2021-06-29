@@ -47,7 +47,7 @@ return [
             'username' => 'coolsik',
             'password' => 'coolsik2000',
 
-            'database' => 'test',
+            'database' => 'exon_db',
             /*
              * If not using the default 'public' schema with the PostgreSQL driver
              * set it here.
@@ -66,9 +66,9 @@ return [
         'test' => [
             'host' => 'localhost',
             //'port' => 'non_standard_port_number',
-            'username' => 'my_app',
-            'password' => 'secret',
-            'database' => 'test_myapp',
+            'username' => 'coolsik',
+            'password' => 'coolsik2000',
+            'database' => 'exon_db',
             //'schema' => 'myapp',
             'url' => env('DATABASE_TEST_URL', null),
         ],
