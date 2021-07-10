@@ -50,9 +50,6 @@ class PagesController extends AppController
     public function display(string ...$path): ?Response
     {
 
-        // $this->Flash->set('The user has been saved.', [
-        //     'element' => 'success'
-        // ]);
 
         // https://book.cakephp.org/4/en/orm/retrieving-data-and-resultsets.html
 
@@ -111,7 +108,7 @@ class PagesController extends AppController
         // echo("<pre>");print_r($banner);exit;
 
 
-        //case 6: insert sample
+        //case 6: insert sample 
         // $Users = $this->getTableLocator()->get('Users');
         // $user = $Users->newEmptyEntity();
         
@@ -129,7 +126,32 @@ class PagesController extends AppController
         // {
         //     echo("success");exit;
         // }
-                        
+           
+        
+        //case 7: update sample 
+        // $Users = $this->getTableLocator()->get('Users');
+        // $user = $Users->get('2');
+        // $user->company = 'bbb';
+        // if(!$Users->save($user))
+        // {
+        //     echo("wrong!!");exit;
+        // }
+        // else
+        // {
+        //     echo("success");exit;
+        // }
+
+
+        //case 8: delete sample 
+        // $Banners = $this->getTableLocator()->get('Banner');
+        // $banner = $Banners->get(2);
+        // if ($Banners->delete($banner)) {
+        //     $this->Flash->success(__('The user has been deleted.'));
+        // } else {
+        //     $this->Flash->error(__('The user could not be deleted. Please, try again.'));
+        // }
+
+
         try {
             $this->set(compact('banner')); //key-value 연관배열을 쌍으로 적용('banner'=>$banner)
             return $this->render(implode('/', $path));
