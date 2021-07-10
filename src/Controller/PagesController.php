@@ -21,6 +21,10 @@ use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\View\Exception\MissingTemplateException;
+use Cake\ORM\TableRegistry;
+use Cake\Datasource\ConnectionManager;
+use Cake\ORM\Locator\LocatorAwareTrait;
+use Cake\Auth\DefaultPasswordHasher;
 
 /**
  * Static content controller
@@ -45,23 +49,89 @@ class PagesController extends AppController
      */
     public function display(string ...$path): ?Response
     {
-        if (!$path) {
-            return $this->redirect('/');
-        }
-        if (in_array('..', $path, true) || in_array('.', $path, true)) {
-            throw new ForbiddenException();
-        }
-        $page = $subpage = null;
 
-        if (!empty($path[0])) {
-            $page = $path[0];
-        }
-        if (!empty($path[1])) {
-            $subpage = $path[1];
-        }
-        $this->set(compact('page', 'subpage'));
+        // $this->Flash->set('The user has been saved.', [
+        //     'element' => 'success'
+        // ]);
 
+        // https://book.cakephp.org/4/en/orm/retrieving-data-and-resultsets.html
+
+        /* case 1 : ORM Query Generator */
+        $this->loadModel('Banner');
+
+        $banner = $this->Banner->find()
+                        ->select(['Banner.id', 'Banner.img_path', 'Banner.img_name', 'Exhibition.title'])
+                        ->leftJoinWith('Exhibition', function ($q) {
+                            return $q->where(['Exhibition.title' => '테스트']);
+                        })
+                        ->where(['Banner.status'=>1])
+                        ->order(['Banner.sort'])
+                        ->toArray();
+
+
+
+       /* case 2 : Custom Query */ 
+        // $this->conn = ConnectionManager::get('default'); 
+
+        // $query = " select B.id, B.img_path, B.img_name, E.title ";
+        // $query .= " from banner B ";
+        // $query .= " LEFT JOIN exhibition E ON B.exhibition_id = E.id AND E.title='테스트' ";
+        // $query .= " WHERE B.status=1 ";
+        // $query .= " ORDER BY sort ";
+
+        // $stmt = $this->conn->query($query);
+        // $banner = $stmt->fetchAll('assoc');
+
+       /* case 3: query count */
+        //    $query = $this->Banner->find('all')
+        //                         ->leftJoinWith('Exhibition', function ($q) {
+        //                             return $q->where(['Exhibition.title' => '테스트']);
+        //                         })
+        //                         ->where(['Banner.status'=>1])
+        //     ;
+        //    $number = $query->count();       
+        //    print_r($number);     
+        
+        
+        /* case 4: search */
+
+        //    $this->loadModel('Exhibition');
+        //    $query = $this->Exhibition->findByTitle('테스트')->toArray();
+
+        //    echo($query->isEmpty()); //비었는지 확인
+        //    echo("<pre>");print_r($query);  
+
+
+        //case 5: threaded 샘플
+        // $this->loadModel('ExhibitionSurvey');
+        // $banner = $this->ExhibitionSurvey->find('threaded')
+        //             ->where(['ExhibitionSurvey.exhibition_id'=>1])
+    
+        //             ->toArray();
+        // echo("<pre>");print_r($banner);exit;
+
+
+        //case 6: insert sample
+        // $Users = $this->getTableLocator()->get('Users');
+        // $user = $Users->newEmptyEntity();
+        
+        // $hashPswdObj = new DefaultPasswordHasher; //비밀번호 암호화
+        // $user->email = 'coolsik@abc.com';
+        // $user->password = $hashPswdObj->hash('1234'); 
+        // $user->name = 'park';
+        // $user->hp = '01048047466';
+        // $user->refer = 'exon';
+        // if(!$Users->save($user))
+        // {
+        //     echo("wrong!!");exit;
+        // }
+        // else
+        // {
+        //     echo("success");exit;
+        // }
+                        
         try {
+            $this->set(compact('banner')); //key-value 연관배열을 쌍으로 적용('banner'=>$banner)
             return $this->render(implode('/', $path));
         } catch (MissingTemplateException $exception) {
             if (Configure::read('debug')) {
@@ -70,4 +140,6 @@ class PagesController extends AppController
             throw new NotFoundException();
         }
     }
+
+ 
 }
