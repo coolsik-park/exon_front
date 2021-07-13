@@ -29,3 +29,1864 @@ Request URL: /images/favicon.ico
 Referer URL: http://localhost:8765/
 
 
+2021-07-13 08:59:22 Error: [Cake\Http\Exception\MissingControllerException] Controller class Images could not be found. in /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php on line 229
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => NULL,
+  'prefix' => NULL,
+  '_ext' => NULL,
+)
+Stack Trace:
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:65
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:311
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:77
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon_front/webroot/index.php:40
+
+Request URL: /images/favicon.ico
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+
+
+2021-07-13 09:04:00 Error: [Cake\Http\Exception\MissingControllerException] Controller class Articles could not be found. in /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php on line 229
+Exception Attributes: array (
+  'class' => 'Articles',
+  'plugin' => NULL,
+  'prefix' => NULL,
+  '_ext' => NULL,
+)
+Stack Trace:
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:65
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:311
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon_front/webroot/index.php:40
+
+Request URL: /articles/edit/first-post
+Referer URL: http://121.126.223.225:8765/users/login?redirect=%2Farticles%2Fedit%2Ffirst-post
+Client IP: 119.194.248.193
+
+
+2021-07-13 09:14:05 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_id' in 'where clause' in /var/www/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php on line 39
+Stack Trace:
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php:39
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:341
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:344
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Database/Query.php:250
+- /var/www/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1740
+- /var/www/exon_front/vendor/cakephp/cakephp/src/ORM/Association/BelongsToMany.php:617
+- /var/www/exon_front/vendor/cakephp/cakephp/src/ORM/AssociationCollection.php:343
+- /var/www/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2467
+- /var/www/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2312
+- /var/www/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1559
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:691
+- /var/www/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1560
+- /var/www/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2313
+- /var/www/exon_front/src/Controller/UsersController.php:94
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon_front/webroot/index.php:40
+
+Request URL: /users/delete/4
+Referer URL: http://121.126.223.225:8765/users
+Client IP: 119.194.248.193
+
+
+2021-07-13 09:20:03 Error: [Cake\Http\Exception\MissingControllerException] Controller class Kakao_login_medium_narrow.png could not be found. in /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php on line 229
+Exception Attributes: array (
+  'class' => 'Kakao_login_medium_narrow.png',
+  'plugin' => NULL,
+  'prefix' => NULL,
+  '_ext' => NULL,
+)
+Stack Trace:
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:213
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:63
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:311
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:77
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon_front/webroot/index.php:40
+
+Request URL: /kakao_login_medium_narrow.png
+Referer URL: http://121.126.223.225:8765/users
+Client IP: 119.194.248.193
+
+
+2021-07-13 09:20:22 Error: [Cake\Http\Exception\MissingControllerException] Controller class Kakao_login_medium_narrow.png could not be found. in /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php on line 229
+Exception Attributes: array (
+  'class' => 'Kakao_login_medium_narrow.png',
+  'plugin' => NULL,
+  'prefix' => NULL,
+  '_ext' => NULL,
+)
+Stack Trace:
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:213
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:63
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:311
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:77
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon_front/webroot/index.php:40
+
+Request URL: /kakao_login_medium_narrow.png
+Referer URL: http://121.126.223.225:8765/users
+Client IP: 119.194.248.193
+
+
+2021-07-13 09:39:02 Error: [Error] Class 'Asset' not found in /var/www/exon_front/templates/Users/index.php on line 20
+Stack Trace:
+- /var/www/exon_front/vendor/cakephp/cakephp/src/View/View.php:1176
+- /var/www/exon_front/vendor/cakephp/cakephp/src/View/View.php:1134
+- /var/www/exon_front/vendor/cakephp/cakephp/src/View/View.php:764
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:699
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:540
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon_front/webroot/index.php:40
+
+Request URL: /users
+Client IP: 119.194.248.193
+
+
+2021-07-13 09:43:58 Error: [Cake\Controller\Exception\MissingActionException] Action UsersController::img() could not be found, or is not accessible. in /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'img',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:77
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon_front/webroot/index.php:40
+
+Request URL: /users/img/kakao/ko/kakao_login_large_wide.png
+Referer URL: http://121.126.223.225:8765/users/
+Client IP: 119.194.248.193
+
+
+2021-07-13 09:44:51 Error: [Cake\Controller\Exception\MissingActionException] Action UsersController::img() could not be found, or is not accessible. in /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'img',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:77
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon_front/webroot/index.php:40
+
+Request URL: /users/img/kakao/ko/kakao_login_large_wide.png
+Referer URL: http://121.126.223.225:8765/users/
+Client IP: 119.194.248.193
+
+
+2021-07-13 09:44:52 Error: [Cake\Controller\Exception\MissingActionException] Action UsersController::img() could not be found, or is not accessible. in /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'img',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:77
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon_front/webroot/index.php:40
+
+Request URL: /users/img/kakao/ko/kakao_login_large_wide.png
+Referer URL: http://121.126.223.225:8765/users/
+Client IP: 119.194.248.193
+
+
+2021-07-13 09:55:08 Error: [Cake\Http\Exception\MissingControllerException] Controller class Img could not be found. in /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php on line 229
+Exception Attributes: array (
+  'class' => 'Img',
+  'plugin' => NULL,
+  'prefix' => NULL,
+  '_ext' => NULL,
+)
+Stack Trace:
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:65
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:311
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:77
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon_front/webroot/index.php:40
+
+Request URL: /img/kakao/ko/kakao_medium_narrow.png
+Referer URL: http://121.126.223.225:8765/users/
+Client IP: 119.194.248.193
+
+
+2021-07-13 10:01:20 Error: [Error] Class 'Authentication\PasswordHasher\DefaultPasswordHasher' not found in /var/www/exon_front/src/Model/Entity/User.php on line 71
+Stack Trace:
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Datasource/EntityTrait.php:260
+- /var/www/exon_front/vendor/cakephp/cakephp/src/ORM/Marshaller.php:596
+- /var/www/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2852
+- /var/www/exon_front/src/Controller/UsersController.php:48
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon_front/webroot/index.php:40
+
+Request URL: /users/add
+Referer URL: http://121.126.223.225:8765/users/add
+Client IP: 119.194.248.193
+
+
+2021-07-13 10:59:49 Error: [Cake\Http\Exception\MissingControllerException] Controller class Add could not be found. in /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php on line 229
+Exception Attributes: array (
+  'class' => 'Add',
+  'plugin' => NULL,
+  'prefix' => NULL,
+  '_ext' => NULL,
+)
+Stack Trace:
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:65
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:311
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon_front/webroot/index.php:40
+
+Request URL: /add
+Client IP: 119.194.248.193
+
+
+2021-07-13 14:17:20 Error: [Cake\Controller\Exception\MissingActionException] Action UsersController::navercallback() could not be found, or is not accessible. in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'navercallback',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/navercallback
+Client IP: 119.194.248.193
+
+
+2021-07-13 14:20:58 Error: [Cake\Controller\Exception\MissingActionException] Action UsersController::naverCallback() could not be found, or is not accessible. in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'naverCallback',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/naverCallback?code=TvIgq2NuJCXdpcXaW5&state=1e64e6375eb14d9a363394a57ee1306a485173448
+Client IP: 119.194.248.193
+
+
+2021-07-13 14:21:34 Error: [Cake\View\Exception\MissingTemplateException] Template file `Users/naver_callback.php` could not be found.
+
+The following paths were searched:
+
+- `/var/www/exon/jihoon/exon_front/templates/Users/naver_callback.php`
+- `/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/templates/Users/naver_callback.php`
+ in Users/naver_callback.php on line 1354
+Exception Attributes: array (
+  'file' => 'Users/naver_callback.php',
+  'paths' => 
+  array (
+    0 => '/var/www/exon/jihoon/exon_front/templates/',
+    1 => '/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/templates/',
+  ),
+)
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/View/View.php:761
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:699
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:540
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/naverCallback?code=TvIgq2NuJCXdpcXaW5&state=1e64e6375eb14d9a363394a57ee1306a485173448
+Client IP: 119.194.248.193
+
+
+2021-07-13 14:21:37 Error: [Cake\View\Exception\MissingTemplateException] Template file `Users/naver_callback.php` could not be found.
+
+The following paths were searched:
+
+- `/var/www/exon/jihoon/exon_front/templates/Users/naver_callback.php`
+- `/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/templates/Users/naver_callback.php`
+ in Users/naver_callback.php on line 1354
+Exception Attributes: array (
+  'file' => 'Users/naver_callback.php',
+  'paths' => 
+  array (
+    0 => '/var/www/exon/jihoon/exon_front/templates/',
+    1 => '/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/templates/',
+  ),
+)
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/View/View.php:761
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:699
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:540
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/naverCallback?code=5aYv9Z74X6urspnUoE&state=1e64e6375eb14d9a363394a57ee1306a485173448
+Client IP: 119.194.248.193
+
+
+2021-07-13 14:25:25 Error: [Cake\Controller\Exception\MissingActionException] Action UsersController::navercallback() could not be found, or is not accessible. in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'navercallback',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/navercallback?code=7OmCmM9V1rtOBe6RyL&state=a097fb679e25a414f6cee52df80e2f12952106144
+Client IP: 119.194.248.193
+
+
+2021-07-13 14:26:30 Error: [Cake\Controller\Exception\MissingActionException] Action UsersController::navercallback() could not be found, or is not accessible. in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'navercallback',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/navercallback?code=dJ9Qhq9FYph5ZAc4pZ&state=a097fb679e25a414f6cee52df80e2f12952106144
+Client IP: 119.194.248.193
+
+
+2021-07-13 14:28:06 Error: [Cake\Controller\Exception\MissingActionException] Action UsersController::navercallback() could not be found, or is not accessible. in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'navercallback',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/navercallback?code=dJ9Qhq9FYph5ZAc4pZ&state=a097fb679e25a414f6cee52df80e2f12952106144
+Client IP: 119.194.248.193
+
+
+2021-07-13 14:28:12 Error: [Cake\Controller\Exception\MissingActionException] Action UsersController::navercallback() could not be found, or is not accessible. in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'navercallback',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/navercallback?code=dJ9Qhq9FYph5ZAc4pZ&state=a097fb679e25a414f6cee52df80e2f12952106144
+Client IP: 119.194.248.193
+
+
+2021-07-13 14:28:19 Error: [Cake\Controller\Exception\MissingActionException] Action UsersController::navercallback() could not be found, or is not accessible. in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'navercallback',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/navercallback?code=4FtrPyMKCIfMDV0O85&state=6b82485518321145490ee75c0672347e163278062
+Client IP: 119.194.248.193
+
+
+2021-07-13 14:29:49 Error: [Cake\View\Exception\MissingTemplateException] Template file `Users/navercallback.php` could not be found.
+
+The following paths were searched:
+
+- `/var/www/exon/jihoon/exon_front/templates/Users/navercallback.php`
+- `/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/templates/Users/navercallback.php`
+ in Users/navercallback.php on line 1354
+Exception Attributes: array (
+  'file' => 'Users/navercallback.php',
+  'paths' => 
+  array (
+    0 => '/var/www/exon/jihoon/exon_front/templates/',
+    1 => '/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/templates/',
+  ),
+)
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/View/View.php:761
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:699
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:540
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/navercallback?code=sTKs6RBAEmva2H2UuQ&state=6b82485518321145490ee75c0672347e163278062
+Client IP: 119.194.248.193
+
+
+2021-07-13 14:48:07 Error: [Cake\Controller\Exception\MissingActionException] Action UsersController::navercallback() could not be found, or is not accessible. in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'navercallback',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/navercallback?code=kyVDAS9vzzn5kOZyki&state=76c6c582fa9677c6546cb097f196bbd6565488316
+Client IP: 119.194.248.193
+
+
+2021-07-13 14:48:15 Error: [Cake\Controller\Exception\MissingActionException] Action UsersController::navercallback() could not be found, or is not accessible. in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'navercallback',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/navercallback?code=2N4GDaecmlmicXPSGd&state=c1a01f340c169c8e341c8bb7053e0afb1803873175
+Client IP: 119.194.248.193
+
+
+2021-07-13 14:49:09 Error: [Cake\View\Exception\MissingTemplateException] Template file `Users/navercallback.php` could not be found.
+
+The following paths were searched:
+
+- `/var/www/exon/jihoon/exon_front/templates/Users/navercallback.php`
+- `/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/templates/Users/navercallback.php`
+ in Users/navercallback.php on line 1354
+Exception Attributes: array (
+  'file' => 'Users/navercallback.php',
+  'paths' => 
+  array (
+    0 => '/var/www/exon/jihoon/exon_front/templates/',
+    1 => '/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/templates/',
+  ),
+)
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/View/View.php:761
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:699
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:540
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/navercallback?code=1yhYS43Jb4dOs4fcIE&state=b16b0214dec2be58752ccac965dc94c5348894183
+Client IP: 119.194.248.193
+
+
+2021-07-13 14:51:08 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php line=970 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /users/navercallback?code=zEHAEjxTiGjF87WBb1&state=5f8ea523c9c37239630da7c3f364365e948974997
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 14:51:08 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /users/navercallback?code=zEHAEjxTiGjF87WBb1&state=5f8ea523c9c37239630da7c3f364365e948974997
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 14:51:08 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /users/navercallback?code=zEHAEjxTiGjF87WBb1&state=5f8ea523c9c37239630da7c3f364365e948974997
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:13:06 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'email' cannot be null in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php on line 39
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php:39
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:341
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:344
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Query.php:250
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2077
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1969
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1870
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1559
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:691
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1560
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1871
+- /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php:162
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/navercallback?code=3XlLKfjm8iYUBRamYj&state=b57de7ca159d2bcc375c89de442f9bfc213255279
+Client IP: 119.194.248.193
+
+
+2021-07-13 15:13:08 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php line=970 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /users/navercallback?code=3XlLKfjm8iYUBRamYj&state=b57de7ca159d2bcc375c89de442f9bfc213255279
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:13:09 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /users/navercallback?code=3XlLKfjm8iYUBRamYj&state=b57de7ca159d2bcc375c89de442f9bfc213255279
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:13:10 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /users/navercallback?code=3XlLKfjm8iYUBRamYj&state=b57de7ca159d2bcc375c89de442f9bfc213255279
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:15:03 Error: [Error] Call to undefined function App\Controller\now() in /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php on line 161
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/navercallback?code=xRDsHjm9IDYMIpQ6CD&state=e1392a4feb367029a94954ddb3cd469d1962820158
+Client IP: 119.194.248.193
+
+
+2021-07-13 15:15:04 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php line=970 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /users/navercallback?code=xRDsHjm9IDYMIpQ6CD&state=e1392a4feb367029a94954ddb3cd469d1962820158
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:15:05 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /users/navercallback?code=xRDsHjm9IDYMIpQ6CD&state=e1392a4feb367029a94954ddb3cd469d1962820158
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:15:06 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /users/navercallback?code=xRDsHjm9IDYMIpQ6CD&state=e1392a4feb367029a94954ddb3cd469d1962820158
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:16:02 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'email' cannot be null in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php on line 39
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php:39
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:341
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:344
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Query.php:250
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2077
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1969
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1870
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1559
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:691
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1560
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1871
+- /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php:163
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/navercallback?code=Kf4muMTvZDrq79Sar9&state=c92692f95a6eb33b5b9c9574241d7e001303412916
+Client IP: 119.194.248.193
+
+
+2021-07-13 15:16:03 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php line=970 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /users/navercallback?code=Kf4muMTvZDrq79Sar9&state=c92692f95a6eb33b5b9c9574241d7e001303412916
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:16:05 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /users/navercallback?code=Kf4muMTvZDrq79Sar9&state=c92692f95a6eb33b5b9c9574241d7e001303412916
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:16:06 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /users/navercallback?code=Kf4muMTvZDrq79Sar9&state=c92692f95a6eb33b5b9c9574241d7e001303412916
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:17:09 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php line=970 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /users/navercallback?code=1WSCxsELFEZvK3Dcn6&state=73f40ea5fdd318283bdd7d1e4e3d8539925551754
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:17:09 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /users/navercallback?code=1WSCxsELFEZvK3Dcn6&state=73f40ea5fdd318283bdd7d1e4e3d8539925551754
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:17:09 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /users/navercallback?code=1WSCxsELFEZvK3Dcn6&state=73f40ea5fdd318283bdd7d1e4e3d8539925551754
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:17:31 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php line=970 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /users/navercallback?code=1WSCxsELFEZvK3Dcn6&state=73f40ea5fdd318283bdd7d1e4e3d8539925551754
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:17:31 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /users/navercallback?code=1WSCxsELFEZvK3Dcn6&state=73f40ea5fdd318283bdd7d1e4e3d8539925551754
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:17:31 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /users/navercallback?code=1WSCxsELFEZvK3Dcn6&state=73f40ea5fdd318283bdd7d1e4e3d8539925551754
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:41:28 Error: [Cake\ORM\Exception\MissingTableClassException] Table class for alias `User` could not be found. in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Locator/TableLocator.php on line 245
+Exception Attributes: array (
+  0 => 'for alias `User`',
+)
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Datasource/Locator/AbstractLocator.php:62
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Locator/TableLocator.php:205
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Datasource/ModelAwareTrait.php:124
+- /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php:140
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/navercallback?code=dBxihBTGnDybrFupUo&state=e7085adb3a3cc14c955aac0bf680b5241000907161
+Client IP: 119.194.248.193
+
+
+2021-07-13 15:41:38 Error: [Error] Call to a member function findByName() on null in /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php on line 141
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/navercallback?code=w9PgGRHlL4GQrsdlHs&state=6685b4964dde84bd9d174abeee4371401877172661
+Client IP: 119.194.248.193
+
+
+2021-07-13 15:41:39 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php line=970 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /users/navercallback?code=w9PgGRHlL4GQrsdlHs&state=6685b4964dde84bd9d174abeee4371401877172661
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:41:40 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /users/navercallback?code=w9PgGRHlL4GQrsdlHs&state=6685b4964dde84bd9d174abeee4371401877172661
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:41:41 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /users/navercallback?code=w9PgGRHlL4GQrsdlHs&state=6685b4964dde84bd9d174abeee4371401877172661
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:42:16 Error: [Error] Call to a member function isEmpty() on array in /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php on line 143
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/navercallback?code=ee6ZgY0X6ewhRzga94&state=9e78340cf6c5e228283964a76bfa59cd1642510214
+Client IP: 119.194.248.193
+
+
+2021-07-13 15:42:58 Error: [Error] Call to a member function isEmpty() on array in /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php on line 143
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/navercallback?code=47Mo94ehIfeqRQidGH&state=1e728105c7ca227e2e8a36902bc568021575236781
+Client IP: 119.194.248.193
+
+
+2021-07-13 15:50:31 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php line=970 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /users/kakaocallback?code=6WWkkjdc12PYPmxQ4ln0ZBxkeZzOGSfjQLNLzWdIX1GatMker_5TABIO-5fK2gWnQz7HWwopyNkAAAF6nqDkSA
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:50:31 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /users/kakaocallback?code=6WWkkjdc12PYPmxQ4ln0ZBxkeZzOGSfjQLNLzWdIX1GatMker_5TABIO-5fK2gWnQz7HWwopyNkAAAF6nqDkSA
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:50:31 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /users/kakaocallback?code=6WWkkjdc12PYPmxQ4ln0ZBxkeZzOGSfjQLNLzWdIX1GatMker_5TABIO-5fK2gWnQz7HWwopyNkAAAF6nqDkSA
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:08:54 Error: [InvalidArgumentException] Expression `Users.name` is missing operator (IS, IS NOT) with `null` value. in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Expression/QueryExpression.php on line 783
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Expression/QueryExpression.php:701
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Expression/QueryExpression.php:133
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Query.php:2282
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Query.php:1008
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Query.php:824
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2517
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1267
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2594
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2615
+- /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php:206
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/kakaocallback?code=OJ-rT9QXN-OeQXmKIL3Sr6V4Cf8VXyicyEbliuzT3R697dfcn1l9wncSJcIrydBkONneAgo9dJcAAAF6nrISIA
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+
+
+2021-07-13 16:08:55 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php line=970 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /users/kakaocallback?code=OJ-rT9QXN-OeQXmKIL3Sr6V4Cf8VXyicyEbliuzT3R697dfcn1l9wncSJcIrydBkONneAgo9dJcAAAF6nrISIA
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:08:56 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /users/kakaocallback?code=OJ-rT9QXN-OeQXmKIL3Sr6V4Cf8VXyicyEbliuzT3R697dfcn1l9wncSJcIrydBkONneAgo9dJcAAAF6nrISIA
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:08:57 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /users/kakaocallback?code=OJ-rT9QXN-OeQXmKIL3Sr6V4Cf8VXyicyEbliuzT3R697dfcn1l9wncSJcIrydBkONneAgo9dJcAAAF6nrISIA
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:09:25 Error: [InvalidArgumentException] Expression `Users.name` is missing operator (IS, IS NOT) with `null` value. in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Expression/QueryExpression.php on line 783
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Expression/QueryExpression.php:701
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Expression/QueryExpression.php:133
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Query.php:2282
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Query.php:1008
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Query.php:824
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2517
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1267
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2594
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2615
+- /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php:206
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/kakaocallback?code=25tJx62XrQdZxqgJtwaQ4W8BXFzMGWX2mWdXWUDXp_JprejyvOHaRU5Nl-WZGP4yzZxhpQo9dNkAAAF6nrKNkw
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+
+
+2021-07-13 16:09:26 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php line=970 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /users/kakaocallback?code=25tJx62XrQdZxqgJtwaQ4W8BXFzMGWX2mWdXWUDXp_JprejyvOHaRU5Nl-WZGP4yzZxhpQo9dNkAAAF6nrKNkw
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:09:28 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /users/kakaocallback?code=25tJx62XrQdZxqgJtwaQ4W8BXFzMGWX2mWdXWUDXp_JprejyvOHaRU5Nl-WZGP4yzZxhpQo9dNkAAAF6nrKNkw
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:09:29 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /users/kakaocallback?code=25tJx62XrQdZxqgJtwaQ4W8BXFzMGWX2mWdXWUDXp_JprejyvOHaRU5Nl-WZGP4yzZxhpQo9dNkAAAF6nrKNkw
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:21:14 Error: [InvalidArgumentException] Expression `Users.name` is missing operator (IS, IS NOT) with `null` value. in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Expression/QueryExpression.php on line 783
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Expression/QueryExpression.php:701
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Expression/QueryExpression.php:133
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Query.php:2282
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Query.php:1008
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Query.php:824
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2517
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1267
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2594
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2615
+- /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php:206
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/kakaocallback?code=TESetPw4F9EB4HZVqCTMs1ZXjrR94qAd--A9_aUSgz_Q5Q12qHsbOmufLunZGeFxrGXnGQorDNQAAAF6nr1blw
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+
+
+2021-07-13 16:21:15 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php line=970 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /users/kakaocallback?code=TESetPw4F9EB4HZVqCTMs1ZXjrR94qAd--A9_aUSgz_Q5Q12qHsbOmufLunZGeFxrGXnGQorDNQAAAF6nr1blw
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:21:16 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /users/kakaocallback?code=TESetPw4F9EB4HZVqCTMs1ZXjrR94qAd--A9_aUSgz_Q5Q12qHsbOmufLunZGeFxrGXnGQorDNQAAAF6nr1blw
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:21:17 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /users/kakaocallback?code=TESetPw4F9EB4HZVqCTMs1ZXjrR94qAd--A9_aUSgz_Q5Q12qHsbOmufLunZGeFxrGXnGQorDNQAAAF6nr1blw
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:26:52 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php line=970 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /users/kakaocallback?code=egXOHczHJfGClL-NNVjvmpd7Gearimuc28cADisqdC3hfkfAYK1vFoe6QuFIlF3AwLivHgo9dNsAAAF6nsKHmA
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:26:53 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /users/kakaocallback?code=egXOHczHJfGClL-NNVjvmpd7Gearimuc28cADisqdC3hfkfAYK1vFoe6QuFIlF3AwLivHgo9dNsAAAF6nsKHmA
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:26:53 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /users/kakaocallback?code=egXOHczHJfGClL-NNVjvmpd7Gearimuc28cADisqdC3hfkfAYK1vFoe6QuFIlF3AwLivHgo9dNsAAAF6nsKHmA
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:27:33 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'email' cannot be null in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php on line 39
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php:39
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:341
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:344
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Query.php:250
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2077
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1969
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1870
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1559
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:691
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1560
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1871
+- /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php:221
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/kakaocallback?code=5_5kN-4c2VZMHrDUsuQSg-dBWG-iyAngi3RGRB92pOrjJETnUnoh5qk-SPUE5fNDZOttugo9dNsAAAF6nsMmqQ
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+
+
+2021-07-13 16:27:35 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php line=970 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /users/kakaocallback?code=5_5kN-4c2VZMHrDUsuQSg-dBWG-iyAngi3RGRB92pOrjJETnUnoh5qk-SPUE5fNDZOttugo9dNsAAAF6nsMmqQ
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:27:36 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /users/kakaocallback?code=5_5kN-4c2VZMHrDUsuQSg-dBWG-iyAngi3RGRB92pOrjJETnUnoh5qk-SPUE5fNDZOttugo9dNsAAAF6nsMmqQ
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:27:37 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /users/kakaocallback?code=5_5kN-4c2VZMHrDUsuQSg-dBWG-iyAngi3RGRB92pOrjJETnUnoh5qk-SPUE5fNDZOttugo9dNsAAAF6nsMmqQ
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:28:21 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php line=970 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /users/kakaocallback?code=XaoYD9OU1NumzKDxBqNG3C4hLAUwoArNfHuadrSsSp24uu1BJG7jg7OxuKKg4qdeLnVvbAo9dZsAAAF6nsPhNw
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:28:21 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /users/kakaocallback?code=XaoYD9OU1NumzKDxBqNG3C4hLAUwoArNfHuadrSsSp24uu1BJG7jg7OxuKKg4qdeLnVvbAo9dZsAAAF6nsPhNw
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:28:21 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /users/kakaocallback?code=XaoYD9OU1NumzKDxBqNG3C4hLAUwoArNfHuadrSsSp24uu1BJG7jg7OxuKKg4qdeLnVvbAo9dZsAAAF6nsPhNw
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:30:10 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php line=970 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /users/kakaocallback?code=I0xxOCAyMPVrNdM0IIFsxfzo9GSoBRYSd09FUoOQ_tVJAkQRGYaZ9gfcQfghyvxnwDLKagorDR8AAAF6nsWMmw
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:30:10 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /users/kakaocallback?code=I0xxOCAyMPVrNdM0IIFsxfzo9GSoBRYSd09FUoOQ_tVJAkQRGYaZ9gfcQfghyvxnwDLKagorDR8AAAF6nsWMmw
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:30:10 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /users/kakaocallback?code=I0xxOCAyMPVrNdM0IIFsxfzo9GSoBRYSd09FUoOQ_tVJAkQRGYaZ9gfcQfghyvxnwDLKagorDR8AAAF6nsWMmw
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:30:22 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php line=970 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /users/kakaocallback?code=_5g4Mp7I_5gAyt-gLlLc8VJvEToMqhdcO4J9Cjdy_-TcEY0EDBU3h2wcytiWFwQpm4grBworDR8AAAF6nsW6iA
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:30:22 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /users/kakaocallback?code=_5g4Mp7I_5gAyt-gLlLc8VJvEToMqhdcO4J9Cjdy_-TcEY0EDBU3h2wcytiWFwQpm4grBworDR8AAAF6nsW6iA
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:30:22 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /users/kakaocallback?code=_5g4Mp7I_5gAyt-gLlLc8VJvEToMqhdcO4J9Cjdy_-TcEY0EDBU3h2wcytiWFwQpm4grBworDR8AAAF6nsW6iA
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:31:47 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php line=970 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /users/kakaocallback?code=2_-R8mnGJ5x8przIokZd6DZN1oShKmOj0AxGS7YFrPFRnlDaDo3TwQly5cp1jg0--ISnbQo9dRsAAAF6nscHLA
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:31:47 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /users/kakaocallback?code=2_-R8mnGJ5x8przIokZd6DZN1oShKmOj0AxGS7YFrPFRnlDaDo3TwQly5cp1jg0--ISnbQo9dRsAAAF6nscHLA
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:31:47 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /users/kakaocallback?code=2_-R8mnGJ5x8przIokZd6DZN1oShKmOj0AxGS7YFrPFRnlDaDo3TwQly5cp1jg0--ISnbQo9dRsAAAF6nscHLA
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:32:24 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php line=970 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /users/kakaocallback?code=boA3RklmHw6Abg6oOtcK1GT29BiqWuhajR_zqdHW4t-IHvz91NpAxbrZPjMFMCUJ_XtWEgo9c04AAAF6nseWpg
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:32:24 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /users/kakaocallback?code=boA3RklmHw6Abg6oOtcK1GT29BiqWuhajR_zqdHW4t-IHvz91NpAxbrZPjMFMCUJ_XtWEgo9c04AAAF6nseWpg
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:32:24 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /users/kakaocallback?code=boA3RklmHw6Abg6oOtcK1GT29BiqWuhajR_zqdHW4t-IHvz91NpAxbrZPjMFMCUJ_XtWEgo9c04AAAF6nseWpg
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:32:24 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 235]
+Request URL: /users/kakaocallback?code=boA3RklmHw6Abg6oOtcK1GT29BiqWuhajR_zqdHW4t-IHvz91NpAxbrZPjMFMCUJ_XtWEgo9c04AAAF6nseWpg
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+setcookie - [internal], line ??
+Cake\Http\ResponseEmitter::setCookie() - CORE/src/Http/ResponseEmitter.php, line 235
+Cake\Http\ResponseEmitter::emitCookies() - CORE/src/Http/ResponseEmitter.php, line 218
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 206
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:40:44 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php line=970 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /users/kakaocallback?code=ZZtu0ZEg0F0_UKVMw1M88TWWaoy7I0vipIsypkELKBFzSRegx4Hh2VISj9nvrgDkY6b1ugo9dZwAAAF6ns85gw
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:40:45 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /users/kakaocallback?code=ZZtu0ZEg0F0_UKVMw1M88TWWaoy7I0vipIsypkELKBFzSRegx4Hh2VISj9nvrgDkY6b1ugo9dZwAAAF6ns85gw
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:40:45 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /users/kakaocallback?code=ZZtu0ZEg0F0_UKVMw1M88TWWaoy7I0vipIsypkELKBFzSRegx4Hh2VISj9nvrgDkY6b1ugo9dZwAAAF6ns85gw
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:44:26 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php line=970 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /users/kakaocallback?code=YM87yUhVteiiQJQAznW6rU3lyuYrvkxVlypI5sD12Yx1TiPGJp_kzfb_afUI-WztC8GIRQo9dVoAAAF6ntKaMA
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:44:26 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /users/kakaocallback?code=YM87yUhVteiiQJQAznW6rU3lyuYrvkxVlypI5sD12Yx1TiPGJp_kzfb_afUI-WztC8GIRQo9dVoAAAF6ntKaMA
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:44:26 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /users/kakaocallback?code=YM87yUhVteiiQJQAznW6rU3lyuYrvkxVlypI5sD12Yx1TiPGJp_kzfb_afUI-WztC8GIRQo9dVoAAAF6ntKaMA
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:46:06 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php line=970 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /users/kakaocallback?code=Og30IegxL3RxjdGUN7vXBY8mxWOy_vOx23LeZ5PMJrHT-VP_MPySoO-tH_OhmV18S7OOwwo9dNsAAAF6ntQgYQ
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:46:06 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /users/kakaocallback?code=Og30IegxL3RxjdGUN7vXBY8mxWOy_vOx23LeZ5PMJrHT-VP_MPySoO-tH_OhmV18S7OOwwo9dNsAAAF6ntQgYQ
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:46:06 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /users/kakaocallback?code=Og30IegxL3RxjdGUN7vXBY8mxWOy_vOx23LeZ5PMJrHT-VP_MPySoO-tH_OhmV18S7OOwwo9dNsAAAF6ntQgYQ
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:50:44 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php line=970 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /users/kakaocallback?code=H09FSXRcKsjf07_eCgZK4Ovz_WV7cPRNJ_8Capy3SNVhXu_lzJsCcybbv54x7vbt0d-uLQo9c5oAAAF6nthdUg
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:50:44 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /users/kakaocallback?code=H09FSXRcKsjf07_eCgZK4Ovz_WV7cPRNJ_8Capy3SNVhXu_lzJsCcybbv54x7vbt0d-uLQo9c5oAAAF6nthdUg
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:50:44 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /users/kakaocallback?code=H09FSXRcKsjf07_eCgZK4Ovz_WV7cPRNJ_8Capy3SNVhXu_lzJsCcybbv54x7vbt0d-uLQo9c5oAAAF6nthdUg
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+

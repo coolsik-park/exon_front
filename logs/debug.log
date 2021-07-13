@@ -1,0 +1,592 @@
+2021-07-13 14:42:44 Notice: Notice (8): Undefined index: access_token in [/var/www/exon/jihoon/exon_front/templates/Users/kakaocallback.php, line 27]
+Request URL: /users/kakaocallback?code=v7Wf4w-PAcCkYN0PS3oFPzaEREONbM0J3kViIOopvxvlPpx1a2gv1GfntRgD-YCPTq2MLQo9dRsAAAF6nmMvYQ
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Users/kakaocallback.php, line 27
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 14:51:08 Notice: Notice (8): Undefined index: access_token in [/var/www/exon/jihoon/exon_front/src/Controller/UsersController.php, line 128]
+Request URL: /users/navercallback?code=zEHAEjxTiGjF87WBb1&state=5f8ea523c9c37239630da7c3f364365e948974997
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\UsersController::navercallback() - APP/Controller/UsersController.php, line 128
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:13:06 Notice: Notice (8): Undefined index: email in [/var/www/exon/jihoon/exon_front/src/Controller/UsersController.php, line 155]
+Request URL: /users/navercallback?code=3XlLKfjm8iYUBRamYj&state=b57de7ca159d2bcc375c89de442f9bfc213255279
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\UsersController::navercallback() - APP/Controller/UsersController.php, line 155
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:15:03 Notice: Notice (8): Undefined index: email in [/var/www/exon/jihoon/exon_front/src/Controller/UsersController.php, line 155]
+Request URL: /users/navercallback?code=xRDsHjm9IDYMIpQ6CD&state=e1392a4feb367029a94954ddb3cd469d1962820158
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\UsersController::navercallback() - APP/Controller/UsersController.php, line 155
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:16:02 Notice: Notice (8): Undefined index: email in [/var/www/exon/jihoon/exon_front/src/Controller/UsersController.php, line 155]
+Request URL: /users/navercallback?code=Kf4muMTvZDrq79Sar9&state=c92692f95a6eb33b5b9c9574241d7e001303412916
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\UsersController::navercallback() - APP/Controller/UsersController.php, line 155
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:17:09 Notice: Notice (8): Undefined index: email in [/var/www/exon/jihoon/exon_front/src/Controller/UsersController.php, line 152]
+Request URL: /users/navercallback?code=1WSCxsELFEZvK3Dcn6&state=73f40ea5fdd318283bdd7d1e4e3d8539925551754
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\UsersController::navercallback() - APP/Controller/UsersController.php, line 152
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:17:31 Notice: Notice (8): Undefined index: access_token in [/var/www/exon/jihoon/exon_front/src/Controller/UsersController.php, line 129]
+Request URL: /users/navercallback?code=1WSCxsELFEZvK3Dcn6&state=73f40ea5fdd318283bdd7d1e4e3d8539925551754
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\UsersController::navercallback() - APP/Controller/UsersController.php, line 129
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:17:31 Notice: Notice (8): Array to string conversion in [/var/www/exon/jihoon/exon_front/src/Controller/UsersController.php, line 152]
+Request URL: /users/navercallback?code=1WSCxsELFEZvK3Dcn6&state=73f40ea5fdd318283bdd7d1e4e3d8539925551754
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\UsersController::navercallback() - APP/Controller/UsersController.php, line 152
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:41:38 Notice: Notice (1024): Undefined property: UsersController::$User in /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php on line 141 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php, line 321]
+Request URL: /users/navercallback?code=w9PgGRHlL4GQrsdlHs&state=6685b4964dde84bd9d174abeee4371401877172661
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Controller\Controller::__get() - CORE/src/Controller/Controller.php, line 321
+App\Controller\UsersController::navercallback() - APP/Controller/UsersController.php, line 141
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 15:50:31 Notice: Notice (8): Undefined index: access_token in [/var/www/exon/jihoon/exon_front/src/Controller/UsersController.php, line 195]
+Request URL: /users/kakaocallback?code=6WWkkjdc12PYPmxQ4ln0ZBxkeZzOGSfjQLNLzWdIX1GatMker_5TABIO-5fK2gWnQz7HWwopyNkAAAF6nqDkSA
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\UsersController::kakaocallback() - APP/Controller/UsersController.php, line 195
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:08:54 Notice: Notice (8): Undefined index: response in [/var/www/exon/jihoon/exon_front/src/Controller/UsersController.php, line 206]
+Request URL: /users/kakaocallback?code=OJ-rT9QXN-OeQXmKIL3Sr6V4Cf8VXyicyEbliuzT3R697dfcn1l9wncSJcIrydBkONneAgo9dJcAAAF6nrISIA
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\UsersController::kakaocallback() - APP/Controller/UsersController.php, line 206
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:09:25 Notice: Notice (8): Undefined index: response in [/var/www/exon/jihoon/exon_front/src/Controller/UsersController.php, line 206]
+Request URL: /users/kakaocallback?code=25tJx62XrQdZxqgJtwaQ4W8BXFzMGWX2mWdXWUDXp_JprejyvOHaRU5Nl-WZGP4yzZxhpQo9dNkAAAF6nrKNkw
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\UsersController::kakaocallback() - APP/Controller/UsersController.php, line 206
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:21:14 Notice: Notice (8): Undefined index: response in [/var/www/exon/jihoon/exon_front/src/Controller/UsersController.php, line 206]
+Request URL: /users/kakaocallback?code=TESetPw4F9EB4HZVqCTMs1ZXjrR94qAd--A9_aUSgz_Q5Q12qHsbOmufLunZGeFxrGXnGQorDNQAAAF6nr1blw
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\UsersController::kakaocallback() - APP/Controller/UsersController.php, line 206
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:26:52 Notice: Notice (8): Undefined index: response in [/var/www/exon/jihoon/exon_front/src/Controller/UsersController.php, line 204]
+Request URL: /users/kakaocallback?code=egXOHczHJfGClL-NNVjvmpd7Gearimuc28cADisqdC3hfkfAYK1vFoe6QuFIlF3AwLivHgo9dNsAAAF6nsKHmA
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\UsersController::kakaocallback() - APP/Controller/UsersController.php, line 204
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:27:33 Notice: Notice (8): Undefined index: email in [/var/www/exon/jihoon/exon_front/src/Controller/UsersController.php, line 215]
+Request URL: /users/kakaocallback?code=5_5kN-4c2VZMHrDUsuQSg-dBWG-iyAngi3RGRB92pOrjJETnUnoh5qk-SPUE5fNDZOttugo9dNsAAAF6nsMmqQ
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\UsersController::kakaocallback() - APP/Controller/UsersController.php, line 215
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:28:21 Notice: Notice (8): Undefined index: email in [/var/www/exon/jihoon/exon_front/src/Controller/UsersController.php, line 204]
+Request URL: /users/kakaocallback?code=XaoYD9OU1NumzKDxBqNG3C4hLAUwoArNfHuadrSsSp24uu1BJG7jg7OxuKKg4qdeLnVvbAo9dZsAAAF6nsPhNw
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\UsersController::kakaocallback() - APP/Controller/UsersController.php, line 204
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:30:10 Notice: Notice (8): Undefined index: profile in [/var/www/exon/jihoon/exon_front/src/Controller/UsersController.php, line 205]
+Request URL: /users/kakaocallback?code=I0xxOCAyMPVrNdM0IIFsxfzo9GSoBRYSd09FUoOQ_tVJAkQRGYaZ9gfcQfghyvxnwDLKagorDR8AAAF6nsWMmw
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\UsersController::kakaocallback() - APP/Controller/UsersController.php, line 205
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:30:22 Notice: Notice (8): Undefined index: email in [/var/www/exon/jihoon/exon_front/src/Controller/UsersController.php, line 205]
+Request URL: /users/kakaocallback?code=_5g4Mp7I_5gAyt-gLlLc8VJvEToMqhdcO4J9Cjdy_-TcEY0EDBU3h2wcytiWFwQpm4grBworDR8AAAF6nsW6iA
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\UsersController::kakaocallback() - APP/Controller/UsersController.php, line 205
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:31:47 Notice: Notice (8): Undefined index: email in [/var/www/exon/jihoon/exon_front/src/Controller/UsersController.php, line 205]
+Request URL: /users/kakaocallback?code=2_-R8mnGJ5x8przIokZd6DZN1oShKmOj0AxGS7YFrPFRnlDaDo3TwQly5cp1jg0--ISnbQo9dRsAAAF6nscHLA
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\UsersController::kakaocallback() - APP/Controller/UsersController.php, line 205
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:32:24 Notice: Notice (8): Undefined index: email in [/var/www/exon/jihoon/exon_front/src/Controller/UsersController.php, line 205]
+Request URL: /users/kakaocallback?code=boA3RklmHw6Abg6oOtcK1GT29BiqWuhajR_zqdHW4t-IHvz91NpAxbrZPjMFMCUJ_XtWEgo9c04AAAF6nseWpg
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\UsersController::kakaocallback() - APP/Controller/UsersController.php, line 205
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:40:44 Notice: Notice (8): Undefined index: email in [/var/www/exon/jihoon/exon_front/src/Controller/UsersController.php, line 205]
+Request URL: /users/kakaocallback?code=ZZtu0ZEg0F0_UKVMw1M88TWWaoy7I0vipIsypkELKBFzSRegx4Hh2VISj9nvrgDkY6b1ugo9dZwAAAF6ns85gw
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\UsersController::kakaocallback() - APP/Controller/UsersController.php, line 205
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:44:26 Notice: Notice (8): Undefined index: email in [/var/www/exon/jihoon/exon_front/src/Controller/UsersController.php, line 205]
+Request URL: /users/kakaocallback?code=YM87yUhVteiiQJQAznW6rU3lyuYrvkxVlypI5sD12Yx1TiPGJp_kzfb_afUI-WztC8GIRQo9dVoAAAF6ntKaMA
+Referer URL: http://121.126.223.225:8765/
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\UsersController::kakaocallback() - APP/Controller/UsersController.php, line 205
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:46:06 Notice: Notice (8): Undefined index: email in [/var/www/exon/jihoon/exon_front/src/Controller/UsersController.php, line 216]
+Request URL: /users/kakaocallback?code=Og30IegxL3RxjdGUN7vXBY8mxWOy_vOx23LeZ5PMJrHT-VP_MPySoO-tH_OhmV18S7OOwwo9dNsAAAF6ntQgYQ
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\UsersController::kakaocallback() - APP/Controller/UsersController.php, line 216
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-13 16:50:44 Notice: Notice (8): Undefined index: email in [/var/www/exon/jihoon/exon_front/src/Controller/UsersController.php, line 216]
+Request URL: /users/kakaocallback?code=H09FSXRcKsjf07_eCgZK4Ovz_WV7cPRNJ_8Capy3SNVhXu_lzJsCcybbv54x7vbt0d-uLQo9c5oAAAF6nthdUg
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\UsersController::kakaocallback() - APP/Controller/UsersController.php, line 216
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+

@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use Cake\ORM\Locator\LocatorAwareTrait;
 
 /**
  * Users Controller
@@ -98,5 +99,133 @@ class UsersController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function navercallback()
+    {
+        $client_id = "nruyRASkeHLeFK0ECeMz";
+        $client_secret = "6ulHDFpc3y";
+        $code = $_GET["code"];
+        $state = $_GET["state"];
+        $redirectURI = urlencode("http://121.126.223.225:8765/users/navercallback");
+        $url = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=".$client_id."&client_secret=".$client_secret."&redirect_uri=".$redirectURI."&code=".$code."&state=".$state;
+        $is_post = false;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, $is_post);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $headers = array();
+        $response = curl_exec($ch);
+        $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        
+        $responseArr = json_decode($response, true);
+        $token = $responseArr['access_token'];
+        $header = "Bearer ".$token;
+        $url = "https://openapi.naver.com/v1/nid/me";
+        $is_post = false;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, $is_post);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $headers = array();
+        $headers[] = "Authorization: ".$header;
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $response = curl_exec ($ch);
+        $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close ($ch);
+
+        $responseArr = json_decode($response, true);
+
+        $this->loadModel('Users');
+        $query = $this->Users->findByName($responseArr['response']['id'])->toArray();
+
+        if(count($query)) {
+            echo('로그인 진행');exit;
+            //로그인 진행
+        } else {
+            $Users = $this->getTableLocator()->get('Users');
+            $user = $Users->newEmptyEntity();
+            
+            $user->email = $responseArr['response']['email'];
+            $user->name = $responseArr['response']['id'];
+            $user->hp = $responseArr['response']['mobile_e164'];
+            $user->password = '1234';
+            $user->refer = 'naver';       
+            
+            if(!$Users->save($user))
+            {
+                echo("wrong!!");exit;
+            }
+            else
+            {
+                echo("success");exit;
+            }
+        }
+
+        
+    }
+
+    public function kakaocallback()
+    {
+        $client_id = "9d9c1b3134751cfe60d042ba0bc24c19";
+        $redirect_uri = urlencode("http://121.126.223.225:8765/users/kakaocallback");
+        $grant_type="authorization_code";
+        $code = $_GET["code"];
+        $url = "https://kauth.kakao.com/oauth/token";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        $post_param = "grant_type=".$grant_type."&client_id=".$client_id."&redirect_uri=".$redirect_uri."&code=".$code;
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_param);
+        $response = curl_exec($ch);
+        $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+
+        $responseArr = json_decode($response, true);
+        $access_token = $responseArr['access_token'];
+        $header = "Bearer ".$access_token;
+        $headers = array();
+        $headers[] = "Authorization: ".$header;
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://kapi.kakao.com/v2/user/me");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, false);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $response = curl_exec($ch);
+        $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        $responseArr = json_decode($response, true);
+       
+        $this->loadModel('Users');
+        $query = $this->Users->findByName($responseArr['id'])->toArray();
+
+        if(count($query)) {
+            echo('로그인 진행');exit;
+            //로그인 진행
+        } else {
+            $Users = $this->getTableLocator()->get('Users');
+            $user = $Users->newEmptyEntity();
+            
+            $user->email = $responseArr['kakao_account']['email'];
+            $user->name = $responseArr['id'];
+            $user->hp = '01012341234';
+            $user->password = '1234';
+            $user->refer = 'kakao';       
+            
+            if(!$Users->save($user))
+            {
+                echo("wrong!!");exit;
+            }
+            else
+            {
+                echo("success");exit;
+            }
+        }
     }
 }
