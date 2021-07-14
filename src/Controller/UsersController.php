@@ -110,6 +110,7 @@ class UsersController extends AppController
         $redirectURI = urlencode("http://121.126.223.225:8765/users/navercallback");
         $url = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=".$client_id."&client_secret=".$client_secret."&redirect_uri=".$redirectURI."&code=".$code."&state=".$state;
         $is_post = false;
+        
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, $is_post);
@@ -118,52 +119,53 @@ class UsersController extends AppController
         $response = curl_exec($ch);
         $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
+
+        if($status_code == 200) {
+            $responseArr = json_decode($response, true);
+            $token = $responseArr['access_token'];
+            $header = "Bearer ".$token;
+            $url = "https://openapi.naver.com/v1/nid/me";
+            $is_post = false;
         
-        $responseArr = json_decode($response, true);
-        $token = $responseArr['access_token'];
-        $header = "Bearer ".$token;
-        $url = "https://openapi.naver.com/v1/nid/me";
-        $is_post = false;
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POST, $is_post);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $headers = array();
-        $headers[] = "Authorization: ".$header;
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        $response = curl_exec ($ch);
-        $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close ($ch);
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, $is_post);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $headers = array();
+            $headers[] = "Authorization: ".$header;
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            $response = curl_exec ($ch);
+            $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close ($ch);
 
-        $responseArr = json_decode($response, true);
+            if($status_code == 200) {
+                $responseArr = json_decode($response, true);
+                $this->loadModel('Users');
+                $query = $this->Users->findByName($responseArr['response']['id'])->toArray();
 
-        $this->loadModel('Users');
-        $query = $this->Users->findByName($responseArr['response']['id'])->toArray();
-
-        if(count($query)) {
-            echo('로그인 진행');exit;
-            //로그인 진행
+                if(count($query)) {
+                    echo('로그인 진행');exit;
+                } else {
+                    $Users = $this->getTableLocator()->get('Users');
+                    $user = $Users->newEmptyEntity(); 
+                    $user->email = $responseArr['response']['email'];
+                    $user->name = $responseArr['response']['id'];
+                    $user->hp = $responseArr['response']['mobile_e164'];
+                    $user->password = '1234';
+                    $user->refer = 'naver';       
+                    
+                    if(!$Users->save($user)) {
+                        echo("wrong!!");exit;
+                    } else {
+                        echo("success");exit;
+                    }
+                }
+            } else {
+                echo "Error 내용:".$response;
+            }
         } else {
-            $Users = $this->getTableLocator()->get('Users');
-            $user = $Users->newEmptyEntity();
-            
-            $user->email = $responseArr['response']['email'];
-            $user->name = $responseArr['response']['id'];
-            $user->hp = $responseArr['response']['mobile_e164'];
-            $user->password = '1234';
-            $user->refer = 'naver';       
-            
-            if(!$Users->save($user))
-            {
-                echo("wrong!!");exit;
-            }
-            else
-            {
-                echo("success");exit;
-            }
+            echo "Error 내용:".$response;
         }
-
-        
     }
 
     public function kakaocallback()
@@ -184,48 +186,49 @@ class UsersController extends AppController
         $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
+        if($status_code == 200) {
+            $responseArr = json_decode($response, true);
+            $access_token = $responseArr['access_token'];
+            $header = "Bearer ".$access_token;
+            $headers = array();
+            $headers[] = "Authorization: ".$header;
 
-        $responseArr = json_decode($response, true);
-        $access_token = $responseArr['access_token'];
-        $header = "Bearer ".$access_token;
-        $headers = array();
-        $headers[] = "Authorization: ".$header;
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, "https://kapi.kakao.com/v2/user/me");
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POST, false);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            $response = curl_exec($ch);
+            $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://kapi.kakao.com/v2/user/me");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POST, false);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        $response = curl_exec($ch);
-        $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
+            if($status_code == 200) {
+                $responseArr = json_decode($response, true);
+                $this->loadModel('Users');
+                $query = $this->Users->findByName($responseArr['id'])->toArray();
 
-        $responseArr = json_decode($response, true);
-       
-        $this->loadModel('Users');
-        $query = $this->Users->findByName($responseArr['id'])->toArray();
-
-        if(count($query)) {
-            echo('로그인 진행');exit;
-            //로그인 진행
+                if(count($query)) {
+                    echo('로그인 진행');exit;
+                } else {
+                    $Users = $this->getTableLocator()->get('Users');
+                    $user = $Users->newEmptyEntity(); 
+                    $user->email = $responseArr['kakao_account']['email'];
+                    $user->name = $responseArr['id'];
+                    $user->hp = '01012341234';
+                    $user->password = '1234';
+                    $user->refer = 'kakao';       
+                    
+                    if(!$Users->save($user)) {
+                        echo("wrong!!");exit;
+                    } else {
+                        echo("success");exit;
+                    }
+                }
+            } else {
+                echo "Error 내용:".$response;
+            }
         } else {
-            $Users = $this->getTableLocator()->get('Users');
-            $user = $Users->newEmptyEntity();
-            
-            $user->email = $responseArr['kakao_account']['email'];
-            $user->name = $responseArr['id'];
-            $user->hp = '01012341234';
-            $user->password = '1234';
-            $user->refer = 'kakao';       
-            
-            if(!$Users->save($user))
-            {
-                echo("wrong!!");exit;
-            }
-            else
-            {
-                echo("success");exit;
-            }
+            echo "Error 내용:".$response;
         }
     }
 }
