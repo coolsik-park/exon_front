@@ -108,7 +108,11 @@ class UsersController extends AppController
         $code = $_GET["code"];
         $state = $_GET["state"];
         $redirectURI = urlencode("http://121.126.223.225:8765/users/naverJoin");
-        $url = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=".$client_id."&client_secret=".$client_secret."&redirect_uri=".$redirectURI."&code=".$code."&state=".$state;
+        $url = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=".$client_id.
+            "&client_secret=".$client_secret.
+            "&redirect_uri=".$redirectURI.
+            "&code=".$code.
+            "&state=".$state;
         $is_post = false;
         
         $ch = curl_init();
@@ -150,7 +154,7 @@ class UsersController extends AppController
                     $user = $Users->newEmptyEntity(); 
                     $user->email = $responseArr['response']['email'];
                     $user->name = $responseArr['response']['id'];
-                    $user->hp = (int)substr($responseArr['response']['mobile'], 1, 3).
+                    $user->hp = substr($responseArr['response']['mobile'], 0, 3).
                         substr($responseArr['response']['mobile'], 4, 4).
                         substr($responseArr['response']['mobile'], 9, 4);
                     $user->refer = 'naver';       
