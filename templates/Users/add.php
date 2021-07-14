@@ -39,6 +39,6 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
             <?= $this->Form->end() ?>
         </div>
     </div>
-    <a href="<?php echo $naver_apiURL ?>"><img height="50" width="200" src="/img/naver/btnG_완성형.png"/></a><br>
-    <a href="<?php echo $kakao_apiURL ?>"><img height="50" width="200" src="/img/kakao/ko/kakao_login_medium_narrow.png"/></a>
+    <a href="<?php echo $naver_apiURL ?>"><img src="/img/naver/네이버아이디로로그인.png"/></a><br>
+    <a href="<?php echo $kakao_apiURL ?>"><img src="/img/kakao/ko/카카오아이디로로그인.png"/></a>
 </div>
