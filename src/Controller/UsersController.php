@@ -101,13 +101,13 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function navercallback()
+    public function naverJoin()
     {
         $client_id = "nruyRASkeHLeFK0ECeMz";
         $client_secret = "6ulHDFpc3y";
         $code = $_GET["code"];
         $state = $_GET["state"];
-        $redirectURI = urlencode("http://121.126.223.225:8765/users/navercallback");
+        $redirectURI = urlencode("http://121.126.223.225:8765/users/naverJoin");
         $url = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=".$client_id."&client_secret=".$client_secret."&redirect_uri=".$redirectURI."&code=".$code."&state=".$state;
         $is_post = false;
         
@@ -167,10 +167,10 @@ class UsersController extends AppController
         }
     }
 
-    public function kakaocallback()
+    public function kakaoJoin()
     {
         $client_id = "9d9c1b3134751cfe60d042ba0bc24c19";
-        $redirect_uri = urlencode("http://121.126.223.225:8765/users/kakaocallback");
+        $redirect_uri = urlencode("http://121.126.223.225:8765/users/kakaoJoin");
         $grant_type="authorization_code";
         $code = $_GET["code"];
         $url = "https://kauth.kakao.com/oauth/token";
@@ -214,7 +214,6 @@ class UsersController extends AppController
                     $user->email = $responseArr['kakao_account']['email'];
                     $user->name = $responseArr['id'];
                     $user->hp = '01012341234';
-                    $user->password = '1234';
                     $user->refer = 'kakao';       
                     
                     if(!$Users->save($user)) {
