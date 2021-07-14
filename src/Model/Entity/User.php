@@ -13,7 +13,7 @@ use Cake\ORM\Entity;
  * @property string $email
  * @property string|null $password
  * @property string $name
- * @property string $hp
+ * @property int $hp
  * @property int $hp_cert
  * @property string|null $birthday
  * @property string|null $sex
