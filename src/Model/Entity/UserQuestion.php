@@ -13,11 +13,12 @@ use Cake\ORM\Entity;
  * @property string|null $users_name
  * @property int|null $users_hp
  * @property string|null $users_email
+ * @property string|null $title
  * @property string $question
  * @property string|null $answer
- * @property string $ip
+ * @property string|null $ip
  * @property int $faq_category_id
- * @property int $managers_id
+ * @property int|null $managers_id
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime|null $modified
  *
@@ -42,6 +43,7 @@ class UserQuestion extends Entity
         'users_name' => true,
         'users_hp' => true,
         'users_email' => true,
+        'title' => true,
         'question' => true,
         'answer' => true,
         'ip' => true,
