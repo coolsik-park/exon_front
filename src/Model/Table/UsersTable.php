@@ -48,7 +48,7 @@ class UsersTable extends Table
         $this->addBehavior('Timestamp');
 
         $this->belongsToMany('Exhibition', [
-            'foreignKey' => 'user_id',
+            'foreignKey' => 'id',
             'targetForeignKey' => 'exhibition_id',
             'joinTable' => 'exhibition_users',
         ]);

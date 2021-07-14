@@ -31,11 +31,11 @@ class UsersController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null){
+    public function view($id = null)
     {
-           echo($id);exit;
+        echo($id);exit;
     }
-    }
+    
 
     /**
      * Add method
@@ -150,8 +150,7 @@ class UsersController extends AppController
                     $user = $Users->newEmptyEntity(); 
                     $user->email = $responseArr['response']['email'];
                     $user->name = $responseArr['response']['id'];
-                    $user->hp = $responseArr['response']['mobile_e164'];
-                    $user->password = '1234';
+                    $user->hp = $responseArr['response']['mobile'];
                     $user->refer = 'naver';       
                     
                     if(!$Users->save($user)) {

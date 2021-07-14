@@ -2007,3 +2007,580 @@ Referer URL: http://121.126.223.225:8765/users
 Client IP: 119.194.248.193
 
 
+2021-07-14 10:09:35 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_id' in 'where clause' in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php on line 39
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php:39
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:341
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:344
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Query.php:250
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1740
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Association/BelongsToMany.php:617
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/AssociationCollection.php:343
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2467
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2312
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1559
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:691
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1560
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2313
+- /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php:95
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/delete/8
+Referer URL: http://121.126.223.225:8765/users/
+Client IP: 119.194.248.193
+
+
+2021-07-14 10:12:07 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_id' in 'where clause' in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php on line 39
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php:39
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:341
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:344
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Query.php:250
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1740
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Association/BelongsToMany.php:617
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/AssociationCollection.php:343
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2467
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2312
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1559
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:691
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1560
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2313
+- /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php:95
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/delete/19
+Referer URL: http://121.126.223.225:8765/users/
+Client IP: 119.194.248.193
+
+
+2021-07-14 10:13:03 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_id' in 'where clause' in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php on line 39
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php:39
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:341
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:344
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Query.php:250
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1740
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Association/BelongsToMany.php:617
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/AssociationCollection.php:343
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2467
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2312
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1559
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:691
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1560
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2313
+- /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php:95
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/delete/19
+Referer URL: http://121.126.223.225:8765/users/
+Client IP: 119.194.248.193
+
+
+2021-07-14 10:13:50 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_id' in 'where clause' in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php on line 39
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php:39
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:341
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:344
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Query.php:250
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1740
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Association/BelongsToMany.php:617
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/AssociationCollection.php:343
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2467
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2312
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1559
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:691
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1560
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2313
+- /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php:95
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/delete/19
+Referer URL: http://121.126.223.225:8765/users/
+Client IP: 119.194.248.193
+
+
+2021-07-14 10:16:13 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_id' in 'where clause' in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php on line 39
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php:39
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:341
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:344
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Query.php:250
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1740
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Association/BelongsToMany.php:617
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/AssociationCollection.php:343
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2467
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2312
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1559
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:691
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1560
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2313
+- /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php:95
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/delete/19
+Referer URL: http://121.126.223.225:8765/users
+Client IP: 119.194.248.193
+
+
+2021-07-14 10:32:04 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_id' in 'where clause' in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php on line 39
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php:39
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:341
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:344
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Query.php:250
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1740
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Association/BelongsToMany.php:617
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/AssociationCollection.php:343
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2467
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2312
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1559
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:691
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1560
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2313
+- /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php:95
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/delete/20
+Referer URL: http://121.126.223.225:8765/users
+Client IP: 119.194.248.193
+
+
+2021-07-14 10:33:35 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_id' in 'where clause' in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php on line 39
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php:39
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:341
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:344
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Query.php:250
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1740
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Association/BelongsToMany.php:617
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/AssociationCollection.php:343
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2467
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2312
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1559
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:691
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1560
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2313
+- /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php:95
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/delete/20
+Referer URL: http://121.126.223.225:8765/users
+Client IP: 119.194.248.193
+
+
+2021-07-14 10:37:46 Error: [Cake\View\Exception\MissingTemplateException] Template file `Users/delete.php` could not be found.
+
+The following paths were searched:
+
+- `/var/www/exon/jihoon/exon_front/templates/Users/delete.php`
+- `/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/templates/Users/delete.php`
+ in Users/delete.php on line 1354
+Exception Attributes: array (
+  'file' => 'Users/delete.php',
+  'paths' => 
+  array (
+    0 => '/var/www/exon/jihoon/exon_front/templates/',
+    1 => '/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/templates/',
+  ),
+)
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/View/View.php:761
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:699
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:540
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/delete/20
+Referer URL: http://121.126.223.225:8765/users
+Client IP: 119.194.248.193
+
+
+2021-07-14 10:38:57 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_id' in 'where clause' in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php on line 39
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php:39
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:341
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:344
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Query.php:250
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1740
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Association/BelongsToMany.php:617
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/AssociationCollection.php:343
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2467
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2312
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1559
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:691
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1560
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2313
+- /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php:103
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/delete/20
+Referer URL: http://121.126.223.225:8765/users
+Client IP: 119.194.248.193
+
+
+2021-07-14 10:40:07 Error: [TypeError] Argument 1 passed to Cake\ORM\Table::delete() must implement interface Cake\Datasource\EntityInterface, int given, called in /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php on line 96 in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php on line 2303
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php:96
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/delete/20
+Referer URL: http://121.126.223.225:8765/users
+Client IP: 119.194.248.193
+
+
+2021-07-14 10:40:35 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_id' in 'where clause' in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php on line 39
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php:39
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:341
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:344
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Query.php:250
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1740
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Association/BelongsToMany.php:617
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/AssociationCollection.php:343
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2467
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2312
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1559
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:691
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1560
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2313
+- /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php:96
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/delete/20
+Referer URL: http://121.126.223.225:8765/users
+Client IP: 119.194.248.193
+
+
+2021-07-14 10:44:27 Error: [Cake\Http\Exception\InvalidCsrfTokenException] Missing or invalid CSRF cookie. in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php on line 385
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:165
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/delete/20
+Referer URL: http://121.126.223.225:8765/users
+Client IP: 119.194.248.193
+
+
+2021-07-14 10:44:52 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_id' in 'where clause' in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php on line 39
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php:39
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:341
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:344
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Query.php:250
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1740
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Association/BelongsToMany.php:617
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/AssociationCollection.php:343
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2467
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2312
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1559
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:691
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1560
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2313
+- /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php:95
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/delete/20
+Referer URL: http://121.126.223.225:8765/users
+Client IP: 119.194.248.193
+
+
+2021-07-14 11:41:45 Error: [TypeError] Argument 2 passed to Cake\View\Helper\FormHelper::select() must be iterable, null given, called in /var/www/exon/jihoon/exon_front/templates/Users/add.php on line 33 in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/View/Helper/FormHelper.php on line 2013
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/templates/Users/add.php:33
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/View/View.php:1176
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/View/View.php:1134
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/View/View.php:764
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:699
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:540
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/add
+Referer URL: http://121.126.223.225:8765/users
+Client IP: 119.194.248.193
+
+
+2021-07-14 11:42:06 Error: [TypeError] Argument 2 passed to Cake\View\Helper\FormHelper::select() must be iterable, null given, called in /var/www/exon/jihoon/exon_front/templates/Users/add.php on line 33 in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/View/Helper/FormHelper.php on line 2013
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/templates/Users/add.php:33
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/View/View.php:1176
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/View/View.php:1134
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/View/View.php:764
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:699
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:540
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/add
+Referer URL: http://121.126.223.225:8765/users
+Client IP: 119.194.248.193
+
+
+2021-07-14 11:51:31 Error: [Cake\Controller\Exception\MissingActionException] Action UsersController::navercallback() could not be found, or is not accessible. in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'navercallback',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/navercallback?code=VySQim9tY0v36P4pON&state=12ac434a940cf02eebd242173f2c493e2084042722
+Client IP: 119.194.248.193
+
+
