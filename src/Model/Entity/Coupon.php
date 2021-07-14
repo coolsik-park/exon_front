@@ -6,21 +6,23 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Faq Entity
+ * Coupon Entity
  *
  * @property int $id
- * @property int $faq_category_id
- * @property string $title
- * @property string $content
- * @property string|null $file_path
- * @property int|null $type
- * @property int $is_main
+ * @property int|null $users_id
+ * @property string $product_type
+ * @property string $code
+ * @property int $amount
+ * @property string $sdate
+ * @property string $edate
  * @property int $status
  * @property \Cake\I18n\FrozenTime $created
- * @property \Cake\I18n\FrozenTime|null $modified
- * @property string|null $ip
+ * @property \Cake\I18n\FrozenTime $modified
+ *
+ * @property \App\Model\Entity\User $user
+ * @property \App\Model\Entity\ExhibitionStream[] $exhibition_stream
  */
-class Faq extends Entity
+class Coupon extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -32,15 +34,16 @@ class Faq extends Entity
      * @var array
      */
     protected $_accessible = [
-        'faq_category_id' => true,
-        'title' => true,
-        'content' => true,
-        'file_path' => true,
-        'type' => true,
-        'is_main' => true,
+        'users_id' => true,
+        'product_type' => true,
+        'code' => true,
+        'amount' => true,
+        'sdate' => true,
+        'edate' => true,
         'status' => true,
         'created' => true,
         'modified' => true,
-        'ip' => true,
+        'user' => true,
+        'exhibition_stream' => true,
     ];
 }

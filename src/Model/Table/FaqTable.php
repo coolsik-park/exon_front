@@ -44,6 +44,11 @@ class FaqTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->belongsTo('FaqCategory', [
+            'foreignKey' => 'faq_category_id',
+            'joinType' => 'INNER',
+        ]);
     }
 
     /**
@@ -57,11 +62,6 @@ class FaqTable extends Table
         $validator
             ->integer('id')
             ->allowEmptyString('id', null, 'create');
-
-        $validator
-            ->integer('faq_category_id1')
-            ->requirePresence('faq_category_id1', 'create')
-            ->notEmptyString('faq_category_id1');
 
         $validator
             ->scalar('title')
@@ -97,5 +97,19 @@ class FaqTable extends Table
             ->allowEmptyString('ip');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->existsIn(['faq_category_id'], 'FaqCategory'), ['errorField' => 'faq_category_id']);
+
+        return $rules;
     }
 }

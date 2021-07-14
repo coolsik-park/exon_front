@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\ExhibitionTable;
+use App\Model\Table\ExhibitionStreamTable;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\ExhibitionTable Test Case
+ * App\Model\Table\ExhibitionStreamTable Test Case
  */
-class ExhibitionTableTest extends TestCase
+class ExhibitionStreamTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\ExhibitionTable
+     * @var \App\Model\Table\ExhibitionStreamTable
      */
-    protected $Exhibition;
+    protected $ExhibitionStream;
 
     /**
      * Fixtures
@@ -24,13 +24,10 @@ class ExhibitionTableTest extends TestCase
      * @var array
      */
     protected $fixtures = [
-        'app.Exhibition',
-        'app.Users',
-        'app.Banner',
-        'app.ExhibitionFile',
-        'app.ExhibitionGroup',
         'app.ExhibitionStream',
-        'app.ExhibitionSurvey',
+        'app.Exhibition',
+        'app.Pay',
+        'app.Coupon',
     ];
 
     /**
@@ -41,8 +38,8 @@ class ExhibitionTableTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Exhibition') ? [] : ['className' => ExhibitionTable::class];
-        $this->Exhibition = $this->getTableLocator()->get('Exhibition', $config);
+        $config = $this->getTableLocator()->exists('ExhibitionStream') ? [] : ['className' => ExhibitionStreamTable::class];
+        $this->ExhibitionStream = $this->getTableLocator()->get('ExhibitionStream', $config);
     }
 
     /**
@@ -52,7 +49,7 @@ class ExhibitionTableTest extends TestCase
      */
     public function tearDown(): void
     {
-        unset($this->Exhibition);
+        unset($this->ExhibitionStream);
 
         parent::tearDown();
     }

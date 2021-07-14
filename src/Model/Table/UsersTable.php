@@ -74,8 +74,7 @@ class UsersTable extends Table
         $validator
             ->scalar('password')
             ->maxLength('password', 255)
-            ->requirePresence('password', 'create')
-            ->notEmptyString('password');
+            ->allowEmptyString('password');
 
         $validator
             ->sameAs('confirm_password', 'password', '비밀번호가 일치하지 않습니다.');

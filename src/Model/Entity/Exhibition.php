@@ -43,6 +43,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\Banner[] $banner
  * @property \App\Model\Entity\ExhibitionFile[] $exhibition_file
  * @property \App\Model\Entity\ExhibitionGroup[] $exhibition_group
+ * @property \App\Model\Entity\ExhibitionStream[] $exhibition_stream
  * @property \App\Model\Entity\ExhibitionSurvey[] $exhibition_survey
  */
 class Exhibition extends Entity
@@ -90,6 +91,7 @@ class Exhibition extends Entity
         'banner' => true,
         'exhibition_file' => true,
         'exhibition_group' => true,
+        'exhibition_stream' => true,
         'exhibition_survey' => true,
     ];
 }

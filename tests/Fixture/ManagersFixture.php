@@ -48,7 +48,7 @@ class ManagersFixture extends TestFixture
                 'name' => 'Lorem ipsum dolor sit amet',
                 'role' => 'Lorem ipsum dolor sit amet',
                 'status' => 1,
-                'created' => '2021-07-10 19:04:46',
+                'created' => '2021-07-14 13:04:20',
             ],
         ];
         parent::init();

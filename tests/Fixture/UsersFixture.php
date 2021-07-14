@@ -19,7 +19,7 @@ class UsersFixture extends TestFixture
     public $fields = [
         'id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
         'email' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
-        'password' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
+        'password' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
         'name' => ['type' => 'string', 'length' => 45, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '이름', 'precision' => null],
         'hp' => ['type' => 'string', 'length' => 32, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '휴대전화번호', 'precision' => null],
         'hp_cert' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => '0', 'comment' => '핸드폰 인증 여부
@@ -76,8 +76,8 @@ M
                 'title' => 'Lorem ipsum dolor sit amet',
                 'status' => 1,
                 'refer' => 'Lorem ipsum dolor sit amet',
-                'created' => '2021-07-10 19:04:46',
-                'modified' => 1625911486,
+                'created' => '2021-07-14 13:18:40',
+                'modified' => 1626236320,
                 'ip' => 'Lorem ipsum do',
             ],
         ];

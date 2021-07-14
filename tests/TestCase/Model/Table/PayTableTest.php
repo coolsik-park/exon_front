@@ -25,6 +25,7 @@ class PayTableTest extends TestCase
      */
     protected $fixtures = [
         'app.Pay',
+        'app.ExhibitionStream',
         'app.ExhibitionUsers',
     ];
 

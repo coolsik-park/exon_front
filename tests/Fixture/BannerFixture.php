@@ -25,9 +25,7 @@ class BannerFixture extends TestFixture
     public $fields = [
         'id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
         'exhibition_id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'type' => ['type' => 'string', 'length' => 8, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '배너 노출 유형
-‘main’
-', 'precision' => null],
+        'type' => ['type' => 'string', 'length' => 8, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '배너 노출 유형\\banner’\\n’hot’', 'precision' => null],
         'sdate' => ['type' => 'string', 'length' => 8, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '노출 시작 일', 'precision' => null],
         'edate' => ['type' => 'string', 'length' => 8, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '노출 종료일', 'precision' => null],
         'img_path' => ['type' => 'string', 'length' => 256, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
@@ -68,7 +66,7 @@ class BannerFixture extends TestFixture
                 'img_name' => 'Lorem ipsum dolor sit amet',
                 'sort' => 1,
                 'status' => 1,
-                'created' => '2021-07-10 19:04:46',
+                'created' => '2021-07-14 13:04:20',
             ],
         ];
         parent::init();

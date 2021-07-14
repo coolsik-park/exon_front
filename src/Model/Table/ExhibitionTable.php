@@ -15,6 +15,7 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\BannerTable&\Cake\ORM\Association\HasMany $Banner
  * @property \App\Model\Table\ExhibitionFileTable&\Cake\ORM\Association\HasMany $ExhibitionFile
  * @property \App\Model\Table\ExhibitionGroupTable&\Cake\ORM\Association\HasMany $ExhibitionGroup
+ * @property \App\Model\Table\ExhibitionStreamTable&\Cake\ORM\Association\HasMany $ExhibitionStream
  * @property \App\Model\Table\ExhibitionSurveyTable&\Cake\ORM\Association\HasMany $ExhibitionSurvey
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsToMany $Users
  *
@@ -62,6 +63,9 @@ class ExhibitionTable extends Table
             'foreignKey' => 'exhibition_id',
         ]);
         $this->hasMany('ExhibitionGroup', [
+            'foreignKey' => 'exhibition_id',
+        ]);
+        $this->hasMany('ExhibitionStream', [
             'foreignKey' => 'exhibition_id',
         ]);
         $this->hasMany('ExhibitionSurvey', [

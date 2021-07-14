@@ -57,8 +57,8 @@ class ExhibitionGroupFixture extends TestFixture
                 'name' => 'Lorem ipsum dolor sit amet',
                 'people' => 1,
                 'amount' => 1,
-                'created' => '2021-07-10 19:04:46',
-                'modified' => 1625911486,
+                'created' => '2021-07-14 13:04:20',
+                'modified' => 1626235460,
             ],
         ];
         parent::init();
