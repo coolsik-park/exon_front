@@ -86,7 +86,8 @@ class UsersTable extends Table
             ->notEmptyString('name');
 
         $validator
-            ->integer('hp')
+            ->scalar('hp')
+            ->maxLength('hp', 16)
             ->requirePresence('hp', 'create')
             ->notEmptyString('hp');
 
