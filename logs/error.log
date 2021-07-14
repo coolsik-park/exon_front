@@ -2933,3 +2933,107 @@ Referer URL: http://121.126.223.225:8765/
 Client IP: 119.194.248.193
 
 
+2021-07-14 15:45:39 Error: [InvalidArgumentException] Cannot convert value of type `string` to integer in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Type/IntegerType.php on line 40
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Type/IntegerType.php:60
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/TypeConverterTrait.php:39
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/PDOStatement.php:80
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/ValueBinder.php:148
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:340
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:344
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Query.php:250
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2077
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1969
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1870
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1559
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:691
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1560
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1871
+- /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php:156
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/naverJoin?code=sBp4vrAiCMSCEZPTBq&state=40c0786bdd32821bcea1460d04e4819c1551940002
+Client IP: 119.194.248.193
+
+
+2021-07-14 15:47:44 Error: [InvalidArgumentException] Cannot convert value of type `string` to integer in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Type/IntegerType.php on line 40
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Type/IntegerType.php:60
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/TypeConverterTrait.php:39
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Statement/PDOStatement.php:80
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/ValueBinder.php:148
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:340
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:344
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Query.php:250
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:2077
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1969
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1870
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1559
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:691
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1560
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1871
+- /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php:156
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/naverJoin?code=LvYNyQubBihSRgpZcp&state=db1bb93dd23bae1ed56f8220593f2b521335045641
+Client IP: 119.194.248.193
+
+
+2021-07-14 15:48:33 Error: [Error] Call to undefined function App\Controller\parseInt() in /var/www/exon/jihoon/exon_front/src/Controller/UsersController.php on line 153
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /users/naverJoin?code=2YS97jMFQ3aXRbR0X3&state=8dfd22da0fc08a3a150a21d7025a2d77271719614
+Client IP: 119.194.248.193
+
+

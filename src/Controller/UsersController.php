@@ -150,7 +150,9 @@ class UsersController extends AppController
                     $user = $Users->newEmptyEntity(); 
                     $user->email = $responseArr['response']['email'];
                     $user->name = $responseArr['response']['id'];
-                    $user->hp = $responseArr['response']['mobile'];
+                    $user->hp = (int)substr($responseArr['response']['mobile'], 1, 3).
+                        substr($responseArr['response']['mobile'], 4, 4).
+                        substr($responseArr['response']['mobile'], 9, 4);
                     $user->refer = 'naver';       
                     
                     if(!$Users->save($user)) {
