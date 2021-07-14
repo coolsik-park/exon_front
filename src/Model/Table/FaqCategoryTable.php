@@ -12,6 +12,7 @@ use Cake\Validation\Validator;
  * FaqCategory Model
  *
  * @property \App\Model\Table\ManagersTable&\Cake\ORM\Association\BelongsTo $Managers
+ * @property \App\Model\Table\UserQuestionTable&\Cake\ORM\Association\HasMany $UserQuestion
  *
  * @method \App\Model\Entity\FaqCategory newEmptyEntity()
  * @method \App\Model\Entity\FaqCategory newEntity(array $data, array $options = [])
@@ -50,6 +51,9 @@ class FaqCategoryTable extends Table
         $this->belongsTo('Managers', [
             'foreignKey' => 'managers_id',
             'joinType' => 'INNER',
+        ]);
+        $this->hasMany('Faq', [
+            'foreignKey' => 'faq_category_id',
         ]);
         $this->hasMany('UserQuestion', [
             'foreignKey' => 'faq_category_id',

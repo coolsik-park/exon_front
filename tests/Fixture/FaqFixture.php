@@ -24,7 +24,7 @@ class FaqFixture extends TestFixture
     // phpcs:disable
     public $fields = [
         'id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
-        'faq_category_id1' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'faq_category_id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'title' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
         'content' => ['type' => 'text', 'length' => null, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
         'file_path' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '첨부파일 경로', 'precision' => null],
@@ -35,11 +35,11 @@ class FaqFixture extends TestFixture
         'modified' => ['type' => 'timestamp', 'length' => null, 'precision' => null, 'null' => true, 'default' => 'CURRENT_TIMESTAMP', 'comment' => ''],
         'ip' => ['type' => 'string', 'length' => 18, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '등록 IP', 'precision' => null],
         '_indexes' => [
-            'fk_faq_faq_category1_idx' => ['type' => 'index', 'columns' => ['faq_category_id1'], 'length' => []],
+            'fk_faq_faq_category1_idx' => ['type' => 'index', 'columns' => ['faq_category_id'], 'length' => []],
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'fk_faq_faq_category1' => ['type' => 'foreign', 'columns' => ['faq_category_id1'], 'references' => ['faq_category', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
+            'fk_faq_faq_category1' => ['type' => 'foreign', 'columns' => ['faq_category_id'], 'references' => ['faq_category', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -57,15 +57,15 @@ class FaqFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
-                'faq_category_id1' => 1,
+                'faq_category_id' => 1,
                 'title' => 'Lorem ipsum dolor sit amet',
                 'content' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
                 'file_path' => 'Lorem ipsum dolor sit amet',
                 'type' => 1,
                 'is_main' => 1,
                 'status' => 1,
-                'created' => '2021-07-10 19:04:46',
-                'modified' => 1625911486,
+                'created' => '2021-07-14 13:04:20',
+                'modified' => 1626235460,
                 'ip' => 'Lorem ipsum dolo',
             ],
         ];

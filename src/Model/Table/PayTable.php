@@ -11,6 +11,7 @@ use Cake\Validation\Validator;
 /**
  * Pay Model
  *
+ * @property \App\Model\Table\ExhibitionStreamTable&\Cake\ORM\Association\HasMany $ExhibitionStream
  * @property \App\Model\Table\ExhibitionUsersTable&\Cake\ORM\Association\HasMany $ExhibitionUsers
  *
  * @method \App\Model\Entity\Pay newEmptyEntity()
@@ -43,6 +44,9 @@ class PayTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
+        $this->hasMany('ExhibitionStream', [
+            'foreignKey' => 'pay_id',
+        ]);
         $this->hasMany('ExhibitionUsers', [
             'foreignKey' => 'pay_id',
         ]);

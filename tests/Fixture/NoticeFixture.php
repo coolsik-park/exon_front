@@ -54,8 +54,8 @@ class NoticeFixture extends TestFixture
                 'content' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
                 'file_path' => 'Lorem ipsum dolor sit amet',
                 'status' => 1,
-                'created' => '2021-07-10 19:04:46',
-                'modified' => 1625911486,
+                'created' => '2021-07-14 13:04:20',
+                'modified' => 1626235460,
                 'ip' => 'Lorem ipsum dolo',
             ],
         ];

@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\ExhibitionTable;
+use App\Model\Table\CouponTable;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\ExhibitionTable Test Case
+ * App\Model\Table\CouponTable Test Case
  */
-class ExhibitionTableTest extends TestCase
+class CouponTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\ExhibitionTable
+     * @var \App\Model\Table\CouponTable
      */
-    protected $Exhibition;
+    protected $Coupon;
 
     /**
      * Fixtures
@@ -24,13 +24,9 @@ class ExhibitionTableTest extends TestCase
      * @var array
      */
     protected $fixtures = [
-        'app.Exhibition',
+        'app.Coupon',
         'app.Users',
-        'app.Banner',
-        'app.ExhibitionFile',
-        'app.ExhibitionGroup',
         'app.ExhibitionStream',
-        'app.ExhibitionSurvey',
     ];
 
     /**
@@ -41,8 +37,8 @@ class ExhibitionTableTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Exhibition') ? [] : ['className' => ExhibitionTable::class];
-        $this->Exhibition = $this->getTableLocator()->get('Exhibition', $config);
+        $config = $this->getTableLocator()->exists('Coupon') ? [] : ['className' => CouponTable::class];
+        $this->Coupon = $this->getTableLocator()->get('Coupon', $config);
     }
 
     /**
@@ -52,7 +48,7 @@ class ExhibitionTableTest extends TestCase
      */
     public function tearDown(): void
     {
-        unset($this->Exhibition);
+        unset($this->Coupon);
 
         parent::tearDown();
     }

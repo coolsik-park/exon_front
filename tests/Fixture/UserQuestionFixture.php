@@ -71,8 +71,8 @@ class UserQuestionFixture extends TestFixture
                 'ip' => 'Lorem ipsum dolo',
                 'faq_category_id' => 1,
                 'managers_id' => 1,
-                'created' => '2021-07-10 19:04:46',
-                'modified' => 1625911486,
+                'created' => '2021-07-14 13:04:20',
+                'modified' => 1626235460,
             ],
         ];
         parent::init();
