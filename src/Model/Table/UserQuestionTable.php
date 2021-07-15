@@ -59,7 +59,6 @@ class UserQuestionTable extends Table
         ]);
         $this->belongsTo('Managers', [
             'foreignKey' => 'managers_id',
-            'joinType' => 'INNER',
         ]);
         $this->hasMany('UserQuestionFiles', [
             'foreignKey' => 'user_question_id',
@@ -93,6 +92,11 @@ class UserQuestionTable extends Table
             ->allowEmptyString('users_email');
 
         $validator
+            ->scalar('title')
+            ->maxLength('title', 128)
+            ->allowEmptyString('title');
+
+        $validator
             ->scalar('question')
             ->requirePresence('question', 'create')
             ->notEmptyString('question');
@@ -104,8 +108,7 @@ class UserQuestionTable extends Table
         $validator
             ->scalar('ip')
             ->maxLength('ip', 18)
-            ->requirePresence('ip', 'create')
-            ->notEmptyString('ip');
+            ->allowEmptyString('ip');
 
         return $validator;
     }
