@@ -87,7 +87,7 @@ class UsersTable extends Table
 
         $validator
             ->scalar('hp')
-            ->maxLength('hp', 16)
+            ->maxLength('hp', 32)
             ->requirePresence('hp', 'create')
             ->notEmptyString('hp');
 
@@ -142,7 +142,7 @@ class UsersTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);
-
+        
         return $rules;
     }
 }
