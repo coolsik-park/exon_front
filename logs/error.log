@@ -3037,3 +3037,55 @@ Request URL: /users/naverJoin?code=2YS97jMFQ3aXRbR0X3&state=8dfd22da0fc08a3a150a
 Client IP: 119.194.248.193
 
 
+2021-07-15 09:59:55 Error: [Cake\Http\Exception\MissingControllerException] Controller class Images could not be found. in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php on line 229
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => NULL,
+  'prefix' => NULL,
+  '_ext' => NULL,
+)
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:65
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:311
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /images/favicon.ico
+Referer URL: http://121.126.223.225:8765/users
+Client IP: 119.194.248.193
+
+
+2021-07-15 10:01:48 Error: [TypeError] Argument 1 passed to Cake\Utility\Security::setSalt() must be of the type string, null given, called in /var/www/exon/jihoon/exon_front/config/bootstrap.php on line 164 in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Utility/Security.php on line 306
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/config/bootstrap.php:164
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:172
+- /var/www/exon/jihoon/exon_front/src/Application.php:48
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:109
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:79
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+
+
+2021-07-15 10:01:52 Error: [TypeError] Argument 1 passed to Cake\Utility\Security::setSalt() must be of the type string, null given, called in /var/www/exon/jihoon/exon_front/config/bootstrap.php on line 164 in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Utility/Security.php on line 306
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/config/bootstrap.php:164
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:172
+- /var/www/exon/jihoon/exon_front/src/Application.php:48
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:109
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:79
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+
+
