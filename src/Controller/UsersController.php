@@ -46,7 +46,8 @@ class UsersController extends AppController
     {
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());    
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            $user->ip = $this->request->ClientIp();    
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
 
@@ -157,6 +158,7 @@ class UsersController extends AppController
                     $user->hp = substr($responseArr['response']['mobile'], 0, 3).
                         substr($responseArr['response']['mobile'], 4, 4).
                         substr($responseArr['response']['mobile'], 9, 4);
+                    $user->ip = $this->request->ClientIp();
                     $user->refer = 'naver';       
                     
                     if(!$Users->save($user)) {
@@ -220,6 +222,7 @@ class UsersController extends AppController
                     $user->email = $responseArr['kakao_account']['email'];
                     $user->name = $responseArr['id'];
                     $user->hp = '01012341234';
+                    $user->ip = $this->request->ClientIp();
                     $user->refer = 'kakao';       
                     
                     if(!$Users->save($user)) {
