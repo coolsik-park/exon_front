@@ -5,7 +5,7 @@
  */
 ?>
 <div class="userquestion index content">
-    <h3><?= __('UserQuestions by Category') ?></h3>
+    <h3><?= __('FAQs by Category') ?></h3>
     <div>
         <?= $this->Html->link(__('전체'), ['action' => 'faqsByCategory']) ?>
         <?= $this->Html->link(__('회원'), ['action' => 'faqsByCategory', '1']) ?>
