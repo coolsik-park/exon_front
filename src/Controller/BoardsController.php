@@ -11,15 +11,15 @@ use Cake\ORM\Locator\LocatorAwareTrait;
  */
 class BoardsController extends AppController
 {
-    public function userQuestionsByCategory($FaqCategoryId = null)
+    public function faqsByCategory($FaqCategoryId = null)
     {
-        $userQuestions = $this->getTableLocator()->get('UserQuestion');
+        $faqs = $this->getTableLocator()->get('Faq');
         if($FaqCategoryId == null) {
-            $userQuestions = $userQuestions->find()->select(['id', 'title'])->order(['created' => 'DESC']);
+            $faqs = $faqs->find()->select(['id', 'title']);
         } else {
-            $userQuestions = $userQuestions->find()->select(['id', 'title'])->where(['faq_category_id' => $FaqCategoryId])->order(['created' => 'DESC']);
+            $faqs = $faqs->find()->select(['id', 'title'])->where(['faq_category_id' => $FaqCategoryId]);
         }
-        $userQuestions = $this->paginate($userQuestions);
-        $this->set(compact('userQuestions'));
+        $faqs = $this->paginate($faqs);
+        $this->set(compact('faqs'));
     }
 }
