@@ -52,7 +52,7 @@ A: 답변 파일', 'precision' => null],
                 'file_path' => 'Lorem ipsum dolor sit amet',
                 'file_name' => 'Lorem ipsum dolor sit amet',
                 'type' => 'Lo',
-                'created' => '2021-07-14 13:04:20',
+                'created' => '2021-07-16 11:43:07',
             ],
         ];
         parent::init();
