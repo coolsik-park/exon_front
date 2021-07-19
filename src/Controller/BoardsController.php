@@ -37,19 +37,22 @@ class BoardsController extends AppController
         $userquestionfiles_table = TableRegistry::get('UserQuestionFiles');
         $board_file = $userquestionfiles_table->newEmptyEntity();
         $board_file->user_question_id = 1;
+        // $board_file->file_path = 
         if($this->request->is('post')) {
             $postdata = $this->request->getData();
             $postfile = $this->request->getData('file_name');
-            debug($postfile);
+            // debug($postfile);
             $name = $postfile->getClientFilename();
-            debug($name);
+            // debug($name);
             $type = $postfile->getClientMediaType();
-            $file_path = WWW_ROOT. 'img' . DS . 'file' . DS . $name;
+            // debug($type);
+            $file_path = WWW_ROOT. 'upload/boards/';
             if($type == 'image/jpeg' || $type == 'image/jpg' || $type == 'image/png') {
                 if(!empty($name)) {
                     if($postfile->getSize() > 0 && $postfile->getError() == 0) {
-                        $postfile->moveTo($file_path);
+                        $postfile->moveTo($file_path.$name);
                         $postdata['file_name'] = $name;
+                        $postdata['file_path'] = $file_path;
                     }
                 }
             }

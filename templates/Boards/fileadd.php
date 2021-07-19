@@ -13,11 +13,11 @@
     </aside>
     <div class="column-responsive column-80">
         <div class="users form content">
-            <?= $this->Form->create($board_file) ?>
+            <?= $this->Form->create($board_file, ['enctype'=>'multipart/form-data']) ?>
             <fieldset>
                 <legend><?= __('Add UserQuestionFile') ?></legend>
                 <?php
-                    echo $this->Form->control('file_name', ['type'=>'file', 'class'=>'form-control']);
+                    echo $this->Form->control('file_name', ['type'=>'file', 'class'=>'form-control','required'=>true]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
