@@ -48,7 +48,7 @@ class UsersTable extends Table
         $this->addBehavior('Timestamp');
 
         $this->belongsToMany('Exhibition', [
-            'foreignKey' => 'user_id',
+            'foreignKey' => 'id',
             'targetForeignKey' => 'exhibition_id',
             'joinTable' => 'exhibition_users',
         ]);
@@ -77,6 +77,9 @@ class UsersTable extends Table
             ->allowEmptyString('password');
 
         $validator
+            ->sameAs('confirm_password', 'password', '비밀번호가 일치하지 않습니다.');
+
+        $validator
             ->scalar('name')
             ->maxLength('name', 45)
             ->requirePresence('name', 'create')
@@ -84,7 +87,7 @@ class UsersTable extends Table
 
         $validator
             ->scalar('hp')
-            ->maxLength('hp', 16)
+            ->maxLength('hp', 32)
             ->requirePresence('hp', 'create')
             ->notEmptyString('hp');
 
@@ -139,7 +142,7 @@ class UsersTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);
-
+        
         return $rules;
     }
 }
