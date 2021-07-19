@@ -881,3 +881,1266 @@ Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
 Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
 [main] - ROOT/webroot/index.php, line 40
 
+2021-07-19 10:46:39 Notice: Notice (8): Undefined variable: exhibition_survey in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 53]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 53
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 10:53:05 Notice: Notice (8): Undefined variable: document in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 30]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 30
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 11:24:58 Notice: Notice (8): Undefined variable: exhibition in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 16]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 16
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 11:24:58 Notice: Notice (8): Undefined variable: exhibition in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 30]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 30
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 11:25:50 Notice: Notice (8): Undefined index: file in [/var/www/exon/jihoon/exon_front/src/Controller/ExhibitionController.php, line 54]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\ExhibitionController::add() - APP/Controller/ExhibitionController.php, line 54
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 11:27:10 Notice: Notice (8): Array to string conversion in [/var/www/exon/jihoon/exon_front/src/Controller/ExhibitionController.php, line 54]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\ExhibitionController::add() - APP/Controller/ExhibitionController.php, line 54
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 13:08:32 Notice: Notice (1024): Undefined property: ExhibitionController::$ in /var/www/exon/jihoon/exon_front/src/Controller/ExhibitionController.php on line 72 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php, line 321]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Controller\Controller::__get() - CORE/src/Controller/Controller.php, line 321
+App\Controller\ExhibitionController::add() - APP/Controller/ExhibitionController.php, line 72
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 13:38:19 Notice: Notice (8): Undefined variable:  in [/var/www/exon/jihoon/exon_front/src/Controller/ExhibitionController.php, line 56]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\ExhibitionController::add() - APP/Controller/ExhibitionController.php, line 56
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 13:41:19 Notice: Notice (8): Undefined property: Laminas\Diactoros\UploadedFile::$imgName in [/var/www/exon/jihoon/exon_front/src/Controller/ExhibitionController.php, line 56]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\ExhibitionController::add() - APP/Controller/ExhibitionController.php, line 56
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 13:41:39 Notice: Notice (8): Undefined property: Laminas\Diactoros\UploadedFile::$imgName in [/var/www/exon/jihoon/exon_front/src/Controller/ExhibitionController.php, line 56]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\ExhibitionController::add() - APP/Controller/ExhibitionController.php, line 56
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 13:42:07 Notice: Notice (8): Undefined property: Laminas\Diactoros\UploadedFile::$imgName in [/var/www/exon/jihoon/exon_front/src/Controller/ExhibitionController.php, line 56]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\ExhibitionController::add() - APP/Controller/ExhibitionController.php, line 56
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 14:24:45 Notice: Notice (8): Undefined variable: group in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 52]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 52
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 14:26:45 Notice: Notice (8): Undefined variable: group in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 53]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 53
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 14:28:42 Notice: Notice (8): Undefined variable: group in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 53]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 53
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 14:29:16 Notice: Notice (8): Undefined variable: exhibitionGroup in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 53]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 53
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 14:35:37 Notice: Notice (8): Undefined variable: exhibition in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 17]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 17
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 14:36:00 Notice: Notice (8): Undefined variable: exhibition in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 17]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 17
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 14:36:35 Notice: Notice (8): Undefined variable: exhibition in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 17]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 17
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 14:36:37 Notice: Notice (8): Undefined variable: exhibition in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 17]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 17
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 14:36:42 Notice: Notice (8): Undefined variable: exhibition in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 17]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 17
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 14:36:45 Notice: Notice (8): Undefined variable: exhibition in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 17]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 17
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 14:43:37 Notice: Notice (8): Undefined variable: exhibition in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 17]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 17
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 14:43:56 Notice: Notice (8): Undefined variable: exhibition in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 17]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 17
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 14:44:04 Notice: Notice (8): Undefined variable: exhibition in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 17]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 17
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 14:44:20 Notice: Notice (8): Undefined variable: exhibition in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 17]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 17
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 14:57:52 Notice: Notice (8): Undefined variable: exhibitionGroup in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 55]
+Request URL: /exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 55
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 14:58:10 Notice: Notice (8): Undefined variable: exhibitionGroup in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 55]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 55
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 14:59:06 Notice: Notice (8): Undefined variable: exhibitionGroup in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 55]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 55
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 15:00:09 Notice: Notice (8): Undefined variable: exhibitionGroup in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 55]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 55
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 15:00:25 Notice: Notice (8): Undefined variable: exhibitionGroup in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 55]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 55
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 15:07:05 Notice: Notice (8): Undefined variable: article in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 51]
+Request URL: /exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 51
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 15:07:05 Notice: Notice (8): Trying to get property 'id' of non-object in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 51]
+Request URL: /exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 51
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 15:07:18 Notice: Notice (8): Undefined variable: article in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 51]
+Request URL: /exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 51
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 15:07:18 Notice: Notice (8): Trying to get property 'id' of non-object in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 51]
+Request URL: /exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 51
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 15:18:38 Notice: Notice (8): Undefined variable: exhibitionGroup in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 53]
+Request URL: /exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 53
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 15:19:55 Notice: Notice (8): Undefined variable: ExhibitionGroup in [/var/www/exon/jihoon/exon_front/templates/Exhibition/add.php, line 53]
+Request URL: /exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+include - ROOT/templates/Exhibition/add.php, line 53
+Cake\View\View::_evaluate() - CORE/src/View/View.php, line 1176
+Cake\View\View::_render() - CORE/src/View/View.php, line 1134
+Cake\View\View::render() - CORE/src/View/View.php, line 764
+Cake\Controller\Controller::render() - CORE/src/Controller/Controller.php, line 699
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 540
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 15:21:36 Notice: Notice (1024): Undefined property: ExhibitionController::$ExhibitionGroup in /var/www/exon/jihoon/exon_front/src/Controller/ExhibitionController.php on line 95 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php, line 321]
+Request URL: /exhibition/addGroup
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Controller\Controller::__get() - CORE/src/Controller/Controller.php, line 321
+App\Controller\ExhibitionController::addGroup() - APP/Controller/ExhibitionController.php, line 95
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 15:21:36 Notice: Notice (8): Trying to get property 'Exhibition' of non-object in [/var/www/exon/jihoon/exon_front/src/Controller/ExhibitionController.php, line 95]
+Request URL: /exhibition/addGroup
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\ExhibitionController::addGroup() - APP/Controller/ExhibitionController.php, line 95
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 16:31:56 Notice: Notice (8): Undefined variable: destination in [/var/www/exon/jihoon/exon_front/src/Controller/ExhibitionController.php, line 70]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\ExhibitionController::add() - APP/Controller/ExhibitionController.php, line 70
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 16:31:56 Notice: Notice (8): Undefined variable: imgName in [/var/www/exon/jihoon/exon_front/src/Controller/ExhibitionController.php, line 71]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\ExhibitionController::add() - APP/Controller/ExhibitionController.php, line 71
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 16:32:56 Notice: Notice (8): Undefined variable: destination in [/var/www/exon/jihoon/exon_front/src/Controller/ExhibitionController.php, line 70]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\ExhibitionController::add() - APP/Controller/ExhibitionController.php, line 70
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 16:32:56 Notice: Notice (8): Undefined variable: imgName in [/var/www/exon/jihoon/exon_front/src/Controller/ExhibitionController.php, line 71]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\ExhibitionController::add() - APP/Controller/ExhibitionController.php, line 71
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 16:32:56 Notice: Notice (1024): Undefined property: ExhibitionController::$requeset in /var/www/exon/jihoon/exon_front/src/Controller/ExhibitionController.php on line 76 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php, line 321]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Controller\Controller::__get() - CORE/src/Controller/Controller.php, line 321
+App\Controller\ExhibitionController::add() - APP/Controller/ExhibitionController.php, line 76
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 16:34:09 Notice: Notice (8): Undefined variable: destination in [/var/www/exon/jihoon/exon_front/src/Controller/ExhibitionController.php, line 70]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\ExhibitionController::add() - APP/Controller/ExhibitionController.php, line 70
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 16:34:09 Notice: Notice (8): Undefined variable: imgName in [/var/www/exon/jihoon/exon_front/src/Controller/ExhibitionController.php, line 71]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\ExhibitionController::add() - APP/Controller/ExhibitionController.php, line 71
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 16:34:09 Notice: Notice (1024): Undefined property: ExhibitionController::$requeset in /var/www/exon/jihoon/exon_front/src/Controller/ExhibitionController.php on line 76 in [/var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php, line 321]
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Controller\Controller::__get() - CORE/src/Controller/Controller.php, line 321
+App\Controller\ExhibitionController::add() - APP/Controller/ExhibitionController.php, line 76
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 164
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
