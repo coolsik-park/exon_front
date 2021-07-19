@@ -46,7 +46,7 @@
                     echo $this->Form->control('status');
 
                     echo('Group');
-                    echo $this->Form->control('name');
+                    echo $this->Form->control('group_name');
                     echo $this->Form->control('people');
                     echo $this->Form->control('amount');
                 ?>

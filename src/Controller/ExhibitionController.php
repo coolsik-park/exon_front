@@ -53,40 +53,44 @@ class ExhibitionController extends AppController
         $exhibitionGroup = $ExhibitionGroups->newEmptyEntity();
 
         if ($this->request->is('post')) {
-            // $img = $this->request->getData('image');
-            // $imgName = $img->getClientFilename();
+            $img = $this->request->getData('image');
+            $imgName = $img->getClientFilename();
             
-            // var_dump($img);
-            // $index = strpos(strrev($imgName), strrev('.'));
-            // $expen = strtolower(substr($imgName, ($index * -1)));
-            // $imgName =  date("YmdHis") . "_" . $imgName;
+            var_dump($img);
+            $index = strpos(strrev($imgName), strrev('.'));
+            $expen = strtolower(substr($imgName, ($index * -1)));
+            $imgName =  date("YmdHis") . "_" . $imgName;
 
-            // echo($imgName);
+            echo($imgName);
 
-            // $destination = "webroot/upload/exhibition" . $imgName;
-            // $img->moveTo($destination);
+            $destination = "webroot/upload/exhibition" . $imgName;
+            $img->moveTo($destination);
 
             $exhibition = $this->Exhibition->patchEntity($exhibition, $this->request->getData());
-            // $exhibition->imagePath = $destination;
-            // $exhibition->imageName = $imgName;
+            $exhibition->imagePath = $destination;
+            $exhibition->imageName = $imgName;
             
-            if ($this->Exhibition->save($exhibition)) {
-                $exhibitionGroup->exhibition_id = 1;
+            if ($result = $this->Exhibition->save($exhibition)) {
+                $exhibitionGroup->exhibition_id = $result->id;
                 $exhibitionGroup->name = $this->request->getData('group_name');
                 $exhibitionGroup->people = $this->request->getData('people');
                 $exhibitionGroup->amout = $this->request->getData('amout');
                 
-                if($ExhibitionGroups->save($exhibitionGroup)) {
+                $this->Flash->success(__('The exhibition has been saved.'));
+
+                if ($ExhibitionGroups->save($exhibitionGroup)) {
                     
-                    $this->Flash->success(__('The exhibition has been saved.'));
+                    $this->Flash->success(__('The exhibition group has been saved.'));
 
                     return $this->redirect(['action' => 'index']);
                 
                 } else {
-                    $this->Flash->error(__('The exhibition could not be saved. Please, try again.'));
+                    $this->Flash->error(__('The exhibition group could not be saved. Please, try again.'));
                 }    
+            } else {
+                $this->Flash->error(__('The exhibition could not be saved. Please, try again.'));
             }
-            $this->Flash->error(__('The exhibition could not be saved. Please, try again.'));
+            
         }
         $users = $this->Exhibition->Users->find('list', ['limit' => 200]);
         $commonCategory = $this->getTableLocator()->get('CommonCategory');
