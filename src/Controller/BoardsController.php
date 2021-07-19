@@ -113,15 +113,15 @@ class BoardsController extends AppController
         exit;
     }
 
-    public function category($FaqCategoryId = null)
+    public function faqsByCategory($FaqCategoryId = null)
     {
-        $userquestion_table = TableRegistry::get('UserQuestion');
+        $faqs = $this->getTableLocator()->get('Faq');
         if($FaqCategoryId == null) {
-            $userQuestionsByCategory = $userquestion_table->find()->select(['id', 'title'])->order(['id' => 'ASC']);
+            $faqs = $faqs->find()->select(['id', 'title']);
         } else {
-            $userQuestionsByCategory = $userquestion_table->find()->select(['id', 'title'])->where(['faq_category_id' => $FaqCategoryId])->order(['id' => 'ASC']);
+            $faqs = $faqs->find()->select(['id', 'title'])->where(['faq_category_id' => $FaqCategoryId]);
         }
-        $boards = $this->paginate($userQuestionsByCategory);
-        $this->set(compact('boards'));
+        $faqs = $this->paginate($faqs);
+        $this->set(compact('faqs'));
     }
 }
