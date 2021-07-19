@@ -3846,3 +3846,46 @@ Referer URL: http://121.126.223.225:8765/users/add
 Client IP: 218.145.214.234
 
 
+2021-07-19 16:50:17 Error: [InvalidArgumentException] The existing `Users` association on `ExhibitionUsers` is incompatible with the `Users` association on `Exhibition` in /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Association/BelongsToMany.php on line 419
+Stack Trace:
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Association/BelongsToMany.php:299
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Association/BelongsToMany.php:1418
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Association/BelongsToMany.php:1039
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Association/BelongsToMany.php:1078
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Association.php:876
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Rule/ExistsIn.php:146
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Datasource/RuleInvoker.php:117
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Datasource/RulesChecker.php:300
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Datasource/RulesChecker.php:257
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Datasource/RulesChecker.php:233
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Datasource/RulesAwareTrait.php:67
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1931
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1870
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1559
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Database/Connection.php:691
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1560
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/ORM/Table.php:1871
+- /var/www/exon/jihoon/exon_front/src/Controller/ExhibitionController.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/jihoon/exon_front/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/jihoon/exon_front/webroot/index.php:40
+
+Request URL: /exhibition/add
+Referer URL: http://121.126.223.225:8765/exhibition/add
+Client IP: 58.77.182.50
+
+
