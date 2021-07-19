@@ -12,6 +12,7 @@ use Cake\Validation\Validator;
  * FaqCategory Model
  *
  * @property \App\Model\Table\ManagersTable&\Cake\ORM\Association\BelongsTo $Managers
+ * @property \App\Model\Table\FaqTable&\Cake\ORM\Association\HasMany $Faq
  * @property \App\Model\Table\UserQuestionTable&\Cake\ORM\Association\HasMany $UserQuestion
  *
  * @method \App\Model\Entity\FaqCategory newEmptyEntity()

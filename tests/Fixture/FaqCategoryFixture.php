@@ -30,7 +30,7 @@ class FaqCategoryFixture extends TestFixture
 0: 비활성
 1: 활성
 ', 'precision' => null, 'autoIncrement' => null],
-        'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'CURRENT_TIMESTAMP', 'comment' => '등록일시'],
+        'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'current_timestamp()', 'comment' => '등록일시'],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
         ],
@@ -53,7 +53,7 @@ class FaqCategoryFixture extends TestFixture
                 'managers_id' => 1,
                 'text' => 'Lorem ipsum dolor sit amet',
                 'status' => 1,
-                'created' => '2021-07-14 13:04:20',
+                'created' => '2021-07-16 13:52:35',
             ],
         ];
         parent::init();

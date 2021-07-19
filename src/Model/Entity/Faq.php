@@ -19,6 +19,8 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime|null $modified
  * @property string|null $ip
+ *
+ * @property \App\Model\Entity\FaqCategory $faq_category
  */
 class Faq extends Entity
 {
@@ -42,5 +44,6 @@ class Faq extends Entity
         'created' => true,
         'modified' => true,
         'ip' => true,
+        'faq_category' => true,
     ];
 }

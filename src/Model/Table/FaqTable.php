@@ -11,6 +11,8 @@ use Cake\Validation\Validator;
 /**
  * Faq Model
  *
+ * @property \App\Model\Table\FaqCategoryTable&\Cake\ORM\Association\BelongsTo $FaqCategory
+ *
  * @method \App\Model\Entity\Faq newEmptyEntity()
  * @method \App\Model\Entity\Faq newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\Faq[] newEntities(array $data, array $options = [])

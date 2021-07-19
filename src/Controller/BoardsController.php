@@ -4,10 +4,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\ORM\TableRegistry;
-use Cake\ORM\Table;
-use Cake\ORM\Query;
-use Cake\ORM\Locator\LocatorAwareTrait;
-// use Cake\ORM\Entity;
 
 class BoardsController extends AppController
 {
@@ -23,8 +19,7 @@ class BoardsController extends AppController
     {
         $userquestion_table = TableRegistry::get('UserQuestion');
         $board = $userquestion_table->newEmptyEntity();
-        $board->id = 2;
-        $board->faq_category_id = 1;
+        $board->faq_category_id = 1;   
         if($this->request->is('post')) {
             $board = $userquestion_table->patchEntity($board, $this->request->getData());
             echo($board);
@@ -35,6 +30,37 @@ class BoardsController extends AppController
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
         $this->set(compact('board'));
+    }
+
+    public function fileadd()
+    {
+        $userquestionfiles_table = TableRegistry::get('UserQuestionFiles');
+        $board_file = $userquestionfiles_table->newEmptyEntity();
+        $board_file->user_question_id = 1;
+        if($this->request->is('post')) {
+            $postdata = $this->request->getData();
+            $postfile = $this->request->getData('file_name');
+            debug($postfile);
+            $name = $postfile->getClientFilename();
+            debug($name);
+            $type = $postfile->getClientMediaType();
+            $file_path = WWW_ROOT. 'img' . DS . 'file' . DS . $name;
+            if($type == 'image/jpeg' || $type == 'image/jpg' || $type == 'image/png') {
+                if(!empty($name)) {
+                    if($postfile->getSize() > 0 && $postfile->getError() == 0) {
+                        $postfile->moveTo($file_path);
+                        $postdata['file_name'] = $name;
+                    }
+                }
+            }
+            $board_file = $userquestionfiles_table->patchEntity($board_file, $postdata);
+            if($userquestionfiles_table->save($board_file)) {
+                $this->Flash->success(__('Your post has been saved.'));
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('Unable to add your post.'));
+        }
+        $this->set(compact('board_file'));
     }
 
     public function view($id = null) 
@@ -72,5 +98,30 @@ class BoardsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function notice()
+    {
+        $notice_table = TableRegistry::get('Notice');
+        $boards = $this->paginate($notice_table);
+        $this->set(compact('boards'));
+    }
+
+    public function notice_view($id = null)
+    {
+        echo($id);
+        exit;
+    }
+
+    public function category($FaqCategoryId = null)
+    {
+        $userquestion_table = TableRegistry::get('UserQuestion');
+        if($FaqCategoryId == null) {
+            $userQuestionsByCategory = $userquestion_table->find()->select(['id', 'title'])->order(['id' => 'ASC']);
+        } else {
+            $userQuestionsByCategory = $userquestion_table->find()->select(['id', 'title'])->where(['faq_category_id' => $FaqCategoryId])->order(['id' => 'ASC']);
+        }
+        $boards = $this->paginate($userQuestionsByCategory);
+        $this->set(compact('boards'));
     }
 }

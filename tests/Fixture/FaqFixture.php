@@ -31,15 +31,15 @@ class FaqFixture extends TestFixture
         'type' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '공지 타입 (이진연산)\\n1 : 사용자\\n2: 기사', 'precision' => null, 'autoIncrement' => null],
         'is_main' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => '0', 'comment' => '자주하는 질문에 노출 여부\\n0: 미노출\\n1: 노출', 'precision' => null, 'autoIncrement' => null],
         'status' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => '1', 'comment' => '상태\\n0: 비활성\\n1:활성', 'precision' => null, 'autoIncrement' => null],
-        'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'CURRENT_TIMESTAMP', 'comment' => ''],
-        'modified' => ['type' => 'timestamp', 'length' => null, 'precision' => null, 'null' => true, 'default' => 'CURRENT_TIMESTAMP', 'comment' => ''],
+        'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'current_timestamp()', 'comment' => ''],
+        'modified' => ['type' => 'timestamp', 'length' => null, 'precision' => null, 'null' => true, 'default' => 'current_timestamp()', 'comment' => ''],
         'ip' => ['type' => 'string', 'length' => 18, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '등록 IP', 'precision' => null],
         '_indexes' => [
-            'fk_faq_faq_category1_idx' => ['type' => 'index', 'columns' => ['faq_category_id'], 'length' => []],
+            'fk_faq_faq_category_idx' => ['type' => 'index', 'columns' => ['faq_category_id'], 'length' => []],
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'fk_faq_faq_category1' => ['type' => 'foreign', 'columns' => ['faq_category_id'], 'references' => ['faq_category', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
+            'fk_faq_faq_category' => ['type' => 'foreign', 'columns' => ['faq_category_id'], 'references' => ['faq_category', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -64,8 +64,8 @@ class FaqFixture extends TestFixture
                 'type' => 1,
                 'is_main' => 1,
                 'status' => 1,
-                'created' => '2021-07-14 13:04:20',
-                'modified' => 1626235460,
+                'created' => '2021-07-16 13:52:23',
+                'modified' => 1626411143,
                 'ip' => 'Lorem ipsum dolo',
             ],
         ];

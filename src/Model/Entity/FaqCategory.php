@@ -15,6 +15,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime $created
  *
  * @property \App\Model\Entity\Manager $manager
+ * @property \App\Model\Entity\Faq[] $faq
  * @property \App\Model\Entity\UserQuestion[] $user_question
  */
 class FaqCategory extends Entity
@@ -34,6 +35,7 @@ class FaqCategory extends Entity
         'status' => true,
         'created' => true,
         'manager' => true,
+        'faq' => true,
         'user_question' => true,
     ];
 }

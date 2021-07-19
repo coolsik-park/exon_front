@@ -16,6 +16,8 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime|null $modified
  * @property string|null $ip
+ * @property string|null $file_name
+ * @property string|null $file_type
  */
 class Notice extends Entity
 {
@@ -36,5 +38,7 @@ class Notice extends Entity
         'created' => true,
         'modified' => true,
         'ip' => true,
+        'file_name' => true,
+        'file_type' => true,
     ];
 }

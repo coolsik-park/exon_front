@@ -26,6 +26,7 @@ class FaqCategoryTableTest extends TestCase
     protected $fixtures = [
         'app.FaqCategory',
         'app.Managers',
+        'app.Faq',
         'app.UserQuestion',
     ];
 

@@ -83,18 +83,19 @@ class UserQuestionTable extends Table
             ->allowEmptyString('users_name');
 
         $validator
-            ->integer('users_hp')
+            ->scalar('title')
+            ->maxLength('title', 128)
+            ->allowEmptyString('title');
+
+        $validator
+            ->scalar('users_hp')
+            ->maxLength('users_hp', 16)
             ->allowEmptyString('users_hp');
 
         $validator
             ->scalar('users_email')
             ->maxLength('users_email', 255)
             ->allowEmptyString('users_email');
-
-        $validator
-            ->scalar('title')
-            ->maxLength('title', 128)
-            ->allowEmptyString('title');
 
         $validator
             ->scalar('question')

@@ -3146,3 +3146,1373 @@ Referer URL: http://121.126.223.225:8000/boards/edit/1
 Client IP: 119.194.248.193
 
 
+2021-07-15 16:29:05 Error: [PDOException] SQLSTATE[HY000]: General error: 1364 Field 'ip' doesn't have a default value in /var/www/exon/bomi/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php on line 39
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php:39
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Database/Connection.php:341
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Database/Connection.php:344
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Database/Query.php:250
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/ORM/Table.php:2077
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/ORM/Table.php:1969
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/ORM/Table.php:1870
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/ORM/Table.php:1559
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Database/Connection.php:691
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/ORM/Table.php:1560
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/ORM/Table.php:1871
+- /var/www/exon/bomi/src/Controller/BoardsController.php:31
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/add
+Referer URL: http://121.126.223.225:8765/boards/add
+Client IP: 119.194.248.193
+
+
+2021-07-15 16:36:46 Error: [Cake\Http\Exception\MissingControllerException] Controller class Images could not be found. in /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php on line 229
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => NULL,
+  'prefix' => NULL,
+  '_ext' => NULL,
+)
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:65
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:311
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /images/favicon.ico
+Referer URL: http://121.126.223.225:8000/boards
+Client IP: 119.194.248.193
+
+
+2021-07-16 09:03:48 Error: [Cake\Http\Exception\MissingControllerException] Controller class Images could not be found. in /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php on line 229
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => NULL,
+  'prefix' => NULL,
+  '_ext' => NULL,
+)
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:65
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:311
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /images/favicon.ico
+Referer URL: http://121.126.223.225:8765/boards/edit/2
+Client IP: 119.194.248.193
+
+
+2021-07-16 09:17:08 Error: [Cake\Http\Exception\MissingControllerException] Controller class Images could not be found. in /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php on line 229
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => NULL,
+  'prefix' => NULL,
+  '_ext' => NULL,
+)
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:65
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:311
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /images/favicon.ico
+Referer URL: http://121.126.223.225:8000/boards
+Client IP: 119.194.248.193
+
+
+2021-07-16 11:21:18 Error: [Cake\Controller\Exception\MissingActionException] Action UsersController::kakaoJoin() could not be found, or is not accessible. in /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'kakaoJoin',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /users/kakaoJoin?code=Ak0tYlR2GeYmvYLnFcadz118-FSqQn8HfjFmFpFAPulRyVyeeaqt1nYsHirfv28qvpx9Rgopb9QAAAF6rR3X6A
+Client IP: 119.194.248.193
+
+
+2021-07-16 11:21:45 Error: [Cake\Controller\Exception\MissingActionException] Action UsersController::kakaoJoin() could not be found, or is not accessible. in /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'kakaoJoin',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /users/kakaoJoin?code=nlkgbS-NgLNMZfvxh2w_Qg3XIcWn94o-TT1uaC5YMYi0SdGlI-LMXdSBE0CALl00O_l0-wopb9QAAAF6rR4_Mw
+Client IP: 119.194.248.193
+
+
+2021-07-16 11:21:55 Error: [Cake\Controller\Exception\MissingActionException] Action UsersController::kakaoJoin() could not be found, or is not accessible. in /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'kakaoJoin',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /users/kakaoJoin?code=T9349TMVqdzuqR6Apw2TayBhZGVHILUCWgtSHr8Tlp7pJkcNbFXJQjEL5PHjmvS5gFNbFQopb9QAAAF6rR5lyQ
+Client IP: 119.194.248.193
+
+
+2021-07-16 11:22:35 Error: [Cake\Controller\Exception\MissingActionException] Action UsersController::naverJoin() could not be found, or is not accessible. in /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'naverJoin',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /users/naverJoin?code=4tCy4JOtcedssjCQLb&state=3fadd379bab9c8b1e926d4b10669216a1536613458
+Client IP: 119.194.248.193
+
+
+2021-07-16 11:22:40 Error: [Cake\Controller\Exception\MissingActionException] Action UsersController::naverJoin() could not be found, or is not accessible. in /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'naverJoin',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /users/naverJoin?code=TUonR0VCEtT5uMksiF&state=3fadd379bab9c8b1e926d4b10669216a1536613458
+Client IP: 119.194.248.193
+
+
+2021-07-16 11:37:32 Error: [Cake\Http\Exception\MissingControllerException] Controller class Images could not be found. in /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php on line 229
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => NULL,
+  'prefix' => NULL,
+  '_ext' => NULL,
+)
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:65
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:311
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /images/favicon.ico
+Referer URL: http://121.126.223.225:8000/boards/notice
+Client IP: 119.194.248.193
+
+
+2021-07-16 11:37:37 Warning: Warning (2): Creating default object from empty value in [/var/www/exon/bomi/src/Controller/BoardsController.php, line 23]
+Request URL: /boards/add
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+App\Controller\BoardsController::add() - APP/Controller/BoardsController.php, line 23
+Cake\Controller\Controller::invokeAction() - CORE/src/Controller/Controller.php, line 531
+Cake\Controller\ControllerFactory::invoke() - CORE/src/Controller/ControllerFactory.php, line 151
+Cake\Http\BaseApplication::handle() - CORE/src/Http/BaseApplication.php, line 313
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 77
+Cake\Http\Middleware\CsrfProtectionMiddleware::process() - CORE/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Middleware\BodyParserMiddleware::process() - CORE/src/Http/Middleware/BodyParserMiddleware.php, line 159
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\RoutingMiddleware::process() - CORE/src/Routing/Middleware/RoutingMiddleware.php, line 161
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Routing\Middleware\AssetMiddleware::process() - CORE/src/Routing/Middleware/AssetMiddleware.php, line 68
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Error\Middleware\ErrorHandlerMiddleware::process() - CORE/src/Error/Middleware/ErrorHandlerMiddleware.php, line 121
+Cake\Http\Runner::handle() - CORE/src/Http/Runner.php, line 73
+Cake\Http\Runner::run() - CORE/src/Http/Runner.php, line 58
+Cake\Http\Server::run() - CORE/src/Http/Server.php, line 90
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-16 11:37:37 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Debugger.php line=970 in [/var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /boards/add
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-16 11:37:37 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /boards/add
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-16 11:37:37 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Debugger.php:970) in [/var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /boards/add
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-16 11:39:11 Error: [Cake\Controller\Exception\MissingActionException] Action BoardsController::fileAdd() could not be found, or is not accessible. in /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'BoardsController',
+  'action' => 'fileAdd',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/file_add
+Client IP: 119.194.248.193
+
+
+2021-07-16 11:39:44 Error: [Cake\Controller\Exception\MissingActionException] Action BoardsController::fileadd() could not be found, or is not accessible. in /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'BoardsController',
+  'action' => 'fileadd',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/fileadd
+Client IP: 119.194.248.193
+
+
+2021-07-16 11:39:54 Error: [Cake\Controller\Exception\MissingActionException] Action BoardsController::fileAdd() could not be found, or is not accessible. in /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'BoardsController',
+  'action' => 'fileAdd',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/fileAdd
+Client IP: 119.194.248.193
+
+
+2021-07-16 13:39:41 Error: [Cake\Controller\Exception\MissingActionException] Action BoardsController::file() could not be found, or is not accessible. in /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'BoardsController',
+  'action' => 'file',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/file
+Client IP: 119.194.248.193
+
+
+2021-07-16 13:39:46 Error: [Cake\Controller\Exception\MissingActionException] Action BoardsController::fileAdd() could not be found, or is not accessible. in /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'BoardsController',
+  'action' => 'fileAdd',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/file_add
+Client IP: 119.194.248.193
+
+
+2021-07-16 13:40:40 Error: [Cake\Controller\Exception\MissingActionException] Action BoardsController::fileAdd() could not be found, or is not accessible. in /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'BoardsController',
+  'action' => 'fileAdd',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/file_add
+Client IP: 119.194.248.193
+
+
+2021-07-16 13:43:27 Error: [Cake\Controller\Exception\MissingActionException] Action BoardsController::fileAdd() could not be found, or is not accessible. in /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'BoardsController',
+  'action' => 'fileAdd',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/fileAdd
+Client IP: 119.194.248.193
+
+
+2021-07-16 13:53:30 Error: [Cake\Controller\Exception\MissingActionException] Action BoardsController::fileAdd() could not be found, or is not accessible. in /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'BoardsController',
+  'action' => 'fileAdd',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/fileAdd
+Client IP: 119.194.248.193
+
+
+2021-07-16 13:56:06 Error: [Cake\Controller\Exception\MissingActionException] Action BoardsController::fileAdd() could not be found, or is not accessible. in /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'BoardsController',
+  'action' => 'fileAdd',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/fileAdd
+Client IP: 119.194.248.193
+
+
+2021-07-16 13:57:42 Error: [Cake\Controller\Exception\MissingActionException] Action BoardsController::fileadd() could not be found, or is not accessible. in /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'BoardsController',
+  'action' => 'fileadd',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/fileadd
+Client IP: 119.194.248.193
+
+
+2021-07-16 14:00:28 Error: [Cake\Controller\Exception\MissingActionException] Action BoardsController::fileadd() could not be found, or is not accessible. in /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php on line 510
+Exception Attributes: array (
+  'controller' => 'BoardsController',
+  'action' => 'fileadd',
+  'prefix' => '',
+  'plugin' => NULL,
+)
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:100
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/fileadd
+Client IP: 119.194.248.193
+
+
+2021-07-16 14:37:45 Error: [Error] Call to a member function getClientFilename() on string in /var/www/exon/bomi/src/Controller/BoardsController.php on line 43
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+
+
+2021-07-16 14:41:00 Error: [Error] Call to a member function getClientFilename() on string in /var/www/exon/bomi/src/Controller/BoardsController.php on line 43
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+
+
+2021-07-16 14:46:02 Error: [Error] Call to a member function getClientFilename() on string in /var/www/exon/bomi/src/Controller/BoardsController.php on line 43
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+
+
+2021-07-16 14:47:12 Error: [Error] Call to a member function getClientFilename() on string in /var/www/exon/bomi/src/Controller/BoardsController.php on line 43
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+
+
+2021-07-16 14:56:10 Error: [Error] Call to a member function getClientFilename() on string in /var/www/exon/bomi/src/Controller/BoardsController.php on line 46
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+
+
+2021-07-16 14:56:21 Error: [Error] Call to a member function getClientFilename() on string in /var/www/exon/bomi/src/Controller/BoardsController.php on line 46
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+
+
+2021-07-16 15:07:11 Error: [Error] Call to a member function getClientFilename() on string in /var/www/exon/bomi/src/Controller/BoardsController.php on line 47
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+
+
+2021-07-16 15:07:12 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Debugger.php line=1030 in [/var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-16 15:07:13 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Debugger.php:1030) in [/var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-16 15:07:14 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Debugger.php:1030) in [/var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-16 15:10:05 Error: [Error] Call to a member function getClientFilename() on string in /var/www/exon/bomi/src/Controller/BoardsController.php on line 47
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+
+
+2021-07-16 15:10:06 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Debugger.php line=1030 in [/var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-16 15:10:07 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Debugger.php:1030) in [/var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-16 15:10:08 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Debugger.php:1030) in [/var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-16 15:10:48 Error: [Error] Call to a member function getClientFilename() on string in /var/www/exon/bomi/src/Controller/BoardsController.php on line 47
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+
+
+2021-07-16 15:10:49 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Debugger.php line=1030 in [/var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-16 15:10:50 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Debugger.php:1030) in [/var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-16 15:10:51 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Debugger.php:1030) in [/var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-16 15:15:54 Error: [Error] Call to a member function getClientFilename() on string in /var/www/exon/bomi/src/Controller/BoardsController.php on line 44
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+
+
+2021-07-16 15:15:55 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Debugger.php line=1030 in [/var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-16 15:15:56 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Debugger.php:1030) in [/var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-16 15:15:57 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Debugger.php:1030) in [/var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-16 15:30:14 Error: [Error] Call to a member function getClientOriginalName() on string in /var/www/exon/bomi/src/Controller/BoardsController.php on line 43
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+
+
+2021-07-16 15:31:50 Error: [Error] Call to a member function getClientFilename() on string in /var/www/exon/bomi/src/Controller/BoardsController.php on line 43
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+
+
+2021-07-16 15:31:59 Error: [Error] Call to a member function getClientFilename() on string in /var/www/exon/bomi/src/Controller/BoardsController.php on line 43
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+
+
+2021-07-16 15:34:43 Error: [Error] Call to a member function getClientFilename() on string in /var/www/exon/bomi/src/Controller/BoardsController.php on line 43
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+
+
+2021-07-16 15:35:04 Error: [Error] Call to a member function getClientFilename() on string in /var/www/exon/bomi/src/Controller/BoardsController.php on line 44
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+
+
+2021-07-16 15:35:05 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Debugger.php line=1030 in [/var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-16 15:35:06 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Debugger.php:1030) in [/var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-16 15:35:07 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Debugger.php:1030) in [/var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 09:57:26 Error: [Error] Call to a member function getClientFilename() on string in /var/www/exon/bomi/src/Controller/BoardsController.php on line 44
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+
+
+2021-07-19 09:57:27 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Debugger.php line=1030 in [/var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 09:57:28 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Debugger.php:1030) in [/var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 09:57:29 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Debugger.php:1030) in [/var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 09:57:31 Error: [Cake\Http\Exception\MissingControllerException] Controller class Images could not be found. in /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php on line 229
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => NULL,
+  'prefix' => NULL,
+  '_ext' => NULL,
+)
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:65
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:311
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:159
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /images/favicon.ico
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+
+
+2021-07-19 10:01:05 Error: [Error] Call to a member function getClientFilename() on string in /var/www/exon/bomi/src/Controller/BoardsController.php on line 44
+Stack Trace:
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/Controller.php:531
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:151
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/BaseApplication.php:313
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:77
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:164
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:161
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:68
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:121
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:73
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Runner.php:58
+- /var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/Server.php:90
+- /var/www/exon/bomi/webroot/index.php:40
+
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+
+
+2021-07-19 10:01:06 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Debugger.php line=1030 in [/var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 71]
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 71
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 10:01:07 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Debugger.php:1030) in [/var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 168]
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 168
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 74
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
+2021-07-19 10:01:08 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/exon/bomi/vendor/cakephp/cakephp/src/Error/Debugger.php:1030) in [/var/www/exon/bomi/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 197]
+Request URL: /boards/fileadd
+Referer URL: http://121.126.223.225:8000/boards/fileadd
+Client IP: 119.194.248.193
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 188
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 197
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 75
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 128
+[main] - ROOT/webroot/index.php, line 40
+
