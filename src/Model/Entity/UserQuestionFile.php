@@ -14,6 +14,7 @@ use Cake\ORM\Entity;
  * @property string|null $file_name
  * @property string|null $type
  * @property \Cake\I18n\FrozenTime $created
+ * @property string|null $file_type
  *
  * @property \App\Model\Entity\UserQuestion $user_question
  */
@@ -34,6 +35,7 @@ class UserQuestionFile extends Entity
         'file_name' => true,
         'type' => true,
         'created' => true,
+        'file_type' => true,
         'user_question' => true,
     ];
 }

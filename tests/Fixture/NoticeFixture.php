@@ -30,9 +30,11 @@ class NoticeFixture extends TestFixture
         'file_name' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
         'file_type' => ['type' => 'string', 'length' => 45, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
         'status' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => '1', 'comment' => '상태\\n0: 비활성\\n1:활성', 'precision' => null, 'autoIncrement' => null],
-        'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'CURRENT_TIMESTAMP', 'comment' => ''],
-        'modified' => ['type' => 'timestamp', 'length' => null, 'precision' => null, 'null' => true, 'default' => 'CURRENT_TIMESTAMP', 'comment' => ''],
+        'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'current_timestamp()', 'comment' => ''],
+        'modified' => ['type' => 'timestamp', 'length' => null, 'precision' => null, 'null' => true, 'default' => 'current_timestamp()', 'comment' => ''],
         'ip' => ['type' => 'string', 'length' => 18, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '등록 IP', 'precision' => null],
+        'file_name' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
+        'file_type' => ['type' => 'string', 'length' => 45, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
         ],
@@ -58,9 +60,16 @@ class NoticeFixture extends TestFixture
                 'file_name' => 'Lorem ipsum dolor sit amet',
                 'file_type' => 'Lorem ipsum dolor sit amet',
                 'status' => 1,
+<<<<<<< HEAD
+                'created' => '2021-07-16 13:52:39',
+                'modified' => 1626411159,
+=======
                 'created' => '2021-07-16 11:43:00',
                 'modified' => 1626403380,
+>>>>>>> ebd9e6b943e23a9a9e35e2a2be868fff6c273e9b
                 'ip' => 'Lorem ipsum dolo',
+                'file_name' => 'Lorem ipsum dolor sit amet',
+                'file_type' => 'Lorem ipsum dolor sit amet',
             ],
         ];
         parent::init();

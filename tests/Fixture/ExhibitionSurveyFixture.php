@@ -29,14 +29,14 @@ class ExhibitionSurveyFixture extends TestFixture
         'parent_id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '객관식 보기일 경우 부모 질문 따라가기', 'precision' => null, 'autoIncrement' => null],
         'text' => ['type' => 'string', 'length' => 2048, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '내용', 'precision' => null],
         'is_duplicate' => ['type' => 'string', 'length' => 2, 'null' => true, 'default' => 'N', 'collate' => 'utf8_general_ci', 'comment' => '답변 중복가능여부\\\\n‘Y’: 중복가능\\\\n’N’: 중복 불가능', 'precision' => null],
-        'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'CURRENT_TIMESTAMP', 'comment' => ''],
-        'modified' => ['type' => 'timestamp', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'CURRENT_TIMESTAMP', 'comment' => ''],
+        'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'current_timestamp()', 'comment' => ''],
+        'modified' => ['type' => 'timestamp', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'current_timestamp()', 'comment' => ''],
         '_indexes' => [
             'fk_exhibition_survey_exhibition1_idx' => ['type' => 'index', 'columns' => ['exhibition_id'], 'length' => []],
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'fk_exhibition_survey_exhibition1' => ['type' => 'foreign', 'columns' => ['exhibition_id'], 'references' => ['exhibition', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
+            'fk_exhibition_survey_exhibition1' => ['type' => 'foreign', 'columns' => ['exhibition_id'], 'references' => ['exhibition', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -59,8 +59,8 @@ class ExhibitionSurveyFixture extends TestFixture
                 'parent_id' => 1,
                 'text' => 'Lorem ipsum dolor sit amet',
                 'is_duplicate' => 'Lo',
-                'created' => '2021-07-14 13:04:20',
-                'modified' => 1626235460,
+                'created' => '2021-07-16 13:52:20',
+                'modified' => 1626411140,
             ],
         ];
         parent::init();

@@ -74,17 +74,17 @@ class ExhibitionFixture extends TestFixture
         'additional' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => '0', 'comment' => '추가신청 사용
 0: 미사용
 1: 사용', 'precision' => null, 'autoIncrement' => null],
-        'status' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => '2', 'comment' => ' 상태
+        'status' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => '2', 'comment' => ' 상태
 1: 활성
 2: 비활성', 'precision' => null, 'autoIncrement' => null],
-        'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'CURRENT_TIMESTAMP', 'comment' => '최초 등록일시'],
-        'modified' => ['type' => 'timestamp', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'CURRENT_TIMESTAMP', 'comment' => '수정일시'],
+        'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'current_timestamp()', 'comment' => '최초 등록일시'],
+        'modified' => ['type' => 'timestamp', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'current_timestamp()', 'comment' => '수정일시'],
         '_indexes' => [
             'fk_exhibition_members_idx' => ['type' => 'index', 'columns' => ['users_id'], 'length' => []],
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'fk_exhibition_members' => ['type' => 'foreign', 'columns' => ['users_id'], 'references' => ['users', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
+            'fk_exhibition_members' => ['type' => 'foreign', 'columns' => ['users_id'], 'references' => ['users', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -108,10 +108,10 @@ class ExhibitionFixture extends TestFixture
                 'category' => 'Lorem ipsum dolor sit amet',
                 'type' => 'Lorem ipsum dolor sit amet',
                 'detail_html' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-                'apply_sdate' => '2021-07-14 13:04:20',
-                'apply_edate' => '2021-07-14 13:04:20',
-                'sdate' => '2021-07-14 13:04:20',
-                'edate' => '2021-07-14 13:04:20',
+                'apply_sdate' => '2021-07-16 13:52:15',
+                'apply_edate' => '2021-07-16 13:52:15',
+                'sdate' => '2021-07-16 13:52:15',
+                'edate' => '2021-07-16 13:52:15',
                 'image_path' => 'Lorem ipsum dolor sit amet',
                 'image_name' => 'Lorem ipsum dolor sit amet',
                 'private' => 1,
@@ -129,8 +129,8 @@ class ExhibitionFixture extends TestFixture
                 'email_notice' => 1,
                 'additional' => 1,
                 'status' => 1,
-                'created' => '2021-07-14 13:04:20',
-                'modified' => 1626235460,
+                'created' => '2021-07-16 13:52:15',
+                'modified' => 1626411135,
             ],
         ];
         parent::init();

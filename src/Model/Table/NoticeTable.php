@@ -93,6 +93,16 @@ class NoticeTable extends Table
             ->maxLength('ip', 18)
             ->allowEmptyString('ip');
 
+        $validator
+            ->scalar('file_name')
+            ->maxLength('file_name', 255)
+            ->allowEmptyFile('file_name');
+
+        $validator
+            ->scalar('file_type')
+            ->maxLength('file_type', 45)
+            ->allowEmptyFile('file_type');
+
         return $validator;
     }
 }

@@ -28,14 +28,14 @@ class ExhibitionGroupFixture extends TestFixture
         'name' => ['type' => 'string', 'length' => 45, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '그룹 명', 'precision' => null],
         'people' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => '1', 'comment' => '인원수', 'precision' => null, 'autoIncrement' => null],
         'amount' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => '0', 'comment' => '금액', 'precision' => null, 'autoIncrement' => null],
-        'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'CURRENT_TIMESTAMP', 'comment' => ''],
-        'modified' => ['type' => 'timestamp', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'CURRENT_TIMESTAMP', 'comment' => ''],
+        'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'current_timestamp()', 'comment' => ''],
+        'modified' => ['type' => 'timestamp', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'current_timestamp()', 'comment' => ''],
         '_indexes' => [
             'fk_exhibition_group_exhibition1_idx' => ['type' => 'index', 'columns' => ['exhibition_id'], 'length' => []],
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'fk_exhibition_group_exhibition1' => ['type' => 'foreign', 'columns' => ['exhibition_id'], 'references' => ['exhibition', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
+            'fk_exhibition_group_exhibition1' => ['type' => 'foreign', 'columns' => ['exhibition_id'], 'references' => ['exhibition', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -57,8 +57,8 @@ class ExhibitionGroupFixture extends TestFixture
                 'name' => 'Lorem ipsum dolor sit amet',
                 'people' => 1,
                 'amount' => 1,
-                'created' => '2021-07-14 13:04:20',
-                'modified' => 1626235460,
+                'created' => '2021-07-16 13:52:17',
+                'modified' => 1626411137,
             ],
         ];
         parent::init();

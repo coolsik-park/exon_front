@@ -81,6 +81,11 @@ class UserQuestionFilesTable extends Table
             ->maxLength('type', 2)
             ->allowEmptyString('type');
 
+        $validator
+            ->scalar('file_type')
+            ->maxLength('file_type', 45)
+            ->allowEmptyFile('file_type');
+
         return $validator;
     }
 

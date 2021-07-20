@@ -38,14 +38,14 @@ S: 스트림
 1: 발행
 2: 사용자 할당
 4: 사용완료 ', 'precision' => null, 'autoIncrement' => null],
-        'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'CURRENT_TIMESTAMP', 'comment' => ''],
-        'modified' => ['type' => 'timestamp', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'CURRENT_TIMESTAMP', 'comment' => ''],
+        'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'current_timestamp()', 'comment' => ''],
+        'modified' => ['type' => 'timestamp', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'current_timestamp()', 'comment' => ''],
         '_indexes' => [
             'fk_coupon_users1_idx' => ['type' => 'index', 'columns' => ['users_id'], 'length' => []],
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'fk_coupon_users1' => ['type' => 'foreign', 'columns' => ['users_id'], 'references' => ['users', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
+            'fk_coupon_users1' => ['type' => 'foreign', 'columns' => ['users_id'], 'references' => ['users', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -70,8 +70,8 @@ S: 스트림
                 'sdate' => 'Lorem ',
                 'edate' => 'Lorem ',
                 'status' => 1,
-                'created' => '2021-07-14 13:04:20',
-                'modified' => 1626235460,
+                'created' => '2021-07-16 13:52:14',
+                'modified' => 1626411134,
             ],
         ];
         parent::init();

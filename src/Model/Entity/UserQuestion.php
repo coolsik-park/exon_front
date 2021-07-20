@@ -11,9 +11,9 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property int|null $users_id
  * @property string|null $users_name
- * @property int|null $users_hp
- * @property string|null $users_email
  * @property string|null $title
+ * @property string|null $users_hp
+ * @property string|null $users_email
  * @property string $question
  * @property string|null $answer
  * @property string|null $ip
@@ -41,9 +41,9 @@ class UserQuestion extends Entity
     protected $_accessible = [
         'users_id' => true,
         'users_name' => true,
+        'title' => true,
         'users_hp' => true,
         'users_email' => true,
-        'title' => true,
         'question' => true,
         'answer' => true,
         'ip' => true,
