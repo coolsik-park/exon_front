@@ -556,7 +556,7 @@ class Session
      * @param array $new New set of variable => value
      * @return void
      */
-    protected function _overwrite(&$old, array $new): void
+    protected function _overwrite(array &$old, array $new): void
     {
         if (!empty($old)) {
             foreach ($old as $key => $var) {

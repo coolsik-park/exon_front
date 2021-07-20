@@ -5,6 +5,7 @@
  * 
  */
 ?>
+<script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 <div class="row">
     <aside class="column">
         <div class="side-nav">
@@ -24,7 +25,7 @@
                     echo $this->Form->control('description');
                     echo $this->Form->control('category');
                     echo $this->Form->control('type');
-                    echo $this->Form->control('detail_html');
+                    echo $this->Form->control('detail_html', ['name' => 'sample-editor']);
                     echo $this->Form->control('apply_sdate', ['empty' => true]);
                     echo $this->Form->control('apply_edate', ['empty' => true]);
                     echo $this->Form->control('sdate', ['empty' => true]);
@@ -81,3 +82,9 @@
         </div>
     </div>
 </div>
+<script>
+    CKEDITOR.replace('sample-editor');
+</script>
+
+
+

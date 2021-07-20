@@ -53,6 +53,8 @@ class ExhibitionController extends AppController
         if ($this->request->is('post')) {
             $img = $this->request->getData('image');
             $imgName = $img->getClientFilename();
+            $index = strpos(strrev($imgName), strrev('.'));
+            $expen = strtolower(substr($imgName, ($index * -1)));
             $path = WWW_ROOT . DS . 'upload' . DS . 'exhibition' . DS . date("Y") . DS . date("m") . DS;
             
             if (!file_exists($path)) {
@@ -69,7 +71,7 @@ class ExhibitionController extends AppController
             if ($result = $this->Exhibition->save($exhibition)) {
                 $this->Flash->success(__('The exhibition has been saved.'));
 
-                $imgName = $result->id . "_" . $imgName;
+                $imgName = $result->id . "_main." . $expen;
                 $destination = $path . $imgName;
                 $img->moveTo($destination);
 
