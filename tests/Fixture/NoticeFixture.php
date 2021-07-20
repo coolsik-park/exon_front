@@ -60,13 +60,8 @@ class NoticeFixture extends TestFixture
                 'file_name' => 'Lorem ipsum dolor sit amet',
                 'file_type' => 'Lorem ipsum dolor sit amet',
                 'status' => 1,
-<<<<<<< HEAD
                 'created' => '2021-07-16 13:52:39',
                 'modified' => 1626411159,
-=======
-                'created' => '2021-07-16 11:43:00',
-                'modified' => 1626403380,
->>>>>>> ebd9e6b943e23a9a9e35e2a2be868fff6c273e9b
                 'ip' => 'Lorem ipsum dolo',
                 'file_name' => 'Lorem ipsum dolor sit amet',
                 'file_type' => 'Lorem ipsum dolor sit amet',

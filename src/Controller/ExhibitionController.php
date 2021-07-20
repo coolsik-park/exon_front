@@ -77,8 +77,10 @@ class ExhibitionController extends AppController
             }       
             $this->Flash->error(__('The exhibition could not be saved. Please, try again.'));
         }
-        $users = $this->Exhibition->Users->find('list', ['limit' => 200]);
+        
         $commonCategory = $this->getTableLocator()->get('CommonCategory');
+        
+        $users = $this->Exhibition->Users->find('list', ['limit' => 200]);
         $categories = $commonCategory->find()->select('title')->where(['tables' => 'exhibition'], ['types' => 'category']);
         $types = $commonCategory->find()->select('title')->where(['tables' => 'exhibition'], ['types' => 'type']);
         $this->set(compact('exhibition', 'users', 'categories', 'types'));
