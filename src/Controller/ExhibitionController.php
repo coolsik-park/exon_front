@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 use Cake\ORM\Locator\LocatorAwareTrait;
+use Cake\Filesystem\Folder;
 
 /**
  * Exhibition Controller
@@ -49,48 +50,32 @@ class ExhibitionController extends AppController
     {
         $exhibition = $this->Exhibition->newEmptyEntity();
 
-        $ExhibitionGroups = $this->getTableLocator()->get('ExhibitionGroup');
-        $exhibitionGroup = $ExhibitionGroups->newEmptyEntity();
-
         if ($this->request->is('post')) {
             $img = $this->request->getData('image');
             $imgName = $img->getClientFilename();
+            $path = WWW_ROOT . DS . 'upload' . DS . 'exhibition' . DS . date("Y") . DS . date("m") . DS;
             
-            var_dump($img);
-            $index = strpos(strrev($imgName), strrev('.'));
-            $expen = strtolower(substr($imgName, ($index * -1)));
-            $imgName =  date("YmdHis") . "_" . $imgName;
-
-            echo($imgName);
-
-            $destination = "webroot/upload/exhibition" . $imgName;
-            $img->moveTo($destination);
-
-            $exhibition = $this->Exhibition->patchEntity($exhibition, $this->request->getData());
-            $exhibition->imagePath = $destination;
-            $exhibition->imageName = $imgName;
-            
-            if ($result = $this->Exhibition->save($exhibition)) {
-                $exhibitionGroup->exhibition_id = $result->id;
-                $exhibitionGroup->name = $this->request->getData('group_name');
-                $exhibitionGroup->people = $this->request->getData('people');
-                $exhibitionGroup->amout = $this->request->getData('amout');
-                
-                $this->Flash->success(__('The exhibition has been saved.'));
-
-                if ($ExhibitionGroups->save($exhibitionGroup)) {
-                    
-                    $this->Flash->success(__('The exhibition group has been saved.'));
-
-                    return $this->redirect(['action' => 'index']);
-                
-                } else {
-                    $this->Flash->error(__('The exhibition group could not be saved. Please, try again.'));
-                }    
-            } else {
-                $this->Flash->error(__('The exhibition could not be saved. Please, try again.'));
+            if (!file_exists($path)) {
+                $oldMask = umask(0);
+                mkdir($path, 0777, true);
+                chmod($path, 0777);
+                umask($oldMask);
             }
             
+            $exhibition->image_path = $path;
+            $exhibition->image_name = $imgName;
+            $exhibition = $this->Exhibition->patchEntity($exhibition, $this->request->getData(), ['associated' => ['ExhibitionGroup', 'ExhibitionSurvey']]);
+            
+            if ($result = $this->Exhibition->save($exhibition)) {
+                $this->Flash->success(__('The exhibition has been saved.'));
+
+                $imgName = $result->id . "_" . $imgName;
+                $destination = $path . $imgName;
+                $img->moveTo($destination);
+
+                return $this->redirect(['action' => 'index']);
+            }       
+            $this->Flash->error(__('The exhibition could not be saved. Please, try again.'));
         }
         $users = $this->Exhibition->Users->find('list', ['limit' => 200]);
         $commonCategory = $this->getTableLocator()->get('CommonCategory');

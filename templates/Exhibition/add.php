@@ -44,11 +44,40 @@
                     echo $this->Form->control('email_notice');
                     echo $this->Form->control('additional');
                     echo $this->Form->control('status');
-
-                    echo('Group');
-                    echo $this->Form->control('group_name');
-                    echo $this->Form->control('people');
-                    echo $this->Form->control('amount');
+                    ?>
+                    <br>
+                    <legend><?= __('ExhibitionGroup 1') ?></legend>
+                    <?php
+                    // echo $this->Form->control('exhibition_group.0.exhibition_id', ['type' => 'text']);
+                    echo $this->Form->control('exhibition_group.0.name');
+                    echo $this->Form->control('exhibition_group.0.people');
+                    echo $this->Form->control('exhibition_group.0.amount');
+                    ?>
+                    <br>
+                    <legend><?= __('ExhibitionGroup 2') ?></legend>
+                    <?php
+                    // echo $this->Form->control('exhibition_group.1.exhibition_id', ['type' => 'text']);
+                    echo $this->Form->control('exhibition_group.1.name');
+                    echo $this->Form->control('exhibition_group.1.people');
+                    echo $this->Form->control('exhibition_group.1.amount');
+                    ?>
+                    <br>
+                    <legend><?= __('ExhibitionSurvey 1') ?></legend>
+                    <?php
+                    // echo $this->Form->control('exhibition_group.0.exhibition_id', ['type' => 'text']);
+                    echo $this->Form->control('exhibition_survey.0.survey_type');
+                    echo $this->Form->control('exhibition_survey.0.parent_id');
+                    echo $this->Form->control('exhibition_survey.0.text');
+                    echo $this->Form->control('exhibition_survey.0.is_duplicate');
+                    ?>
+                    <br>
+                    <legend><?= __('ExhibitionSurvey 2') ?></legend>
+                    <?php
+                    // echo $this->Form->control('exhibition_group.0.exhibition_id', ['type' => 'text']);
+                    echo $this->Form->control('exhibition_survey.1.survey_type');
+                    echo $this->Form->control('exhibition_survey.1.parent_id');
+                    echo $this->Form->control('exhibition_survey.1.text');
+                    echo $this->Form->control('exhibition_survey.1.is_duplicate');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
