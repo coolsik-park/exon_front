@@ -48,7 +48,6 @@
                     <br>
                     <legend><?= __('ExhibitionGroup 1') ?></legend>
                     <?php
-                    // echo $this->Form->control('exhibition_group.0.exhibition_id', ['type' => 'text']);
                     echo $this->Form->control('exhibition_group.0.name');
                     echo $this->Form->control('exhibition_group.0.people');
                     echo $this->Form->control('exhibition_group.0.amount');
@@ -56,7 +55,6 @@
                     <br>
                     <legend><?= __('ExhibitionGroup 2') ?></legend>
                     <?php
-                    // echo $this->Form->control('exhibition_group.1.exhibition_id', ['type' => 'text']);
                     echo $this->Form->control('exhibition_group.1.name');
                     echo $this->Form->control('exhibition_group.1.people');
                     echo $this->Form->control('exhibition_group.1.amount');
@@ -64,7 +62,6 @@
                     <br>
                     <legend><?= __('ExhibitionSurvey 1') ?></legend>
                     <?php
-                    // echo $this->Form->control('exhibition_group.0.exhibition_id', ['type' => 'text']);
                     echo $this->Form->control('exhibition_survey.0.survey_type');
                     echo $this->Form->control('exhibition_survey.0.parent_id');
                     echo $this->Form->control('exhibition_survey.0.text');
@@ -73,7 +70,6 @@
                     <br>
                     <legend><?= __('ExhibitionSurvey 2') ?></legend>
                     <?php
-                    // echo $this->Form->control('exhibition_group.0.exhibition_id', ['type' => 'text']);
                     echo $this->Form->control('exhibition_survey.1.survey_type');
                     echo $this->Form->control('exhibition_survey.1.parent_id');
                     echo $this->Form->control('exhibition_survey.1.text');
