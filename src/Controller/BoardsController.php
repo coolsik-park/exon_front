@@ -8,6 +8,14 @@ use Cake\ORM\TableRegistry;
 class BoardsController extends AppController
 {
 
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        $this->loadComponent('Auth');
+        $this->Auth->allow();
+    }
+
+
     public function index()
     {
         $userquestion_table = TableRegistry::get('UserQuestion');

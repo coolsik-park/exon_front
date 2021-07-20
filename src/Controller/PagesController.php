@@ -26,6 +26,7 @@ use Cake\Datasource\ConnectionManager;
 use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\Auth\DefaultPasswordHasher;
 use Cake\Validation\Validator;
+use Cake\Event\Event;
 
 /**
  * Static content controller
@@ -36,6 +37,15 @@ use Cake\Validation\Validator;
  */
 class PagesController extends AppController
 {
+
+    public function initialize(): void
+    {
+        
+        parent::initialize();
+        $this->loadComponent('Auth');
+        $this->Auth->allow();
+    }
+
     /**
      * Displays a view
      *

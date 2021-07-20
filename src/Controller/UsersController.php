@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 use Cake\ORM\Locator\LocatorAwareTrait;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Users Controller
@@ -12,6 +13,17 @@ use Cake\ORM\Locator\LocatorAwareTrait;
  */
 class UsersController extends AppController
 {
+
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        
+        parent::beforeFilter($event);
+        $this->loadComponent('Auth');
+
+        $this->Auth->allow();
+        // $this->Auth->deny(['test'])
+    }
+
     /**
      * Index method
      *
@@ -242,5 +254,29 @@ class UsersController extends AppController
         } else {
             echo "Error 내용:".$response;
         }
+    }
+
+    public function login(){
+
+        if ($this->request->is('post')) {
+            $this->loadComponent('Auth');
+            $this->conn = ConnectionManager::get('default'); 
+            $query = " select * from users where id=1";
+
+            $stmt = $this->conn->query($query);
+            $users = $stmt->fetch('assoc');
+            
+            if($users){
+                $this->Auth->setUser($users);
+                $target = $this->Auth->redirectUrl() ?? '/home';
+                return $this->redirect($target);
+            }
+        }
+
+    }
+
+    public function logout(){
+
+        return $this->redirect($this->Auth->logout());
     }
 }
