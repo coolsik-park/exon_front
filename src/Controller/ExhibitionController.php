@@ -80,7 +80,7 @@ class ExhibitionController extends AppController
                     chmod($path, 0777);
                     umask($oldMask);
                 }
-                
+
                 $imgName = $result->id . "_main." . $expen;
                 $destination = $path . DS . $imgName;
                 $img->moveTo($destination);
@@ -118,8 +118,8 @@ class ExhibitionController extends AppController
         }
         $commonCategory = $this->getTableLocator()->get('CommonCategory');
         $users = $this->Exhibition->Users->find('list', ['limit' => 200]);
-        $categories = $commonCategory->find()->select('title')->where(['tables' => 'exhibition'], ['types' => 'category']);
-        $types = $commonCategory->find()->select('title')->where(['tables' => 'exhibition'], ['types' => 'type']);
+        $categories = $commonCategory->find('list')->select('title')->where(['tables' => 'exhibition', 'types' => 'category']);
+        $types = $commonCategory->find('list')->select('title')->where(['tables' => 'exhibition', 'types' => 'type']);
         $this->set(compact('exhibition', 'users', 'categories', 'types'));
     }
 

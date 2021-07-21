@@ -71,6 +71,9 @@ class ExhibitionTable extends Table
         $this->hasMany('ExhibitionSurvey', [
             'foreignKey' => 'exhibition_id',
         ]);
+        $this->belongsTo('CommonCategory', [
+            'foreignKey' => 'common_category_id'
+        ]);
         $this->belongsToMany('Users', [
             'foreignKey' => 'exhibition_id',
             'targetForeignKey' => 'user_id',
