@@ -15,7 +15,7 @@
     </aside>
     <div class="column-responsive column-80">
         <div class="exhibition form content">
-            <?= $this->Form->create($exhibition, ['enctype' => 'multipart/form-data']) ?>
+            <?= $this->Form->create($exhibition, ['enctype' => 'multipart/form-data'])?>
             <fieldset>
                 <legend><?= __('Add Exhibition') ?></legend>
                 <?php
@@ -25,7 +25,7 @@
                     echo $this->Form->control('description');
                     echo $this->Form->control('category');
                     echo $this->Form->control('type');
-                    echo $this->Form->control('detail_html', ['name' => 'sample-editor']);
+                    echo $this->Form->control('detail_html', ['name' => 'contents']);
                     echo $this->Form->control('apply_sdate', ['empty' => true]);
                     echo $this->Form->control('apply_edate', ['empty' => true]);
                     echo $this->Form->control('sdate', ['empty' => true]);
@@ -83,7 +83,11 @@
     </div>
 </div>
 <script>
-    CKEDITOR.replace('sample-editor');
+    CKEDITOR.replace('contents');
+    // function FormSubmit() { 
+    //     CKEDITOR.instances.contents.updateElement(); 
+    //     return true;
+    // }
 </script>
 
 

@@ -13,6 +13,16 @@ use Cake\Filesystem\Folder;
  */
 class ExhibitionController extends AppController
 {
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        
+        parent::beforeFilter($event);
+        $this->loadComponent('Auth');
+
+        $this->Auth->allow();
+        // $this->Auth->deny(['test'])
+    }
+
     /**
      * Index method
      *
@@ -55,7 +65,7 @@ class ExhibitionController extends AppController
             $imgName = $img->getClientFilename();
             $index = strpos(strrev($imgName), strrev('.'));
             $expen = strtolower(substr($imgName, ($index * -1)));
-            $path = WWW_ROOT . DS . 'upload' . DS . 'exhibition' . DS . date("Y") . DS . date("m") . DS;
+            $path = WWW_ROOT . 'upload' . DS . 'exhibition' . DS . date("Y") . DS . date("m");
             
             if (!file_exists($path)) {
                 $oldMask = umask(0);
@@ -64,22 +74,24 @@ class ExhibitionController extends AppController
                 umask($oldMask);
             }
             
+            $this->conn->begin();
+
             $exhibition->image_path = $path;
             $exhibition->image_name = $imgName;
             $exhibition = $this->Exhibition->patchEntity($exhibition, $this->request->getData(), ['associated' => ['ExhibitionGroup', 'ExhibitionSurvey']]);
-            
+
             if ($result = $this->Exhibition->save($exhibition)) {
+                
                 $this->Flash->success(__('The exhibition has been saved.'));
 
                 $imgName = $result->id . "_main." . $expen;
-                $destination = $path . $imgName;
+                $destination = $path . DS . $imgName;
                 $img->moveTo($destination);
 
                 return $this->redirect(['action' => 'index']);
             }       
             $this->Flash->error(__('The exhibition could not be saved. Please, try again.'));
         }
-        
         $commonCategory = $this->getTableLocator()->get('CommonCategory');
         
         $users = $this->Exhibition->Users->find('list', ['limit' => 200]);
