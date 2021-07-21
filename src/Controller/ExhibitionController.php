@@ -73,8 +73,6 @@ class ExhibitionController extends AppController
                 chmod($path, 0777);
                 umask($oldMask);
             }
-            
-            $this->conn->begin();
 
             $exhibition->image_path = $path;
             $exhibition->image_name = $imgName;
