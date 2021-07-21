@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\Filesystem\Folder;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Exhibition Controller
@@ -58,6 +59,9 @@ class ExhibitionController extends AppController
      */
     public function add()
     {
+        $connection = ConnectionManager::get('default');
+        $connection->begin();
+
         $exhibition = $this->Exhibition->newEmptyEntity();
 
         if ($this->request->is('post')) {
@@ -79,19 +83,31 @@ class ExhibitionController extends AppController
             $exhibition = $this->Exhibition->patchEntity($exhibition, $this->request->getData(), ['associated' => ['ExhibitionGroup', 'ExhibitionSurvey']]);
 
             if ($result = $this->Exhibition->save($exhibition)) {
-                
-                $this->Flash->success(__('The exhibition has been saved.'));
-
                 $imgName = $result->id . "_main." . $expen;
                 $destination = $path . DS . $imgName;
                 $img->moveTo($destination);
 
-                return $this->redirect(['action' => 'index']);
+                $parentId = $result->exhibition_survey[0]->id;
+                $whereId = $parentId + 1;
+                $query  = "UPDATE exhibition_survey SET";
+                $query .= " parent_id=" . $parentId;
+                $query .= " where id=" . $whereId;
+
+                if ($connection->query($query)) {
+                    $connection->commit();
+                    $this->Flash->success(__('The exhibition has been saved.'));
+                    return $this->redirect(['action' => 'index']);
+                
+                } else {
+                    $connection->rollback(); 
+                    $this->Flash->error(__('The exhibition could not be saved. Please, try again.'));
+                }      
+            } else {
+                $connection->rollback(); 
+                $this->Flash->error(__('The exhibition could not be saved. Please, try again.'));
             }       
-            $this->Flash->error(__('The exhibition could not be saved. Please, try again.'));
         }
         $commonCategory = $this->getTableLocator()->get('CommonCategory');
-        
         $users = $this->Exhibition->Users->find('list', ['limit' => 200]);
         $categories = $commonCategory->find()->select('title')->where(['tables' => 'exhibition'], ['types' => 'category']);
         $types = $commonCategory->find()->select('title')->where(['tables' => 'exhibition'], ['types' => 'type']);

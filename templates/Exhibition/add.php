@@ -64,7 +64,6 @@
                     <legend><?= __('ExhibitionSurvey 1') ?></legend>
                     <?php
                     echo $this->Form->control('exhibition_survey.0.survey_type');
-                    echo $this->Form->control('exhibition_survey.0.parent_id');
                     echo $this->Form->control('exhibition_survey.0.text');
                     echo $this->Form->control('exhibition_survey.0.is_duplicate');
                     ?>
@@ -72,23 +71,27 @@
                     <legend><?= __('ExhibitionSurvey 2') ?></legend>
                     <?php
                     echo $this->Form->control('exhibition_survey.1.survey_type');
-                    echo $this->Form->control('exhibition_survey.1.parent_id');
                     echo $this->Form->control('exhibition_survey.1.text');
                     echo $this->Form->control('exhibition_survey.1.is_duplicate');
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <script>
+                CKEDITOR.replace('contents');
+            </script>
+            <?= $this->Form->button(__('Submit', ['onClick' => 'click()'])) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>
-</div>
+</div>  
+
 <script>
-    CKEDITOR.replace('contents');
-    // function FormSubmit() { 
-    //     CKEDITOR.instances.contents.updateElement(); 
-    //     return true;
-    // }
+    function click() {
+        CKEDITOR.instances.contents.updateElement();
+        alert("test");
+        return true; 
+    }
 </script>
+
 
 
 
