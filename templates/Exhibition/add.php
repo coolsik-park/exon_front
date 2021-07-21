@@ -25,7 +25,7 @@
                     echo $this->Form->control('description');
                     echo $this->Form->control('category');
                     echo $this->Form->control('type');
-                    echo $this->Form->control('detail_html', ['name' => 'contents']);
+                    echo $this->Form->control('detail_html');
                     echo $this->Form->control('apply_sdate', ['empty' => true]);
                     echo $this->Form->control('apply_edate', ['empty' => true]);
                     echo $this->Form->control('sdate', ['empty' => true]);
@@ -76,21 +76,13 @@
                 ?>
             </fieldset>
             <script>
-                CKEDITOR.replace('contents');
+                CKEDITOR.replace('detail_html');
             </script>
-            <?= $this->Form->button(__('Submit', ['onClick' => 'click()'])) ?>
+            <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>
 </div>  
-
-<script>
-    function click() {
-        CKEDITOR.instances.contents.updateElement();
-        alert("test");
-        return true; 
-    }
-</script>
 
 
 

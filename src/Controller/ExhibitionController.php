@@ -65,43 +65,52 @@ class ExhibitionController extends AppController
         $exhibition = $this->Exhibition->newEmptyEntity();
 
         if ($this->request->is('post')) {
-            $img = $this->request->getData('image');
-            $imgName = $img->getClientFilename();
-            $index = strpos(strrev($imgName), strrev('.'));
-            $expen = strtolower(substr($imgName, ($index * -1)));
-            $path = WWW_ROOT . 'upload' . DS . 'exhibition' . DS . date("Y") . DS . date("m");
-            
-            if (!file_exists($path)) {
-                $oldMask = umask(0);
-                mkdir($path, 0777, true);
-                chmod($path, 0777);
-                umask($oldMask);
-            }
-
-            $exhibition->image_path = $path;
-            $exhibition->image_name = $imgName;
             $exhibition = $this->Exhibition->patchEntity($exhibition, $this->request->getData(), ['associated' => ['ExhibitionGroup', 'ExhibitionSurvey']]);
 
             if ($result = $this->Exhibition->save($exhibition)) {
+                $img = $this->request->getData('image');
+                $imgName = $img->getClientFilename();
+                $index = strpos(strrev($imgName), strrev('.'));
+                $expen = strtolower(substr($imgName, ($index * -1)));
+                $path = WWW_ROOT . 'upload' . DS . 'exhibition' . DS . date("Y") . DS . date("m");
+                
+                if (!file_exists($path)) {
+                    $oldMask = umask(0);
+                    mkdir($path, 0777, true);
+                    chmod($path, 0777);
+                    umask($oldMask);
+                }
+                
                 $imgName = $result->id . "_main." . $expen;
                 $destination = $path . DS . $imgName;
                 $img->moveTo($destination);
 
-                $parentId = $result->exhibition_survey[0]->id;
-                $whereId = $parentId + 1;
-                $query  = "UPDATE exhibition_survey SET";
-                $query .= " parent_id=" . $parentId;
-                $query .= " where id=" . $whereId;
-
-                if ($connection->query($query)) {
-                    $connection->commit();
-                    $this->Flash->success(__('The exhibition has been saved.'));
-                    return $this->redirect(['action' => 'index']);
+                $query  = "UPDATE exhibition SET";
+                $query .= " image_path='" . $path . "'";
+                $query .= ", image_name='" . $imgName . "'";
+                $query .= " where id=" . $result->id;
                 
+                if ($connection->query($query)) {
+                    $parentId = $result->exhibition_survey[0]->id;
+                    $whereId = $parentId + 1;
+
+                    $query  = "UPDATE exhibition_survey SET";
+                    $query .= " parent_id=" . $parentId;
+                    $query .= " where id=" . $whereId;
+
+                    if ($connection->query($query)) {
+                        $connection->commit();
+                        $this->Flash->success(__('The exhibition has been saved.'));
+                        return $this->redirect(['action' => 'index']);
+                    
+                    } else {
+                        $connection->rollback(); 
+                        $this->Flash->error(__('The exhibition img could not be saved. Please, try again.'));
+                    }      
                 } else {
                     $connection->rollback(); 
-                    $this->Flash->error(__('The exhibition could not be saved. Please, try again.'));
-                }      
+                    $this->Flash->error(__('The exhibition survey could not be saved. Please, try again.'));
+                }
             } else {
                 $connection->rollback(); 
                 $this->Flash->error(__('The exhibition could not be saved. Please, try again.'));
