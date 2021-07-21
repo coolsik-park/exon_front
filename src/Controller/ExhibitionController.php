@@ -74,21 +74,29 @@ class ExhibitionController extends AppController
                 $expen = strtolower(substr($imgName, ($index * -1)));
                 $path = WWW_ROOT . 'upload' . DS . 'exhibition' . DS . date("Y") . DS . date("m");
                 
-                if (!file_exists($path)) {
-                    $oldMask = umask(0);
-                    mkdir($path, 0777, true);
-                    chmod($path, 0777);
-                    umask($oldMask);
+                if ($expen == 'jpeg' || $expen == 'jpg' || $expen == 'png') {
+                    
+                    if (!file_exists($path)) {
+                        $oldMask = umask(0);
+                        mkdir($path, 0777, true);
+                        chmod($path, 0777);
+                        umask($oldMask);
+                    }
+    
+                    $imgName = $result->id . "_main." . $expen;
+                    $destination = $path . DS . $imgName;
+                    $img->moveTo($destination);
+    
+                    $query  = "UPDATE exhibition SET";
+                    $query .= " image_path='" . $path . "'";
+                    $query .= ", image_name='" . $imgName . "'";
+                    $query .= " where id=" . $result->id;
+                
+                }else {
+                    $this->Flash->error(__('Incorrect image type.'));
+                    return $this->redirect(['action' => 'add']);
                 }
-
-                $imgName = $result->id . "_main." . $expen;
-                $destination = $path . DS . $imgName;
-                $img->moveTo($destination);
-
-                $query  = "UPDATE exhibition SET";
-                $query .= " image_path='" . $path . "'";
-                $query .= ", image_name='" . $imgName . "'";
-                $query .= " where id=" . $result->id;
+               
                 
                 if ($connection->query($query)) {
                     $parentId = $result->exhibition_survey[0]->id;
@@ -106,11 +114,13 @@ class ExhibitionController extends AppController
                     } else {
                         $connection->rollback(); 
                         $this->Flash->error(__('The exhibition img could not be saved. Please, try again.'));
-                    }      
+                    }
+
                 } else {
                     $connection->rollback(); 
                     $this->Flash->error(__('The exhibition survey could not be saved. Please, try again.'));
                 }
+
             } else {
                 $connection->rollback(); 
                 $this->Flash->error(__('The exhibition could not be saved. Please, try again.'));
