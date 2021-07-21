@@ -91,34 +91,34 @@ class ExhibitionController extends AppController
                     $query .= " image_path='" . $path . "'";
                     $query .= ", image_name='" . $imgName . "'";
                     $query .= " where id=" . $result->id;
-                
-                }else {
-                    $this->Flash->error(__('Incorrect image type.'));
-                    return $this->redirect(['action' => 'add']);
-                }
-               
-                
-                if ($connection->query($query)) {
-                    $parentId = $result->exhibition_survey[0]->id;
-                    $whereId = $parentId + 1;
-
-                    $query  = "UPDATE exhibition_survey SET";
-                    $query .= " parent_id=" . $parentId;
-                    $query .= " where id=" . $whereId;
 
                     if ($connection->query($query)) {
-                        $connection->commit();
-                        $this->Flash->success(__('The exhibition has been saved.'));
-                        return $this->redirect(['action' => 'index']);
-                    
+                        $parentId = $result->exhibition_survey[0]->id;
+                        $whereId = $parentId + 1;
+    
+                        $query  = "UPDATE exhibition_survey SET";
+                        $query .= " parent_id=" . $parentId;
+                        $query .= " where id=" . $whereId;
+    
+                        if ($connection->query($query)) {
+                            $connection->commit();
+                            $this->Flash->success(__('The exhibition has been saved.'));
+                            return $this->redirect(['action' => 'index']);
+                        
+                        } else {
+                            $connection->rollback(); 
+                            $this->Flash->error(__('The exhibition img could not be saved. Please, try again.'));
+                        }
+    
                     } else {
                         $connection->rollback(); 
-                        $this->Flash->error(__('The exhibition img could not be saved. Please, try again.'));
+                        $this->Flash->error(__('The exhibition survey could not be saved. Please, try again.'));
                     }
-
-                } else {
-                    $connection->rollback(); 
-                    $this->Flash->error(__('The exhibition survey could not be saved. Please, try again.'));
+                
+                }else {
+                    $connection->rollback();
+                    $this->Flash->error(__('Incorrect image type.'));
+                    return $this->redirect(['action' => 'add']);
                 }
 
             } else {
