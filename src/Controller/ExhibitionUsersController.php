@@ -20,7 +20,7 @@ class ExhibitionUsersController extends AppController
         $this->loadComponent('Auth');
 
         $this->Auth->allow();
-        // $this->Auth->deny(['test'])
+        // $this->Auth->deny(['test']);
     }
     /**
      * Index method
@@ -125,6 +125,9 @@ class ExhibitionUsersController extends AppController
 
     public function sendEmail()
     {
+        $rand = \Cake\Utility\Security::hash('user_name');
+        $rand = substr($rand, 0, 6);
+
         if ($this->request->is('post')) {
             $mailer = new Mailer();
             $mailer->setTransport('mailjet');
@@ -139,13 +142,13 @@ class ExhibitionUsersController extends AppController
                         ->setEmailFormat('html')
                     ->setTo($this->request->getData('email_address'))
                     ->setSubject('Exon Test Email')
-                    ->deliver('test message')) 
+                    ->deliver('Confirmation Code : ' . $rand)) 
                     {
                         $this->Flash->success(__('The Email has been delivered.'));
                     } else {
                         $this->Flash->error(__('The Email could not be delivered.'));
                     }
-                    return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'confirmEmail']);
 
             } catch (Exception $e) {
                 // echo ‘Exception : ’,  $e->getMessage(), “\n”;
@@ -153,4 +156,19 @@ class ExhibitionUsersController extends AppController
             }
         }
     }
+
+    public function confirmEmail()
+    {
+        $rand = \Cake\Utility\Security::hash('user_name');
+        $rand = substr($rand, 0, 6);
+
+        if ($this->request->is('post')) {
+            if ((string)$this->request->getData('code') == $rand) {
+                $this->Flash->success(__('The Email has been confirmed.'));
+                return $this->redirect(['action' => 'index']);
+            } else {
+                $this->Flash->error(__('The wrong code.'));
+            }
+        }
+   }  
 }
