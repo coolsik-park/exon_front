@@ -227,14 +227,16 @@ class ExhibitionController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->request->allowMethod(['get', 'post', 'delete']);
+        
         $exhibition = $this->Exhibition->get($id);
+        
         if ($this->Exhibition->delete($exhibition)) {
-            $this->Flash->success(__('The exhibition has been deleted.'));
+            $this->Flash->success(__('The exhibition has been deleted.')); 
+        
         } else {
             $this->Flash->error(__('The exhibition could not be deleted. Please, try again.'));
         }
-
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['action' => 'index']);    
     }
 }

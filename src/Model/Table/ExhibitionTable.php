@@ -64,12 +64,16 @@ class ExhibitionTable extends Table
         ]);
         $this->hasMany('ExhibitionGroup', [
             'foreignKey' => 'exhibition_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
         $this->hasMany('ExhibitionStream', [
             'foreignKey' => 'exhibition_id',
         ]);
         $this->hasMany('ExhibitionSurvey', [
             'foreignKey' => 'exhibition_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
         $this->belongsTo('CommonCategory', [
             'foreignKey' => 'common_category_id'
