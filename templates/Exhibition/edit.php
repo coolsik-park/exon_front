@@ -18,10 +18,11 @@
     </aside>
     <div class="column-responsive column-80">
         <div class="exhibition form content">
-            <?= $this->Form->create($exhibition) ?>
+            <?= $this->Form->create($exhibition, ['enctype' => 'multipart/form-data']) ?>
             <fieldset>
                 <legend><?= __('Edit Exhibition') ?></legend>
                 <?php
+                    echo $this->Form->control('image', ['type' => 'file']);
                     echo $this->Form->control('users_id');
                     echo $this->Form->control('title');
                     echo $this->Form->control('description');
@@ -32,8 +33,6 @@
                     echo $this->Form->control('apply_edate', ['empty' => true]);
                     echo $this->Form->control('sdate', ['empty' => true]);
                     echo $this->Form->control('edate', ['empty' => true]);
-                    echo $this->Form->control('image_path');
-                    echo $this->Form->control('image_name');
                     echo $this->Form->control('private');
                     echo $this->Form->control('auto_approval');
                     echo $this->Form->control('name');
@@ -49,9 +48,39 @@
                     echo $this->Form->control('email_notice');
                     echo $this->Form->control('additional');
                     echo $this->Form->control('status');
-                    echo $this->Form->control('users._ids', ['options' => $users]);
+                    ?>
+                    <br>
+                    <legend><?= __('ExhibitionGroup 1') ?></legend>
+                    <?php
+                    echo $this->Form->control('exhibition_group.0.name');
+                    echo $this->Form->control('exhibition_group.0.people');
+                    echo $this->Form->control('exhibition_group.0.amount');
+                    ?>
+                    <br>
+                    <legend><?= __('ExhibitionGroup 2') ?></legend>
+                    <?php
+                    echo $this->Form->control('exhibition_group.1.name');
+                    echo $this->Form->control('exhibition_group.1.people');
+                    echo $this->Form->control('exhibition_group.1.amount');
+                    ?>
+                    <br>
+                    <legend><?= __('ExhibitionSurvey 1') ?></legend>
+                    <?php
+                    echo $this->Form->control('exhibition_survey.0.survey_type');
+                    echo $this->Form->control('exhibition_survey.0.text');
+                    echo $this->Form->control('exhibition_survey.0.is_duplicate');
+                    ?>
+                    <br>
+                    <legend><?= __('ExhibitionSurvey 2') ?></legend>
+                    <?php
+                    echo $this->Form->control('exhibition_survey.1.survey_type');
+                    echo $this->Form->control('exhibition_survey.1.text');
+                    echo $this->Form->control('exhibition_survey.1.is_duplicate');
                 ?>
             </fieldset>
+            <script>
+                CKEDITOR.replace('detail_html');
+            </script>
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>
         </div>
