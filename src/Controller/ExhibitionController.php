@@ -46,7 +46,7 @@ class ExhibitionController extends AppController
     public function view($id = null)
     {
         $exhibition = $this->Exhibition->get($id, [
-            'contain' => ['Users', 'Banner', 'ExhibitionFile', 'ExhibitionGroup', 'ExhibitionStream', 'ExhibitionSurvey'],
+            'contain' => ['Banner', 'ExhibitionFile', 'ExhibitionGroup', 'ExhibitionStream', 'ExhibitionSurvey'],
         ]);
 
         $this->set(compact('exhibition'));
