@@ -19,6 +19,8 @@
             <h3><?= h($exhibition->name) ?></h3>
             <table>
                 <tr>
+                    <?php echo $this->Html->image('/upload/exhibition/2021/07' . DS . $exhibition->image_name, ['alt' => 'abc']); ?>
+                <tr>
                     <th><?= __('Title') ?></th>
                     <td><?= h($exhibition->title) ?></td>
                 </tr>

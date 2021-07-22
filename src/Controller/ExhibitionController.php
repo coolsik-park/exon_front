@@ -72,19 +72,19 @@ class ExhibitionController extends AppController
                 $imgName = $img->getClientFilename();
                 $index = strpos(strrev($imgName), strrev('.'));
                 $expen = strtolower(substr($imgName, ($index * -1)));
-                $path = WWW_ROOT . 'upload' . DS . 'exhibition' . DS . date("Y") . DS . date("m");
+                $path = 'upload' . DS . 'exhibition' . DS . date("Y") . DS . date("m");
                 
                 if ($expen == 'jpeg' || $expen == 'jpg' || $expen == 'png') {
                     
-                    if (!file_exists($path)) {
+                    if (!file_exists(WWW_ROOT . $path)) {
                         $oldMask = umask(0);
-                        mkdir($path, 0777, true);
-                        chmod($path, 0777);
+                        mkdir(WWW_ROOT . $path, 0777, true);
+                        chmod(WWW_ROOT . $path, 0777);
                         umask($oldMask);
                     }
     
                     $imgName = $result->id . "_main." . $expen;
-                    $destination = $path . DS . $imgName;
+                    $destination = WWW_ROOT . $path . DS . $imgName;
                     $img->moveTo($destination);
     
                     $query  = "UPDATE exhibition SET";
