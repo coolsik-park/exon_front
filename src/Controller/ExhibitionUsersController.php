@@ -145,9 +145,11 @@ class ExhibitionUsersController extends AppController
                     ->deliver('Confirmation Code : ' . $rand)) 
                     {
                         $this->Flash->success(__('The Email has been delivered.'));
+                    
                     } else {
                         $this->Flash->error(__('The Email could not be delivered.'));
                     }
+
                     return $this->redirect(['action' => 'confirmEmail']);
 
             } catch (Exception $e) {
@@ -163,9 +165,11 @@ class ExhibitionUsersController extends AppController
         $rand = substr($rand, 0, 6);
 
         if ($this->request->is('post')) {
+
             if ((string)$this->request->getData('code') == $rand) {
                 $this->Flash->success(__('The Email has been confirmed.'));
                 return $this->redirect(['action' => 'index']);
+            
             } else {
                 $this->Flash->error(__('The wrong code.'));
             }
