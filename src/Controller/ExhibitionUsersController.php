@@ -128,8 +128,8 @@ class ExhibitionUsersController extends AppController
 
     public function sendEmail()
     {
-        $rand = \Cake\Utility\Security::hash('user_name');
-        $rand = substr($rand, 0, 6);
+        $code = \Cake\Utility\Security::hash('user_name');
+        $code = substr($code, 0, 6);
 
         if ($this->request->is('post')) {
             $mailer = new Mailer();
@@ -145,7 +145,7 @@ class ExhibitionUsersController extends AppController
                         ->setEmailFormat('html')
                     ->setTo($this->request->getData('email_address'))
                     ->setSubject('Exon Test Email')
-                    ->deliver('Confirmation Code : ' . $rand)) 
+                    ->deliver('Confirmation Code : ' . $code)) 
                     {
                         $this->Flash->success(__('The Email has been delivered.'));
                     
@@ -164,12 +164,12 @@ class ExhibitionUsersController extends AppController
 
     public function confirmEmail()
     {
-        $rand = \Cake\Utility\Security::hash('user_name');
-        $rand = substr($rand, 0, 6);
+        $code = \Cake\Utility\Security::hash('user_name');
+        $code = substr($code, 0, 6);
 
         if ($this->request->is('post')) {
 
-            if ((string)$this->request->getData('code') == $rand) {
+            if ((string)$this->request->getData('code') == $code) {
                 $this->Flash->success(__('The Email has been confirmed.'));
                 return $this->redirect(['action' => 'index']);
             
