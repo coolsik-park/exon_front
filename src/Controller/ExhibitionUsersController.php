@@ -142,7 +142,7 @@ class ExhibitionUsersController extends AppController
                 // $view->set(compact('sender')); //이메일 템플릿에 파라미터 전달
                 // $content = $view->element('email/findPw'); //이메일 템블릿 불러오기
                 if ($res = $mailer->setFrom(['heh1009@livemolo.me' => 'Email Confirmation'])
-                        ->setEmailFormat('html')
+                    ->setEmailFormat('html')
                     ->setTo($this->request->getData('email_address'))
                     ->setSubject('Exon Test Email')
                     ->deliver('Confirmation Code : ' . $code)) 
