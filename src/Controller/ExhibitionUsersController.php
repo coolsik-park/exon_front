@@ -177,5 +177,5 @@ class ExhibitionUsersController extends AppController
                 $this->Flash->error(__('The wrong code.'));
             }
         }
-   }  
+    }
 }
