@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
 
@@ -58,10 +59,11 @@ class ExhibitionUsersController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id = null)
     {
         $exhibitionUser = $this->ExhibitionUsers->newEmptyEntity();
         if ($this->request->is('post')) {
+            $exhibitionUser->exhibition_id = $id;
             $exhibitionUser = $this->ExhibitionUsers->patchEntity($exhibitionUser, $this->request->getData());
             if ($this->ExhibitionUsers->save($exhibitionUser)) {
                 $this->Flash->success(__('The exhibition user has been saved.'));
@@ -71,9 +73,10 @@ class ExhibitionUsersController extends AppController
             $this->Flash->error(__('The exhibition user could not be saved. Please, try again.'));
         }
         $exhibition = $this->ExhibitionUsers->Exhibition->find('list', ['limit' => 200]);
-        $exhibitionGroup = $this->ExhibitionUsers->ExhibitionGroup->find('list', ['limit' => 200]);
+        $exhibitionGroup = $this->ExhibitionUsers->ExhibitionGroup->find('list', ['limit' => 200])->where(['exhibition_id' => $id]);
         $pay = $this->ExhibitionUsers->Pay->find('list', ['limit' => 200]);
-        $this->set(compact('exhibitionUser', 'exhibition', 'exhibitionGroup', 'pay'));
+        $exhibitionSurveys = $this->getTableLocator()->get('ExhibitionSurvey')->find()->select('text')->where(['exhibition_id' => $id]);
+        $this->set(compact('exhibitionUser', 'exhibition', 'exhibitionGroup', 'pay', 'exhibitionSurveys'));
     }
 
     /**

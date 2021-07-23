@@ -17,9 +17,7 @@
             <fieldset>
                 <legend><?= __('Add Exhibition User') ?></legend>
                 <?php
-                    echo $this->Form->control('exhibition_id', ['options' => $exhibition]);
                     echo $this->Form->control('exhibition_group_id', ['options' => $exhibitionGroup]);
-                    echo $this->Form->control('users_id');
                     echo $this->Form->control('users_email');
                     echo $this->Form->control('users_name');
                     echo $this->Form->control('users_hp');
@@ -29,6 +27,20 @@
                     echo $this->Form->control('pay_amount');
                     echo $this->Form->control('status');
                 ?>
+                 <div class="related">
+                <h4><?= __('Exhibition Survey') ?></h4>
+                <?php if (!empty($exhibitionSurveys)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <?php foreach ($exhibitionSurveys as $exhibitionSurvey) : ?>
+                        <tr>
+                            <td><?= h($exhibitionSurvey['text']) ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>

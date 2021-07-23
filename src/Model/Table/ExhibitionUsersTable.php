@@ -123,7 +123,7 @@ class ExhibitionUsersTable extends Table
     {
         $rules->add($rules->existsIn(['exhibition_id'], 'Exhibition'), ['errorField' => 'exhibition_id']);
         $rules->add($rules->existsIn(['exhibition_group_id'], 'ExhibitionGroup'), ['errorField' => 'exhibition_group_id']);
-        $rules->add($rules->existsIn(['users_id'], 'Users'), ['errorField' => 'users_id']);
+        // $rules->add($rules->existsIn(['users_id'], 'Users'), ['errorField' => 'users_id']);
         $rules->add($rules->existsIn(['pay_id'], 'Pay'), ['errorField' => 'pay_id']);
 
         return $rules;

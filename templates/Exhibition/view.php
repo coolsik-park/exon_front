@@ -12,6 +12,7 @@
             <?= $this->Form->postLink(__('Delete Exhibition'), ['action' => 'delete', $exhibition->id], ['confirm' => __('Are you sure you want to delete # {0}?', $exhibition->id), 'class' => 'side-nav-item']) ?>
             <?= $this->Html->link(__('List Exhibition'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
             <?= $this->Html->link(__('New Exhibition'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('Apply'), ['controller' => 'exhibitionUsers', 'action' => 'add', $exhibition->id], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
     <div class="column-responsive column-80">
