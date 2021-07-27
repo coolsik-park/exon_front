@@ -175,10 +175,12 @@ class ExhibitionUsersController extends AppController
         $commonConfirmation = $CommonConfirmations->find()->select(['confirmation_code', 'expired'])->where(['id' => $id])->toArray();
         $code = $commonConfirmation[0]['confirmation_code'];
         $expired = $commonConfirmation[0]['expired'];
-        $time =FrozenTime::now();
 
         if ($this->request->is('post')) {
+            $time =FrozenTime::now();
+            
             if ($time < $expired) {
+                
                 if ($this->request->getData('code') == $code) {
                     $this->Flash->success(__('The Email has been confirmed.'));
                     return $this->redirect(['action' => 'index']);
