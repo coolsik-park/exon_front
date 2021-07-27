@@ -93,126 +93,126 @@ class ExhibitionTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
-        $validator
-            ->integer('id')
-            ->allowEmptyString('id', null, 'create');
+        // $validator
+        //     ->integer('id')
+        //     ->allowEmptyString('id', null, 'create');
 
-        $validator
-            ->scalar('title')
-            ->maxLength('title', 255)
-            ->requirePresence('title', 'create')
-            ->notEmptyString('title');
+        // $validator
+        //     ->scalar('title')
+        //     ->maxLength('title', 255)
+        //     ->requirePresence('title', 'create')
+        //     ->notEmptyString('title');
 
-        $validator
-            ->scalar('description')
-            ->maxLength('description', 255)
-            ->allowEmptyString('description');
+        // $validator
+        //     ->scalar('description')
+        //     ->maxLength('description', 255)
+        //     ->allowEmptyString('description');
 
-        $validator
-            ->scalar('category')
-            ->maxLength('category', 64)
-            ->requirePresence('category', 'create')
-            ->notEmptyString('category');
+        // $validator
+        //     ->scalar('category')
+        //     ->maxLength('category', 64)
+        //     ->requirePresence('category', 'create')
+        //     ->notEmptyString('category');
 
-        $validator
-            ->scalar('type')
-            ->maxLength('type', 64)
-            ->allowEmptyString('type');
+        // $validator
+        //     ->scalar('type')
+        //     ->maxLength('type', 64)
+        //     ->allowEmptyString('type');
 
-        $validator
-            ->scalar('detail_html')
-            ->allowEmptyString('detail_html');
+        // $validator
+        //     ->scalar('detail_html')
+        //     ->allowEmptyString('detail_html');
 
-        $validator
-            ->dateTime('apply_sdate')
-            ->allowEmptyDateTime('apply_sdate');
+        // $validator
+        //     ->dateTime('apply_sdate')
+        //     ->allowEmptyDateTime('apply_sdate');
 
-        $validator
-            ->dateTime('apply_edate')
-            ->allowEmptyDateTime('apply_edate');
+        // $validator
+        //     ->dateTime('apply_edate')
+        //     ->allowEmptyDateTime('apply_edate');
 
-        $validator
-            ->dateTime('sdate')
-            ->allowEmptyDateTime('sdate');
+        // $validator
+        //     ->dateTime('sdate')
+        //     ->allowEmptyDateTime('sdate');
 
-        $validator
-            ->dateTime('edate')
-            ->allowEmptyDateTime('edate');
+        // $validator
+        //     ->dateTime('edate')
+        //     ->allowEmptyDateTime('edate');
 
-        $validator
-            ->scalar('image_path')
-            ->maxLength('image_path', 255)
-            ->allowEmptyFile('image_path');
+        // $validator
+        //     ->scalar('image_path')
+        //     ->maxLength('image_path', 255)
+        //     ->allowEmptyFile('image_path');
 
-        $validator
-            ->scalar('image_name')
-            ->maxLength('image_name', 128)
-            ->allowEmptyFile('image_name');
+        // $validator
+        //     ->scalar('image_name')
+        //     ->maxLength('image_name', 128)
+        //     ->allowEmptyFile('image_name');
 
-        $validator
-            ->integer('private')
-            ->notEmptyString('private');
+        // $validator
+        //     ->integer('private')
+        //     ->notEmptyString('private');
 
-        $validator
-            ->integer('auto_approval')
-            ->notEmptyString('auto_approval');
+        // $validator
+        //     ->integer('auto_approval')
+        //     ->notEmptyString('auto_approval');
 
-        $validator
-            ->scalar('name')
-            ->maxLength('name', 45)
-            ->requirePresence('name', 'create')
-            ->notEmptyString('name');
+        // $validator
+        //     ->scalar('name')
+        //     ->maxLength('name', 45)
+        //     ->requirePresence('name', 'create')
+        //     ->notEmptyString('name');
 
-        $validator
-            ->scalar('tel')
-            ->maxLength('tel', 16)
-            ->requirePresence('tel', 'create')
-            ->notEmptyString('tel');
+        // $validator
+        //     ->scalar('tel')
+        //     ->maxLength('tel', 16)
+        //     ->requirePresence('tel', 'create')
+        //     ->notEmptyString('tel');
 
-        $validator
-            ->email('email')
-            ->requirePresence('email', 'create')
-            ->notEmptyString('email');
+        // $validator
+        //     ->email('email')
+        //     ->requirePresence('email', 'create')
+        //     ->notEmptyString('email');
 
-        $validator
-            ->integer('require_name')
-            ->notEmptyString('require_name');
+        // $validator
+        //     ->integer('require_name')
+        //     ->notEmptyString('require_name');
 
-        $validator
-            ->integer('require_email')
-            ->notEmptyString('require_email');
+        // $validator
+        //     ->integer('require_email')
+        //     ->notEmptyString('require_email');
 
-        $validator
-            ->integer('require_tel')
-            ->notEmptyString('require_tel');
+        // $validator
+        //     ->integer('require_tel')
+        //     ->notEmptyString('require_tel');
 
-        $validator
-            ->integer('require_age')
-            ->notEmptyString('require_age');
+        // $validator
+        //     ->integer('require_age')
+        //     ->notEmptyString('require_age');
 
-        $validator
-            ->integer('require_group')
-            ->notEmptyString('require_group');
+        // $validator
+        //     ->integer('require_group')
+        //     ->notEmptyString('require_group');
 
-        $validator
-            ->integer('require_sex')
-            ->notEmptyString('require_sex');
+        // $validator
+        //     ->integer('require_sex')
+        //     ->notEmptyString('require_sex');
 
-        $validator
-            ->integer('require_cert')
-            ->notEmptyString('require_cert');
+        // $validator
+        //     ->integer('require_cert')
+        //     ->notEmptyString('require_cert');
 
-        $validator
-            ->integer('email_notice')
-            ->notEmptyString('email_notice');
+        // $validator
+        //     ->integer('email_notice')
+        //     ->notEmptyString('email_notice');
 
-        $validator
-            ->integer('additional')
-            ->notEmptyString('additional');
+        // $validator
+        //     ->integer('additional')
+        //     ->notEmptyString('additional');
 
-        $validator
-            ->integer('status')
-            ->notEmptyString('status');
+        // $validator
+        //     ->integer('status')
+        //     ->notEmptyString('status');
 
         return $validator;
     }

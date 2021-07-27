@@ -166,7 +166,7 @@ class ExhibitionUsersController extends AppController
     {
         $code = \Cake\Utility\Security::hash('user_name');
         $code = substr($code, 0, 6);
-
+        
         if ($this->request->is('post')) {
 
             if ((string)$this->request->getData('code') == $code) {

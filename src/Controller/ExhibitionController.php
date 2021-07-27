@@ -93,23 +93,32 @@ class ExhibitionController extends AppController
                     $query .= " where id=" . $result->id;
 
                     if ($connection->query($query)) {
-                        $parentId = $result->exhibition_survey[0]->id;
-                        $whereId = $parentId + 1;
-    
-                        $query  = "UPDATE exhibition_survey SET";
-                        $query .= " parent_id=" . $parentId;
-                        $query .= " where id=" . $whereId;
-    
-                        if ($connection->query($query)) {
-                            $connection->commit();
-                            $this->Flash->success(__('The exhibition has been saved.'));
-                            return $this->redirect(['action' => 'index']);
-                        
-                        } else {
-                            $connection->rollback(); 
-                            $this->Flash->error(__('The exhibition img could not be saved. Please, try again.'));
+                        $parentId = 0;
+                        $whereId = 0;
+
+                        for ($i =0; $i < count($result->exhibition_survey); $i++) {
+
+                            if ($result->exhibition_survey[$i]->survey_type != null && $result->exhibition_survey[$i]->is_duplicate != null) {
+                                $parentId = $result->exhibition_survey[$i]->id;
+                                $surveyType = $result->exhibition_survey[$i]->survey_type;
+                                $isDuplicate = $result->exhibition_survey[$i]->is_duplicate;
+                            } else {
+                                $whereId = $result->exhibition_survey[$i]->id;
+
+                                $query  = "UPDATE exhibition_survey SET";
+                                $query .= " parent_id=" . $parentId;
+                                $query .= ", survey_type='" . $surveyType . "'";
+                                $query .= ", is_duplicate='" . $isDuplicate . "'";
+                                $query .= " where id=" . $whereId;
+
+                                $connection->query($query);
+                            }
                         }
-    
+                        
+                        $connection->commit();
+                        $this->Flash->success(__('The exhibition has been saved.'));
+                        return $this->redirect(['action' => 'index']);
+                        
                     } else {
                         $connection->rollback(); 
                         $this->Flash->error(__('The exhibition survey could not be saved. Please, try again.'));

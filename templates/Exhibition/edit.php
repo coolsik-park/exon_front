@@ -73,9 +73,9 @@
                     <br>
                     <legend><?= __('ExhibitionSurvey 2') ?></legend>
                     <?php
-                    echo $this->Form->control('exhibition_survey.1.survey_type');
-                    echo $this->Form->control('exhibition_survey.1.text');
-                    echo $this->Form->control('exhibition_survey.1.is_duplicate');
+                    echo $this->Form->control('exhibition_survey.6.survey_type');
+                    echo $this->Form->control('exhibition_survey.6.text');
+                    echo $this->Form->control('exhibition_survey.6.is_duplicate');
                 ?>
             </fieldset>
             <script>
