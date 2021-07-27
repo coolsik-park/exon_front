@@ -5,6 +5,7 @@ namespace App\Controller;
 use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
+use Cake\I18n\FrozenTime;
 
 /**
  * ExhibitionUsers Controller
@@ -128,54 +129,77 @@ class ExhibitionUsersController extends AppController
 
     public function sendEmail()
     {
-        $code = \Cake\Utility\Security::hash('user_name');
-        $code = substr($code, 0, 6);
-
         if ($this->request->is('post')) {
             $mailer = new Mailer();
             $mailer->setTransport('mailjet');
 
-            try {
-                // $host = HOST;
-                // $sender = SEND_EMAIL;
-                // $view = new \Cake\View\View($this->request, $this->response);
-                // $view->set(compact('sender')); //이메일 템플릿에 파라미터 전달
-                // $content = $view->element('email/findPw'); //이메일 템블릿 불러오기
-                if ($res = $mailer->setFrom(['heh1009@livemolo.me' => 'Email Confirmation'])
-                    ->setEmailFormat('html')
-                    ->setTo($this->request->getData('email_address'))
-                    ->setSubject('Exon Test Email')
-                    ->deliver('Confirmation Code : ' . $code)) 
-                    {
-                        $this->Flash->success(__('The Email has been delivered.'));
-                    
-                    } else {
-                        $this->Flash->error(__('The Email could not be delivered.'));
-                    }
+            $code = $this->generateCode();
+            $CommonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
+            $commonConfirmation = $CommonConfirmations->newEmptyEntity();
+            $commonConfirmation = $CommonConfirmations->patchEntity($commonConfirmation, ['confirmation_code' => $code, 'types' => 'email']);
 
-                    return $this->redirect(['action' => 'confirmEmail']);
-
-            } catch (Exception $e) {
-                // echo ‘Exception : ’,  $e->getMessage(), “\n”;
-                echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
+            if ($result = $CommonConfirmations->save($commonConfirmation)) {
+                try {
+                    // $host = HOST;
+                    // $sender = SEND_EMAIL;
+                    // $view = new \Cake\View\View($this->request, $this->response);
+                    // $view->set(compact('sender')); //이메일 템플릿에 파라미터 전달
+                    // $content = $view->element('email/findPw'); //이메일 템블릿 불러오기
+                    if ($res = $mailer->setFrom(['heh1009@livemolo.me' => 'Email Confirmation'])
+                        ->setEmailFormat('html')
+                        ->setTo($this->request->getData('email_address'))
+                        ->setSubject('Exon Test Email')
+                        ->deliver('Confirmation Code : ' . $code)) 
+                        {
+                            $this->Flash->success(__('The Email has been delivered.'));
+                        
+                        } else {
+                            $this->Flash->error(__('The Email could not be delivered.'));
+                        }
+    
+                        return $this->redirect(['action' => 'confirmEmail', $result->id]);
+    
+                } catch (Exception $e) {
+                    // echo ‘Exception : ’,  $e->getMessage(), “\n”;
+                    echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
+                }
+            } else {
+                $this->Flash->error(__('The Confirmation Code could not be saved.'));
             }
         }
     }
 
-    public function confirmEmail()
+    public function confirmEmail($id = null)
     {
-        $code = \Cake\Utility\Security::hash('user_name');
-        $code = substr($code, 0, 6);
-        
-        if ($this->request->is('post')) {
+        $CommonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
+        $commonConfirmation = $CommonConfirmations->find()->select(['confirmation_code', 'expired'])->where(['id' => $id])->toArray();
+        $code = $commonConfirmation[0]['confirmation_code'];
+        $expired = $commonConfirmation[0]['expired'];
+        $time =FrozenTime::now();
 
-            if ((string)$this->request->getData('code') == $code) {
-                $this->Flash->success(__('The Email has been confirmed.'));
-                return $this->redirect(['action' => 'index']);
-            
+        if ($this->request->is('post')) {
+            if ($time < $expired) {
+                if ($this->request->getData('code') == $code) {
+                    $this->Flash->success(__('The Email has been confirmed.'));
+                    return $this->redirect(['action' => 'index']);
+                
+                } else {
+                    $this->Flash->error(__('The wrong code.'));
+                }
+
             } else {
-                $this->Flash->error(__('The wrong code.'));
+                $this->Flash->error(__('Overtime'));
             }
         }
+    }
+
+    function generateCode()
+    {
+        $characters = '123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $code = '';
+        for ($i = 0; $i < 6; $i++) {
+            $code .= substr($characters, rand(0, strlen($characters)), 1);
+        }
+        return $code;
     }
 }
