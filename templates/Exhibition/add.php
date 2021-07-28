@@ -99,14 +99,8 @@
                     echo $this->Form->control('exhibition_survey.6.survey_type');
                     echo $this->Form->control('exhibition_survey.6.text');
                     echo $this->Form->control('exhibition_survey.6.is_duplicate');
-                    ?>
-                    <br>
-                    <?php
-                    echo $this->Form->control('exhibition_survey.7.text');
-                    ?>
-                    <br>
-                    <?php
-                    echo $this->Form->control('exhibition_survey.8.text');
+                    
+                    
                 ?>
             </fieldset>
             <script>

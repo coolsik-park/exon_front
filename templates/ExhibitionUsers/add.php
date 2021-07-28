@@ -33,9 +33,16 @@
                 <div class="table-responsive">
                     <table>
                         <?php foreach ($exhibitionSurveys as $exhibitionSurvey) : ?>
+                        <?php $i = 0; ?>
                         <tr>
                             <td><?= h($exhibitionSurvey) ?></td>
+                            <td>
+                                <?php 
+                                    echo $this->Form->control('exhibition_survey_users_answer.' . $i .'.text'); 
+                                ?>
+                            </td>
                         </tr>
+                        <?php $i++; ?>
                         <?php endforeach; ?>
                     </table>
                 </div>

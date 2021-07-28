@@ -94,6 +94,11 @@ class ExhibitionSurveyTable extends Table
             ->scalar('is_duplicate')
             ->maxLength('is_duplicate', 2)
             ->allowEmptyString('is_duplicate');
+        
+        $validator
+            ->scalar('is_multiple')
+            ->maxLength('is_multiple', 2)
+            ->allowEmptyString('is_multiple');
 
         return $validator;
     }

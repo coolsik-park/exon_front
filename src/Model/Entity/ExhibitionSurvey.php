@@ -39,6 +39,7 @@ class ExhibitionSurvey extends Entity
         'parent_id' => true,
         'text' => true,
         'is_duplicate' => true,
+        'is_multiple' => true,
         'created' => true,
         'modified' => true,
         'exhibition' => true,
