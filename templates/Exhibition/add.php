@@ -107,7 +107,6 @@
                     <br>
                     <?php
                     echo $this->Form->control('exhibition_survey.8.text');
-                    
                 ?>
             </fieldset>
             <script>

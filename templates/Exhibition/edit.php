@@ -71,11 +71,45 @@
                     echo $this->Form->control('exhibition_survey.0.is_duplicate');
                     ?>
                     <br>
+                    
+                    <?php
+                    echo $this->Form->control('exhibition_survey.1.text');
+                    ?>
+                    <br>
+                   
+                    <?php
+                    echo $this->Form->control('exhibition_survey.2.text');
+                    ?>
+                    <br>
+                   
+                    <?php
+                    echo $this->Form->control('exhibition_survey.3.text');
+                    ?>
+                    <br>
+                   
+                    <?php
+                    echo $this->Form->control('exhibition_survey.4.text');
+                    ?>
+                    <br>
+                    
+                    <?php
+                    echo $this->Form->control('exhibition_survey.5.text');
+                    ?>
+                    <br>
+
                     <legend><?= __('ExhibitionSurvey 2') ?></legend>
                     <?php
                     echo $this->Form->control('exhibition_survey.6.survey_type');
                     echo $this->Form->control('exhibition_survey.6.text');
                     echo $this->Form->control('exhibition_survey.6.is_duplicate');
+                    ?>
+                    <br>
+                    <?php
+                    echo $this->Form->control('exhibition_survey.7.text');
+                    ?>
+                    <br>
+                    <?php
+                    echo $this->Form->control('exhibition_survey.8.text');
                 ?>
             </fieldset>
             <script>
