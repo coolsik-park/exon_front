@@ -34,7 +34,7 @@
                     <table>
                         <?php foreach ($exhibitionSurveys as $exhibitionSurvey) : ?>
                         <tr>
-                            <td><?= h($exhibitionSurvey['text']) ?></td>
+                            <td><?= h($exhibitionSurvey) ?></td>
                         </tr>
                         <?php endforeach; ?>
                     </table>

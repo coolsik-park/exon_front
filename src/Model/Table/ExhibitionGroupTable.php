@@ -43,7 +43,7 @@ class ExhibitionGroupTable extends Table
         parent::initialize($config);
 
         $this->setTable('exhibition_group');
-        $this->setDisplayField('name');
+        $this->setDisplayField(['name', 'amount']);
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');

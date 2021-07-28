@@ -166,7 +166,6 @@ class ExhibitionController extends AppController
             $connection->query($query);
             
             $exhibition = $this->Exhibition->patchEntity($exhibition, $this->request->getData(), ['associated' => ['ExhibitionGroup', 'ExhibitionSurvey']]);
-            $exhibition->exhibition_survey[0]->id = 620;
             
             if ($result = $this->Exhibition->save($exhibition)) {
                 $img = $this->request->getData('image');
