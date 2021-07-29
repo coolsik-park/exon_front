@@ -25,53 +25,52 @@ class BoardsController extends AppController
     
     public function add()
     {
+        $connection = ConnectionManager::get('default');
+        $connection->begin();
+
         $userquestion_table = TableRegistry::get('UserQuestion');
         $board = $userquestion_table->newEmptyEntity();
-        $board->faq_category_id = 1;   
+
         if($this->request->is('post')) {
             $board = $userquestion_table->patchEntity($board, $this->request->getData());
-            echo($board);
-            if($userquestion_table->save($board)) {
-                $this->Flash->success(__('The user has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
-        }
-        $this->set(compact('board'));
-    }
+            
+            if($result = $userquestion_table->save($board)) {
+                $file = $this->request->getData('file_name');
+                $fileName = $file->getClientFilename();
+                $index = strpos(strrev($fileName), strrev('.'));
+                $expen = strtolower(substr($fileName, ($index * -1)));
+                $path = 'upload' . DS . 'boards' . DS . 'user_question' . DS . date("Y") . DS . date("m");
 
-    public function fileadd()
-    {
-        $userquestionfiles_table = TableRegistry::get('UserQuestionFiles');
-        $board_file = $userquestionfiles_table->newEmptyEntity();
-        $board_file->user_question_id = 1;
-        // $board_file->file_path = 
-        if($this->request->is('post')) {
-            $postdata = $this->request->getData();
-            $postfile = $this->request->getData('file_name');
-            // debug($postfile);
-            $name = $postfile->getClientFilename();
-            // debug($name);
-            $type = $postfile->getClientMediaType();
-            // debug($type);
-            $file_path = WWW_ROOT. 'upload/boards/';
-            if($type == 'image/jpeg' || $type == 'image/jpg' || $type == 'image/png') {
-                if(!empty($name)) {
-                    if($postfile->getSize() > 0 && $postfile->getError() == 0) {
-                        $postfile->moveTo($file_path.$name);
-                        $postdata['file_name'] = $name;
-                        $postdata['file_path'] = $file_path;
-                    }
+                if (!file_exists(WWW_ROOT . $path)) {
+                    $oldMask = umask(0);
+                    mkdir(WWW_ROOT . $path, 0777, true);
+                    chmod(WWW_ROOT . $path, 0777);
+                    umask($oldMask);
                 }
+                
+                $fileName = $result->id . "_question." . $expen;
+                $destination = WWW_ROOT . $path . DS . $fileName;
+                $file->moveTo($destination);
+
+                $query = "INSERT INTO user_question_files(user_question_id, file_path, file_name)";
+                $query .= " values(" . $result->id . ", '" . $path . "', '" . $fileName . "')";
+
+                if($connection->query($query)) {
+                    $connection->commit();
+                    $this->Flash->success(__('Your post has been saved.'));
+                    return $this->redirect(['action' => 'index']);
+                } else {
+                    $connection->rollback();
+                    $this->Flash->error(__('Unable to add your post.'));
+                }
+            } else {
+                $connection->rollback();
+                $this->Flash->error(__('The user could not be saved. Please, try again.'));
             }
-            $board_file = $userquestionfiles_table->patchEntity($board_file, $postdata);
-            if($userquestionfiles_table->save($board_file)) {
-                $this->Flash->success(__('Your post has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('Unable to add your post.'));
         }
-        $this->set(compact('board_file'));
+        $faqCategory = $this->getTableLocator()->get('FaqCategory');
+        $categories = $faqCategory->find('list')->select('text')->where(['status' => 1]);
+        $this->set(compact('board', 'categories'));
     }
 
     public function view($id = null) 

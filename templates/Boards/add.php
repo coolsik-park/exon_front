@@ -13,16 +13,17 @@
     </aside>
     <div class="column-responsive column-80">
         <div class="users form content">
-            <?= $this->Form->create($board) ?>
+            <?= $this->Form->create($board, ['enctype'=>'multipart/form-data']) ?>
             <fieldset>
                 <legend><?= __('Add UserQuestion') ?></legend>
                 <?php
-                    echo $this->Form->control('faq_category_id');
+                    echo $this->Form->control('faq_category_id', ['options' => $categories]);
                     echo $this->Form->control('title');
                     echo $this->Form->control('users_name');
                     echo $this->Form->control('users_hp');
-                    echo $this->Form->control('users_email');
+                    echo $this->Form->control('users_email', ['type' => 'email']);
                     echo $this->Form->control('question');
+                    echo $this->Form->control('file_name', ['type'=>'file']);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
