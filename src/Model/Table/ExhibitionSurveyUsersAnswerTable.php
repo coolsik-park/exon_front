@@ -84,7 +84,12 @@ class ExhibitionSurveyUsersAnswerTable extends Table
             ->scalar('text')
             ->maxLength('text', 2048)
             ->requirePresence('text', 'create')
-            ->notEmptyString('text');
+            ->allowEmptyString('text');
+        
+        $validator
+            ->scalar('is_multiple')
+            ->maxLength('is_multiple', 2)
+            ->allowEmptyString('is_multiple');
 
         return $validator;
     }

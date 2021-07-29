@@ -6,6 +6,7 @@ use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
 use Cake\I18n\FrozenTime;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * ExhibitionUsers Controller
@@ -62,16 +63,57 @@ class ExhibitionUsersController extends AppController
      */
     public function add($id = null)
     {
+        $connection = ConnectionManager::get('default');
+        $connection->begin();
+
         $exhibitionUser = $this->ExhibitionUsers->newEmptyEntity();
         if ($this->request->is('post')) {
             $exhibitionUser->exhibition_id = $id;
             $exhibitionUser = $this->ExhibitionUsers->patchEntity($exhibitionUser, $this->request->getData());
-            if ($this->ExhibitionUsers->save($exhibitionUser)) {
-                $this->Flash->success(__('The exhibition user has been saved.'));
+            
+            if ($this->ExhibitionUsers->save($exhibitionUser)) { 
+                $survey = $this->getTableLocator()->get('ExhibitionSurvey')->find()->select(['id', 'parent_id', 'is_multiple'])->where(['exhibition_id' => $id])->toArray();
+                $UserAnswer = $this->getTableLocator()->get('ExhibitionSurveyUsersAnswer');
+                $userAnswer = $this->request->getData('exhibition_survey_users_answer');
+                $userId = 1;
+                $parentId = 0;
+                $whereId = 0;
 
+                for ($i = 0; $i < count($userAnswer); $i++) {
+                    $query  = "INSERT INTO exhibition_survey_users_answer (exhibition_survey_id, users_id, text, is_multiple) values ("; 
+                    $query .= $survey[$i]->id . ", " . $userId . ", '" . $userAnswer[$i]['text'] . "', '" .$survey[$i]->is_multiple . "')";
+                    
+                    if (!$result = $connection->query($query)) {
+                        $this->Flash->error(__('The exhibition user could not be saved. Please, try again.'));
+                        $connection->rollback();
+                    }
+                    
+                    if ($survey[$i]->parent_id == null && $survey[$i]->is_multiple == "Y") {
+                        $parentId = $result->lastInsertId();
+                        
+                    } else {
+                        if ($survey[$i]->is_multiple == "Y") {
+                            $whereId = $result->lastInsertId();
+
+                            $query = "UPDATE exhibition_survey_users_answer SET";
+                            $query .= " parent_id=" . $parentId;
+                            $query .= " where id=" . $whereId;
+
+                            if (!$connection->query($query)) {
+                                $this->Flash->error(__('The exhibition user could not be saved. Please, try again.'));
+                                $connection->rollback();
+                            }
+                        } 
+                    }
+                }
+                $this->Flash->success(__('The exhibition user has been saved.'));
+                $connection->commit();
                 return $this->redirect(['action' => 'index']);
+
+            } else {
+                $this->Flash->error(__('The exhibition user could not be saved. Please, try again.'));
+                $connection->rollback();
             }
-            $this->Flash->error(__('The exhibition user could not be saved. Please, try again.'));
         }
         $exhibition = $this->ExhibitionUsers->Exhibition->find('list', ['limit' => 200]);
         $exhibitionGroup = $this->ExhibitionUsers->ExhibitionGroup->find('list', ['limit' => 200])->where(['exhibition_id' => $id]);

@@ -32,17 +32,25 @@
                 <?php if (!empty($exhibitionSurveys)) : ?>
                 <div class="table-responsive">
                     <table>
-                        <?php foreach ($exhibitionSurveys as $exhibitionSurvey) : ?>
                         <?php $i = 0; ?>
+                        <?php foreach ($exhibitionSurveys as $exhibitionSurvey) : ?>
+                        <?php 
+                            $data = Cake\Utility\Text::tokenize($exhibitionSurvey, ';');
+                        ?>
                         <tr>
-                            <td><?= h($exhibitionSurvey) ?></td>
+                            <td><?= h($data[0]) ?></td>
                             <td>
-                                <?php 
-                                    echo $this->Form->control('exhibition_survey_users_answer.' . $i .'.text'); 
+                                <?php
+                                    if ($data[1] == 'N' || $data[2] != null) {
+                                        echo $this->Form->control('exhibition_survey_users_answer.' . $i . '.text');
+                                        $i++; 
+                                    } else {
+                                        echo $this->Form->control('exhibition_survey_users_answer.' . $i . '.text', ['type' => 'hidden', 'value' => 'question']);
+                                        $i++;
+                                    }
                                 ?>
                             </td>
                         </tr>
-                        <?php $i++; ?>
                         <?php endforeach; ?>
                     </table>
                 </div>

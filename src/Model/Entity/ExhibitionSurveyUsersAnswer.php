@@ -37,6 +37,7 @@ class ExhibitionSurveyUsersAnswer extends Entity
         'users_id' => true,
         'text' => true,
         'parent_id' => true,
+        'is_miltiple' => true,
         'created' => true,
         'modified' => true,
         'exhibition_survey' => true,
