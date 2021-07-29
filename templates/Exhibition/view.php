@@ -17,7 +17,7 @@
     </aside>
     <div class="column-responsive column-80">
         <div class="exhibition view content">
-            <h3><?= h($exhibition->name) ?></h3>
+            <h3><?= h($exhibition->title) ?></h3>
             <table>
                 <tr>
                     <?php echo $this->Html->image(DS . $exhibition->image_path . DS . $exhibition->image_name); ?>

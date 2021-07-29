@@ -32,7 +32,7 @@
                 <?php foreach ($exhibitionUsers as $exhibitionUser): ?>
                 <tr>
                     <td><?= $this->Number->format($exhibitionUser->id) ?></td>
-                    <td><?= $exhibitionUser->has('exhibition') ? $this->Html->link($exhibitionUser->exhibition->name, ['controller' => 'Exhibition', 'action' => 'view', $exhibitionUser->exhibition->id]) : '' ?></td>
+                    <td><?= $exhibitionUser->has('exhibition') ? $this->Html->link($exhibitionUser->exhibition->title, ['controller' => 'Exhibition', 'action' => 'view', $exhibitionUser->exhibition->id]) : '' ?></td>
                     <td><?= $exhibitionUser->has('exhibition_group') ? $this->Html->link($exhibitionUser->exhibition_group->name, ['controller' => 'ExhibitionGroup', 'action' => 'view', $exhibitionUser->exhibition_group->id]) : '' ?></td>
                     <td><?= $this->Number->format($exhibitionUser->users_id) ?></td>
                     <td><?= h($exhibitionUser->users_email) ?></td>
