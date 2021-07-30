@@ -24,7 +24,8 @@
                     <td><?= h($board->title) ?></td>
                     <td><?= h($board->created) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $board->id]) ?>
+                        <?= $this->Html->link(__('View'), ['action' => 'noticeView', $board->id]) ?>
+                        <?= $this->Html->link(__('Edit'), ['action' => 'noticeEdit', $board->id]) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>

@@ -173,10 +173,27 @@ class BoardsController extends AppController
         $this->set(compact('board'));
     }
 
-    public function notice_view($id = null)
+    public function noticeView($id = null)
     {
         echo($id);
         exit;
+    }
+
+    public function noticeEdit($id = null)
+    {
+        $notice_table = TableRegistry::get('Notice');
+        $board = $notice_table->get($id, [
+            'contain' => [],
+        ]);
+        if($this->request->is(['patch', 'post', 'put'])) {
+            $board = $notice_table->patchEntity($board, $this->request->getData());
+            if($notice_table->save($board)) {
+                $this->Flash->success(__('The user has been saved.'));
+                return $this->redirect(['action' => 'notice']);
+            }
+            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+        }
+        $this->set(compact('board'));
     }
 
     public function faqsByCategory($FaqCategoryId = null)
