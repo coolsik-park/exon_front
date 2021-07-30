@@ -5,6 +5,7 @@
  */
 ?>
 <div class="userquestion index content">
+    <?= $this->Html->link(__('New Notice'), ['action' => 'notice_add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Notice') ?></h3>
     <div class="table-responsive">
         <table>

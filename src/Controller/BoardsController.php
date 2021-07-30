@@ -118,6 +118,59 @@ class BoardsController extends AppController
         $this->set(compact('boards'));
     }
 
+    public function  noticeAdd() 
+    {
+        $connection = ConnectionManager::get('default');
+        $connection->begin();
+
+        $notice_table = TableRegistry::get('Notice');
+        $board = $notice_table->newEmptyEntity();
+        $board->file_path = '';
+        $board->file_name = '';
+
+        if($this->request->is('post')) {
+            $board = $notice_table->patchEntity($board, $this->request->getData('board'));
+
+            if($result = $notice_table->save($board)) {
+                $file = $this->request->getData('file_name');
+                $fileName = $file->getClientFilename();
+                $index = strpos(strrev($fileName), strrev('.'));
+                $expen = strtolower(substr($fileName, ($index*-1)));
+                $path = 'upload' . DS . 'notice' . DS . date("Y") . date("m");
+
+                if(!file_exists(WWW_ROOT . $path)) {
+                    $olfMask = umask(0);
+                    mkdir(WWW_ROOT . $path, 0777, true);
+                    chmod(WWW_ROOT . $path, 0777);
+                    umask($oldMask);
+                }
+
+                $fileName = $result->id . "_notice." . $expen;
+                $destination = WWW_ROOT . $path . DS . $fileName;
+                $file->moveTO($destination);
+
+                $query = "UPDATE notice SET";
+                $query .= " file_path='" . $path . "'";
+                $query .= ", file_name='" . $fileName . "'";
+                $query .= " where id=" . $result->id;
+
+                if($connection->query($query)) {
+                    $connection->commit();
+                    $this->Flash->success(__('Your Post has been saved.'));
+                    return $this->redirect(['action' => 'notice']);
+                } else {
+                    $connection->rollback();
+                    $this->Flash->success(__('Unable to add your post.'));
+                }
+            } else {
+                $connection->rollback();
+                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+                
+            }
+        }
+        $this->set(compact('board'));
+    }
+
     public function notice_view($id = null)
     {
         echo($id);
