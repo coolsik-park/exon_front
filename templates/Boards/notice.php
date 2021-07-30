@@ -26,6 +26,7 @@
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'noticeView', $board->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'noticeEdit', $board->id]) ?>
+                        <?= $this->Html->link(__('Delete'), ['action' => 'noticeDelete', $board->id], ['confirm' => __('Are you sure you want to delete # {0}?', $board->id)]) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>

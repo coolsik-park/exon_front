@@ -196,6 +196,21 @@ class BoardsController extends AppController
         $this->set(compact('board'));
     }
 
+    public function noticeDelete($id = null)
+    {
+        $notice_table = TableRegistry::get('Notice');
+        $board = $notice_table->get($id, [
+            'contain' => [],
+        ]);
+        if($notice_table->delete($board)) {
+            $this->Flash->error(__('The user has deleted.'));
+        } else {
+            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
+        }
+
+        return $this->redirect(['action' => 'notice']);
+    }
+
     public function faqsByCategory($FaqCategoryId = null)
     {
         $faqs = $this->getTableLocator()->get('Faq');
