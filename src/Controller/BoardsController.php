@@ -94,7 +94,9 @@ class BoardsController extends AppController
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
-        $this->set(compact('board'));
+        $faqCategory = $this->getTableLocator()->get('FaqCategory');
+        $categories = $faqCategory->find('list')->select('text')->where(['status' => 1]);
+        $this->set(compact('board', 'categories'));
     }
 
     public function delete($id = null)

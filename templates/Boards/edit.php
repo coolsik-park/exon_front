@@ -22,7 +22,7 @@
             <fieldset>
                 <legend><?= __('Edit UseQuestion') ?></legend>
                 <?php
-                    echo $this->Form->control('faq_category_id');
+                    echo $this->Form->control('faq_category_id', ['options' => $categories]);
                     echo $this->Form->control('title');
                     echo $this->Form->control('users_name');
                     echo $this->Form->control('users_hp');
