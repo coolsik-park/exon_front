@@ -5,8 +5,8 @@ namespace App\Controller;
 use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
-use Cake\I18n\FrozenTime;
 use Cake\Datasource\ConnectionManager;
+use Cake\I18n\FrozenTime;
 
 /**
  * ExhibitionUsers Controller
@@ -214,16 +214,13 @@ class ExhibitionUsersController extends AppController
     public function confirmEmail($id = null)
     {
         $CommonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
-        $commonConfirmation = $CommonConfirmations->find()->select(['confirmation_code', 'expired'])->where(['id' => $id])->toArray();
-        $code = $commonConfirmation[0]['confirmation_code'];
-        $expired = $commonConfirmation[0]['expired'];
+        $commonConfirmation = $CommonConfirmations->find('all')->where(['id' => $id])->toArray();
 
         if ($this->request->is('post')) {
-            $time =FrozenTime::now();
             
-            if ($time < $expired) {
+            if (FrozenTime::now() < $commonConfirmation[0]->expired) {
                 
-                if ($this->request->getData('code') == $code) {
+                if ($this->request->getData('code') == $commonConfirmation[0]->confirmation_code) {
                     $this->Flash->success(__('The Email has been confirmed.'));
                     return $this->redirect(['action' => 'index']);
                 
