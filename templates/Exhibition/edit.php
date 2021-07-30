@@ -48,69 +48,76 @@
                     echo $this->Form->control('email_notice');
                     echo $this->Form->control('additional');
                     echo $this->Form->control('status');
-                    ?>
-                    <br>
-                    <legend><?= __('ExhibitionGroup 1') ?></legend>
-                    <?php
-                    echo $this->Form->control('exhibition_group.0.name');
-                    echo $this->Form->control('exhibition_group.0.people');
-                    echo $this->Form->control('exhibition_group.0.amount');
-                    ?>
-                    <br>
-                    <legend><?= __('ExhibitionGroup 2') ?></legend>
-                    <?php
-                    echo $this->Form->control('exhibition_group.1.name');
-                    echo $this->Form->control('exhibition_group.1.people');
-                    echo $this->Form->control('exhibition_group.1.amount');
-                    ?>
-                    <br>
-                    <legend><?= __('ExhibitionSurvey 1') ?></legend>
-                    <?php
-                    echo $this->Form->control('exhibition_survey.0.survey_type');
-                    echo $this->Form->control('exhibition_survey.0.text');
-                    echo $this->Form->control('exhibition_survey.0.is_duplicate');
-                    ?>
-                    <br>
-                    
-                    <?php
-                    echo $this->Form->control('exhibition_survey.1.text');
-                    ?>
-                    <br>
-                   
-                    <?php
-                    echo $this->Form->control('exhibition_survey.2.text');
-                    ?>
-                    <br>
-                   
-                    <?php
-                    echo $this->Form->control('exhibition_survey.3.text');
-                    ?>
-                    <br>
-                   
-                    <?php
-                    echo $this->Form->control('exhibition_survey.4.text');
-                    ?>
-                    <br>
-                    
-                    <?php
-                    echo $this->Form->control('exhibition_survey.5.text');
-                    ?>
-                    <br>
-
-                    <legend><?= __('ExhibitionSurvey 2') ?></legend>
-                    <?php
-                    echo $this->Form->control('exhibition_survey.6.survey_type');
-                    echo $this->Form->control('exhibition_survey.6.text');
-                    echo $this->Form->control('exhibition_survey.6.is_duplicate');
-                    ?>
-                    <br>
-                    <?php
-                    echo $this->Form->control('exhibition_survey.7.text');
-                    ?>
-                    <br>
-                    <?php
-                    echo $this->Form->control('exhibition_survey.8.text');
                 ?>
+                <br>
+
+                <?php  if (!empty($exhibitionGroups)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <?php $i = 0; ?>
+                        <?php foreach ($exhibitionGroups as $exhibitionGroup) : ?>
+                        <tr>
+                            <td>
+                                <?php echo $this->Form->control('exhibition_group.' . $i . '.name', ['value' => $exhibitionGroup->name]); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <?php echo $this->Form->control('exhibition_group.' . $i . '.people', ['value' => $exhibitionGroup->people]); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <?php echo $this->Form->control('exhibition_group.' . $i . '.amount', ['value' => $exhibitionGroup->amount]); ?>
+                            </td>
+                        </tr>
+                        <?php $i++; ?>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+                <br>
+
+                <?php  if (!empty($exhibitionSurveys)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <?php $i = 0; ?>
+                        <?php foreach ($exhibitionSurveys as $exhibitionSurvey) : ?>
+                        <?php
+                            if ($exhibitionSurvey->parent_id == null) {
+                        ?>
+                        <tr>
+                            <td>
+                                <?php echo $this->Form->control('exhibition_survey.' . $i . '.survey_type', ['value' => $exhibitionSurvey->survey_type]); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <?php echo $this->Form->control('exhibition_survey.' . $i . '.text', ['value' => $exhibitionSurvey->text]); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <?php echo $this->Form->control('exhibition_survey.' . $i . '.is_duplicate', ['value' => $exhibitionSurvey->is_duplicate]); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <?php echo $this->Form->control('exhibition_survey.' . $i .'.is_multiple', ['value' => $exhibitionSurvey->is_multiple]); ?>
+                            </td>
+                        </tr>
+                        <?php } else { ?>
+                        <tr>
+                            <td>
+                                <?php echo $this->Form->control('exhibition_survey.' . $i . '.text', ['value' => $exhibitionSurvey->text]); ?>
+                            </td>
+                        </tr>
+                        <?php } ?>
+                        <?php $i++; ?>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
             </fieldset>
             <script>
                 CKEDITOR.replace('detail_html');

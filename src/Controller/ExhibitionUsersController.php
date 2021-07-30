@@ -118,7 +118,7 @@ class ExhibitionUsersController extends AppController
         $exhibition = $this->ExhibitionUsers->Exhibition->find('list', ['limit' => 200]);
         $exhibitionGroup = $this->ExhibitionUsers->ExhibitionGroup->find('list', ['limit' => 200])->where(['exhibition_id' => $id]);
         $pay = $this->ExhibitionUsers->Pay->find('list', ['limit' => 200]);
-        $exhibitionSurveys = $this->getTableLocator()->get('ExhibitionSurvey')->find('list', ['limit' => 200])->where(['exhibition_id' => $id]);
+        $exhibitionSurveys = $this->getTableLocator()->get('ExhibitionSurvey')->find('all')->where(['exhibition_id' => $id]);
         $this->set(compact('exhibitionUser', 'exhibition', 'exhibitionGroup', 'pay', 'exhibitionSurveys'));
     }
 

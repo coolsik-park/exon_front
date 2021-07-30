@@ -34,14 +34,11 @@
                     <table>
                         <?php $i = 0; ?>
                         <?php foreach ($exhibitionSurveys as $exhibitionSurvey) : ?>
-                        <?php 
-                            $data = Cake\Utility\Text::tokenize($exhibitionSurvey, ';');
-                        ?>
                         <tr>
-                            <td><?= h($data[0]) ?></td>
+                            <td><?= h($exhibitionSurvey->text) ?></td>
                             <td>
                                 <?php
-                                    if ($data[1] == 'N' || $data[2] != null) {
+                                    if ($exhibitionSurvey->is_multiple == 'N' || $exhibitionSurvey->parent_id != null) {
                                         echo $this->Form->control('exhibition_survey_users_answer.' . $i . '.text');
                                         $i++; 
                                     } else {
