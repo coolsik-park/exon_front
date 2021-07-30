@@ -31,7 +31,7 @@ class ExhibitionController extends AppController
      */
     public function index()
     {
-        $exhibition = $this->paginate($this->Exhibition);
+        $exhibition = $this->paginate($this->Exhibition->find()->where(['users_id' => 1]));
 
         $this->set(compact('exhibition'));
     }
@@ -90,8 +90,9 @@ class ExhibitionController extends AppController
                     if ($connection->update('exhibition', ['image_path' => $path, 'image_name' => $imgName], ['id' => $result->id])) {
                         $parentId = 0;
                         $whereId = 0;
+                        $count = count($result->exhibition_survey);
 
-                        for ($i =0; $i < count($result->exhibition_survey); $i++) {
+                        for ($i =0; $i < $count; $i++) {
 
                             if ($result->exhibition_survey[$i]->survey_type != null && $result->exhibition_survey[$i]->is_duplicate != null) {
                                 $parentId = $result->exhibition_survey[$i]->id;
@@ -183,8 +184,9 @@ class ExhibitionController extends AppController
                     if ($connection->update('exhibition', ['image_path' => $path, 'image_name' => $imgName], ['id' => $result->id])) {
                         $parentId = 0;
                         $whereId = 0;
+                        $count = count($result->exhibition_survey);
 
-                        for ($i =0; $i < count($result->exhibition_survey); $i++) {
+                        for ($i =0; $i < $count; $i++) {
 
                             if ($result->exhibition_survey[$i]->survey_type != null && $result->exhibition_survey[$i]->is_duplicate != null) {
                                 $parentId = $result->exhibition_survey[$i]->id;

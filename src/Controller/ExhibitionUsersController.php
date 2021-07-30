@@ -78,8 +78,9 @@ class ExhibitionUsersController extends AppController
                 $userId = 1;
                 $parentId = 0;
                 $whereId = 0;
+                $count = count($userAnswer);
 
-                for ($i = 0; $i < count($userAnswer); $i++) {
+                for ($i = 0; $i < $count; $i++) {
                     
                     if (!$result = $connection->insert('exhibition_survey_users_answer', [
                             'exhibition_survey_id' => $survey[$i]->id,
