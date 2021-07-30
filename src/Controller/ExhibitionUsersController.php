@@ -80,10 +80,13 @@ class ExhibitionUsersController extends AppController
                 $whereId = 0;
 
                 for ($i = 0; $i < count($userAnswer); $i++) {
-                    $query  = "INSERT INTO exhibition_survey_users_answer (exhibition_survey_id, users_id, text, is_multiple) values ("; 
-                    $query .= $survey[$i]->id . ", " . $userId . ", '" . $userAnswer[$i]['text'] . "', '" .$survey[$i]->is_multiple . "')";
                     
-                    if (!$result = $connection->query($query)) {
+                    if (!$result = $connection->insert('exhibition_survey_users_answer', [
+                            'exhibition_survey_id' => $survey[$i]->id,
+                            'users_id' => $userId,
+                            'text' => $userAnswer[$i]['text'],
+                            'is_multiple' => $survey[$i]->is_multiple
+                    ])) {
                         $this->Flash->error(__('The exhibition user could not be saved. Please, try again.'));
                         $connection->rollback();
                     }
@@ -95,11 +98,7 @@ class ExhibitionUsersController extends AppController
                         if ($survey[$i]->is_multiple == "Y") {
                             $whereId = $result->lastInsertId();
 
-                            $query = "UPDATE exhibition_survey_users_answer SET";
-                            $query .= " parent_id=" . $parentId;
-                            $query .= " where id=" . $whereId;
-
-                            if (!$connection->query($query)) {
+                            if (!$connection->update('exhibition_survey_users_answer', ['parent_id' => $parentId], ['id' => $whereId])) {
                                 $this->Flash->error(__('The exhibition user could not be saved. Please, try again.'));
                                 $connection->rollback();
                             }

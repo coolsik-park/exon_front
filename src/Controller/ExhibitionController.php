@@ -86,13 +86,8 @@ class ExhibitionController extends AppController
                     $imgName = $result->id . "_main." . $expen;
                     $destination = WWW_ROOT . $path . DS . $imgName;
                     $img->moveTo($destination);
-    
-                    $query  = "UPDATE exhibition SET";
-                    $query .= " image_path='" . $path . "'";
-                    $query .= ", image_name='" . $imgName . "'";
-                    $query .= " where id=" . $result->id;
-
-                    if ($connection->query($query)) {
+                    
+                    if ($connection->update('exhibition', ['image_path' => $path, 'image_name' => $imgName], ['id' => $result->id])) {
                         $parentId = 0;
                         $whereId = 0;
 
@@ -106,17 +101,15 @@ class ExhibitionController extends AppController
                             } else {
                                 $whereId = $result->exhibition_survey[$i]->id;
 
-                                $query  = "UPDATE exhibition_survey SET";
-                                $query .= " parent_id=" . $parentId;
-                                $query .= ", survey_type='" . $surveyType . "'";
-                                $query .= ", is_duplicate='" . $isDuplicate . "'";
-                                $query .= ", is_multiple='" . $isMultiple . "'";
-                                $query .= " where id=" . $whereId;
+                                if (!$connection->update('exhibition_survey', [
+                                    'parent_id' => $parentId, 'survey_type' => $surveyType,
+                                    'is_duplicate' => $isDuplicate, 'is_multiple' => $isMultiple], ['id' => $whereId])) {
 
-                                $connection->query($query);
+                                        $connection->rollback(); 
+                                        $this->Flash->error(__('The exhibition survey could not be saved. Please, try again.'));
+                                }
                             }
                         }
-                        
                         $connection->commit();
                         $this->Flash->success(__('The exhibition has been saved.'));
                         return $this->redirect(['action' => 'index']);
@@ -162,10 +155,8 @@ class ExhibitionController extends AppController
         
         if ($this->request->is(['patch', 'post', 'put'])) {
 
-            $query = "DELETE from exhibition_survey where exhibition_id = " . $id;
-            $connection->query($query);
-            $query = "DELETE from exhibition_group where exhibition_id =" . $id;
-            $connection->query($query);
+            $connection->delete('exhibition_survey', ['exhibition_id' => $id]);
+            $connection->delete('exhibition_group', ['exhibition_id' => $id]);
             
             $exhibition = $this->Exhibition->patchEntity($exhibition, $this->request->getData(), ['associated' => ['ExhibitionGroup', 'ExhibitionSurvey']]);
             
@@ -189,12 +180,7 @@ class ExhibitionController extends AppController
                     $destination = WWW_ROOT . $path . DS . $imgName;
                     $img->moveTo($destination);
     
-                    $query  = "UPDATE exhibition SET";
-                    $query .= " image_path='" . $path . "'";
-                    $query .= ", image_name='" . $imgName . "'";
-                    $query .= " where id=" . $result->id;
-
-                    if ($connection->query($query)) {
+                    if ($connection->update('exhibition', ['image_path' => $path, 'image_name' => $imgName], ['id' => $result->id])) {
                         $parentId = 0;
                         $whereId = 0;
 
@@ -205,19 +191,16 @@ class ExhibitionController extends AppController
                                 $surveyType = $result->exhibition_survey[$i]->survey_type;
                                 $isDuplicate = $result->exhibition_survey[$i]->is_duplicate;
                                 $isMultiple = $result->exhibition_survey[$i]->is_multiple;
+                            
                             } else {
                                 $whereId = $result->exhibition_survey[$i]->id;
 
-                                $query  = "UPDATE exhibition_survey SET";
-                                $query .= " parent_id=" . $parentId;
-                                $query .= ", survey_type='" . $surveyType . "'";
-                                $query .= ", is_duplicate='" . $isDuplicate . "'";
-                                $query .= ", is_multiple='" . $isMultiple . "'";
-                                $query .= " where id=" . $whereId;
+                                if (!$connection->update('exhibition_survey', [
+                                    'parent_id' => $parentId, 'survey_type' => $surveyType,
+                                    'is_duplicate' => $isDuplicate, 'is_multiple' => $isMultiple], ['id' => $whereId])) {
 
-                                if (!$connection->query($query)) {
-                                    $connection->rollback(); 
-                                    $this->Flash->error(__('The exhibition survey could not be saved. Please, try again.'));
+                                        $connection->rollback(); 
+                                        $this->Flash->error(__('The exhibition survey could not be saved. Please, try again.'));
                                 }
                             }
                         }
