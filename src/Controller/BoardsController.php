@@ -76,8 +76,11 @@ class BoardsController extends AppController
 
     public function view($id = null) 
     {
-        echo($id);
-        exit;
+        $userquestion_table = TableRegistry::get('UserQuestion');
+        $board = $userquestion_table->get($id, [
+            'contain' => ['UserQuestionFiles']
+        ]);
+        $this->set(compact('board'));
     }
 
     public function edit($id = null)
