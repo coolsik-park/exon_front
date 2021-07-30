@@ -178,8 +178,9 @@ class BoardsController extends AppController
 
     public function noticeView($id = null)
     {
-        echo($id);
-        exit;
+        $notice_table = TableRegistry::get('Notice');
+        $board = $notice_table->get($id, ['contation' => []]);
+        $this->set(compact('board'));
     }
 
     public function noticeEdit($id = null)
