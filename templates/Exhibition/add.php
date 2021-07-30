@@ -132,14 +132,14 @@
                     echo $this->Form->control('exhibition_survey.11.text'); 
                 ?>
             </fieldset>
-            <script>
-                CKEDITOR.replace('detail_html');
-            </script>
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>
-</div>  
+</div>
+<script>
+    CKEDITOR.replace('detail_html');
+</script>  
 
 
 

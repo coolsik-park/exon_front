@@ -4,6 +4,7 @@
  * @var \App\Model\Entity\Exhibition $exhibition
  */
 ?>
+<script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 <div class="row">
     <aside class="column">
         <div class="side-nav">
@@ -127,3 +128,6 @@
         </div>
     </div>
 </div>
+<script>
+    CKEDITOR.replace('detail_html');
+</script>
