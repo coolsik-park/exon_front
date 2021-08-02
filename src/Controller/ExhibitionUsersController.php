@@ -5,8 +5,8 @@ namespace App\Controller;
 use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
-use Cake\I18n\FrozenTime;
 use Cake\Datasource\ConnectionManager;
+use Cake\I18n\FrozenTime;
 
 /**
  * ExhibitionUsers Controller
@@ -78,12 +78,16 @@ class ExhibitionUsersController extends AppController
                 $userId = 1;
                 $parentId = 0;
                 $whereId = 0;
+                $count = count($userAnswer);
 
-                for ($i = 0; $i < count($userAnswer); $i++) {
-                    $query  = "INSERT INTO exhibition_survey_users_answer (exhibition_survey_id, users_id, text, is_multiple) values ("; 
-                    $query .= $survey[$i]->id . ", " . $userId . ", '" . $userAnswer[$i]['text'] . "', '" .$survey[$i]->is_multiple . "')";
+                for ($i = 0; $i < $count; $i++) {
                     
-                    if (!$result = $connection->query($query)) {
+                    if (!$result = $connection->insert('exhibition_survey_users_answer', [
+                            'exhibition_survey_id' => $survey[$i]->id,
+                            'users_id' => $userId,
+                            'text' => $userAnswer[$i]['text'],
+                            'is_multiple' => $survey[$i]->is_multiple
+                    ])) {
                         $this->Flash->error(__('The exhibition user could not be saved. Please, try again.'));
                         $connection->rollback();
                     }
@@ -95,11 +99,7 @@ class ExhibitionUsersController extends AppController
                         if ($survey[$i]->is_multiple == "Y") {
                             $whereId = $result->lastInsertId();
 
-                            $query = "UPDATE exhibition_survey_users_answer SET";
-                            $query .= " parent_id=" . $parentId;
-                            $query .= " where id=" . $whereId;
-
-                            if (!$connection->query($query)) {
+                            if (!$connection->update('exhibition_survey_users_answer', ['parent_id' => $parentId], ['id' => $whereId])) {
                                 $this->Flash->error(__('The exhibition user could not be saved. Please, try again.'));
                                 $connection->rollback();
                             }
@@ -118,7 +118,7 @@ class ExhibitionUsersController extends AppController
         $exhibition = $this->ExhibitionUsers->Exhibition->find('list', ['limit' => 200]);
         $exhibitionGroup = $this->ExhibitionUsers->ExhibitionGroup->find('list', ['limit' => 200])->where(['exhibition_id' => $id]);
         $pay = $this->ExhibitionUsers->Pay->find('list', ['limit' => 200]);
-        $exhibitionSurveys = $this->getTableLocator()->get('ExhibitionSurvey')->find('list', ['limit' => 200])->where(['exhibition_id' => $id]);
+        $exhibitionSurveys = $this->getTableLocator()->get('ExhibitionSurvey')->find('all')->where(['exhibition_id' => $id]);
         $this->set(compact('exhibitionUser', 'exhibition', 'exhibitionGroup', 'pay', 'exhibitionSurveys'));
     }
 
@@ -214,16 +214,13 @@ class ExhibitionUsersController extends AppController
     public function confirmEmail($id = null)
     {
         $CommonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
-        $commonConfirmation = $CommonConfirmations->find()->select(['confirmation_code', 'expired'])->where(['id' => $id])->toArray();
-        $code = $commonConfirmation[0]['confirmation_code'];
-        $expired = $commonConfirmation[0]['expired'];
+        $commonConfirmation = $CommonConfirmations->find('all')->where(['id' => $id])->toArray();
 
         if ($this->request->is('post')) {
-            $time =FrozenTime::now();
             
-            if ($time < $expired) {
+            if (FrozenTime::now() < $commonConfirmation[0]->expired) {
                 
-                if ($this->request->getData('code') == $code) {
+                if ($this->request->getData('code') == $commonConfirmation[0]->confirmation_code) {
                     $this->Flash->success(__('The Email has been confirmed.'));
                     return $this->redirect(['action' => 'index']);
                 

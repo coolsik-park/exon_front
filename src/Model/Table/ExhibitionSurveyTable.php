@@ -45,7 +45,7 @@ class ExhibitionSurveyTable extends Table
         parent::initialize($config);
 
         $this->setTable('exhibition_survey');
-        $this->setDisplayField(['text', 'is_multiple', 'parent_id']);
+        $this->setDisplayField('text');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
