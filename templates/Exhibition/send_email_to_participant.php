@@ -1,0 +1,25 @@
+<script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+<div class="row">
+    <aside class="column">
+        <div class="side-nav">
+            <h4 class="heading"><?= __('Actions') ?></h4>
+            <?= $this->Html->link(__('List Exhibition'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+        </div>
+    </aside>
+    <div class="column-responsive column-80">
+        <div class="exhibition form content">
+            <?= $this->Form->create($exhibitionUsers)?>
+            <fieldset>
+                <legend><?= __('Send Emails') ?></legend>
+                <?php
+                    echo $this->Form->control('users_email', ['options' => $exhibitionUsers]);
+                ?>
+            </fieldset>
+            <?= $this->Form->button(__('Send')) ?>
+            <?= $this->Form->end() ?>
+        </div>
+    </div>
+</div>
+<script>
+    CKEDITOR.replace('detail_html');
+</script>  

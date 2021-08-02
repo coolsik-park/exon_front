@@ -5,6 +5,8 @@ namespace App\Controller;
 use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\Filesystem\Folder;
 use Cake\Datasource\ConnectionManager;
+use Cake\Mailer\Mailer;
+use Cake\Mailer\TransportFactory;
 
 /**
  * Exhibition Controller
@@ -264,5 +266,43 @@ class ExhibitionController extends AppController
             $this->Flash->error(__('The exhibition could not be deleted. Please, try again.'));
         }
         return $this->redirect(['action' => 'index']);    
+    }
+
+    public function sendEmailToParticipant($id = null)
+    {
+        if ($this->request->is('post')) {
+            $mailer = new Mailer();
+            $mailer->setTransport('mailjet');
+
+            try {                   
+                // $host = HOST;
+                // $sender = SEND_EMAIL;
+                // $view = new \Cake\View\View($this->request, $this->response);
+                // $view->set(compact('sender')); //이메일 템플릿에 파라미터 전달
+                // $content = $view->element('email/findPw'); //이메일 템블릿 불러오기
+                if ($res = $mailer->setFrom(['heh1009@livemolo.me' => 'EXON auto mailing'])
+                    ->setEmailFormat('html')
+                    ->setTo($this->request->getData('email_address'))
+                    ->setSubject('Exon Test Email')
+                    ->deliver()) 
+                    {
+                        $this->Flash->success(__('The Email has been delivered.'));
+                        
+                    } else {
+                        $this->Flash->error(__('The Email could not be delivered.'));
+                    }
+    
+            } catch (Exception $e) {
+                // echo ‘Exception : ’,  $e->getMessage(), “\n”;
+                echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
+            }
+        }
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find()->select(['users_email'])->where(['exhibition_id' => $id]);
+        $this->set(compact('exhibitionUsers'));
+    }
+
+    public function sendMessageToParticipant($id = null)
+    {
+
     }
 }
