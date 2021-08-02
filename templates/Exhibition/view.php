@@ -43,14 +43,14 @@
                     <td><?= h($exhibition->category) ?>|<?= h($exhibition->type) ?></td>
                 </tr>
                 <tr>
-                    <th><?= $this->Number->format($exhibition->require_group) ?></th>
+                    <th><?php echo $this->Form->control('', ['options' => $groups]); ?></th>
                     <td><?= $this->Html->link(__('참가신청'), ['controller' => 'exhibitionUsers'], ['action' => 'add', $exhibition->id], ['class' => 'side-nav-item']) ?></td>
                 </tr>
             </table>
 
 
             <h2><a name="개설자 정보">개설자 정보</a></h2>
-            <table>
+            <table>``
                 <tr>
                     <td>이미지</td>
                     <td><?= h($exhibition->name) ?></td>
