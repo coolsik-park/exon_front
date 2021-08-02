@@ -155,12 +155,9 @@ class ExhibitionController extends AppController
         ]);
         
         if ($this->request->is(['patch', 'post', 'put'])) {
-
-            $connection->delete('exhibition_survey', ['exhibition_id' => $id]);
-            $connection->delete('exhibition_group', ['exhibition_id' => $id]);
             
             $exhibition = $this->Exhibition->patchEntity($exhibition, $this->request->getData(), ['associated' => ['ExhibitionGroup', 'ExhibitionSurvey']]);
-            
+
             if ($result = $this->Exhibition->save($exhibition)) {
                 $img = $this->request->getData('image');
                 $imgName = $img->getClientFilename();
@@ -182,27 +179,39 @@ class ExhibitionController extends AppController
                     $img->moveTo($destination);
     
                     if ($connection->update('exhibition', ['image_path' => $path, 'image_name' => $imgName], ['id' => $result->id])) {
-                        $parentId = 0;
-                        $whereId = 0;
-                        $count = count($result->exhibition_survey);
+                        
+                        $count = count($exhibition->exhibition_group);
 
-                        for ($i =0; $i < $count; $i++) {
+                        for ($i = 0; $i < $count; $i++) {
+                    
+                            if ($this->request->getData('exhibition_group')[$i]['is_delete'] == 'Y') {
+                                    
+                                if (!$connection->delete('exhibition_group', ['id' => $this->request->getData('exhibition_group')[$i]['id']])) {
+                                    $connection->rollback(); 
+                                    $this->Flash->error(__('The exhibition group could not be saved. Please, try again.'));
+                                }
+                            }
+                        }
+                        
+                        $count = count($exhibition->exhibition_survey);
 
-                            if ($result->exhibition_survey[$i]->survey_type != null && $result->exhibition_survey[$i]->is_duplicate != null) {
-                                $parentId = $result->exhibition_survey[$i]->id;
-                                $surveyType = $result->exhibition_survey[$i]->survey_type;
-                                $isDuplicate = $result->exhibition_survey[$i]->is_duplicate;
-                                $isMultiple = $result->exhibition_survey[$i]->is_multiple;
+                        for ($i = 0; $i < $count; $i++) {
                             
-                            } else {
-                                $whereId = $result->exhibition_survey[$i]->id;
+                            if ($this->request->getData('exhibition_survey')[$i]['is_delete'] != 'multiple view') {
+                                
+                                if ($this->request->getData('exhibition_survey')[$i]['is_delete'] == 'Y') {
+                                
+                                    if ($connection->delete('exhibition_survey', ['parent_id' => $this->request->getData('exhibition_survey')[$i]['id']])) {
+                                            
+                                        if (!$connection->delete('exhibition_survey', ['id' => $this->request->getData('exhibition_survey')[$i]['id']])) {
+                                            $connection->rollback(); 
+                                            $this->Flash->error(__('The exhibition survey could not be saved. Please, try again.'));
+                                        }
 
-                                if (!$connection->update('exhibition_survey', [
-                                    'parent_id' => $parentId, 'survey_type' => $surveyType,
-                                    'is_duplicate' => $isDuplicate, 'is_multiple' => $isMultiple], ['id' => $whereId])) {
-
+                                    } else {
                                         $connection->rollback(); 
-                                        $this->Flash->error(__('The exhibition survey could not be saved. Please, try again.'));
+                                        $this->Flash->error(__('The exhibition group could not be saved. Please, try again.'));
+                                    }
                                 }
                             }
                         }
@@ -212,7 +221,7 @@ class ExhibitionController extends AppController
                         
                     } else {
                         $connection->rollback(); 
-                        $this->Flash->error(__('The exhibition survey could not be saved. Please, try again.'));
+                        $this->Flash->error(__('The exhibition could not be saved. Please, try again.'));
                     }
                 
                 }else {

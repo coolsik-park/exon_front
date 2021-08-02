@@ -59,6 +59,11 @@
                         <?php foreach ($exhibitionGroups as $exhibitionGroup) : ?>
                         <tr>
                             <td>
+                                <?php echo $this->Form->control('exhibition_group.' . $i . '.id', ['value' => $exhibitionGroup->id, 'type' => 'hidden']); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
                                 <?php echo $this->Form->control('exhibition_group.' . $i . '.name', ['value' => $exhibitionGroup->name]); ?>
                             </td>
                         </tr>
@@ -70,6 +75,11 @@
                         <tr>
                             <td>
                                 <?php echo $this->Form->control('exhibition_group.' . $i . '.amount', ['value' => $exhibitionGroup->amount]); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <?php echo $this->Form->control('exhibition_group.' . $i . '.is_delete', ['value' => 'N']); ?>
                             </td>
                         </tr>
                         <?php $i++; ?>
@@ -87,6 +97,11 @@
                         <?php
                             if ($exhibitionSurvey->parent_id == null) {
                         ?>
+                        <tr>
+                            <td>
+                                <?php echo $this->Form->control('exhibition_survey.' . $i . '.id', ['value' => $exhibitionSurvey->id, 'type' => 'hidden']); ?>
+                            </td>
+                        </tr>
                         <tr>
                             <td>
                                 <?php echo $this->Form->control('exhibition_survey.' . $i . '.survey_type', ['value' => $exhibitionSurvey->survey_type]); ?>
@@ -107,10 +122,25 @@
                                 <?php echo $this->Form->control('exhibition_survey.' . $i .'.is_multiple', ['value' => $exhibitionSurvey->is_multiple]); ?>
                             </td>
                         </tr>
+                        <tr>
+                            <td>
+                                <?php echo $this->Form->control('exhibition_survey.' . $i . '.is_delete', ['value' => 'N']); ?>
+                            </td>
+                        </tr>
                         <?php } else { ?>
                         <tr>
                             <td>
+                                <?php echo $this->Form->control('exhibition_survey.' . $i . '.id', ['value' => $exhibitionSurvey->id, 'type' => 'hidden']); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
                                 <?php echo $this->Form->control('exhibition_survey.' . $i . '.text', ['value' => $exhibitionSurvey->text]); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <?php echo $this->Form->control('exhibition_survey.' . $i . '.is_delete', ['value' => 'multiple view', 'type' => 'hidden']); ?>
                             </td>
                         </tr>
                         <?php } ?>
