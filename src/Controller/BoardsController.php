@@ -105,7 +105,7 @@ class BoardsController extends AppController
     public function delete($id = null)
     {
         $userquestion_table = TableRegistry::get('UserQuestion');
-        $this->request->allowMethod(['post', 'delete']);
+        $this->request->allowMethod(['get', 'post', 'delete']);
         $board = $userquestion_table->get($id);
         if($userquestion_table->delete($board)) {
             $this->Flash->success(__('The user has been deleted.'));

@@ -62,6 +62,8 @@ class UserQuestionTable extends Table
         ]);
         $this->hasMany('UserQuestionFiles', [
             'foreignKey' => 'user_question_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
     }
 
