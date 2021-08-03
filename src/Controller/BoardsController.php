@@ -52,11 +52,8 @@ class BoardsController extends AppController
                 $fileName = $result->id . "_question." . $expen;
                 $destination = WWW_ROOT . $path . DS . $fileName;
                 $file->moveTo($destination);
-
-                $query = "INSERT INTO user_question_files(user_question_id, file_path, file_name)";
-                $query .= " values(" . $result->id . ", '" . $path . "', '" . $fileName . "')";
-
-                if($connection->query($query)) {
+                
+                if($connection->insert('user_question_files', ['user_question_id' => $result->id, 'file_path' => $path, 'file_name' => $fileName])) {
                     $connection->commit();
                     $this->Flash->success(__('Your post has been saved.'));
                     return $this->redirect(['action' => 'index']);
@@ -64,6 +61,7 @@ class BoardsController extends AppController
                     $connection->rollback();
                     $this->Flash->error(__('Unable to add your post.'));
                 }
+                
             } else {
                 $connection->rollback();
                 $this->Flash->error(__('The user could not be saved. Please, try again.'));
