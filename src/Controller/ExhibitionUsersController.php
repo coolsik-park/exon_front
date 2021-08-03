@@ -75,35 +75,41 @@ class ExhibitionUsersController extends AppController
                 $survey = $this->getTableLocator()->get('ExhibitionSurvey')->find()->select(['id', 'parent_id', 'is_multiple'])->where(['exhibition_id' => $id])->toArray();
                 $UserAnswer = $this->getTableLocator()->get('ExhibitionSurveyUsersAnswer');
                 $userAnswer = $this->request->getData('exhibition_survey_users_answer');
+    
                 $userId = 1;
                 $parentId = 0;
                 $whereId = 0;
-                $count = count($userAnswer);
+                
+                if ($userAnswer != null) {
+                    
+                    $count = count($userAnswer);
 
-                for ($i = 0; $i < $count; $i++) {
-                    
-                    if (!$result = $connection->insert('exhibition_survey_users_answer', [
-                            'exhibition_survey_id' => $survey[$i]->id,
-                            'users_id' => $userId,
-                            'text' => $userAnswer[$i]['text'],
-                            'is_multiple' => $survey[$i]->is_multiple
-                    ])) {
-                        $this->Flash->error(__('The exhibition user could not be saved. Please, try again.'));
-                        $connection->rollback();
-                    }
-                    
-                    if ($survey[$i]->parent_id == null && $survey[$i]->is_multiple == "Y") {
-                        $parentId = $result->lastInsertId();
+                    for ($i = 0; $i < $count; $i++) {  
                         
-                    } else {
-                        if ($survey[$i]->is_multiple == "Y") {
-                            $whereId = $result->lastInsertId();
+                        if (!$result = $connection->insert('exhibition_survey_users_answer', [
+                                'exhibition_survey_id' => $survey[$i]->id,
+                                'users_id' => $userId,
+                                'text' => $userAnswer[$i]['text'],
+                                'is_multiple' => $survey[$i]->is_multiple
+                        ])) {
+                            $this->Flash->error(__('The exhibition user could not be saved. Please, try again.'));
+                            $connection->rollback();
+                        }
+                        
+                        if ($survey[$i]->parent_id == null && $survey[$i]->is_multiple == "Y") {
+                            $parentId = $result->lastInsertId();
+                            
+                        } else {
+                            
+                            if ($survey[$i]->is_multiple == "Y") {
+                                $whereId = $result->lastInsertId();
 
-                            if (!$connection->update('exhibition_survey_users_answer', ['parent_id' => $parentId], ['id' => $whereId])) {
-                                $this->Flash->error(__('The exhibition user could not be saved. Please, try again.'));
-                                $connection->rollback();
-                            }
-                        } 
+                                if (!$connection->update('exhibition_survey_users_answer', ['parent_id' => $parentId], ['id' => $whereId])) {
+                                    $this->Flash->error(__('The exhibition user could not be saved. Please, try again.'));
+                                    $connection->rollback();
+                                }
+                            } 
+                        }
                     }
                 }
                 $this->Flash->success(__('The exhibition user has been saved.'));

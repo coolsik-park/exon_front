@@ -5,6 +5,8 @@ namespace App\Controller;
 use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\Filesystem\Folder;
 use Cake\Datasource\ConnectionManager;
+use Cake\Mailer\Mailer;
+use Cake\Mailer\TransportFactory;
 
 /**
  * Exhibition Controller
@@ -48,8 +50,10 @@ class ExhibitionController extends AppController
         $exhibition = $this->Exhibition->get($id, [
             'contain' => ['Banner', 'ExhibitionFile', 'ExhibitionGroup', 'ExhibitionStream', 'ExhibitionSurvey'],
         ]);
+        $exhibitiongroups = $this->getTableLocator()->get('ExhibitionGroup');
+        $groups = $exhibitiongroups->find('list')->select('name');
 
-        $this->set(compact('exhibition'));
+        $this->set(compact('exhibition', 'groups'));
     }
 
     /**
@@ -264,5 +268,54 @@ class ExhibitionController extends AppController
             $this->Flash->error(__('The exhibition could not be deleted. Please, try again.'));
         }
         return $this->redirect(['action' => 'index']);    
+    }
+
+    public function sendEmailToParticipant($id = null)
+    {
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id])->toArray();
+
+        if ($this->request->is('put')) {
+            
+            $mailer = new Mailer();
+            $mailer->setTransport('mailjet');
+
+            $users = $this->request->getData('users_email');
+            $count = count($users);
+            $to[] ='';
+
+            for ($i = 0; $i < $count; $i++) {
+                $to[$i] = $exhibitionUsers[$users[$i]]['users_email'];
+            }
+
+            try {                   
+                // $host = HOST;
+                // $sender = SEND_EMAIL;
+                // $view = new \Cake\View\View($this->request, $this->response);
+                // $view->set(compact('sender')); //이메일 템플릿에 파라미터 전달
+                // $content = $view->element('email/findPw'); //이메일 템블릿 불러오기
+                if ($res = $mailer->setFrom(['heh1009@livemolo.me' => 'EXON'])
+                    ->setEmailFormat('html')
+                    ->setTo($to)
+                    ->setSubject('Exon Test Email')
+                    ->deliver($this->request->getData('email_content'))) 
+                    {
+                        $this->Flash->success(__('The Email has been delivered.'));
+                        
+                    } else {
+                        $this->Flash->error(__('The Email could not be delivered.'));
+                    }
+    
+            } catch (Exception $e) {
+                // echo ‘Exception : ’,  $e->getMessage(), “\n”;
+                echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
+            }
+        }
+        $this->set(compact('exhibitionUsers'));
+    }
+
+    public function sendSmsToParticipant($id = null)
+    {
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id])->toArray();
+        $this->set(compact('exhibitionUsers'));
     }
 }
