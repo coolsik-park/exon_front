@@ -65,16 +65,16 @@ class PagesController extends AppController
         // https://book.cakephp.org/4/en/orm/retrieving-data-and-resultsets.html
 
         /* case 1 : ORM Query Generator */
-        // $this->loadModel('Banner');
+        $this->loadModel('Banner');
 
-        // $banner = $this->Banner->find('all')
-        //                 ->select(['Banner.id', 'Banner.img_path', 'Banner.img_name', 'Exhibition.title'])
-        //                 ->leftJoinWith('Exhibition', function ($q) {
-        //                     return $q->where(['Exhibition.title' => '테스트']);
-        //                 })
-        //                 ->where(['Banner.status'=>1, 'now() between Banner.sdate AND Banner.edate', 'Banner.type'=>'main'])
-        //                 ->order(['Banner.sort'])
-        //                 ->toArray();
+        $banner = $this->Banner->find('all')
+                        ->select(['Banner.id', 'Banner.img_path', 'Banner.img_name', 'Exhibition.title'])
+                        ->leftJoinWith('Exhibition', function ($q) {
+                            return $q->where(['Exhibition.title' => '테스트']);
+                        })
+                        ->where(['Banner.status'=>1, 'now() between Banner.sdate AND Banner.edate', 'Banner.type'=>'main'])
+                        ->order(['Banner.sort'])
+                        ->toArray();
 
        /* case 2 : Custom Query */ 
         // $this->conn = ConnectionManager::get('default'); 
@@ -117,24 +117,24 @@ class PagesController extends AppController
 
 
         //case 6: insert sample 
-        $Users = $this->getTableLocator()->get('Users');
-        $user = $Users->newEmptyEntity();
-        $hashPswdObj = new DefaultPasswordHasher; //비밀번호 암호화
+        // $Users = $this->getTableLocator()->get('Users');
+        // $user = $Users->newEmptyEntity();
+        // $hashPswdObj = new DefaultPasswordHasher; //비밀번호 암호화
 
-        $user->email = 'coolsik@ab32c2d.com';
-        // $user->password = $hashPswdObj->hash('1234'); 
-        $user->name = 'park';
-        $user->hp = '010480474d66';
-        $user->refer = 'exon';
+        // $user->email = 'coolsik@ab32c2d.com';
+        // // $user->password = $hashPswdObj->hash('1234'); 
+        // $user->name = 'park';
+        // $user->hp = '010480474d66';
+        // $user->refer = 'exon';
 
-        if(!$Users->save($user))
-        {
-            echo("wrong!!");exit;
-        }
-        else
-        {
-            echo("success");exit;
-        }
+        // if(!$Users->save($user))
+        // {
+        //     echo("wrong!!");exit;
+        // }
+        // else
+        // {
+        //     echo("success");exit;
+        // }
            
         
         //case 7: update sample 
@@ -160,7 +160,7 @@ class PagesController extends AppController
         //     $this->Flash->error(__('The user could not be deleted. Please, try again.'));
         // }
 
-        echo("<pre>");print_r($banner);exit;
+        // echo("<pre>");print_r($banner);exit;
 
         try {
             $this->set(compact('banner')); //key-value 연관배열을 쌍으로 적용('banner'=>$banner)

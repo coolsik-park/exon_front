@@ -14,6 +14,9 @@
  * @var \App\View\AppView $this
  */
 
+
+    $loguser = $this->getRequest()->getSession()->read('Auth.User');
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 9]> <html class="no-js ie9 fixed-layout" lang="en"> <![endif]-->
@@ -51,6 +54,15 @@
 	<header class="header site-header">
 			<div class="container">
                 헤더
+                <?php if(empty($loguser)): ?>
+                <a href="/Users/login">로그인</a>
+                <a href="/Users/add">회원가입</a>
+            <?php else: ?>
+                <!-- log after -->
+                <a href="/Users/logout">로그아웃</a>
+                <!-- // -->
+
+            <?php endif;?>
 			</div><!-- end container -->
 		</header><!-- end header -->
 

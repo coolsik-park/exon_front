@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\Datasource\ConnectionManager;
+use Cake\Auth\DefaultPasswordHasher;
 
 /**
  * Users Controller
@@ -48,7 +49,8 @@ class UsersController extends AppController
         echo($id);exit;
     }
     
-
+    
+    
     /**
      * Add method
      *
@@ -261,13 +263,18 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $this->loadComponent('Auth');
             $this->conn = ConnectionManager::get('default'); 
-            $query = " select * from users where id=1";
 
-            $stmt = $this->conn->query($query);
-            $users = $stmt->fetch('assoc');
+            $hashPswdObj = new DefaultPasswordHasher; //비밀번호 암호화        
+            $password = $hashPswdObj->hash($this->request->getData('password')); 
             
-            if($users){
-                $this->Auth->setUser($users);
+    
+            $user = $this->Users->find('all')                            
+                            ->where(['email'=>$this->request->getData('email'), 'status'=>1])
+                            ->first();
+       
+            
+            if($user && $hashPswdObj->check($this->request->getData('password'),$user->password)){
+                $this->Auth->setUser($user);
                 $target = $this->Auth->redirectUrl() ?? '/home';
                 return $this->redirect($target);
             }
