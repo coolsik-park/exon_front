@@ -154,19 +154,15 @@ class BoardsController extends AppController
                 $destination = WWW_ROOT . $path . DS . $fileName;
                 $file->moveTO($destination);
 
-                $query = "UPDATE notice SET";
-                $query .= " file_path='" . $path . "'";
-                $query .= ", file_name='" . $fileName . "'";
-                $query .= " where id=" . $result->id;
-
-                if($connection->query($query)) {
+                if($connection->update('notice', ['file_path' => $path, 'file_name' => $fileName], ['id' => $result->id])) {
                     $connection->commit();
                     $this->Flash->success(__('Your Post has been saved.'));
                     return $this->redirect(['action' => 'notice']);
                 } else {
                     $connection->rollback();
-                    $this->Flash->success(__('Unable to add your post.'));
+                    $this->Flash->error(__('Unable to add you post.'));
                 }
+
             } else {
                 $connection->rollback();
                 $this->Flash->error(__('The user could not be saved. Please, try again.'));
