@@ -270,9 +270,20 @@ class ExhibitionController extends AppController
 
     public function sendEmailToParticipant($id = null)
     {
-        if ($this->request->is('post')) {
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id])->toArray();
+
+        if ($this->request->is('put')) {
+            
             $mailer = new Mailer();
             $mailer->setTransport('mailjet');
+
+            $users = $this->request->getData('users_email');
+            $count = count($users);
+            $to[] ='';
+
+            for ($i = 0; $i < $count; $i++) {
+                $to[$i] = $exhibitionUsers[$users[$i]]['users_email'];
+            }
 
             try {                   
                 // $host = HOST;
@@ -280,11 +291,11 @@ class ExhibitionController extends AppController
                 // $view = new \Cake\View\View($this->request, $this->response);
                 // $view->set(compact('sender')); //이메일 템플릿에 파라미터 전달
                 // $content = $view->element('email/findPw'); //이메일 템블릿 불러오기
-                if ($res = $mailer->setFrom(['heh1009@livemolo.me' => 'EXON auto mailing'])
+                if ($res = $mailer->setFrom(['heh1009@livemolo.me' => 'EXON'])
                     ->setEmailFormat('html')
-                    ->setTo($this->request->getData('email_address'))
+                    ->setTo($to)
                     ->setSubject('Exon Test Email')
-                    ->deliver()) 
+                    ->deliver($this->request->getData('email_content'))) 
                     {
                         $this->Flash->success(__('The Email has been delivered.'));
                         
@@ -297,7 +308,6 @@ class ExhibitionController extends AppController
                 echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
             }
         }
-        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find()->select(['users_email'])->where(['exhibition_id' => $id]);
         $this->set(compact('exhibitionUsers'));
     }
 

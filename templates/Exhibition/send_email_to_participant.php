@@ -11,15 +11,20 @@
             <?= $this->Form->create($exhibitionUsers)?>
             <fieldset>
                 <legend><?= __('Send Emails') ?></legend>
+                <?php echo $this->Form->control('email_content', ['type' => 'textarea']); ?>
                 <?php
-                    echo $this->Form->control('users_email', ['options' => $exhibitionUsers]);
+                    $data[] = '';
+                    for ($i = 0; $i < $count; $i++) {
+                        $data[$i] = $exhibitionUsers[$i]['users_email'];   
+                    }
+                    echo $this->Form->select('users_email', $data, ['multiple' => 'checkbox']);
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Send')) ?>
+            <?= $this->Form->button(__('Send'), ['controller' => 'Exhibition', 'action' => 'sendEmailToParticipant']) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>
 </div>
 <script>
-    CKEDITOR.replace('detail_html');
+    CKEDITOR.replace('email_content');
 </script>  
