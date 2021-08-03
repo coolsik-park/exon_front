@@ -313,8 +313,9 @@ class ExhibitionController extends AppController
         $this->set(compact('exhibitionUsers'));
     }
 
-    public function sendMessageToParticipant($id = null)
+    public function sendSmsToParticipant($id = null)
     {
-
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id])->toArray();
+        $this->set(compact('exhibitionUsers'));
     }
 }

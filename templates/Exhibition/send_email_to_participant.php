@@ -14,6 +14,8 @@
                 <?php echo $this->Form->control('email_content', ['type' => 'textarea']); ?>
                 <?php
                     $data[] = '';
+                    $count = count($exhibitionUsers);
+                    
                     for ($i = 0; $i < $count; $i++) {
                         $data[$i] = $exhibitionUsers[$i]['users_email'];   
                     }
