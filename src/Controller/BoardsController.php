@@ -68,7 +68,7 @@ class BoardsController extends AppController
             }
         }
         $faqCategory = $this->getTableLocator()->get('FaqCategory');
-        $categories = $faqCategory->find('list')->select('text')->where(['status' => 1]);
+        $categories = $faqCategory->find('list', ['keyField' => 'id', 'valueField' => 'text'])->where(['status' => 1]);
         $this->set(compact('board', 'categories'));
     }
 
