@@ -44,7 +44,7 @@
                 </tr>
                 <tr>
                     <th><?php echo $this->Form->control('', ['options' => $groups]); ?></th>
-                    <td><?= $this->Html->link(__('참가신청'), ['controller' => 'exhibitionUsers'], ['action' => 'add', $exhibition->id], ['class' => 'side-nav-item']) ?></td>
+                    <td><?= $this->Html->link(__('참가신청'), ['controller' => 'exhibitionUsers', 'action' => 'add', $exhibition->id, 'class' => 'side-nav-item']) ?></td>
                 </tr>
             </table>
 
