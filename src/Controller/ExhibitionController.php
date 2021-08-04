@@ -51,7 +51,7 @@ class ExhibitionController extends AppController
             'contain' => ['Banner', 'ExhibitionFile', 'ExhibitionGroup', 'ExhibitionStream', 'ExhibitionSurvey'],
         ]);
         $exhibitiongroups = $this->getTableLocator()->get('ExhibitionGroup');
-        $groups = $exhibitiongroups->find('list')->select('name');
+        $groups = $exhibitiongroups->find('list', ['keyField' => 'id', 'valueField' => 'name'])->where(['exhibition_id' => $id]);
 
         $this->set(compact('exhibition', 'groups'));
     }
