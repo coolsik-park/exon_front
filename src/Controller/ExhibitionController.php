@@ -315,7 +315,32 @@ class ExhibitionController extends AppController
 
     public function sendSmsToParticipant($id = null)
     {
+        require_once("solapi-php/lib/message.php");
         $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id])->toArray();
+        
+        if ($this->request->is('put')) {
+
+            $users = $this->request->getData('users_hp');
+            $count = count($users);
+            $to[] ='';
+
+            for ($i = 0; $i < $count; $i++) {
+                $to[$i] = $exhibitionUsers[$users[$i]]['users_hp'];
+            }
+
+            $messages = [
+                [
+                'to' => $to,
+                'from' => '01053955990',
+                'text' => $this->request->getData('sms_content')
+                ]
+            ];
+            if (send_messages($messages)) {
+                $this->Flash->success(__('The SMS has been delivered.'));
+             } else {
+                $this->Flash->error(__('The SMS could not be delivered.'));
+            }
+        }
         $this->set(compact('exhibitionUsers'));
     }
 }
