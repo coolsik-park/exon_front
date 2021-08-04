@@ -335,9 +335,11 @@ class ExhibitionController extends AppController
                 'text' => $this->request->getData('sms_content')
                 ]
             ];
+
             if (send_messages($messages)) {
                 $this->Flash->success(__('The SMS has been delivered.'));
-             } else {
+            
+            } else {
                 $this->Flash->error(__('The SMS could not be delivered.'));
             }
         }
