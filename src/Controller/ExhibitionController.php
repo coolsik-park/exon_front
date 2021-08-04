@@ -272,10 +272,16 @@ class ExhibitionController extends AppController
 
     public function sendEmailToParticipant($id = null)
     {
-        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id])->toArray();
-
+        $session = $this->request->getSession();
+        
+        if ($session->read('result')) {
+            $exhibitionUsers = $session->read('result'); 
+        } else {
+            $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find()->select('exhibition_id')->where(['exhibition_id' => $id])->toArray();
+        }
+        
         if ($this->request->is('put')) {
-            
+
             $mailer = new Mailer();
             $mailer->setTransport('mailjet');
 
@@ -300,7 +306,8 @@ class ExhibitionController extends AppController
                     ->deliver($this->request->getData('email_content'))) 
                     {
                         $this->Flash->success(__('The Email has been delivered.'));
-                        
+                        $session->delete('result');
+
                     } else {
                         $this->Flash->error(__('The Email could not be delivered.'));
                     }
@@ -316,7 +323,14 @@ class ExhibitionController extends AppController
     public function sendSmsToParticipant($id = null)
     {
         require_once("solapi-php/lib/message.php");
-        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id])->toArray();
+        $session = $this->request->getSession();
+
+        if ($session->read('result')) {
+            $exhibitionUsers = $session->read('result'); 
+        
+        } else {
+            $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find()->select('exhibition_id')->where(['exhibition_id' => $id])->toArray();
+        }
         
         if ($this->request->is('put')) {
 
@@ -338,9 +352,33 @@ class ExhibitionController extends AppController
 
             if (send_messages($messages)) {
                 $this->Flash->success(__('The SMS has been delivered.'));
+                $session->delete('result');
             
             } else {
                 $this->Flash->error(__('The SMS could not be delivered.'));
+            }
+        }
+        $this->set(compact('exhibitionUsers'));
+    }
+
+    public function participantList($id = null, $type = null)
+    {
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id])->toArray();
+        if ($this->request->is('put')) {
+            $data = $this->request->getData('data');
+            $count = count($data);
+            $result[] = '';
+
+            for ($i = 0; $i < $count; $i++) {
+                $result[$i] = $exhibitionUsers[$data[$i]];
+            }
+            $session = $this->request->getSession()->write('result', $result);
+            
+            if ($type == 'email') {
+                return $this->redirect(['action' => 'sendEmailToParticipant', $id]);
+            
+            } else {
+                return $this->redirect(['action' => 'sendSmsToParticipant', $id]);
             }
         }
         $this->set(compact('exhibitionUsers'));

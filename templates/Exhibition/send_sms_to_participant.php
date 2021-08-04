@@ -3,7 +3,7 @@
     <aside class="column">
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Exhibition'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('참가자리스트'), ['action' => 'participantList', $exhibitionUsers[0]['exhibition_id'], 'sms'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
     <div class="column-responsive column-80">
@@ -16,10 +16,12 @@
                     $data[] = '';
                     $count = count($exhibitionUsers);
                     
-                    for ($i = 0; $i < $count; $i++) {
-                        $data[$i] = $exhibitionUsers[$i]['users_hp'];   
+                    if (count($exhibitionUsers) > 0 && $exhibitionUsers[0]['users_hp']) {
+                        for ($i = 0; $i < $count; $i++) {
+                            $data[$i] = $exhibitionUsers[$i]['users_hp'];
+                        }
+                        echo $this->Form->select('users_hp', $data, ['multiple' => 'checkbox']);
                     }
-                    echo $this->Form->select('users_hp', $data, ['multiple' => 'checkbox']);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Send'), ['controller' => 'Exhibition', 'action' => 'sendSmsToParticipant']) ?>
