@@ -25,8 +25,8 @@ class ExhibitionController extends AppController
         $this->Auth->allow();
         // $this->Auth->deny(['test'])
 
-        $uri = substr($_SERVER['REQUEST_URI'], 0, 37);
-        if ($uri != '/exhibition/send-email-to-participant' && $uri != '/exhibition/send-sms-to-participant') {
+        $uri = substr($_SERVER['REQUEST_URI'], 0, 16);
+        if ($uri != '/exhibition/send') {
             $this->request->getSession()->delete('result');
         }
     }   
@@ -279,7 +279,8 @@ class ExhibitionController extends AppController
         $session = $this->request->getSession();
         
         if ($session->read('result')) {
-            $exhibitionUsers = $session->read('result'); 
+            $exhibitionUsers = $session->read('result');
+
         } else {
             $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find()->select('exhibition_id')->where(['exhibition_id' => $id])->toArray();
         }
