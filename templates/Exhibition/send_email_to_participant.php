@@ -3,7 +3,13 @@
     <aside class="column">
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('참가자리스트'), ['action' => 'participantList', $exhibitionUsers[0]['exhibition_id'], 'email'], ['class' => 'side-nav-item']) ?>
+            <?php
+                if (count($exhibitionUsers) > 0 ) { 
+                    echo $this->Html->link(__('참가자리스트'), ['action' => 'participantList', $exhibitionUsers[0]['exhibition_id'], 'email', 'class' => 'side-nav-item']);
+                } else {
+                    echo $this->Html->link(__('참가자리스트'), ['action' => 'participantList', 0, 'email', 'class' => 'side-nav-item']);
+                } 
+            ?>
         </div>
     </aside>
     <div class="column-responsive column-80">

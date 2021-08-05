@@ -24,7 +24,12 @@ class ExhibitionController extends AppController
 
         $this->Auth->allow();
         // $this->Auth->deny(['test'])
-    }
+
+        $uri = substr($_SERVER['REQUEST_URI'], 0, 37);
+        if ($uri != '/exhibition/send-email-to-participant' && $uri != '/exhibition/send-sms-to-participant') {
+            $this->request->getSession()->delete('result');
+        }
+    }   
 
     /**
      * Index method
@@ -34,7 +39,6 @@ class ExhibitionController extends AppController
     public function index()
     {
         $exhibition = $this->paginate($this->Exhibition->find()->where(['users_id' => 1]));
-
         $this->set(compact('exhibition'));
     }
 
@@ -281,7 +285,7 @@ class ExhibitionController extends AppController
         }
         
         if ($this->request->is('put')) {
-
+            
             $mailer = new Mailer();
             $mailer->setTransport('mailjet');
 
@@ -307,6 +311,7 @@ class ExhibitionController extends AppController
                     {
                         $this->Flash->success(__('The Email has been delivered.'));
                         $session->delete('result');
+                        return $this->redirect(['action' => 'sendEmailToParticipant', $id]);
 
                     } else {
                         $this->Flash->error(__('The Email could not be delivered.'));
@@ -333,7 +338,7 @@ class ExhibitionController extends AppController
         }
         
         if ($this->request->is('put')) {
-
+            
             $users = $this->request->getData('users_hp');
             $count = count($users);
             $to[] ='';
@@ -353,6 +358,7 @@ class ExhibitionController extends AppController
             if (send_messages($messages)) {
                 $this->Flash->success(__('The SMS has been delivered.'));
                 $session->delete('result');
+                return $this->redirect(['action' => 'sendSmsToParticipant', $id]);
             
             } else {
                 $this->Flash->error(__('The SMS could not be delivered.'));
@@ -372,7 +378,7 @@ class ExhibitionController extends AppController
             for ($i = 0; $i < $count; $i++) {
                 $result[$i] = $exhibitionUsers[$data[$i]];
             }
-            $session = $this->request->getSession()->write('result', $result);
+            $this->request->getSession()->write('result', $result);
             
             if ($type == 'email') {
                 return $this->redirect(['action' => 'sendEmailToParticipant', $id]);
