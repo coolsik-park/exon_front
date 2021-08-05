@@ -11,6 +11,8 @@ use Cake\Validation\Validator;
 /**
  * Pay Model
  *
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
+ * @property \App\Model\Table\ManagersTable&\Cake\ORM\Association\BelongsTo $Managers
  * @property \App\Model\Table\ExhibitionStreamTable&\Cake\ORM\Association\HasMany $ExhibitionStream
  * @property \App\Model\Table\ExhibitionUsersTable&\Cake\ORM\Association\HasMany $ExhibitionUsers
  *
@@ -27,6 +29,8 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Pay[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
  * @method \App\Model\Entity\Pay[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
  * @method \App\Model\Entity\Pay[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
+ *
+ * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class PayTable extends Table
 {
@@ -44,6 +48,14 @@ class PayTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
+        $this->addBehavior('Timestamp');
+
+        $this->belongsTo('Users', [
+            'foreignKey' => 'users_id',
+        ]);
+        $this->belongsTo('Managers', [
+            'foreignKey' => 'managers_id',
+        ]);
         $this->hasMany('ExhibitionStream', [
             'foreignKey' => 'pay_id',
         ]);
@@ -67,9 +79,100 @@ class PayTable extends Table
         $validator
             ->scalar('product_type')
             ->maxLength('product_type', 2)
-            ->requirePresence('product_type', 'create')
             ->notEmptyString('product_type');
 
+        $validator
+            ->scalar('merchant_uid')
+            ->maxLength('merchant_uid', 128)
+            ->allowEmptyString('merchant_uid');
+
+        $validator
+            ->scalar('pg_tid')
+            ->maxLength('pg_tid', 128)
+            ->allowEmptyString('pg_tid');
+
+        $validator
+            ->scalar('pay_method')
+            ->maxLength('pay_method', 16)
+            ->allowEmptyString('pay_method');
+
+        $validator
+            ->integer('amount')
+            ->notEmptyString('amount');
+
+        $validator
+            ->integer('pay_amount')
+            ->notEmptyString('pay_amount');
+
+        $validator
+            ->integer('coupon_amount')
+            ->notEmptyString('coupon_amount');
+
+        $validator
+            ->integer('status')
+            ->notEmptyString('status');
+
+        $validator
+            ->scalar('receipt_url')
+            ->maxLength('receipt_url', 1024)
+            ->allowEmptyString('receipt_url');
+
+        $validator
+            ->dateTime('pay_date')
+            ->allowEmptyDateTime('pay_date');
+
+        $validator
+            ->scalar('ip')
+            ->maxLength('ip', 16)
+            ->allowEmptyString('ip');
+
+        $validator
+            ->integer('cancel_amount')
+            ->notEmptyString('cancel_amount');
+
+        $validator
+            ->dateTime('cancel_date')
+            ->allowEmptyDateTime('cancel_date');
+
+        $validator
+            ->scalar('cancel_reason')
+            ->maxLength('cancel_reason', 512)
+            ->allowEmptyString('cancel_reason');
+
+        $validator
+            ->dateTime('fail_date')
+            ->allowEmptyDateTime('fail_date');
+
+        $validator
+            ->scalar('fail_reason')
+            ->maxLength('fail_reason', 512)
+            ->allowEmptyString('fail_reason');
+
+        $validator
+            ->scalar('manager_ip')
+            ->maxLength('manager_ip', 16)
+            ->allowEmptyString('manager_ip');
+
+        $validator
+            ->scalar('imp_uid')
+            ->maxLength('imp_uid', 128)
+            ->allowEmptyString('imp_uid');
+
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->existsIn(['users_id'], 'Users'), ['errorField' => 'users_id']);
+        $rules->add($rules->existsIn(['managers_id'], 'Managers'), ['errorField' => 'managers_id']);
+
+        return $rules;
     }
 }

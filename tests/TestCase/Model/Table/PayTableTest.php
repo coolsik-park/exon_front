@@ -25,6 +25,8 @@ class PayTableTest extends TestCase
      */
     protected $fixtures = [
         'app.Pay',
+        'app.Users',
+        'app.Managers',
         'app.ExhibitionStream',
         'app.ExhibitionUsers',
     ];
@@ -59,6 +61,16 @@ class PayTableTest extends TestCase
      * @return void
      */
     public function testValidationDefault(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test buildRules method
+     *
+     * @return void
+     */
+    public function testBuildRules(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

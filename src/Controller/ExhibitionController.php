@@ -304,7 +304,7 @@ class ExhibitionController extends AppController
                 // $view = new \Cake\View\View($this->request, $this->response);
                 // $view->set(compact('sender')); //이메일 템플릿에 파라미터 전달
                 // $content = $view->element('email/findPw'); //이메일 템블릿 불러오기
-                if ($res = $mailer->setFrom(['heh1009@livemolo.me' => $this->request->getData('name')])
+                if ($res = $mailer->setFrom([getEnv('EXON_EMAIL_ADDRESS') => $this->request->getData('name')])
                     ->setEmailFormat('html')
                     ->setTo($to)
                     ->setSubject('Exon Test Email')
@@ -351,7 +351,7 @@ class ExhibitionController extends AppController
             $messages = [
                 [
                 'to' => $to,
-                'from' => '01053955990',
+                'from' => getEnv('EXON_PHONE_NUMBER'),
                 'text' => $this->request->getData('sms_content')
                 ]
             ];

@@ -123,8 +123,8 @@ class UsersController extends AppController
 
     public function naverJoin()
     {
-        $client_id = "nruyRASkeHLeFK0ECeMz";
-        $client_secret = "6ulHDFpc3y";
+        $client_id = getEnv('NAVER_CLIENT_ID');
+        $client_secret = getEnv('NAVER_CLIENT_SECRET');
         $code = $_GET["code"];
         $state = $_GET["state"];
         $redirectURI = urlencode("http://121.126.223.225:8765/users/naverJoin");
@@ -196,7 +196,7 @@ class UsersController extends AppController
 
     public function kakaoJoin()
     {
-        $client_id = "9d9c1b3134751cfe60d042ba0bc24c19";
+        $client_id = getEnv('KAKAO_CLIENT_ID');
         $redirect_uri = urlencode("http://121.126.223.225:8765/users/kakaoJoin");
         $grant_type="authorization_code";
         $code = $_GET["code"];
