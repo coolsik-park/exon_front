@@ -17,7 +17,10 @@
             <?= $this->Form->create($exhibitionUsers)?>
             <fieldset>
                 <legend><?= __('Send Emails') ?></legend>
-                <?php echo $this->Form->control('email_content', ['type' => 'textarea']); ?>
+                <?php 
+                    echo $this->Form->control('name');
+                    echo $this->Form->control('email_content', ['type' => 'textarea']);
+                ?>
                 <?php
                     $data[] = '';
                     $count = count($exhibitionUsers);
