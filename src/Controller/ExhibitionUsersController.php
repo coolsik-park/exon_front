@@ -122,7 +122,7 @@ class ExhibitionUsersController extends AppController
             }
         }
         $exhibition = $this->ExhibitionUsers->Exhibition->find('list', ['limit' => 200]);
-        $exhibitionGroup = $this->ExhibitionUsers->ExhibitionGroup->find('list', ['limit' => 200])->where(['exhibition_id' => $id]);
+        $exhibitionGroup = $this->ExhibitionUsers->ExhibitionGroup->find('list', ['keyField' => 'id', 'valueField' => 'name'])->where(['exhibition_id' => $id]);
         $pay = $this->ExhibitionUsers->Pay->find('list', ['limit' => 200]);
         $exhibitionSurveys = $this->getTableLocator()->get('ExhibitionSurvey')->find('all')->where(['exhibition_id' => $id]);
         $this->set(compact('exhibitionUser', 'exhibition', 'exhibitionGroup', 'pay', 'exhibitionSurveys'));
@@ -150,7 +150,7 @@ class ExhibitionUsersController extends AppController
             $this->Flash->error(__('The exhibition user could not be saved. Please, try again.'));
         }
         $exhibition = $this->ExhibitionUsers->Exhibition->find('list', ['limit' => 200]);
-        $exhibitionGroup = $this->ExhibitionUsers->ExhibitionGroup->find('list', ['limit' => 200]);
+        $exhibitionGroup = $this->ExhibitionUsers->ExhibitionGroup->find('list', ['keyField' => 'id', 'valueField' => 'name']);
         $pay = $this->ExhibitionUsers->Pay->find('list', ['limit' => 200]);
         $this->set(compact('exhibitionUser', 'exhibition', 'exhibitionGroup', 'pay'));
     }
