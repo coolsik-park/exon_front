@@ -7,6 +7,7 @@ use Cake\Filesystem\Folder;
 use Cake\Datasource\ConnectionManager;
 use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
+use Cake\ORM\TableRegistry;
 
 /**
  * Exhibition Controller
@@ -272,6 +273,34 @@ class ExhibitionController extends AppController
             $this->Flash->error(__('The exhibition could not be deleted. Please, try again.'));
         }
         return $this->redirect(['action' => 'index']);    
+    }
+
+    public function managerPerson($id = null)
+    {
+        $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
+        $exhibition_users = $exhibition_users_table->find('all', array('contain' => array('Exhibition', 'ExhibitionGroup', 'Pay')))->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.status !=' => 4])->toArray();
+        debug($exhibition_users);
+
+        $this->set(compact('exhibition_users'));
+    }
+
+    public function exhibitionUsersStatus($id = null)
+    {
+        $connection = ConnectionManager::get('default');
+        $connection->begin();
+
+        $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
+        $exhibition_user = $exhibition_users_table->get($id);
+
+        if($connection->update('exhibition_users', ['status' => '4'], ['id' => $id])) {
+            $connection->commit();
+            $this->Flash->success(__('Your post has been saved.'));
+        } else {
+            $connection->rollback();
+            $this->Flash->error(__('Unable to add you post.'));
+        }
+
+        return $this->redirect(['action' => 'managerPerson', $exhibition_user->exhibition_id]);
     }
 
     public function sendEmailToParticipant($id = null)
