@@ -12,6 +12,7 @@ use Cake\ORM\Entity;
  * @property int $exhibition_id
  * @property int $pay_id
  * @property int|null $coupon_id
+ * @property string $stream_key
  * @property int $time
  * @property int $people
  * @property int $amount
@@ -40,6 +41,7 @@ class ExhibitionStream extends Entity
         'exhibition_id' => true,
         'pay_id' => true,
         'coupon_id' => true,
+        'stream_key' => true,
         'time' => true,
         'people' => true,
         'amount' => true,

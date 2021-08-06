@@ -60,6 +60,9 @@ class ExhibitionStreamTable extends Table
         $this->belongsTo('Coupon', [
             'foreignKey' => 'coupon_id',
         ]);
+        $this->hasMany('ExhibitionStreamChatLog', [
+            'foreignKey' => 'exhibition_stream_id',
+        ]);
     }
 
     /**
@@ -73,6 +76,12 @@ class ExhibitionStreamTable extends Table
         $validator
             ->integer('id')
             ->allowEmptyString('id', null, 'create');
+
+        $validator
+            ->scalar('stream_key')
+            ->maxLength('stream_key', 64)
+            ->requirePresence('stream_key', 'create')
+            ->notEmptyString('stream_key');
 
         $validator
             ->integer('time')
