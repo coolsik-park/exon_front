@@ -308,7 +308,7 @@ class ExhibitionController extends AppController
         $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
         $exhibition_user = $exhibition_users_table->get($id);
 
-        return $this->redirect(['controller' => 'exhibitionSurvey', 'action' => 'view', $exhibition_user->user_id]);
+        return $this->redirect(['controller' => 'exhibitionSurvey', 'action' => 'view', $exhibition_user->users_id]);
     }
 
     public function sendEmailToParticipant($id = null)
