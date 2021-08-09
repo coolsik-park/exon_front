@@ -303,6 +303,14 @@ class ExhibitionController extends AppController
         return $this->redirect(['action' => 'managerPerson', $exhibition_user->exhibition_id]);
     }
 
+    public function userSurveyView($id = null)
+    {
+        $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
+        $exhibition_user = $exhibition_users_table->get($id);
+
+        return $this->redirect(['controller' => 'exhibitionSurvey', 'action' => 'view', $exhibition_user->user_id]);
+    }
+
     public function sendEmailToParticipant($id = null)
     {
         $session = $this->request->getSession();

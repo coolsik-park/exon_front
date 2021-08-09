@@ -18,7 +18,9 @@
                 <?php foreach ($exhibition_users as $exhibition): ?>
                 <tr>
                     <td><?= h($exhibition->users_name) ?></td>
-                    <td rowspan='5'><?php echo('설문 확인') ?></td>
+                    <td class="actions" rowspan='5'>
+                        <?= $this->Form->postLink(__('설문확인'), ['action' => 'userSurveyView', $exhibition->id]) ?>
+                    </td>
                     <td rowspan='5'><?= h($exhibition->exhibition_group['name']) ?></td>
                     <td rowspan='5'><?= h($exhibition->exhibition_group['amount']) ?></td>
                     <td rowspan='5'><?php echo('결제 내역') ?></td>
