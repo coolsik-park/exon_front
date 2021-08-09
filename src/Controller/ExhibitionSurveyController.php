@@ -12,6 +12,16 @@ use Cake\ORM\TableRegistry;
  */
 class ExhibitionSurveyController extends AppController
 {
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        
+        parent::beforeFilter($event);
+        $this->loadComponent('Auth');
+
+        $this->Auth->allow();
+        // $this->Auth->deny(['test']);
+    }
+
     /**
      * Index method
      *
