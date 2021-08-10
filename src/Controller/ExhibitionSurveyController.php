@@ -120,4 +120,12 @@ class ExhibitionSurveyController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function surveyUserAnswer($id = null)
+    {
+        $exhibition_survey_users_answer_table = TableRegistry::get('ExhibitionSurvey');
+        $exhibition_survey_users = $exhibition_survey_users_answer_table->find('all', array('contaion' => array('ExhibitionSurveyUsersAnswer')))->where(['ExhibitionSurvey.exhibition_id' => $id])->toArray();
+
+        $this->set(compact('exhibition_survey_users'));
+    }
 }
