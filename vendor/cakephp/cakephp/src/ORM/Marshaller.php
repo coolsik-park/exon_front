@@ -327,6 +327,7 @@ class Marshaller
             }
         }
         if ($type === Association::MANY_TO_MANY) {
+            /** @psalm-suppress ArgumentTypeCoercion */
             return $marshaller->_belongsToMany($assoc, $value, $options);
         }
 
@@ -488,7 +489,12 @@ class Marshaller
             if (!is_array($first) || count($first) !== count($primaryKey)) {
                 return [];
             }
-            $filter = new TupleComparison($primaryKey, $ids, [], 'IN');
+            $type = [];
+            $schema = $target->getSchema();
+            foreach ((array)$target->getPrimaryKey() as $column) {
+                $type[] = $schema->getColumnType($column);
+            }
+            $filter = new TupleComparison($primaryKey, $ids, $type, 'IN');
         } else {
             $filter = [$primaryKey[0] . ' IN' => $ids];
         }
@@ -669,8 +675,9 @@ class Marshaller
             })
             ->toArray();
 
+        /** @psalm-suppress InvalidArrayOffset */
         $new = $indexed[null] ?? [];
-        /** @psalm-suppress PossiblyNullArrayOffset */
+        /** @psalm-suppress InvalidArrayOffset */
         unset($indexed[null]);
         $output = [];
 
@@ -746,11 +753,11 @@ class Marshaller
         $types = [Association::ONE_TO_ONE, Association::MANY_TO_ONE];
         $type = $assoc->type();
         if (in_array($type, $types, true)) {
-            /** @psalm-suppress PossiblyInvalidArgument */
+            /** @psalm-suppress PossiblyInvalidArgument, ArgumentTypeCoercion */
             return $marshaller->merge($original, $value, $options);
         }
         if ($type === Association::MANY_TO_MANY) {
-            /** @psalm-suppress PossiblyInvalidArgument */
+            /** @psalm-suppress PossiblyInvalidArgument, ArgumentTypeCoercion */
             return $marshaller->_mergeBelongsToMany($original, $assoc, $value, $options);
         }
 

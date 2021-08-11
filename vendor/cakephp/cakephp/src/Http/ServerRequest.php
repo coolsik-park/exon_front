@@ -477,7 +477,7 @@ class ServerRequest implements ServerRequestInterface
      *
      * @param string|string[] $type The type of request you want to check. If an array
      *   this method will return true if the request matches any type.
-     * @param string ...$args List of arguments
+     * @param mixed ...$args List of arguments
      * @return bool Whether or not the request is the type you are checking.
      */
     public function is($type, ...$args): bool
@@ -1713,15 +1713,15 @@ class ServerRequest implements ServerRequestInterface
     /**
      * Update the request replacing the files, and creating a new instance.
      *
-     * @param array $files An array of uploaded file objects.
+     * @param array $uploadedFiles An array of uploaded file objects.
      * @return static
      * @throws \InvalidArgumentException when $files contains an invalid object.
      */
-    public function withUploadedFiles(array $files)
+    public function withUploadedFiles(array $uploadedFiles)
     {
-        $this->validateUploadedFiles($files, '');
+        $this->validateUploadedFiles($uploadedFiles, '');
         $new = clone $this;
-        $new->uploadedFiles = $files;
+        $new->uploadedFiles = $uploadedFiles;
 
         return $new;
     }
@@ -1824,14 +1824,14 @@ class ServerRequest implements ServerRequestInterface
      *
      * @link https://tools.ietf.org/html/rfc7230#section-2.7 (for the various
      *   request-target forms allowed in request messages)
-     * @param string $target The request target.
+     * @param string $requestTarget The request target.
      * @return static
      * @psalm-suppress MoreSpecificImplementedParamType
      */
-    public function withRequestTarget($target)
+    public function withRequestTarget($requestTarget)
     {
         $new = clone $this;
-        $new->requestTarget = $target;
+        $new->requestTarget = $requestTarget;
 
         return $new;
     }

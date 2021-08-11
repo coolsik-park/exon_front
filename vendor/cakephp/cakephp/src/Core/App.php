@@ -51,7 +51,6 @@ class App
      * @param string $suffix Class name suffix
      * @return string|null Namespaced class name, null if the class is not found.
      * @psalm-return class-string|null
-     * @psalm-var class-string $class
      */
     public static function className(string $class, string $type = '', string $suffix = ''): ?string
     {
@@ -65,7 +64,6 @@ class App
         $fullname = '\\' . str_replace('/', '\\', $type . '\\' . $name) . $suffix;
 
         if (static::_classExistsInBase($fullname, $base)) {
-            // phpcs:ignore SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration.InvalidFormat
             /** @var class-string */
             return $base . $fullname;
         }
@@ -74,7 +72,6 @@ class App
             return null;
         }
 
-        // phpcs:ignore SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration.InvalidFormat
         /** @var class-string */
         return 'Cake' . $fullname;
     }
@@ -138,7 +135,7 @@ class App
 
         $nonPluginNamespaces = [
             'Cake',
-            str_replace('\\', '/', Configure::read('App.namespace')),
+            str_replace('\\', '/', (string)Configure::read('App.namespace')),
         ];
         if (in_array($pluginName, $nonPluginNamespaces, true)) {
             return $name;

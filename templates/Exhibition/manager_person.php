@@ -54,5 +54,11 @@
             </ul>
             <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
         </div>
+        <div>
+            <?php echo $this->Form->create(null, ['valueSources' => 'data', 'action' => 'search']) ?>
+            <?php echo $this->Form->control('users_name', ['placeholder' => '검색어를 입력하세요.']) ?>
+            <?php echo $this->Form->button(__('검색')) ?>
+            <?php echo $this->Form->end() ?>
+        </div>
     </div>
 </div>

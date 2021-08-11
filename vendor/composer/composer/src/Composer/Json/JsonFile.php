@@ -80,6 +80,7 @@ class JsonFile
     /**
      * Reads json file.
      *
+     * @throws ParsingException
      * @throws \RuntimeException
      * @return mixed
      */
@@ -90,7 +91,12 @@ class JsonFile
                 $json = $this->httpDownloader->get($this->path)->getBody();
             } else {
                 if ($this->io && $this->io->isDebug()) {
-                    $this->io->writeError('Reading ' . $this->path);
+                    $realpathInfo = '';
+                    $realpath = realpath($this->path);
+                    if (false !== $realpath && $realpath !== $this->path) {
+                        $realpathInfo = ' (' . $realpath . ')';
+                    }
+                    $this->io->writeError('Reading ' . $this->path . $realpathInfo);
                 }
                 $json = file_get_contents($this->path);
             }
@@ -167,6 +173,7 @@ class JsonFile
      * @param  int                     $schema     a JsonFile::*_SCHEMA constant
      * @param  string|null             $schemaFile a path to the schema file
      * @throws JsonValidationException
+     * @throws ParsingException
      * @return bool                    true on success
      */
     public function validateSchema($schema = self::STRICT_SCHEMA, $schemaFile = null)
@@ -178,7 +185,9 @@ class JsonFile
             self::validateSyntax($content, $this->path);
         }
 
+        $isComposerSchemaFile = false;
         if (null === $schemaFile) {
+            $isComposerSchemaFile = true;
             $schemaFile = __DIR__ . self::COMPOSER_SCHEMA_PATH;
         }
 
@@ -192,12 +201,13 @@ class JsonFile
         if ($schema === self::LAX_SCHEMA) {
             $schemaData->additionalProperties = true;
             $schemaData->required = array();
+        } elseif ($schema === self::STRICT_SCHEMA && $isComposerSchemaFile) {
+            $schemaData->additionalProperties = false;
+            $schemaData->required = array('name', 'description');
         }
 
         $validator = new Validator();
         $validator->check($data, $schemaData);
-
-        // TODO add more validation like check version constraints and such, perhaps build that into the arrayloader?
 
         if (!$validator->isValid()) {
             $errors = array();
@@ -284,6 +294,7 @@ class JsonFile
      * @param string $json json string
      * @param string $file the json file
      *
+     * @throws ParsingException
      * @return mixed
      */
     public static function parseJson($json, $file = null)

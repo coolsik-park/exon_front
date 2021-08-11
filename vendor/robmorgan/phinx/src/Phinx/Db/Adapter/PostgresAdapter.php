@@ -546,6 +546,14 @@ class PostgresAdapter extends PdoAdapter
             $this->quoteColumnName($columnName),
             $this->getColumnSqlDefinition($newColumn)
         );
+
+        if (in_array($newColumn->getType(), ['smallinteger', 'integer', 'biginteger'], true)) {
+            $sql .= sprintf(
+                ' USING (%s::bigint)',
+                $this->quoteColumnName($columnName)
+            );
+        }
+
         //NULL and DEFAULT cannot be set while changing column type
         $sql = preg_replace('/ NOT NULL/', '', $sql);
         $sql = preg_replace('/ NULL/', '', $sql);
@@ -1233,20 +1241,33 @@ class PostgresAdapter extends PdoAdapter
     protected function getIndexSqlDefinition(Index $index, $tableName)
     {
         $parts = $this->getSchemaName($tableName);
+        $columnNames = $index->getColumns();
 
         if (is_string($index->getName())) {
             $indexName = $index->getName();
         } else {
-            $columnNames = $index->getColumns();
             $indexName = sprintf('%s_%s', $parts['table'], implode('_', $columnNames));
         }
 
+        $order = $index->getOrder() ?? [];
+        $columnNames = array_map(function ($columnName) use ($order) {
+            $ret = '"' . $columnName . '"';
+            if (isset($order[$columnName])) {
+                $ret .= ' ' . $order[$columnName];
+            }
+
+            return $ret;
+        }, $columnNames);
+
+        $includedColumns = $index->getInclude() ? sprintf('INCLUDE ("%s")', implode('","', $index->getInclude())) : '';
+
         return sprintf(
-            'CREATE %s INDEX %s ON %s (%s);',
+            'CREATE %s INDEX %s ON %s (%s) %s;',
             ($index->getType() === Index::UNIQUE ? 'UNIQUE' : ''),
             $this->quoteColumnName($indexName),
             $this->quoteTableName($tableName),
-            implode(',', array_map([$this, 'quoteColumnName'], $index->getColumns()))
+            implode(',', $columnNames),
+            $includedColumns
         );
     }
 
@@ -1287,9 +1308,29 @@ class PostgresAdapter extends PdoAdapter
             $this->createSchema($this->getGlobalSchemaName());
         }
 
-        $this->fetchAll(sprintf('SET search_path TO %s', $this->quoteSchemaName($this->getGlobalSchemaName())));
+        $this->setSearchPath();
 
         parent::createSchemaTable();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getVersions()
+    {
+        $this->setSearchPath();
+
+        return parent::getVersions();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getVersionLog()
+    {
+        $this->setSearchPath();
+
+        return parent::getVersionLog();
     }
 
     /**
@@ -1468,5 +1509,20 @@ class PostgresAdapter extends PdoAdapter
         $driver->setConnection($this->connection);
 
         return new Connection(['driver' => $driver] + $options);
+    }
+
+    /**
+     * Sets search path of schemas to look through for a table
+     *
+     * @return void
+     */
+    public function setSearchPath()
+    {
+        $this->execute(
+            sprintf(
+                'SET search_path TO %s,"$user",public',
+                $this->quoteSchemaName($this->getGlobalSchemaName())
+            )
+        );
     }
 }

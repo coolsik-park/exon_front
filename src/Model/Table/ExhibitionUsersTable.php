@@ -61,6 +61,19 @@ class ExhibitionUsersTable extends Table
         $this->belongsTo('Pay', [
             'foreignKey' => 'pay_id',
         ]);
+
+        $this->addBehavior('Search.Search');
+        $this->searchManager()
+            ->value('users_name')
+            ->add('search', 'Search.Like',[
+                'before' => true,
+                'after' => true,
+                'fieldMode' => 'OR',
+                'comparison' => 'LIKE',
+                'wildcardAny' => '*',
+                'wildcardOne' => '?',
+                'fields' => ['users_name', 'users_email'],
+            ]);
     }
 
     /**

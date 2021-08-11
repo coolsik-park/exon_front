@@ -8,6 +8,7 @@ use Cake\Datasource\ConnectionManager;
 use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
 use Cake\ORM\TableRegistry;
+use Cake\Event\EventInterface;
 
 /**
  * Exhibition Controller
@@ -31,6 +32,12 @@ class ExhibitionController extends AppController
             $this->request->getSession()->delete('result');
         }
     }   
+
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->loadComponent('Search.Search', ['actions' => ['search'],]);
+    }
 
     /**
      * Index method
@@ -309,6 +316,16 @@ class ExhibitionController extends AppController
         $exhibition_user = $exhibition_users_table->get($id);
 
         return $this->redirect(['controller' => 'exhibitionSurvey', 'action' => 'surveyUserAnswer', $exhibition_user->exhibition_id]);
+    }
+
+    public function search()
+    {
+        $this->paginate['maxLimit'] = 999;
+        $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
+        $exhibition_users = $this->paginate($exhibition_users_table->find('search', ['search' => $this->request->getQuery()]));
+
+        $this->set(compact('exhibition_users'));
+        $this->set('_serialize', ['exhibition_users']);
     }
 
     public function sendEmailToParticipant($id = null)

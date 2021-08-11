@@ -443,7 +443,8 @@ class QueryExpression implements ExpressionInterface, Countable
         return new static($conditions, $this->getTypeMap()->setTypes($types), 'OR');
     }
 
-// phpcs:disable
+    // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+
     /**
      * Returns a new QueryExpression object containing all the conditions passed
      * and set up the conjunction to be "AND"
@@ -457,6 +458,7 @@ class QueryExpression implements ExpressionInterface, Countable
     public function and_($conditions, $types = [])
     {
         deprecationWarning('QueryExpression::and_() is deprecated use and() instead.');
+
         return $this->and($conditions, $types);
     }
 
@@ -473,9 +475,11 @@ class QueryExpression implements ExpressionInterface, Countable
     public function or_($conditions, $types = [])
     {
         deprecationWarning('QueryExpression::or_() is deprecated use or() instead.');
+
         return $this->or($conditions, $types);
     }
-// phpcs:enable
+
+    // phpcs:enable
 
     /**
      * Adds a new set of conditions to this level of the tree and negates
@@ -483,7 +487,7 @@ class QueryExpression implements ExpressionInterface, Countable
      * "NOT ( (condition1) AND (conditions2) )" conjunction depends on the one
      * currently configured for this object.
      *
-     * @param string|array|\Cake\Database\ExpressionInterface $conditions to be added and negated
+     * @param string|array|\Closure|\Cake\Database\ExpressionInterface $conditions to be added and negated
      * @param array $types associative array of fields pointing to the type of the
      * values that are being passed. Used for correctly binding values to statements.
      * @return $this

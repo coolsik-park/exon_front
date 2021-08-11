@@ -120,6 +120,9 @@ class SQLiteAdapter extends PdoAdapter
         'NVARCHAR',
     ];
 
+    /**
+     * @var string
+     */
     protected $suffix = '.sqlite3';
 
     /**
@@ -690,6 +693,9 @@ PCRE_PATTERN;
             // as the alternative is unwinding all possible table constraints which
             // gets messy quickly with CHECK constraints.
             $columns = $this->getColumns($tableName);
+            if (!$columns) {
+                return $state;
+            }
             $finalColumnName = end($columns)->getName();
             $sql = preg_replace(
                 sprintf(
@@ -743,6 +749,7 @@ PCRE_PATTERN;
      * Returns the original CREATE statement for the give index
      *
      * @param string $tableName The table name to get the create statement for
+     * @param string $indexName The table index
      * @return string
      */
     protected function getDeclaringIndexSql($tableName, $indexName)
@@ -1174,14 +1181,15 @@ PCRE_PATTERN;
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @throws \InvalidArgumentException
+     * @inheritDoc
      */
     public function hasForeignKey($tableName, $columns, $constraint = null)
     {
         if ($constraint !== null) {
-            throw new InvalidArgumentException('SQLite does not support named constraints.');
+            return preg_match(
+                "/,?\sCONSTRAINT\s" . preg_quote($this->quoteColumnName($constraint)) . ' FOREIGN KEY/',
+                $this->getDeclaringSql($tableName)
+            ) === 1;
         }
 
         $columns = array_map('strtolower', (array)$columns);
@@ -1313,17 +1321,19 @@ PCRE_PATTERN;
             $tmpTableName = $state['tmpTableName'];
             $indexes = $this->getIndexes($tableName);
             foreach (array_keys($indexes) as $indexName) {
-                $sql .= sprintf(
-                    'DROP INDEX %s%s; ',
-                    $schema,
-                    $this->quoteColumnName($indexName)
-                );
-                $createIndexSQL = $this->getDeclaringIndexSQL($tableName, $indexName);
-                $sql .= preg_replace(
-                    "/\b${tableName}\b/",
-                    $tmpTableName,
-                    $createIndexSQL
-                );
+                if (strpos($indexName, 'sqlite_autoindex_') !== 0) {
+                    $sql .= sprintf(
+                        'DROP INDEX %s%s; ',
+                        $schema,
+                        $this->quoteColumnName($indexName)
+                    );
+                    $createIndexSQL = $this->getDeclaringIndexSQL($tableName, $indexName);
+                    $sql .= preg_replace(
+                        "/\b${tableName}\b/",
+                        $tmpTableName,
+                        $createIndexSQL
+                    );
+                }
             }
 
             $this->execute($sql);

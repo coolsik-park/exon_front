@@ -743,10 +743,10 @@ class Debugger
                     foreach ($var->__debugInfo() as $key => $val) {
                         $node->addProperty(new PropertyNode("'{$key}'", null, static::export($val, $context)));
                     }
-                } catch (Exception $e) {
-                    $message = $e->getMessage();
 
-                    return new SpecialNode("(unable to export object: $message)");
+                    return $node;
+                } catch (Exception $e) {
+                    return new SpecialNode("(unable to export object: {$e->getMessage()})");
                 }
             }
 
@@ -1061,7 +1061,7 @@ class Debugger
         $salt = Security::getSalt();
         if ($salt === '__SALT__' || strlen($salt) < 32) {
             trigger_error(
-                'Please change the value of `Security.salt` in `ROOT/config/app.php` ' .
+                'Please change the value of `Security.salt` in `ROOT/config/app_local.php` ' .
                 'to a random value of at least 32 characters.',
                 E_USER_NOTICE
             );

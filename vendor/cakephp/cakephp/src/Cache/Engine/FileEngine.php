@@ -251,17 +251,32 @@ class FileEngine extends CacheEngine
             RecursiveIteratorIterator::SELF_FIRST
         );
         $cleared = [];
-        foreach ($contents as $path) {
-            if ($path->isFile()) {
+        /** @var \SplFileInfo $fileInfo */
+        foreach ($contents as $fileInfo) {
+            if ($fileInfo->isFile()) {
+                unset($fileInfo);
                 continue;
             }
 
-            $path = $path->getRealPath() . DIRECTORY_SEPARATOR;
+            $realPath = $fileInfo->getRealPath();
+            if (!$realPath) {
+                unset($fileInfo);
+                continue;
+            }
+
+            $path = $realPath . DIRECTORY_SEPARATOR;
             if (!in_array($path, $cleared, true)) {
                 $this->_clearDirectory($path);
                 $cleared[] = $path;
             }
+
+            // possible inner iterators need to be unset too in order for locks on parents to be released
+            unset($fileInfo);
         }
+
+        // unsetting iterators helps releasing possible locks in certain environments,
+        // which could otherwise make `rmdir()` fail
+        unset($directory, $contents);
 
         return true;
     }
@@ -476,6 +491,10 @@ class FileEngine extends CacheEngine
             // phpcs:ignore
             @unlink($path);
         }
+
+        // unsetting iterators helps releasing possible locks in certain environments,
+        // which could otherwise make `rmdir()` fail
+        unset($directoryIterator, $contents, $filtered);
 
         return true;
     }
