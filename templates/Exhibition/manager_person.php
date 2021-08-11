@@ -23,7 +23,7 @@
                     </td>
                     <td rowspan='5'><?= h($exhibition->exhibition_group['name']) ?></td>
                     <td rowspan='5'><?= h($exhibition->exhibition_group['amount']) ?></td>
-                    <td rowspan='5'><?php echo('결제 내역') ?></td>
+                    <td rowspan='5'><?php echo('출석여부') ?></td>
                     <td rowspan='5'><?php echo $this->Form->control('', ['options' => ['1' => '참가 대기', '2' => '참가 확정']]) ?></td>
                     <td class="actions" rowspan='5'>
                         <?= $this->Form->postLink(__('취소'), ['action' => 'exhibitionUsersStatus', $exhibition->id], ['confirm' => __('Are you sure you want to delete # {0}?', $exhibition->id)]) ?>
