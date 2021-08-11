@@ -14,6 +14,7 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\ExhibitionTable&\Cake\ORM\Association\BelongsTo $Exhibition
  * @property \App\Model\Table\PayTable&\Cake\ORM\Association\BelongsTo $Pay
  * @property \App\Model\Table\CouponTable&\Cake\ORM\Association\BelongsTo $Coupon
+ * @property \App\Model\Table\ExhibitionStreamChatLogTable&\Cake\ORM\Association\HasMany $ExhibitionStreamChatLog
  *
  * @method \App\Model\Entity\ExhibitionStream newEmptyEntity()
  * @method \App\Model\Entity\ExhibitionStream newEntity(array $data, array $options = [])
@@ -78,9 +79,20 @@ class ExhibitionStreamTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
+            ->scalar('title')
+            ->maxLength('title', 100)
+            ->requirePresence('title', 'create')
+            ->notEmptyString('title');
+
+        $validator
+            ->scalar('description')
+            ->maxLength('description', 100)
+            ->requirePresence('description', 'create')
+            ->notEmptyString('description');
+
+        $validator
             ->scalar('stream_key')
             ->maxLength('stream_key', 64)
-            ->requirePresence('stream_key', 'create')
             ->notEmptyString('stream_key');
 
         $validator
@@ -122,9 +134,9 @@ class ExhibitionStreamTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['exhibition_id'], 'Exhibition'), ['errorField' => 'exhibition_id']);
-        $rules->add($rules->existsIn(['pay_id'], 'Pay'), ['errorField' => 'pay_id']);
-        $rules->add($rules->existsIn(['coupon_id'], 'Coupon'), ['errorField' => 'coupon_id']);
+        // $rules->add($rules->existsIn(['exhibition_id'], 'Exhibition'), ['errorField' => 'exhibition_id']);
+        // $rules->add($rules->existsIn(['pay_id'], 'Pay'), ['errorField' => 'pay_id']);
+        // $rules->add($rules->existsIn(['coupon_id'], 'Coupon'), ['errorField' => 'coupon_id']);
 
         return $rules;
     }

@@ -28,6 +28,7 @@ class ExhibitionStreamTableTest extends TestCase
         'app.Exhibition',
         'app.Pay',
         'app.Coupon',
+        'app.ExhibitionStreamChatLog',
     ];
 
     /**

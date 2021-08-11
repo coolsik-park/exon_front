@@ -170,8 +170,8 @@ class PayTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['users_id'], 'Users'), ['errorField' => 'users_id']);
-        $rules->add($rules->existsIn(['managers_id'], 'Managers'), ['errorField' => 'managers_id']);
+        // $rules->add($rules->existsIn(['users_id'], 'Users'), ['errorField' => 'users_id']);
+        // $rules->add($rules->existsIn(['managers_id'], 'Managers'), ['errorField' => 'managers_id']);
 
         return $rules;
     }

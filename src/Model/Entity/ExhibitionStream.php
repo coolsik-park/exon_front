@@ -12,6 +12,8 @@ use Cake\ORM\Entity;
  * @property int $exhibition_id
  * @property int $pay_id
  * @property int|null $coupon_id
+ * @property string $title
+ * @property string $description
  * @property string $stream_key
  * @property int $time
  * @property int $people
@@ -25,6 +27,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\Exhibition $exhibition
  * @property \App\Model\Entity\Pay $pay
  * @property \App\Model\Entity\Coupon $coupon
+ * @property \App\Model\Entity\ExhibitionStreamChatLog[] $exhibition_stream_chat_log
  */
 class ExhibitionStream extends Entity
 {
@@ -41,6 +44,8 @@ class ExhibitionStream extends Entity
         'exhibition_id' => true,
         'pay_id' => true,
         'coupon_id' => true,
+        'title' => true,
+        'description' => true,
         'stream_key' => true,
         'time' => true,
         'people' => true,
@@ -53,5 +58,6 @@ class ExhibitionStream extends Entity
         'exhibition' => true,
         'pay' => true,
         'coupon' => true,
+        'exhibition_stream_chat_log' => true,
     ];
 }
