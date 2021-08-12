@@ -153,7 +153,7 @@ class PayController extends AppController
                 'pay_amount' => $pay_amount,
                 'coupon_amount' => $coupon_amount,
                 'receipt_url' => $receipt_url,
-                // 'pay_date' => $pay_date,
+                'pay_date' => $pay_date,
                 'pg_tid' => $pg_tid,
                 'status' => 4
             ];

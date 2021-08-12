@@ -118,7 +118,7 @@ class PayTable extends Table
             ->allowEmptyString('receipt_url');
 
         $validator
-            ->dateTime('pay_date')
+            ->integer('pay_date')
             ->allowEmptyDateTime('pay_date');
 
         $validator
