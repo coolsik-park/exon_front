@@ -56,7 +56,6 @@ class ExhibitionStreamTable extends Table
         ]);
         $this->belongsTo('Pay', [
             'foreignKey' => 'pay_id',
-            'joinType' => 'INNER',
         ]);
         $this->belongsTo('Coupon', [
             'foreignKey' => 'coupon_id',
@@ -80,13 +79,13 @@ class ExhibitionStreamTable extends Table
 
         $validator
             ->scalar('title')
-            ->maxLength('title', 100)
+            ->maxLength('title', 200)
             ->requirePresence('title', 'create')
             ->notEmptyString('title');
 
         $validator
             ->scalar('description')
-            ->maxLength('description', 100)
+            ->maxLength('description', 200)
             ->requirePresence('description', 'create')
             ->notEmptyString('description');
 
@@ -134,9 +133,9 @@ class ExhibitionStreamTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        // $rules->add($rules->existsIn(['exhibition_id'], 'Exhibition'), ['errorField' => 'exhibition_id']);
-        // $rules->add($rules->existsIn(['pay_id'], 'Pay'), ['errorField' => 'pay_id']);
-        // $rules->add($rules->existsIn(['coupon_id'], 'Coupon'), ['errorField' => 'coupon_id']);
+        $rules->add($rules->existsIn(['exhibition_id'], 'Exhibition'), ['errorField' => 'exhibition_id']);
+        $rules->add($rules->existsIn(['pay_id'], 'Pay'), ['errorField' => 'pay_id']);
+        $rules->add($rules->existsIn(['coupon_id'], 'Coupon'), ['errorField' => 'coupon_id']);
 
         return $rules;
     }

@@ -99,13 +99,13 @@ class ExhibitionTable extends Table
 
         $validator
             ->scalar('title')
-            ->maxLength('title', 255)
+            ->maxLength('title', 200)
             ->requirePresence('title', 'create')
             ->notEmptyString('title');
 
         $validator
             ->scalar('description')
-            ->maxLength('description', 255)
+            ->maxLength('description', 200)
             ->allowEmptyString('description');
 
         $validator
