@@ -30,9 +30,9 @@
                     echo $this->Form->button(__('스트림키 발급'));
                     echo $this->Form->control('stream_key', ['label' => '스트림 키']);
                     echo $this->Form->control('url');
-                    echo $this->Form->control('coupon_amount', ['label' => '쿠폰 금액', 'id' => 'coupon']);
-                    echo $this->Form->control('paid', ['type' => 'text', 'value' => 0]);
-                    echo $this->Form->control('id', ['type' => 'text']);
+                    echo $this->Form->control('coupon_amount', ['type' => 'hidden', 'id' => 'coupon']);
+                    echo $this->Form->control('paid', ['type' => 'hidden', 'value' => 0]);
+                    echo $this->Form->control('id', ['type' => 'hidden']);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
