@@ -26,11 +26,6 @@ class ExhibitionController extends AppController
 
         $this->Auth->allow();
         // $this->Auth->deny(['test'])
-
-        $uri = substr($_SERVER['REQUEST_URI'], 0, 16);
-        if ($uri != '/exhibition/send') {
-            $this->request->getSession()->delete('result');
-        }
     }   
 
     public function initialize(): void

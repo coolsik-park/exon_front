@@ -23,12 +23,6 @@ class ExhibitionStreamController extends AppController
 
         $this->Auth->allow();
         // $this->Auth->deny(['index']);
-
-        $uri = substr($_SERVER['REQUEST_URI'], 0, 40);
-        if ($uri != '/exhibition-stream/set-exhibition-stream') {
-            $this->request->getSession()->delete('coupon_data');
-            $this->request->getSession()->delete('stream_data');
-        }
     }
 
     /**
