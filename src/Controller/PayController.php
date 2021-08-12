@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Pay Controller
@@ -127,21 +128,41 @@ class PayController extends AppController
     // }
 
     public function importPay() {
+        // $connection = ConnectionManager::get('default');
+        // $connection->begin();
+        
         $pay = $this->Pay->newEmptyEntity();
         
         if ($this->request->is('post')) {
             $merchant_uid = $this->request->getData('merchant_uid');
+            $imp_uid = $this->request->getData('imp_uid');
+            $pay_method = $this->request->getData('pay_method');
+            $pay_amount = $this->request->getData('paid_amount');
+            $coupon_amount = $this->request->getData('coupon_amount');
+            $receipt_url = $this->request->getData('receipt_url');
+            $pay_date = $this->request->getData('paid_at');
+            $pg_tid = $this->request->getData('pg_tid');
             $data = [
                 'product_type' => 'S',
                 'users_id' => $this->Auth->user()->id,
-                'merchant_uid' => $merchant_uid
+                'ip' => $this->Auth->user()->ip,
+                'merchant_uid' => $merchant_uid,
+                'imp_uid' => $imp_uid,
+                'pay_method' => $pay_method,
+                'amount' => $pay_amount + $coupon_amount,
+                'pay_amount' => $pay_amount,
+                'coupon_amount' => $coupon_amount,
+                'receipt_url' => $receipt_url,
+                // 'pay_date' => $pay_date,
+                'pg_tid' => $pg_tid,
+                'status' => 4
             ];
             $pay = $this->Pay->patchEntity($pay, $data);
             
-            if ($this->Pay->save($pay)) {
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
-                return $response; 
-            } 
+            if ($result = $this->Pay->save($pay)) {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'pay_id' => $result->id]));
+                return $response;
+            }
         }
     }
 }
