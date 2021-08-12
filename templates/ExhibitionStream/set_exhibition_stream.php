@@ -100,3 +100,54 @@
         });
     });
 </script>
+<script>
+    $("#people").change(function () {
+        amount = 0;
+        time = 0;
+
+        switch($("#people").val()) {
+            case "50" : amount = 200000; break;
+            case "100" : amount = 400000; break;
+            case "150" : amount = 600000; break;
+            case "200" : amount = 800000; break;
+            case "250" : amount = 1000000; break;
+            case "300" : amount = 1200000; break;
+            case "350" : amount = 1400000; break;
+            case "400" : amount = 1600000; break;
+            case "450" : amount = 1800000; break;
+            case "500" : amount = 2000000; break;
+        }
+
+        switch($("#time").val()) {
+            case "18000" : time = 1; break;
+            case "36000" : time = 2; break;
+        }
+
+        $("#amount").val(amount*time);
+    });
+
+    $("#time").change(function () {
+        amount = 0;
+        time = 0;
+
+        switch($("#people").val()) {
+            case "50" : amount = 200000; break;
+            case "100" : amount = 400000; break;
+            case "150" : amount = 600000; break;
+            case "200" : amount = 800000; break;
+            case "250" : amount = 1000000; break;
+            case "300" : amount = 1200000; break;
+            case "350" : amount = 1400000; break;
+            case "400" : amount = 1600000; break;
+            case "450" : amount = 1800000; break;
+            case "500" : amount = 2000000; break;
+        }
+
+        switch($("#time").val()) {
+            case "18000" : time = 1; break;
+            case "36000" : time = 2; break;
+        }
+
+        $("#amount").val(amount*time);
+    });
+</script>
