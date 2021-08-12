@@ -35,7 +35,7 @@ use SplFileInfo;
  *
  * There are external packages such as `fig/http-message-util` that provide HTTP
  * status code constants. These can be used with any method that accepts or
- * returns a status code integer. Keep in mind that these consants might
+ * returns a status code integer. Keep in mind that these constants might
  * include status codes that are now allowed which will throw an
  * `\InvalidArgumentException`.
  */
@@ -599,7 +599,7 @@ class Response implements ResponseInterface
      *
      * There are external packages such as `fig/http-message-util` that provide HTTP
      * status code constants. These can be used with any method that accepts or
-     * returns a status code integer. However, keep in mind that these consants
+     * returns a status code integer. However, keep in mind that these constants
      * might include status codes that are now allowed which will throw an
      * `\InvalidArgumentException`.
      *
@@ -809,7 +809,7 @@ class Response implements ResponseInterface
     public function withDisabledCache()
     {
         return $this->withHeader('Expires', 'Mon, 26 Jul 1997 05:00:00 GMT')
-            ->withHeader('Last-Modified', gmdate('D, d M Y H:i:s') . ' GMT')
+            ->withHeader('Last-Modified', gmdate(DATE_RFC7231))
             ->withHeader('Cache-Control', 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
     }
 
@@ -831,7 +831,7 @@ class Response implements ResponseInterface
             }
         }
 
-        return $this->withHeader('Date', gmdate('D, j M Y G:i:s ', time()) . 'GMT')
+        return $this->withHeader('Date', gmdate(DATE_RFC7231, time()))
             ->withModified($since)
             ->withExpires($time)
             ->withSharable(true)
@@ -959,7 +959,7 @@ class Response implements ResponseInterface
     {
         $date = $this->_getUTCDate($time);
 
-        return $this->withHeader('Expires', $date->format('D, j M Y H:i:s') . ' GMT');
+        return $this->withHeader('Expires', $date->format(DATE_RFC7231));
     }
 
     /**
@@ -982,7 +982,7 @@ class Response implements ResponseInterface
     {
         $date = $this->_getUTCDate($time);
 
-        return $this->withHeader('Last-Modified', $date->format('D, j M Y H:i:s') . ' GMT');
+        return $this->withHeader('Last-Modified', $date->format(DATE_RFC7231));
     }
 
     /**

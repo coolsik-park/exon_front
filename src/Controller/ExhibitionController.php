@@ -7,6 +7,8 @@ use Cake\Filesystem\Folder;
 use Cake\Datasource\ConnectionManager;
 use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
+use Cake\ORM\TableRegistry;
+use Cake\Event\EventInterface;
 
 /**
  * Exhibition Controller
@@ -30,6 +32,12 @@ class ExhibitionController extends AppController
             $this->request->getSession()->delete('result');
         }
     }   
+
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->loadComponent('Search.Search', ['actions' => ['search'],]);
+    }
 
     /**
      * Index method
@@ -272,6 +280,52 @@ class ExhibitionController extends AppController
             $this->Flash->error(__('The exhibition could not be deleted. Please, try again.'));
         }
         return $this->redirect(['action' => 'index']);    
+    }
+
+    public function managerPerson($id = null)
+    {
+        $this->paginate = ['limit' => 10];
+        $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
+        $exhibition_users = $this->paginate($exhibition_users_table->find('all', array('contain' => array('Exhibition', 'ExhibitionGroup', 'Pay')))->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.status !=' => 4]))->toArray();
+
+        $this->set(compact('exhibition_users'));
+    }
+
+    public function exhibitionUsersStatus($id = null)
+    {
+        $connection = ConnectionManager::get('default');
+        $connection->begin();
+
+        $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
+        $exhibition_user = $exhibition_users_table->get($id);
+
+        if($connection->update('exhibition_users', ['status' => '4'], ['id' => $id])) {
+            $connection->commit();
+            $this->Flash->success(__('Your post has been saved.'));
+        } else {
+            $connection->rollback();
+            $this->Flash->error(__('Unable to add you post.'));
+        }
+
+        return $this->redirect(['action' => 'managerPerson', $exhibition_user->exhibition_id]);
+    }
+
+    public function userSurveyView($id = null)
+    {
+        $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
+        $exhibition_user = $exhibition_users_table->get($id);
+
+        return $this->redirect(['controller' => 'exhibitionSurvey', 'action' => 'surveyUserAnswer', $exhibition_user->exhibition_id]);
+    }
+
+    public function search()
+    {
+        $this->paginate['maxLimit'] = 999;
+        $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
+        $exhibition_users = $this->paginate($exhibition_users_table->find('search', ['search' => $this->request->getQuery()]));
+
+        $this->set(compact('exhibition_users'));
+        $this->set('_serialize', ['exhibition_users']);
     }
 
     public function sendEmailToParticipant($id = null)

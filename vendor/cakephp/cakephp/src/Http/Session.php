@@ -431,8 +431,8 @@ class Session
      *
      * @param string|null $name The name of the session variable (or a path as sent to Hash.extract)
      * @param mixed $default The return value when the path does not exist
-     * @return mixed|null The value of the session variable, null if session not available,
-     *   session not started, or provided name not found in the session.
+     * @return mixed|null The value of the session variable, or default value if a session
+     *   is not available, can't be started, or provided $name is not found in the session.
      */
     public function read(?string $name = null, $default = null)
     {
@@ -441,7 +441,7 @@ class Session
         }
 
         if (!isset($_SESSION)) {
-            return null;
+            return $default;
         }
 
         if ($name === null) {
@@ -509,7 +509,7 @@ class Session
             $data = Hash::insert($data, $key, $val);
         }
 
-        /** @psalm-suppress NullReference */
+        /** @psalm-suppress PossiblyNullArgument */
         $this->_overwrite($_SESSION, $data);
     }
 
@@ -556,7 +556,7 @@ class Session
      * @param array $new New set of variable => value
      * @return void
      */
-    protected function _overwrite(&$old, array $new): void
+    protected function _overwrite(array &$old, array $new): void
     {
         if (!empty($old)) {
             foreach ($old as $key => $var) {

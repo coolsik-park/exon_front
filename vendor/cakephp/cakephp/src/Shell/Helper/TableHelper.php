@@ -46,7 +46,7 @@ class TableHelper extends Helper
         $widths = [];
         foreach ($rows as $line) {
             foreach (array_values($line) as $k => $v) {
-                $columnLength = $this->_cellWidth($v);
+                $columnLength = $this->_cellWidth((string)$v);
                 if ($columnLength >= ($widths[$k] ?? 0)) {
                     $widths[$k] = $columnLength;
                 }
@@ -59,12 +59,12 @@ class TableHelper extends Helper
     /**
      * Get the width of a cell exclusive of style tags.
      *
-     * @param string|null $text The text to calculate a width for.
+     * @param string $text The text to calculate a width for.
      * @return int The width of the textual content in visible characters.
      */
-    protected function _cellWidth(?string $text): int
+    protected function _cellWidth(string $text): int
     {
-        if ($text === null) {
+        if (strlen($text) === 0) {
             return 0;
         }
 
@@ -111,11 +111,12 @@ class TableHelper extends Helper
 
         $out = '';
         foreach (array_values($row) as $i => $column) {
+            $column = (string)$column;
             $pad = $widths[$i] - $this->_cellWidth($column);
             if (!empty($options['style'])) {
                 $column = $this->_addStyle($column, $options['style']);
             }
-            if ($column !== null && preg_match('#(.*)<text-right>.+</text-right>(.*)#', $column, $matches)) {
+            if (strlen($column) > 0 && preg_match('#(.*)<text-right>.+</text-right>(.*)#', $column, $matches)) {
                 if ($matches[1] !== '' || $matches[2] !== '') {
                     throw new UnexpectedValueException('You cannot include text before or after the text-right tag.');
                 }
@@ -135,31 +136,31 @@ class TableHelper extends Helper
      * Data will be output based on the order of the values
      * in the array. The keys will not be used to align data.
      *
-     * @param array $rows The data to render out.
+     * @param array $args The data to render out.
      * @return void
      */
-    public function output(array $rows): void
+    public function output(array $args): void
     {
-        if (empty($rows)) {
+        if (empty($args)) {
             return;
         }
 
         $this->_io->setStyle('text-right', ['text' => null]);
 
         $config = $this->getConfig();
-        $widths = $this->_calculateWidths($rows);
+        $widths = $this->_calculateWidths($args);
 
         $this->_rowSeparator($widths);
         if ($config['headers'] === true) {
-            $this->_render(array_shift($rows), $widths, ['style' => $config['headerStyle']]);
+            $this->_render(array_shift($args), $widths, ['style' => $config['headerStyle']]);
             $this->_rowSeparator($widths);
         }
 
-        if (empty($rows)) {
+        if (empty($args)) {
             return;
         }
 
-        foreach ($rows as $line) {
+        foreach ($args as $line) {
             $this->_render($line, $widths);
             if ($config['rowSeparator'] === true) {
                 $this->_rowSeparator($widths);

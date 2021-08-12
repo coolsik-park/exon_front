@@ -200,8 +200,8 @@ class ModelCommand extends BakeCommand
         $associations = $this->findBelongsTo($table, $associations);
 
         if (is_array($primary) && count($primary) > 1) {
-            $io->err(
-                '<warning>Bake cannot generate associations for composite primary keys at this time</warning>.'
+            $io->warning(
+                'Bake cannot generate associations for composite primary keys at this time.'
             );
 
             return $associations;
@@ -745,7 +745,7 @@ class ModelCommand extends BakeCommand
         if (in_array($fieldName, $primaryKey, true)) {
             $validation['allowEmpty'] = [
                 'rule' => $this->getEmptyMethod($fieldName, $metaData),
-                'args' => ['null', "'create'"],
+                'args' => [null, 'create'],
             ];
         } elseif ($metaData['null'] === true) {
             $validation['allowEmpty'] = [
@@ -756,7 +756,7 @@ class ModelCommand extends BakeCommand
             if ($metaData['default'] === null || $metaData['default'] === false) {
                 $validation['requirePresence'] = [
                     'rule' => 'requirePresence',
-                    'args' => ["'create'"],
+                    'args' => ['create'],
                 ];
             }
             $validation['notEmpty'] = [
@@ -913,7 +913,7 @@ class ModelCommand extends BakeCommand
      * Get CounterCaches
      *
      * @param \Cake\ORM\Table $model The table to get counter cache fields for.
-     * @return string[] CounterCache configurations
+     * @return array<string, array> CounterCache configurations
      */
     public function getCounterCache(Table $model): array
     {
@@ -933,7 +933,7 @@ class ModelCommand extends BakeCommand
             $alias = $model->getAlias();
             $field = Inflector::singularize(Inflector::underscore($alias)) . '_count';
             if (in_array($field, $otherFields, true)) {
-                $counterCache[] = "'{$otherAlias}' => ['{$field}']";
+                $counterCache[$otherAlias] = [$field];
             }
         }
 

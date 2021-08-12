@@ -148,7 +148,7 @@ abstract class BaseErrorHandler
         ?int $line = null,
         ?array $context = null
     ): bool {
-        if (error_reporting() === 0) {
+        if (!(error_reporting() & $code)) {
             return false;
         }
         $this->_handled = true;
@@ -311,7 +311,6 @@ abstract class BaseErrorHandler
         );
         $context = [];
         if (!empty($this->_config['trace'])) {
-            /** @var string $trace */
             $context['trace'] = Debugger::trace([
                 'start' => 1,
                 'format' => 'log',

@@ -51,7 +51,7 @@ class ClassMapGenerator
      * Iterate over all files in the given directory searching for classes
      *
      * @param \Iterator|string $path         The path to search in or an iterator
-     * @param string           $excluded     Regex that matches against the file path that exclude from the classmap.
+     * @param string           $excluded     Regex that matches file paths to be excluded from the classmap
      * @param IOInterface      $io           IO object
      * @param string           $namespace    Optional namespace prefix to filter by
      * @param string           $autoloadType psr-0|psr-4 Optional autoload standard to use mapping rules
@@ -215,7 +215,7 @@ class ClassMapGenerator
     private static function findClasses($path)
     {
         $extraTypes = PHP_VERSION_ID < 50400 ? '' : '|trait';
-        if (defined('HHVM_VERSION') && version_compare(HHVM_VERSION, '3.3', '>=')) {
+        if (PHP_VERSION_ID >= 80100 || (defined('HHVM_VERSION') && version_compare(HHVM_VERSION, '3.3', '>='))) {
             $extraTypes .= '|enum';
         }
 
@@ -225,7 +225,7 @@ class ClassMapGenerator
         if (!$contents) {
             if (!file_exists($path)) {
                 $message = 'File at "%s" does not exist, check your classmap definitions';
-            } elseif (!is_readable($path)) {
+            } elseif (!Filesystem::isReadable($path)) {
                 $message = 'File at "%s" is not readable, check its permissions';
             } elseif ('' === trim(file_get_contents($path))) {
                 // The input file was really empty and thus contains no classes

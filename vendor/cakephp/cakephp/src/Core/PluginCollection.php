@@ -229,12 +229,10 @@ class PluginCollection implements Iterator, Countable
      * @param array $config Configuration options for the plugin.
      * @return \Cake\Core\PluginInterface
      * @throws \Cake\Core\Exception\MissingPluginException When plugin instance could not be created.
-     * @psalm-var class-string<\Cake\Core\PluginInterface> $name
      */
     public function create(string $name, array $config = []): PluginInterface
     {
         if (strpos($name, '\\') !== false) {
-            // phpcs:ignore SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration.InvalidFormat
             /** @var \Cake\Core\PluginInterface */
             return new $name($config);
         }

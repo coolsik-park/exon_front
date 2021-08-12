@@ -321,6 +321,41 @@ Phinx currently supports the following database adapters natively:
 * `SQLite <http://www.sqlite.org/>`_: specify the ``sqlite`` adapter.
 * `SQL Server <http://www.microsoft.com/sqlserver>`_: specify the ``sqlsrv`` adapter.
 
+For each adapter, you may configure the behavior of the underlying PDO object by setting in your
+config object the lowercase version of the constant name. This works for both PDO options
+(e.g. ``\PDO::ATTR_CASE`` would be ``attr_case``) and adapter specific options (e.g. for MySQL
+you may set ``\PDO::MYSQL_ATTR_IGNORE_SPACE`` as ``mysql_attr_ignore_space``). Please consult
+the `PDO documentation <https://www.php.net/manual/en/book.pdo.php>`_ for the allowed attributes
+and their values.
+
+For example, to set the above example options:
+
+.. code-block:: php
+
+    $config = [
+        "environments" => [
+            "development" => [
+                "adapter" => "mysql",
+                # other adapter settings
+                "attr_case" => \PDO::ATTR_CASE,
+                "mysql_attr_ignore_space" => 1,
+            ],
+        ],
+    ];
+
+By default, the only attribute that Phinx sets is ``\PDO::ATTR_ERRMODE`` to ``PDO::ERRMODE_EXCEPTION``. It is
+not recommended to override this.
+
+MySQL
+`````````````````
+
+The MySQL adapter has an unfortunate limitation in that it certain actions causes an
+`implicit commit <https://dev.mysql.com/doc/refman/8.0/en/implicit-commit.html>`_ regardless of transaction
+state. Notably this list includes ``CREATE TABLE``, ``ALTER TABLE``, and ``DROP TABLE``, which are the most
+common operations that Phinx will run. This means that unlike other adapters which will attempt to gracefully
+rollback a transaction on a failed migration, if a migration fails for MySQL, it may leave your DB in a partially
+migrated state.
+
 SQLite
 `````````````````
 
@@ -393,3 +428,15 @@ setting External Variables to modify the config will not work because the config
 
     paths:
         bootstrap: 'phinx-bootstrap.php'
+
+Within the bootstrap script, the following variables will be available:
+
+.. code-block:: php
+
+    /**
+     * @var string $filename The file name as provided by the configuration
+     * @var string $filePath The absolute, real path to the file
+     * @var \Symfony\Component\Console\Input\InputInterface $input The executing command's input object
+     * @var \Symfony\Component\Console\Output\OutputInterface $output The executing command's output object
+     * @var \Phinx\Console\Command\AbstractCommand $context the executing command object
+     */
