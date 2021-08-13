@@ -281,7 +281,7 @@ class ExhibitionController extends AppController
     {
         $this->paginate = ['limit' => 10];
         $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
-        $exhibition_users = $this->paginate($exhibition_users_table->find('all', array('contain' => array('Exhibition', 'ExhibitionGroup', 'Pay')))->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.status !=' => 4]))->toArray();
+        $exhibition_users = $this->paginate($exhibition_users_table->find('all', array('contain' => array('Exhibition', 'ExhibitionGroup', 'Pay')))->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.status !=' => 8]))->toArray();
 
         $this->set(compact('exhibition_users'));
     }
@@ -294,7 +294,29 @@ class ExhibitionController extends AppController
         $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
         $exhibition_user = $exhibition_users_table->get($id);
 
-        if($connection->update('exhibition_users', ['status' => '4'], ['id' => $id])) {
+        if($connection->update('exhibition_users', ['status' => '8'], ['id' => $id])) {
+            $connection->commit();
+            $this->Flash->success(__('Your post has been saved.'));
+        } else {
+            $connection->rollback();
+            $this->Flash->error(__('Unable to add you post.'));
+        }
+
+        return $this->redirect(['action' => 'managerPerson', $exhibition_user->exhibition_id]);
+    }
+
+    public function exhibitionUsersApproval($id = null, $status = null)
+    {
+        $id = $this->request->getData('id');
+        $status = $this->request->getData('status');
+
+        $connection = ConnectionManager::get('default');
+        $connection->begin();
+
+        $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
+        $exhibition_user = $exhibition_users_table->get($id);
+
+        if($connection->update('exhibition_users', ['status' => $status], ['id' => $id])) {
             $connection->commit();
             $this->Flash->success(__('Your post has been saved.'));
         } else {

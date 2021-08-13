@@ -1,5 +1,7 @@
 <?php
 ?>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <div class="userquestion index content">
     <div class="table-responsive">
         <table>
@@ -24,8 +26,8 @@
                     <td rowspan='5'><?= h($exhibition->exhibition_group['name']) ?></td>
                     <td rowspan='5'><?= h($exhibition->exhibition_group['amount']) ?></td>
                     <td rowspan='5'><?php echo('출석여부') ?></td>
-                    <td rowspan='5'><?php echo $this->Form->control('', ['options' => ['1' => '참가 대기', '2' => '참가 확정']]) ?></td>
-                    <td class="actions" rowspan='5'>
+                    <td rowspan='5'><?php echo $this->Form->control('', ['options' => ['2' => '참가 대기', '4' => '참가 확정'], 'id' => 'selectBox', 'name' => 'selectBox']) ?></td>
+                    <td class='actions' rowspan='5'>
                         <?= $this->Form->postLink(__('취소'), ['action' => 'exhibitionUsersStatus', $exhibition->id], ['confirm' => __('Are you sure you want to delete # {0}?', $exhibition->id)]) ?>
                     </td>
                 </tr>
@@ -62,3 +64,18 @@
         </div>
     </div>
 </div>
+<script>
+    $("select[name=selectBox]").on('change', function() {
+        var value = $("#selectBox").val();
+        var id = <?= $exhibition->id ?>;
+        $.ajax({
+            url: "http://121.126.223.225:8000/exhibition/exhibition-users-approval",
+            method: 'POST',
+                type: 'json',
+                data: {
+                    id: id,
+                    status: value
+                }
+        })
+    });
+</script>
