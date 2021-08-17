@@ -61,11 +61,14 @@ class ExhibitionStreamController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
+    
+     //웨비나 송출  설정
     public function setExhibitionStream($exhibition_id = null)
     {
         $exhibitionStream = $this->ExhibitionStream->newEmptyEntity();
         $exhibitionStream->exhibition_id = $exhibition_id;
 
+        //쿠폰 확인 후
         if ($this->request->getSession()->read('coupon_data')) {
             $data = $this->request->getSession()->read('coupon_data');
             $exhibitionStream->title = $data['title'];
@@ -78,6 +81,7 @@ class ExhibitionStreamController extends AppController
             $exhibitionStream->coupon_amount = $data['coupon_amount'];
         }
 
+        //스트림 키 발급 후
         if ($this->request->getSession()->read('stream_data')) {
             $data = $this->request->getSession()->read('stream_data');
             $exhibitionStream->title = $data['title'];
@@ -94,6 +98,7 @@ class ExhibitionStreamController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $exhibitionStream = $this->ExhibitionStream->patchEntity($exhibitionStream, $this->request->getData());
             
+            //쿠폰 확인
             if ($this->request->getData('coupon_code') != null && $this->request->getData('stream_key') == 0 && $this->request->getData('paid') == 0) {
                 $coupon = $this->getTableLocator()->get('Coupon')->find()->where(['users_id' => $this->Auth->user()->id, 'product_type' => 'S', 'status' => 1])->toArray();
                 $exist = 0;
@@ -149,9 +154,10 @@ class ExhibitionStreamController extends AppController
                     $this->Flash->error(__('Invalid coupon code.'));
                 }
             
+            //스트림 키 생성
             } else if ($this->request->getData('paid') == 1 && $this->request->getData('stream_key') == 0) {
-                $stream_key = Text::uuid();
-                $stream_url = 'rtmp://x.rtmp.exon.com/live1';
+                $stream_key = Text::uuid(); //stream_key 생성 -> 스트리밍 api에 따라 변경
+                $stream_url = 'rtmp://x.rtmp.exon.com/live1'; //stream_url 생성
                 $title = $this->request->getData('title');
                 $description = $this->request->getData('description');
                 $time = $this->request->getData('time');
@@ -176,6 +182,7 @@ class ExhibitionStreamController extends AppController
                 $this->Flash->success(__('The stream_key has been created.'));
                 return $this->redirect(['action' => 'setExhibitionStream', $exhibition_id]);
             
+            //저장
             } else {
                 $exhibitionStream->ip = $this->Auth->user()->ip;
                 if ($this->ExhibitionStream->save($exhibitionStream)) {

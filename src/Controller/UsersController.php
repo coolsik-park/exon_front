@@ -240,7 +240,7 @@ class UsersController extends AppController
                     $user = $Users->newEmptyEntity(); 
                     $user->email = $responseArr['kakao_account']['email'];
                     $user->name = $responseArr['id'];
-                    $user->hp = '01012341234';
+                    $user->hp = '01011112222'; //카카오 사업자 계정 인증 후 수정
                     $user->ip = $this->request->ClientIp();
                     $user->refer = 'kakao';       
                     

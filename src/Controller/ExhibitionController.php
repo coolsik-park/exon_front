@@ -79,6 +79,8 @@ class ExhibitionController extends AppController
             $exhibition = $this->Exhibition->patchEntity($exhibition, $this->request->getData(), ['associated' => ['ExhibitionGroup', 'ExhibitionSurvey']]);
 
             if ($result = $this->Exhibition->save($exhibition)) {
+
+                //메인 사진 업로드
                 $img = $this->request->getData('image');
                 $imgName = $img->getClientFilename();
                 $index = strpos(strrev($imgName), strrev('.'));
@@ -99,6 +101,8 @@ class ExhibitionController extends AppController
                     $img->moveTo($destination);
                     
                     if ($connection->update('exhibition', ['image_path' => $path, 'image_name' => $imgName], ['id' => $result->id])) {
+
+                        //설문 생성
                         $parentId = 0;
                         $whereId = 0;
                         $count = count($result->exhibition_survey);
@@ -422,7 +426,7 @@ class ExhibitionController extends AppController
             $messages = [
                 [
                 'to' => $to,
-                'from' => getEnv('EXON_PHONE_NUMBER'),
+                'from' => getEnv('EXON_PHONE_NUMBER'), //현재 대표님 번호로 설정되어 있음.
                 'text' => $this->request->getData('sms_content')
                 ]
             ];

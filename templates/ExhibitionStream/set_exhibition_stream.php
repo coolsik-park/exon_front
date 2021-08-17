@@ -46,13 +46,14 @@
 <script>
     $("#check_module").click(function () {
         var IMP = window.IMP; 
-        IMP.init('imp43823679');
+        IMP.init('imp43823679'); //아임포트 id -> 추후 교체
         IMP.request_pay({
             pg : 'inicis',
             pay_method : 'card',
             merchant_uid : 'merchant_' + new Date().getTime(),
             name : '주문명:결제테스트',
             amount : 1000, //$('input#amount').val()
+            //세션 유저정보에서 가져오기
             buyer_email : '',
             buyer_name : '구매자이름',
             buyer_tel : '010-1234-5678',
