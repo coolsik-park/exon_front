@@ -286,4 +286,135 @@ class UsersController extends AppController
 
         return $this->redirect($this->Auth->logout());
     }
+
+    public function naverLogin()
+    {
+        $client_id = getEnv('NAVER_CLIENT_ID');
+        $client_secret = getEnv('NAVER_CLIENT_SECRET');
+        $code = $_GET["code"];
+        $state = $_GET["state"];
+        $redirectURI = urlencode("http://121.126.223.225:8765/users/naverLogin");
+        $url = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=".$client_id.
+            "&client_secret=".$client_secret.
+            "&redirect_uri=".$redirectURI.
+            "&code=".$code.
+            "&state=".$state;
+        $is_post = false;
+        
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, $is_post);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $headers = array();
+        $response = curl_exec($ch);
+        $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if($status_code == 200) {
+            $responseArr = json_decode($response, true);
+            $token = $responseArr['access_token'];
+            $header = "Bearer ".$token;
+            $url = "https://openapi.naver.com/v1/nid/me";
+            $is_post = false;
+        
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, $is_post);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $headers = array();
+            $headers[] = "Authorization: ".$header;
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            $response = curl_exec ($ch);
+            $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close ($ch);
+
+            if($status_code == 200) {
+                $responseArr = json_decode($response, true);
+                $this->loadModel('Users');
+                $query = $this->Users->findByName($responseArr['response']['id'])->toArray();
+
+                if(count($query)) {
+                    $this->loadComponent('Auth');
+                    $this->conn = ConnectionManager::get('default');
+
+                    $user = $this->Users->find('all')                            
+                    ->where(['email'=>$responseArr['response']['email'], 'status'=>1])
+                    ->first();
+
+                    $this->Auth->setUser($user);
+                    $target = $this->Auth->redirectUrl() ?? '/home';
+                    return $this->redirect($target);
+                } else {
+                    $this->Flash->error(__('회원 정보가 없습니다.'));
+                    return $this->redirect("http://121.126.223.225:8765/users/add");
+                }
+            } else {
+                echo "Error 내용:".$response;
+            }
+        } else {
+            echo "Error 내용:".$response;
+        }
+    }
+
+    public function kakaoLogin()
+    {
+        $client_id = getEnv('KAKAO_CLIENT_ID');
+        $redirect_uri = urlencode("http://121.126.223.225:8765/users/kakaoLogin");
+        $grant_type="authorization_code";
+        $code = $_GET["code"];
+        $url = "https://kauth.kakao.com/oauth/token";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        $post_param = "grant_type=".$grant_type."&client_id=".$client_id."&redirect_uri=".$redirect_uri."&code=".$code;
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_param);
+        $response = curl_exec($ch);
+        $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if($status_code == 200) {
+            $responseArr = json_decode($response, true);
+            $access_token = $responseArr['access_token'];
+            $header = "Bearer ".$access_token;
+            $headers = array();
+            $headers[] = "Authorization: ".$header;
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, "https://kapi.kakao.com/v2/user/me");
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POST, false);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            $response = curl_exec($ch);
+            $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+
+            if($status_code == 200) {
+                $responseArr = json_decode($response, true);
+                $this->loadModel('Users');
+                $query = $this->Users->findByName($responseArr['id'])->toArray();
+
+                if(count($query)) {
+                    $this->loadComponent('Auth');
+                    $this->conn = ConnectionManager::get('default');
+
+                    $user = $this->Users->find('all')                            
+                    ->where(['email'=>$responseArr['kakao_account']['email'], 'status'=>1])
+                    ->first();
+
+                    $this->Auth->setUser($user);
+                    $target = $this->Auth->redirectUrl() ?? '/home';
+                    return $this->redirect($target);
+                } else {
+                    $this->Flash->error(__('회원 정보가 없습니다.'));
+                    return $this->redirect("http://121.126.223.225:8765/users/add");
+                }
+            } else {
+                echo "Error 내용:".$response;
+            }
+        } else {
+            echo "Error 내용:".$response;
+        }
+    }
 }
