@@ -1,4 +1,7 @@
 <script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+<?= $this->Html->link(__('참가자'), ['controller' => 'Exhibition', 'action' => 'managerPerson', $exhibitionUsers[0]['exhibition_id'], 'class' => 'side-nav-item']) ?> 
+<?= $this->Html->link(__('이메일 발송'), ['controller' => 'Exhibition', 'action' => 'sendEmailToParticipant', $exhibitionUsers[0]['exhibition_id'], 'class' => 'side-nav-item']) ?> 
+<?= $this->Html->link(__('문자 발송'), ['controller' => 'Exhibition', 'action' => 'sendSmsToParticipant', $exhibitionUsers[0]['exhibition_id'], 'class' => 'side-nav-item']) ?>
 <div class="row">
     <aside class="column">
         <div class="side-nav">
