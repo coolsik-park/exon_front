@@ -4,6 +4,12 @@
  * @var \App\Model\Entity\ExhibitionStream $exhibitionStream
  */
 ?>
+<?= $this->Html->link(__('행사 설정 수정'), ['controller' => 'Exhibition', 'action' => 'edit', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?> 
+<?= $this->Html->link(__('설문 데이터'), ['controller' => '', 'action' => '', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?> 
+<?= $this->Html->link(__('참가자 관리'), ['controller' => 'Exhibition', 'action' => 'managerPerson', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?> 
+<?= $this->Html->link(__('웨비나 송출 설정'), ['controller' => 'ExhibitionStream', 'action' => 'setExhibitionStream', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?> 
+<?= $this->Html->link(__('행사 통계'), ['controller' => '', 'action' => '', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?>
+
 <div class="row">
     <aside class="column">
         <div class="side-nav">

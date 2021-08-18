@@ -287,7 +287,7 @@ class ExhibitionController extends AppController
         $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
         $exhibition_users = $this->paginate($exhibition_users_table->find('all', array('contain' => array('Exhibition', 'ExhibitionGroup', 'Pay')))->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.status !=' => 8]))->toArray();
 
-        $this->set(compact('exhibition_users'));
+        $this->set(compact('exhibition_users', 'id'));
     }
 
     public function exhibitionUsersStatus($id = null)

@@ -1,5 +1,11 @@
 <?php
 ?>
+<?= $this->Html->link(__('행사 설정 수정'), ['controller' => 'Exhibition', 'action' => 'edit', $id, 'class' => 'side-nav-item']) ?> 
+<?= $this->Html->link(__('설문 데이터'), ['controller' => '', 'action' => '', $id, 'class' => 'side-nav-item']) ?> 
+<?= $this->Html->link(__('참가자 관리'), ['controller' => 'Exhibition', 'action' => 'managerPerson', $id, 'class' => 'side-nav-item']) ?> 
+<?= $this->Html->link(__('웨비나 송출 설정'), ['controller' => 'ExhibitionStream', 'action' => 'setExhibitionStream', $id, 'class' => 'side-nav-item']) ?> 
+<?= $this->Html->link(__('행사 통계'), ['controller' => '', 'action' => '', $id, 'class' => 'side-nav-item']) ?>
+
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <div class="userquestion index content">
