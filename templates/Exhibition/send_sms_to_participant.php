@@ -1,3 +1,9 @@
+<?= $this->Html->link(__('행사 설정 수정'), ['controller' => 'Exhibition', 'action' => 'edit', $exhibitionUsers[0]['exhibition_id'], 'class' => 'side-nav-item']) ?> 
+<?= $this->Html->link(__('설문 데이터'), ['controller' => 'Exhibition', 'action' => 'surveyData', $exhibitionUsers[0]['exhibition_id'], 'class' => 'side-nav-item']) ?> 
+<?= $this->Html->link(__('참가자 관리'), ['controller' => 'Exhibition', 'action' => 'managerPerson', $exhibitionUsers[0]['exhibition_id'], 'class' => 'side-nav-item']) ?> 
+<?= $this->Html->link(__('웨비나 송출 설정'), ['controller' => 'ExhibitionStream', 'action' => 'setExhibitionStream', $exhibitionUsers[0]['exhibition_id'], 'class' => 'side-nav-item']) ?> 
+<?= $this->Html->link(__('행사 통계'), ['controller' => '', 'action' => '', $exhibitionUsers[0]['exhibition_id'], 'class' => 'side-nav-item']) ?>
+<br><br>
 <?= $this->Html->link(__('참가자'), ['controller' => 'Exhibition', 'action' => 'managerPerson', $exhibitionUsers[0]['exhibition_id'], 'class' => 'side-nav-item']) ?> 
 <?= $this->Html->link(__('이메일 발송'), ['controller' => 'Exhibition', 'action' => 'sendEmailToParticipant', $exhibitionUsers[0]['exhibition_id'], 'class' => 'side-nav-item']) ?> 
 <?= $this->Html->link(__('문자 발송'), ['controller' => 'Exhibition', 'action' => 'sendSmsToParticipant', $exhibitionUsers[0]['exhibition_id'], 'class' => 'side-nav-item']) ?>
