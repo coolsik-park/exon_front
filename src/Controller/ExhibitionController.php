@@ -465,4 +465,21 @@ class ExhibitionController extends AppController
         }
         $this->set(compact('exhibitionUsers'));
     }
+
+    public function surveyData($id = null)
+    {
+        $exhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey')->find('all', ['contain' => ['ExhibitionSurveyUsersAnswer']]);
+
+        $surveyData = $exhibitionSurvey
+            ->select(['ExhibitionSurvey.id', 'ExhibitionSurvey.parent_id', 'ExhibitionSurvey.text', 'ExhibitionSurvey.is_multiple', 
+                'ExhibitionSurveyUsersAnswer.text', 'ExhibitionSurvey.survey_type', 'count' => $exhibitionSurvey->func()->count('ExhibitionSurveyUsersAnswer.text')])
+            ->leftJoinWith('ExhibitionSurveyUsersAnswer', function ($q) {
+                return $q->where(['ExhibitionSurveyUsersAnswer.text' => 'Y']);
+            })
+            ->group('ExhibitionSurvey.id')
+            ->where(['exhibition_id' => $id])
+            ->toArray();
+
+        $this->set(compact('exhibitionSurvey', 'surveyData', 'id'));
+    }
 }

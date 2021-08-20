@@ -1,7 +1,7 @@
 <?php
 ?>
 <?= $this->Html->link(__('행사 설정 수정'), ['controller' => 'Exhibition', 'action' => 'edit', $id, 'class' => 'side-nav-item']) ?> 
-<?= $this->Html->link(__('설문 데이터'), ['controller' => '', 'action' => '', $id, 'class' => 'side-nav-item']) ?> 
+<?= $this->Html->link(__('설문 데이터'), ['controller' => 'Exhibition', 'action' => 'surveyData', $id, 'class' => 'side-nav-item']) ?> 
 <?= $this->Html->link(__('참가자 관리'), ['controller' => 'Exhibition', 'action' => 'managerPerson', $id, 'class' => 'side-nav-item']) ?> 
 <?= $this->Html->link(__('웨비나 송출 설정'), ['controller' => 'ExhibitionStream', 'action' => 'setExhibitionStream', $id, 'class' => 'side-nav-item']) ?> 
 <?= $this->Html->link(__('행사 통계'), ['controller' => '', 'action' => '', $id, 'class' => 'side-nav-item']) ?>
