@@ -79,6 +79,7 @@ class ExhibitionStreamController extends AppController
             $exhibitionStream->amount = $data['amount'];
             $exhibitionStream->coupon_id = $data['coupon_id'];
             $exhibitionStream->coupon_amount = $data['coupon_amount'];
+            $exhibitionStream->tab = $data['tab'];
         }
 
         //스트림 키 발급 후
@@ -92,6 +93,7 @@ class ExhibitionStreamController extends AppController
             $exhibitionStream->stream_key = $data['stream_key'];
             $exhibitionStream->url = $data['stream_url'];
             $exhibitionStream->pay_id = $data['pay_id'];
+            $exhibitionStream->tab = $data['tab'];
         }
         
     
@@ -126,6 +128,7 @@ class ExhibitionStreamController extends AppController
                     $time = $this->request->getData('time');
                     $people = $this->request->getData('people');
                     $amount = (int)$this->request->getData('amount')-$coupon_amount;
+                    $tab = $this->request->getData('tab');
 
                     $coupon_data = [
                         'title' => $title,
@@ -135,7 +138,8 @@ class ExhibitionStreamController extends AppController
                         'people' => $people,
                         'amount' => $amount,
                         'coupon_id' => $coupon_id,
-                        'coupon_amount' => $coupon_amount
+                        'coupon_amount' => $coupon_amount,
+                        'tab' => $tab
                     ];
 
                     $this->request->getSession()->write('coupon_data', $coupon_data);
@@ -165,6 +169,7 @@ class ExhibitionStreamController extends AppController
                 $amount = $this->request->getData('amount');
                 $paid = $this->request->getData('paid');
                 $pay_id = $this->request->getData('id');
+                $tab = $this->reqeust->getData('tab');
 
                 $stream_data = [
                     'title' => $title,
@@ -175,7 +180,8 @@ class ExhibitionStreamController extends AppController
                     'stream_key' => $stream_key,
                     'stream_url' => $stream_url,
                     'paid' => $paid,
-                    'pay_id' => $pay_id
+                    'pay_id' => $pay_id,
+                    'tab' => $tab
                 ];
                 $this->request->getSession()->write('stream_data', $stream_data);
 
@@ -185,7 +191,8 @@ class ExhibitionStreamController extends AppController
             //저장
             } else {
                 $exhibitionStream->ip = $this->Auth->user()->ip;
-                if ($this->ExhibitionStream->save($exhibitionStream)) {
+                if ($result = $this->ExhibitionStream->save($exhibitionStream)) {
+
                     $this->Flash->success(__('The exhibition stream has been saved.'));
     
                     return $this->redirect(['action' => 'setExhibitionStream', $exhibition_id]);
@@ -195,9 +202,32 @@ class ExhibitionStreamController extends AppController
         }
         $exhibition = $this->ExhibitionStream->Exhibition->find('list', ['limit' => 200]);
         $pay = $this->ExhibitionStream->Pay->find('list', ['limit' => 200]);
-        $coupon = $this->ExhibitionStream->Coupon->find('list', ['limit' => 200]); 
-        $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon'));
+        $coupon = $this->ExhibitionStream->Coupon->find('list', ['limit' => 200]);
+        $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray(); 
+        $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs'));
     }
+
+    // public function setTab()
+    // {
+    //     if ($this->request->is('post')) {
+    //         $tab_title = $this->request->getData('tab_title');
+    //         $is_on = $this->request->getData('is_on');
+    //         $value = $this->request->getData('value');
+    //         $stream_id = $this->request->getData('stream_id');
+
+    //         $exhibitionStream = $this->ExhibitionStream->get($stream_id);
+    //         if ($is_on == 0) {
+    //             $exhibitionStream->tab = $exhibitionStream->tab - $value;
+    //         } else {
+    //             $exhibitionStream->tab = $exhibitionStream->tab + $value;
+    //         }
+
+    //         if ($this->ExhibitionStream->save($exhibitionStream)) {
+    //             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+    //             return $response;
+    //         }        
+    //     }
+    // }
 
     /**
      * Edit method

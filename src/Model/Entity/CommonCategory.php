@@ -30,6 +30,7 @@ class CommonCategory extends Entity
         'table' => true,
         'type' => true,
         'title' => true,
+        'code' => true,
         'status' => true,
         'created' => true,
     ];

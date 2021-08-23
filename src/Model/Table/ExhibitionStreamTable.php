@@ -121,6 +121,11 @@ class ExhibitionStreamTable extends Table
             ->requirePresence('ip', 'create')
             ->notEmptyString('ip');
 
+        $validator
+            ->integer('tab')
+            ->maxLength('tab', 11)
+            ->notEmptyString('tab');
+            
         return $validator;
     }
 

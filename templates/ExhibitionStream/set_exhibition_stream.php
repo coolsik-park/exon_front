@@ -36,6 +36,7 @@
                     echo $this->Form->button(__('스트림키 발급'));
                     echo $this->Form->control('stream_key', ['label' => '스트림 키']);
                     echo $this->Form->control('url');
+                    echo $this->Form->control('tab', ['type' => 'hidden']);
                     echo $this->Form->control('coupon_amount', ['type' => 'hidden', 'id' => 'coupon']);
                     echo $this->Form->control('paid', ['type' => 'hidden', 'value' => 0]);
                     echo $this->Form->control('id', ['type' => 'hidden']);
@@ -43,6 +44,21 @@
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>
+        </div>
+    </div>
+    <div class="column-responsive column-80">
+        <div class="exhibitionStream form content">
+            <fieldset>
+                <legend><?= __('Set Exhibition Stream Tab') ?></legend>
+                <?php
+                    $i = 9;
+                    foreach ($tabs as $tab) {
+                        echo $this->Form->button($tab->title, ['id' => 'tab' . $i, 'type' => 'button']);
+                        echo $this->Form->control($tab->title, ['id' => 'tab' . $i, 'type' => 'hidden']);
+                        $i--;
+                    }
+                ?>
+            </fieldset>
         </div>
     </div>
 </div>
@@ -156,5 +172,144 @@
         }
 
         $("#amount").val(amount*time);
+    });
+</script>
+<script>
+    var dec = $('#tab').val();
+    dec = parseInt(dec);
+    var bin = dec.toString(2);
+    if (bin.length < 10) {
+        var zero = '';
+        for (i=0; i<10-bin.length; i++) {
+            zero += '0';
+        }
+        bin = zero+bin;
+    }
+    for (i=0; i<bin.length; i++) {
+        var result = bin.substring(i,i+1);
+        if (parseInt(result) == 1) {
+            $("input#tab" + i).val(1);
+            $("button#tab" + i).css("background-color", "blue"); 
+        }
+    }
+
+    $("button#tab0").click(function () {
+        if ($("input#tab0").val() == 0) {
+            $("input#tab0").val(1);
+            $("button#tab0").css("background-color", "blue");
+            $("#tab").val(parseInt($("#tab").val()) + 512);
+        } else {
+            $("input#tab0").val(0);
+            $("button#tab0").css("background-color", "white");
+            $("#tab").val(parseInt($("#tab").val()) - 512);
+        }
+    });
+
+    $("button#tab1").click(function () {
+        if ($("input#tab1").val() == 0) {
+            $("input#tab1").val(1);
+            $("button#tab1").css("background-color", "blue");
+            $("#tab").val(parseInt($("#tab").val()) + 256);
+        } else {
+            $("input#tab1").val(0);
+            $("button#tab1").css("background-color", "white");
+            $("#tab").val(parseInt($("#tab").val()) - 256);
+        }
+    });
+
+    $("button#tab2").click(function () {
+        if ($("input#tab2").val() == 0) {
+            $("input#tab2").val(1);
+            $("button#tab2").css("background-color", "blue");
+            $("#tab").val(parseInt($("#tab").val()) + 128);
+        } else {
+            $("input#tab2").val(0);
+            $("button#tab2").css("background-color", "white");
+            $("#tab").val(parseInt($("#tab").val()) - 128);
+        }
+    });
+
+    $("button#tab3").click(function () {
+        if ($("input#tab3").val() == 0) {
+            $("input#tab3").val(1);
+            $("button#tab3").css("background-color", "blue");
+            $("#tab").val(parseInt($("#tab").val()) + 64);
+        } else {
+            $("input#tab3").val(0);
+            $("button#tab3").css("background-color", "white");
+            $("#tab").val(parseInt($("#tab").val()) - 64);
+        }
+    });
+
+    $("button#tab4").click(function () {
+        if ($("input#tab4").val() == 0) {
+            $("input#tab4").val(1);
+            $("button#tab4").css("background-color", "blue");
+            $("#tab").val(parseInt($("#tab").val()) + 32);
+        } else {
+            $("input#tab4").val(0);
+            $("button#tab4").css("background-color", "white");
+            $("#tab").val(parseInt($("#tab").val()) - 32);
+        }
+    });
+
+    $("button#tab5").click(function () {
+        if ($("input#tab5").val() == 0) {
+            $("input#tab5").val(1);
+            $("button#tab5").css("background-color", "blue");
+            $("#tab").val(parseInt($("#tab").val()) + 16);
+        } else {
+            $("input#tab5").val(0);
+            $("button#tab5").css("background-color", "white");
+            $("#tab").val(parseInt($("#tab").val()) - 16);
+        }
+    });
+
+    $("button#tab6").click(function () {
+        if ($("input#tab6").val() == 0) {
+            $("input#tab6").val(1);
+            $("button#tab6").css("background-color", "blue");
+            $("#tab").val(parseInt($("#tab").val()) + 8);
+        } else {
+            $("input#tab6").val(0);
+            $("button#tab6").css("background-color", "white");
+            $("#tab").val(parseInt($("#tab").val()) - 8);
+        }
+    });
+
+    $("button#tab7").click(function () {
+        if ($("input#tab7").val() == 0) {
+            $("input#tab7").val(1);
+            $("button#tab7").css("background-color", "blue");
+            $("#tab").val(parseInt($("#tab").val()) + 4);
+        } else {
+            $("input#tab7").val(0);
+            $("button#tab7").css("background-color", "white");
+            $("#tab").val(parseInt($("#tab").val()) - 4);
+        }
+    });
+
+    $("button#tab8").click(function () {
+        if ($("input#tab8").val() == 0) {
+            $("input#tab8").val(1);
+            $("button#tab8").css("background-color", "blue");
+            $("#tab").val(parseInt($("#tab").val()) + 2);
+        } else {
+            $("input#tab8").val(0);
+            $("button#tab8").css("background-color", "white");
+            $("#tab").val(parseInt($("#tab").val()) - 2);
+        }
+    });
+
+    $("button#tab9").click(function () {
+        if ($("input#tab9").val() == 0) {
+            $("input#tab9").val(1);
+            $("button#tab9").css("background-color", "blue");
+            $("#tab").val(parseInt($("#tab").val()) + 1);
+        } else {
+            $("input#tab9").val(0);
+            $("button#tab9").css("background-color", "white");
+            $("#tab").val(parseInt($("#tab").val()) - 1);
+        }
     });
 </script>

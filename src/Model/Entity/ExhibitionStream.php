@@ -55,6 +55,7 @@ class ExhibitionStream extends Entity
         'ip' => true,
         'created' => true,
         'modified' => true,
+        'tab' => true,
         'exhibition' => true,
         'pay' => true,
         'coupon' => true,
