@@ -72,7 +72,7 @@ class ExhibitionUsersTable extends Table
                 'comparison' => 'LIKE',
                 'wildcardAny' => '*',
                 'wildcardOne' => '?',
-                'fields' => ['users_name', 'users_email'],
+                'fields' => ['*'],
             ]);
     }
 
