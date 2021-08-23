@@ -68,7 +68,7 @@ class ExhibitionStreamController extends AppController
         $exhibitionStream = $this->ExhibitionStream->newEmptyEntity();
         $exhibitionStream->exhibition_id = $exhibition_id;
 
-        //쿠폰 확인 후
+        //쿠폰 검증 후
         if ($this->request->getSession()->read('coupon_data')) {
             $data = $this->request->getSession()->read('coupon_data');
             $exhibitionStream->title = $data['title'];
@@ -236,45 +236,45 @@ class ExhibitionStreamController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    // public function edit($id = null)
-    // {
-    //     $exhibitionStream = $this->ExhibitionStream->get($id, [
-    //         'contain' => [],
-    //     ]);
-    //     if ($this->request->is(['patch', 'post', 'put'])) {
-    //         $exhibitionStream = $this->ExhibitionStream->patchEntity($exhibitionStream, $this->request->getData());
-    //         if ($this->ExhibitionStream->save($exhibitionStream)) {
-    //             $this->Flash->success(__('The exhibition stream has been saved.'));
+    public function editExhibitionStream($stream_id = null)
+    {
+        $exhibitionStream = $this->ExhibitionStream->get($stream_id);
 
-    //             return $this->redirect(['action' => 'index']);
-    //         }
-    //         $this->Flash->error(__('The exhibition stream could not be saved. Please, try again.'));
-    //     }
-    //     $exhibition = $this->ExhibitionStream->Exhibition->find('list', ['limit' => 200]);
-    //     $pay = $this->ExhibitionStream->Pay->find('list', ['limit' => 200]);
-    //     $coupon = $this->ExhibitionStream->Coupon->find('list', ['limit' => 200]);
-    //     $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon'));
-    // }
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $exhibitionStream = $this->ExhibitionStream->patchEntity($exhibitionStream, $this->request->getData());
+            if ($this->ExhibitionStream->save($exhibitionStream)) {
+                $this->Flash->success(__('The exhibition stream has been saved.'));
 
-    // /**
-    //  * Delete method
-    //  *
-    //  * @param string|null $id Exhibition Stream id.
-    //  * @return \Cake\Http\Response|null|void Redirects to index.
-    //  * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-    //  */
-    // public function delete($id = null)
-    // {
-    //     $this->request->allowMethod(['post', 'delete']);
-    //     $exhibitionStream = $this->ExhibitionStream->get(['exhibition_id' => $id]);
-    //     if ($this->ExhibitionStream->delete($exhibitionStream)) {
-    //         $this->Flash->success(__('The exhibition stream has been deleted.'));
-    //     } else {
-    //         $this->Flash->error(__('The exhibition stream could not be deleted. Please, try again.'));
-    //     }
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The exhibition stream could not be saved. Please, try again.'));
+        }
+        $exhibition = $this->ExhibitionStream->Exhibition->find('list', ['limit' => 200]);
+        $pay = $this->ExhibitionStream->Pay->find('list', ['limit' => 200]);
+        $coupon = $this->ExhibitionStream->Coupon->find('list', ['limit' => 200]);
+        $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray(); 
+        $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs'));
+    }
 
-    //     return $this->redirect(['action' => 'index']);
-    // }
+    /**
+     * Delete method
+     *
+     * @param string|null $id Exhibition Stream id.
+     * @return \Cake\Http\Response|null|void Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function delete($id = null)
+    {
+        $this->request->allowMethod(['post', 'delete']);
+        $exhibitionStream = $this->ExhibitionStream->get(['exhibition_id' => $id]);
+        if ($this->ExhibitionStream->delete($exhibitionStream)) {
+            $this->Flash->success(__('The exhibition stream has been deleted.'));
+        } else {
+            $this->Flash->error(__('The exhibition stream could not be deleted. Please, try again.'));
+        }
+
+        return $this->redirect(['action' => 'index']);
+    }
 
     // public function setTitleDescription($exhibition_id = null)
     // {   
