@@ -68,10 +68,11 @@
             <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
         </div>
         <div>
-            <?php echo $this->Form->create(null, ['valueSources' => 'data', 'action' => 'search']) ?>
-            <?php echo $this->Form->control('users_name', ['placeholder' => '검색어를 입력하세요.']) ?>
-            <?php echo $this->Form->button(__('검색')) ?>
-            <?php echo $this->Form->end() ?>
+            <?php
+                echo $this->Form->input('', ['placeholder' => '검색어를 입력하세요.', 'id' => 'wordSearch', 'name' => 'wordSearch']);
+                echo $this->Form->button(__('검색'), ['id' => 'wordSearchButton', 'name' => 'wordSearchButton']);
+                echo $this->Form->end();
+            ?>
         </div>
     </div>
 </div>
@@ -87,6 +88,22 @@
                     id: id,
                     status: value
                 }
+        })
+    });
+
+    $('button[name=wordSearchButton]').on('click', function() {
+        var value = $('input[name=wordSearch]').val();
+        var id = <?= $exhibition->exhibition_id ?>;
+        console.log(value);
+        console.log(id);
+        $.ajax({
+            url: "http://121.126.223.225:8000/exhibition/word-search",
+            method: 'POST',
+            type: 'json',
+            data: {
+                id: id,
+                word: value
+            }
         })
     });
 </script>

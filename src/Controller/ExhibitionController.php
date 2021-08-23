@@ -281,13 +281,38 @@ class ExhibitionController extends AppController
         return $this->redirect(['action' => 'index']);    
     }
 
-    public function managerPerson($id = null)
+    public function managerPerson($id = null, $word = null)
     {
         $this->paginate = ['limit' => 10];
+
+        debug($word);
+
         $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
         $exhibition_users = $this->paginate($exhibition_users_table->find('all', array('contain' => array('Exhibition', 'ExhibitionGroup', 'Pay')))->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.status !=' => 8]))->toArray();
 
+<<<<<<< HEAD
         $this->set(compact('exhibition_users', 'id'));
+=======
+        if($word == null) {
+            $exhibition_users = $this->paginate($exhibition_users_table->find('all', array('contain' => array('Exhibition', 'ExhibitionGroup', 'Pay')))->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.status !=' => 8]))->toArray();
+        } else {
+            // $exhibition_users = $this->paginate($exhibition_users_table->find('all', array('contain' => array('Exhibition', 'ExhibitionGroup', 'Pay')))->where(['Exhibition_id.exhibition_id' => $id, 'ExhibitionUsers.status !=' => 8, 'ExhibitionUsers.users_email' => $word]))->toArray();
+            return $this->redirect(['action' => 'index']);
+        }
+
+        $this->set(compact('exhibition_users'));
+>>>>>>> bomi
+    }
+
+    public function wordSearch()
+    {
+        $id = $this->request->getData('id');
+        $word = $this->request->getData('word');
+
+        echo($this->request->getData());
+        exit;
+
+        return $this->redirect(['action' => 'index']);
     }
 
     public function exhibitionUsersStatus($id = null)
@@ -339,15 +364,17 @@ class ExhibitionController extends AppController
         return $this->redirect(['controller' => 'exhibitionSurvey', 'action' => 'surveyUserAnswer', $exhibition_user->exhibition_id]);
     }
 
-    public function search()
-    {
-        $this->paginate['maxLimit'] = 999;
-        $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
-        $exhibition_users = $this->paginate($exhibition_users_table->find('search', ['search' => $this->request->getQuery()]));
+    // public function search()
+    // {
+    //     $this->paginate['maxLimit'] = 999;
+    //     $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
+    //     $exhibition_users = $this->paginate($exhibition_users_table->find('search', ['search' => $this->request->getQuery()]))->toArray();
 
-        $this->set(compact('exhibition_users'));
-        $this->set('_serialize', ['exhibition_users']);
-    }
+    //     $this->set(compact('exhibition_users'));
+    //     $this->set('_serialize', ['exhibition_users']);
+
+    //     return $this->redirect(['action' => 'managerPerson', $exhibition_user->exhibition_id]);
+    // }
 
     public function sendEmailToParticipant($id = null)
     {
