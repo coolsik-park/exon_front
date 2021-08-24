@@ -508,20 +508,75 @@ class ExhibitionController extends AppController
 
     public function exhibitionStatisticsApply($id = null)
     {
+        //신청자 수
         $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id]);
         $applyRates = $exhibitionUsers->select(['status', 'count' => $exhibitionUsers->func()->count('status')])->group('status')->toArray();
     
+        //성비
         $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id]);
         $genderRates = $exhibitionUsers->select(['users_sex', 'count' => $exhibitionUsers->func()->count('users_sex')])
-            ->group('users_sex')->where(['status IN' => [2,4]])->toArray();
+            ->group('users_sex')->where(['status IN' => [1, 2, 4]])->toArray();
         
+        //나이대
         $exhibition = $this->Exhibition->find('all', ['contain' => 'Users'])->where(['id' => $id])->toArray();
         $count = count($exhibition[0]->users);
         $ages[] = '';
         for ($i = 0; $i < $count; $i++) {
-            $ages[$i] = date('Y')-(int)substr($exhibition[0]->users[$i]->birthday, 0, 4) + 1;
+            if ($exhibition[0]->users[$i]->_joinData->status != 8) {
+                $ages[$i] = date('Y')-(int)substr($exhibition[0]->users[$i]->birthday, 0, 4) + 1;
+            }
         }
 
-        $this->set(compact('applyRates', 'genderRates', 'ages'));
+        $this->set(compact('id', 'applyRates', 'genderRates', 'ages'));
+    }
+
+    public function exhibitionStatisticsParticipant($id = null)
+    {
+        //현재 신청자 수
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id]);
+        $applyRates = $exhibitionUsers->select(['status', 'count' => $exhibitionUsers->func()->count('status')])->group('status')->where(['status IN' => [2, 4]])->toArray();
+
+        //참가자 성비
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id]);
+        $genderRates = $exhibitionUsers->select(['users_sex', 'count' => $exhibitionUsers->func()->count('users_sex')])
+            ->group('users_sex')->where(['status' => 4])->toArray();
+        
+        //나이대
+        $exhibition = $this->Exhibition->find('all', ['contain' => 'Users'])->where(['id' => $id])->toArray();
+        $count = count($exhibition[0]->users);
+        $ages[] = '';
+        for ($i = 0; $i < $count; $i++) {
+            if ($exhibition[0]->users[$i]->_joinData->status == 4) {
+                $ages[$i] = date('Y')-(int)substr($exhibition[0]->users[$i]->birthday, 0, 4) + 1;
+            }
+        }
+
+        $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
+        $this->set(compact('id', 'applyRates', 'genderRates', 'ages', 'exhibitionGroup'));
+    }
+
+    public function exhibitionStatisticsParticipantByGroup($id = null, $group = null)
+    {
+        //현재 그룹 신청자 수
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id, 'exhibition_group_id' => $group]);
+        $applyRates = $exhibitionUsers->select(['status', 'count' => $exhibitionUsers->func()->count('status')])->group('status')->where(['status IN' => [2, 4]])->toArray();
+
+        //그룹 참가자 성비
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id, 'exhibition_group_id' => $group]);
+        $genderRates = $exhibitionUsers->select(['users_sex', 'count' => $exhibitionUsers->func()->count('users_sex')])
+            ->group('users_sex')->where(['status' => 4])->toArray();
+        
+        //그룹 나이대
+        $exhibition = $this->Exhibition->find('all', ['contain' => 'Users'])->where(['id' => $id])->toArray();
+        $count = count($exhibition[0]->users);
+        $ages[] = '';
+        for ($i = 0; $i < $count; $i++) {
+            if ($exhibition[0]->users[$i]->_joinData->status == 4 && $exhibition[0]->users[$i]->_joinData->exhibition_group_id == $group) {
+                $ages[$i] = date('Y')-(int)substr($exhibition[0]->users[$i]->birthday, 0, 4) + 1;
+            }
+        }
+
+        $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
+        $this->set(compact('id', 'applyRates', 'genderRates', 'ages', 'exhibitionGroup'));
     }
 }

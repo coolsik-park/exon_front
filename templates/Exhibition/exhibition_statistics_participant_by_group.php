@@ -1,20 +1,27 @@
 <?= $this->Html->link(__('행사 신청'), ['controller' => 'Exhibition', 'action' => 'exhibitionStatisticsApply', $id, 'class' => 'side-nav-item']) ?> 
 <?= $this->Html->link(__('행사 참가'), ['controller' => 'Exhibition', 'action' => 'exhibitionStatisticsParticipant', $id, 'class' => 'side-nav-item']) ?> 
+<br>
+<?php
+    echo $this->Html->link(__('전체 '), ['controller' => 'Exhibition', 'action' => 'exhibitionStatisticsParticipant', $id, 'class' => 'side-nav-item']);
+    foreach ($exhibitionGroup as $group) {
+        echo $this->Html->link(__($group->name.' '), ['controller' => 'Exhibition', 'action' => 'exhibitionStatisticsParticipantByGroup', $id, $group->id, 'class' => 'side-nav-item']);
+    }
+?>
 <br><br>
 <?php
     $total = 0;
-    $canceled = 0;
+    $participants = 0;
     foreach ($applyRates as $applyRate) {
         $total += (int)$applyRate->count;
 
-        if ($applyRate->status == '8') {
-            $canceled += (int)$applyRate->count;
+        if ($applyRate->status == '4') {
+            $participants += (int)$applyRate->count;
         }
     }
 
-    echo "전체 신청자 수 : " . $total . "<br>";
-    echo "현재 신청자 수 : " . ($total - $canceled) . "<br>";
-    echo "신청 취소자 수 : " . $canceled . "<br>";
+    echo "현재 신청자 수 : " . $total . "<br>";
+    echo "행사 참가자 수 : " . $participants . "<br>";
+    echo "대기자 수 : " . ($total - $participants) . "<br>";
     echo "<br>";
 
     $zero = 0;
@@ -26,6 +33,7 @@
     $sixty = 0;
 
     foreach ($ages as $age) {
+        
         switch ((int)substr($age, 0, 1)) {
             case 0 : break;
             case 1 : $ten++; break;
@@ -38,7 +46,7 @@
         }
     }
 
-    echo "현재 신청자 나이 대<br>";
+    echo "참가자 나이 대<br>";
     echo "10세 미만 : " . $zero . "<br>";
     echo "10대 : " . $ten . "<br>"; 
     echo "20대 : " . $twenty . "<br>";
@@ -46,7 +54,8 @@
     echo "40대 : " . $fourty . "<br>";
     echo "50대 : " . $fifty . "<br>";
     echo "60대 이상 : " . $sixty . "<br>";
-
+    echo "<br>";
+    
     $femail = 0;
     $mail = 0;
 
@@ -57,7 +66,7 @@
             $mail += $genderRate->count;
         }
     }
-    echo "<br>";
+    
     echo "참가자 성비<br>";
     echo "남 : " . $mail . "<br>";
     echo "여 : " . $femail . "<br>";
