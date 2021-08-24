@@ -290,9 +290,6 @@ class ExhibitionController extends AppController
         $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
         $exhibition_users = $this->paginate($exhibition_users_table->find('all', array('contain' => array('Exhibition', 'ExhibitionGroup', 'Pay')))->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.status !=' => 8]))->toArray();
 
-<<<<<<< HEAD
-        $this->set(compact('exhibition_users', 'id'));
-=======
         if($word == null) {
             $exhibition_users = $this->paginate($exhibition_users_table->find('all', array('contain' => array('Exhibition', 'ExhibitionGroup', 'Pay')))->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.status !=' => 8]))->toArray();
         } else {
@@ -301,7 +298,6 @@ class ExhibitionController extends AppController
         }
 
         $this->set(compact('exhibition_users'));
->>>>>>> bomi
     }
 
     public function wordSearch()
@@ -508,5 +504,24 @@ class ExhibitionController extends AppController
             ->toArray();
 
         $this->set(compact('exhibitionSurvey', 'surveyData', 'id'));
+    }
+
+    public function exhibitionStatisticsApply($id = null)
+    {
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id]);
+        $applyRates = $exhibitionUsers->select(['status', 'count' => $exhibitionUsers->func()->count('status')])->group('status')->toArray();
+    
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id]);
+        $genderRates = $exhibitionUsers->select(['users_sex', 'count' => $exhibitionUsers->func()->count('users_sex')])
+            ->group('users_sex')->where(['status IN' => [2,4]])->toArray();
+        
+        $exhibition = $this->Exhibition->find('all', ['contain' => 'Users'])->where(['id' => $id])->toArray();
+        $count = count($exhibition[0]->users);
+        $ages[] = '';
+        for ($i = 0; $i < $count; $i++) {
+            $ages[$i] = date('Y')-(int)substr($exhibition[0]->users[$i]->birthday, 0, 4) + 1;
+        }
+
+        $this->set(compact('applyRates', 'genderRates', 'ages'));
     }
 }

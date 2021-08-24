@@ -8,7 +8,7 @@
 <?= $this->Html->link(__('설문 데이터'), ['controller' => 'Exhibition', 'action' => 'surveyData', $exhibition->id, 'class' => 'side-nav-item']) ?> 
 <?= $this->Html->link(__('참가자 관리'), ['controller' => 'Exhibition', 'action' => 'managerPerson', $exhibition->id, 'class' => 'side-nav-item']) ?> 
 <?= $this->Html->link(__('웨비나 송출 설정'), ['controller' => 'ExhibitionStream', 'action' => 'setExhibitionStream', $exhibition->id, 'class' => 'side-nav-item']) ?> 
-<?= $this->Html->link(__('행사 통계'), ['controller' => '', 'action' => '', $exhibition->id, 'class' => 'side-nav-item']) ?>
+<?= $this->Html->link(__('행사 통계'), ['controller' => 'Exhibition', 'action' => 'exhibitionStatisticsApply', $exhibition->id, 'class' => 'side-nav-item']) ?>
 
 <script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 <div class="row">

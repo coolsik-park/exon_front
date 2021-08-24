@@ -2,7 +2,7 @@
 <?= $this->Html->link(__('설문 데이터'), ['controller' => 'Exhibition', 'action' => 'surveyData', $id, 'class' => 'side-nav-item']) ?> 
 <?= $this->Html->link(__('참가자 관리'), ['controller' => 'Exhibition', 'action' => 'managerPerson', $id, 'class' => 'side-nav-item']) ?> 
 <?= $this->Html->link(__('웨비나 송출 설정'), ['controller' => 'ExhibitionStream', 'action' => 'setExhibitionStream', $id, 'class' => 'side-nav-item']) ?> 
-<?= $this->Html->link(__('행사 통계'), ['controller' => '', 'action' => '', $id, 'class' => 'side-nav-item']) ?>
+<?= $this->Html->link(__('행사 통계'), ['controller' => 'Exhibition', 'action' => 'exhibitionStatistics', $exhibition->id, 'class' => 'side-nav-item']) ?>
 
 <?php
     echo "<br><br>사전 설문 데이터<br><br>";
