@@ -25,7 +25,6 @@
                     echo $this->Form->control('users_sex');
                     echo $this->Form->control('pay_id', ['options' => $pay, 'empty' => true]);
                     echo $this->Form->control('pay_amount');
-                    echo $this->Form->control('status');
                 ?>
                  <div class="related">
                 <h4><?= __('Exhibition Survey') ?></h4>
