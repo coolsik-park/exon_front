@@ -6,6 +6,8 @@
  */
 ?>
 <script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <div class="row">
     <aside class="column">
         <div class="side-nav">
@@ -61,76 +63,21 @@
                     echo $this->Form->control('exhibition_group.1.amount');
                     ?>
                     <br>
-                    <legend><?= __('ExhibitionSurvey 1') ?></legend>
-                    <?php
-                    echo $this->Form->control('exhibition_survey.0.survey_type');
-                    echo $this->Form->control('exhibition_survey.0.text');
-                    echo $this->Form->control('exhibition_survey.0.is_duplicate');
-                    echo $this->Form->control('exhibition_survey.0.is_multiple');
-                    ?>
-                    <br>
                     
-                    <?php
-                    echo $this->Form->control('exhibition_survey.1.text');
-                    ?>
-                    <br>
-                   
-                    <?php
-                    echo $this->Form->control('exhibition_survey.2.text');
-                    ?>
-                    <br>
-                   
-                    <?php
-                    echo $this->Form->control('exhibition_survey.3.text');
-                    ?>
-                    <br>
-                   
-                    <?php
-                    echo $this->Form->control('exhibition_survey.4.text');
-                    ?>
-                    <br>
-                    
-                    <?php
-                    echo $this->Form->control('exhibition_survey.5.text');
-                    ?>
-                    <br>
+                    <fieldset>
+                        <?php 
+                            echo $this->Form->select('exhibition_survey.0.is_multiple', [['value' => 'Y', 'text' => '객관식'], ['value' => 'N', 'text' => '주관식']], ['default' => 'Y', 'id' => 'multiple', 'name' => 'multiple']);
+                            echo $this->Form->select('exhibition_survey.0.survey_type', [['value' => 'Y', 'text' => '사전설문'], ['value' => 'N', 'text' => '일반설문']], ['default' => 'N', 'id' => 'surveyType', 'name' => 'surveyType']);
+                            echo $this->Form->radio('exhibition_survey.0.is_duplicate', [['value' => 'Y', 'text' => '보기 중복 선택 가능']], ['id' => 'duplicate', 'name' => 'duplicate']);
+                            // echo $this->Form->radio('exhibition_survey.0.is_duplicate', [['value' => '', 'text' => '필수']]);  //필수 라디오 버튼
+                            echo $this->Form->control('exhibition_survey.0.text', ['value' => '질문', 'label' => false]);
+                            // echo $this->Form->control('exhibition_survey.'.$a.'.text', ['value' => '보기', 'label' => false]);
+                            echo $this->Form->control('exhibition_survey.1.text', ['value' => '보기', 'label' => false]);
+                            echo $this->Form->button('보기 추가', ['id' => 'textAdd', 'name' => 'textAdd']);
+                            echo $this->Form->button('보기 삭제', ['id' => 'textDelete', 'name' => 'textDelete']);
+                        ?>
+                    </fieldset>
 
-                    <legend><?= __('ExhibitionSurvey 2') ?></legend>
-                    <?php
-                    echo $this->Form->control('exhibition_survey.6.survey_type');
-                    echo $this->Form->control('exhibition_survey.6.text');
-                    echo $this->Form->control('exhibition_survey.6.is_duplicate');
-                    echo $this->Form->control('exhibition_survey.6.is_multiple');
-                    ?>
-                    <br>
-
-                    <legend><?= __('ExhibitionSurvey 3') ?></legend>
-                    <?php
-                    echo $this->Form->control('exhibition_survey.7.survey_type');
-                    echo $this->Form->control('exhibition_survey.7.text');
-                    echo $this->Form->control('exhibition_survey.7.is_duplicate');
-                    echo $this->Form->control('exhibition_survey.7.is_multiple');
-                    ?>
-                    <br>
-
-                    <?php
-                    echo $this->Form->control('exhibition_survey.8.text');
-                    ?>
-                    <br>
-
-                    <?php
-                    echo $this->Form->control('exhibition_survey.9.text');
-                    ?>
-                    <br>
-
-                    <?php
-                    echo $this->Form->control('exhibition_survey.10.text');
-                    ?>
-                    <br>
-                    
-                    <?php
-                    echo $this->Form->control('exhibition_survey.11.text'); 
-                ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>
@@ -139,8 +86,11 @@
 </div>
 <script>
     CKEDITOR.replace('detail_html');
+    
+    $(function() {
+        <?php $a=1; ?>
+        $('button[name=textAdd]').on('click', function() {
+            $('button[name=textAdd]').before('<?php echo $this->Form->control('exhibition_survey.'.++$a.'.text', ['value' => '보기', 'label' => false]) ?>');
+        })
+    });
 </script>  
-
-
-
-
