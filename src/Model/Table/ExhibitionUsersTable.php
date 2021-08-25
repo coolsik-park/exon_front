@@ -122,6 +122,10 @@ class ExhibitionUsersTable extends Table
             ->integer('status')
             ->notEmptyString('status');
 
+        $validator
+            ->integer('attend')
+            ->allowEmptyString('attend');
+
         return $validator;
     }
 
