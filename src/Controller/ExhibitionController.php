@@ -619,6 +619,10 @@ class ExhibitionController extends AppController
             'total' => $total,
             'answered' => $answered[0]->count
         ];
+
+        //시청자 나이 대
+
+        //시청자 성비
         
         $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
         $this->set(compact('id', 'exhibitionGroup', 'participantData', 'answeredData'));
@@ -749,11 +753,11 @@ class ExhibitionController extends AppController
             }
         }
         
-        $participatedRates = [
+        $participatedData = [
             'total' => $totalParticipant,
             'participated' => $participatedCount,
         ];
 
-        $this->set(compact('id', 'answerRates', 'applyRates', 'participatedRates'));
+        $this->set(compact('id', 'answerRates', 'applyRates', 'participatedData'));
     }
 }

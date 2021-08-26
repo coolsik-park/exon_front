@@ -16,7 +16,7 @@
     }
     
     echo '<br>';
-    echo '참가자 수 : ' . $participatedRates['total'] . '<br>';
-    echo '재방문 참가자 수 : ' . $participatedRates['participated'] . '<br>';
-    echo '첫방문 참가자 수 : ' . ($participatedRates['total'] - $participatedRates['participated']);
+    echo '참가자 수 : ' . $participatedData['total'] . '<br>';
+    echo '재방문 참가자 수 : ' . $participatedData['participated'] . '<br>';
+    echo '첫방문 참가자 수 : ' . ($participatedData['total'] - $participatedData['participated']);
 ?>
