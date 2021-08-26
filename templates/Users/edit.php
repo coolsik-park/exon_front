@@ -8,29 +8,42 @@
     <aside class="column">
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $user->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
     <div class="column-responsive column-80">
         <div class="users form content">
-            <?= $this->Form->create($user) ?>
+            <?= $this->Form->create($user, ['enctype'=>'multipart/form-data']) ?>
             <fieldset>
-                <legend><?= __('Edit User') ?></legend>
+                <legend><?= __('회원정보수정') ?></legend>
+                <b>기본정보</b>
                 <?php
-                    echo $this->Form->control('email');
-                    echo $this->Form->control('password');
-                    echo $this->Form->control('name');
-                    echo $this->Form->control('hp');
-                    echo $this->Form->control('status');
-                    echo $this->Form->control('refer');
+                    echo $this->Form->control('email', ['label' => '*이메일', 'readonly' => 'readonly']);
+                    echo $this->Form->control('password', ['label' => '*비밀번호']);
+                    echo $this->Form->control('password_check', ['label' => '*비밀번호 확인']);
+                    echo $this->Form->control('name', ['label' => '*이름']);
+                    echo $this->Form->control('hp', ['label' => '휴대전화 번호', 'type' => 'tel']);
+                    if ($user->hp_cert == 0) {
+                        echo $this->Form->button('번호인증');
+                    } else {
+                        echo $this->Form->button('번호변경');
+                    }
+                ?>
+                <br><b>부가정보</b><br>
+                <?php
+                    echo $this->Form->button('kakao 연동');
+                    echo $this->Form->button('NAVER 연동');
+                    echo $this->Form->control('user.image_name', ['type' => 'file', 'label' => '프로필']);
+                    if ($user->image_name != null) {
+                        echo $this->Form->button('삭제');
+                    }
+                    echo $this->Form->control('birthday', ['label' => '생년월일', 'dateFormat' => 'YMD']);
+                    echo $this->Form->control('sex', ['label' => '성별', 'options' => ['M' => '남자', 'F' => '여자']]);
+                    echo $this->Form->control('company', ['label' => '소속']);
+                    echo $this->Form->control('title', ['label' => '직함']);
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button(__('취소'), ['action' => 'index']) ?>
+            <?= $this->Form->button(__('저장')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>
