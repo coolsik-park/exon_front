@@ -93,6 +93,47 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
+        // $connection = ConnectionManager::get('default');
+        // $connection->begin();
+
+        // $user = $this->Users->get($id, ['contaion' => []]);
+
+        // if ($this->request->is(['patch', 'post', 'put'])) {
+        //     debug($user);
+        //     $user = $this->Users->patchEntity($user, $this->request->getData('user'));
+
+        //     if ($result = $this->Users->save($user)) {
+        //         $image = $this->request->getData('image_name');
+        //         $imageName = $image->getClientFilename();
+        //         $index = strpos(strrev($imageName), strrev('.'));
+        //         $expen = strtolower(substr($imageName, ($index * -1)));
+        //         $path = 'upload' . DS . 'users' . DS . date("Y") . DS . date("m");
+
+        //         if (!file_exists(WWW_ROOT . $path)) {
+        //             $oldMask = umask(0);
+        //             mkdir(WWW_ROOT . $path, 0777, true);
+        //             chmod(WWW_ROOT . $path, 0777);
+        //             umask($oldMask);
+        //         }
+
+        //         $imageName = $result->id . "_users" . $expen;
+        //         $destination = WWW_ROOT . $path . DS . $imageName;
+        //         $image->moveTo($destination);
+
+        //         echo('a');
+        //         if ($connection->update('users',['image_path' => $path, 'image_name' => $imageName], ['id' => $id])) {
+        //             $connection->commit();
+        //             $this->Flash->success(__('Your Post has been saved.'));
+        //             return $this->redirect(['action' => 'index']);
+        //         } else {
+        //             $connection->rollback();
+        //             $this->Flash->success(__('Unable to add you post.'));
+        //         }                
+        //     } else {
+        //         $connection->rollback();
+        //         $this->Flash->error(__('The user could not be saved. Please, try again.'));
+        //     }
+        // }
         $this->set(compact('user'));
     }
 
