@@ -26,8 +26,9 @@ class UsersFixture extends TestFixture
 0: 미인증
 1: 인증
 ', 'precision' => null, 'autoIncrement' => null],
-        'birthday' => ['type' => 'string', 'length' => 8, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '생년월일
-', 'precision' => null],
+        'birthday' => ['type' => 'date', 'length' => null, 'null' => true, 'default' => null, 'comment' => '생년월일\\n', 'precision' => null],
+        'image_path' => ['type' => 'string', 'length' => 2048, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '첨부 파일 경로', 'precision' => null],
+        'image_name' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
         'sex' => ['type' => 'string', 'length' => 1, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '성별
 F
 M
@@ -44,7 +45,7 @@ M
  kakao
  naver', 'precision' => null],
         'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'current_timestamp()', 'comment' => '가입일'],
-        'modified' => ['type' => 'timestamp', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'current_timestamp()', 'comment' => '최근 수정일'],
+        'modified' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'current_timestamp()', 'comment' => '최근 수정일'],
         'ip' => ['type' => 'string', 'length' => 16, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
@@ -70,14 +71,16 @@ M
                 'name' => 'Lorem ipsum dolor sit amet',
                 'hp' => 'Lorem ipsum do',
                 'hp_cert' => 1,
-                'birthday' => 'Lorem ',
+                'birthday' => '2021-08-26',
+                'image_path' => 'Lorem ipsum dolor sit amet',
+                'image_name' => 'Lorem ipsum dolor sit amet',
                 'sex' => 'L',
                 'company' => 'Lorem ipsum dolor sit amet',
                 'title' => 'Lorem ipsum dolor sit amet',
                 'status' => 1,
                 'refer' => 'Lorem ipsum dolor sit amet',
-                'created' => '2021-07-16 13:52:45',
-                'modified' => 1626411165,
+                'created' => '2021-08-26 09:54:56',
+                'modified' => '2021-08-26 09:54:56',
                 'ip' => 'Lorem ipsum do',
             ],
         ];
