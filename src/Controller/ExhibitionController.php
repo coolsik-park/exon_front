@@ -9,6 +9,7 @@ use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
 use Cake\ORM\TableRegistry;
 use Cake\Event\EventInterface;
+use Cake\I18n\FrozenTime;
 
 /**
  * Exhibition Controller
@@ -523,7 +524,7 @@ class ExhibitionController extends AppController
         $ages[] = '';
         for ($i = 0; $i < $count; $i++) {
             if ($exhibition[0]->users[$i]->_joinData->status != 8) {
-                $ages[$i] = date('Y')-(int)substr($exhibition[0]->users[$i]->birthday, 0, 4) + 1;
+                $ages[$i] = date('Y')-(int)$exhibition[0]->users[$i]->birthday->i18nFormat('yyyy') + 1;
             }
         }
 
@@ -547,10 +548,10 @@ class ExhibitionController extends AppController
         $ages[] = '';
         for ($i = 0; $i < $count; $i++) {
             if ($exhibition[0]->users[$i]->_joinData->status == 4) {
-                $ages[$i] = date('Y')-(int)substr($exhibition[0]->users[$i]->birthday, 0, 4) + 1;
+                $ages[$i] = date('Y')-(int)$exhibition[0]->users[$i]->birthday->i18nFormat('yyyy') + 1;
             }
         }
-
+        
         $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
         $this->set(compact('id', 'applyRates', 'genderRates', 'ages', 'exhibitionGroup'));
     }
@@ -572,11 +573,94 @@ class ExhibitionController extends AppController
         $ages[] = '';
         for ($i = 0; $i < $count; $i++) {
             if ($exhibition[0]->users[$i]->_joinData->status == 4 && $exhibition[0]->users[$i]->_joinData->exhibition_group_id == $group) {
-                $ages[$i] = date('Y')-(int)substr($exhibition[0]->users[$i]->birthday, 0, 4) + 1;
+                $ages[$i] = date('Y')-(int)$exhibition[0]->users[$i]->birthday->i18nFormat('yyyy') + 1;
             }
         }
 
         $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
         $this->set(compact('id', 'applyRates', 'genderRates', 'ages', 'exhibitionGroup'));
+    }
+
+    public function exhibitionStatisticsStream($stream = null) 
+    {
+        
+    }
+
+    public function exhibitionStatisticsExtra($id = null) 
+    {
+        //설문 별 응답률
+
+        $exhibition = $this->Exhibition->find('all', ['contain' => 'Users'])->where(['id' => $id])->toArray();
+        $count = count($exhibition[0]->users);
+        $ids[] = '';
+        for ($i = 0; $i < $count; $i++) {
+            if ($exhibition[0]->users[$i]->_joinData->status == 2 || $exhibition[0]->users[$i]->_joinData->status == 4) {
+                $ids[$i] = $exhibition[0]->users[$i]->id;
+            }
+        }
+
+        $exhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey')->find('all')
+            ->where(['exhibition_id' => $id, 'ExhibitionSurveyUsersAnswer.parent_id IS' => null, 'ExhibitionSurveyUsersAnswer.users_id IN' => $ids]);
+        $answerRates = $exhibitionSurvey
+            ->select(['ExhibitionSurvey.id', 'ExhibitionSurvey.text', 'count' => $exhibitionSurvey->func()->count('ExhibitionSurveyUsersAnswer.id')])
+            ->leftJoinWith('ExhibitionSurveyUsersAnswer')
+            ->group('ExhibitionSurvey.id')
+            ->toArray();
+        
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id]);
+        $applyRates = $exhibitionUsers->select(['count' => $exhibitionUsers->func()->count('status')])->where(['status IN' => [2, 4]])->toArray();
+
+        //첫방문 or 재방문
+
+        //재방문 유저 탐색
+        $participatedCount = 0;
+        $exhibition = $this->Exhibition->find('all')->where(['id' => $id])->toArray();
+        $currentExhibition = $this->Exhibition->find('all', ['contain' => 'Users'])->where(['id' => $id])->toArray();
+        $currentExhibitionParticipant[] = '';
+        $count = count($currentExhibition[0]->users);
+        for ($i = 0; $i < $count; $i++) {
+            $currentExhibitionParticipant[$i] = $currentExhibition[0]->users[$i]->_joinData->users_id;
+        }
+
+        $previousExhibition[] = '';
+        $exhibition = $this->Exhibition->find('all', ['contain' => 'Users'])->where(['users_id' => $exhibition[0]->users_id])->toArray();
+        $count = count($exhibition);    
+        for ($i = 0; $i < $count; $i++ ) {
+            if ((int)$exhibition[$i]->created->i18nFormat('yyyyMMddHHmmss') < (int)$currentExhibition[0]->created->i18nFormat('yyyyMMddHHmmss')) {
+                $previousExhibition[$i] = $exhibition[$i];
+            }
+        }
+        
+        if ($previousExhibition[0] != '') {
+            $previousExhibitionParticipant[] = '';
+            $countI = count($previousExhibition);
+            $k = 0;
+            for ($i = 0; $i < $countI; $i++) {
+                $countJ = count($previousExhibition[$i]->users);
+                for ($j = 0; $j < $countJ; $j++) {
+                    if ($previousExhibition[$i]->users[$j]->_joinData->status == 4) {
+                        $previousExhibitionParticipant[$k] = $previousExhibition[$i]->users[$j]->id;
+                        $k++;              
+                    }  
+                }
+            }
+            $previousExhibitionParticipant = array_unique($previousExhibitionParticipant);
+            $previousExhibitionParticipant = array_values($previousExhibitionParticipant);
+
+            $countK = count($currentExhibitionParticipant);
+            $countL = count($previousExhibitionParticipant);
+            for ($k = 0; $k < $countK; $k++) {
+                for ($l = 0; $l < $countL; $l++) {
+                    if ($currentExhibitionParticipant[$k] == $previousExhibitionParticipant[$l]) {
+                        $participatedCount++;
+                    }
+                }
+            }
+        } 
+        
+        //참가자 수
+        $totalParticipant = count($currentExhibition[0]->users);
+
+        $this->set(compact('id', 'answerRates', 'applyRates', 'totalParticipant', 'participatedCount'));
     }
 }
