@@ -12,11 +12,11 @@
 
 <?php
     echo '<br><br>';
-    echo '참가자수 : ' . $participantData['participant'] . '<br>';
-    echo '출석자수 : ' . $participantData['attended'] . '<br>';
-    echo '결석자수 : ' . ($participantData['participant'] - $participantData['attended']);
+    echo '참가자 수 : ' . $participantData['participant'] . '<br>';
+    echo '출석자 수 : ' . $participantData['attended'] . '<br>';
+    echo '결석자 수 : ' . ($participantData['participant'] - $participantData['attended']);
     echo '<br><br>';
-    echo '받은질문 수 : ' . $answeredData['total'] . '<br>';
+    echo '받은 질문 수 : ' . $answeredData['total'] . '<br>';
     echo '응답 질문 수 : ' . $answeredData['answered'] . '<br>';
     echo '미 응답 질문 수 : ' . ($answeredData['total'] - $answeredData['answered']);
 ?>
