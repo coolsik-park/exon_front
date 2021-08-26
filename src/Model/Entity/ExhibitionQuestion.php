@@ -14,11 +14,11 @@ use Cake\ORM\Entity;
  * @property string|null $target_users_name
  * @property int|null $parent_id
  * @property string $contents
- * @property string $created
+ * @property \Cake\I18n\FrozenTime $created
  *
  * @property \App\Model\Entity\ExhibitionUser $exhibition_user
- * @property \App\Model\Entity\ParentExhibitionQuestion $parent_exhibition_question
- * @property \App\Model\Entity\ChildExhibitionQuestion[] $child_exhibition_question
+ * @property \App\Model\Entity\ExhibitionQuestion $parent_exhibition_question
+ * @property \App\Model\Entity\ExhibitionQuestion[] $child_exhibition_question
  */
 class ExhibitionQuestion extends Entity
 {

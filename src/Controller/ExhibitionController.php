@@ -583,23 +583,93 @@ class ExhibitionController extends AppController
 
     public function exhibitionStatisticsStream($id = null) 
     {
-        $exhibitionStream = $this->getTableLocator()->get('ExhibitionStream')->find('all')->where(['exhibition_id' => $id])->toArray();
-        debug($exhibitionStream);
+        //출결석 비율
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id]);
+        $participant = $exhibitionUsers->select(['count' => $exhibitionUsers->func()->count('id')])->where(['status' => 4])->toArray();
+        
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id]);
+        $attended = $exhibitionUsers->select(['count' => $exhibitionUsers->func()->count('id')])->where(['status' => 4, 'attend IN' => [2, 4]])->toArray();
 
+        $participantData = [
+            'participant' => $participant[0]->count,
+            'attended' => $attended[0]->count
+        ];
+
+        //질문 응답 비율
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionQuestion'])->where(['exhibition_id' => $id])->toArray();
+        $total = 0;
+        $countI = count($exhibitionUsers);
+        for ($i = 0; $i < $countI; $i++) {
+            $countJ = count($exhibitionUsers[$i]->exhibition_question);
+            for ($j = 0; $j < $countJ; $j++) {
+                if ($exhibitionUsers[$i]->exhibition_question[$j]->parent_id == null) {
+                    $total++;
+                }
+            }
+        }
+
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id]);
+        $answered = $exhibitionUsers->select(['count' =>$exhibitionUsers->func()->count('ExhibitionQuestion.id')])
+            ->innerJoinWith('ExhibitionQuestion', function ($q) {
+                return $q->where(['ExhibitionQuestion.parent_id IS NOT' => null]);
+            })
+            ->toArray();
+
+        $answeredData = [
+            'total' => $total,
+            'answered' => $answered[0]->count
+        ];
+        
         $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
-        $this->set(compact('id', 'exhibitionGroup'));
+        $this->set(compact('id', 'exhibitionGroup', 'participantData', 'answeredData'));
     }
 
     public function exhibitionStatisticsStreamByGroup($id = null, $group = null)
     {
+        //출결석 비율
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id]);
+        $participant = $exhibitionUsers->select(['count' => $exhibitionUsers->func()->count('id')])->where(['exhibition_group_id' => $group, 'status' => 4])->toArray();
+        
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id]);
+        $attended = $exhibitionUsers->select(['count' => $exhibitionUsers->func()->count('id')])->where(['exhibition_group_id' => $group, 'status' => 4, 'attend IN' => [2, 4]])->toArray();
+
+        $participantData = [
+            'participant' => $participant[0]->count,
+            'attended' => $attended[0]->count
+        ];
+
+        //질문 응답 비율
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionQuestion'])->where(['exhibition_id' => $id, 'exhibition_group_id' => $group])->toArray();
+        $total = 0;
+        $countI = count($exhibitionUsers);
+        for ($i = 0; $i < $countI; $i++) {
+            $countJ = count($exhibitionUsers[$i]->exhibition_question);
+            for ($j = 0; $j < $countJ; $j++) {
+                if ($exhibitionUsers[$i]->exhibition_question[$j]->parent_id == null) {
+                    $total++;
+                }
+            }
+        }
+
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id, 'exhibition_group_id' => $group]);
+        $answered = $exhibitionUsers->select(['count' =>$exhibitionUsers->func()->count('ExhibitionQuestion.id')])
+            ->innerJoinWith('ExhibitionQuestion', function ($q) {
+                return $q->where(['ExhibitionQuestion.parent_id IS NOT' => null]);
+            })
+            ->toArray();
+
+        $answeredData = [
+            'total' => $total,
+            'answered' => $answered[0]->count
+        ];
+        
         $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
-        $this->set(compact('id', 'exhibitionGroup'));
+        $this->set(compact('id', 'exhibitionGroup', 'participantData', 'answeredData'));
     }
 
     public function exhibitionStatisticsExtra($id = null) 
     {
         //설문 별 응답률
-
         $exhibition = $this->Exhibition->find('all', ['contain' => 'Users'])->where(['id' => $id])->toArray();
         $count = count($exhibition[0]->users);
         $ids[] = '';
@@ -679,7 +749,11 @@ class ExhibitionController extends AppController
             }
         }
         
+        $participatedRates = [
+            'total' => $totalParticipant,
+            'participated' => $participatedCount,
+        ];
 
-        $this->set(compact('id', 'answerRates', 'applyRates', 'totalParticipant', 'participatedCount'));
+        $this->set(compact('id', 'answerRates', 'applyRates', 'participatedRates'));
     }
 }

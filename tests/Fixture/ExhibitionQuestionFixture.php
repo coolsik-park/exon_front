@@ -33,7 +33,7 @@ class ExhibitionQuestionFixture extends TestFixture
         'parent_id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '답변일 경우 질문의 ID값 
 ', 'precision' => null, 'autoIncrement' => null],
         'contents' => ['type' => 'text', 'length' => null, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '질문 또는 답변', 'precision' => null],
-        'created' => ['type' => 'string', 'length' => 45, 'null' => false, 'default' => 'CURRENT_TIMESTAMP()', 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
+        'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'current_timestamp()', 'comment' => ''],
         '_indexes' => [
             'fk_exhibition_question_exhibition_users1_idx' => ['type' => 'index', 'columns' => ['exhibition_users_id'], 'length' => []],
             'fk_exhibition_question_exhibition_users2_idx' => ['type' => 'index', 'columns' => ['target_users_id'], 'length' => []],
@@ -64,7 +64,7 @@ class ExhibitionQuestionFixture extends TestFixture
                 'target_users_name' => 'Lorem ipsum dolor sit amet',
                 'parent_id' => 1,
                 'contents' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-                'created' => 'Lorem ipsum dolor sit amet',
+                'created' => '2021-08-26 05:08:43',
             ],
         ];
         parent::init();

@@ -61,6 +61,9 @@ class ExhibitionUsersTable extends Table
         $this->belongsTo('Pay', [
             'foreignKey' => 'pay_id',
         ]);
+        $this->hasMany('ExhibitionQuestion', [
+            'foreignKey' => 'exhibition_users_id',
+        ]);
 
         $this->addBehavior('Search.Search');
         $this->searchManager()
