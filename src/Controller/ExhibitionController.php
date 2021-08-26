@@ -551,7 +551,7 @@ class ExhibitionController extends AppController
                 $ages[$i] = date('Y')-(int)$exhibition[0]->users[$i]->birthday->i18nFormat('yyyy') + 1;
             }
         }
-        
+
         $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
         $this->set(compact('id', 'applyRates', 'genderRates', 'ages', 'exhibitionGroup'));
     }
@@ -581,9 +581,19 @@ class ExhibitionController extends AppController
         $this->set(compact('id', 'applyRates', 'genderRates', 'ages', 'exhibitionGroup'));
     }
 
-    public function exhibitionStatisticsStream($stream = null) 
+    public function exhibitionStatisticsStream($id = null) 
     {
-        
+        $exhibitionStream = $this->getTableLocator()->get('ExhibitionStream')->find('all')->where(['exhibition_id' => $id])->toArray();
+        debug($exhibitionStream);
+
+        $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
+        $this->set(compact('id', 'exhibitionGroup'));
+    }
+
+    public function exhibitionStatisticsStreamByGroup($id = null, $group = null)
+    {
+        $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
+        $this->set(compact('id', 'exhibitionGroup'));
     }
 
     public function exhibitionStatisticsExtra($id = null) 
@@ -619,7 +629,9 @@ class ExhibitionController extends AppController
         $currentExhibitionParticipant[] = '';
         $count = count($currentExhibition[0]->users);
         for ($i = 0; $i < $count; $i++) {
-            $currentExhibitionParticipant[$i] = $currentExhibition[0]->users[$i]->_joinData->users_id;
+            if ($currentExhibition[0]->users[$i]->_joinData->status == 4){
+                $currentExhibitionParticipant[$i] = $currentExhibition[0]->users[$i]->_joinData->users_id;
+            }
         }
 
         $previousExhibition[] = '';
@@ -659,7 +671,14 @@ class ExhibitionController extends AppController
         } 
         
         //참가자 수
-        $totalParticipant = count($currentExhibition[0]->users);
+        $totalParticipant = 0;
+        $count = count($currentExhibition[0]->users);
+        for ($i = 0; $i < $count; $i++) {
+            if ($currentExhibition[0]->users[$i]->_joinData->status == 4)  {
+                $totalParticipant++;
+            }
+        }
+        
 
         $this->set(compact('id', 'answerRates', 'applyRates', 'totalParticipant', 'participatedCount'));
     }
