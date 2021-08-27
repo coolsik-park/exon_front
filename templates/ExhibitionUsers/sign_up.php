@@ -1,7 +1,5 @@
 <?php
 ?>
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <div class="userquestion index content">
     <div class="table-responsive">
         <table>
@@ -61,7 +59,8 @@
                             if ($exhibition_user->exhibition['edate'] > date('m-d-Y h:i:s a', time())) {
                                 echo('종료된 행사입니다.');
                             } else {
-                                echo $this->Form->postLink(__('취소'), ['action' => 'exhibitionUsersStatus', $exhibition_user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $exhibition_user->id)]);
+                                echo $this->Form->postLink(__('취소'), ['action' => 'exhibition_users_status', $exhibition_user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $exhibition_user->id)]);
+                                // echo $this->Form->postLink(__('취소'), ['action' => 'a']);
                             }
                         ?>
                     </td>
@@ -81,34 +80,3 @@
         </div>
     </div>
 </div>
-<script>
-    $("select[name=selectBox]").on('change', function() {
-        var value = $("#selectBox").val();
-        var id = <?= $exhibition->id ?>;
-        $.ajax({
-            url: "http://121.126.223.225:8000/exhibition/exhibition-users-approval",
-            method: 'POST',
-                type: 'json',
-                data: {
-                    id: id,
-                    status: value
-                }
-        })
-    });
-
-    $('button[name=wordSearchButton]').on('click', function() {
-        var value = $('input[name=wordSearch]').val();
-        var id = <?= $exhibition->exhibition_id ?>;
-        console.log(value);
-        console.log(id);
-        $.ajax({
-            url: "http://121.126.223.225:8000/exhibition/word-search",
-            method: 'POST',
-            type: 'json',
-            data: {
-                id: id,
-                word: value
-            }
-        })
-    });
-</script>

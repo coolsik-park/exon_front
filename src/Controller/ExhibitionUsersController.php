@@ -254,8 +254,26 @@ class ExhibitionUsersController extends AppController
     {
         $this->paginate = ['limit' => 10];
 
-        $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $id]))->toArray();
-        debug($exhibition_users);
+        $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $id, 'ExhibitionUsers.status !=' => 8]))->toArray();
+        
         $this->set(compact('exhibition_users'));
+    }
+
+    public function exhibitionUsersStatus($id = null)
+    {
+        $connection = ConnectionManager::get('default');
+        $connection->begin();
+
+        $exhibition_user = $this->ExhibitionUsers->get($id);
+
+        if ($connection->update('exhibition_users', ['status' => '8'], ['id' => $id])) {
+            $connection->commit();
+            $this->Flash->success(__('Your post has been saved.'));
+        } else {
+            $connection->rollback();
+            $this->Flash->error(__('Unable to add you post.'));
+        }
+
+        return $this->redirect(['action' => 'signUp', $exhibition_user->users_id]);
     }
 }
