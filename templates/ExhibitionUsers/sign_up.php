@@ -50,13 +50,21 @@
                     </td>
                     <td rowspan='2'><?php echo($exhibition_user->exhibition_group['name']) ?></td>
                     <td class='actions'>
-                        <?php echo $this->Form->postLink(__('취소'), ['action' => 'exhibitionUsersStatus', $exhibition_user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $exhibition_user->id)]) ?>
+                        <?php echo $this->Form->postLink(__('증빙')) ?>
                     </td>
                 </tr>
                 <tr>
                     <td><?php echo $this->Html->image(DS . $exhibition_user->exhibition['image_path'] . DS . $exhibition_user->exhibition['image_name']) ?></td>
                     <td><?php echo($exhibition_user->exhibition['name']) ?></td>
-                    <td><?php echo $this->Form->postLink(__('증빙')) ?></td>
+                    <td>
+                        <?php 
+                            if ($exhibition_user->exhibition['edate'] > date('m-d-Y h:i:s a', time())) {
+                                echo('종료된 행사입니다.');
+                            } else {
+                                echo $this->Form->postLink(__('취소'), ['action' => 'exhibitionUsersStatus', $exhibition_user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $exhibition_user->id)]);
+                            }
+                        ?>
+                    </td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
