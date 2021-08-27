@@ -281,17 +281,15 @@ class ExhibitionController extends AppController
     {
         $this->paginate = ['limit' => 10];
 
-        debug($word);
-
         $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
         $exhibition_users = $this->paginate($exhibition_users_table->find('all', array('contain' => array('Exhibition', 'ExhibitionGroup', 'Pay')))->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.status !=' => 8]))->toArray();
 
-        if($word == null) {
-            $exhibition_users = $this->paginate($exhibition_users_table->find('all', array('contain' => array('Exhibition', 'ExhibitionGroup', 'Pay')))->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.status !=' => 8]))->toArray();
-        } else {
-            // $exhibition_users = $this->paginate($exhibition_users_table->find('all', array('contain' => array('Exhibition', 'ExhibitionGroup', 'Pay')))->where(['Exhibition_id.exhibition_id' => $id, 'ExhibitionUsers.status !=' => 8, 'ExhibitionUsers.users_email' => $word]))->toArray();
-            return $this->redirect(['action' => 'index']);
-        }
+        // if($word == null) {
+        //     $exhibition_users = $this->paginate($exhibition_users_table->find('all', array('contain' => array('Exhibition', 'ExhibitionGroup', 'Pay')))->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.status !=' => 8]))->toArray();
+        // } else {
+        //     // $exhibition_users = $this->paginate($exhibition_users_table->find('all', array('contain' => array('Exhibition', 'ExhibitionGroup', 'Pay')))->where(['Exhibition_id.exhibition_id' => $id, 'ExhibitionUsers.status !=' => 8, 'ExhibitionUsers.users_email' => $word]))->toArray();
+        //     return $this->redirect(['action' => 'index']);
+        // }
 
         $this->set(compact('exhibition_users'));
     }
