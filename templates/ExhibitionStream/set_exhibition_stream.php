@@ -57,6 +57,8 @@
                         echo $this->Form->control($tab->title, ['id' => 'tab' . $i, 'type' => 'hidden']);
                         $i--;
                     }
+                    echo $this->Form->button('setting', ['id' => 'setting']);
+                    echo $this->Form->control('setting', ['id' => 'setting']);
                 ?>
             </fieldset>
         </div>
@@ -192,6 +194,15 @@
             $("button#tab" + i).css("background-color", "blue"); 
         }
     }
+    $("button#setting").click(function () {
+        if ($("input#setting").val() == null || $("input#setting").val() == 0) {
+            $("input#setting").val(1);
+            $("button#setting").css("background-color", "blue");
+        } else {
+            $("input#setting").val(0);
+            $("button#setting").css("background-color", "white");
+        }
+    });
 
     $("button#tab0").click(function () {
         if ($("input#tab0").val() == 0) {
