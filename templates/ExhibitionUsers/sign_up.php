@@ -38,7 +38,11 @@
                     <td rowspan='2'>
                         <?php 
                             if ($exhibition_user->attend == 1) {
-                                echo('불참');
+                                if ($exhibition_user->exhibition['edate'] > date('m-d-Y h:i:s a', time())) {
+                                    echo('-');
+                                } else {
+                                    echo('불참');
+                                }
                             } elseif($exhibition_user->attend == 2) {
                                 echo('참석');
                             } elseif($exhibition_user->attend == 4) {
@@ -60,7 +64,6 @@
                                 echo('종료된 행사입니다.');
                             } else {
                                 echo $this->Form->postLink(__('취소'), ['action' => 'exhibition_users_status', $exhibition_user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $exhibition_user->id)]);
-                                // echo $this->Form->postLink(__('취소'), ['action' => 'a']);
                             }
                         ?>
                     </td>
