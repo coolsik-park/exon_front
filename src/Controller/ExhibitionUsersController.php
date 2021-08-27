@@ -249,4 +249,13 @@ class ExhibitionUsersController extends AppController
         }
         return $code;
     }
+
+    public function signUp($id = null)
+    {
+        $this->paginate = ['limit' => 10];
+
+        $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $id]))->toArray();
+        debug($exhibition_users);
+        $this->set(compact('exhibition_users'));
+    }
 }
