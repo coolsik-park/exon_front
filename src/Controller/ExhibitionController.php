@@ -621,11 +621,22 @@ class ExhibitionController extends AppController
         ];
 
         //시청자 나이 대
+        $exhibition = $this->Exhibition->find('all', ['contain' => 'Users'])->where(['id' => $id])->toArray();
+        $count = count($exhibition[0]->users);
+        $ages[] = '';
+        for ($i = 0; $i < $count; $i++) {
+            if ($exhibition[0]->users[$i]->_joinData->attend == 2 || $exhibition[0]->users[$i]->_joinData->attend == 4) {
+                $ages[$i] = date('Y')-(int)$exhibition[0]->users[$i]->birthday->i18nFormat('yyyy') + 1;
+            }
+        }
 
         //시청자 성비
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id]);
+        $genderRates = $exhibitionUsers->select(['users_sex', 'count' => $exhibitionUsers->func()->count('users_sex')])
+            ->group('users_sex')->where(['attend IN' => [2, 4]])->toArray();
         
         $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
-        $this->set(compact('id', 'exhibitionGroup', 'participantData', 'answeredData'));
+        $this->set(compact('id', 'exhibitionGroup', 'participantData', 'answeredData', 'ages', 'genderRates'));
     }
 
     public function exhibitionStatisticsStreamByGroup($id = null, $group = null)
@@ -667,8 +678,23 @@ class ExhibitionController extends AppController
             'answered' => $answered[0]->count
         ];
         
+        //시청자 나이 대
+        $exhibition = $this->Exhibition->find('all', ['contain' => 'Users'])->where(['id' => $id])->toArray();
+        $count = count($exhibition[0]->users);
+        $ages[] = '';
+        for ($i = 0; $i < $count; $i++) {
+            if ($exhibition[0]->users[$i]->_joinData->attend == 2 && $exhibition[0]->users[$i]->_joinData->exhibition_group_id == $group || $exhibition[0]->users[$i]->_joinData->attend == 4 && $exhibition[0]->users[$i]->_joinData->exhibition_group_id == $group) {
+                $ages[$i] = date('Y')-(int)$exhibition[0]->users[$i]->birthday->i18nFormat('yyyy') + 1;
+            }
+        }
+
+        //시청자 성비
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id, 'exhibition_group_id' => $group]);
+        $genderRates = $exhibitionUsers->select(['users_sex', 'count' => $exhibitionUsers->func()->count('users_sex')])
+            ->group('users_sex')->where(['attend IN' => [2, 4]])->toArray();
+        
         $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
-        $this->set(compact('id', 'exhibitionGroup', 'participantData', 'answeredData'));
+        $this->set(compact('id', 'exhibitionGroup', 'participantData', 'answeredData', 'ages', 'genderRates'));
     }
 
     public function exhibitionStatisticsExtra($id = null) 
