@@ -50,10 +50,12 @@
                 <?php
                     $i = 9;
                     foreach ($tabs as $tab) {
-                        echo $this->Form->button($tab->title, ['id' => 'tab' . $i, 'type' => 'button']);
+                        echo $this->Form->button($tab->title, ['id' => 'tab' . $i, 'name' => $tab->title, 'type' => 'button']);
                         echo $this->Form->control($tab->title, ['id' => 'tab' . $i, 'type' => 'hidden']);
                         $i--;
                     }
+                    echo $this->Form->button('setting', ['id' => 'setting']);
+                    echo $this->Form->control('setting', ['id' => 'setting', 'type' => 'hidden']);
                 ?>
             </fieldset>
         </div>
@@ -190,123 +192,175 @@
         }
     }
 
-    $("button#tab0").click(function () {
-        if ($("input#tab0").val() == 0) {
-            $("input#tab0").val(1);
-            $("button#tab0").css("background-color", "blue");
-            $("#tab").val(parseInt($("#tab").val()) + 512);
+    $("button#setting").click(function () {
+        if ($("input#setting").val() == null || $("input#setting").val() == 0) {
+            $("input#setting").val(1);
+            $("button#setting").css("background-color", "blue");
+            alert("사용할 탭을 선택해주세요.");
         } else {
-            $("input#tab0").val(0);
-            $("button#tab0").css("background-color", "white");
-            $("#tab").val(parseInt($("#tab").val()) - 512);
+            $("input#setting").val(0);
+            $("button#setting").css("background-color", "white");
+        }
+    });
+
+    $("button#tab0").click(function () {
+       
+        if ($("input#setting").val() == 1) {
+            if ($("input#tab0").val() == 0) {
+                $("input#tab0").val(1);
+                $("button#tab0").css("background-color", "blue");
+                $("#tab").val(parseInt($("#tab").val()) + 512);
+                alert($("button#tab0").attr('name')+' 탭이 활성화되었습니다.');
+            } else {
+                $("input#tab0").val(0);
+                $("button#tab0").css("background-color", "white");
+                $("#tab").val(parseInt($("#tab").val()) - 512);
+                alert($("button#tab0").attr('name')+' 탭이 비활성화되었습니다.');
+            }
         }
     });
 
     $("button#tab1").click(function () {
-        if ($("input#tab1").val() == 0) {
-            $("input#tab1").val(1);
-            $("button#tab1").css("background-color", "blue");
-            $("#tab").val(parseInt($("#tab").val()) + 256);
-        } else {
-            $("input#tab1").val(0);
-            $("button#tab1").css("background-color", "white");
-            $("#tab").val(parseInt($("#tab").val()) - 256);
+        if ($("input#setting").val() == 1) {
+            if ($("input#tab1").val() == 0) {
+                $("input#tab1").val(1);
+                $("button#tab1").css("background-color", "blue");
+                $("#tab").val(parseInt($("#tab").val()) + 256);
+                alert($("button#tab1").attr('name')+' 탭이 활성화되었습니다.');
+            } else {
+                $("input#tab1").val(0);
+                $("button#tab1").css("background-color", "white");
+                $("#tab").val(parseInt($("#tab").val()) - 256);
+                alert($("button#tab1").attr('name')+' 탭이 비활성화되었습니다.');
+            }
         }
     });
 
     $("button#tab2").click(function () {
-        if ($("input#tab2").val() == 0) {
-            $("input#tab2").val(1);
-            $("button#tab2").css("background-color", "blue");
-            $("#tab").val(parseInt($("#tab").val()) + 128);
-        } else {
-            $("input#tab2").val(0);
-            $("button#tab2").css("background-color", "white");
-            $("#tab").val(parseInt($("#tab").val()) - 128);
-        }
+        if ($("input#setting").val() == 1) {
+            if ($("input#tab2").val() == 0) {
+                $("input#tab2").val(1);
+                $("button#tab2").css("background-color", "blue");
+                $("#tab").val(parseInt($("#tab").val()) + 128);
+                alert($("button#tab2").attr('name')+' 탭이 활성화되었습니다.');
+            } else {
+                $("input#tab2").val(0);
+                $("button#tab2").css("background-color", "white");
+                $("#tab").val(parseInt($("#tab").val()) - 128);
+                alert($("button#tab2").attr('name')+' 탭이 비활성화되었습니다.');
+            }
+        } 
     });
 
     $("button#tab3").click(function () {
-        if ($("input#tab3").val() == 0) {
-            $("input#tab3").val(1);
-            $("button#tab3").css("background-color", "blue");
-            $("#tab").val(parseInt($("#tab").val()) + 64);
-        } else {
-            $("input#tab3").val(0);
-            $("button#tab3").css("background-color", "white");
-            $("#tab").val(parseInt($("#tab").val()) - 64);
+        if ($("input#setting").val() == 1) {
+            if ($("input#tab3").val() == 0) {
+                $("input#tab3").val(1);
+                $("button#tab3").css("background-color", "blue");
+                $("#tab").val(parseInt($("#tab").val()) + 64);
+                alert($("button#tab3").attr('name')+' 탭이 활성화되었습니다.');
+            } else {
+                $("input#tab3").val(0);
+                $("button#tab3").css("background-color", "white");
+                $("#tab").val(parseInt($("#tab").val()) - 64);
+                alert($("button#tab3").attr('name')+' 탭이 비활성화되었습니다.');
+            }
         }
     });
 
     $("button#tab4").click(function () {
-        if ($("input#tab4").val() == 0) {
-            $("input#tab4").val(1);
-            $("button#tab4").css("background-color", "blue");
-            $("#tab").val(parseInt($("#tab").val()) + 32);
-        } else {
-            $("input#tab4").val(0);
-            $("button#tab4").css("background-color", "white");
-            $("#tab").val(parseInt($("#tab").val()) - 32);
+        if ($("input#setting").val() == 1) {
+            if ($("input#tab4").val() == 0) {
+                $("input#tab4").val(1);
+                $("button#tab4").css("background-color", "blue");
+                $("#tab").val(parseInt($("#tab").val()) + 32);
+                alert($("button#tab4").attr('name')+' 탭이 활성화되었습니다.');
+            } else {
+                $("input#tab4").val(0);
+                $("button#tab4").css("background-color", "white");
+                $("#tab").val(parseInt($("#tab").val()) - 32);
+                alert($("button#tab4").attr('name')+' 탭이 비활성화되었습니다.');
+            }
         }
     });
 
     $("button#tab5").click(function () {
-        if ($("input#tab5").val() == 0) {
-            $("input#tab5").val(1);
-            $("button#tab5").css("background-color", "blue");
-            $("#tab").val(parseInt($("#tab").val()) + 16);
-        } else {
-            $("input#tab5").val(0);
-            $("button#tab5").css("background-color", "white");
-            $("#tab").val(parseInt($("#tab").val()) - 16);
+        if ($("input#setting").val() == 1) {
+            if ($("input#tab5").val() == 0) {
+                $("input#tab5").val(1);
+                $("button#tab5").css("background-color", "blue");
+                $("#tab").val(parseInt($("#tab").val()) + 16);
+                alert($("button#tab5").attr('name')+' 탭이 활성화되었습니다.');
+            } else {
+                $("input#tab5").val(0);
+                $("button#tab5").css("background-color", "white");
+                $("#tab").val(parseInt($("#tab").val()) - 16);
+                alert($("button#tab5").attr('name')+' 탭이 비활성화되었습니다.');
+            }
         }
     });
 
     $("button#tab6").click(function () {
-        if ($("input#tab6").val() == 0) {
-            $("input#tab6").val(1);
-            $("button#tab6").css("background-color", "blue");
-            $("#tab").val(parseInt($("#tab").val()) + 8);
-        } else {
-            $("input#tab6").val(0);
-            $("button#tab6").css("background-color", "white");
-            $("#tab").val(parseInt($("#tab").val()) - 8);
+        if ($("input#setting").val() == 1) {
+            if ($("input#tab6").val() == 0) {
+                $("input#tab6").val(1);
+                $("button#tab6").css("background-color", "blue");
+                $("#tab").val(parseInt($("#tab").val()) + 8);
+                alert($("button#tab6").attr('name')+' 탭이 활성화되었습니다.');
+            } else {
+                $("input#tab6").val(0);
+                $("button#tab6").css("background-color", "white");
+                $("#tab").val(parseInt($("#tab").val()) - 8);
+                alert($("button#tab6").attr('name')+' 탭이 비활성화되었습니다.');
+            }
         }
     });
 
     $("button#tab7").click(function () {
-        if ($("input#tab7").val() == 0) {
-            $("input#tab7").val(1);
-            $("button#tab7").css("background-color", "blue");
-            $("#tab").val(parseInt($("#tab").val()) + 4);
-        } else {
-            $("input#tab7").val(0);
-            $("button#tab7").css("background-color", "white");
-            $("#tab").val(parseInt($("#tab").val()) - 4);
+        if ($("input#setting").val() == 1) {
+            if ($("input#tab7").val() == 0) {
+                $("input#tab7").val(1);
+                $("button#tab7").css("background-color", "blue");
+                $("#tab").val(parseInt($("#tab").val()) + 4);
+                alert($("button#tab7").attr('name')+' 탭이 활성화되었습니다.');
+            } else {
+                $("input#tab7").val(0);
+                $("button#tab7").css("background-color", "white");
+                $("#tab").val(parseInt($("#tab").val()) - 4);
+                alert($("button#tab7").attr('name')+' 탭이 비활성화되었습니다.');
+            }
         }
     });
 
     $("button#tab8").click(function () {
-        if ($("input#tab8").val() == 0) {
-            $("input#tab8").val(1);
-            $("button#tab8").css("background-color", "blue");
-            $("#tab").val(parseInt($("#tab").val()) + 2);
-        } else {
-            $("input#tab8").val(0);
-            $("button#tab8").css("background-color", "white");
-            $("#tab").val(parseInt($("#tab").val()) - 2);
+        if ($("input#setting").val() == 1) {
+            if ($("input#tab8").val() == 0) {
+                $("input#tab8").val(1);
+                $("button#tab8").css("background-color", "blue");
+                $("#tab").val(parseInt($("#tab").val()) + 2);
+                alert($("button#tab8").attr('name')+' 탭이 활성화되었습니다.');
+            } else {
+                $("input#tab8").val(0);
+                $("button#tab8").css("background-color", "white");
+                $("#tab").val(parseInt($("#tab").val()) - 2);
+                alert($("button#tab8").attr('name')+' 탭이 비활성화되었습니다.');
+            }
         }
     });
 
     $("button#tab9").click(function () {
-        if ($("input#tab9").val() == 0) {
-            $("input#tab9").val(1);
-            $("button#tab9").css("background-color", "blue");
-            $("#tab").val(parseInt($("#tab").val()) + 1);
-        } else {
-            $("input#tab9").val(0);
-            $("button#tab9").css("background-color", "white");
-            $("#tab").val(parseInt($("#tab").val()) - 1);
+        if ($("input#setting").val() == 1) {
+            if ($("input#tab9").val() == 0) {
+                $("input#tab9").val(1);
+                $("button#tab9").css("background-color", "blue");
+                $("#tab").val(parseInt($("#tab").val()) + 1);
+                alert($("button#tab9").attr('name')+' 탭이 활성화되었습니다.');
+            } else {
+                $("input#tab9").val(0);
+                $("button#tab9").css("background-color", "white");
+                $("#tab").val(parseInt($("#tab").val()) - 1);
+                alert($("button#tab9").attr('name')+' 탭이 비활성화되었습니다.');
+            }
         }
     });
 </script>
