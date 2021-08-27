@@ -37,11 +37,12 @@
                     </td>
                     <td rowspan='2'>
                         <?php 
+                            $today = new DateTime();
                             if ($exhibition_user->attend == 1) {
-                                if ($exhibition_user->exhibition['edate'] > date('m-d-Y h:i:s a', time())) {
-                                    echo('-');
-                                } else {
+                                if ($today > $exhibition_user->exhibition['edate']) {
                                     echo('불참');
+                                } else {
+                                    echo('-');
                                 }
                             } elseif($exhibition_user->attend == 2) {
                                 echo('참석');
@@ -60,10 +61,13 @@
                     <td><?php echo($exhibition_user->exhibition['name']) ?></td>
                     <td>
                         <?php 
-                            if ($exhibition_user->exhibition['edate'] > date('m-d-Y h:i:s a', time())) {
+                            $today = new DateTime();
+                            if ($today < $exhibition_user->exhibition['sdate']) {
+                                echo $this->Form->postLink(__('취소'), ['action' => 'exhibition_users_status', $exhibition_user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $exhibition_user->id)]);
+                            } elseif ($today > $exhibition_user->exhibition['edate']) {
                                 echo('종료된 행사입니다.');
                             } else {
-                                echo $this->Form->postLink(__('취소'), ['action' => 'exhibition_users_status', $exhibition_user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $exhibition_user->id)]);
+                                echo('진행중인 행사입니다.');
                             }
                         ?>
                     </td>
