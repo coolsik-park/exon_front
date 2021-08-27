@@ -1,7 +1,10 @@
 <?php
 ?>
+<<<<<<< HEAD
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+=======
+>>>>>>> bomi
 <div class="userquestion index content">
     <div class="table-responsive">
         <table>
@@ -50,13 +53,30 @@
                     </td>
                     <td rowspan='2'><?php echo($exhibition_user->exhibition_group['name']) ?></td>
                     <td class='actions'>
+<<<<<<< HEAD
                         <?php echo $this->Form->postLink(__('취소'), ['action' => 'exhibitionUsersStatus', $exhibition_user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $exhibition_user->id)]) ?>
+=======
+                        <?php echo $this->Form->postLink(__('증빙')) ?>
+>>>>>>> bomi
                     </td>
                 </tr>
                 <tr>
                     <td><?php echo $this->Html->image(DS . $exhibition_user->exhibition['image_path'] . DS . $exhibition_user->exhibition['image_name']) ?></td>
                     <td><?php echo($exhibition_user->exhibition['name']) ?></td>
+<<<<<<< HEAD
                     <td><?php echo $this->Form->postLink(__('증빙')) ?></td>
+=======
+                    <td>
+                        <?php 
+                            if ($exhibition_user->exhibition['edate'] > date('m-d-Y h:i:s a', time())) {
+                                echo('종료된 행사입니다.');
+                            } else {
+                                echo $this->Form->postLink(__('취소'), ['action' => 'exhibition_users_status', $exhibition_user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $exhibition_user->id)]);
+                                // echo $this->Form->postLink(__('취소'), ['action' => 'a']);
+                            }
+                        ?>
+                    </td>
+>>>>>>> bomi
                 </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -72,6 +92,7 @@
             <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
         </div>
     </div>
+<<<<<<< HEAD
 </div>
 <script>
     $("select[name=selectBox]").on('change', function() {
@@ -104,3 +125,6 @@
         })
     });
 </script>
+=======
+</div>
+>>>>>>> bomi
