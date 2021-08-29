@@ -17,41 +17,41 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($exhibition_users as $exhibition): ?>
+                <?php foreach ($exhibition_users as $exhibition_user): ?>
                 <tr>
-                    <td><?= h($exhibition->users_name) ?></td>
+                    <td><?= h($exhibition_user->users_name) ?></td>
                     <td class="actions" rowspan='5'>
-                        <?= $this->Form->postLink(__('설문확인'), ['action' => 'userSurveyView', $exhibition->id]) ?>
+                        <?= $this->Form->button(__('설문확인'), ['id' => 'userSurveyView', 'name' => 'userSurveyView']) ?>
                     </td>
-                    <td rowspan='5'><?= h($exhibition->exhibition_group['name']) ?></td>
-                    <td rowspan='5'><?= h($exhibition->exhibition_group['amount']) ?></td>
+                    <td rowspan='5'><?= h($exhibition_user->exhibition_group['name']) ?></td>
+                    <td rowspan='5'><?= h($exhibition_user->exhibition_group['amount']) ?></td>
                     <td rowspan='5'>
                         <?php 
-                            if ($exhibition->attend == 1) {
+                            if ($exhibition_user->attend == 1) {
                                 echo('불참');
-                            } elseif($exhibition->attend == 2) {
+                            } elseif($exhibition_user->attend == 2) {
                                 echo('참석');
-                            } elseif($exhibition->attend == 4) {
+                            } elseif($exhibition_user->attend == 4) {
                                 echo('시청완료');
                             }
                         ?>
                     </td>
                     <td rowspan='5'><?php echo $this->Form->control('', ['options' => ['2' => '참가 대기', '4' => '참가 확정'], 'id' => 'selectBox', 'name' => 'selectBox']) ?></td>
                     <td class='actions' rowspan='5'>
-                        <?= $this->Form->postLink(__('취소'), ['action' => 'exhibitionUsersStatus', $exhibition->id], ['confirm' => __('Are you sure you want to delete # {0}?', $exhibition->id)]) ?>
+                        <?= $this->Form->postLink(__('취소'), ['action' => 'exhibitionUsersStatus', $exhibition_user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $exhibition_user->id)]) ?>
                     </td>
                 </tr>
                 <tr>
-                    <td><?= h($exhibition->users_email) ?></td>
+                    <td><?= h($exhibition_user->users_email) ?></td>
                 </tr>
                 <tr>
-                    <td><?= h($exhibition->users_hp) ?></td>
+                    <td><?= h($exhibition_user->users_hp) ?></td>
                 </tr>
                 <tr>
-                    <td><?= h($exhibition->users_group) ?></td>
+                    <td><?= h($exhibition_user->users_group) ?></td>
                 </tr>
                 <tr>
-                    <td><?= h($exhibition->users_sex) ?></td>
+                    <td><?= h($exhibition_user->users_sex) ?></td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -78,7 +78,7 @@
 <script>
     $("select[name=selectBox]").on('change', function() {
         var value = $("#selectBox").val();
-        var id = <?= $exhibition->id ?>;
+        var id = <?= $exhibition_user->id ?>;
         $.ajax({
             url: "http://121.126.223.225:8000/exhibition/exhibition-users-approval",
             method: 'POST',
@@ -92,7 +92,7 @@
 
     $('button[name=wordSearchButton]').on('click', function() {
         var value = $('input[name=wordSearch]').val();
-        var id = <?= $exhibition->exhibition_id ?>;
+        var id = <?= $exhibition_user->exhibition_id ?>;
         console.log(value);
         console.log(id);
         $.ajax({
@@ -104,5 +104,9 @@
                 word: value
             }
         })
+    });
+
+    $('button[name=userSurveyView]').on('click', function() {
+        window.open('http://121.126.223.225:8000/exhibition/userSurveyView/<?= $exhibition_user->id ?>', '설문확인', '');
     });
 </script>
