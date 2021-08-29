@@ -1,6 +1,18 @@
 <?php
 ?>
 <div class="userquestion index content">
+    <h3><?= __('신청 내역 관리') ?></h3>
+    <div>
+        <?php 
+            if ($exhibition_users == null) {
+                echo '목록이 없습니다.';
+                exit;
+            }
+        ?>
+        <?php echo $this->Html->link(__('신청행사'), ['action' => 'signUp', $exhibition_users[0]->users_id]) ?>
+        <?php echo $this->Html->link(__('종료행사'), ['action' => 'signUp', $exhibition_users[0]->users_id, '1']) ?>
+        <?php echo $this->Html->link(__('취소/환불'), ['action' => 'signUp', $exhibition_users[0]->users_id, '2']) ?>
+    </div>
     <div class="table-responsive">
         <table>
             <thead>
