@@ -34,7 +34,7 @@
                 <?php
                     echo $this->Form->button('kakao 연동');
                     echo $this->Form->button('NAVER 연동');
-                    echo $this->Form->control('user.image_name', ['type' => 'file', 'label' => '프로필']);
+                    echo $this->Form->control('image', ['type' => 'file', 'label' => '프로필']);
                     if ($user->image_name != null) {
                         echo $this->Form->button('삭제');
                     }
