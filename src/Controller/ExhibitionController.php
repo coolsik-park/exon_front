@@ -296,7 +296,7 @@ class ExhibitionController extends AppController
         //     return $this->redirect(['action' => 'index']);
         // }
 
-        $this->set(compact('exhibition_users'));
+        $this->set(compact('id', 'exhibition_users'));
     }
 
     public function wordSearch()
@@ -420,7 +420,7 @@ class ExhibitionController extends AppController
                 echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
             }
         }
-        $this->set(compact('exhibitionUsers'));
+        $this->set(compact('id', 'exhibitionUsers'));
     }
 
     public function sendSmsToParticipant($id = null)
@@ -462,7 +462,7 @@ class ExhibitionController extends AppController
                 $this->Flash->error(__('The SMS could not be delivered.'));
             }
         }
-        $this->set(compact('exhibitionUsers'));
+        $this->set(compact('id', 'exhibitionUsers'));
     }
 
     public function participantList($id = null, $type = null)
