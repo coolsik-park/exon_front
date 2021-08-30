@@ -57,5 +57,6 @@ class ExhibitionUser extends Entity
         'exhibition_group' => true,
         'user' => true,
         'pay' => true,
+        'attend' => true,
     ];
 }

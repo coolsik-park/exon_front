@@ -1,6 +1,5 @@
 
 <section>
-
 	<?php foreach ($banner as $list): ?>
 
 		<article>

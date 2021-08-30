@@ -61,6 +61,9 @@ class ExhibitionUsersTable extends Table
         $this->belongsTo('Pay', [
             'foreignKey' => 'pay_id',
         ]);
+        $this->hasMany('ExhibitionQuestion', [
+            'foreignKey' => 'exhibition_users_id',
+        ]);
 
         $this->addBehavior('Search.Search');
         $this->searchManager()
@@ -121,6 +124,10 @@ class ExhibitionUsersTable extends Table
         $validator
             ->integer('status')
             ->notEmptyString('status');
+
+        $validator
+            ->integer('attend')
+            ->allowEmptyString('attend');
 
         return $validator;
     }

@@ -75,6 +75,12 @@ class CommonCategoryTable extends Table
             ->maxLength('title', 128)
             ->requirePresence('title', 'create')
             ->notEmptyString('title');
+        
+        $validator
+            ->integer('code')
+            ->maxLength('code', 11)
+            ->requirePresence('code', 'create')
+            ->notEmptyString('code');
 
         $validator
             ->integer('status')

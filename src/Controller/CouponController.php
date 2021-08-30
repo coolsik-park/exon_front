@@ -59,6 +59,8 @@ class CouponController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
+
+    //할인 쿠폰 발급
     public function add()
     {
         $coupon = $this->Coupon->newEmptyEntity();

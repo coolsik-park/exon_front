@@ -61,6 +61,8 @@ class ExhibitionUsersController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
+
+    //웨비나 신청
     public function add($id = null)
     {
         $connection = ConnectionManager::get('default');
@@ -69,9 +71,12 @@ class ExhibitionUsersController extends AppController
         $exhibitionUser = $this->ExhibitionUsers->newEmptyEntity();
         if ($this->request->is('post')) {
             $exhibitionUser->exhibition_id = $id;
+            $exhibitionUser->status = 2;
             $exhibitionUser = $this->ExhibitionUsers->patchEntity($exhibitionUser, $this->request->getData());
             
-            if ($this->ExhibitionUsers->save($exhibitionUser)) { 
+            if ($this->ExhibitionUsers->save($exhibitionUser)) {
+                
+                //설문 응답 저장
                 $survey = $this->getTableLocator()->get('ExhibitionSurvey')->find()->select(['id', 'parent_id', 'is_multiple'])->where(['exhibition_id' => $id])->toArray();
                 $UserAnswer = $this->getTableLocator()->get('ExhibitionSurveyUsersAnswer');
                 $userAnswer = $this->request->getData('exhibition_survey_users_answer');
@@ -175,6 +180,7 @@ class ExhibitionUsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+    //본인인증 이메일 발송
     public function sendEmail()
     {
         if ($this->request->is('post')) {
@@ -217,6 +223,7 @@ class ExhibitionUsersController extends AppController
         }
     }
 
+    //본인인증 이메일 코드 검증
     public function confirmEmail($id = null)
     {
         $CommonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
@@ -240,6 +247,7 @@ class ExhibitionUsersController extends AppController
         }
     }
 
+    //본인인증 이메일 코드 발행
     function generateCode()
     {
         $characters = '123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';

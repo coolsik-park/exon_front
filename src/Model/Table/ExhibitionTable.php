@@ -80,7 +80,7 @@ class ExhibitionTable extends Table
         ]);
         $this->belongsToMany('Users', [
             'foreignKey' => 'exhibition_id',
-            'targetForeignKey' => 'user_id',
+            'targetForeignKey' => 'users_id',
             'joinTable' => 'exhibition_users',
         ]);
     }

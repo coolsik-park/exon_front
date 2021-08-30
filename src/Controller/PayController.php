@@ -127,9 +127,8 @@ class PayController extends AppController
     //     return $this->redirect(['action' => 'index']);
     // }
 
+    //아임포트 콜백 처리, 결제 정보 DB 저장
     public function importPay() {
-        // $connection = ConnectionManager::get('default');
-        // $connection->begin();
         
         $pay = $this->Pay->newEmptyEntity();
         

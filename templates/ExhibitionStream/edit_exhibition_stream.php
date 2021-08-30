@@ -27,13 +27,10 @@
                 <?php
                     echo $this->Form->control('title', ['label' => '방송 제목']);
                     echo $this->Form->control('description', ['label' => '방송 설명']);
-                    echo $this->Form->control('coupon_code', ['label' => '프로모션 키']);
-                    echo $this->Form->button(__('Confirm'));
                     echo $this->Form->control('time', ['type' => 'select', 'label' => '시간', 'options' => [18000 => 'Half day', 36000 => 'All day']]);
                     echo $this->Form->control('people', ['type' => 'select', 'label' => '인원수', 'options' => [
                         50 => '50', 100 => '100', 150 => '150', 200 => '200', 250 => '250', 300 => '300', 350 => '350', 400 => '400', 450 => '450', 500 => '500+']]);
                     echo $this->Form->control('amount', ['label' => '금액']);
-                    echo $this->Form->button(__('스트림키 발급'));
                     echo $this->Form->control('stream_key', ['label' => '스트림 키']);
                     echo $this->Form->control('url');
                     echo $this->Form->control('tab', ['type' => 'hidden']);
@@ -48,8 +45,8 @@
     </div>
     <div class="column-responsive column-80">
         <div class="exhibitionStream form content">
-        <fieldset>
-            <legend><?= __('Set Exhibition Stream Tab') ?></legend>
+            <fieldset>
+                <legend><?= __('Set Exhibition Stream Tab') ?></legend>
                 <?php
                     $i = 9;
                     foreach ($tabs as $tab) {

@@ -11,9 +11,6 @@
         <a href="#상세 정보">상세 정보</a>
         <a href="#취소 및 환불 안내">취소 및 환불 안내</a>
         <a href="#문의">문의</a></div>
-        <?= $this->Html->link(__('이메일 발송'), ['controller' => 'Exhibition', 'action' => 'sendEmailToParticipant', $exhibition->id, 'class' => 'side-nav-item']) ?>
-        <?= $this->Html->link(__('문자 발송'), ['controller' => 'Exhibition', 'action' => 'sendSmsToParticipant', $exhibition->id, 'class' => 'side-nav-item']) ?>
-        <?= $this->Html->link(__('웨비나 송출 설정'), ['controller' => 'ExhibitionStream', 'action' => 'setExhibitionStream', $exhibition->id, 'class' => 'side-nav-item']) ?>
     </div>
 
     <div class="column-responsive column-80">
