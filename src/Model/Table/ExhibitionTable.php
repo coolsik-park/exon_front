@@ -75,6 +75,9 @@ class ExhibitionTable extends Table
             'dependent' => true,
             'cascadeCallbacks' => true,
         ]);
+        $this->hasMany('ExhibitionSpeaker', [
+            'foreignKey' => 'exhibition_id',
+        ]);
         $this->belongsTo('CommonCategory', [
             'foreignKey' => 'common_category_id'
         ]);
