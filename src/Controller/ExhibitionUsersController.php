@@ -258,11 +258,18 @@ class ExhibitionUsersController extends AppController
         return $code;
     }
 
-    public function signUp($id = null)
+    public function signUp($id = null, $signUpId = null)
     {
         $this->paginate = ['limit' => 10];
-        
-        $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $id, 'ExhibitionUsers.status !=' => 8]))->toArray();
+        $today = new \DateTime();
+
+        if ($signUpId == null) {
+            $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $id, 'ExhibitionUsers.status !=' => 8]))->toArray();
+        } elseif ($signUpId == 1){
+            $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $id, 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate <' => $today]))->toArray();
+        } elseif ($signUpId == 2) {
+            $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $id, 'ExhibitionUsers.status' => 8]))->toArray();
+        }
         
         $this->set(compact('exhibition_users'));
     }

@@ -296,7 +296,7 @@ class ExhibitionController extends AppController
         //     return $this->redirect(['action' => 'index']);
         // }
 
-        $this->set(compact('exhibition_users'));
+        $this->set(compact('id', 'exhibition_users'));
     }
 
     public function wordSearch()
@@ -420,7 +420,7 @@ class ExhibitionController extends AppController
                 echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
             }
         }
-        $this->set(compact('exhibitionUsers'));
+        $this->set(compact('id', 'exhibitionUsers'));
     }
 
     public function sendSmsToParticipant($id = null)
@@ -462,7 +462,7 @@ class ExhibitionController extends AppController
                 $this->Flash->error(__('The SMS could not be delivered.'));
             }
         }
-        $this->set(compact('exhibitionUsers'));
+        $this->set(compact('id', 'exhibitionUsers'));
     }
 
     public function participantList($id = null, $type = null)
@@ -804,5 +804,23 @@ class ExhibitionController extends AppController
         ];
 
         $this->set(compact('id', 'answerRates', 'applyRates', 'participatedData'));
+    }
+
+    public function exhibitionSupervise($id = null, $type = null)
+    {
+        $this->paginate = ['limit' => 10];
+        $today = new \DateTime();
+
+        if ($type == null) {
+            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $id]))->toArray();
+        } elseif ($type == 1) {
+            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $id, 'Exhibition.apply_sdate >' => $today]))->toArray();
+        } elseif ($type == 2) {
+            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $id, 'Exhibition.private' => 1]))->toArray();
+        } elseif ($type == 3) {            
+            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $id, 'Exhibition.edate <' => $today]))->toArray();
+        }
+
+        $this->set(compact('id', 'exhibitions'));
     }
 }
