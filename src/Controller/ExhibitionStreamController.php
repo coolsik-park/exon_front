@@ -326,6 +326,41 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('exhibitionQuestions', 'id'));
     }
 
+    public function attendance ($id = null)
+    {
+        $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
+        $exhibitionUsers = $ExhibitionUsers->find()->select(['users_name', 'users_email', 'users_hp', 'attend'])->where(['exhibition_id' => $id]);
+
+        $this->set(compact('exhibitionUsers'));
+    }
+
+    public function personInCharge ($id = null)
+    {
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $exhibition = $Exhibition->find()->select(['name', 'tel', 'email'])->where(['id' => $id])->toArray();
+        
+        $this->set(compact('exhibition'));
+    }
+
+    public function founder ($id = null)
+    {
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $users_id = $Exhibition->find()->select(['users_id'])->where(['id' => $id])->toArray()[0]['users_id'];
+        
+        $Users = $this->getTableLocator()->get('Users');
+        $user = $Users->get($users_id);
+
+        $this->set(compact('user'));
+    }
+
+    public function exhibitionInfo ($id = null)
+    {
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $exhibition = $Exhibition->find()->select(['detail_html'])->where(['id' => $id])->toArray();
+
+        $this->set(compact('exhibition'));
+    }
+
     // public function setTab()
     // {
     //     if ($this->request->is('post')) {

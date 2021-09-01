@@ -238,6 +238,8 @@
                 $("#tab").val(parseInt($("#tab").val()) - 256);
                 alert($("button#tab1").attr('name')+' 탭이 비활성화되었습니다.');
             }
+        } else {
+            $("div#tabContent").load("/exhibition-stream/exhibition-info/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 
@@ -254,6 +256,8 @@
                 $("#tab").val(parseInt($("#tab").val()) - 128);
                 alert($("button#tab2").attr('name')+' 탭이 비활성화되었습니다.');
             }
+        } else {
+            $("div#tabContent").load("/exhibition-stream/founder/" + <?= $exhibitionStream->exhibition_id ?>);
         } 
     });
 
@@ -270,6 +274,8 @@
                 $("#tab").val(parseInt($("#tab").val()) - 64);
                 alert($("button#tab3").attr('name')+' 탭이 비활성화되었습니다.');
             }
+        } else {
+            $("div#tabContent").load("/exhibition-stream/person-in-charge/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 
@@ -286,7 +292,7 @@
                 $("#tab").val(parseInt($("#tab").val()) - 32);
                 alert($("button#tab4").attr('name')+' 탭이 비활성화되었습니다.');
             }
-        }
+        } 
     });
 
     $("button#tab5").click(function () {
@@ -301,7 +307,9 @@
                 $("button#tab5").css("background-color", "white");
                 $("#tab").val(parseInt($("#tab").val()) - 16);
                 alert($("button#tab5").attr('name')+' 탭이 비활성화되었습니다.');
-            }
+            } 
+        } else {
+            $("div#tabContent").load("/exhibition-stream/attendance/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 
