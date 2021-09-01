@@ -55,7 +55,7 @@ class ExhibitionQuestionTable extends Table
             'joinType' => 'INNER',
         ]);
         $this->belongsTo('ExhibitionUsers', [
-            'foreignKey' => 'target_users_id',
+            'foreignKey' => 'exhibition_users_id',
         ]);
         $this->belongsTo('ParentExhibitionQuestion', [
             'className' => 'ExhibitionQuestion',

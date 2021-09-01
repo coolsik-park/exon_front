@@ -319,7 +319,7 @@
                 alert($("button#tab6").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-            $("div#tabContent").load("/exhibition-stream/speaker-menu/" + <?= $exhibitionStream->exhibition_id ?>);
+            $("div#tabContent").load("/exhibition-stream/question-menu/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 

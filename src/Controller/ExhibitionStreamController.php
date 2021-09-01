@@ -213,7 +213,8 @@ class ExhibitionStreamController extends AppController
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
         $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs'));
     }
-    public function speakerMenu ($id = null) 
+
+    public function questionMenu ($id = null) 
     {
         $this->set(compact('id'));
     }
@@ -277,12 +278,52 @@ class ExhibitionStreamController extends AppController
 
     public function setAnswered ($id = null)
     {
+        $ExhibitionQuestion = $this->getTableLocator()->get('ExhibitionQuestion');
+        $answeredQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])->select(['ExhibitionQuestion.parent_id'])
+            ->where(['ExhibitionQuestion.target_users_id IS' => null, 'ExhibitionUsers.exhibition_id' => $id])->toArray();
+        $count = count($answeredQuestions);
+        $answeredQuestionId[] = '';
 
+        for ($i = 0; $i < $count; $i++) {
+            $answeredQuestionId[$i] = $answeredQuestions[$i]['parent_id'];
+        }
+        
+        $exhibitionQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])
+            ->where(['target_users_id IS NOT' => null, 'ExhibitionQuestion.id NOT IN' => $answeredQuestionId, 'ExhibitionUsers.exhibition_id' => $id])->toArray();
+        
+        if ($this->request->is('post')) {
+
+            if ($this->request->getData('action') == 'answered') {
+                $exhibitionQuestion = $ExhibitionQuestion->newEmptyEntity();
+                $exhibitionQuestion->exhibition_users_id = $this->request->getData('user');
+                $exhibitionQuestion->parent_id = $this->request->getData('id');
+                $exhibitionQuestion->contents = '답변완료';
+                $ExhibitionQuestion->save($exhibitionQuestion);
+            } else {
+                $exhibitionQuestion = $ExhibitionQuestion->get($this->request->getData('id'));
+                $ExhibitionQuestion->delete($exhibitionQuestion);
+            }
+        }
+
+        $this->set(compact('exhibitionQuestions', 'id'));
     }
 
     public function answered ($id = null)
     {
+        $ExhibitionQuestion = $this->getTableLocator()->get('ExhibitionQuestion');
+        $answeredQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])->select(['ExhibitionQuestion.parent_id'])
+            ->where(['ExhibitionQuestion.target_users_id IS' => null, 'ExhibitionUsers.exhibition_id' => $id])->toArray();
+        $count = count($answeredQuestions);
+        $answeredQuestionId[] = '';
 
+        for ($i = 0; $i < $count; $i++) {
+            $answeredQuestionId[$i] = $answeredQuestions[$i]['parent_id'];
+        }
+        
+        $exhibitionQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])
+            ->where(['ExhibitionQuestion.id IN' => $answeredQuestionId, 'ExhibitionUsers.exhibition_id' => $id])->toArray();
+
+        $this->set(compact('exhibitionQuestions', 'id'));
     }
 
     // public function setTab()

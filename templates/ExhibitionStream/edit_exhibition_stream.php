@@ -60,6 +60,8 @@
             </fieldset>
         </div>
     </div>
+    <div id = "tabContent">
+    </div>
 </div>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -312,7 +314,9 @@
                 $("button#tab6").css("background-color", "white");
                 $("#tab").val(parseInt($("#tab").val()) - 8);
                 alert($("button#tab6").attr('name')+' 탭이 비활성화되었습니다.');
-            }
+            } 
+        } else {
+            $("div#tabContent").load("/exhibition-stream/question-menu/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 
