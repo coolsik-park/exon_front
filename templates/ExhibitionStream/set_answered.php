@@ -1,7 +1,3 @@
-<input type = "button" id = "speaker" value = "연사자">
-<input type = "button" id = "question" value = "질문">
-<input type = "button" id = "answered" value = "답변완료">
-
 <div class="column-responsive column-80">
     <div class="exhibitionStream form content" id="test"> 
         <?= $this->Form->create() ?>
@@ -32,18 +28,6 @@
 
 <script>
 $(document).ready(function(){    
-    $("#speaker").click(function () {
-        $("#tabContent").load("/exhibition-stream/set-speaker/" + <?= $id ?>);
-    });
-
-    $("#question").click(function () {
-        $("#tabContent").load("/exhibition-stream/set-answered/" + <?= $id ?>);
-    });
-
-    $("#answered").click(function () {
-        $("#tabContent").load("/exhibition-stream/answered/" + <?= $id ?>);
-    });  
-
     $(".answered").click(function () {
         var id = $(this).attr("name");
         var user = $(this).attr("id");
@@ -58,6 +42,7 @@ $(document).ready(function(){
             }
         }).done(function(status) {
             alert("답변 완료 처리되었습니다.");
+            $("#questionContent").load("/exhibition-stream/set-answered/" + <?= $id ?>);
         });
     });
 
@@ -73,6 +58,7 @@ $(document).ready(function(){
             }
         }).done(function(status) {
             alert("삭제되었습니다.");
+            $("#questionContent").load("/exhibition-stream/set-answered/" + <?= $id ?>);
         });
     });    
 });

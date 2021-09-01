@@ -1,6 +1,3 @@
-<input type = "button" id = "speaker" value = "연사자">
-<input type = "button" id = "question" value = "질문">
-<input type = "button" id = "answered" value = "답변완료">
 <div class="column-responsive column-80">
     <div class="exhibitionStream form content"> 
         <?= $this->Form->create(null, ['enctype' => 'multipart/form-data']) ?>
@@ -21,18 +18,6 @@
 
 <script>  
 $(document).ready(function(){
-    $("#speaker").click(function () {
-        $("#tabContent").load("/exhibition-stream/set-speaker/" + <?= $id ?>);
-    });
-
-    $("#question").click(function () {
-        $("#tabContent").load("/exhibition-stream/set-answered/" + <?= $id ?>);
-    });
-
-    $("#answered").click(function () {
-        $("#tabContent").load("/exhibition-stream/answered/" + <?= $id ?>);
-    });  
-
     var i=1;  
     $('#add').click(function(){  
         $('#dynamic_field').append(
