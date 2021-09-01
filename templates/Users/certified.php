@@ -13,6 +13,7 @@
 </div>  
 <script>
     $('button[name=hpCertified]').on('click', function(){
+        var id = <?= $user[0]->id ?>;
         var IMP = window.IMP;
         IMP.init('iamport');
 
@@ -22,45 +23,28 @@
             if (rsp.success) {
                 console.log(rsp.imp_uid);
                 console.log(rsp.merchant_uid);
-
+                
                 $.ajax({
-                    type : 'POST',
-                    url : 'http://121.126.223.225:8000/users/hp-certified',
-                    dataType : 'json',
+                    url : "http://121.126.223.225:8000/users/hp-certified",
+                    method : 'POST',
+                    type : 'json',
                     data : {
+                        id : id,
                         imp_uid : rsp.imp_uid,
-                        id : <?php echo $user[0]->id ?>,
-                        // hp_cert : '1'
+                        merchant_uid : rsp.merchant_uid
                     }
                 }).done(function(rsp) {
-                    takeResponseAndHandle(rsp)
-                });
+                    var msg = '결제가 완료되었습니다.';
+                    msg += '고유ID : ' + rsp.imp_uid;
+                    msg += '가맹점 고유ID : ' + rsp.merchant_uid;
 
-                // $.ajax({
-                //     type : 'POST',
-                //     url : 'http://121.126.223.225:8000/users/hp-certified',
-                //     dataType : 'json',
-                //     data : {
-                //         id : <?php echo $user[0]->id ?>,
-                //         hp_cert : '1'
-                //     }
-                // });
+                    alert(msg);
+                })
             } else {
                 var msg = '인증에 실패하였습니다.';
                 msg += '에러내용 : ' + rsp.error_msg;
                 alert(msg);
             }
-        })
-
-        function takeResponseAndHandle(rsp) {
-            if(rsp.success) {
-                console.log(rsp.imp_uid);
-                console.log(rsp.merchant_uid);
-            } else {
-                var msg = '인증에 실패하였습니다.';
-                msg += '에러 내용 : ' + rsp.error_msg;
-                alert(msg);
-            }
-        }
+        });
     });
 </script>
