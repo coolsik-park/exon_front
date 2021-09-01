@@ -45,7 +45,7 @@ class ExhibitionUsersTable extends Table
         parent::initialize($config);
 
         $this->setTable('exhibition_users');
-        $this->setDisplayField('id');
+        $this->setDisplayField(['users_id', 'users_name']);
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
