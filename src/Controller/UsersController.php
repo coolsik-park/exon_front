@@ -459,4 +459,29 @@ class UsersController extends AppController
             echo "Error 내용:".$response;
         }
     }
+
+    public function certified($id = null)
+    {
+        $user = $this->Users->find('all')->where(['id' => $id])->toArray();
+
+        $this->set(compact('user'));
+    }
+
+    public function hpCertified()
+    {
+        $connection = ConnectionManager::get('default');
+        $connection->begin();
+
+        $id = $this->request->getData('id');
+
+        if ($connection->update('users', ['hp_cert' => '1'], ['id' => $id])) {
+            $connection->commit();
+            $this->Flash->success(__('Your post has been saved.'));
+        } else {
+            $connection->rollback();
+            $this->Flash->error(__('Unable to add you post.'));
+        }
+
+        return $this->redirect(['action' => 'certified', $id]);
+    }
 }
