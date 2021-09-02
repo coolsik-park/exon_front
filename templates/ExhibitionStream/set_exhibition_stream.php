@@ -348,6 +348,8 @@
                 $("#tab").val(parseInt($("#tab").val()) - 4);
                 alert($("button#tab7").attr('name')+' 탭이 비활성화되었습니다.');
             }
+        } else {
+            $("div#tabContent").load("/exhibition-stream/notice/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 
@@ -385,6 +387,3 @@
 </script>
 
 <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
-<script>
-    CKEDITOR.replace('program');
-</script>
