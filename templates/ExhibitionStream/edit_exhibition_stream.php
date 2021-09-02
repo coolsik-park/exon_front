@@ -85,7 +85,7 @@
         }, function(rsp) {
             if ( rsp.success ) {
                 jQuery.ajax({
-                    url: "http://121.126.223.225:8765/pay/import-pay", 
+                    url: "/pay/import-pay", 
                     method: 'POST',
                     type: 'json',
                     data: {

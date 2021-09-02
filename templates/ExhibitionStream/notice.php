@@ -11,7 +11,7 @@
     $("#noticeAdd").click(function () {
         var notice = CKEDITOR.instances['notice'].getData();
         jQuery.ajax({
-            url: "http://121.126.223.225:8765/exhibition-stream/notice/" + <?= $id ?>, 
+            url: "/exhibition-stream/notice/" + <?= $id ?>, 
             method: 'POST',
             type: 'json',
             data: {

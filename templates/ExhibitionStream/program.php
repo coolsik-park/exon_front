@@ -11,7 +11,7 @@
     $("#programAdd").click(function () {
         var program = CKEDITOR.instances['program'].getData();
         jQuery.ajax({
-            url: "http://121.126.223.225:8765/exhibition-stream/program/" + <?= $id ?>, 
+            url: "/exhibition-stream/program/" + <?= $id ?>, 
             method: 'POST',
             type: 'json',
             data: {

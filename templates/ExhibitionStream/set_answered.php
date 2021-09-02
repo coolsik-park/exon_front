@@ -32,7 +32,7 @@ $(document).ready(function(){
         var id = $(this).attr("name");
         var user = $(this).attr("id");
         jQuery.ajax({
-            url: "http://121.126.223.225:8765/exhibition-stream/set-answered/" + $("#exhibition").val(), 
+            url: "/exhibition-stream/set-answered/" + $("#exhibition").val(), 
             method: 'POST',
             type: 'json',
             data: {
@@ -49,7 +49,7 @@ $(document).ready(function(){
     $(".delete").click(function () {
         var id = $(this).attr("id");
         jQuery.ajax({
-            url: "http://121.126.223.225:8765/exhibition-stream/set-answered/" + $("#exhibition").val(), 
+            url: "/exhibition-stream/set-answered/" + $("#exhibition").val(), 
             method: 'POST',
             type: 'json',
             data: {
