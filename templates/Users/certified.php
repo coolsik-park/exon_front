@@ -35,9 +35,8 @@
                     }
                 }).done(function(rsp) {
                     var msg = '결제가 완료되었습니다.';
-                    msg += '고유ID : ' + rsp.imp_uid;
-                    msg += '가맹점 고유ID : ' + rsp.merchant_uid;
-
+                    msg += '고유ID : ' + rsp.imp_uid + '\n';
+                    msg += '가맹점 고유ID : ' + rsp.merchant_uid + '\n';
                     alert(msg);
                 })
             } else {
