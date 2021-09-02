@@ -40,7 +40,7 @@ $(document).ready(function(){
                 user: user,
                 action: 'answered'
             }
-        }).done(function(status) {
+        }).done(function() {
             alert("답변 완료 처리되었습니다.");
             $("#questionContent").load("/exhibition-stream/set-answered/" + <?= $id ?>);
         });
