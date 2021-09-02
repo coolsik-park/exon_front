@@ -361,6 +361,57 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('exhibition'));
     }
 
+    public function exhibitionFiles ($id = null)
+    {
+        if ($this->request->is('post')) {
+            $connection = ConnectionManager::get('default');
+            $connection->begin();
+            $ExhibitionFiles = $this->getTableLocator()->get('ExhibitionFile');
+            $data = $this->request->getData();
+            $count = count($data['file']);
+            for ($i = 0; $i < $count; $i++) {
+                
+                $exhibitionFiles = $ExhibitionFiles->newEmptyEntity();
+                $exhibitionFiles->exhibition_id = $id;
+
+                if ($result = $ExhibitionFiles->save($exhibitionFiles)) {
+                    $file = $data['file'][$i];
+                    $fileName = $file->getClientFilename();
+                    $index = strpos(strrev($fileName), strrev('.'));
+                    $expen = strtolower(substr($fileName, ($index * -1)));
+                    $path = 'upload' . DS . 'exhibition_files' . DS . date("Y") . DS . date("m");
+
+                    if (!file_exists(WWW_ROOT . $path)) {
+                        $oldMask = umask(0);
+                        mkdir(WWW_ROOT . $path, 0777, true);
+                        chmod(WWW_ROOT . $path, 0777);
+                        umask($oldMask);
+                    }
+
+                    $fileName = $result->id . "_file." . $expen;
+                    $destination = WWW_ROOT . $path . DS . $fileName;
+                    $name = $file->getClientFilename();
+                    
+                    if ($connection->update('exhibition_file', ['name' => $name, 'file_path' => $path, 'file_name' => $fileName, 'status' => 1], ['id' => $result->id])) {
+                        $file->moveTo($destination);
+                        
+                    } else {
+                        $connection->rollback(); 
+                        $this->Flash->error(__('The exhibition files could not be saved.'));
+                    }
+                } else {
+                    $connection->rollback(); 
+                    $this->Flash->error(__('The exhibition files could not be saved.'));
+                }
+            }
+            $connection->commit();
+            $this->Flash->success(__('The exhibition speaker has been saved.'));
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+            return $response;
+        }
+        $this->set(compact('id'));
+    }
+
     // public function setTab()
     // {
     //     if ($this->request->is('post')) {

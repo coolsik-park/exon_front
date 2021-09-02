@@ -1,5 +1,5 @@
 <div class="column-responsive column-80">
-    <div class="exhibitionStream form content" id="test"> 
+    <div class="exhibitionStream form content"> 
         <?= $this->Form->create() ?>
         <table class="table table-bordered" id="dynamic_field"> 
             <?php
@@ -17,8 +17,8 @@
                 <td><?php echo $exhibitionQuestion['contents'] ?></td>
             </tr>
             <tr>
-                <td><?php echo $this->Form->control('답변완료', ['id' => $exhibitionQuestion['target_users_id'], 'name' => $exhibitionQuestion['id'], 'class' => 'answered', 'type' => 'button']) ?></td>
-                <td><?php echo $this->Form->control('삭제', ['id' => $exhibitionQuestion['id'], 'class' => 'delete', 'type' => 'button']) ?></td>
+                <td><?php echo $this->Form->control('답변완료', ['id' => $exhibitionQuestion['target_users_id'], 'name' => $exhibitionQuestion['id'], 'class' => 'answered', 'type' => 'button', 'label' => '']) ?></td>
+                <td><?php echo $this->Form->control('삭제', ['id' => $exhibitionQuestion['id'], 'class' => 'delete', 'type' => 'button', 'label' => '']) ?></td>
             </tr>
             <?php } ?> 
         </table>

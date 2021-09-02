@@ -222,6 +222,8 @@
                 $("#tab").val(parseInt($("#tab").val()) - 512);
                 alert($("button#tab0").attr('name')+' 탭이 비활성화되었습니다.');
             }
+        } else {
+            $("div#tabContent").load("/exhibition-stream/exhibition-files/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 
