@@ -490,41 +490,73 @@ class ExhibitionController extends AppController
 
     public function surveyData($id = null)
     {
-        $exhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey')->find('all', ['contain' => ['ExhibitionSurveyUsersAnswer']]);
+        $exhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey')->find('all', ['contain' => ['ChildExhibitionSurvey', 'ExhibitionSurveyUsersAnswer']]);
 
-        $surveyData = $exhibitionSurvey
+        //사전설문 데이터
+
+        $exhibitionSurveys = $exhibitionSurvey
             ->select(['ExhibitionSurvey.id', 'ExhibitionSurvey.parent_id', 'ExhibitionSurvey.text', 'ExhibitionSurvey.is_multiple', 
                 'ExhibitionSurveyUsersAnswer.text', 'ExhibitionSurvey.survey_type', 'count' => $exhibitionSurvey->func()->count('ExhibitionSurveyUsersAnswer.text')])
             ->leftJoinWith('ExhibitionSurveyUsersAnswer', function ($q) {
                 return $q->where(['ExhibitionSurveyUsersAnswer.text' => 'Y']);
             })
             ->group('ExhibitionSurvey.id')
-            ->where(['exhibition_id' => $id])
+            ->where(['exhibition_id' => $id, 'survey_type' => 'B'])
             ->toArray();
+        
+        $parent_id = 0;
+        $i = 0;
+        $j = 0;
+        $beforeParentData[] = null;
+        $beforeChildData[] = null;
+        foreach ($exhibitionSurveys as $exhibitionSurvey) {
+            if ($exhibitionSurvey['parent_id'] == null) {
+                $parent_id = $exhibitionSurvey['id'];
+                $beforeParentData[$i] = $exhibitionSurvey;
+                $i++;
+            } else {
+                if ($exhibitionSurvey['parent_id'] == $parent_id) {
+                    $beforeChildData[$parent_id][$j] = $exhibitionSurvey;
+                    $j++;
+                }
+            }
+        }
+        
+        //일반설문 데이터
 
-        $this->set(compact('exhibitionSurvey', 'surveyData', 'id'));
+        $exhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey')->find('all', ['contain' => ['ChildExhibitionSurvey', 'ExhibitionSurveyUsersAnswer']]);
+
+        $exhibitionSurveys = $exhibitionSurvey
+            ->select(['ExhibitionSurvey.id', 'ExhibitionSurvey.parent_id', 'ExhibitionSurvey.text', 'ExhibitionSurvey.is_multiple', 
+                'ExhibitionSurveyUsersAnswer.text', 'ExhibitionSurvey.survey_type', 'count' => $exhibitionSurvey->func()->count('ExhibitionSurveyUsersAnswer.text')])
+            ->leftJoinWith('ExhibitionSurveyUsersAnswer', function ($q) {
+                return $q->where(['ExhibitionSurveyUsersAnswer.text' => 'Y']);
+            })
+            ->group('ExhibitionSurvey.id')
+            ->where(['exhibition_id' => $id, 'survey_type' => 'N'])
+            ->toArray();
+        
+        
+        $parent_id = 0;
+        $i = 0;
+        $j = 0;
+        $normalParentData[] = null;
+        $normalChildData[] = null;
+        foreach ($exhibitionSurveys as $exhibitionSurvey) {
+            if ($exhibitionSurvey['parent_id'] == null) {
+                $parent_id = $exhibitionSurvey['id'];
+                $normalParentData[$i] = $exhibitionSurvey;
+                $i++;
+            } else {
+                if ($exhibitionSurvey['parent_id'] == $parent_id) {
+                    $normalChildData[$parent_id][$j] = $exhibitionSurvey;
+                    $j++;
+                }
+            }
+        }
+
+        $this->set(compact('beforeParentData', 'beforeChildData', 'normalParentData', 'normalChildData', 'id'));
     }
-    // Subqueries
-    // Subqueries enable you to compose queries together and build conditions and results based on the results of other queries:
-
-    // $matchingComment = $articles->getAssociation('Comments')->find()
-    //     ->select(['article_id'])
-    //     ->distinct()
-    //     ->where(['comment LIKE' => '%CakePHP%']);
-
-    // $query = $articles->find()
-    //     ->where(['id IN' => $matchingComment]);
-    // Subqueries are accepted anywhere a query expression can be used. For example, in the select() and join() methods. The above example uses a standard Orm\Query object that will generate aliases, these aliases can make referencing results in the outer query more complex. As of 4.2.0 you can use Table::subquery() to create a specialized query instance that will not generate aliases:
-
-    // $comments = $articles->getAssociation('Comments')->getTarget();
-
-    // $matchingComment = $comments->subquery()
-    //     ->select(['article_id'])
-    //     ->distinct()
-    //     ->where(['comment LIKE' => '%CakePHP%']);
-
-    // $query = $articles->find()
-    //     ->where(['id IN' => $matchingComment]);
 
     public function exhibitionStatisticsApply($id = null)
     {
