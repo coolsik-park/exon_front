@@ -366,6 +366,8 @@
                 $("#tab").val(parseInt($("#tab").val()) - 2);
                 alert($("button#tab8").attr('name')+' 탭이 비활성화되었습니다.');
             }
+        } else {
+            $("div#tabContent").load("/exhibition-stream/survey/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 

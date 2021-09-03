@@ -446,6 +446,47 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('id'));
     }
 
+    public function survey ($id = null)
+    {
+        $ExhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey');
+        $exhibitionSurveys = $ExhibitionSurvey->find('all', ['contain' => 'ChildExhibitionSurvey'])->where(['exhibition_id' => $id, 'survey_type' => 'N'])->toArray();
+        $groupedSurveys[] = '';
+        $i = 0;
+        
+        foreach ($exhibitionSurveys as $exhibitionSurvey) {
+            $count = count($exhibitionSurvey['child_exhibition_survey']);
+            if ($count != 0 || $exhibitionSurvey['is_multiple'] == 'N') {
+                $groupedSurveys[$i] = $exhibitionSurvey;
+            }
+            $i++;
+        }
+
+        if ($this->request->is('post')) {
+            $count = count($this->request->getData('display'));
+            for ($i = 0; $i < $count; $i++) {
+                $survey_id = $this->request->getData('display')[$i];
+                $parentSurvey = $ExhibitionSurvey->get($survey_id);
+                $parentSurvey->is_display = 'Y';
+
+                $ExhibitionSurvey->save($parentSurvey);
+
+                $childSurveys = $ExhibitionSurvey->find('all')->where(['parent_id' => $survey_id])->toArray();
+                $count = count($childSurveys);
+                
+                for ($i = 0; $i < $count; $i++) {
+                    $child_survey_id = $childSurveys[$i]['id'];
+                    $childSurvey = $ExhibitionSurvey->get($child_survey_id);
+                    $childSurvey->is_display = 'Y';
+
+                    $ExhibitionSurvey->save($childSurvey);
+                }
+            }
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+            return $response;
+        }
+        $this->set(compact('groupedSurveys', 'id'));
+    }
+
     // public function setTab()
     // {
     //     if ($this->request->is('post')) {
