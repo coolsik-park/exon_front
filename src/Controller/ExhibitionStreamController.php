@@ -463,23 +463,27 @@ class ExhibitionStreamController extends AppController
 
         if ($this->request->is('post')) {
             $count = count($this->request->getData('display'));
+            
             for ($i = 0; $i < $count; $i++) {
                 $survey_id = $this->request->getData('display')[$i];
                 $parentSurvey = $ExhibitionSurvey->get($survey_id);
                 $parentSurvey->is_display = 'Y';
 
                 $ExhibitionSurvey->save($parentSurvey);
-
-                $childSurveys = $ExhibitionSurvey->find('all')->where(['parent_id' => $survey_id])->toArray();
-                $count = count($childSurveys);
                 
-                for ($i = 0; $i < $count; $i++) {
-                    $child_survey_id = $childSurveys[$i]['id'];
-                    $childSurvey = $ExhibitionSurvey->get($child_survey_id);
-                    $childSurvey->is_display = 'Y';
+                if ($parentSurvey->is_multiple == 'Y') {
 
-                    $ExhibitionSurvey->save($childSurvey);
-                }
+                    $childSurveys = $ExhibitionSurvey->find('all')->where(['parent_id' => $survey_id])->toArray();
+                    $childCount = count($childSurveys);
+                    
+                    for ($j = 0; $j < $childCount; $j++) {
+                        $child_survey_id = $childSurveys[$j]['id'];
+                        $childSurvey = $ExhibitionSurvey->get($child_survey_id);
+                        $childSurvey->is_display = 'Y';
+
+                        $ExhibitionSurvey->save($childSurvey);
+                    }
+                } 
             }
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
             return $response;
