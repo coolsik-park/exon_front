@@ -1,8 +1,9 @@
 <div class="column-responsive column-80">
     <div class="exhibitionStream form content"> 
         <?= $this->Form->create() ?>
-        <?php 
-            foreach ($groupedSurveys as $groupedSurvey) { 
+        <?php
+            if ($groupedSurveys[0] != '') {
+                foreach ($groupedSurveys as $groupedSurvey) { 
         ?>
         <input type ="checkbox" name = "checked" value = <?= $groupedSurvey['id'] ?>>
         <table class="table table-bordered">  
@@ -24,7 +25,10 @@
         </table>
         <br>
         <?php 
-            } 
+                }
+            } else {
+                echo "등록된 설문이 없습니다.";
+            }
         ?>  
 
         <?= $this->Form->end() ?>

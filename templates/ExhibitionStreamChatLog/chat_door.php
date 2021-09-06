@@ -22,7 +22,7 @@
 </style>
 <div id="loginform">
     <p>Please enter your name to continue!</p>
-    <form action="/Samples/chat" method="post">
+    <form action="/ExhibitionStreamChatLog/chat" method="post">
     <label for="name">Name &mdash;</label>
     <input type="text" name="name" id="name" />
     <input type="submit" name="enter" id="enter" value="Enter" />

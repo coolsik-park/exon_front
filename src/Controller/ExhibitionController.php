@@ -42,7 +42,7 @@ class ExhibitionController extends AppController
      */
     public function index()
     {
-        $exhibition = $this->paginate($this->Exhibition->find()->where(['users_id' => 1]));
+        $exhibition = $this->paginate($this->Exhibition->find()->where(['users_id' => $this->Auth->user('id')]));
         $this->set(compact('exhibition'));
     }
 

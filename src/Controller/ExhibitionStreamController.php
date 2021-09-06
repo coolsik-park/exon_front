@@ -450,6 +450,7 @@ class ExhibitionStreamController extends AppController
     {
         $ExhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey');
         $exhibitionSurveys = $ExhibitionSurvey->find('all', ['contain' => 'ChildExhibitionSurvey'])->where(['exhibition_id' => $id, 'survey_type' => 'N'])->toArray();
+        
         $groupedSurveys[] = '';
         $i = 0;
         
