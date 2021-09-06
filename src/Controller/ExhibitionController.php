@@ -586,8 +586,6 @@ class ExhibitionController extends AppController
                 ->setCellValue('D1', '질문' . ($i+1));
             }
 
-            debug($beforeChildData);
-
             $path = 'download' . DS . 'exhibition' . DS . date("Y") . DS . date("m");
         
             if (!file_exists(WWW_ROOT . $path)) {
@@ -605,7 +603,6 @@ class ExhibitionController extends AppController
             
             //엑셀 파일 다운로드
             $down = $destination;
-            $filesize = filesize($down);
             
             if(file_exists($down)) {
                 header("Content-Type:application/octet-stream");
