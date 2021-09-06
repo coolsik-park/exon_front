@@ -4,14 +4,16 @@
 <?= $this->Html->link(__('웨비나 송출 설정'), ['controller' => 'ExhibitionStream', 'action' => 'setExhibitionStream', $id, 'class' => 'side-nav-item']) ?> 
 <?= $this->Html->link(__('행사 통계'), ['controller' => 'Exhibition', 'action' => 'exhibitionStatisticsApply', $id, 'class' => 'side-nav-item']) ?>
 
-<?php    
+<?php
+    echo $this->Form->create();
+    echo $this->Form->submit('다운로드');    
     echo "<br><br>사전 설문 데이터<br><br>";
     if ($beforeParentData[0] == null) {
         echo "<br><br>등록된 설문이 없습니다.<br><br>";
     } else {
         foreach ($beforeParentData as $parentData) {
+            echo $this->Form->checkbox('checked[]', ['value' => $parentData['id'], 'checked' => 'checked', 'hiddenField' => false]);
 ?>
-            <input type ="checkbox" name = "checked" value = <?= $parentData['id'] ?>>
             <table class="table table-bordered" id = <?= $parentData['id'] ?>>
             <tr>
                 <td><?php echo $parentData['text']; ?></td>
@@ -39,7 +41,7 @@
             </table>
             <br>
 <?php              
-        } 
+        }
     }
 ?>
 
@@ -49,8 +51,8 @@
         echo "<br><br>등록된 설문이 없습니다.<br><br>";
     } else {
         foreach ($normalParentData as $parentData) {
+            echo $this->Form->checkbox('checked[]', ['value' => $parentData['id'], 'checked' => 'checked', 'hiddenField' => false]);
 ?>
-            <input type ="checkbox" name = "checked" value = <?= $parentData['id'] ?>>
             <table class="table table-bordered" id = <?= $parentData['id'] ?>>
                 <tr>
                     <td><?php echo $parentData['text']; ?></td>
@@ -80,4 +82,5 @@
 <?php              
         } 
     }
+    echo $this->Form->end();
 ?>

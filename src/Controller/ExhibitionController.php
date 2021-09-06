@@ -10,6 +10,8 @@ use Cake\Mailer\TransportFactory;
 use Cake\ORM\TableRegistry;
 use Cake\Event\EventInterface;
 use Cake\I18n\FrozenTime;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 /**
  * Exhibition Controller
@@ -552,6 +554,81 @@ class ExhibitionController extends AppController
                     $normalChildData[$parent_id][$j] = $exhibitionSurvey;
                     $j++;
                 }
+            }
+        }
+
+        if ($this->request->is('post')) {
+            
+            $data = $this->request->getData('checked');
+            $count = count($data);
+
+            //엑셀 파일 저장
+            $spreadsheet = new Spreadsheet();
+
+            //Specify the properties for this document
+            $spreadsheet->getProperties()
+                ->setTitle('설문 데이터')
+                ->setCreator('EXON.com')
+                ->setLastModifiedBy('EXON.com');
+
+            for ($i = 0; $i < ($count-1); $i++) {
+                $spreadsheet->createSheet();
+            }
+
+            for ($i = 0; $i < $count; $i++) {
+                $spreadsheet->setActiveSheetIndex($i)
+                ->setTitle('질문' . ($i+1))
+                ->setCellValue('A1', '');
+
+                $spreadsheet->getActiveSheet($i)
+                ->setCellValue('B1', '이름')
+                ->setCellValue('C1', '이메일')
+                ->setCellValue('D1', '질문' . ($i+1));
+            }
+
+            debug($beforeChildData);
+
+            $path = 'download' . DS . 'exhibition' . DS . date("Y") . DS . date("m");
+        
+            if (!file_exists(WWW_ROOT . $path)) {
+                $oldMask = umask(0);
+                mkdir(WWW_ROOT . $path, 0777, true);
+                chmod(WWW_ROOT . $path, 0777);
+                umask($oldMask);
+            }
+
+            $fileName = $id . "_survey_data." . "xlsx";
+            $destination = WWW_ROOT . $path . DS . $fileName;
+
+            $writer = IOFactory::createWriter($spreadsheet, "Xlsx"); //Xls is also possible
+            $writer->save($destination);
+            
+            //엑셀 파일 다운로드
+            $down = $destination;
+            $filesize = filesize($down);
+            
+            if(file_exists($down)) {
+                header("Content-Type:application/octet-stream");
+                header("Content-Disposition:attachment;filename=$fileName");
+                header("Content-Transfer-Encoding:binary");
+                header("Content-Length:".filesize($down));
+                header("Cache-Control:cache,must-revalidate");
+                header("Pragma:no-cache");
+                header("Expires:0");
+                
+                if(is_file($down)){
+                    $fp = fopen($down,"r");
+                    
+                    while(!feof($fp)){
+                        $buf = fread($fp,8096);
+                        $read = strlen($buf);
+                        print($buf);
+                        flush();
+                    }
+                fclose($fp);
+                }
+            } else {
+                
             }
         }
 
