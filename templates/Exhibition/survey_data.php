@@ -6,7 +6,7 @@
 
 <?php    
     echo "<br><br>사전 설문 데이터<br><br>";
-    if ($beforeParentData == null) {
+    if ($beforeParentData[0] == null) {
         echo "<br><br>등록된 설문이 없습니다.<br><br>";
     } else {
         foreach ($beforeParentData as $parentData) {
@@ -45,7 +45,7 @@
 
 <?php    
     echo "<br><br>설문 데이터<br><br>";
-    if ($normalParentData == null) {
+    if ($normalParentData[0] == null) {
         echo "<br><br>등록된 설문이 없습니다.<br><br>";
     } else {
         foreach ($normalParentData as $parentData) {
