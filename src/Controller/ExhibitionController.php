@@ -581,7 +581,59 @@ class ExhibitionController extends AppController
             $rowCount = count($exhibitionUsers);
 
             $ExhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey');
+            $ExhibitionSurveyUsersAnswer = $this->getTableLocator()->get('ExhibitionSurveyUsersAnswer');
 
+            $exhibitionSurvey = $ExhibitionSurvey->find('all', [
+                'conditions' => [
+                    'or' => [
+                        'id IN' => $data,
+                        'parent_id IN' => $data
+                    ]
+                ]
+            ])->select(['id'])->toArray();
+
+            $checkedCount = count($exhibitionSurvey);
+            for ($i = 0; $i < $checkedCount; $i++) {
+                $checked[$i] = $exhibitionSurvey[$i]['id'];
+            }
+
+            $answered[] = '';
+            for ($i = 0; $i < $rowCount; $i++) {
+                
+                $exhibitionSurveyUsersAnswer = $ExhibitionSurveyUsersAnswer->find('all', [
+                    'conditions' => [
+                        'text IS NOT' => 'question',
+                        'exhibition_survey_id IN' => $checked,
+                        'or' => [
+                            'text' => 'Y',
+                            'text IS NOT' => ''
+                        ]
+                    ]
+                ])->where(['users_id' => $exhibitionUsers[$i]['users_id']])->toArray();
+                
+                $answerCount = count($exhibitionSurveyUsersAnswer);
+                
+                if ($answerCount != 0) {
+                    for ($j = 0; $j < $answerCount; $j++) {
+                        
+                        if ($exhibitionSurveyUsersAnswer[$j]['text'] == 'Y') {
+                            $answered[$j] = (int)$exhibitionSurveyUsersAnswer[$j]['exhibition_survey_id'];
+                            
+                        } else {
+                            $answered[$j] = $exhibitionSurveyUsersAnswer[$j]['text'];
+                        }
+                    } 
+                } else {
+                    $answered[0] = '';
+                }
+            
+
+                $answerData[$i] = [
+                    'users_id' => $exhibitionUsers[$i]['users_id'],
+                    'answered' => $answered 
+                ];
+            }
+            
             for ($i = 0; $i < $count; $i++) {
                 $exhibitionSurvey = $ExhibitionSurvey->find('all')->where(['id' => $data[$i]])->toArray();
                 $question = $exhibitionSurvey[0]['text'];
@@ -596,28 +648,28 @@ class ExhibitionController extends AppController
                 ->setCellValue('D1', $question);
 
                 for ($j = 0; $j < $rowCount; $j++) {
-                    $spreadsheet->getActiveSheet($i)
-                    ->setCellValue('A' . ($j+2), ($j+1))
-                    ->setCellValue('B' . ($j+2), $exhibitionUsers[$j]['users_name'])
-                    ->setCellValue('C' . ($j+2), $exhibitionUsers[$j]['users_email']);
+                        $spreadsheet->getActiveSheet($i)
+                        ->setCellValue('A' . ($j+2), ($j+1))
+                        ->setCellValue('B' . ($j+2), $exhibitionUsers[$j]['users_name'])
+                        ->setCellValue('C' . ($j+2), $exhibitionUsers[$j]['users_email']);           
                 }
-
-                $exhibitionSurvey = $ExhibitionSurvey->find('all', 
-                    [
-                        'contain' => 'ExhibitionSurveyUsersAnswer', 
-                        'conditions' => [
-                            'exhibition_id' => $id,
-                                'or' => [
-                                    'parent_id' => $data[$i], 
-                                    'is_multiple' => 'N'
-                                ]
-                        ]
-                    ])
-                    ->toArray();
-                debug($exhibitionSurvey);
+                for ($j = 0; $j < $rowCount; $j++) {
+                    if ($answerData[$j]['answered'][0] == '') {
+                        $spreadsheet->getActiveSheet($i)
+                        ->setCellValue('D' . ($j+2), '');
+                    } else {
+                        if (is_int($answerData[$j]['answered'][$i])) {
+                            $text = $ExhibitionSurvey->find()->select(['text'])->where(['id' => $answerData[$j]['answered'][$i]])->toArray();
+                            $text = $text[0]['text'];
+                        } else {
+                            $text = $answerData[$j]['answered'][$i];
+                        }
+                        
+                        $spreadsheet->getActiveSheet($i)
+                        ->setCellValue('D' . ($j+2), $text);
+                    }
+                }
             }
-
-            // 참가자 답변 내용 붙히기
             
             $path = 'download' . DS . 'exhibition' . DS . date("Y") . DS . date("m");
         
