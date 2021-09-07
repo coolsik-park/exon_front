@@ -17,7 +17,11 @@
 </div>
 
 <script>  
+<<<<<<< HEAD
 $(document).ready(function(){  
+=======
+$(document).ready(function(){
+>>>>>>> 85afc0d88a36c121135fb9ada89efc86f4771676
     var i=1;  
     $('#add').click(function(){  
         $('#dynamic_field').append(

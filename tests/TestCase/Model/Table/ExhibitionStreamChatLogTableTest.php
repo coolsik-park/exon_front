@@ -57,6 +57,7 @@ class ExhibitionStreamChatLogTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
+     * @uses \App\Model\Table\ExhibitionStreamChatLogTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -67,6 +68,7 @@ class ExhibitionStreamChatLogTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
+     * @uses \App\Model\Table\ExhibitionStreamChatLogTable::buildRules()
      */
     public function testBuildRules(): void
     {

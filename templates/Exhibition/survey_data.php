@@ -5,54 +5,82 @@
 <?= $this->Html->link(__('행사 통계'), ['controller' => 'Exhibition', 'action' => 'exhibitionStatisticsApply', $id, 'class' => 'side-nav-item']) ?>
 
 <?php
-    if (count($surveyData) == 0) {
-        echo "<br><br>등록된 설문이 없습니다.";
+    echo $this->Form->create();
+    echo $this->Form->submit('다운로드');    
+    echo "<br><br>사전 설문 데이터<br><br>";
+    if ($beforeParentData[0] == null) {
+        echo "<br><br>등록된 설문이 없습니다.<br><br>";
     } else {
-        echo "<br><br>사전 설문 데이터<br><br>";
-        foreach ($surveyData as $data) {
-            if ($data['survey_type'] == 'B') {
-                if ($data['is_multiple'] == 'Y') {
-                    if ($data['parent_id'] != null) {
-                        echo $data['text'] . " " . $data['count'] .  "<br>";
-                    } else {
-                        echo $data['text'] . "<br>";
-                    }
-                } else {
-                    $count = count($data['exhibition_survey_users_answer']);
-                    $answers[] = '';
-                    for ($i = 0; $i < $count; $i++) {
-                        $answers[$i] = $data['exhibition_survey_users_answer'][$i]['text'];
-                    }
-                    echo $data['text'] . "<br>";
-                    foreach ($answers as $answer) {
-                        echo $answer . "<br>";
-                    }   
+        foreach ($beforeParentData as $parentData) {
+            echo $this->Form->checkbox('checked[]', ['value' => $parentData['id'], 'checked' => 'checked', 'hiddenField' => false]);
+?>
+            <table class="table table-bordered" id = <?= $parentData['id'] ?>>
+            <tr>
+                <td><?php echo $parentData['text']; ?></td>
+            </tr>
+<?php
+            if ($parentData['is_multiple'] == 'Y') {
+                foreach ($beforeChildData[$parentData['id']] as $childData) {
+?>
+                <tr>
+                    <td><?php echo $childData['text']; ?></td>
+                    <td><?php echo $childData['count']; ?></td>
+                </tr>
+<?php
+                }
+            } else {
+                foreach ($parentData['exhibition_survey_users_answer'] as $answer) {
+?>
+                <tr>
+                    <td><?php echo $answer['text'] ?></td>
+                </tr>
+<?php
                 }
             }
-        }
-        echo "<br><br>설문 데이터<br><br>";
-        foreach ($surveyData as $data) {
-            if ($data['survey_type'] == 'N') {
-                if ($data['is_multiple'] == 'Y') {
-                    if ($data['parent_id'] != null) {
-                        echo $data['text'] . " " . $data['count'] . "<br>";
-                    } else {
-                        echo $data['text'] . "<br>";
-                    }
-                } else {
-                    $count = count($data['exhibition_survey_users_answer']);
-                    $answers[] = '';
-                    for ($i = 0; $i < $count; $i++) {
-                        $answers[$i] = $data['exhibition_survey_users_answer'][$i]['text'];
-                    }
-                    echo $data['text'] . "<br>";
-                    foreach ($answers as $answer) {
-                        echo $answer . "<br>";
-                    }   
-                }
-            }
+?>
+            </table>
+            <br>
+<?php              
         }
     }
-    
-    // 질문별 분리하기
+?>
+
+<?php    
+    echo "<br><br>설문 데이터<br><br>";
+    if ($normalParentData[0] == null) {
+        echo "<br><br>등록된 설문이 없습니다.<br><br>";
+    } else {
+        foreach ($normalParentData as $parentData) {
+            echo $this->Form->checkbox('checked[]', ['value' => $parentData['id'], 'checked' => 'checked', 'hiddenField' => false]);
+?>
+            <table class="table table-bordered" id = <?= $parentData['id'] ?>>
+                <tr>
+                    <td><?php echo $parentData['text']; ?></td>
+                </tr>
+<?php
+            if ($parentData['is_multiple'] == 'Y') {
+                foreach ($normalChildData[$parentData['id']] as $childData) {
+?>
+                <tr>
+                    <td><?php echo $childData['text']; ?></td>
+                    <td><?php echo $childData['count']; ?></td>
+                </tr>
+<?php
+                }
+            } else {
+                foreach ($parentData['exhibition_survey_users_answer'] as $answer) {          
+?>
+                <tr>
+                    <td><?php echo $answer['text'] ?></td>
+                </tr>
+<?php
+                }
+            }
+?>
+            </table>
+            <br>
+<?php              
+        } 
+    }
+    echo $this->Form->end();
 ?>

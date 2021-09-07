@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-common/src', $vendorDir . '/phpdocumentor/reflection-docblock/src', $vendorDir . '/phpdocumentor/type-resolver/src'),
+    'ZipStream\\' => array($vendorDir . '/maennchen/zipstream-php/src'),
     'Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
     'Twig\\Extra\\Markdown\\' => array($vendorDir . '/twig/markdown-extra'),
     'Twig\\' => array($vendorDir . '/twig/twig/src'),
@@ -39,9 +40,12 @@ return array(
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src/Prophecy'),
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
+    'PhpOffice\\PhpSpreadsheet\\' => array($vendorDir . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet'),
     'Phinx\\' => array($vendorDir . '/robmorgan/phinx/src/Phinx'),
     'PHPStan\\PhpDocParser\\' => array($vendorDir . '/phpstan/phpdoc-parser/src'),
+    'MyCLabs\\Enum\\' => array($vendorDir . '/myclabs/php-enum/src'),
     'Migrations\\' => array($vendorDir . '/cakephp/migrations/src'),
+    'Matrix\\' => array($vendorDir . '/markbaker/matrix/classes/src'),
     'M1\\Env\\' => array($vendorDir . '/m1/env/src'),
     'League\\Container\\' => array($vendorDir . '/league/container/src'),
     'Laminas\\ZendFrameworkBridge\\' => array($vendorDir . '/laminas/laminas-zendframework-bridge/src'),
@@ -60,6 +64,7 @@ return array(
     'Composer\\MetadataMinifier\\' => array($vendorDir . '/composer/metadata-minifier/src'),
     'Composer\\CaBundle\\' => array($vendorDir . '/composer/ca-bundle/src'),
     'Composer\\' => array($vendorDir . '/composer/composer/src/Composer'),
+    'Complex\\' => array($vendorDir . '/markbaker/complex/classes/src'),
     'Cake\\TwigView\\' => array($vendorDir . '/cakephp/twig-view/src'),
     'Cake\\Test\\' => array($vendorDir . '/cakephp/cakephp/tests'),
     'Cake\\Composer\\' => array($vendorDir . '/cakephp/plugin-installer/src'),
