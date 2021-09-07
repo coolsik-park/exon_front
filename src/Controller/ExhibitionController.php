@@ -716,6 +716,27 @@ class ExhibitionController extends AppController
 
         $this->set(compact('beforeParentData', 'beforeChildData', 'normalParentData', 'normalChildData', 'id'));
     }
+    // Subqueries
+    // Subqueries enable you to compose queries together and build conditions and results based on the results of other queries:
+
+    // $matchingComment = $articles->getAssociation('Comments')->find()
+    //     ->select(['article_id'])
+    //     ->distinct()
+    //     ->where(['comment LIKE' => '%CakePHP%']);
+
+    // $query = $articles->find()
+    //     ->where(['id IN' => $matchingComment]);
+    // Subqueries are accepted anywhere a query expression can be used. For example, in the select() and join() methods. The above example uses a standard Orm\Query object that will generate aliases, these aliases can make referencing results in the outer query more complex. As of 4.2.0 you can use Table::subquery() to create a specialized query instance that will not generate aliases:
+
+    // $comments = $articles->getAssociation('Comments')->getTarget();
+
+    // $matchingComment = $comments->subquery()
+    //     ->select(['article_id'])
+    //     ->distinct()
+    //     ->where(['comment LIKE' => '%CakePHP%']);
+
+    // $query = $articles->find()
+    //     ->where(['id IN' => $matchingComment]);
 
     public function exhibitionStatisticsApply($id = null)
     {

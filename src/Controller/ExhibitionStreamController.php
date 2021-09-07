@@ -213,6 +213,77 @@ class ExhibitionStreamController extends AppController
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
         $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs'));
     }
+    public function speakerMenu ($id = null) 
+    {
+        $this->set(compact('id'));
+    }
+
+    public function setSpeaker ($id = null)
+    {
+        $connection = ConnectionManager::get('default');
+        $connection->begin();
+
+        $ExhibitionSpeaker = $this->getTableLocator()->get('ExhibitionSpeaker');
+    
+        $displayes = $ExhibitionSpeaker->find('all')->where(['exhibition_id' => $id])->toArray();
+        
+        if ($this->request->is('post')) {
+            
+            $entities = $ExhibitionSpeaker->newEntities($this->request->getData());
+            $i = 0;
+            foreach ($entities as $entity) {
+                if ($result = $ExhibitionSpeaker->save($entity)) {
+                    
+                    $img = $this->request->getData('image' . $i);
+                    $i++;
+                    $imgName = $img->getClientFilename();
+
+                    if ($imgName != '') {
+                        $index = strpos(strrev($imgName), strrev('.'));
+                        $expen = strtolower(substr($imgName, ($index * -1)));
+                        $path = 'upload' . DS . 'speaker' . DS . date("Y") . DS . date("m");
+
+                        if ($expen == 'jpeg' || $expen == 'jpg' || $expen == 'png') {
+                                
+                            if (!file_exists(WWW_ROOT . $path)) {
+                                $oldMask = umask(0);
+                                mkdir(WWW_ROOT . $path, 0777, true);
+                                chmod(WWW_ROOT . $path, 0777);
+                                umask($oldMask);
+                            }
+
+                            $imgName = $result->id . "_speaker." . $expen;
+                            $destination = WWW_ROOT . $path . DS . $imgName;
+                            
+                            if ($connection->update('exhibition_speaker', ['image_path' => $path, 'image_name' => $imgName], ['id' => $result->id])) {
+                                $img->moveTo($destination);
+                            } else {
+                                $connection->rollback(); 
+                                $this->Flash->error(__('The exhibition speaker could not be saved.'));
+                            }
+                        } else {
+                            $connection->rollback(); 
+                            $this->Flash->error(__('The exhibition speaker could not be saved.'));
+                        }
+                    }
+                }
+            }
+            $connection->commit();
+            $this->Flash->success(__('The exhibition speaker has been saved.'));
+            return $this->redirect(['action' => 'setExhibitionStream', $id]); 
+        }
+        $this->set(compact('displayes', 'id'));
+    }
+
+    public function setAnswered ($id = null)
+    {
+
+    }
+
+    public function answered ($id = null)
+    {
+
+    }
 
     public function questionMenu ($id = null) 
     {

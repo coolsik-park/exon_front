@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+set_answered
+=======
 <div class="column-responsive column-80">
     <div class="exhibitionStream form content"> 
         <?= $this->Form->create() ?>
@@ -63,3 +66,4 @@ $(document).ready(function(){
     });    
 });
 </script>
+>>>>>>> 85afc0d88a36c121135fb9ada89efc86f4771676

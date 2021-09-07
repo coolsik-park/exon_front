@@ -5,6 +5,8 @@ namespace App\Controller;
 use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\Datasource\ConnectionManager;
 use Cake\Auth\DefaultPasswordHasher;
+use Cake\ORM\TableRegistry;
+use Cake\I18n\FrozenTime;
 
 /**
  * Users Controller
@@ -457,6 +459,78 @@ class UsersController extends AppController
             }
         } else {
             echo "Error 내용:".$response;
+        }
+    }
+
+    public function certified($id = null)
+    {
+        $user = $this->Users->find('all')->where(['id' => $id])->toArray();
+
+        $this->set(compact('user'));
+    }
+
+    public function sendSmsCertified()
+    {        
+        if ($this->request->is('post')) {
+            require_once("solapi-php/lib/message.php");
+
+            $code = $this->generateCode();
+            $commonConfirmation_table = TableRegistry::get('CommonConfirmation');
+            $commonConfirmation = $commonConfirmation_table->newEmptyEntity();
+            $commonConfirmation = $commonConfirmation_table->patchEntity($commonConfirmation, ['confirmation_code' =>$code, 'types' => 'SMS']);
+
+            if ($this->request->getData('hp') == null) {
+                $this->Flash->error(__('hp가 작성되지 않았습니다.'));
+                return $this->redirect(['action' => 'sendSmsCertified']);
+            }
+
+            if ($result = $commonConfirmation_table->save($commonConfirmation)) {
+                $to[0] = $this->request->getData('hp');
+
+                $messages = [
+                    [
+                        'to' => $to,
+                        'from' => getEnv('EXON_PHONE_NUMBER'),
+                        'text' => 'Confirmation Code : ' . $code
+                    ]
+                ];
+
+                if(send_messages($messages)) {
+                    $this->Flash->success(__('The SMS has been delivered.'));
+                    return $this->redirect(['action' => 'confirmSms', $result->id]);
+                } else {
+                    $this->Flash->error(__('The SMS could not be delivered.'));
+                }
+            }
+        }
+    }
+
+    public function generateCode()
+    {
+        $characters = '123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $code = '';
+        for ($i = 0; $i < 6; $i++) {
+            $code .= substr($characters, rand(0, strlen($characters)), 1);
+        }
+        return $code;
+    }
+
+    public function confirmSms($id = null) 
+    {
+        $commonConfirmation_table = TableRegistry::get('CommonConfirmation');
+        $commonConfirmation = $commonConfirmation_table->find('all')->where(['id' => $id])->toArray();
+
+        if ($this->request->is('post')) {
+            if (FrozenTime::now() < $commonConfirmation[0]->expired) {
+                if ($this->request->getData('code') == $commonConfirmation[0]->confirmation_code) {
+                    $this->Flash->success(__('The SMS has been confirmed.'));
+                    return $this->redirect(['action' => 'index']);
+                } else {
+                    $this->Flash->error(__('The wrong code.'));
+                }
+            } else {
+                $this->Flash->error(__('Overtime'));
+            }
         }
     }
 }
