@@ -213,6 +213,10 @@ class ExhibitionStreamController extends AppController
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
         $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs'));
     }
+    public function speakerMenu ($id = null) 
+    {
+        $this->set(compact('id'));
+    }
 
     public function questionMenu ($id = null) 
     {
