@@ -642,6 +642,12 @@ class ExhibitionController extends AppController
                 ->setTitle($question)
                 ->setCellValue('A1', '');
 
+                $spreadsheet->setActiveSheetIndex($i)
+                ->getColumnDimension('C')->setWidth(30);	
+
+                $spreadsheet->setActiveSheetIndex($i)
+                ->getColumnDimension('D')->setWidth(30);
+
                 $spreadsheet->getActiveSheet($i)
                 ->setCellValue('B1', '이름')
                 ->setCellValue('C1', '이메일')
