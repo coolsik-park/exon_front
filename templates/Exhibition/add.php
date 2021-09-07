@@ -5,7 +5,7 @@
  * 
  */
 ?>
-<script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <div class="row">

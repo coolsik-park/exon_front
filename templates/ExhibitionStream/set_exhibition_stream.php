@@ -88,7 +88,7 @@
         }, function(rsp) {
             if ( rsp.success ) {
                 jQuery.ajax({
-                    url: "http://121.126.223.225:8765/pay/import-pay", 
+                    url: "/pay/import-pay", 
                     method: 'POST',
                     type: 'json',
                     data: {
@@ -222,6 +222,8 @@
                 $("#tab").val(parseInt($("#tab").val()) - 512);
                 alert($("button#tab0").attr('name')+' 탭이 비활성화되었습니다.');
             }
+        } else {
+            $("div#tabContent").load("/exhibition-stream/exhibition-files/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 
@@ -238,6 +240,8 @@
                 $("#tab").val(parseInt($("#tab").val()) - 256);
                 alert($("button#tab1").attr('name')+' 탭이 비활성화되었습니다.');
             }
+        } else {
+            $("div#tabContent").load("/exhibition-stream/exhibition-info/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 
@@ -254,6 +258,8 @@
                 $("#tab").val(parseInt($("#tab").val()) - 128);
                 alert($("button#tab2").attr('name')+' 탭이 비활성화되었습니다.');
             }
+        } else {
+            $("div#tabContent").load("/exhibition-stream/founder/" + <?= $exhibitionStream->exhibition_id ?>);
         } 
     });
 
@@ -270,6 +276,8 @@
                 $("#tab").val(parseInt($("#tab").val()) - 64);
                 alert($("button#tab3").attr('name')+' 탭이 비활성화되었습니다.');
             }
+        } else {
+            $("div#tabContent").load("/exhibition-stream/person-in-charge/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 
@@ -286,6 +294,8 @@
                 $("#tab").val(parseInt($("#tab").val()) - 32);
                 alert($("button#tab4").attr('name')+' 탭이 비활성화되었습니다.');
             }
+        } else {
+            $("div#tabContent").load("/exhibition-stream/program/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 
@@ -301,7 +311,9 @@
                 $("button#tab5").css("background-color", "white");
                 $("#tab").val(parseInt($("#tab").val()) - 16);
                 alert($("button#tab5").attr('name')+' 탭이 비활성화되었습니다.');
-            }
+            } 
+        } else {
+            $("div#tabContent").load("/exhibition-stream/attendance/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 
@@ -319,7 +331,11 @@
                 alert($("button#tab6").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
+<<<<<<< HEAD
             $("div#tabContent").load("/exhibition-stream/speaker-menu/" + <?= $exhibitionStream->exhibition_id ?>);
+=======
+            $("div#tabContent").load("/exhibition-stream/question-menu/" + <?= $exhibitionStream->exhibition_id ?>);
+>>>>>>> 85afc0d88a36c121135fb9ada89efc86f4771676
         }
     });
 
@@ -336,6 +352,8 @@
                 $("#tab").val(parseInt($("#tab").val()) - 4);
                 alert($("button#tab7").attr('name')+' 탭이 비활성화되었습니다.');
             }
+        } else {
+            $("div#tabContent").load("/exhibition-stream/notice/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 
@@ -352,6 +370,8 @@
                 $("#tab").val(parseInt($("#tab").val()) - 2);
                 alert($("button#tab8").attr('name')+' 탭이 비활성화되었습니다.');
             }
+        } else {
+            $("div#tabContent").load("/exhibition-stream/survey/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 
@@ -368,6 +388,10 @@
                 $("#tab").val(parseInt($("#tab").val()) - 1);
                 alert($("button#tab9").attr('name')+' 탭이 비활성화되었습니다.');
             }
+        } else {
+            $("div#tabContent").load("/exhibition-stream-chat-log/chat/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 </script>
+
+<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>

@@ -19,90 +19,164 @@
 
 ?>
 <!DOCTYPE html>
-<!--[if IE 9]> <html class="no-js ie9 fixed-layout" lang="en"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class="no-js " lang="en"> <!--<![endif]-->
+<html lang="ko">
 <head>
-
-    <!-- Basic -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    
-    <!-- Mobile Meta -->
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
-    <!-- Site Meta -->
-    <title>EXON</title>
-	<meta property="og:type" content="website"/>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta property="og:type" content="website"/>
 	<meta property="og:title" content="exon"/>
 	<meta property="og:description" content="exon"/>
 	<meta property="og:image" content="http://www.exon.co.kr"/>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
-    
-    <!-- Site Icons -->
-    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
-
-	<!-- Google Fonts -->
- 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,700" rel="stylesheet"> 
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/js/slick.js"></script>
+    <script src="/js/swiper.min.js"></script>
+    <script src="/js/mobile-detect.min.js"></script>
+    <script src="/js/responsiveImg.js"></script>   
+    <script src="/js/common.js"></script>
+    <title>EXON</title>
 </head>
- <body>
-	
-	<header class="header site-header">
-			<div class="container">
-                헤더
+<body>
+ <p id="accessibility"><a href="#container">본문바로가기</a></p>   
+ <div id="wrap">
+    <header id="header">
+        <!-- pc -->
+        <div class="static">
+            <h1 class="h-logo"><a href="#">EXON</a></h1>
+            <div class="header-search">               
+                <form action="#">
+                    <fieldset>
+                        <legend>행사 검색</legend>
+                            <input type="text" placeholder="찾으시는 행사를 검색해주세요" class="ipt">
+                            <button type="button" class="ico-sh">검색</button>
+                    </fieldset>                        
+                </form> 
+            </div>
+            <div class="h-elt">                
                 <?php if(empty($loguser)): ?>
-                <a href="/Users/login">로그인</a>
-                <a href="/Users/add">회원가입</a>
-            <?php else: ?>
+                <!-- before -->
+                    <a href="/Users/login">로그인</a>
+                    <a href="/Users/add">회원가입</a>
+                    <a href="#">행사신청내역</a>
+                <?php else: ?>
                 <!-- log after -->
-                <a href="/Users/logout">로그아웃</a>
+                    <a href="/Users/logout" class="btn-bor">로그아웃</a>
                 <!-- // -->
+                <?php endif;?>
+            </div>            
+        </div>
+        <!-- mo -->
+        <div class="static-mo">
+            <h1 class="h-logo"><a href="#">EXON</a></h1>
+            <button type="button" class="tg-search">검색</button>
+            <div class="header-search-mo">
+                <div class="search-ipt-wp">
+                    <input type="text" placeholder="찾으시는 행사를 검색해주세요" class="ipt">
+                    <button type="button" class="search">검색</button>
+                </div>                   
+                <button type="button" class="cancel">취소</button>
+            </div>
+            <button type="button" class="tg-menu">메뉴오픈</button>     
+        </div>
+        <div id="aside">
+            <div class="aside-head">
+                <a href="#" class="a-logo">EXON</a>
+                <button type="button" class="tg-close">메뉴닫기</button>
+            </div>
+            <div class="aside-body">
+                <div class="log-area">
+                    <a href="#" class="btn1">로그인</a>
+                    <a href="#" class="btn2">회원가입</a>
+                    <!-- <div>
+                        <a href="#" class="btn3">회원 로그인</a>
+                        <a href="#" class="btn3">비회원 신청내역 확인</a>
+                    </div>                     -->
+                </div>
+                <div class="menu">
+                    <ul id="nav">
+                        <li class="sub-no"><button type="button">EXON 소개</button></li>
+                        <li>
+                            <button type="button">마이페이지</button>
+                            <ul>
+                                <li><a href="#">회원 정보 수정</a></li>
+                                <li>
+                                    <a href="#">신청 내역 관리</a>
+                                    <ul class="lst-depth">
+                                        <li><a href="#">신청 행사</a></li>
+                                        <li><a href="#">종료 행사</a></li>
+                                        <li><a href="#">취소/환불</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">개설 행사 관리</a>
+                                    <ul class="lst-depth">
+                                        <li><a href="#">개설 행사</a></li>
+                                        <li><a href="#">진행중 행사</a></li>
+                                        <li><a href="#">임시저장 행사</a></li>
+                                        <li><a href="#">종료 행사</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <button type="button">고객센터</button>
+                            <ul class="lst-depth">
+                                <li><a href="#">자주하는 질문</a></li>
+                                <li><a href="#">공지사항</a></li>
+                                <li><a href="#">문의하기</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>        
 
-            <?php endif;?>
-			</div><!-- end container -->
-		</header><!-- end header -->
-
+    <?= $this->Flash->render() ?>
+    <?= $this->fetch('content') ?>
         
 
+    
+    <footer id="footer">
+        <div class="static">
+            <div class="footer-top">    
+                <ul>
+                    <li><a href="#">회사소개</a></li>
+                    <li><a href="#">고객센터</a></li>
+                    <li><a href="#">서비스 이용약관 </a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                    <li><a href="#">전자금융거래 이용약관</a></li>
+                    <li><a href="#">취소 및 환불 약관</a></li>
+                    <li><a href="#">이메일 주소 무단수집 거부</a></li>
+                </ul> 
+            </div>
+            <div class="footer-btm">
+                <div class="f-logo">[엑스온]</div>
+                <div class="footer-cs">
+                    <p><strong>고객센터</strong> <span>평일 10시~17시 1:1 문의하기</span></p>
+                    <p class="link"><a href="mailto:contact@exon.live">contact@exon.live</a></p>
+                </div>
+            </div>                           
+            <div class="footer-info">                    
+                <p class="f-tx1">(주)오르카티비 대표 박기영 | 사업자등록번호 111-11-11111 | 통신판매업 신고번호 제xxxxxxxxxxxxx<br>
+                    개인정보책임자 최찬경 | 경기도 성남시 수정구 대왕판교로 815, 메타버스 허브 419호</p>
+                <p class="f-tx2">엑스온은 통신판매중개자이며 행사에 대한 당사자 및 주최자가 아닙니다. 따라서 엑스온은 등록된 행사에 대하여 책임을 지지 않습니다.</p>   
+                <p class="f-copy">copyright ⓒ exon.live, ALL Right Reserved.</p> 
+            </div>   
+        </div>
+    </footer>    
+ </div>   
 
-        
-
-            <?= $this->Flash->render() ?>
-            <?= $this->fetch('content') ?>
-        
-
-        <footer class="footer primary-footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 col-sm-12">
-                        <div class="widget clearfix">
-                            <h4 class="widget-title">EXON</h4>
-                            <div class="">
-                                <p>(우)11111 라이브몰로 <br><br> 대표전화: 080-111-2222 / 팩스: 02-111-2222</p>
-                               
-                            </div><!-- end newsletter -->
-                        </div><!-- end widget -->
-                    </div><!-- end col -->                   
-                </div><!-- end row -->
-            </div><!-- end container -->
-        </footer><!-- end primary-footer -->
-        <footer class="footer secondary-footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <p>&copy;LiveMolo, All rights reserved.  (근무시간: 9시~18시 / 토,일,공휴일 제외)</p>
-                    </div>
-
-                </div><!-- end row -->
-            </div><!-- end container -->
-		</footer><!-- end second footer -->
-
-    </div><!-- end wrapper -->
-
-
+ <script>
+     ui.slider.mainVisual();
+     ui.slider.mainSlider2();
+     ui.slider.mainSlider3();
+     ui.slider.mainSlider4();
+     ui.slider.mainSlider5();
+ </script>
 </body>
 </html>

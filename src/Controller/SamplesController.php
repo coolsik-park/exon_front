@@ -51,7 +51,7 @@ class SamplesController extends AppController
         else{
 
             //세션 생성 (샘플이므로 별도 세션 생성, 원래는 로그인 정보로 이용)
-            $this->getRequest()->getSession()->write('Chat.UserName',$this->getRequest()->getData('name'));
+            $this->getRequest()->getSession()->write('Chat.UserName', $this->getRequest()->getData('name'));
             
         }
     }

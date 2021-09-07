@@ -28,15 +28,15 @@ class ExhibitionStreamChatLogFixture extends TestFixture
         'users_id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'message' => ['type' => 'text', 'length' => null, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
         'user_name' => ['type' => 'string', 'length' => 45, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
-        'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => true, 'default' => 'CURRENT_TIMESTAMP', 'comment' => ''],
+        'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => true, 'default' => 'current_timestamp()', 'comment' => ''],
         '_indexes' => [
             'fk_exhibition_stream_chat_log_exhibition_stream1_idx' => ['type' => 'index', 'columns' => ['exhibition_stream_id'], 'length' => []],
             'fk_exhibition_stream_chat_log_users1_idx' => ['type' => 'index', 'columns' => ['users_id'], 'length' => []],
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id', 'exhibition_stream_id'], 'length' => []],
-            'fk_exhibition_stream_chat_log_exhibition_stream1' => ['type' => 'foreign', 'columns' => ['exhibition_stream_id'], 'references' => ['exhibition_stream', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
-            'fk_exhibition_stream_chat_log_users1' => ['type' => 'foreign', 'columns' => ['users_id'], 'references' => ['users', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
+            'fk_exhibition_stream_chat_log_users1' => ['type' => 'foreign', 'columns' => ['users_id'], 'references' => ['users', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
+            'fk_exhibition_stream_chat_log_exhibition_stream1' => ['type' => 'foreign', 'columns' => ['exhibition_stream_id'], 'references' => ['exhibition_stream', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -58,7 +58,7 @@ class ExhibitionStreamChatLogFixture extends TestFixture
                 'users_id' => 1,
                 'message' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
                 'user_name' => 'Lorem ipsum dolor sit amet',
-                'created' => '2021-07-30 13:24:47',
+                'created' => '2021-09-06 00:38:08',
             ],
         ];
         parent::init();
