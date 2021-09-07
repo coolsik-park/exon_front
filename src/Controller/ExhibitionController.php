@@ -575,17 +575,50 @@ class ExhibitionController extends AppController
                 $spreadsheet->createSheet();
             }
 
+
+            $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
+            $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id])->toArray();
+            $rowCount = count($exhibitionUsers);
+
+            $ExhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey');
+
             for ($i = 0; $i < $count; $i++) {
+                $exhibitionSurvey = $ExhibitionSurvey->find('all')->where(['id' => $data[$i]])->toArray();
+                $question = $exhibitionSurvey[0]['text'];
+
                 $spreadsheet->setActiveSheetIndex($i)
-                ->setTitle('질문' . ($i+1))
+                ->setTitle($question)
                 ->setCellValue('A1', '');
 
                 $spreadsheet->getActiveSheet($i)
                 ->setCellValue('B1', '이름')
                 ->setCellValue('C1', '이메일')
-                ->setCellValue('D1', '질문' . ($i+1));
+                ->setCellValue('D1', $question);
+
+                for ($j = 0; $j < $rowCount; $j++) {
+                    $spreadsheet->getActiveSheet($i)
+                    ->setCellValue('A' . ($j+2), ($j+1))
+                    ->setCellValue('B' . ($j+2), $exhibitionUsers[$j]['users_name'])
+                    ->setCellValue('C' . ($j+2), $exhibitionUsers[$j]['users_email']);
+                }
+
+                $exhibitionSurvey = $ExhibitionSurvey->find('all', 
+                    [
+                        'contain' => 'ExhibitionSurveyUsersAnswer', 
+                        'conditions' => [
+                            'exhibition_id' => $id,
+                                'or' => [
+                                    'parent_id' => $data[$i], 
+                                    'is_multiple' => 'N'
+                                ]
+                        ]
+                    ])
+                    ->toArray();
+                debug($exhibitionSurvey);
             }
 
+            // 참가자 답변 내용 붙히기
+            
             $path = 'download' . DS . 'exhibition' . DS . date("Y") . DS . date("m");
         
             if (!file_exists(WWW_ROOT . $path)) {
