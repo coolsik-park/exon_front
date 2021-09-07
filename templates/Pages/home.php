@@ -26,86 +26,38 @@
                     <h2 class="h-ty1"><span class="t1">Top 10</span><span class="t2">지금 핫한 전시 10</span></h2>
                     <div class="main-sect2-hot-item">
                         <div class="imgs">
-                            <img src="/upload/exhibition/@item-hot.jpg" alt="">
+                            <img src="<?php echo $hot[0]['img_path'] . $hot[0]['img_name'];?>" alt="">
                         </div>
                         <div class="desc">
                             <div class="info">
-                                <span class="state">진행중</span>
-                                <span class="date">03.14(금) ~ 03.14(일)</span>
+                                <span class="state"><?php if($hot[0]['playing']) echo "진행중"; else echo "진행전"; ?></span>
+                                <span class="date"><?php echo $hot[0]['sdate'] . " ~ " . $hot[0]['edate']; ?></span>
                             </div>
-                            <h3 class="h-ty2">전자기기 포럼</h3>
-                            <p class="tx">일반 전시회 설명입니다.일반 전시회 설명입니다.일반 전시회 설명입니다.일반 전시회 설명입니다.일반 전시회 설명입니다.일반 전시회 설명입니다.일반 전시회 설명입니다</p>
+                            <h3 class="h-ty2"><?php echo $hot[0]['title']; ?></h3>
+                            <p class="tx"><?php echo $hot[0]['description']; ?></p>
                             <a href="#" class="btn">자세히 보기</a>
                         </div>
                     </div>
                     <div class="main-slider2">
                         <div class="swiper-container">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <a href="#" class="main-sd-item">
-                                        <div class="imgs"><img src="/upload/exhibition/@item1.jpg" alt=""></div>
-                                        <div class="desc">
-                                            <div class="info">
-                                                <span class="state">진행중</span>
-                                                <span class="date">03.14(금) ~ 03.14(일)</span>
+                                <div class="swiper-wrapper">
+                            <?php foreach($hot as $index => $list): ?>
+                                <?php if($index): ?>
+                                    <div class="swiper-slide">
+                                        <a href="#" class="main-sd-item">
+                                            <div class="imgs"><img src="<?php echo $list['img_path'] . $list['img_name'];?>" alt=""></div>
+                                            <div class="desc">
+                                                <div class="info">
+                                                    <span class="state"><?php if($list['playing']) echo "진행중"; else echo "진행전"; ?></span>
+                                                    <span class="date"><?php echo $list['sdate'] . " ~ " . $list['edate']; ?></span>
+                                                </div>
+                                                <h3 class="h-ty3"><?php echo $list['title']; ?></h3>
+                                                <p class="tx-1"><?php echo $list['description']; ?></p>
                                             </div>
-                                            <h3 class="h-ty3">전자기기 포럼</h3>
-                                            <p class="tx-1">일반 전시회 설명입니다.일반 전시회 설명입니다.일반 전시회 설명.일반 전시회 설명입니다.일반 전시회 설명입니다.일반 전시회 설명일반 전시회 설명입니다.일반 전시회 설명입니다.일반 전시회 설명</p>
-                                        </div>
-                                    </a>                                    
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="#" class="main-sd-item">
-                                        <div class="imgs"><img src="/upload/exhibition/@item2.jpg" alt=""></div>
-                                        <div class="desc">
-                                            <div class="info">
-                                                <span class="state">진행중</span>
-                                                <span class="date">03.14(금) ~ 03.14(일)</span>
-                                            </div>
-                                            <h3 class="h-ty3">세계 건축 박람회</h3>
-                                            <p class="tx-1">일반 전시회 설명입니다.일반 전시회 설명입니다.일반 전시회 설명.</p>
-                                        </div>
-                                    </a>                                    
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="#" class="main-sd-item">
-                                        <div class="imgs"><img src="/upload/exhibition/@item3.jpg" alt=""></div>
-                                        <div class="desc">
-                                            <div class="info">
-                                                <span class="state">진행중</span>
-                                                <span class="date">03.14(금) ~ 03.14(일)</span>
-                                            </div>
-                                            <h3 class="h-ty3">관계의 가나다</h3>
-                                            <p class="tx-1">일반 전시회 설명입니다.</p>
-                                        </div>
-                                    </a>                                    
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="#" class="main-sd-item">
-                                        <div class="imgs"><img src="/upload/exhibition/@item4.jpg" alt=""></div>
-                                        <div class="desc">
-                                            <div class="info">
-                                                <span class="state">진행중</span>
-                                                <span class="date">03.14(금) ~ 03.14(일)</span>
-                                            </div>
-                                            <h3 class="h-ty3">2021G-STAR</h3>
-                                            <p class="tx-1">일반 전시회 설명입니다.일반 전시회 설명입니다.일반 전시회 설명.</p>
-                                        </div>
-                                    </a>                                    
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="#" class="main-sd-item">
-                                        <div class="imgs"><img src="/upload/exhibition/@item1.jpg" alt=""></div>
-                                        <div class="desc">
-                                            <div class="info">
-                                                <span class="state">진행중</span>
-                                                <span class="date">03.14(금) ~ 03.14(일)</span>
-                                            </div>
-                                            <h3 class="h-ty3">2021G-STAR</h3>
-                                            <p class="tx-1">일반 전시회 설명입니다.일반 전시회 설명입니다.일반 전시회 설명.</p>
-                                        </div>
-                                    </a>
-                                </div>
+                                        </a>                                    
+                                    </div>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                             </div>        
                         </div> 
                         <div class="swiper-button-next"></div> 
@@ -134,66 +86,23 @@
                     <div class="main-slider4">
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
+                            <?php foreach($new as $index => $list): ?>
                                 <div class="swiper-slide">
                                     <div class="swiper-slide">
                                         <div class="main-sd-item">
-                                            <div class="imgs"><img src="/upload/exhibition/@item2.jpg" alt=""></div>
+                                            <div class="imgs"><img src="<?php echo $list['img_path'] . $list['img_name'];?>" alt=""></div>
                                             <div class="desc">
                                                 <div class="info">
-                                                    <span class="state">진행중</span>
-                                                    <span class="date">03.14(금) ~ 03.14(일)</span>
+                                                    <span class="state"><?php if($list['playing']) echo "진행중"; else echo "진행전"; ?></span>
+                                                    <span class="date"><?php echo $list['sdate'] . " ~ " . $list['edate']; ?></span>
                                                 </div>
-                                                <h3 class="h-ty3">전자기기 포럼</h3>
-                                                <p class="tx-1">일반 전시회 설명입니다.일반 전시회 설명입니다.일반 전시회 설명.</p>
+                                                <h3 class="h-ty3"><?php echo $list['title']; ?></h3>
+                                                <p class="tx-1"><?php echo $list['description']; ?></p>
                                             </div>
                                         </div>                                    
                                     </div>
                                 </div>
-                                <div class="swiper-slide">
-                                    <div class="swiper-slide">
-                                        <div class="main-sd-item">
-                                            <div class="imgs"><img src="/upload/exhibition/@item3.jpg" alt=""></div>
-                                            <div class="desc">
-                                                <div class="info">
-                                                    <span class="state">진행중</span>
-                                                    <span class="date">03.14(금) ~ 03.14(일)</span>
-                                                </div>
-                                                <h3 class="h-ty3">전자기기 포럼</h3>
-                                                <p class="tx-1">일반 전시회 설명입니다.일반 전시회 설명입니다.일반 전시회 설명.</p>
-                                            </div>
-                                        </div>                                    
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="swiper-slide">
-                                        <div class="main-sd-item">
-                                            <div class="imgs"><img src="/upload/exhibition/@item4.jpg" alt=""></div>
-                                            <div class="desc">
-                                                <div class="info">
-                                                    <span class="state">진행중</span>
-                                                    <span class="date">03.14(금) ~ 03.14(일)</span>
-                                                </div>
-                                                <h3 class="h-ty3">전자기기 포럼</h3>
-                                                <p class="tx-1">일반 전시회 설명입니다.일반 전시회 설명입니다.일반 전시회 설명.</p>
-                                            </div>
-                                        </div>                                    
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="swiper-slide">
-                                        <div class="main-sd-item">
-                                            <div class="imgs"><img src="/upload/exhibition/@item1.jpg" alt=""></div>
-                                            <div class="desc">
-                                                <div class="info">
-                                                    <span class="state">진행중</span>
-                                                    <span class="date">03.14(금) ~ 03.14(일)</span>
-                                                </div>
-                                                <h3 class="h-ty3">전자기기 포럼</h3>
-                                                <p class="tx-1">일반 전시회 설명입니다.일반 전시회 설명입니다.일반 전시회 설명.</p>
-                                            </div>
-                                        </div>                                    
-                                    </div>
-                                </div>
+                            <?php endforeach; ?>
                             </div>
                         </div>
                         <div class="swiper-button-next"></div> 
@@ -208,66 +117,23 @@
                     <div class="main-slider5">
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
+                            <?php foreach($normal as $index => $list): ?>
                                 <div class="swiper-slide">
                                     <div class="swiper-slide">
                                         <div class="main-sd-item">
-                                            <div class="imgs"><img src="/upload/exhibition/@item5.jpg" alt=""></div>
+                                            <div class="imgs"><img src="<?php echo $list['img_path'] . $list['img_name'];?>" alt=""></div>
                                             <div class="desc">
                                                 <div class="info">
-                                                    <span class="state">진행중</span>
-                                                    <span class="date">03.14(금) ~ 03.14(일)</span>
+                                                    <span class="state"><?php if($list['playing']) echo "진행중"; else echo "진행전"; ?></span>
+                                                    <span class="date"><?php echo $list['sdate'] . " ~ " . $list['edate']; ?></span>
                                                 </div>
-                                                <h3 class="h-ty3">전자기기 포럼</h3>
-                                                <p class="tx-1">일반 전시회 설명입니다.일반 전시회 설명입니다.일반 전시회 설명.</p>
+                                                <h3 class="h-ty3"><?php echo $list['title']; ?></h3>
+                                                <p class="tx-1"><?php echo $list['description']; ?></p>
                                             </div>
                                         </div>                                    
                                     </div>
                                 </div>
-                                <div class="swiper-slide">
-                                    <div class="swiper-slide">
-                                        <div class="main-sd-item">
-                                            <div class="imgs"><img src="/upload/exhibition/@item6.jpg" alt=""></div>
-                                            <div class="desc">
-                                                <div class="info">
-                                                    <span class="state">진행중</span>
-                                                    <span class="date">03.14(금) ~ 03.14(일)</span>
-                                                </div>
-                                                <h3 class="h-ty3">전자기기 포럼</h3>
-                                                <p class="tx-1">일반 전시회 설명입니다.일반 전시회 설명입니다.일반 전시회 설명.</p>
-                                            </div>
-                                        </div>                                    
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="swiper-slide">
-                                        <div class="main-sd-item">
-                                            <div class="imgs"><img src="/upload/exhibition/@item7.jpg" alt=""></div>
-                                            <div class="desc">
-                                                <div class="info">
-                                                    <span class="state">진행중</span>
-                                                    <span class="date">03.14(금) ~ 03.14(일)</span>
-                                                </div>
-                                                <h3 class="h-ty3">전자기기 포럼</h3>
-                                                <p class="tx-1">일반 전시회 설명입니다.일반 전시회 설명입니다.일반 전시회 설명.</p>
-                                            </div>
-                                        </div>                                    
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="swiper-slide">
-                                        <div class="main-sd-item">
-                                            <div class="imgs"><img src="/upload/exhibition/@item1.jpg" alt=""></div>
-                                            <div class="desc">
-                                                <div class="info">
-                                                    <span class="state">진행중</span>
-                                                    <span class="date">03.14(금) ~ 03.14(일)</span>
-                                                </div>
-                                                <h3 class="h-ty3">전자기기 포럼</h3>
-                                                <p class="tx-1">일반 전시회 설명입니다.일반 전시회 설명입니다.일반 전시회 설명.</p>
-                                            </div>
-                                        </div>                                    
-                                    </div>
-                                </div>
+                            <?php endforeach; ?>
                             </div>
                         </div>
                         <div class="swiper-button-next"></div> 
