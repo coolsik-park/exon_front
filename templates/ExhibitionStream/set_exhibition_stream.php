@@ -209,7 +209,6 @@
     });
 
     $("button#tab0").click(function () {
-       
         if ($("input#setting").val() == 1) {
             if ($("input#tab0").val() == 0) {
                 $("input#tab0").val(1);
@@ -331,11 +330,7 @@
                 alert($("button#tab6").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-<<<<<<< HEAD
             $("div#tabContent").load("/exhibition-stream/speaker-menu/" + <?= $exhibitionStream->exhibition_id ?>);
-=======
-            $("div#tabContent").load("/exhibition-stream/question-menu/" + <?= $exhibitionStream->exhibition_id ?>);
->>>>>>> 85afc0d88a36c121135fb9ada89efc86f4771676
         }
     });
 
