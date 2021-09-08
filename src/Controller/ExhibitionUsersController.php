@@ -274,7 +274,7 @@ class ExhibitionUsersController extends AppController
         $this->set(compact('exhibition_users'));
     }
 
-    public function exhibitionUsersStatus($id = null)
+    public function exhibitionUsersStatus($id = null, $email = null)
     {
         $connection = ConnectionManager::get('default');
         $connection->begin();
@@ -283,6 +283,34 @@ class ExhibitionUsersController extends AppController
 
         if ($connection->update('exhibition_users', ['status' => '8'], ['id' => $id])) {
             $connection->commit();
+
+            $mailer = new Mailer();
+            $mailer->setTransport('mailjet');
+
+            $to = $email;
+
+            try {                   
+                // $host = HOST;
+                // $sender = SEND_EMAIL;
+                // $view = new \Cake\View\View($this->request, $this->response);
+                // $view->set(compact('sender')); //이메일 템플릿에 파라미터 전달
+                // $content = $view->element('email/findPw'); //이메일 템블릿 불러오기
+                if ($res = $mailer->setFrom([getEnv('EXON_EMAIL_ADDRESS') => '엑손 관리자'])
+                    ->setEmailFormat('html')
+                    ->setTo($to)
+                    ->setSubject('Exon Test Email')
+                    ->deliver('행사 신청 취소')) 
+                    {
+
+                    } else {
+                        $this->Flash->error(__('The Email could not be delivered.'));
+                    }
+    
+            } catch (Exception $e) {
+                // echo ‘Exception : ’,  $e->getMessage(), “\n”;
+                echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
+            }
+
             $this->Flash->success(__('Your post has been saved.'));
         } else {
             $connection->rollback();
