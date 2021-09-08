@@ -50,7 +50,7 @@
                 <?php
                     $i = 9;
                     foreach ($tabs as $tab) {
-                        echo $this->Form->button($tab->title, ['id' => 'tab' . $i, 'name' => $tab->title, 'type' => 'button']);
+                        echo $this->Form->button($tab->title, ['id' => 'tab' . $i, 'name' => $tab->title, 'type' => 'button']) . ' ';
                         echo $this->Form->control($tab->title, ['id' => 'tab' . $i, 'type' => 'hidden']);
                         $i--;
                     }
@@ -220,7 +220,7 @@
                 alert($("button#tab0").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-            $("div#tabContent").load("/exhibition-stream/exhibition-files/" + <?= $exhibitionStream->exhibition_id ?>);
+            $("div#tabContent").load("/exhibition-stream/set-exhibition-files/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 
@@ -238,7 +238,7 @@
                 alert($("button#tab1").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-            $("div#tabContent").load("/exhibition-stream/exhibition-info/" + <?= $exhibitionStream->exhibition_id ?>);
+            $("div#tabContent").load("/exhibition-stream/set-exhibition-info/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 
@@ -256,7 +256,7 @@
                 alert($("button#tab2").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-            $("div#tabContent").load("/exhibition-stream/founder/" + <?= $exhibitionStream->exhibition_id ?>);
+            $("div#tabContent").load("/exhibition-stream/set-founder/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 
@@ -274,7 +274,7 @@
                 alert($("button#tab3").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-            $("div#tabContent").load("/exhibition-stream/person-in-charge/" + <?= $exhibitionStream->exhibition_id ?>);
+            $("div#tabContent").load("/exhibition-stream/set-person-in-charge/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 
@@ -292,7 +292,7 @@
                 alert($("button#tab4").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-            $("div#tabContent").load("/exhibition-stream/program/" + <?= $exhibitionStream->exhibition_id ?>);
+            $("div#tabContent").load("/exhibition-stream/set-program/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 
@@ -346,7 +346,7 @@
                 alert($("button#tab7").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-            $("div#tabContent").load("/exhibition-stream/notice/" + <?= $exhibitionStream->exhibition_id ?>);
+            $("div#tabContent").load("/exhibition-stream/set-notice/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 
@@ -364,7 +364,7 @@
                 alert($("button#tab8").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-            $("div#tabContent").load("/exhibition-stream/survey/" + <?= $exhibitionStream->exhibition_id ?>);
+            $("div#tabContent").load("/exhibition-stream/set-survey/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 

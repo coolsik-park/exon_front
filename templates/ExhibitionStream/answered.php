@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-answered
-=======
 <div class="column-responsive column-80">
     <div class="exhibitionStream form content"> 
         <table class="table table-bordered" id="dynamic_field"> 
@@ -17,4 +14,3 @@ answered
         </table>
     </div>
 </div>
->>>>>>> 85afc0d88a36c121135fb9ada89efc86f4771676

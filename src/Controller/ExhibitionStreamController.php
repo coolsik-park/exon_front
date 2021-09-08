@@ -213,9 +213,12 @@ class ExhibitionStreamController extends AppController
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
         $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs'));
     }
-    public function speakerMenu ($id = null) 
+
+    public function watchExhibitionStream($id = null) 
     {
-        $this->set(compact('id'));
+        $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $id])->toArray();
+        $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
+        $this->set(compact('exhibitionStream', 'tabs'));
     }
 
     public function questionMenu ($id = null) 
@@ -338,7 +341,7 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('exhibitionUsers'));
     }
 
-    public function personInCharge ($id = null)
+    public function setPersonInCharge ($id = null)
     {
         $Exhibition = $this->getTableLocator()->get('Exhibition');
         $exhibition = $Exhibition->find()->select(['name', 'tel', 'email'])->where(['id' => $id])->toArray();
@@ -346,7 +349,7 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('exhibition'));
     }
 
-    public function founder ($id = null)
+    public function setFounder ($id = null)
     {
         $Exhibition = $this->getTableLocator()->get('Exhibition');
         $users_id = $Exhibition->find()->select(['users_id'])->where(['id' => $id])->toArray()[0]['users_id'];
@@ -357,7 +360,7 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('user'));
     }
 
-    public function exhibitionInfo ($id = null)
+    public function setExhibitionInfo ($id = null)
     {
         $Exhibition = $this->getTableLocator()->get('Exhibition');
         $exhibition = $Exhibition->find()->select(['detail_html'])->where(['id' => $id])->toArray();
@@ -365,7 +368,7 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('exhibition'));
     }
 
-    public function exhibitionFiles ($id = null)
+    public function setExhibitionFiles ($id = null)
     {
         if ($this->request->is('post')) {
             $connection = ConnectionManager::get('default');
@@ -416,7 +419,7 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('id'));
     }
 
-    public function program ($id = null)
+    public function setProgram ($id = null)
     {
         $Exhibition = $this->getTableLocator()->get('Exhibition');
 
@@ -433,7 +436,7 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('id'));
     }
 
-    public function notice ($id = null)
+    public function setNotice ($id = null)
     {
         $Exhibition = $this->getTableLocator()->get('Exhibition');
 
@@ -450,7 +453,7 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('id'));
     }
 
-    public function survey ($id = null)
+    public function setSurvey ($id = null)
     {
         $ExhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey');
         $exhibitionSurveys = $ExhibitionSurvey->find('all', ['contain' => 'ChildExhibitionSurvey'])->where(['exhibition_id' => $id, 'survey_type' => 'N'])->toArray();
@@ -494,6 +497,56 @@ class ExhibitionStreamController extends AppController
             return $response;
         }
         $this->set(compact('groupedSurveys', 'id'));
+    }
+
+    public function answerSurvey($id = null)
+    {
+        $ExhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey');
+        $exhibitionSurveys = $ExhibitionSurvey->find('all')->where(['exhibition_id' => $id, 'is_display' => 'Y'])->toArray();
+        $ExhibitionSurveyUsersAnswer = $this->getTableLocator()->get('ExhibitionSurveyUsersAnswer');
+
+        if ($this->request->is('post')) {
+            $connection = ConnectionManager::get('default');
+            $connection->begin();
+
+            $answerData = $this->request->getData('exhibition_survey_users_answer');
+            $i = 0;
+            $parentId = 0;
+            $whereId = 0;
+            foreach ($exhibitionSurveys as $exhibitionSurvey) {
+
+                if (!$result = $connection->insert('exhibition_survey_users_answer', [
+                    'exhibition_survey_id' => $exhibitionSurvey['id'],
+                    'users_id' => $this->Auth->user('id'),
+                    'text' => $answerData[$i]['text'],
+                    'is_multiple' => $exhibitionSurvey['is_multiple']
+                ])) {
+                    $this->Flash->error(__('The survey answer could not be saved. Please, try again.'));
+                    $connection->rollback();
+                }
+                
+                if ($exhibitionSurvey['parent_id'] == null && $exhibitionSurvey['is_multiple'] == "Y") {
+                    $parentId = $result->lastInsertId();
+                    
+                } else {
+                    
+                    if ($exhibitionSurvey['is_multiple'] == "Y") {
+                        $whereId = $result->lastInsertId();
+
+                        if ($connection->update('exhibition_survey_users_answer', ['parent_id' => $parentId], ['id' => $whereId])) {
+                            $connection->commit();
+                            
+                        } else {
+                            $this->Flash->error(__('The survey answer could not be saved. Please, try again.'));
+                            $connection->rollback();
+                        }
+                    } 
+                }
+                $i++;
+            }
+        }
+
+        $this->set(compact('exhibitionSurveys', 'id'));
     }
 
     // public function setTab()
