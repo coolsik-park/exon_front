@@ -549,6 +549,14 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('exhibitionSurveys', 'id'));
     }
 
+    public function notice($id = null) {
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $exhibition = $Exhibition->find('all')->select(['notice'])->where(['id' => $id])->toArray();
+        $notice = $exhibition[0]['notice'];
+
+        $this->set(compact('notice', 'id'));
+    }
+
     // public function setTab()
     // {
     //     if ($this->request->is('post')) {
