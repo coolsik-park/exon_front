@@ -51,6 +51,10 @@ class ExhibitionSpeakerTable extends Table
             'foreignKey' => 'exhibition_id',
             'joinType' => 'INNER',
         ]);
+
+        $this->hasMany('ExhibitionQuestion', [
+            'foreignKey' => 'target_users_id',
+        ]);
     }
 
     /**

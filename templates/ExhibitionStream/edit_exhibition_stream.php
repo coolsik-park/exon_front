@@ -256,7 +256,7 @@
                 alert($("button#tab2").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-            $("div#tabContent").load("/exhibition-stream/set-founder/" + <?= $exhibitionStream->exhibition_id ?>);
+            $("div#tabContent").load("/exhibition-stream/founder/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 
@@ -274,7 +274,7 @@
                 alert($("button#tab3").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-            $("div#tabContent").load("/exhibition-stream/set-person-in-charge/" + <?= $exhibitionStream->exhibition_id ?>);
+            $("div#tabContent").load("/exhibition-stream/person-in-charge/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 

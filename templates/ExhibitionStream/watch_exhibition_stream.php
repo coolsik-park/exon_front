@@ -25,6 +25,10 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script>
+    $("button#tab6").click(function () {
+        $("div#tabContent").load("/exhibition-stream/set-question/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
+    });
+
     $("button#tab7").click(function () {
         $("div#tabContent").load("/exhibition-stream/notice/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
     });
