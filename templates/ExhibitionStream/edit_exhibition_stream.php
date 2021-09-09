@@ -238,7 +238,7 @@
                 alert($("button#tab1").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-            $("div#tabContent").load("/exhibition-stream/set-exhibition-info/" + <?= $exhibitionStream->exhibition_id ?>);
+            $("div#tabContent").load("/exhibition-stream/exhibition-info/" + <?= $exhibitionStream->exhibition_id ?>);
         }
     });
 

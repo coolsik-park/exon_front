@@ -25,6 +25,22 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script>
+    $("button#tab1").click(function () {
+        $("div#tabContent").load("/exhibition-stream/exhibition-info/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
+    });
+
+    $("button#tab2").click(function () {
+        $("div#tabContent").load("/exhibition-stream/founder/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
+    });
+
+    $("button#tab3").click(function () {
+        $("div#tabContent").load("/exhibition-stream/person-in-charge/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
+    });
+
+    $("button#tab4").click(function () {
+        $("div#tabContent").load("/exhibition-stream/program/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
+    });
+
     $("button#tab5").click(function () {
         window.open('/exhibition-stream/set-attendance/' + <?= $exhibitionStream[0]['exhibition_id'] ?>, '출석체크', 'width=460px,height=140px');
     });

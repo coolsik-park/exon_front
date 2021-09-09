@@ -362,7 +362,7 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('user'));
     }
 
-    public function setExhibitionInfo ($id = null)
+    public function exhibitionInfo ($id = null)
     {
         $Exhibition = $this->getTableLocator()->get('Exhibition');
         $exhibition = $Exhibition->find()->select(['detail_html'])->where(['id' => $id])->toArray();
@@ -644,6 +644,14 @@ class ExhibitionStreamController extends AppController
         }
         
         $this->set(compact('num'));
+    }
+
+    public function program ($id = null) {
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $exhibition = $Exhibition->find('all')->select(['program'])->where(['id' => $id])->toArray();
+        $program = $exhibition[0]['program'];
+
+        $this->set(compact('program', 'id'));
     }
 
     // public function setTab()
