@@ -620,6 +620,32 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('exhibitionSpeakers', 'exhibitionQuestions', 'ExhibitionUsers', 'id', 'current_user_id'));
     }
 
+    //웨비나 종료 시점 이후에 출석 완료 되도록 수정 필요
+    public function setAttendance($id = null)
+    {
+        $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
+        $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id, 'users_id' => $this->Auth->user('id')])->toArray();
+        $exhibition_users_id = $exhibitionUsers[0]['id'];
+        $status = $exhibitionUsers[0]['attend'];
+        $num = 0;
+
+        $exhibitionUsers = $ExhibitionUsers->get($exhibition_users_id);
+
+        if ($status == 1) {
+            $exhibitionUsers->attend = 2;
+            $ExhibitionUsers->save($exhibitionUsers);
+            $num = 2;
+        } else if ($status == 2) {
+            $exhibitionUsers->attend = 4;
+            $ExhibitionUsers->save($exhibitionUsers);
+            $num = 4;
+        } else {
+            $num = 8;
+        }
+        
+        $this->set(compact('num'));
+    }
+
     // public function setTab()
     // {
     //     if ($this->request->is('post')) {

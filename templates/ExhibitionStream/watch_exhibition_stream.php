@@ -25,6 +25,10 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script>
+    $("button#tab5").click(function () {
+        window.open('/exhibition-stream/set-attendance/' + <?= $exhibitionStream[0]['exhibition_id'] ?>, '출석체크', 'width=460px,height=140px');
+    });
+
     $("button#tab6").click(function () {
         $("div#tabContent").load("/exhibition-stream/set-question/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
     });
