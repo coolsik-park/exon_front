@@ -382,7 +382,8 @@ class ExhibitionStreamController extends AppController
                 
                 $exhibitionFiles = $ExhibitionFiles->newEmptyEntity();
                 $exhibitionFiles->exhibition_id = $id;
-
+                $exhibitionFiles->status = 0;
+                $ExhibitionFiles->save($exhibitionFiles);
                 if ($result = $ExhibitionFiles->save($exhibitionFiles)) {
                     $file = $data['file'][$i];
                     $fileName = $file->getClientFilename();
@@ -406,15 +407,12 @@ class ExhibitionStreamController extends AppController
                         
                     } else {
                         $connection->rollback(); 
-                        $this->Flash->error(__('The exhibition files could not be saved.'));
                     }
                 } else {
                     $connection->rollback(); 
-                    $this->Flash->error(__('The exhibition files could not be saved.'));
                 }
             }
             $connection->commit();
-            $this->Flash->success(__('The exhibition speaker has been saved.'));
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
             return $response;
         }
@@ -652,6 +650,41 @@ class ExhibitionStreamController extends AppController
         $program = $exhibition[0]['program'];
 
         $this->set(compact('program', 'id'));
+    }
+    
+    //새창을 생성하지 않고 다운로드 하도록 수정
+    public function exhibitionFiles ($id = null, $file_id = null) 
+    {
+        $ExhibitionFile = $this->getTableLocator()->get('ExhibitionFile');
+        $exhibitionFiles = $ExhibitionFile->find('all')->where(['exhibition_id' => $id])->toArray();
+
+        if ($file_id != null) {
+            $exhibitionFile = $ExhibitionFile->get($file_id);
+            $down = WWW_ROOT . $exhibitionFile->file_path . DS . $exhibitionFile->file_name;
+            
+            if(file_exists($down)) {
+                header("Content-Type:application/octet-stream");
+                header("Content-Disposition:attachment;filename=$exhibitionFile->name");
+                header("Content-Transfer-Encoding:binary");
+                header("Content-Length:".filesize($down));
+                header("Cache-Control:cache,must-revalidate");
+                header("Pragma:no-cache");
+                header("Expires:0");
+                
+                if(is_file($down)){
+                    $fp = fopen($down,"r");
+                    
+                    while(!feof($fp)){
+                        $buf = fread($fp,8096);
+                        $read = strlen($buf);
+                        print($buf);
+                        flush();
+                    }
+                fclose($fp);
+                }
+            }
+        }
+        $this->set(compact('exhibitionFiles', 'id'));
     }
 
     // public function setTab()

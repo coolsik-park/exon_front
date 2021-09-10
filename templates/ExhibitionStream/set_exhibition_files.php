@@ -183,8 +183,8 @@ function uploadFile(){
             formData.append('file[]', fileList[uploadFileList[i]]);
         }
         
-        $.ajax({
-            url: '/exhibition-stream/exhibition-files/' + <?= $id ?>,
+        jQuery.ajax({
+            url: '/exhibition-stream/set-exhibition-files/' + <?= $id ?>,
             processData: false,
             contentType: false,
             cache: false,
