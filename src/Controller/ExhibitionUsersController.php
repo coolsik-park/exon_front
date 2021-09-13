@@ -119,6 +119,34 @@ class ExhibitionUsersController extends AppController
                 }
                 $this->Flash->success(__('The exhibition user has been saved.'));
                 $connection->commit();
+
+                $mailer = new Mailer();
+                $mailer->setTransport('mailjet');
+
+                $to = $this->request->getData('users_email');
+
+                try {                   
+                    // $host = HOST;
+                    // $sender = SEND_EMAIL;
+                    // $view = new \Cake\View\View($this->request, $this->response);
+                    // $view->set(compact('sender')); //이메일 템플릿에 파라미터 전달
+                    // $content = $view->element('email/findPw'); //이메일 템블릿 불러오기
+                    if ($res = $mailer->setFrom([getEnv('EXON_EMAIL_ADDRESS') => '엑손 관리자'])
+                        ->setEmailFormat('html')
+                        ->setTo($to)
+                        ->setSubject('Exon Test Email')
+                        ->deliver('신청 완료 - 참가 대기중')) 
+                        {
+
+                        } else {
+                            $this->Flash->error(__('The Email could not be delivered.'));
+                        }
+        
+                } catch (Exception $e) {
+                    // echo ‘Exception : ’,  $e->getMessage(), “\n”;
+                    echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
+                }
+
                 return $this->redirect(['action' => 'index']);
 
             } else {
