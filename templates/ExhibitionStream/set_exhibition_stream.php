@@ -36,10 +36,10 @@
                     echo $this->Form->button(__('스트림키 발급'));
                     echo $this->Form->control('stream_key', ['label' => '스트림 키']);
                     echo $this->Form->control('url');
-                    echo $this->Form->control('tab', ['type' => 'hidden']);
+                    echo $this->Form->control('tab', ['type' => 'text']);
                     echo $this->Form->control('coupon_amount', ['type' => 'hidden', 'id' => 'coupon']);
-                    echo $this->Form->control('paid', ['type' => 'hidden', 'value' => 0]);
-                    echo $this->Form->control('id', ['type' => 'hidden']);
+                    echo $this->Form->control('paid', ['type' => 'text', 'value' => 0]);
+                    echo $this->Form->control('id', ['type' => 'text']);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
@@ -68,6 +68,11 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script>
+    document.ready(function () {
+        console.log($("#stream_key"));
+    });
+</script>
 <script>
     $("#check_module").click(function () {
         var IMP = window.IMP; 

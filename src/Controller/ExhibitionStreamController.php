@@ -163,7 +163,7 @@ class ExhibitionStreamController extends AppController
                 //스트림 키 생성
                 } else if ($this->request->getData('paid') == 1 && $this->request->getData('stream_key') == 0) {
                     $stream_key = Text::uuid(); //stream_key 생성 -> 스트리밍 api에 따라 변경
-                    $stream_url = 'rtmp://x.rtmp.exon.com/live1'; //stream_url 생성
+                    $stream_url = '1234'; //stream_url 생성
                     $title = $this->request->getData('title');
                     $description = $this->request->getData('description');
                     $time = $this->request->getData('time');
@@ -171,7 +171,7 @@ class ExhibitionStreamController extends AppController
                     $amount = $this->request->getData('amount');
                     $paid = $this->request->getData('paid');
                     $pay_id = $this->request->getData('id');
-                    $tab = $this->reqeust->getData('tab');
+                    $tab = $this->request->getData('tab');
     
                     $stream_data = [
                         'title' => $title,
@@ -217,6 +217,9 @@ class ExhibitionStreamController extends AppController
     public function watchExhibitionStream($id = null) 
     {
         $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $id])->toArray();
+
+        
+        
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
         $this->set(compact('exhibitionStream', 'tabs'));
     }

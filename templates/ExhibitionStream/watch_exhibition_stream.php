@@ -1,6 +1,21 @@
-<div>
-    방송화면
-<div>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.1/video-js.min.css" rel="stylesheet"> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.1/video.min.js"></script>
+    <script src="./videojs-http-streaming.min.js"></script>
+</head>
+<body>
+    <video-js id=vid1 width=600 height=300 class="vjs-default-skin vjs-big-play-centered" controls>
+        <source
+           src="http://121.126.223.225:80/live/abcd/index.m3u8",
+           type= "application/x-mpegURL">
+      </video-js>
+      <script>
+      var player = videojs('vid1');
+      player.play();
+      </script>
+
 <br><br>
 <div>
     <p> 제목 : <?= $exhibitionStream[0]['title'] ?></p>
@@ -22,7 +37,7 @@
     </div>
 </div>
 <div id = "tabContent"></div>
-
+</body>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script>
     $("button#tab0").click(function () {
