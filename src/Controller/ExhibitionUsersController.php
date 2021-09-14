@@ -70,6 +70,7 @@ class ExhibitionUsersController extends AppController
 
         $exhibitionUser = $this->ExhibitionUsers->newEmptyEntity();
         if ($this->request->is('post')) {
+            $exhibitionUser->users_id = $this->Auth->user('id');
             $exhibitionUser->exhibition_id = $id;
             $exhibitionUser->status = 2;
             $exhibitionUser = $this->ExhibitionUsers->patchEntity($exhibitionUser, $this->request->getData());

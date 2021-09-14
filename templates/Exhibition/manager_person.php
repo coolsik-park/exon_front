@@ -49,7 +49,7 @@
                     </td>
                     <td rowspan='5'><?php echo $this->Form->control('', ['options' => ['2' => '참가 대기', '4' => '참가 확정'], 'id' => $exhibition_user->users_email, 'name' => $exhibition_user->id, 'class' => 'selectBox']) ?></td>
                     <td class='actions' rowspan='5'>
-                        <?= $this->Form->postLink(__('취소'), ['action' => 'exhibitionUsersStatus', $exhibition_user->id, $exhibition_user->users_email], ['confirm' => __('Are you sure you want to delete # {0}?', $exhibition_user->id)]) ?>
+                        <?= $this->Form->postLink(__('취소'), ['action' => 'exhibitionUsersStatus', $exhibition_user->id, $exhibition_user->users_email, $exhibition_user->users_id], ['confirm' => __('Are you sure you want to delete # {0}?', $exhibition_user->id)]) ?>
                     </td>
                 </tr>
                 <tr>
