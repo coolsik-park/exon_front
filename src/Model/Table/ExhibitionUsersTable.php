@@ -63,6 +63,7 @@ class ExhibitionUsersTable extends Table
         ]);
         $this->hasMany('ExhibitionQuestion', [
             'foreignKey' => 'exhibition_users_id',
+            'joinType' => 'INNER',
         ]);
 
         $this->addBehavior('Search.Search');

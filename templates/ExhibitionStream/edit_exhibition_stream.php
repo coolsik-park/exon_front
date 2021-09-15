@@ -10,62 +10,126 @@
 <?= $this->Html->link(__('웨비나 송출 설정'), ['controller' => 'ExhibitionStream', 'action' => 'setExhibitionStream', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?> 
 <?= $this->Html->link(__('행사 통계'), ['controller' => 'Exhibition', 'action' => 'ExhibitionStatisticsApply', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?>
 
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Exhibition Stream'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.1/video-js.min.css" rel="stylesheet"> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.1/video.min.js"></script>
+    <script src="./videojs-http-streaming.min.js"></script>
+</head>
+<body>
+    <video-js id=vid1 width=600 height=300 class="vjs-default-skin vjs-big-play-centered" controls>
+        <source src="http://121.126.223.225:80/live/1234/index.m3u8", type= "application/x-mpegURL" id = "source">
+    </video-js>
+    <script>
+    var player = videojs('vid1');
+    player.play();
+    </script>
+    <?php echo $this->Form->button('start', ['id' => 'start']); ?>
+    <?php echo $this->Form->button('end', ['id' => 'end']); ?>
+    <div class="row">
+        <aside class="column">
+            <div class="side-nav">
+                <h4 class="heading"><?= __('Actions') ?></h4>
+                <?= $this->Html->link(__('List Exhibition Stream'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            </div>
+        </aside>
 
-    <div class="column-responsive column-80">
-        <div class="exhibitionStream form content">
-            <?= $this->Form->create($exhibitionStream) ?>
-            <fieldset>
-                <legend><?= __('Add Exhibition Stream') ?></legend>
-                <button id="check_module" type="button">결제</button>
-                <?php
-                    echo $this->Form->control('title', ['label' => '방송 제목']);
-                    echo $this->Form->control('description', ['label' => '방송 설명']);
-                    echo $this->Form->control('time', ['type' => 'select', 'label' => '시간', 'options' => [18000 => 'Half day', 36000 => 'All day']]);
-                    echo $this->Form->control('people', ['type' => 'select', 'label' => '인원수', 'options' => [
-                        50 => '50', 100 => '100', 150 => '150', 200 => '200', 250 => '250', 300 => '300', 350 => '350', 400 => '400', 450 => '450', 500 => '500+']]);
-                    echo $this->Form->control('amount', ['label' => '금액']);
-                    echo $this->Form->control('stream_key', ['label' => '스트림 키']);
-                    echo $this->Form->control('url');
-                    echo $this->Form->control('tab', ['type' => 'hidden']);
-                    echo $this->Form->control('coupon_amount', ['type' => 'hidden', 'id' => 'coupon']);
-                    echo $this->Form->control('paid', ['type' => 'hidden', 'value' => 0]);
-                    echo $this->Form->control('id', ['type' => 'hidden']);
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+        <div class="column-responsive column-80">
+            <div class="exhibitionStream form content">
+                <?= $this->Form->create($exhibitionStream) ?>
+                <fieldset>
+                    <legend><?= __('Add Exhibition Stream') ?></legend>
+                    <button id="check_module" type="button">결제</button>
+                    <?php
+                        echo $this->Form->control('title', ['label' => '방송 제목']);
+                        echo $this->Form->control('description', ['label' => '방송 설명']);
+                        echo $this->Form->control('time', ['type' => 'select', 'label' => '시간', 'options' => [18000 => 'Half day', 36000 => 'All day']]);
+                        echo $this->Form->control('people', ['type' => 'select', 'label' => '인원수', 'options' => [
+                            50 => '50', 100 => '100', 150 => '150', 200 => '200', 250 => '250', 300 => '300', 350 => '350', 400 => '400', 450 => '450', 500 => '500+']]);
+                        echo $this->Form->control('amount', ['label' => '금액']);
+                        echo $this->Form->control('stream_key', ['label' => '스트림 키', 'id' => 'streamKey']);
+                        echo $this->Form->control('url', ['id' => 'videoUri']);
+                        echo $this->Form->control('tab', ['type' => 'hidden']);
+                        echo $this->Form->control('coupon_amount', ['type' => 'hidden', 'id' => 'coupon']);
+                        echo $this->Form->control('paid', ['type' => 'hidden', 'value' => 0]);
+                        echo $this->Form->control('id', ['type' => 'hidden']);
+                    ?>
+                </fieldset>
+                <?= $this->Form->button(__('Submit')) ?>
+                <?= $this->Form->end() ?>
+            </div>
+        </div>
+        <div class="column-responsive column-80">
+            <div class="exhibitionStream form content">
+                <fieldset>
+                    <legend><?= __('Set Exhibition Stream Tab') ?></legend>
+                    <?php
+                        $i = 9;
+                        foreach ($tabs as $tab) {
+                            echo $this->Form->button($tab->title, ['id' => 'tab' . $i, 'name' => $tab->title, 'type' => 'button']) . ' ';
+                            echo $this->Form->control($tab->title, ['id' => 'tab' . $i, 'type' => 'hidden']);
+                            $i--;
+                        }
+                        echo $this->Form->button('setting', ['id' => 'setting']);
+                        echo $this->Form->control('setting', ['id' => 'setting', 'type' => 'hidden']);
+                    ?>
+                </fieldset>
+            </div>
+        </div>
+        <div id = "tabContent">
         </div>
     </div>
-    <div class="column-responsive column-80">
-        <div class="exhibitionStream form content">
-            <fieldset>
-                <legend><?= __('Set Exhibition Stream Tab') ?></legend>
-                <?php
-                    $i = 9;
-                    foreach ($tabs as $tab) {
-                        echo $this->Form->button($tab->title, ['id' => 'tab' . $i, 'name' => $tab->title, 'type' => 'button']);
-                        echo $this->Form->control($tab->title, ['id' => 'tab' . $i, 'type' => 'hidden']);
-                        $i--;
-                    }
-                    echo $this->Form->button('setting', ['id' => 'setting']);
-                    echo $this->Form->control('setting', ['id' => 'setting', 'type' => 'hidden']);
-                ?>
-            </fieldset>
-        </div>
-    </div>
+<<<<<<< HEAD
     <div id = "tabContent">
     </div>
 </div>
 
+=======
+</body>
+>>>>>>> master
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script>
+    // $("#source").attr("src", "http://121.126.223.225:80/live/" + $("#streamKey").val() + "/index.m3u8");
+    $("#start").click(function () {
+        var data = {
+            stream_key: $("#streamKey").val(),
+            video_uri: $("#videoUri").val()
+        }
+        var jsonData = JSON.stringify(data) ;
+
+        jQuery.ajax({
+            url: "http://121.126.223.225:3000/live",
+            method: 'POST',
+            type: 'json',
+            data: jsonData
+        }).done(function (status) {
+            if (status == 200) {
+                alert("방송이 시작되었습니다.");
+            }
+        });
+    });
+
+    $("#end").click(function () {
+        var data = {
+            stream_key: $("#streamKey").val(),
+            video_uri: $("#videoUri").val()
+        }
+        var jsonData = JSON.stringify(data) ;
+
+        jQuery.ajax({
+            url: "http://121.126.223.225:3000/live",
+            method: 'DELETE',
+            type: 'json',
+            data: jsonData
+        }).done(function (status) {
+            if (status == 200) {
+                alert("방송이 종료되었습니다.");
+            }
+        });
+    });
+</script>
 <script>
     $("#check_module").click(function () {
         var IMP = window.IMP; 
@@ -220,7 +284,11 @@
                 alert($("button#tab0").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
+<<<<<<< HEAD
             $("div#tabContent").load("/exhibition-stream/exhibition-files/" + <?= $exhibitionStream->exhibition_id ?>);
+=======
+            $("div#tabContent").load("/exhibition-stream/set-exhibition-files/" + <?= $exhibitionStream->exhibition_id ?>);
+>>>>>>> master
         }
     });
 
@@ -292,7 +360,11 @@
                 alert($("button#tab4").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
+<<<<<<< HEAD
             $("div#tabContent").load("/exhibition-stream/program/" + <?= $exhibitionStream->exhibition_id ?>);
+=======
+            $("div#tabContent").load("/exhibition-stream/set-program/" + <?= $exhibitionStream->exhibition_id ?>);
+>>>>>>> master
         }
     });
 
@@ -346,7 +418,11 @@
                 alert($("button#tab7").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
+<<<<<<< HEAD
             $("div#tabContent").load("/exhibition-stream/notice/" + <?= $exhibitionStream->exhibition_id ?>);
+=======
+            $("div#tabContent").load("/exhibition-stream/set-notice/" + <?= $exhibitionStream->exhibition_id ?>);
+>>>>>>> master
         }
     });
 
@@ -364,7 +440,11 @@
                 alert($("button#tab8").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
+<<<<<<< HEAD
             $("div#tabContent").load("/exhibition-stream/survey/" + <?= $exhibitionStream->exhibition_id ?>);
+=======
+            $("div#tabContent").load("/exhibition-stream/set-survey/" + <?= $exhibitionStream->exhibition_id ?>);
+>>>>>>> master
         }
     });
 

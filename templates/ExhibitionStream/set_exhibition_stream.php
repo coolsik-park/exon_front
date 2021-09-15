@@ -36,10 +36,10 @@
                     echo $this->Form->button(__('스트림키 발급'));
                     echo $this->Form->control('stream_key', ['label' => '스트림 키']);
                     echo $this->Form->control('url');
-                    echo $this->Form->control('tab', ['type' => 'hidden']);
+                    echo $this->Form->control('tab', ['type' => 'text']);
                     echo $this->Form->control('coupon_amount', ['type' => 'hidden', 'id' => 'coupon']);
-                    echo $this->Form->control('paid', ['type' => 'hidden', 'value' => 0]);
-                    echo $this->Form->control('id', ['type' => 'hidden']);
+                    echo $this->Form->control('paid', ['type' => 'text', 'value' => 0]);
+                    echo $this->Form->control('id', ['type' => 'text']);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
@@ -53,7 +53,7 @@
                 <?php
                     $i = 9;
                     foreach ($tabs as $tab) {
-                        echo $this->Form->button($tab->title, ['id' => 'tab' . $i, 'name' => $tab->title, 'type' => 'button']);
+                        echo $this->Form->button($tab->title, ['id' => 'tab' . $i, 'name' => $tab->title, 'type' => 'button']). ' ';
                         echo $this->Form->control($tab->title, ['id' => 'tab' . $i, 'type' => 'hidden']);
                         $i--;
                     }
@@ -63,12 +63,16 @@
             </fieldset>
         </div>
     </div>
-    <div id = "tabContent">
-    </div>
+    <div id = "tabContent"></div>
 </div>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script>
+    document.ready(function () {
+        console.log($("#stream_key"));
+    });
+</script>
 <script>
     $("#check_module").click(function () {
         var IMP = window.IMP; 
@@ -209,7 +213,6 @@
     });
 
     $("button#tab0").click(function () {
-       
         if ($("input#setting").val() == 1) {
             if ($("input#tab0").val() == 0) {
                 $("input#tab0").val(1);
@@ -223,7 +226,11 @@
                 alert($("button#tab0").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
+<<<<<<< HEAD
             $("div#tabContent").load("/exhibition-stream/exhibition-files/" + <?= $exhibitionStream->exhibition_id ?>);
+=======
+            $("div#tabContent").load("/exhibition-stream/set-exhibition-files/" + <?= $exhibitionStream->exhibition_id ?>);
+>>>>>>> master
         }
     });
 
@@ -295,7 +302,11 @@
                 alert($("button#tab4").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
+<<<<<<< HEAD
             $("div#tabContent").load("/exhibition-stream/program/" + <?= $exhibitionStream->exhibition_id ?>);
+=======
+            $("div#tabContent").load("/exhibition-stream/set-program/" + <?= $exhibitionStream->exhibition_id ?>);
+>>>>>>> master
         }
     });
 
@@ -332,10 +343,14 @@
             }
         } else {
 <<<<<<< HEAD
+<<<<<<< HEAD
             $("div#tabContent").load("/exhibition-stream/speaker-menu/" + <?= $exhibitionStream->exhibition_id ?>);
 =======
             $("div#tabContent").load("/exhibition-stream/question-menu/" + <?= $exhibitionStream->exhibition_id ?>);
 >>>>>>> 85afc0d88a36c121135fb9ada89efc86f4771676
+=======
+            $("div#tabContent").load("/exhibition-stream/question-menu/" + <?= $exhibitionStream->exhibition_id ?>);
+>>>>>>> master
         }
     });
 
@@ -353,7 +368,11 @@
                 alert($("button#tab7").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
+<<<<<<< HEAD
             $("div#tabContent").load("/exhibition-stream/notice/" + <?= $exhibitionStream->exhibition_id ?>);
+=======
+            $("div#tabContent").load("/exhibition-stream/set-notice/" + <?= $exhibitionStream->exhibition_id ?>);
+>>>>>>> master
         }
     });
 
@@ -371,7 +390,11 @@
                 alert($("button#tab8").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
+<<<<<<< HEAD
             $("div#tabContent").load("/exhibition-stream/survey/" + <?= $exhibitionStream->exhibition_id ?>);
+=======
+            $("div#tabContent").load("/exhibition-stream/set-survey/" + <?= $exhibitionStream->exhibition_id ?>);
+>>>>>>> master
         }
     });
 

@@ -1,5 +1,4 @@
 <div>
-<<<<<<< HEAD
     <?= $this->Form->create()?>
     <?php echo $this->Form->control('program', ['type' => 'textarea']); ?>
     <?= $this->Form->end() ?>
@@ -25,7 +24,3 @@
         });
     });
 </script>
-=======
-    <?= $this->Text->autoParagraph($program) ?>
-</div>
->>>>>>> master

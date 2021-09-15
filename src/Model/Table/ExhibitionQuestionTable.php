@@ -12,7 +12,6 @@ use Cake\Validation\Validator;
  * ExhibitionQuestion Model
  *
  * @property \App\Model\Table\ExhibitionUsersTable&\Cake\ORM\Association\BelongsTo $ExhibitionUsers
- * @property \App\Model\Table\ExhibitionUsersTable&\Cake\ORM\Association\BelongsTo $ExhibitionUsers
  * @property \App\Model\Table\ExhibitionQuestionTable&\Cake\ORM\Association\BelongsTo $ParentExhibitionQuestion
  * @property \App\Model\Table\ExhibitionQuestionTable&\Cake\ORM\Association\HasMany $ChildExhibitionQuestion
  *
@@ -54,8 +53,13 @@ class ExhibitionQuestionTable extends Table
             'foreignKey' => 'exhibition_users_id',
             'joinType' => 'INNER',
         ]);
+<<<<<<< HEAD
         $this->belongsTo('ExhibitionUsers', [
             'foreignKey' => 'exhibition_users_id',
+=======
+        $this->belongsTo('ExhibitionSpeaker', [
+            'foreignKey' => 'target_users_id',
+>>>>>>> master
         ]);
         $this->belongsTo('ParentExhibitionQuestion', [
             'className' => 'ExhibitionQuestion',
@@ -102,7 +106,7 @@ class ExhibitionQuestionTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['exhibition_users_id'], 'ExhibitionUsers'), ['errorField' => 'exhibition_users_id']);
-        $rules->add($rules->existsIn(['target_users_id'], 'ExhibitionUsers'), ['errorField' => 'target_users_id']);
+        $rules->add($rules->existsIn(['target_users_id'], 'ExhibitionSpeaker'), ['errorField' => 'target_users_id']);
         $rules->add($rules->existsIn(['parent_id'], 'ParentExhibitionQuestion'), ['errorField' => 'parent_id']);
 
         return $rules;

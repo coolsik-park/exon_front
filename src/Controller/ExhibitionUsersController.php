@@ -7,6 +7,7 @@ use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
 use Cake\Datasource\ConnectionManager;
 use Cake\I18n\FrozenTime;
+use Iamport;
 
 /**
  * ExhibitionUsers Controller
@@ -70,6 +71,7 @@ class ExhibitionUsersController extends AppController
 
         $exhibitionUser = $this->ExhibitionUsers->newEmptyEntity();
         if ($this->request->is('post')) {
+            $exhibitionUser->users_id = $this->Auth->user('id');
             $exhibitionUser->exhibition_id = $id;
             $exhibitionUser->status = 2;
             $exhibitionUser = $this->ExhibitionUsers->patchEntity($exhibitionUser, $this->request->getData());
@@ -119,6 +121,34 @@ class ExhibitionUsersController extends AppController
                 }
                 $this->Flash->success(__('The exhibition user has been saved.'));
                 $connection->commit();
+
+                $mailer = new Mailer();
+                $mailer->setTransport('mailjet');
+
+                $to = $this->request->getData('users_email');
+
+                try {                   
+                    // $host = HOST;
+                    // $sender = SEND_EMAIL;
+                    // $view = new \Cake\View\View($this->request, $this->response);
+                    // $view->set(compact('sender')); //이메일 템플릿에 파라미터 전달
+                    // $content = $view->element('email/findPw'); //이메일 템블릿 불러오기
+                    if ($res = $mailer->setFrom([getEnv('EXON_EMAIL_ADDRESS') => '엑손 관리자'])
+                        ->setEmailFormat('html')
+                        ->setTo($to)
+                        ->setSubject('Exon Test Email')
+                        ->deliver('신청 완료 - 참가 대기중')) 
+                        {
+
+                        } else {
+                            $this->Flash->error(__('The Email could not be delivered.'));
+                        }
+        
+                } catch (Exception $e) {
+                    // echo ‘Exception : ’,  $e->getMessage(), “\n”;
+                    echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
+                }
+
                 return $this->redirect(['action' => 'index']);
 
             } else {
@@ -130,7 +160,7 @@ class ExhibitionUsersController extends AppController
         $exhibitionGroup = $this->ExhibitionUsers->ExhibitionGroup->find('list', ['keyField' => 'id', 'valueField' => 'name'])->where(['exhibition_id' => $id]);
         $pay = $this->ExhibitionUsers->Pay->find('list', ['limit' => 200]);
         $exhibitionSurveys = $this->getTableLocator()->get('ExhibitionSurvey')->find('all')->where(['exhibition_id' => $id]);
-        $this->set(compact('exhibitionUser', 'exhibition', 'exhibitionGroup', 'pay', 'exhibitionSurveys'));
+        $this->set(compact('exhibitionUser', 'exhibition', 'exhibitionGroup', 'pay', 'exhibitionSurveys', 'id'));
     }
 
     /**
@@ -274,16 +304,75 @@ class ExhibitionUsersController extends AppController
         $this->set(compact('exhibition_users'));
     }
 
-    public function exhibitionUsersStatus($id = null)
+    public function exhibitionUsersStatus($id = null, $email = null, $pay_id = null)
     {
         $connection = ConnectionManager::get('default');
         $connection->begin();
 
         $exhibition_user = $this->ExhibitionUsers->get($id);
 
-        if ($connection->update('exhibition_users', ['status' => '8'], ['id' => $id])) {
-            $connection->commit();
-            $this->Flash->success(__('Your post has been saved.'));
+        if($connection->update('exhibition_users', ['status' => '8'], ['id' => $id])) {
+
+            $Pay = $this->getTableLocator()->get('Pay');
+            $pay = $Pay->get($pay_id);
+            
+            require_once("iamport-rest-client-php/src/iamport.php");
+            
+            $iamport = new Iamport(getEnv('IAMPORT_API_KEY'), getEnv('IAMPORT_API_SECRET'));
+
+            $result = $iamport->cancel(array(
+                'imp_uid'		=> $pay->imp_uid, 		
+                'merchant_uid'	=> $pay->merchant_uid, 	
+                'amount' 		=> 0,				
+                'reason'		=> '행사 이용자 취소',			
+            ));
+            if ( $result->success ) {
+            
+                $payment_data = $result->data;
+                $now = FrozenTime::now();
+                
+                $pay->cancel_reason = '행사 이용자 취소';
+                $pay->cancel_date = $now->i18nFormat('yyyy-MM-dd HH:mm:ss');
+                
+                if ($Pay->save($pay)) {
+                    $connection->commit();
+
+                    $mailer = new Mailer();
+                    $mailer->setTransport('mailjet');
+
+                    $to = $email;
+
+                    try {                   
+                        // $host = HOST;
+                        // $sender = SEND_EMAIL;
+                        // $view = new \Cake\View\View($this->request, $this->response);
+                        // $view->set(compact('sender')); //이메일 템플릿에 파라미터 전달
+                        // $content = $view->element('email/findPw'); //이메일 템블릿 불러오기
+                        if ($res = $mailer->setFrom([getEnv('EXON_EMAIL_ADDRESS') => '엑손 관리자'])
+                            ->setEmailFormat('html')
+                            ->setTo($to)
+                            ->setSubject('Exon Test Email')
+                            ->deliver('행사취소, 취소금액 : ' . $payment_data->cancel_amount)) 
+                            {
+
+                            } else {
+                                $this->Flash->error(__('The Email could not be delivered.'));
+                            }
+            
+                    } catch (Exception $e) {
+                        // echo ‘Exception : ’,  $e->getMessage(), “\n”;
+                        echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
+                    }
+                    $this->Flash->success(__('Your post has been saved and email delivered'));
+                
+                } else {
+                    $this->Flash->error(__('Pay could not be saved'));
+                }
+                
+            } else {
+                $this->Flash->error(__('The payment could not be canceled.'));
+            }
+        
         } else {
             $connection->rollback();
             $this->Flash->error(__('Unable to add you post.'));

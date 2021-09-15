@@ -12,6 +12,11 @@ use Cake\Event\EventInterface;
 use Cake\I18n\FrozenTime;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+<<<<<<< HEAD
+=======
+use Iamport;
+
+>>>>>>> master
 
 /**
  * Exhibition Controller
@@ -312,7 +317,7 @@ class ExhibitionController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function exhibitionUsersStatus($id = null)
+    public function exhibitionUsersStatus($id = null, $email = null, $pay_id = null)
     {
         $connection = ConnectionManager::get('default');
         $connection->begin();
@@ -321,8 +326,68 @@ class ExhibitionController extends AppController
         $exhibition_user = $exhibition_users_table->get($id);
 
         if($connection->update('exhibition_users', ['status' => '8'], ['id' => $id])) {
-            $connection->commit();
-            $this->Flash->success(__('Your post has been saved.'));
+
+            $Pay = $this->getTableLocator()->get('Pay');
+            $pay = $Pay->get($pay_id);
+            
+            require_once("iamport-rest-client-php/src/iamport.php");
+            
+            $iamport = new Iamport(getEnv('IAMPORT_API_KEY'), getEnv('IAMPORT_API_SECRET'));
+
+            $result = $iamport->cancel(array(
+                'imp_uid'		=> $pay->imp_uid, 		
+                'merchant_uid'	=> $pay->merchant_uid, 	
+                'amount' 		=> 0,				
+                'reason'		=> '행사 관리자 취소',			
+            ));
+            if ( $result->success ) {
+            
+                $payment_data = $result->data;
+                $now = FrozenTime::now();
+                
+
+                $pay->cancel_reason = '행사 관리자 취소';
+                $pay->cancel_date = $now->i18nFormat('yyyy-MM-dd HH:mm:ss');
+                
+                if ($Pay->save($pay)) {
+                    $connection->commit();
+
+                    $mailer = new Mailer();
+                    $mailer->setTransport('mailjet');
+
+                    $to = $email;
+
+                    try {                   
+                        // $host = HOST;
+                        // $sender = SEND_EMAIL;
+                        // $view = new \Cake\View\View($this->request, $this->response);
+                        // $view->set(compact('sender')); //이메일 템플릿에 파라미터 전달
+                        // $content = $view->element('email/findPw'); //이메일 템블릿 불러오기
+                        if ($res = $mailer->setFrom([getEnv('EXON_EMAIL_ADDRESS') => '엑손 관리자'])
+                            ->setEmailFormat('html')
+                            ->setTo($to)
+                            ->setSubject('Exon Test Email')
+                            ->deliver('행사취소, 취소금액 : ' . $payment_data->cancel_amount)) 
+                            {
+
+                            } else {
+                                $this->Flash->error(__('The Email could not be delivered.'));
+                            }
+            
+                    } catch (Exception $e) {
+                        // echo ‘Exception : ’,  $e->getMessage(), “\n”;
+                        echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
+                    }
+                    $this->Flash->success(__('Your post has been saved and email delivered'));
+                
+                } else {
+                    $this->Flash->error(__('Pay could not be saved'));
+                }
+                
+            } else {
+                $this->Flash->error(__('The payment could not be canceled.'));
+            }
+        
         } else {
             $connection->rollback();
             $this->Flash->error(__('Unable to add you post.'));
@@ -344,6 +409,34 @@ class ExhibitionController extends AppController
 
         if($connection->update('exhibition_users', ['status' => $status], ['id' => $id])) {
             $connection->commit();
+
+            $mailer = new Mailer();
+            $mailer->setTransport('mailjet');
+
+            $to = $this->request->getData('email');
+
+            try {                   
+                // $host = HOST;
+                // $sender = SEND_EMAIL;
+                // $view = new \Cake\View\View($this->request, $this->response);
+                // $view->set(compact('sender')); //이메일 템플릿에 파라미터 전달
+                // $content = $view->element('email/findPw'); //이메일 템블릿 불러오기
+                if ($res = $mailer->setFrom([getEnv('EXON_EMAIL_ADDRESS') => '엑손 관리자'])
+                    ->setEmailFormat('html')
+                    ->setTo($to)
+                    ->setSubject('Exon Test Email')
+                    ->deliver('행사신청 - 참가 확정')) 
+                    {
+
+                    } else {
+                        $this->Flash->error(__('The Email could not be delivered.'));
+                    }
+    
+            } catch (Exception $e) {
+                // echo ‘Exception : ’,  $e->getMessage(), “\n”;
+                echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
+            }
+
             $this->Flash->success(__('Your post has been saved.'));
         } else {
             $connection->rollback();
@@ -493,6 +586,7 @@ class ExhibitionController extends AppController
     public function surveyData($id = null)
     {
         $exhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey')->find('all', ['contain' => ['ChildExhibitionSurvey', 'ExhibitionSurveyUsersAnswer']]);
+<<<<<<< HEAD
 
         //사전설문 데이터
 
@@ -528,6 +622,43 @@ class ExhibitionController extends AppController
 
         $exhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey')->find('all', ['contain' => ['ChildExhibitionSurvey', 'ExhibitionSurveyUsersAnswer']]);
 
+=======
+
+        //사전설문 데이터
+
+        $exhibitionSurveys = $exhibitionSurvey
+            ->select(['ExhibitionSurvey.id', 'ExhibitionSurvey.parent_id', 'ExhibitionSurvey.text', 'ExhibitionSurvey.is_multiple', 
+                'ExhibitionSurveyUsersAnswer.text', 'ExhibitionSurvey.survey_type', 'count' => $exhibitionSurvey->func()->count('ExhibitionSurveyUsersAnswer.text')])
+            ->leftJoinWith('ExhibitionSurveyUsersAnswer', function ($q) {
+                return $q->where(['ExhibitionSurveyUsersAnswer.text' => 'Y']);
+            })
+            ->group('ExhibitionSurvey.id')
+            ->where(['exhibition_id' => $id, 'survey_type' => 'B'])
+            ->toArray();
+        
+        $parent_id = 0;
+        $i = 0;
+        $j = 0;
+        $beforeParentData[] = null;
+        $beforeChildData[] = null;
+        foreach ($exhibitionSurveys as $exhibitionSurvey) {
+            if ($exhibitionSurvey['parent_id'] == null) {
+                $parent_id = $exhibitionSurvey['id'];
+                $beforeParentData[$i] = $exhibitionSurvey;
+                $i++;
+            } else {
+                if ($exhibitionSurvey['parent_id'] == $parent_id) {
+                    $beforeChildData[$parent_id][$j] = $exhibitionSurvey;
+                    $j++;
+                }
+            }
+        }
+        
+        //일반설문 데이터
+
+        $exhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey')->find('all', ['contain' => ['ChildExhibitionSurvey', 'ExhibitionSurveyUsersAnswer']]);
+
+>>>>>>> master
         $exhibitionSurveys = $exhibitionSurvey
             ->select(['ExhibitionSurvey.id', 'ExhibitionSurvey.parent_id', 'ExhibitionSurvey.text', 'ExhibitionSurvey.is_multiple', 
                 'ExhibitionSurveyUsersAnswer.text', 'ExhibitionSurvey.survey_type', 'count' => $exhibitionSurvey->func()->count('ExhibitionSurveyUsersAnswer.text')])
@@ -575,6 +706,7 @@ class ExhibitionController extends AppController
                 $spreadsheet->createSheet();
             }
 
+<<<<<<< HEAD
             for ($i = 0; $i < $count; $i++) {
                 $spreadsheet->setActiveSheetIndex($i)
                 ->setTitle('질문' . ($i+1))
@@ -586,6 +718,110 @@ class ExhibitionController extends AppController
                 ->setCellValue('D1', '질문' . ($i+1));
             }
 
+=======
+
+            $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
+            $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id])->toArray();
+            $rowCount = count($exhibitionUsers);
+
+            $ExhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey');
+            $ExhibitionSurveyUsersAnswer = $this->getTableLocator()->get('ExhibitionSurveyUsersAnswer');
+
+            $exhibitionSurvey = $ExhibitionSurvey->find('all', [
+                'conditions' => [
+                    'or' => [
+                        'id IN' => $data,
+                        'parent_id IN' => $data
+                    ]
+                ]
+            ])->select(['id'])->toArray();
+
+            $checkedCount = count($exhibitionSurvey);
+            for ($i = 0; $i < $checkedCount; $i++) {
+                $checked[$i] = $exhibitionSurvey[$i]['id'];
+            }
+
+            $answered[] = '';
+            for ($i = 0; $i < $rowCount; $i++) {
+                
+                $exhibitionSurveyUsersAnswer = $ExhibitionSurveyUsersAnswer->find('all', [
+                    'conditions' => [
+                        'text IS NOT' => 'question',
+                        'exhibition_survey_id IN' => $checked,
+                        'or' => [
+                            'text' => 'Y',
+                            'text IS NOT' => ''
+                        ]
+                    ]
+                ])->where(['users_id' => $exhibitionUsers[$i]['users_id']])->toArray();
+                
+                $answerCount = count($exhibitionSurveyUsersAnswer);
+                
+                if ($answerCount != 0) {
+                    for ($j = 0; $j < $answerCount; $j++) {
+                        
+                        if ($exhibitionSurveyUsersAnswer[$j]['text'] == 'Y') {
+                            $answered[$j] = (int)$exhibitionSurveyUsersAnswer[$j]['exhibition_survey_id'];
+                            
+                        } else {
+                            $answered[$j] = $exhibitionSurveyUsersAnswer[$j]['text'];
+                        }
+                    } 
+                } else {
+                    $answered[0] = '';
+                }
+            
+
+                $answerData[$i] = [
+                    'users_id' => $exhibitionUsers[$i]['users_id'],
+                    'answered' => $answered 
+                ];
+            }
+            
+            for ($i = 0; $i < $count; $i++) {
+                $exhibitionSurvey = $ExhibitionSurvey->find('all')->where(['id' => $data[$i]])->toArray();
+                $question = $exhibitionSurvey[0]['text'];
+
+                $spreadsheet->setActiveSheetIndex($i)
+                ->setTitle($question)
+                ->setCellValue('A1', '');
+
+                $spreadsheet->setActiveSheetIndex($i)
+                ->getColumnDimension('C')->setWidth(30);	
+
+                $spreadsheet->setActiveSheetIndex($i)
+                ->getColumnDimension('D')->setWidth(30);
+
+                $spreadsheet->getActiveSheet($i)
+                ->setCellValue('B1', '이름')
+                ->setCellValue('C1', '이메일')
+                ->setCellValue('D1', $question);
+
+                for ($j = 0; $j < $rowCount; $j++) {
+                        $spreadsheet->getActiveSheet($i)
+                        ->setCellValue('A' . ($j+2), ($j+1))
+                        ->setCellValue('B' . ($j+2), $exhibitionUsers[$j]['users_name'])
+                        ->setCellValue('C' . ($j+2), $exhibitionUsers[$j]['users_email']);           
+                }
+                for ($j = 0; $j < $rowCount; $j++) {
+                    if ($answerData[$j]['answered'][0] == '') {
+                        $spreadsheet->getActiveSheet($i)
+                        ->setCellValue('D' . ($j+2), '');
+                    } else {
+                        if (is_int($answerData[$j]['answered'][$i])) {
+                            $text = $ExhibitionSurvey->find()->select(['text'])->where(['id' => $answerData[$j]['answered'][$i]])->toArray();
+                            $text = $text[0]['text'];
+                        } else {
+                            $text = $answerData[$j]['answered'][$i];
+                        }
+                        
+                        $spreadsheet->getActiveSheet($i)
+                        ->setCellValue('D' . ($j+2), $text);
+                    }
+                }
+            }
+            
+>>>>>>> master
             $path = 'download' . DS . 'exhibition' . DS . date("Y") . DS . date("m");
         
             if (!file_exists(WWW_ROOT . $path)) {

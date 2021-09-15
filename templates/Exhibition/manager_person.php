@@ -47,9 +47,9 @@
                             }
                         ?>
                     </td>
-                    <td rowspan='5'><?php echo $this->Form->control('', ['options' => ['2' => '참가 대기', '4' => '참가 확정'], 'id' => 'selectBox', 'name' => 'selectBox']) ?></td>
+                    <td rowspan='5'><?php echo $this->Form->control('', ['options' => ['2' => '참가 대기', '4' => '참가 확정'], 'id' => $exhibition_user->users_email, 'name' => $exhibition_user->id, 'class' => 'selectBox']) ?></td>
                     <td class='actions' rowspan='5'>
-                        <?= $this->Form->postLink(__('취소'), ['action' => 'exhibitionUsersStatus', $exhibition_user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $exhibition_user->id)]) ?>
+                        <?= $this->Form->postLink(__('취소'), ['action' => 'exhibitionUsersStatus', $exhibition_user->id, $exhibition_user->users_email, $exhibition_user->pay_id], ['confirm' => __('Are you sure you want to delete # {0}?', $exhibition_user->id)]) ?>
                     </td>
                 </tr>
                 <tr>
@@ -87,17 +87,19 @@
     </div>
 </div>
 <script>
-    $("select[name=selectBox]").on('change', function() {
-        var value = $("#selectBox").val();
-        var id = <?= $exhibition_user->id ?>;
+    $("select[class=selectBox]").on('change', function() {
+        var value = $(this).val();
+        var id = $(this).attr('name');
+        var email = $(this).attr('id');
         $.ajax({
             url: "http://121.126.223.225:8000/exhibition/exhibition-users-approval",
             method: 'POST',
-                type: 'json',
-                data: {
-                    id: id,
-                    status: value
-                }
+            type: 'json',
+            data: {
+                id: id,
+                status: value,
+                email: email,
+            }
         })
     });
 
