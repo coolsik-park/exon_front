@@ -314,86 +314,83 @@ class ExhibitionController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function exhibitionUsersStatus($id = null, $email = null, $users_id = null)
+    public function exhibitionUsersStatus($id = null, $email = null, $pay_id = null)
     {
-        // $connection = ConnectionManager::get('default');
-        // $connection->begin();
+        $connection = ConnectionManager::get('default');
+        $connection->begin();
 
-        // $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
-        // $exhibition_user = $exhibition_users_table->get($id);
+        $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
+        $exhibition_user = $exhibition_users_table->get($id);
 
-        // if($connection->update('exhibition_users', ['status' => '8'], ['id' => $id])) {
-        //     $connection->commit();
+        if($connection->update('exhibition_users', ['status' => '8'], ['id' => $id])) {
 
-        //     $mailer = new Mailer();
-        //     $mailer->setTransport('mailjet');
-
-        //     $to = $email;
-
-        //     try {                   
-        //         // $host = HOST;
-        //         // $sender = SEND_EMAIL;
-        //         // $view = new \Cake\View\View($this->request, $this->response);
-        //         // $view->set(compact('sender')); //이메일 템플릿에 파라미터 전달
-        //         // $content = $view->element('email/findPw'); //이메일 템블릿 불러오기
-        //         if ($res = $mailer->setFrom([getEnv('EXON_EMAIL_ADDRESS') => '엑손 관리자'])
-        //             ->setEmailFormat('html')
-        //             ->setTo($to)
-        //             ->setSubject('Exon Test Email')
-        //             ->deliver('행사취소')) 
-        //             {
-
-        //             } else {
-        //                 $this->Flash->error(__('The Email could not be delivered.'));
-        //             }
-    
-        //     } catch (Exception $e) {
-        //         // echo ‘Exception : ’,  $e->getMessage(), “\n”;
-        //         echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
-        //     }
-
-            // $Pay = $this->getTableLocator()->get('Pay');
-            // $pay = $Pay->find('all')->where(['users_id' => $users_id])->toArray();
-            // debug($pay);
+            $Pay = $this->getTableLocator()->get('Pay');
+            $pay = $Pay->get($pay_id);
+            
             require_once("iamport-rest-client-php/src/iamport.php");
             
-            $iamport = new Iamport('4602716653128276', 'HbTKxkGXZHeKSRlrcyG0MtGgNAtbcf7Tr1EYlkVl1a5U2rle02fMwW2jwwuJLCCdDhbZB7lDhrxkTTzT');
+            $iamport = new Iamport(getEnv('IAMPORT_API_KEY'), getEnv('IAMPORT_API_SECRET'));
 
-            #3. 주문취소
             $result = $iamport->cancel(array(
-                'imp_uid'		=> 'imp_739187757042', 		//merchant_uid에 우선한다
-                'merchant_uid'	=> 'merchant_1631623185386', 	//imp_uid 또는 merchant_uid가 지정되어야 함
-                'amount' 		=> 0,					//amount가 생략되거나 0이면 전액취소. 금액지정이면 부분취소(PG사 정책별, 결제수단별로 부분취소가 불가능한 경우도 있음)
-                'reason'		=> '행사 관리자 취소',			//취소사유
+                'imp_uid'		=> $pay->imp_uid, 		
+                'merchant_uid'	=> $pay->merchant_uid, 	
+                'amount' 		=> 0,				
+                'reason'		=> '행사 관리자 취소',			
             ));
             if ( $result->success ) {
-                /**
-                *	IamportPayment 를 가리킵니다. __get을 통해 API의 Payment Model의 값들을 모두 property처럼 접근할 수 있습니다.
-                *	참고 : https://api.iamport.kr/#!/payments/cancelPayment 의 Response Model
-                */
+            
                 $payment_data = $result->data;
+                $now = FrozenTime::now();
+                
 
-                echo '## 취소후 결제정보 출력 ##';
-                echo '결제상태 : ' 		. $payment_data->status;
-                echo '결제금액 : ' 		. $payment_data->amount;
-                echo '취소금액 : ' 		. $payment_data->cancel_amount;
-                echo '결제수단 : ' 		. $payment_data->pay_method;
-                echo '결제된 카드사명 : ' 	. $payment_data->card_name;
-                echo '결제(취소) 매출전표 링크 : '	. $payment_data->receipt_url;
-                //등등 __get을 선언해 놓고 있어 API의 Payment Model의 값들을 모두 property처럼 접근할 수 있습니다.
+                $pay->cancel_reason = '행사 관리자 취소';
+                $pay->cancel_date = $now->i18nFormat('yyyy-MM-dd HH:mm:ss');
+                
+                if ($Pay->save($pay)) {
+                    $connection->commit();
+
+                    $mailer = new Mailer();
+                    $mailer->setTransport('mailjet');
+
+                    $to = $email;
+
+                    try {                   
+                        // $host = HOST;
+                        // $sender = SEND_EMAIL;
+                        // $view = new \Cake\View\View($this->request, $this->response);
+                        // $view->set(compact('sender')); //이메일 템플릿에 파라미터 전달
+                        // $content = $view->element('email/findPw'); //이메일 템블릿 불러오기
+                        if ($res = $mailer->setFrom([getEnv('EXON_EMAIL_ADDRESS') => '엑손 관리자'])
+                            ->setEmailFormat('html')
+                            ->setTo($to)
+                            ->setSubject('Exon Test Email')
+                            ->deliver('행사취소, 취소금액 : ' . $payment_data->cancel_amount)) 
+                            {
+
+                            } else {
+                                $this->Flash->error(__('The Email could not be delivered.'));
+                            }
+            
+                    } catch (Exception $e) {
+                        // echo ‘Exception : ’,  $e->getMessage(), “\n”;
+                        echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
+                    }
+                    $this->Flash->success(__('Your post has been saved and email delivered'));
+                
+                } else {
+                    $this->Flash->error(__('Pay could not be saved'));
+                }
+                
             } else {
-                error_log($result->error['code']);
-                error_log($result->error['message']);
+                $this->Flash->error(__('The payment could not be canceled.'));
             }
-
-        //     $this->Flash->success(__('Your post has been saved and email delivered'));
         
-        // } else {
-        //     $connection->rollback();
-        //     $this->Flash->error(__('Unable to add you post.'));
-        // }
+        } else {
+            $connection->rollback();
+            $this->Flash->error(__('Unable to add you post.'));
+        }
 
-        // return $this->redirect(['action' => 'managerPerson', $exhibition_user->exhibition_id]);
+        return $this->redirect(['action' => 'managerPerson', $exhibition_user->exhibition_id]);
     }
 
     public function exhibitionUsersApproval($id = null, $status = null)

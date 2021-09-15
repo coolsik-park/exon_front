@@ -75,7 +75,7 @@
                         <?php 
                             $today = new DateTime();
                             if ($today < $exhibition_user->exhibition['sdate']) {
-                                echo $this->Form->postLink(__('취소'), ['action' => 'exhibition_users_status', $exhibition_user->id, $exhibition_user->users_email], ['confirm' => __('Are you sure you want to delete # {0}?', $exhibition_user->id)]);
+                                echo $this->Form->postLink(__('취소'), ['action' => 'exhibition_users_status', $exhibition_user->id, $exhibition_user->users_email, $exhibition_user->pay_id], ['confirm' => __('Are you sure you want to delete # {0}?', $exhibition_user->id)]);
                             } elseif ($today > $exhibition_user->exhibition['edate']) {
                                 echo('종료된 행사입니다.');
                             } else {
