@@ -690,237 +690,237 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('exhibitionFiles', 'id'));
     }
 
-    public function questionMenu ($id = null) 
-    {
-        $this->set(compact('id'));
-    }
+    // // public function questionMenu ($id = null) 
+    // // {
+    // //     $this->set(compact('id'));
+    // // }
 
-    public function setSpeaker ($id = null)
-    {
-        $connection = ConnectionManager::get('default');
-        $connection->begin();
+    // // public function setSpeaker ($id = null)
+    // // {
+    // //     $connection = ConnectionManager::get('default');
+    // //     $connection->begin();
 
-        $ExhibitionSpeaker = $this->getTableLocator()->get('ExhibitionSpeaker');
+    // //     $ExhibitionSpeaker = $this->getTableLocator()->get('ExhibitionSpeaker');
     
-        $displayes = $ExhibitionSpeaker->find('all')->where(['exhibition_id' => $id])->toArray();
+    // //     $displayes = $ExhibitionSpeaker->find('all')->where(['exhibition_id' => $id])->toArray();
         
-        if ($this->request->is('post')) {
+    // //     if ($this->request->is('post')) {
             
-            $entities = $ExhibitionSpeaker->newEntities($this->request->getData());
-            $i = 0;
-            foreach ($entities as $entity) {
-                if ($result = $ExhibitionSpeaker->save($entity)) {
+    // //         $entities = $ExhibitionSpeaker->newEntities($this->request->getData());
+    // //         $i = 0;
+    // //         foreach ($entities as $entity) {
+    // //             if ($result = $ExhibitionSpeaker->save($entity)) {
                     
-                    $img = $this->request->getData('image' . $i);
-                    $i++;
-                    $imgName = $img->getClientFilename();
+    // //                 $img = $this->request->getData('image' . $i);
+    // //                 $i++;
+    // //                 $imgName = $img->getClientFilename();
 
-                    if ($imgName != '') {
-                        $index = strpos(strrev($imgName), strrev('.'));
-                        $expen = strtolower(substr($imgName, ($index * -1)));
-                        $path = 'upload' . DS . 'speaker' . DS . date("Y") . DS . date("m");
+    // //                 if ($imgName != '') {
+    // //                     $index = strpos(strrev($imgName), strrev('.'));
+    // //                     $expen = strtolower(substr($imgName, ($index * -1)));
+    // //                     $path = 'upload' . DS . 'speaker' . DS . date("Y") . DS . date("m");
 
-                        if ($expen == 'jpeg' || $expen == 'jpg' || $expen == 'png') {
+    // //                     if ($expen == 'jpeg' || $expen == 'jpg' || $expen == 'png') {
                                 
-                            if (!file_exists(WWW_ROOT . $path)) {
-                                $oldMask = umask(0);
-                                mkdir(WWW_ROOT . $path, 0777, true);
-                                chmod(WWW_ROOT . $path, 0777);
-                                umask($oldMask);
-                            }
+    // //                         if (!file_exists(WWW_ROOT . $path)) {
+    // //                             $oldMask = umask(0);
+    // //                             mkdir(WWW_ROOT . $path, 0777, true);
+    // //                             chmod(WWW_ROOT . $path, 0777);
+    // //                             umask($oldMask);
+    // //                         }
 
-                            $imgName = $result->id . "_speaker." . $expen;
-                            $destination = WWW_ROOT . $path . DS . $imgName;
+    // //                         $imgName = $result->id . "_speaker." . $expen;
+    // //                         $destination = WWW_ROOT . $path . DS . $imgName;
                             
-                            if ($connection->update('exhibition_speaker', ['image_path' => $path, 'image_name' => $imgName], ['id' => $result->id])) {
-                                $img->moveTo($destination);
-                            } else {
-                                $connection->rollback(); 
-                                $this->Flash->error(__('The exhibition speaker could not be saved.'));
-                            }
-                        } else {
-                            $connection->rollback(); 
-                            $this->Flash->error(__('The exhibition speaker could not be saved.'));
-                        }
-                    }
-                }
-            }
-            $connection->commit();
-            $this->Flash->success(__('The exhibition speaker has been saved.'));
-            return $this->redirect(['action' => 'setExhibitionStream', $id]); 
-        }
-        $this->set(compact('displayes', 'id'));
-    }
+    // //                         if ($connection->update('exhibition_speaker', ['image_path' => $path, 'image_name' => $imgName], ['id' => $result->id])) {
+    // //                             $img->moveTo($destination);
+    // //                         } else {
+    // //                             $connection->rollback(); 
+    // //                             $this->Flash->error(__('The exhibition speaker could not be saved.'));
+    // //                         }
+    // //                     } else {
+    // //                         $connection->rollback(); 
+    // //                         $this->Flash->error(__('The exhibition speaker could not be saved.'));
+    // //                     }
+    // //                 }
+    // //             }
+    // //         }
+    // //         $connection->commit();
+    // //         $this->Flash->success(__('The exhibition speaker has been saved.'));
+    // //         return $this->redirect(['action' => 'setExhibitionStream', $id]); 
+    // //     }
+    // //     $this->set(compact('displayes', 'id'));
+    // // }
 
-    public function setAnswered ($id = null)
-    {
-        $ExhibitionQuestion = $this->getTableLocator()->get('ExhibitionQuestion');
-        $answeredQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])->select(['ExhibitionQuestion.parent_id'])
-            ->where(['ExhibitionQuestion.target_users_id IS' => null, 'ExhibitionUsers.exhibition_id' => $id])->toArray();
-        $count = count($answeredQuestions);
-        $answeredQuestionId[] = '';
+    // public function setAnswered ($id = null)
+    // {
+    //     $ExhibitionQuestion = $this->getTableLocator()->get('ExhibitionQuestion');
+    //     $answeredQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])->select(['ExhibitionQuestion.parent_id'])
+    //         ->where(['ExhibitionQuestion.target_users_id IS' => null, 'ExhibitionUsers.exhibition_id' => $id])->toArray();
+    //     $count = count($answeredQuestions);
+    //     $answeredQuestionId[] = '';
 
-        for ($i = 0; $i < $count; $i++) {
-            $answeredQuestionId[$i] = $answeredQuestions[$i]['parent_id'];
-        }
+    //     for ($i = 0; $i < $count; $i++) {
+    //         $answeredQuestionId[$i] = $answeredQuestions[$i]['parent_id'];
+    //     }
         
-        $exhibitionQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])
-            ->where(['target_users_id IS NOT' => null, 'ExhibitionQuestion.id NOT IN' => $answeredQuestionId, 'ExhibitionUsers.exhibition_id' => $id])->toArray();
+    //     $exhibitionQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])
+    //         ->where(['target_users_id IS NOT' => null, 'ExhibitionQuestion.id NOT IN' => $answeredQuestionId, 'ExhibitionUsers.exhibition_id' => $id])->toArray();
         
-        if ($this->request->is('post')) {
+    //     if ($this->request->is('post')) {
 
-            if ($this->request->getData('action') == 'answered') {
-                $exhibitionQuestion = $ExhibitionQuestion->newEmptyEntity();
-                $exhibitionQuestion->exhibition_users_id = $this->request->getData('user');
-                $exhibitionQuestion->parent_id = $this->request->getData('id');
-                $exhibitionQuestion->contents = '답변완료';
-                $ExhibitionQuestion->save($exhibitionQuestion);
-            } else {
-                $exhibitionQuestion = $ExhibitionQuestion->get($this->request->getData('id'));
-                $ExhibitionQuestion->delete($exhibitionQuestion);
-            }
-        }
+    //         if ($this->request->getData('action') == 'answered') {
+    //             $exhibitionQuestion = $ExhibitionQuestion->newEmptyEntity();
+    //             $exhibitionQuestion->exhibition_users_id = $this->request->getData('user');
+    //             $exhibitionQuestion->parent_id = $this->request->getData('id');
+    //             $exhibitionQuestion->contents = '답변완료';
+    //             $ExhibitionQuestion->save($exhibitionQuestion);
+    //         } else {
+    //             $exhibitionQuestion = $ExhibitionQuestion->get($this->request->getData('id'));
+    //             $ExhibitionQuestion->delete($exhibitionQuestion);
+    //         }
+    //     }
 
-        $this->set(compact('exhibitionQuestions', 'id'));
-    }
+    //     $this->set(compact('exhibitionQuestions', 'id'));
+    // }
 
-    public function answered ($id = null)
-    {
-        $ExhibitionQuestion = $this->getTableLocator()->get('ExhibitionQuestion');
-        $answeredQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])->select(['ExhibitionQuestion.parent_id'])
-            ->where(['ExhibitionQuestion.target_users_id IS' => null, 'ExhibitionUsers.exhibition_id' => $id])->toArray();
-        $count = count($answeredQuestions);
-        $answeredQuestionId[] = '';
+    // public function answered ($id = null)
+    // {
+    //     $ExhibitionQuestion = $this->getTableLocator()->get('ExhibitionQuestion');
+    //     $answeredQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])->select(['ExhibitionQuestion.parent_id'])
+    //         ->where(['ExhibitionQuestion.target_users_id IS' => null, 'ExhibitionUsers.exhibition_id' => $id])->toArray();
+    //     $count = count($answeredQuestions);
+    //     $answeredQuestionId[] = '';
 
-        for ($i = 0; $i < $count; $i++) {
-            $answeredQuestionId[$i] = $answeredQuestions[$i]['parent_id'];
-        }
+    //     for ($i = 0; $i < $count; $i++) {
+    //         $answeredQuestionId[$i] = $answeredQuestions[$i]['parent_id'];
+    //     }
         
-        $exhibitionQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])
-            ->where(['ExhibitionQuestion.id IN' => $answeredQuestionId, 'ExhibitionUsers.exhibition_id' => $id])->toArray();
+    //     $exhibitionQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])
+    //         ->where(['ExhibitionQuestion.id IN' => $answeredQuestionId, 'ExhibitionUsers.exhibition_id' => $id])->toArray();
 
-        $this->set(compact('exhibitionQuestions', 'id'));
-    }
+    //     $this->set(compact('exhibitionQuestions', 'id'));
+    // }
 
-    public function attendance ($id = null)
-    {
-        $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
-        $exhibitionUsers = $ExhibitionUsers->find()->select(['users_name', 'users_email', 'users_hp', 'attend'])->where(['exhibition_id' => $id]);
+    // public function attendance ($id = null)
+    // {
+    //     $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
+    //     $exhibitionUsers = $ExhibitionUsers->find()->select(['users_name', 'users_email', 'users_hp', 'attend'])->where(['exhibition_id' => $id]);
 
-        $this->set(compact('exhibitionUsers'));
-    }
+    //     $this->set(compact('exhibitionUsers'));
+    // }
 
-    public function personInCharge ($id = null)
-    {
-        $Exhibition = $this->getTableLocator()->get('Exhibition');
-        $exhibition = $Exhibition->find()->select(['name', 'tel', 'email'])->where(['id' => $id])->toArray();
+    // public function personInCharge ($id = null)
+    // {
+    //     $Exhibition = $this->getTableLocator()->get('Exhibition');
+    //     $exhibition = $Exhibition->find()->select(['name', 'tel', 'email'])->where(['id' => $id])->toArray();
         
-        $this->set(compact('exhibition'));
-    }
+    //     $this->set(compact('exhibition'));
+    // }
 
-    public function founder ($id = null)
-    {
-        $Exhibition = $this->getTableLocator()->get('Exhibition');
-        $users_id = $Exhibition->find()->select(['users_id'])->where(['id' => $id])->toArray()[0]['users_id'];
+    // public function founder ($id = null)
+    // {
+    //     $Exhibition = $this->getTableLocator()->get('Exhibition');
+    //     $users_id = $Exhibition->find()->select(['users_id'])->where(['id' => $id])->toArray()[0]['users_id'];
         
-        $Users = $this->getTableLocator()->get('Users');
-        $user = $Users->get($users_id);
+    //     $Users = $this->getTableLocator()->get('Users');
+    //     $user = $Users->get($users_id);
 
-        $this->set(compact('user'));
-    }
+    //     $this->set(compact('user'));
+    // }
 
-    public function exhibitionInfo ($id = null)
-    {
-        $Exhibition = $this->getTableLocator()->get('Exhibition');
-        $exhibition = $Exhibition->find()->select(['detail_html'])->where(['id' => $id])->toArray();
+    // public function exhibitionInfo ($id = null)
+    // {
+    //     $Exhibition = $this->getTableLocator()->get('Exhibition');
+    //     $exhibition = $Exhibition->find()->select(['detail_html'])->where(['id' => $id])->toArray();
 
-        $this->set(compact('exhibition'));
-    }
+    //     $this->set(compact('exhibition'));
+    // }
 
-    public function exhibitionFiles ($id = null)
-    {
-        if ($this->request->is('post')) {
-            $connection = ConnectionManager::get('default');
-            $connection->begin();
-            $ExhibitionFiles = $this->getTableLocator()->get('ExhibitionFile');
-            $data = $this->request->getData();
-            $count = count($data['file']);
-            for ($i = 0; $i < $count; $i++) {
+    // public function exhibitionFiles ($id = null)
+    // {
+    //     if ($this->request->is('post')) {
+    //         $connection = ConnectionManager::get('default');
+    //         $connection->begin();
+    //         $ExhibitionFiles = $this->getTableLocator()->get('ExhibitionFile');
+    //         $data = $this->request->getData();
+    //         $count = count($data['file']);
+    //         for ($i = 0; $i < $count; $i++) {
                 
-                $exhibitionFiles = $ExhibitionFiles->newEmptyEntity();
-                $exhibitionFiles->exhibition_id = $id;
+    //             $exhibitionFiles = $ExhibitionFiles->newEmptyEntity();
+    //             $exhibitionFiles->exhibition_id = $id;
 
-                if ($result = $ExhibitionFiles->save($exhibitionFiles)) {
-                    $file = $data['file'][$i];
-                    $fileName = $file->getClientFilename();
-                    $index = strpos(strrev($fileName), strrev('.'));
-                    $expen = strtolower(substr($fileName, ($index * -1)));
-                    $path = 'upload' . DS . 'exhibition_files' . DS . date("Y") . DS . date("m");
+    //             if ($result = $ExhibitionFiles->save($exhibitionFiles)) {
+    //                 $file = $data['file'][$i];
+    //                 $fileName = $file->getClientFilename();
+    //                 $index = strpos(strrev($fileName), strrev('.'));
+    //                 $expen = strtolower(substr($fileName, ($index * -1)));
+    //                 $path = 'upload' . DS . 'exhibition_files' . DS . date("Y") . DS . date("m");
 
-                    if (!file_exists(WWW_ROOT . $path)) {
-                        $oldMask = umask(0);
-                        mkdir(WWW_ROOT . $path, 0777, true);
-                        chmod(WWW_ROOT . $path, 0777);
-                        umask($oldMask);
-                    }
+    //                 if (!file_exists(WWW_ROOT . $path)) {
+    //                     $oldMask = umask(0);
+    //                     mkdir(WWW_ROOT . $path, 0777, true);
+    //                     chmod(WWW_ROOT . $path, 0777);
+    //                     umask($oldMask);
+    //                 }
 
-                    $fileName = $result->id . "_file." . $expen;
-                    $destination = WWW_ROOT . $path . DS . $fileName;
-                    $name = $file->getClientFilename();
+    //                 $fileName = $result->id . "_file." . $expen;
+    //                 $destination = WWW_ROOT . $path . DS . $fileName;
+    //                 $name = $file->getClientFilename();
                     
-                    if ($connection->update('exhibition_file', ['name' => $name, 'file_path' => $path, 'file_name' => $fileName, 'status' => 1], ['id' => $result->id])) {
-                        $file->moveTo($destination);
+    //                 if ($connection->update('exhibition_file', ['name' => $name, 'file_path' => $path, 'file_name' => $fileName, 'status' => 1], ['id' => $result->id])) {
+    //                     $file->moveTo($destination);
                         
-                    } else {
-                        $connection->rollback(); 
-                        $this->Flash->error(__('The exhibition files could not be saved.'));
-                    }
-                } else {
-                    $connection->rollback(); 
-                    $this->Flash->error(__('The exhibition files could not be saved.'));
-                }
-            }
-            $connection->commit();
-            $this->Flash->success(__('The exhibition speaker has been saved.'));
-            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
-            return $response;
-        }
-        $this->set(compact('id'));
-    }
+    //                 } else {
+    //                     $connection->rollback(); 
+    //                     $this->Flash->error(__('The exhibition files could not be saved.'));
+    //                 }
+    //             } else {
+    //                 $connection->rollback(); 
+    //                 $this->Flash->error(__('The exhibition files could not be saved.'));
+    //             }
+    //         }
+    //         $connection->commit();
+    //         $this->Flash->success(__('The exhibition speaker has been saved.'));
+    //         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+    //         return $response;
+    //     }
+    //     $this->set(compact('id'));
+    // }
 
-    public function program ($id = null)
-    {
-        $Exhibition = $this->getTableLocator()->get('Exhibition');
+    // public function program ($id = null)
+    // {
+    //     $Exhibition = $this->getTableLocator()->get('Exhibition');
 
-        if ($this->request->is('post')) {
-            $exhibition = $Exhibition->get($id);
-            $program = $this->request->getData('program');
-            $exhibition->program = $program;
+    //     if ($this->request->is('post')) {
+    //         $exhibition = $Exhibition->get($id);
+    //         $program = $this->request->getData('program');
+    //         $exhibition->program = $program;
 
-            if ($Exhibition->save($exhibition)) {
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
-                 return $response;
-            }
-        }
-        $this->set(compact('id'));
-    }
+    //         if ($Exhibition->save($exhibition)) {
+    //             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+    //              return $response;
+    //         }
+    //     }
+    //     $this->set(compact('id'));
+    // }
 
-    public function notice ($id = null)
-    {
-        $Exhibition = $this->getTableLocator()->get('Exhibition');
+    // public function notice ($id = null)
+    // {
+    //     $Exhibition = $this->getTableLocator()->get('Exhibition');
 
-        if ($this->request->is('post')) {
-            $exhibition = $Exhibition->get($id);
-            $notice = $this->request->getData('notice');
-            $exhibition->notice = $notice;
+    //     if ($this->request->is('post')) {
+    //         $exhibition = $Exhibition->get($id);
+    //         $notice = $this->request->getData('notice');
+    //         $exhibition->notice = $notice;
 
-            if ($Exhibition->save($exhibition)) {
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
-                 return $response;
-            }
-        }
-        $this->set(compact('id'));
-    }
+    //         if ($Exhibition->save($exhibition)) {
+    //             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+    //              return $response;
+    //         }
+    //     }
+    //     $this->set(compact('id'));
+    // }
 
     public function survey ($id = null)
     {

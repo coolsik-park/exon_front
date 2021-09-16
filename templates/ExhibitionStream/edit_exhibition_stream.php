@@ -19,7 +19,7 @@
 </head>
 <body>
     <video-js id=vid1 width=600 height=300 class="vjs-default-skin vjs-big-play-centered" controls>
-        <source src="http://121.126.223.225:80/live/1234/index.m3u8", type= "application/x-mpegURL" id = "source">
+        <source src="http://121.126.223.225:80/live/<?php echo($exhibitionStream->stream_key) ?>/index.m3u8", type= "application/x-mpegURL" id = "source">
     </video-js>
     <script>
     var player = videojs('vid1');
@@ -80,14 +80,10 @@
         <div id = "tabContent">
         </div>
     </div>
-<<<<<<< HEAD
     <div id = "tabContent">
     </div>
 </div>
-
-=======
 </body>
->>>>>>> master
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>

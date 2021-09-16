@@ -12,11 +12,7 @@ use Cake\Event\EventInterface;
 use Cake\I18n\FrozenTime;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-<<<<<<< HEAD
-=======
 use Iamport;
-
->>>>>>> master
 
 /**
  * Exhibition Controller
@@ -586,7 +582,6 @@ class ExhibitionController extends AppController
     public function surveyData($id = null)
     {
         $exhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey')->find('all', ['contain' => ['ChildExhibitionSurvey', 'ExhibitionSurveyUsersAnswer']]);
-<<<<<<< HEAD
 
         //사전설문 데이터
 
@@ -622,8 +617,6 @@ class ExhibitionController extends AppController
 
         $exhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey')->find('all', ['contain' => ['ChildExhibitionSurvey', 'ExhibitionSurveyUsersAnswer']]);
 
-=======
-
         //사전설문 데이터
 
         $exhibitionSurveys = $exhibitionSurvey
@@ -658,7 +651,6 @@ class ExhibitionController extends AppController
 
         $exhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey')->find('all', ['contain' => ['ChildExhibitionSurvey', 'ExhibitionSurveyUsersAnswer']]);
 
->>>>>>> master
         $exhibitionSurveys = $exhibitionSurvey
             ->select(['ExhibitionSurvey.id', 'ExhibitionSurvey.parent_id', 'ExhibitionSurvey.text', 'ExhibitionSurvey.is_multiple', 
                 'ExhibitionSurveyUsersAnswer.text', 'ExhibitionSurvey.survey_type', 'count' => $exhibitionSurvey->func()->count('ExhibitionSurveyUsersAnswer.text')])
@@ -706,7 +698,6 @@ class ExhibitionController extends AppController
                 $spreadsheet->createSheet();
             }
 
-<<<<<<< HEAD
             for ($i = 0; $i < $count; $i++) {
                 $spreadsheet->setActiveSheetIndex($i)
                 ->setTitle('질문' . ($i+1))
@@ -717,8 +708,6 @@ class ExhibitionController extends AppController
                 ->setCellValue('C1', '이메일')
                 ->setCellValue('D1', '질문' . ($i+1));
             }
-
-=======
 
             $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
             $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id])->toArray();
@@ -821,7 +810,6 @@ class ExhibitionController extends AppController
                 }
             }
             
->>>>>>> master
             $path = 'download' . DS . 'exhibition' . DS . date("Y") . DS . date("m");
         
             if (!file_exists(WWW_ROOT . $path)) {
