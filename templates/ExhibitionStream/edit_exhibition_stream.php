@@ -19,12 +19,9 @@
 </head>
 <body>
     <video-js id=vid1 width=600 height=300 class="vjs-default-skin vjs-big-play-centered" controls>
-        <source src="http://121.126.223.225:80/live/<?php echo($exhibitionStream->stream_key) ?>/index.m3u8", type= "application/x-mpegURL" id = "source">
+        <source src = <?= "http://121.126.223.225:80/live/" . $exhibitionStream->stream_key . "/index.m3u8" ?> type = "application/x-mpegURL" id = "source">
     </video-js>
-    <script>
-    var player = videojs('vid1');
-    player.play();
-    </script>
+
     <?php echo $this->Form->button('start', ['id' => 'start']); ?>
     <?php echo $this->Form->button('end', ['id' => 'end']); ?>
     <div class="row">
@@ -87,7 +84,9 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
-    // $("#source").attr("src", "http://121.126.223.225:80/live/" + $("#streamKey").val() + "/index.m3u8");
+    videojs('vid1').play();
+</script>
+<script>
     $("#start").click(function () {
         var data = {
             stream_key: $("#streamKey").val(),
@@ -280,11 +279,7 @@
                 alert($("button#tab0").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-<<<<<<< HEAD
-            $("div#tabContent").load("/exhibition-stream/exhibition-files/" + <?= $exhibitionStream->exhibition_id ?>);
-=======
             $("div#tabContent").load("/exhibition-stream/set-exhibition-files/" + <?= $exhibitionStream->exhibition_id ?>);
->>>>>>> master
         }
     });
 
@@ -356,11 +351,7 @@
                 alert($("button#tab4").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-<<<<<<< HEAD
-            $("div#tabContent").load("/exhibition-stream/program/" + <?= $exhibitionStream->exhibition_id ?>);
-=======
             $("div#tabContent").load("/exhibition-stream/set-program/" + <?= $exhibitionStream->exhibition_id ?>);
->>>>>>> master
         }
     });
 
@@ -414,11 +405,7 @@
                 alert($("button#tab7").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-<<<<<<< HEAD
-            $("div#tabContent").load("/exhibition-stream/notice/" + <?= $exhibitionStream->exhibition_id ?>);
-=======
             $("div#tabContent").load("/exhibition-stream/set-notice/" + <?= $exhibitionStream->exhibition_id ?>);
->>>>>>> master
         }
     });
 
@@ -436,11 +423,7 @@
                 alert($("button#tab8").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-<<<<<<< HEAD
-            $("div#tabContent").load("/exhibition-stream/survey/" + <?= $exhibitionStream->exhibition_id ?>);
-=======
             $("div#tabContent").load("/exhibition-stream/set-survey/" + <?= $exhibitionStream->exhibition_id ?>);
->>>>>>> master
         }
     });
 
