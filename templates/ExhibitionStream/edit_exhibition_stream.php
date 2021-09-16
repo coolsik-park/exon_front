@@ -19,12 +19,9 @@
 </head>
 <body>
     <video-js id=vid1 width=600 height=300 class="vjs-default-skin vjs-big-play-centered" controls>
-        <source src="http://121.126.223.225:80/live/1234/index.m3u8", type= "application/x-mpegURL" id = "source">
+        <source src="", type= "application/x-mpegURL" id = "source">
     </video-js>
-    <script>
-    var player = videojs('vid1');
-    player.play();
-    </script>
+    
     <?php echo $this->Form->button('start', ['id' => 'start']); ?>
     <?php echo $this->Form->button('end', ['id' => 'end']); ?>
     <div class="row">
@@ -84,44 +81,53 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
-    // $("#source").attr("src", "http://121.126.223.225:80/live/" + $("#streamKey").val() + "/index.m3u8");
-    $("#start").click(function () {
-        var data = {
-            stream_key: $("#streamKey").val(),
-            video_uri: $("#videoUri").val()
-        }
-        var jsonData = JSON.stringify(data) ;
+    var video = videojs('vid1');
+    var source = $('#source');
 
-        jQuery.ajax({
-            url: "http://121.126.223.225:3000/live",
-            method: 'POST',
-            type: 'json',
-            data: jsonData
-        }).done(function (status) {
-            if (status == 200) {
-                alert("방송이 시작되었습니다.");
-            }
-        });
-    });
+    source.attr('src', 'http://121.126.223.225:80/live/' + $("#streamKey").val() + '/index.m3u8');
 
-    $("#end").click(function () {
-        var data = {
-            stream_key: $("#streamKey").val(),
-            video_uri: $("#videoUri").val()
-        }
-        var jsonData = JSON.stringify(data) ;
+    console.log(source.attr('src'));
 
-        jQuery.ajax({
-            url: "http://121.126.223.225:3000/live",
-            method: 'DELETE',
-            type: 'json',
-            data: jsonData
-        }).done(function (status) {
-            if (status == 200) {
-                alert("방송이 종료되었습니다.");
-            }
-        });
-    });
+    video.load();
+    video.play();
+    
+    // $("#start").click(function () {
+    //     var data = {
+    //         stream_key: $("#streamKey").val(),
+    //         video_uri: $("#videoUri").val()
+    //     }
+    //     var jsonData = JSON.stringify(data) ;
+
+    //     jQuery.ajax({
+    //         url: "http://121.126.223.225:3000/live",
+    //         method: 'POST',
+    //         type: 'json',
+    //         data: jsonData
+    //     }).done(function (status) {
+    //         if (status == 200) {
+    //             alert("방송이 시작되었습니다.");
+    //         }
+    //     });
+    // });
+
+    // $("#end").click(function () {
+    //     var data = {
+    //         stream_key: $("#streamKey").val(),
+    //         video_uri: $("#videoUri").val()
+    //     }
+    //     var jsonData = JSON.stringify(data) ;
+
+    //     jQuery.ajax({
+    //         url: "http://121.126.223.225:3000/live",
+    //         method: 'DELETE',
+    //         type: 'json',
+    //         data: jsonData
+    //     }).done(function (status) {
+    //         if (status == 200) {
+    //             alert("방송이 종료되었습니다.");
+    //         }
+    //     });
+    // });
 </script>
 <script>
     $("#check_module").click(function () {
