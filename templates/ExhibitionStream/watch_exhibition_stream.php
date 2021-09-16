@@ -7,14 +7,8 @@
 </head>
 <body>
     <video-js id=vid1 width=600 height=300 class="vjs-default-skin vjs-big-play-centered" controls>
-        <source
-           src="http://121.126.223.225:80/live/abcd/index.m3u8",
-           type= "application/x-mpegURL">
-      </video-js>
-      <script>
-      var player = videojs('vid1');
-      player.play();
-      </script>
+        <source src = <?= "http://121.126.223.225:80/live/" . $exhibitionStream[0]['stream_key'] . "/index.m3u8" ?> type = "application/x-mpegURL", id = "source">
+    </video-js>
 
 <br><br>
 <div>
@@ -39,6 +33,9 @@
 <div id = "tabContent"></div>
 </body>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+    videojs('vid1').play();
+</script>
 <script>
     $("button#tab0").click(function () {
         $("div#tabContent").load("/exhibition-stream/exhibition-files/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);

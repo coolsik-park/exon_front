@@ -217,8 +217,6 @@ class ExhibitionStreamController extends AppController
     public function watchExhibitionStream($id = null) 
     {
         $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $id])->toArray();
-
-        
         
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
         $this->set(compact('exhibitionStream', 'tabs'));

@@ -19,7 +19,7 @@
 </head>
 <body>
     <video-js id=vid1 width=600 height=300 class="vjs-default-skin vjs-big-play-centered" controls>
-        <source src="http://121.126.223.225:80/live/75750691-2031-4f0e-b603-9e1240fd4f8b/index.m3u8", type= "application/x-mpegURL" id = "source">
+        <source src = <?= "http://121.126.223.225:80/live/" . $exhibitionStream->stream_key . "/index.m3u8" ?> type = "application/x-mpegURL" id = "source">
     </video-js>
 
     <?php echo $this->Form->button('start', ['id' => 'start']); ?>
@@ -81,21 +81,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
-    function videoSource(string) {
-        var video = videojs('vid1');
-        var source = $('#source');
-
-        source.attr('src', 'http://121.126.223.225:80/live/' + string + '/index.m3u8');
-        
-        video.play();
-    }
-
-    videoSource($("#streamKey").val());
-
-    setInterval(function () {
-        videoSource($("#streamKey").val());
-    }, 3000);
-    
+    videojs('vid1').play();
 </script>
 <script>
     $("#start").click(function () {
