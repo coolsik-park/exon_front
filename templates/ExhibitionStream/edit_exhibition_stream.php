@@ -19,9 +19,9 @@
 </head>
 <body>
     <video-js id=vid1 width=600 height=300 class="vjs-default-skin vjs-big-play-centered" controls>
-        <source src="", type= "application/x-mpegURL" id = "source">
+        <source src="http://121.126.223.225:80/live/75750691-2031-4f0e-b603-9e1240fd4f8b/index.m3u8", type= "application/x-mpegURL" id = "source">
     </video-js>
-    
+
     <?php echo $this->Form->button('start', ['id' => 'start']); ?>
     <?php echo $this->Form->button('end', ['id' => 'end']); ?>
     <div class="row">
@@ -81,53 +81,60 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
-    var video = videojs('vid1');
-    var source = $('#source');
+    function videoSource(string) {
+        var video = videojs('vid1');
+        var source = $('#source');
 
-    source.attr('src', 'http://121.126.223.225:80/live/' + $("#streamKey").val() + '/index.m3u8');
+        source.attr('src', 'http://121.126.223.225:80/live/' + string + '/index.m3u8');
+        
+        video.play();
+    }
 
-    console.log(source.attr('src'));
+    videoSource($("#streamKey").val());
 
-    video.load();
-    video.play();
+    setInterval(function () {
+        videoSource($("#streamKey").val());
+    }, 3000);
     
-    // $("#start").click(function () {
-    //     var data = {
-    //         stream_key: $("#streamKey").val(),
-    //         video_uri: $("#videoUri").val()
-    //     }
-    //     var jsonData = JSON.stringify(data) ;
+</script>
+<script>
+    $("#start").click(function () {
+        var data = {
+            stream_key: $("#streamKey").val(),
+            video_uri: $("#videoUri").val()
+        }
+        var jsonData = JSON.stringify(data) ;
 
-    //     jQuery.ajax({
-    //         url: "http://121.126.223.225:3000/live",
-    //         method: 'POST',
-    //         type: 'json',
-    //         data: jsonData
-    //     }).done(function (status) {
-    //         if (status == 200) {
-    //             alert("방송이 시작되었습니다.");
-    //         }
-    //     });
-    // });
+        jQuery.ajax({
+            url: "http://121.126.223.225:3000/live",
+            method: 'POST',
+            type: 'json',
+            data: jsonData
+        }).done(function (status) {
+            if (status == 200) {
+                alert("방송이 시작되었습니다.");
+            }
+        });
+    });
 
-    // $("#end").click(function () {
-    //     var data = {
-    //         stream_key: $("#streamKey").val(),
-    //         video_uri: $("#videoUri").val()
-    //     }
-    //     var jsonData = JSON.stringify(data) ;
+    $("#end").click(function () {
+        var data = {
+            stream_key: $("#streamKey").val(),
+            video_uri: $("#videoUri").val()
+        }
+        var jsonData = JSON.stringify(data) ;
 
-    //     jQuery.ajax({
-    //         url: "http://121.126.223.225:3000/live",
-    //         method: 'DELETE',
-    //         type: 'json',
-    //         data: jsonData
-    //     }).done(function (status) {
-    //         if (status == 200) {
-    //             alert("방송이 종료되었습니다.");
-    //         }
-    //     });
-    // });
+        jQuery.ajax({
+            url: "http://121.126.223.225:3000/live",
+            method: 'DELETE',
+            type: 'json',
+            data: jsonData
+        }).done(function (status) {
+            if (status == 200) {
+                alert("방송이 종료되었습니다.");
+            }
+        });
+    });
 </script>
 <script>
     $("#check_module").click(function () {
