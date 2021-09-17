@@ -67,8 +67,8 @@ class UsersController extends AppController
             $user->name = $this->request->getData('name');
             $user->hp = $this->request->getData('hp');
             $user->ip = $this->request->ClientIp();    
-            if ($this->Users->save($user)) {
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+            if ($result = $this->Users->save($user)) {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'id' => $result->id]));
                 return $response;
             }
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));

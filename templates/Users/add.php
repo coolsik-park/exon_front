@@ -34,12 +34,12 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                             <div class="col-email-wp">
                                 <input type="text" id="email" placeholder="이메일" title="이메일 (아이디)"><span
                                     class="sp">@</span>
+                                <input type="text" id="self">
                                 <select name="emailTail" id="emailTail">
                                     <option value="">선택</option>
                                     <option value="naver.com">naver.com</option>
                                     <option value="google.com">google.com</option>
                                     <option value="daum.net">daum.net</option>
-                                    <option value="self">직접입력</option>
                                 </select>
                             </div>
                             <p id="emailNoti" class="noti hc1"></p>
@@ -48,7 +48,8 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                     <div class="item-row">
                         <div class="col-dt"><em class="st">*</em>비밀번호</div>
                         <div class="col-dd">
-                            <input type="password" id="password" placeholder="최소 8자 이상 영어 + 숫자" class="full" title="비밀번호">
+                            <input type="password" id="password" placeholder="최소 8자 이상 영어 + 숫자" class="full"
+                                title="비밀번호">
                             <p id="lengthNoti" class="noti hc1"></p>
                         </div>
                     </div>
@@ -108,8 +109,8 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
 <script>
     $(".btn-big").click(function () {
         var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
-        var getCheck= RegExp(/^[a-zA-Z0-9]{4,12}$/);
-        var getName= RegExp(/^[가-힣]+$/);
+        var getCheck = RegExp(/^[a-zA-Z0-9]{4,12}$/);
+        var getName = RegExp(/^[가-힣]+$/);
 
         if ($("#email").val() == "") {
             $("#emailNoti").html("이메일 주소를 입력해 주세요.");
@@ -160,7 +161,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
         }
 
         jQuery.ajax({
-            url: "/users/add", 
+            url: "/users/add",
             method: 'POST',
             type: 'json',
             data: {
@@ -169,12 +170,12 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                 name: $("#name").val(),
                 hp: $("#cellNumber").val() + $("#cellNumber2").val()
             }
-        }).done(function(data) {
+        }).done(function (data) {
             if (data.status == 'success') {
-                $(location).attr('href', 'http://121.126.223.225:8765/users/success-join');
+                $(location).attr('href', 'http://121.126.223.225:8765/users/certified/' + data.id);
             } else {
                 $("#emailNoti").html("이미 회원 가입된 이메일입니다. 다시 입력해 주세요.");
-            $("#email").focus();
+                $("#email").focus();
             }
         });
     });
