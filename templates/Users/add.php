@@ -42,7 +42,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                                     <option value="self">직접입력</option>
                                 </select>
                             </div>
-                            <p id="emailNoti" class="noti"></p>
+                            <p id="emailNoti" class="noti hc1"></p>
                         </div>
                     </div>
                     <div class="item-row">
@@ -63,6 +63,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                         <div class="col-dt"><em class="st">*</em>이름</div>
                         <div class="col-dd">
                             <input type="text" id="name" placeholder="최소 2자 이상" class="full" title="이름">
+                            <p id="nameNoti" class="noti hc1"></p>
                         </div>
                     </div>
                     <div class="item-row">
@@ -106,31 +107,75 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
 
 <script>
     $(".btn-big").click(function () {
+        var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+        var getCheck= RegExp(/^[a-zA-Z0-9]{4,12}$/);
+        var getName= RegExp(/^[가-힣]+$/);
+
+        if ($("#email").val() == "") {
+            $("#emailNoti").html("이메일 주소를 입력해 주세요.");
+            $("#email").focus();
+            return false;
+        } else {
+            $("#emailNoti").html("");
+        }
+
+        if (!getMail.test($("#email").val() + "@" + $("#emailTail").val())) {
+            $("#emailNoti").html("올바른 이메일 형식을 입력해 주세요.");
+            $("#email").focus();
+            return false;
+        } else {
+            $("#emailNoti").html("");
+        }
+
+        if ($("#name").val() == "") {
+            $("#nameNoti").html("이름을 입력해 주세요.");
+            $("#name").focus();
+            return false;
+        } else {
+            $("#nameNoti").html("");
+        }
+
+        if (!getName.test($("#name").val())) {
+            $("#nameNoti").html("이름을 올바르게 입력해 주세요.");
+            $("#name").focus();
+            return false;
+        } else {
+            $("#nameNoti").html("");
+        }
+
         if ($("#password").val().length < 8) {
             $("#lengthNoti").html("비밀번호는 8자 이상으로 입력해 주세요.");
+            $("#password").focus();
+            return false;
         } else {
-            if ($("#password").val() != $("#confirm").val()) {
-                $("#confirmNoti").html("비밀번호가 다릅니다. 다시 입력해 주세요.");
-                focus($("#confirm"));
-            } else {
-                jQuery.ajax({
-                    url: "/users/add", 
-                    method: 'POST',
-                    type: 'json',
-                    data: {
-                        email: $("#email").val(),
-                        password: $("#password").val(),
-                        name: $("#name").val(),
-                        hp: $("#cellNumber").val() + $("#cellNumber2").val()
-                    }
-                }).done(function(data) {
-                    if (data.status == 'success') {
-                        $(location).attr('href', 'http://121.126.223.225:8765/users/success-join');
-                    } else {
-                        $("#emailNoti").html("<span class='hc1'>이미 회원 가입된 이메일입니다. 다시 입력해주세요</span> or <span class='hc1'>올바른 이메일 형식을 입력해 주세요.</span>");
-                    }
-                });
-            }
+            $("#lengthNoti").html("");
         }
+
+        if ($("#password").val() != $("#confirm").val()) {
+            $("#confirmNoti").html("비밀번호가 다릅니다. 다시 입력해 주세요.");
+            $("#confirm").focus();
+            return false;
+        } else {
+            $("#confirmNoti").html("");
+        }
+
+        jQuery.ajax({
+            url: "/users/add", 
+            method: 'POST',
+            type: 'json',
+            data: {
+                email: $("#email").val() + "@" + $("#emailTail").val(),
+                password: $("#password").val(),
+                name: $("#name").val(),
+                hp: $("#cellNumber").val() + $("#cellNumber2").val()
+            }
+        }).done(function(data) {
+            if (data.status == 'success') {
+                $(location).attr('href', 'http://121.126.223.225:8765/users/success-join');
+            } else {
+                $("#emailNoti").html("이미 회원 가입된 이메일입니다. 다시 입력해 주세요.");
+            $("#email").focus();
+            }
+        });
     });
 </script>
