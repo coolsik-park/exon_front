@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../common/css/style.css">
+    <script src="../common/js/jquery-3.2.1.min.js"></script>
+    <script src="../common/js/slick.js"></script>
+    <script src="../common/js/swiper.min.js"></script>
+    <script src="../common/js/mobile-detect.min.js"></script>
+    <script src="../common/js/function.js"></script>
+    <script src="../common/js/responsiveImg.js"></script>   
+    <script src="../common/js/common.js"></script>
+    <title>EXON</title>
+</head>
+<body>
+ <p id="accessibility"><a href="#container">본문바로가기</a></p>   
+ <div id="wrap">
+    <header id="header">
+        <!-- pc -->
+        <div class="static">
+            <h1 class="h-logo"><a href="#">EXON</a></h1>
+            <div class="header-search">               
+                <form action="#">
+                    <fieldset>
+                        <legend>행사 검색</legend>
+                            <input type="text" placeholder="찾으시는 행사를 검색해주세요" class="ipt">
+                            <button type="button" class="ico-sh">검색</button>
+                    </fieldset>                        
+                </form> 
+            </div>
+            <div class="h-elt">
+                <!-- before -->
+                <!-- <a href="#">로그인</a>
+                <a href="#">회원가입</a>
+                <a href="#">행사신청내쳑</a> -->
+
+                <!-- after -->
+                <a href="#" class="btn-ty4">로그아웃</a>
+            </div>            
+        </div>
+        <!-- mo -->
+        <div class="static-mo">
+            <h1 class="h-logo"><a href="#">EXON</a></h1>
+            <button type="button" class="tg-menu">메뉴오픈</button>
+        </div>
+        <div id="aside">
+            <div class="aside-head">
+                <a href="#" class="a-logo">EXON</a>
+                <button type="button" class="tg-close">메뉴닫기</button>
+            </div>
+            <div class="aside-body">
+                <div class="log-area">
+                    <a href="#" class="btn1">로그인</a>
+                    <a href="#" class="btn2">회원가입</a>
+                    <div>
+                        <a href="#" class="btn3">회원 로그인</a>
+                        <a href="#" class="btn3">비회원 신청내역 확인</a>
+                    </div>                    
+                </div>
+                <div class="menu">
+                    <ul id="nav">
+                        <li class="sub-no"><button type="button">EXON 소개</button></li>
+                        <li>
+                            <button type="button">마이페이지</button>
+                            <ul>
+                                <li><a href="#">회원 정보 수정</a></li>
+                                <li>
+                                    <a href="#">신청 내역 관리</a>
+                                    <ul class="lst-depth">
+                                        <li><a href="#">신청 행사</a></li>
+                                        <li><a href="#">종료 행사</a></li>
+                                        <li><a href="#">취소/환불</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">개설 행사 관리</a>
+                                    <ul class="lst-depth">
+                                        <li><a href="#">개설 행사</a></li>
+                                        <li><a href="#">진행중 행사</a></li>
+                                        <li><a href="#">임시저장 행사</a></li>
+                                        <li><a href="#">종료 행사</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <button type="button">고객센터</button>
+                            <ul class="lst-depth">
+                                <li><a href="#">자주하는 질문</a></li>
+                                <li><a href="#">공지사항</a></li>
+                                <li><a href="#">문의하기</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div id="container">
+       
+        <div class="sub-menu">
+            <div class="sub-menu-inner">
+                <ul class="tab">
+                    <li><a href="#">행사 설정 수정</a></li>
+                    <li><a href="#">설문 데이터</a></li>
+                    <li><a href="#">참가자 관리</a></li>
+                    <li class="active"><a href="#">웨비나 송출 설정</a></li>
+                    <li><a href="#">행사 통계</a></li>
+                </ul>
+            </div>                
+        </div>
+
+        <div class="contents">
+            
+            <div class="section-webinar3">
+                <div class="webinar-cont">
+                    <div class="wb-cont1">
+                        <img src="../images/@mov.jpg" alt="">
+                    </div>
+                    <div class="wb-cont2">
+                        <input type="text" placeholder="(필수) 방송제목">
+                        <textarea name="" id="" cols="30" rows="3" placeholder="방송 설명을 입력해주세요."></textarea>
+                    </div>
+                    <div class="wb-cont3">
+                        <button type="button" class="btn-ty4 black">저장</button>
+                        <button type="button" class="btn-ty4 gray">종료</button>
+                    </div>
+
+                    <div class="wb-stream-sect">
+                        <h2 class="s-hty3">스트림 키</h2>
+                        <div class="stream-sect">
+                            <div class="row2">
+                                <div class="col-th">프로모션 키</div>
+                                <div class="col-td">
+                                    <div class="stream-ipt1">
+                                        <input type="text">
+                                        <button type="button" class="btn-ty2 bor">확인</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row2-wp">
+                                <div class="row2">
+                                    <div class="col-th">시간</div>
+                                    <div class="col-td">
+                                        <div class="stream-itp2">
+                                            <select>
+                                                <option value="">half day</option>
+                                                <option value="">all day</option>
+                                            </select>
+                                            <select>
+                                                <option value="">50</option>
+                                                <option value="">100</option>
+                                                <option value="">150</option>
+                                                <option value="">200</option>
+                                                <option value="">150</option>
+                                            </select>
+                                            명
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row2">
+                                    <div class="col-th">금액</div>
+                                    <div class="col-td">
+                                        <div class="stream-ipt1">
+                                            <input type="text">
+                                            <button type="button" class="btn-ty2 bor">결제</button>
+                                        </div>                    
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="stream-btn">
+                                <button type="button" class="btn-ty2">스트림 키 발급</button>
+                            </div>
+                            <div class="row2">
+                                <div class="col-th">스트림 URL</div>
+                                <div class="col-td">
+                                    <div class="stream-ipt1">
+                                        <input type="text">
+                                        <button type="button" class="btn-ty2 bor">복사</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wb-stream-sect">
+                        <h2 class="s-hty3">스트림 키</h2>
+                        <div class="stream-sect">
+                            <div class="row2">
+                                <div class="col-th">프로모션 키</div>
+                                <div class="col-td">
+                                    <div class="stream-ipt1">
+                                        <input type="text">
+                                        <button type="button" class="btn-ty2 gray2">확인</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row2-wp">
+                                <div class="row2">
+                                    <div class="col-th">시간</div>
+                                    <div class="col-td">
+                                        <div class="stream-itp2">
+                                            <select>
+                                                <option value="">half day</option>
+                                                <option value="">all day</option>
+                                            </select>
+                                            <select>
+                                                <option value="">50</option>
+                                                <option value="">100</option>
+                                                <option value="">150</option>
+                                                <option value="">200</option>
+                                                <option value="">150</option>
+                                            </select>
+                                            명
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row2">
+                                    <div class="col-th">금액</div>
+                                    <div class="col-td">
+                                        <div class="stream-ipt1">
+                                            <input type="text">
+                                            <button type="button" class="btn-ty2 bor">결제</button>
+                                        </div>                    
+                                    </div>
+                                </div>
+                            </div>            
+                            <div class="stream-ipt3">
+                                <div class="ipt-eye">
+                                    <input type="password" class="ipt-tx">
+                                    <button type="button" class="ico-eye">히든</button>
+                                </div>
+                                <button type="button" class="btn-ty2 bor">복사</button>
+                            </div>            
+                            <div class="row2">
+                                <div class="col-th">스트림 URL</div>
+                                <div class="col-td">
+                                    <div class="stream-ipt1">
+                                        <input type="text">
+                                        <button type="button" class="btn-ty2 bor">복사</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- webinar-tab -->
+                <div class="webinar-tab">
+                    <div class="webinar-tab-top">
+                        <div class="webinar-toggle">
+                            <button type="button" class="webinar-tab-tg">토글버튼</button>
+                            <button type="button" class="ico-sett">설정</button>
+                        </div>                        
+                        <div class="w-tab-wrap">
+                            <div class="w-tab-wrap-inner">
+                                <ul class="w-tab">
+                                    <li class="active"><button type="button">실시간 채팅</button></li>
+                                    <li><button type="button">설문</button></li>
+                                    <li><button type="button">공지사항</button></li>
+                                    <li><button type="button">질의 응답</button></li>
+                                    <li><button type="button">출석체크</button></li>
+                                    <li><button type="button">프로그램</button></li>
+                                    <li><button type="button">담당자 정보</button></li>
+                                    <li><button type="button">개설자 정보</button></li>
+                                    <li><button type="button">행사 정보</button></li>
+                                    <li><button type="button">자료</button></li>
+                                </ul>
+                            </div>                            
+                        </div>
+                    </div>   
+                    <!-- // top -->
+                    <div class="webinar-tab-body">  
+
+                        <div class="webinar-cont1">
+                            <h3 class="sr-only">실시간 채팅</h3>
+                            <div class="webinar-cont-ty1">
+                                <div class="webinar-cont-ty1-body"> 
+                                    <p class="wb-alert">사용할 탭을 선택해주세요</p>                                   
+                                    <p class="wb-alert">실시간 채팅 탭이 활성화되었습니다</p>                                   
+                                    <div class="chatting-msg-box">
+                                        <div class="chat-msg">
+                                            <div class="nick"><span>닉네임1</span></div>
+                                            <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1</div>
+                                        </div>
+                                        <div class="chat-msg">
+                                            <div class="nick"><span>닉네임2</span></div>
+                                            <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅</div>
+                                        </div>
+                                        <div class="chat-msg chat-my">
+                                            <div class="nick"><span>개설자</span></div>
+                                            <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1</div>
+                                        </div>
+                                        <div class="chat-msg">
+                                            <div class="nick"><span>닉네임3</span></div>
+                                            <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1</div>
+                                        </div>
+                                        <div class="chat-msg">
+                                            <div class="nick"><span>닉네임5</span></div>
+                                            <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅</div>
+                                        </div>
+                                        <div class="chat-msg">
+                                            <div class="nick"><span>닉네임1</span></div>
+                                            <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1</div>
+                                        </div>
+                                        <div class="chat-msg">
+                                            <div class="nick"><span>닉네임2</span></div>
+                                            <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅</div>
+                                        </div>
+                                        <div class="chat-msg chat-my">
+                                            <div class="nick"><span>개설자</span></div>
+                                            <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1</div>
+                                        </div>
+                                        <div class="chat-msg">
+                                            <div class="nick"><span>닉네임3</span></div>
+                                            <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1</div>
+                                        </div>
+                                        <div class="chat-msg">
+                                            <div class="nick"><span>닉네임5</span></div>
+                                            <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅</div>
+                                        </div>
+                                        <div class="chat-msg">
+                                            <div class="nick"><span>닉네임5</span></div>
+                                            <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅</div>
+                                        </div>
+                                        <div class="chat-msg">
+                                            <div class="nick"><span>닉네임5</span></div>
+                                            <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅</div>
+                                        </div>
+                                        <div class="chat-msg">
+                                            <div class="nick"><span>닉네임5</span></div>
+                                            <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅</div>
+                                        </div>
+                                        <div class="chat-msg">
+                                            <div class="nick"><span>닉네임5</span></div>
+                                            <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅</div>
+                                        </div>
+
+                                    </div>  
+                                </div>
+                                <div class="webinar-cont-ty1-btm">
+                                    <div class="chatting-submit">
+                                        <input type="text" placeholder="Message...">
+                                        <button type="submit" class="btn-ty4 redbg">전송</button>
+                                    </div>
+                                </div>
+                            </div>                            
+                        </div>
+
+                    </div>
+                    <!-- // body-->
+                </div>
+                <!-- //webinar-tab -->
+            </div>
+        </div>        
+    </div>
+    <footer id="footer"></footer>
+ </div> 
+
+ <script>
+     ui.addOnAction('.board-lists>li');
+ </script>
+</body>
+</html>
+

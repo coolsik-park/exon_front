@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../common/css/style.css">
+    <script src="../common/js/jquery-3.2.1.min.js"></script>
+    <script src="../common/js/slick.js"></script>
+    <script src="../common/js/swiper.min.js"></script>
+    <script src="../common/js/mobile-detect.min.js"></script>
+    <script src="../common/js/responsiveImg.js"></script>   
+    <script src="../common/js/common.js"></script>
+    <title>EXON</title>
+</head>
+<body>
+ <p id="accessibility"><a href="#container">본문바로가기</a></p>   
+ <div id="wrap">
+    <header id="header">        
+        <!-- mo -->
+        <div class="static-mo">
+            <h1 class="h-logo"><a href="#">EXON</a></h1>
+            <button type="button" class="tg-search">검색</button>
+            <div class="header-search-mo">
+                <div class="search-ipt-wp">
+                    <input type="text" placeholder="찾으시는 행사를 검색해주세요" class="ipt">
+                    <button type="button" class="search">검색</button>
+                </div>                   
+                <button type="button" class="cancel">취소</button>
+            </div>
+            <button type="button" class="tg-menu">메뉴오픈</button>     
+        </div>
+        <div id="aside">
+            <div class="aside-head">
+                <a href="#" class="a-logo">EXON</a>
+                <button type="button" class="tg-close">메뉴닫기</button>
+            </div>
+            <div class="aside-body">
+                <div class="log-area">
+                    <a href="#" class="btn1">로그인</a>
+                    <a href="#" class="btn2">회원가입</a>
+                    <div>
+                        <a href="#" class="btn3">회원 로그인</a>
+                        <a href="#" class="btn3">비회원 신청내역 확인</a>
+                    </div>                    
+                </div>
+                <div class="menu">
+                    <ul id="nav">
+                        <li class="sub-no"><button type="button">EXON 소개</button></li>
+                        <li>
+                            <button type="button">마이페이지</button>
+                            <ul>
+                                <li><a href="#">회원 정보 수정</a></li>
+                                <li>
+                                    <a href="#">신청 내역 관리</a>
+                                    <ul class="lst-depth">
+                                        <li><a href="#">신청 행사</a></li>
+                                        <li><a href="#">종료 행사</a></li>
+                                        <li><a href="#">취소/환불</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">개설 행사 관리</a>
+                                    <ul class="lst-depth">
+                                        <li><a href="#">개설 행사</a></li>
+                                        <li><a href="#">진행중 행사</a></li>
+                                        <li><a href="#">임시저장 행사</a></li>
+                                        <li><a href="#">종료 행사</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <button type="button">고객센터</button>
+                            <ul class="lst-depth">
+                                <li><a href="#">자주하는 질문</a></li>
+                                <li><a href="#">공지사항</a></li>
+                                <li><a href="#">문의하기</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div id="container">
+
+      <div class="log-wrap">
+          <div class="log-step-wrap">
+              <h1><a href="#" class="h-logo">EXON</a></h1>
+              <div class="log-step-page log-step-00">  
+                    <h2>행사 신청 내역 비로그인 조회</h2>
+                    <div class="tit">                   
+                        <h3 class="t1">고객님은 비로그인 이용자입니다.</h3>
+                        <p class="t2">행사 신청 내역을 조회하기 위한 본인인증이 필요합니다.<br>
+                        행사 신청 때 입력했던 정보로 인증해주세요.</p>
+                    </div>                
+                    <div class="auth-wp">
+                        <span class="chk-dsg"><input type="radio" id="authEmail" name="auth"><label for="authEmail">이메일 인증</label></span>
+                        <span class="chk-dsg"><input type="radio" id="authCell" name="auth"><label for="authCell">휴대전화 인증</label></span>
+                    </div> 
+                    <div class="btn-btm">
+                        <a href="#" class="btn-big">인증하기</a>
+                    </div>
+              </div>
+          </div>
+      </div>    
+
+    </div>
+    <!-- //container -->
+ </div>   
+</body>
+</html>

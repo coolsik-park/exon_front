@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../common/css/style.css">
+    <script src="../common/js/jquery-3.2.1.min.js"></script>
+    <script src="../common/js/slick.js"></script>
+    <script src="../common/js/swiper.min.js"></script>
+    <script src="../common/js/mobile-detect.min.js"></script>
+    <script src="../common/js/responsiveImg.js"></script>   
+    <script src="../common/js/common.js"></script>
+    <title>EXON</title>
+</head>
+<body>
+ <p id="accessibility"><a href="#container">본문바로가기</a></p>   
+ <div id="wrap">
+    <header id="header">        
+      <!-- mo -->
+      <div class="static-mo">
+          <h1 class="h-logo"><a href="#">EXON</a></h1>
+          <button type="button" class="tg-search">검색</button>
+          <div class="header-search-mo">
+              <div class="search-ipt-wp">
+                  <input type="text" placeholder="찾으시는 행사를 검색해주세요" class="ipt">
+                  <button type="button" class="search">검색</button>
+              </div>                   
+              <button type="button" class="cancel">취소</button>
+          </div>
+          <button type="button" class="tg-menu">메뉴오픈</button>     
+      </div>
+      <div id="aside">
+          <div class="aside-head">
+              <a href="#" class="a-logo">EXON</a>
+              <button type="button" class="tg-close">메뉴닫기</button>
+          </div>
+          <div class="aside-body">
+              <div class="log-area">
+                  <a href="#" class="btn1">로그인</a>
+                  <a href="#" class="btn2">회원가입</a>
+                  <div>
+                      <a href="#" class="btn3">회원 로그인</a>
+                      <a href="#" class="btn3">비회원 신청내역 확인</a>
+                  </div>                    
+              </div>
+              <div class="menu">
+                <ul id="nav">
+                    <li class="sub-no"><button type="button">EXON 소개</button></li>
+                    <li>
+                        <button type="button">마이페이지</button>
+                        <ul>
+                            <li><a href="#">회원 정보 수정</a></li>
+                            <li>
+                                <a href="#">신청 내역 관리</a>
+                                <ul class="lst-depth">
+                                    <li><a href="#">신청 행사</a></li>
+                                    <li><a href="#">종료 행사</a></li>
+                                    <li><a href="#">취소/환불</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">개설 행사 관리</a>
+                                <ul class="lst-depth">
+                                    <li><a href="#">개설 행사</a></li>
+                                    <li><a href="#">진행중 행사</a></li>
+                                    <li><a href="#">임시저장 행사</a></li>
+                                    <li><a href="#">종료 행사</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <button type="button">고객센터</button>
+                        <ul class="lst-depth">
+                            <li><a href="#">자주하는 질문</a></li>
+                            <li><a href="#">공지사항</a></li>
+                            <li><a href="#">문의하기</a></li>
+                        </ul>
+                    </li>
+                </ul>
+              </div>
+          </div>
+      </div>
+    </header>
+    <div id="container">
+      <div class="log-wrap">
+          <div class="log-step-wrap">
+            <h1><a href="#" class="h-logo">EXON</a></h1>
+            <div class="log-step-page log-step-02">
+                <h2 class="h-ty2 fir">간편 회원가입</h2>
+                <div class="log-other">
+                    <a href="#" class="btn-kakao"><span>KaKao 연동하기</span></a>
+                    <a href="#" class="btn-naver"><span>NAVER 연동하기</span></a>
+                </div>
+                <div class="div-or"></div>
+                <h2 class="h-ty2">회원가입</h2>
+                <div class="mbr-form">
+                    <div class="item-row">
+                      <div class="col-dt"><em class="st">*</em>이메일 (아이디)</div>
+                      <div class="col-dd">
+                          <div class="col-email-wp">
+                            <input type="text" id="email" placeholder="이메일" title="이메일 (아이디)"><span class="sp">@</span>
+                            <select name="" id="">
+                              <option value="">선택</option>
+                            </select>
+                          </div>
+                          <p class="noti"><span class="hc1">이미 회원 가입된 이메일입니다. 다시 입력해주세요</span> or <span class="hc1">올바른 이메일 형식을 입력해 주세요.</span></p>
+                      </div>
+                    </div>
+                    <div class="item-row">
+                        <div class="col-dt"><em class="st">*</em>비밀번호</div>                      
+                        <div class="col-dd">
+                            <input type="password" placeholder="최소 8자 이상 영어 + 숫자" class="full" title="비밀번호">
+                        </div>
+                    </div>  
+                    <div class="item-row">
+                        <div class="col-dt"><em class="st">*</em>비밀번호 확인</div>
+                        <div class="col-dd">
+                            <input type="password" placeholder="최소 8자 이상" class="full" title="비밀번호 확인">
+                            <p class="noti hc1">비밀번호가 다릅니다. 다시 입력해 주세요</p>
+                        </div>
+                    </div>
+                    <div class="item-row">
+                      <div class="col-dt"><em class="st">*</em>이름</div>                    
+                      <div class="col-dd">
+                          <input type="text" placeholder="최소 2자 이상" class="full" title="이름">
+                      </div>
+                    </div>    
+                    <div class="item-row">
+                      <div class="col-dt">휴대전화 번호</div>                    
+                      <div class="col-dd">
+                          <div class="col-cell-wp">
+                              <select id="cellNumber">
+                                  <option value="">010</option>
+                              </select>
+                              <input type="text" placeholder="'-' 없이 입력해 주세요" title="휴대전화 번호">
+                          </div>
+                      </div>
+                    </div>   
+                </div>
+                <h2 class="h-ty2">이용약관 / 개인정보 수집 및 이용 동의</h2>
+                <div class="agree-wp">
+                    <div>
+                      <span class="chk-dsg"><input type="checkbox" id="agree1"><label for="agree1">전체동의</label></span>
+                    </div>
+                    <div>
+                      <span class="chk-dsg"><input type="checkbox" id="agree2"><label for="agree2">(필수) 이용약관</label></span><a href="#" class="btn-ss">약관동의</a>
+                    </div>
+                    <div>
+                      <span class="chk-dsg"><input type="checkbox" id="agree3"><label for="agree3">(필수) 개인정보 수집 및 이용 동의</label></span><a href="#" class="btn-ss">약관보기</a>
+                    </div>  
+                    <div>
+                      <span class="chk-dsg"><input type="checkbox" id="agree4"><label for="agree4">(선택) 이메일 수신</label></span>
+                      <p class="noti">단, 행사와 관련된 정보는 수신 동의 여부 관계없이 발송됩니다.</p>
+                    </div>                  
+                </div>
+                <div class="btn-btm">
+                    <a href="#" class="btn-big">가입완료</a>
+                </div>
+            </div>
+          </div>   
+      </div>
+    </div>
+   
+ </div>  
+</body>
+</html>

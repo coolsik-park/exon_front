@@ -319,8 +319,12 @@ class UsersController extends AppController
             
             if($user && $hashPswdObj->check($this->request->getData('password'),$user->password)){
                 $this->Auth->setUser($user);
-                $target = $this->Auth->redirectUrl() ?? '/home';
-                return $this->redirect($target);
+                
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                return $response;
+            } else {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                return $response;
             }
         }
 

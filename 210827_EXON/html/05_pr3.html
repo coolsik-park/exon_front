@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../common/css/style.css">
+    <script src="../common/js/jquery-3.2.1.min.js"></script>
+    <script src="../common/js/slick.js"></script>
+    <script src="../common/js/swiper.min.js"></script>
+    <script src="../common/js/mobile-detect.min.js"></script>
+    <script src="../common/js/function.js"></script>
+    <script src="../common/js/responsiveImg.js"></script>   
+    <script src="../common/js/common.js"></script>
+    <title>EXON</title>
+</head>
+<body>
+ <p id="accessibility"><a href="#container">본문바로가기</a></p>   
+ <div id="wrap">
+    <header id="header">
+        <!-- pc -->
+        <div class="static">
+            <h1 class="h-logo"><a href="#">EXON</a></h1>
+            <div class="header-search">               
+                <form action="#">
+                    <fieldset>
+                        <legend>전시회 검색</legend>
+                            <input type="text" placeholder="찾으시는 행사를 검색해주세요" class="ipt">
+                            <button type="button" class="ico-sh">검색</button>
+                    </fieldset>                        
+                </form> 
+            </div>
+            <div class="h-elt">
+                <!-- before -->
+                <!-- <a href="#">로그인</a>
+                <a href="#">회원가입</a>
+                <a href="#">행사신청내쳑</a> -->
+
+                <!-- after -->
+                <a href="#" class="btn-ty4">로그아웃</a>
+            </div>            
+        </div>
+        <!-- mo -->
+        <div class="static-mo">
+            <h1 class="h-logo"><a href="#">EXON</a></h1>
+            <button type="button" class="tg-menu">메뉴오픈</button>
+        </div>
+        <div id="aside">
+            <div class="aside-head">
+                <a href="#" class="a-logo">EXON</a>
+                <button type="button" class="tg-close">메뉴닫기</button>
+            </div>
+            <div class="aside-body">
+                <div class="log-area">
+                    <a href="#" class="btn1">로그인</a>
+                    <a href="#" class="btn2">회원가입</a>
+                    <div>
+                        <a href="#" class="btn3">회원 로그인</a>
+                        <a href="#" class="btn3">비회원 신청내역 확인</a>
+                    </div>                    
+                </div>
+                <div class="menu">
+                    <ul id="nav">
+                        <li class="sub-no"><button type="button">EXON 소개</button></li>
+                        <li>
+                            <button type="button">마이페이지</button>
+                            <ul>
+                                <li><a href="#">회원 정보 수정</a></li>
+                                <li>
+                                    <a href="#">신청 내역 관리</a>
+                                    <ul class="lst-depth">
+                                        <li><a href="#">신청 행사</a></li>
+                                        <li><a href="#">종료 행사</a></li>
+                                        <li><a href="#">취소/환불</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">개설 행사 관리</a>
+                                    <ul class="lst-depth">
+                                        <li><a href="#">개설 행사</a></li>
+                                        <li><a href="#">진행중 행사</a></li>
+                                        <li><a href="#">임시저장 행사</a></li>
+                                        <li><a href="#">종료 행사</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <button type="button">고객센터</button>
+                            <ul class="lst-depth">
+                                <li><a href="#">자주하는 질문</a></li>
+                                <li><a href="#">공지사항</a></li>
+                                <li><a href="#">문의하기</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <div class="sub-menu">
+            <div class="sub-menu-inner">
+                <ul class="tab">
+                    <li><a href="#">행사 설정 수정</a></li>
+                    <li><a href="#">설문 데이터</a></li>
+                    <li class="active"><a href="#">참가자 관리</a></li>
+                    <li><a href="#">웨비나 송출 설정</a></li>
+                    <li><a href="#">행사 통계</a></li>
+                </ul>
+            </div>
+        </div>        
+        <div class="contents static">
+            <h2 class="sr-only">참가자 관리</h2>
+            <div class="pr3-title">                            
+                <ul class="s-tabs2">
+                    <li class="active"><a href="07_cs1.html">참가자</a></li>
+                    <li><a href="07_cs2.html">문자</a></li>
+                    <li><a href="07_cs3.html">이메일</a></li>
+                </ul>
+                <h3 class="s-hty1">참가자</h3>    
+            </div>
+            <div class="pr3-section1">
+                <div class="table-type table-type3">
+                    <div class="th-row">
+                        <div class="th-col col1">인적사항</div>
+                        <div class="th-col col2">설문 확인</div>
+                        <div class="th-col col3">신청 그룹</div>
+                        <div class="th-col col4">결제 내역</div>
+                        <div class="th-col col5">출석 여부</div>
+                        <div class="th-col col6">승인 상태</div>
+                        <div class="th-col col7"></div>
+                    </div>
+                    <div class="tr-row">
+                        <div class="td-col col1">
+                            <div class="mo-only">인적사항</div>
+                            <div class="con ag-ty1">
+                                <p class="tit fir">라이브몰로</p>
+                                <div class="u-name">
+                                    <p class="name">홍길동</p>
+                                    <p class="age">남자 / 21</p>
+                                </div>
+                                <p>kildong@orcatv.co.kr</p>
+                                <p>010-1234-5678</p>
+                            </div>                            
+                        </div>
+                        <div class="td-col col2">
+                            <div class="mo-only">설문 확인</div>
+                            <div class="con">
+                                <a href="#" class="btn-ty3 bor">설문확인</a>
+                            </div>
+                        </div>
+                        <div class="td-col col3">
+                            <div class="mo-only">신청 그룹</div>
+                            <div class="con">
+                                <p>Group1</p>  
+                            </div>
+                        </div>
+                        <div class="td-col col4">
+                            <div class="mo-only">결제 내역</div>
+                            <div class="con">
+                                1,000원
+                            </div>
+                        </div>
+                        <div class="td-col col5">
+                            <div class="mo-only">출석 여부</div>
+                            <div class="con">
+                                -
+                            </div>
+                        </div>
+                        <div class="td-col col6">
+                            <div class="mo-only">승인 상태</div>
+                            <div class="con">
+                                <select>
+                                    <option value="">참가 대기</option>
+                                    <option value="">참가 확정</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="td-col col7">
+                            <div class="mo-only">신청 그룹</div>
+                            <div class="con">                                
+                                <p><a href="#" class="btn-ty3 red">취소</a></p>
+                            </div>
+                        </div>                        
+                    </div>
+                    
+                </div>
+                <!-- // -->
+                <div class="pagination">
+                    <a href="#" class="p-prev">이전</a>
+                    <div class="paging">
+                        <strong>1</strong>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#">6</a>
+                        <a href="#">7</a>
+                        <a href="#">8</a>
+                        <a href="#">9</a>
+                    </div>                    
+                    <a href="#" class="p-next">다음</a>
+                </div>
+            </div>
+          
+        </div>        
+    </div>
+    <footer id="footer"></footer>
+ </div> 
+</body>
+</html>
+

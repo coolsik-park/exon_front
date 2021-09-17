@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../common/css/style.css">
+    <script src="../common/js/jquery-3.2.1.min.js"></script>
+    <script src="../common/js/slick.js"></script>
+    <script src="../common/js/swiper.min.js"></script>
+    <script src="../common/js/mobile-detect.min.js"></script>
+    <script src="../common/js/responsiveImg.js"></script>   
+    <script src="../common/js/common.js"></script>
+    <title>EXON</title>
+    <style>
+ 
+    </style>
+</head>
+<body>
+ 
+
+
+ <!-- 이메일 인증 -->
+ <div class="popup-wrap">
+    <div class="popup-head">
+        <h1>이메일 인증</h1>
+        <button type="button" class="popup-close">팝업닫기</button>
+    </div>
+    <div class="popup-body">
+        <div class="cert-sect1">
+            <input type="text" placeholder="이메일">
+            <button type="button" class="btn-ty2 btn-m-bor">인증메일 발송</button>
+        </div>        
+        <div class="cert-sect2">
+            <div class="label-wp">
+                <label for="cert1-1">인증번호</label><input type="text" id="cert1-1" placeholder="인증번호">
+            </div> 
+            <button type="button" class="btn-ty2 gray">재발송</button>
+        </div>
+        <div class="popup-btm alone">
+            <button type="button" class="btn-ty2">확인</button>
+        </div>        
+    </div>
+ </div>  
+
+ <br>
+ <!-- 휴대전화 인증 -->
+ <div class="popup-wrap">
+    <div class="popup-head">
+        <h1>휴대전화 인증</h1>
+        <button type="button" class="popup-close">팝업닫기</button>
+    </div>
+    <div class="popup-body">        
+        <div class="cert-sect3">
+            <div class="col-cell-wp">
+                <select id="cellNumber">
+                    <option value="">010</option>
+                </select>
+                <input type="text" placeholder="'-' 없이 입력해 주세요">
+            </div>
+            <button type="button" class="btn-ty2 btn-m-bor">인증번호 발송</button>
+        </div>
+        <div class="cert-sect2">
+            <div class="label-wp">
+                <label for="cert1-2">인증번호</label><input type="text" id="cert1-2">
+            </div>            
+            <button type="button" class="btn-ty2 gray">재발송</button>
+        </div>
+        <div class="popup-btm alone">
+            <button type="button" class="btn-ty2">확인</button>
+        </div>        
+    </div>
+ </div>  
+
+ <br>
+ <!-- 인증완료 -->
+ <div class="popup-wrap popup-ty2">
+    <div class="popup-head">
+        <h1>인증 완료</h1>
+        <button type="button" class="popup-close">팝업닫기</button>
+    </div>
+    <div class="popup-body">        
+        <div class="cert-sect4">
+            <p>본인 인증이 완료되었습니다.<br>이제 행사 신청 내역을 조회하실 수 있습니다.</p>
+        </div>
+        <div class="popup-btm alone">
+            <button type="button" class="btn-ty2">확인</button>
+        </div>        
+    </div>
+ </div>  
+ <br>
+ <!-- 인증 실패 -->
+ <div class="popup-wrap popup-ty2">
+    <div class="popup-head">
+        <h1>인증 실패</h1>
+        <button type="button" class="popup-close">팝업닫기</button>
+    </div>
+    <div class="popup-body">        
+        <div class="cert-sect4">
+            <p>진행 중인 행사 중 일치하는 정보가 없습니다.<br>
+                입력하신 정보가 맞는지 확인해주세요.</p>
+        </div>
+        <div class="popup-btm alone">
+            <button type="button" class="btn-ty2">확인</button>
+        </div>        
+    </div>
+ </div> 
+
+ <br>
+ <!-- 회원가입을 완료 -->
+ <div class="popup-wrap popup-ty2">
+    <div class="popup-head">
+        <h1>회원가입을 완료해주세요</h1>
+        <button type="button" class="popup-close">팝업닫기</button>
+    </div>
+    <div class="popup-body">        
+        <div class="cert-sect4">
+            <p>연동이 완료되었습니다.<br>
+                남은 정보들을 입력하여 회원가입을 완료해주세요.</p>
+        </div>
+        <div class="popup-btm alone">
+            <button type="button" class="btn-ty2">확인</button>
+        </div>        
+    </div>
+ </div> 
+ 
+ <br><br>
+
+ <!-- 행사 설정 개설 -->
+ <div class="popup-wrap popup-ty2">
+    <div class="popup-head">
+        <h1>행사 설정 개설</h1>
+        <button type="button" class="popup-close">팝업닫기</button>
+    </div>
+    <div class="popup-body">        
+        <div class="cert-sect4">
+            <p>‘확인’을 클릭 하시면 자동으로 행사가 개설 됩니다<br>
+                개설하시겠습니까?</p>
+        </div>
+        <div class="popup-btm">
+            <button type="button" class="btn-ty2 red">취소</button>
+            <button type="button" class="btn-ty2">확인</button>
+        </div>        
+    </div>
+ </div> 
+
+ <br><br>
+
+  <!-- 인증 결과 화면 -->
+  <div class="popup-wrap popup-ty2">
+    <div class="popup-head">
+        <h1>일치하는 신청 정보가 없습니다</h1>
+        <button type="button" class="popup-close">팝업닫기</button>
+    </div>
+    <div class="popup-body">        
+        <div class="cert-sect4">
+            <p>일치하는 신청 정보가 없습니다. <br>
+                ‘확인’버튼을 클릭하시면 행사 페이지로 이동합니다.<br>
+                행사 담당자에게 문의하여 주시기 바랍니다.</p>
+        </div>
+        <div class="popup-btm">
+            <button type="button" class="btn-ty2 red">취소</button>
+            <button type="button" class="btn-ty2">확인</button>
+        </div>        
+    </div>
+ </div> 
+
+ <br><br>
+
+<!-- 인증 결과 화면 -->
+<div class="popup-wrap popup-ty2">
+    <div class="popup-head">
+        <h1>인증번호가 틀렸습니다</h1>
+        <button type="button" class="popup-close">팝업닫기</button>
+    </div>
+    <div class="popup-body">        
+        <div class="cert-sect4">
+            <p>인증번호가 틀렸습니다. 받으신 인증번호를 확인하시거나,<br>
+                재발송 후 다시 입력해 주세요.</p>
+        </div>
+        <div class="popup-btm alone">           
+            <button type="button" class="btn-ty2">확인</button>
+        </div>        
+    </div>
+ </div> 
+
+ <br><br>
+
+ <!-- 인적사항 확인 -->
+<div class="popup-wrap">
+    <div class="popup-head">
+        <h1>인적사항 확인</h1>
+        <button type="button" class="popup-close">팝업닫기</button>
+    </div>
+    <div class="popup-body">  
+        <div class="cert-sect5">
+            <ul>
+                <li><span class="dt">이메일</span><span class="dd">hong@gmail.com</span></li>
+                <li><span class="dt">이름</span><span class="dd">홍길동</span></li>
+                <li><span class="dt">전화번호</span><span class="dd">010-1234-5678</span></li>
+            </ul>
+        </div>      
+        <div class="cert-sect6">
+            <p>웨비나 접속 시 인증이 필요할 수 있습니다.<br>
+                위 내용으로 신청하시겠습니까?</p>
+        </div>
+        <div class="popup-btm">           
+            <button type="button" class="btn-ty2 red">취소</button>
+            <button type="button" class="btn-ty2">확인</button>
+        </div>        
+    </div>
+ </div> 
+
+ <br> <br>
+
+  <!-- 설문 확인 -->
+<div class="popup-wrap">
+    <div class="popup-head">
+        <h1>설문 결과</h1>
+        <button type="button" class="popup-close">팝업닫기</button>
+    </div>
+    <div class="popup-body">  
+        <div class="pop-poll-items-wrap">
+            <div class="pop-poll-item">
+                <p class="tit">어느 계절이 가장 좋나요?</p>
+                <ul>
+                    <li><span class="chk-dsg"><input type="radio" id="pp1-1" name="pp1"><label for="pp1-1">봄</label></span></li>
+                    <li><span class="chk-dsg"><input type="radio" id="pp1-2" name="pp1"><label for="pp1-2">여름</label></span></li>
+                    <li><span class="chk-dsg"><input type="radio" id="pp1-3" name="pp1"><label for="pp1-3">가을</label></span></li>
+                    <li><span class="chk-dsg"><input type="radio" id="pp1-4" name="pp1"><label for="pp1-4">겨울</label></span></li>
+                </ul>
+            </div>
+            <div class="pop-poll-item">
+                <p class="tit">핸드폰을 가지고 있나요?</p>
+                <ul>
+                    <li><span class="chk-dsg"><input type="radio" id="pp2-1" name="pp2"><label for="pp2-1">봄</label></span></li>
+                    <li><span class="chk-dsg"><input type="radio" id="pp2-2" name="pp2"><label for="pp2-2">여름</label></span></li>
+                    <li><span class="chk-dsg"><input type="radio" id="pp2-3" name="pp2"><label for="pp2-3">가을</label></span></li>
+                    <li><span class="chk-dsg"><input type="radio" id="pp2-4" name="pp2"><label for="pp2-4">겨울</label></span></li>
+                </ul>
+            </div>
+            <div class="pop-poll-item">
+                <p class="tit">행사 내용이 마음에 드시나요</p>
+                <textarea name="" id="" cols="30" rows="3"></textarea>
+            </div>
+        </div>        
+        <div class="popup-btm alone">     
+            <button type="button" class="btn-ty2">확인</button>
+        </div>        
+    </div>
+ </div> 
+
+ <br> <br>
+
+
+<!-- 참가자 신청 취소 -->
+<div class="popup-wrap popup-ty2">
+    <div class="popup-head">
+        <h1>참가자 신청 취소</h1>
+        <button type="button" class="popup-close">팝업닫기</button>
+    </div>
+    <div class="popup-body">        
+        <div class="cert-sect4">
+            <p>참가자의 신청을 취소할 경우 참가자가 결제한 금액은<br class="br-mo">
+                모두 환불됩니다.<br>
+                참가자 신청을 취소하시겠습니까?</p>
+        </div>
+        <div class="popup-btm">
+            <button type="button" class="btn-ty2 red">취소</button>
+            <button type="button" class="btn-ty2">확인</button>
+        </div>        
+    </div>
+</div> 
+
+ <br><br>
+
+
+ <!-- 참가자 리스트 -->
+ <div class="popup-wrap popup-ty3">
+    <div class="popup-head">
+        <h1>참가자 리스트</h1>
+        <button type="button" class="popup-close">팝업닫기</button>
+    </div>
+    <div class="popup-body">  
+        <div class="search-box1">
+            <div class="sel-wp">
+                <select>
+                    <option>승인상태</option>
+                    <option>참가 확정</option>
+                    <option>참가 대기</option>
+                </select>
+                <select>
+                    <option>그룹명</option>
+                    <option>Group1</option>
+                    <option>Group2</option>
+                </select>
+            </div>
+            <div class="ipt-search">
+                <input type="text" placeholder="이름,이메일">
+                <button type="button"><span class="ico-sh">검색</span> </button>
+            </div>
+        </div>
+
+        <div class="table-type4">
+            <div class="th-row">
+                <div class="th-col col1">
+                    <span class="chk-dsg"><input type="checkbox" id="all"><label for="all">전체선택</label></span>   
+                </div>                     
+                <div class="th-col col2">승인 상태</div>
+                <div class="th-col col3">그룹명</div>
+                <div class="th-col col4">이름</div>
+                <div class="th-col col5">연락처</div>
+            </div>
+            <div class="tr-row-wp">
+                <div class="tr-row">
+                    <div class="td-col col1">
+                        <div class="mo-only">선택</div>
+                        <div class="con">
+                            <label class="chk-dsg2"><input type="checkbox"><span>선택</span></label>
+                        </div>                        
+                    </div>
+                    <div class="td-col col2">
+                        <div class="mo-only">승인 상태</div>
+                        <div class="con">
+                            참가 확정
+                        </div>
+                    </div>
+                    <div class="td-col col3">
+                        <div class="mo-only">그룹명</div>
+                        <div class="con">
+                            Group 
+                        </div>
+                    </div>
+                    <div class="td-col col4">
+                        <div class="mo-only">이름</div>
+                        <div class="con">
+                            홍길동
+                        </div>
+                    </div>
+                    <div class="td-col col5">
+                        <div class="mo-only">연락처</div>
+                        <div class="con">
+                            010-1324-8765
+                        </div>
+                    </div>                    
+                </div>
+                <div class="tr-row">
+                    <div class="td-col col1">
+                        <div class="mo-only">선택</div>
+                        <div class="con">
+                            <label class="chk-dsg2"><input type="checkbox"><span>선택</span></label>
+                        </div>                        
+                    </div>
+                    <div class="td-col col2">
+                        <div class="mo-only">승인 상태</div>
+                        <div class="con">
+                            참가 확정
+                        </div>
+                    </div>
+                    <div class="td-col col3">
+                        <div class="mo-only">그룹명</div>
+                        <div class="con">
+                            Group 
+                        </div>
+                    </div>
+                    <div class="td-col col4">
+                        <div class="mo-only">이름</div>
+                        <div class="con">
+                            홍길동
+                        </div>
+                    </div>
+                    <div class="td-col col5">
+                        <div class="mo-only">연락처</div>
+                        <div class="con">
+                            010-1324-8765
+                        </div>
+                    </div>                    
+                </div> 
+                <div class="tr-row">
+                    <div class="td-col col1">
+                        <div class="mo-only">선택</div>
+                        <div class="con">
+                            <label class="chk-dsg2"><input type="checkbox"><span>선택</span></label>
+                        </div>                        
+                    </div>
+                    <div class="td-col col2">
+                        <div class="mo-only">승인 상태</div>
+                        <div class="con">
+                            참가 확정
+                        </div>
+                    </div>
+                    <div class="td-col col3">
+                        <div class="mo-only">그룹명</div>
+                        <div class="con">
+                            Group 
+                        </div>
+                    </div>
+                    <div class="td-col col4">
+                        <div class="mo-only">이름</div>
+                        <div class="con">
+                            홍길동
+                        </div>
+                    </div>
+                    <div class="td-col col5">
+                        <div class="mo-only">연락처</div>
+                        <div class="con">
+                            010-1324-8765
+                        </div>
+                    </div>                    
+                </div> 
+                <div class="tr-row">
+                    <div class="td-col col1">
+                        <div class="mo-only">선택</div>
+                        <div class="con">
+                            <label class="chk-dsg2"><input type="checkbox"><span>선택</span></label>
+                        </div>                        
+                    </div>
+                    <div class="td-col col2">
+                        <div class="mo-only">승인 상태</div>
+                        <div class="con">
+                            참가 확정
+                        </div>
+                    </div>
+                    <div class="td-col col3">
+                        <div class="mo-only">그룹명</div>
+                        <div class="con">
+                            Group 
+                        </div>
+                    </div>
+                    <div class="td-col col4">
+                        <div class="mo-only">이름</div>
+                        <div class="con">
+                            홍길동
+                        </div>
+                    </div>
+                    <div class="td-col col5">
+                        <div class="mo-only">연락처</div>
+                        <div class="con">
+                            010-1324-8765
+                        </div>
+                    </div>                    
+                </div> 
+                <div class="tr-row">
+                    <div class="td-col col1">
+                        <div class="mo-only">선택</div>
+                        <div class="con">
+                            <label class="chk-dsg2"><input type="checkbox"><span>선택</span></label>
+                        </div>                        
+                    </div>
+                    <div class="td-col col2">
+                        <div class="mo-only">승인 상태</div>
+                        <div class="con">
+                            참가 확정
+                        </div>
+                    </div>
+                    <div class="td-col col3">
+                        <div class="mo-only">그룹명</div>
+                        <div class="con">
+                            Group 
+                        </div>
+                    </div>
+                    <div class="td-col col4">
+                        <div class="mo-only">이름</div>
+                        <div class="con">
+                            홍길동
+                        </div>
+                    </div>
+                    <div class="td-col col5">
+                        <div class="mo-only">연락처</div>
+                        <div class="con">
+                            010-1324-8765
+                        </div>
+                    </div>                    
+                </div> 
+                <div class="tr-row">
+                    <div class="td-col col1">
+                        <div class="mo-only">선택</div>
+                        <div class="con">
+                            <label class="chk-dsg2"><input type="checkbox"><span>선택</span></label>
+                        </div>                        
+                    </div>
+                    <div class="td-col col2">
+                        <div class="mo-only">승인 상태</div>
+                        <div class="con">
+                            참가 확정
+                        </div>
+                    </div>
+                    <div class="td-col col3">
+                        <div class="mo-only">그룹명</div>
+                        <div class="con">
+                            Group 
+                        </div>
+                    </div>
+                    <div class="td-col col4">
+                        <div class="mo-only">이름</div>
+                        <div class="con">
+                            홍길동
+                        </div>
+                    </div>
+                    <div class="td-col col5">
+                        <div class="mo-only">연락처</div>
+                        <div class="con">
+                            010-1324-8765
+                        </div>
+                    </div>                    
+                </div>     
+            </div>              
+        </div>
+        
+        <div class="popup-btm">           
+            <button type="button" class="btn-ty2 bor">취소</button>
+            <button type="button" class="btn-ty2">확인</button>
+        </div>        
+    </div>
+ </div> 
+  
+ <br><br>
+
+  <!-- 팝업창 디자인 (등록된 발신번호) -->
+<div class="popup-wrap popup-ty3">
+    <div class="popup-head">
+        <h1>등록된 발신번호</h1>
+        <button type="button" class="popup-close">팝업닫기</button>
+    </div>
+    <div class="popup-body">  
+        <div class="search-box2">
+            <input type="text" placeholder="전화번호">
+            <button type="button" class="btn-ty2">등록</button>
+        </div>
+        <div class="search-box2-result">
+            <ul>
+                <li><span class="chk-dsg"><input type="checkbox" id="chk1"><label for="chk1">010-1234-5687</label></span></li>
+                <li><span class="chk-dsg"><input type="checkbox" id="chk2"><label for="chk2">010-1234-5687</label></span></li>
+                <li><span class="chk-dsg"><input type="checkbox" id="chk3"><label for="chk3">010-1234-5687</label></span></li>
+                <li><span class="chk-dsg"><input type="checkbox" id="chk4"><label for="chk4">010-1234-5687</label></span></li>
+                <li><span class="chk-dsg"><input type="checkbox" id="chk5"><label for="chk5">010-1234-5687</label></span></li>
+                <li><span class="chk-dsg"><input type="checkbox" id="chk6"><label for="chk6">010-1234-5687</label></span></li>
+            </ul>
+        </div>
+        <div class="popup-btm">           
+            <button type="button" class="btn-ty2 bor">취소</button>
+            <button type="button" class="btn-ty2">확인</button>
+        </div>        
+    </div>
+</div> 
+
+<br><br>
+
+ <!-- 스트림 키 -->
+<div class="popup-wrap popup-ty3">
+    <div class="popup-head">
+        <h1>스트림 키</h1>
+        <button type="button" class="popup-close">팝업닫기</button>
+    </div>
+    <div class="popup-body">     
+        <div class="stream-sect">
+            <div class="row2">
+                <div class="col-th">프로모션 키</div>
+                <div class="col-td">
+                    <div class="stream-ipt1">
+                        <input type="text">
+                        <button type="button" class="btn-ty2 bor">확인</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row2-wp">
+                <div class="row2">
+                    <div class="col-th">시간</div>
+                    <div class="col-td">
+                        <div class="stream-itp2">
+                            <select>
+                                <option value="">half day</option>
+                                <option value="">all day</option>
+                            </select>
+                            <select>
+                                <option value="">50</option>
+                                <option value="">100</option>
+                                <option value="">150</option>
+                                <option value="">200</option>
+                                <option value="">150</option>
+                            </select>
+                            명
+                        </div>
+                    </div>
+                </div>
+                <div class="row2">
+                    <div class="col-th">금액</div>
+                    <div class="col-td">
+                        <div class="stream-ipt1">
+                            <input type="text">
+                            <button type="button" class="btn-ty2 bor">결제</button>
+                        </div>                    
+                    </div>
+                </div>
+            </div>
+            <div class="stream-btn">
+                <button type="button" class="btn-ty2">스트림 키 발급</button>
+            </div>
+            <div class="row2">
+                <div class="col-th">스트림 URL</div>
+                <div class="col-td">
+                    <div class="stream-ipt1">
+                        <input type="text">
+                        <button type="button" class="btn-ty2 bor">복사</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<br><br>
+
+ <!-- 스트림 키 -->
+<div class="popup-wrap popup-ty3">
+    <div class="popup-head">
+        <h1>스트림 키</h1>
+        <button type="button" class="popup-close">팝업닫기</button>
+    </div>
+    <div class="popup-body">     
+        <div class="stream-sect">
+            <div class="row2">
+                <div class="col-th">프로모션 키</div>
+                <div class="col-td">
+                    <div class="stream-ipt1">
+                        <input type="text">
+                        <button type="button" class="btn-ty2 gray2">확인</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row2-wp">
+                <div class="row2">
+                    <div class="col-th">시간</div>
+                    <div class="col-td">
+                        <div class="stream-itp2">
+                            <select>
+                                <option value="">half day</option>
+                                <option value="">all day</option>
+                            </select>
+                            <select>
+                                <option value="">50</option>
+                                <option value="">100</option>
+                                <option value="">150</option>
+                                <option value="">200</option>
+                                <option value="">150</option>
+                            </select>
+                            명
+                        </div>
+                    </div>
+                </div>
+                <div class="row2">
+                    <div class="col-th">금액</div>
+                    <div class="col-td">
+                        <div class="stream-ipt1">
+                            <input type="text">
+                            <button type="button" class="btn-ty2 bor">결제</button>
+                        </div>                    
+                    </div>
+                </div>
+            </div>            
+            <div class="stream-ipt3">
+                <div class="ipt-eye">
+                    <input type="password" class="ipt-tx">
+                    <button type="button" class="ico-eye">히든</button>
+                </div>
+                <button type="button" class="btn-ty2 bor">복사</button>
+            </div>            
+            <div class="row2">
+                <div class="col-th">스트림 URL</div>
+                <div class="col-td">
+                    <div class="stream-ipt1">
+                        <input type="text">
+                        <button type="button" class="btn-ty2 bor">복사</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+
+
+</body>
+</html>
+
