@@ -23,7 +23,7 @@
     <div class="popup-wrap">
         <div class="popup-head">
             <h1>휴대폰 인증</h1>
-            <button type="button" class="popup-close">팝업닫기</button>
+            <button id="close" type="button" class="popup-close">팝업닫기</button>
         </div>
         <div class="popup-body">
             <div class="cert-sect1">
@@ -48,6 +48,10 @@
 </body>
 
 <script> 
+    $("#close").click(function () {
+        window.close();
+    });
+
     $("#send").click(function () {
         if ($("#hp").val() == "") {
             $("#hpNoti").html("전화번호를 입력해 주세요.");
