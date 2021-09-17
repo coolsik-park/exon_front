@@ -14,7 +14,6 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Iamport;
 
-
 /**
  * Exhibition Controller
  *
@@ -618,6 +617,40 @@ class ExhibitionController extends AppController
 
         $exhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey')->find('all', ['contain' => ['ChildExhibitionSurvey', 'ExhibitionSurveyUsersAnswer']]);
 
+        //사전설문 데이터
+
+        $exhibitionSurveys = $exhibitionSurvey
+            ->select(['ExhibitionSurvey.id', 'ExhibitionSurvey.parent_id', 'ExhibitionSurvey.text', 'ExhibitionSurvey.is_multiple', 
+                'ExhibitionSurveyUsersAnswer.text', 'ExhibitionSurvey.survey_type', 'count' => $exhibitionSurvey->func()->count('ExhibitionSurveyUsersAnswer.text')])
+            ->leftJoinWith('ExhibitionSurveyUsersAnswer', function ($q) {
+                return $q->where(['ExhibitionSurveyUsersAnswer.text' => 'Y']);
+            })
+            ->group('ExhibitionSurvey.id')
+            ->where(['exhibition_id' => $id, 'survey_type' => 'B'])
+            ->toArray();
+        
+        $parent_id = 0;
+        $i = 0;
+        $j = 0;
+        $beforeParentData[] = null;
+        $beforeChildData[] = null;
+        foreach ($exhibitionSurveys as $exhibitionSurvey) {
+            if ($exhibitionSurvey['parent_id'] == null) {
+                $parent_id = $exhibitionSurvey['id'];
+                $beforeParentData[$i] = $exhibitionSurvey;
+                $i++;
+            } else {
+                if ($exhibitionSurvey['parent_id'] == $parent_id) {
+                    $beforeChildData[$parent_id][$j] = $exhibitionSurvey;
+                    $j++;
+                }
+            }
+        }
+        
+        //일반설문 데이터
+
+        $exhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey')->find('all', ['contain' => ['ChildExhibitionSurvey', 'ExhibitionSurveyUsersAnswer']]);
+
         $exhibitionSurveys = $exhibitionSurvey
             ->select(['ExhibitionSurvey.id', 'ExhibitionSurvey.parent_id', 'ExhibitionSurvey.text', 'ExhibitionSurvey.is_multiple', 
                 'ExhibitionSurveyUsersAnswer.text', 'ExhibitionSurvey.survey_type', 'count' => $exhibitionSurvey->func()->count('ExhibitionSurveyUsersAnswer.text')])
@@ -665,6 +698,16 @@ class ExhibitionController extends AppController
                 $spreadsheet->createSheet();
             }
 
+            for ($i = 0; $i < $count; $i++) {
+                $spreadsheet->setActiveSheetIndex($i)
+                ->setTitle('질문' . ($i+1))
+                ->setCellValue('A1', '');
+
+                $spreadsheet->getActiveSheet($i)
+                ->setCellValue('B1', '이름')
+                ->setCellValue('C1', '이메일')
+                ->setCellValue('D1', '질문' . ($i+1));
+            }
 
             $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
             $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id])->toArray();

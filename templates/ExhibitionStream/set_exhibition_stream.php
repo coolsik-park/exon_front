@@ -222,7 +222,11 @@
                 alert($("button#tab0").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
+<<<<<<< HEAD
+            $("div#tabContent").load("/exhibition-stream/exhibition-files/" + <?= $exhibitionStream->exhibition_id ?>);
+=======
             $("div#tabContent").load("/exhibition-stream/set-exhibition-files/" + <?= $exhibitionStream->exhibition_id ?>);
+>>>>>>> master
         }
     });
 
@@ -294,7 +298,11 @@
                 alert($("button#tab4").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
+<<<<<<< HEAD
+            $("div#tabContent").load("/exhibition-stream/program/" + <?= $exhibitionStream->exhibition_id ?>);
+=======
             $("div#tabContent").load("/exhibition-stream/set-program/" + <?= $exhibitionStream->exhibition_id ?>);
+>>>>>>> master
         }
     });
 
@@ -330,7 +338,15 @@
                 alert($("button#tab6").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
+<<<<<<< HEAD
+<<<<<<< HEAD
+            $("div#tabContent").load("/exhibition-stream/speaker-menu/" + <?= $exhibitionStream->exhibition_id ?>);
+=======
             $("div#tabContent").load("/exhibition-stream/question-menu/" + <?= $exhibitionStream->exhibition_id ?>);
+>>>>>>> 85afc0d88a36c121135fb9ada89efc86f4771676
+=======
+            $("div#tabContent").load("/exhibition-stream/question-menu/" + <?= $exhibitionStream->exhibition_id ?>);
+>>>>>>> master
         }
     });
 
@@ -348,7 +364,11 @@
                 alert($("button#tab7").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
+<<<<<<< HEAD
+            $("div#tabContent").load("/exhibition-stream/notice/" + <?= $exhibitionStream->exhibition_id ?>);
+=======
             $("div#tabContent").load("/exhibition-stream/set-notice/" + <?= $exhibitionStream->exhibition_id ?>);
+>>>>>>> master
         }
     });
 
@@ -366,7 +386,11 @@
                 alert($("button#tab8").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
+<<<<<<< HEAD
+            $("div#tabContent").load("/exhibition-stream/survey/" + <?= $exhibitionStream->exhibition_id ?>);
+=======
             $("div#tabContent").load("/exhibition-stream/set-survey/" + <?= $exhibitionStream->exhibition_id ?>);
+>>>>>>> master
         }
     });
 
