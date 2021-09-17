@@ -486,11 +486,6 @@ class UsersController extends AppController
             $commonConfirmation = $commonConfirmation_table->newEmptyEntity();
             $commonConfirmation = $commonConfirmation_table->patchEntity($commonConfirmation, ['confirmation_code' =>$code, 'types' => 'SMS']);
 
-            if ($this->request->getData('hp') == null) {
-                $this->Flash->error(__('hp가 작성되지 않았습니다.'));
-                return $this->redirect(['action' => 'sendSmsCertified']);
-            }
-
             if ($result = $commonConfirmation_table->save($commonConfirmation)) {
                 $to[0] = $this->request->getData('hp');
 
@@ -503,10 +498,11 @@ class UsersController extends AppController
                 ];
 
                 if(send_messages($messages)) {
-                    $this->Flash->success(__('The SMS has been delivered.'));
-                    return $this->redirect(['action' => 'confirmSms', $result->id]);
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'id' => $result->id]));
+                    return $response;
                 } else {
-                    $this->Flash->error(__('The SMS could not be delivered.'));
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                    return $response;
                 }
             }
         }
@@ -514,7 +510,7 @@ class UsersController extends AppController
 
     public function generateCode()
     {
-        $characters = '123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
         $code = '';
         for ($i = 0; $i < 6; $i++) {
             $code .= substr($characters, rand(0, strlen($characters)), 1);
@@ -530,13 +526,15 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             if (FrozenTime::now() < $commonConfirmation[0]->expired) {
                 if ($this->request->getData('code') == $commonConfirmation[0]->confirmation_code) {
-                    $this->Flash->success(__('The SMS has been confirmed.'));
-                    return $this->redirect(['action' => 'index']);
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                    return $response;
                 } else {
-                    $this->Flash->error(__('The wrong code.'));
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                    return $response;
                 }
             } else {
-                $this->Flash->error(__('Overtime'));
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'overTime']));
+                return $response;
             }
         }
     }
