@@ -10,21 +10,6 @@ $kakao_redirectURI = urlencode("http://121.126.223.225:8765/users/kakaoLogin");
 $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=" . $kakao_client_id . "&redirect_uri=" . $kakao_redirectURI
 ?>
 
-<!-- <div class="users form content">
-    <?= $this->Form->create() ?>
-    <fieldset>
-        <legend><?= __('Please enter your email and password') ?></legend>
-        <?= $this->Form->control('email') ?>
-        <?= $this->Form->control('password') ?>
-    </fieldset>
-    <?= $this->Form->button(__('Login')); ?>
-    <?= $this->Form->end() ?>
-</div>  
-
-<a href="<?php echo $naver_apiURL ?>"><img src="/img/naver/네이버아이디로로그인.png"/></a><br>
-<a href="<?php echo $kakao_apiURL ?>"><img src="/img/kakao/ko/카카오아이디로로그인.png"/></a> -->
-
-
 <div id="container">
     <div class="log-wrap">
         <div class="log-step-wrap">

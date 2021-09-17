@@ -15,10 +15,12 @@ $kakao_redirectURI = urlencode("http://121.126.223.225:8765/users/kakaoJoin");
 $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=".$kakao_client_id."&redirect_uri=".$kakao_redirectURI
 ?>
 
-<div class="row">
+<!-- <div class="row">
     <aside class="column">
         <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
+            <h4 class="heading">
+                <?= __('Actions') ?>
+            </h4>
             <?= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
@@ -26,7 +28,9 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
         <div class="users form content">
             <?= $this->Form->create($user) ?>
             <fieldset>
-                <legend><?= __('Add User') ?></legend>
+                <legend>
+                    <?= __('Add User') ?>
+                </legend>
                 <?php
                     echo $this->Form->control('email');
                     echo $this->Form->control('password');
@@ -39,13 +43,13 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
             <?= $this->Form->end() ?>
         </div>
     </div>
-    <a href="<?php echo $naver_apiURL ?>"><img src="/img/naver/네이버아이디로로그인.png"/></a><br>
-    <a href="<?php echo $kakao_apiURL ?>"><img src="/img/kakao/ko/카카오아이디로로그인.png"/></a>
-</div>
+    <a href="<?php echo $naver_apiURL ?>"><img src="/img/naver/네이버아이디로로그인.png" /></a><br>
+    <a href="<?php echo $kakao_apiURL ?>"><img src="/img/kakao/ko/카카오아이디로로그인.png" /></a>
+</div> -->
 
 <div id="container">
-      <div class="log-wrap">
-          <div class="log-step-wrap">
+    <div class="log-wrap">
+        <div class="log-step-wrap">
             <h1><a href="#" class="h-logo">EXON</a></h1>
             <div class="log-step-page log-step-02">
                 <h2 class="h-ty2 fir">간편 회원가입</h2>
@@ -57,70 +61,108 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                 <h2 class="h-ty2">회원가입</h2>
                 <div class="mbr-form">
                     <div class="item-row">
-                      <div class="col-dt"><em class="st">*</em>이메일 (아이디)</div>
-                      <div class="col-dd">
-                          <div class="col-email-wp">
-                            <input type="text" id="email" placeholder="이메일" title="이메일 (아이디)"><span class="sp">@</span>
-                            <select name="" id="">
-                              <option value="">선택</option>
-                            </select>
-                          </div>
-                          <p class="noti"><span class="hc1">이미 회원 가입된 이메일입니다. 다시 입력해주세요</span> or <span class="hc1">올바른 이메일 형식을 입력해 주세요.</span></p>
-                      </div>
+                        <div class="col-dt"><em class="st">*</em>이메일 (아이디)</div>
+                        <div class="col-dd">
+                            <div class="col-email-wp">
+                                <input type="text" id="email" placeholder="이메일" title="이메일 (아이디)"><span
+                                    class="sp">@</span>
+                                <select name="emailTail" id="emailTail">
+                                    <option value="">선택</option>
+                                    <option value="naver.com">naver.com</option>
+                                    <option value="google.com">google.com</option>
+                                    <option value="daum.net">daum.net</option>
+                                    <option value="self">직접입력</option>
+                                </select>
+                            </div>
+                            <p id="emailNoti" class="noti"></p>
+                        </div>
                     </div>
                     <div class="item-row">
-                        <div class="col-dt"><em class="st">*</em>비밀번호</div>                      
+                        <div class="col-dt"><em class="st">*</em>비밀번호</div>
                         <div class="col-dd">
-                            <input type="password" placeholder="최소 8자 이상 영어 + 숫자" class="full" title="비밀번호">
+                            <input type="password" id="password" placeholder="최소 8자 이상 영어 + 숫자" class="full" title="비밀번호">
+                            <p id="lengthNoti" class="noti hc1"></p>
                         </div>
-                    </div>  
+                    </div>
                     <div class="item-row">
                         <div class="col-dt"><em class="st">*</em>비밀번호 확인</div>
                         <div class="col-dd">
-                            <input type="password" placeholder="최소 8자 이상" class="full" title="비밀번호 확인">
-                            <p class="noti hc1">비밀번호가 다릅니다. 다시 입력해 주세요</p>
+                            <input type="password" id="confirm" placeholder="최소 8자 이상" class="full" title="비밀번호 확인">
+                            <p id="confirmNoti" class="noti hc1"></p>
                         </div>
                     </div>
                     <div class="item-row">
-                      <div class="col-dt"><em class="st">*</em>이름</div>                    
-                      <div class="col-dd">
-                          <input type="text" placeholder="최소 2자 이상" class="full" title="이름">
-                      </div>
-                    </div>    
+                        <div class="col-dt"><em class="st">*</em>이름</div>
+                        <div class="col-dd">
+                            <input type="text" id="name" placeholder="최소 2자 이상" class="full" title="이름">
+                        </div>
+                    </div>
                     <div class="item-row">
-                      <div class="col-dt">휴대전화 번호</div>                    
-                      <div class="col-dd">
-                          <div class="col-cell-wp">
-                              <select id="cellNumber">
-                                  <option value="">010</option>
-                              </select>
-                              <input type="text" placeholder="'-' 없이 입력해 주세요" title="휴대전화 번호">
-                          </div>
-                      </div>
-                    </div>   
+                        <div class="col-dt">휴대전화 번호</div>
+                        <div class="col-dd">
+                            <div class="col-cell-wp">
+                                <select id="cellNumber">
+                                    <option value="010">010</option>
+                                </select>
+                                <input type="text" id="cellNumber2" placeholder="'-' 없이 입력해 주세요" title="휴대전화 번호">
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <h2 class="h-ty2">이용약관 / 개인정보 수집 및 이용 동의</h2>
                 <div class="agree-wp">
                     <div>
-                      <span class="chk-dsg"><input type="checkbox" id="agree1"><label for="agree1">전체동의</label></span>
+                        <span class="chk-dsg"><input type="checkbox" id="agree1"><label for="agree1">전체동의</label></span>
                     </div>
                     <div>
-                      <span class="chk-dsg"><input type="checkbox" id="agree2"><label for="agree2">(필수) 이용약관</label></span><a href="#" class="btn-ss">약관동의</a>
+                        <span class="chk-dsg"><input type="checkbox" id="agree2"><label for="agree2">(필수)
+                                이용약관</label></span><a href="#" class="btn-ss">약관동의</a>
                     </div>
                     <div>
-                      <span class="chk-dsg"><input type="checkbox" id="agree3"><label for="agree3">(필수) 개인정보 수집 및 이용 동의</label></span><a href="#" class="btn-ss">약관보기</a>
-                    </div>  
+                        <span class="chk-dsg"><input type="checkbox" id="agree3"><label for="agree3">(필수) 개인정보 수집 및 이용
+                                동의</label></span><a href="#" class="btn-ss">약관보기</a>
+                    </div>
                     <div>
-                      <span class="chk-dsg"><input type="checkbox" id="agree4"><label for="agree4">(선택) 이메일 수신</label></span>
-                      <p class="noti">단, 행사와 관련된 정보는 수신 동의 여부 관계없이 발송됩니다.</p>
-                    </div>                  
+                        <span class="chk-dsg"><input type="checkbox" id="agree4"><label for="agree4">(선택) 이메일
+                                수신</label></span>
+                        <p class="noti">단, 행사와 관련된 정보는 수신 동의 여부 관계없이 발송됩니다.</p>
+                    </div>
                 </div>
                 <div class="btn-btm">
-                    <a href="#" class="btn-big">가입완료</a>
+                    <a href="#" class="btn-big" style="cursor:pointer;">가입완료</a>
                 </div>
             </div>
-          </div>   
-      </div>
+        </div>
     </div>
-   
- </div>  
+</div>
+
+<script>
+    $(".btn-big").click(function () {
+        if ($("#password").val().length < 8) {
+            $("#lengthNoti").html("비밀번호는 8자 이상으로 입력해 주세요.");
+        } else {
+            if ($("#password").val() != $("#confirm").val()) {
+                $("#confirmNoti").html("비밀번호가 다릅니다. 다시 입력해 주세요.");
+                focus($("#confirm"));
+            } else {
+                jQuery.ajax({
+                    url: "/users/add", 
+                    method: 'POST',
+                    type: 'json',
+                    data: {
+                        email: $("#email").val(),
+                        password: $("#password").val(),
+                        name: $("#name").val(),
+                        hp: $("#cellNumber").val() + $("#cellNumber2").val()
+                    }
+                }).done(function(data) {
+                    if (data.status == 'success') {
+                        $(location).attr('href', 'http://121.126.223.225:8765/users/success-join');
+                    } else {
+                        $("#emailNoti").html("<span class='hc1'>이미 회원 가입된 이메일입니다. 다시 입력해주세요</span> or <span class='hc1'>올바른 이메일 형식을 입력해 주세요.</span>");
+                    }
+                });
+            }
+        }
+    });
+</script>

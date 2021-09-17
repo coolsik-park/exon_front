@@ -62,14 +62,17 @@ class UsersController extends AppController
     {
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
+            $user->email = $this->request->getData('email');
+            $user->password = $this->request->getData('password');
+            $user->name = $this->request->getData('name');
+            $user->hp = $this->request->getData('hp');
             $user->ip = $this->request->ClientIp();    
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
-
-                return $this->redirect(['action' => 'successJoin']);
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                return $response;
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+            return $response;
         }
         $this->set(compact('user'));
     }
