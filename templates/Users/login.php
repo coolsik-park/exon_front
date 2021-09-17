@@ -13,7 +13,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
 <div id="container">
     <div class="log-wrap">
         <div class="log-step-wrap">
-            <h1><a href="#" class="h-logo">EXON</a></h1>
+            <h1><a href="/" class="h-logo">EXON</a></h1>
             <div class="log-step-page log log-step-03">
                 <h2 class="h-ty2 fir">로그인</h2>
                 <div class="mbr-form">

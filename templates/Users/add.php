@@ -18,7 +18,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
 <div id="container">
     <div class="log-wrap">
         <div class="log-step-wrap">
-            <h1><a href="#" class="h-logo">EXON</a></h1>
+            <h1><a href="/" class="h-logo">EXON</a></h1>
             <div class="log-step-page log-step-02">
                 <h2 class="h-ty2 fir">간편 회원가입</h2>
                 <div class="log-other">
@@ -34,13 +34,12 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                             <div class="col-email-wp">
                                 <input type="text" id="email" placeholder="이메일" title="이메일 (아이디)"><span
                                     class="sp">@</span>
-                                <input type="text" id="self">
-                                <select name="emailTail" id="emailTail">
-                                    <option value="">선택</option>
-                                    <option value="naver.com">naver.com</option>
-                                    <option value="google.com">google.com</option>
-                                    <option value="daum.net">daum.net</option>
-                                </select>
+                                <input type="text" id="emailTail" list="list">
+                                <datalist id="list">
+                                    <option value="naver.com">
+                                    <option value="google.com">
+                                    <option value="daum.net">
+                                </datalist>
                             </div>
                             <p id="emailNoti" class="noti hc1"></p>
                         </div>
