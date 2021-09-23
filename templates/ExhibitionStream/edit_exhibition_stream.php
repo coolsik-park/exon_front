@@ -95,7 +95,7 @@
         var jsonData = JSON.stringify(data) ;
 
         jQuery.ajax({
-            url: "http://121.126.223.225:3000/live",
+            url: "http://121.126.223.225:9920/live",
             method: 'POST',
             type: 'json',
             data: jsonData
@@ -114,7 +114,7 @@
         var jsonData = JSON.stringify(data) ;
 
         jQuery.ajax({
-            url: "http://121.126.223.225:3000/live",
+            url: "http://121.126.223.225:9920/live",
             method: 'DELETE',
             type: 'json',
             data: jsonData
