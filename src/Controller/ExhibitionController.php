@@ -632,8 +632,8 @@ class ExhibitionController extends AppController
         $parent_id = 0;
         $i = 0;
         $j = 0;
-        $beforeParentData[] = null;
-        $beforeChildData[] = null;
+        // $beforeParentData[] = null;
+        // $beforeChildData[] = null;
         foreach ($exhibitionSurveys as $exhibitionSurvey) {
             if ($exhibitionSurvey['parent_id'] == null) {
                 $parent_id = $exhibitionSurvey['id'];
@@ -665,8 +665,8 @@ class ExhibitionController extends AppController
         $parent_id = 0;
         $i = 0;
         $j = 0;
-        $normalParentData[] = null;
-        $normalChildData[] = null;
+        // $normalParentData[] = null;
+        // $normalChildData[] = null;
         foreach ($exhibitionSurveys as $exhibitionSurvey) {
             if ($exhibitionSurvey['parent_id'] == null) {
                 $parent_id = $exhibitionSurvey['id'];
@@ -732,7 +732,6 @@ class ExhibitionController extends AppController
 
             $answered[] = '';
             for ($i = 0; $i < $rowCount; $i++) {
-                
                 $exhibitionSurveyUsersAnswer = $ExhibitionSurveyUsersAnswer->find('all', [
                     'conditions' => [
                         'text IS NOT' => 'question',
@@ -760,7 +759,6 @@ class ExhibitionController extends AppController
                     $answered[0] = '';
                 }
             
-
                 $answerData[$i] = [
                     'users_id' => $exhibitionUsers[$i]['users_id'],
                     'answered' => $answered 
