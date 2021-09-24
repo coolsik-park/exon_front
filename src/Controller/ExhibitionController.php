@@ -546,7 +546,7 @@ class ExhibitionController extends AppController
     {
         $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
         $exhibitionGroups = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
-        
+
         if ($this->request->is('post')) {
             $data = $this->request->getData('data');
             
