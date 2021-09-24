@@ -47,15 +47,20 @@
     <div class="popup-body">  
         <div class="search-box1">
             <div class="sel-wp">
-                <select>
+                <select id="status">
                     <option>승인상태</option>
-                    <option>참가 확정</option>
-                    <option>참가 대기</option>
+                    <option value=4>참가 확정</option>
+                    <option value=2>참가 대기</option>
                 </select>
-                <select>
+                <select id="group">
                     <option>그룹명</option>
-                    <option>Group1</option>
-                    <option>Group2</option>
+                    <?php
+                        foreach ($exhibitionGroups as $exhibitionGroup) {
+                    ?>
+                    <option value="<?= $exhibitionGroup->id ?>"><?= $exhibitionGroup->name ?></option>
+                    <?php
+                        }
+                    ?>
                 </select>
             </div>
             <div class="ipt-search">
@@ -157,5 +162,13 @@
                 window.location.href = 'http://121.126.223.225:8765/exhibition/send-sms-to-participant/' + <?= $id ?> + '/' + data.data;
             }
         });
+    });
+
+    $("#all").click(function () {
+        if ($("#all").prop("checked")) {
+            $("input[name=list]").prop("checked",true);
+        } else {
+            $("input[name=list]").prop("checked",false);
+        }
     });
 </script>

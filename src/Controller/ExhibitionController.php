@@ -545,6 +545,8 @@ class ExhibitionController extends AppController
     public function participantList($id = null, $type = null)
     {
         $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
+        $exhibitionGroups = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
+        
         if ($this->request->is('post')) {
             $data = $this->request->getData('data');
             
@@ -557,7 +559,7 @@ class ExhibitionController extends AppController
                 return $response;
             }
         }
-        $this->set(compact('exhibitionUsers', 'id', 'type'));
+        $this->set(compact('exhibitionUsers', 'exhibitionGroups', 'id', 'type'));
     }
 
     public function surveyData($id = null)
