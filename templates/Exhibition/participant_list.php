@@ -1,3 +1,9 @@
+<style>
+    #header, footer {
+        display: none!important;
+    }
+</style>
+
 <div class="row">
     <aside class="column">
         <div class="side-nav">
@@ -6,11 +12,17 @@
     </aside>
     <div class="column-responsive column-80">
         <div class="exhibition form content">
-            <?php if (count($exhibitionUsers) > 0 ) { ?>
+            <?php
+                $count = count($exhibitionUsers); 
+                if ($count > 0 ) { 
+            ?>
             <?= $this->Form->create($exhibitionUsers)?>
             <fieldset>
                 <legend><?= __('Participant List') ?></legend>
                 <?php
+                    for ($i = 0; $i < $count; $i++) {
+                        
+                    }
                     if (count($exhibitionUsers) > 0) {
                         echo $this->Form->select('data', $exhibitionUsers, ['multiple' => 'checkbox']);
                     }

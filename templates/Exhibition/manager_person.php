@@ -119,7 +119,7 @@
         })
     });
 
-    $('button[name=userSurveyView]').on('click', function() {
+    $('a[name=userSurveyView]').on('click', function() {
         window.open('http://121.126.223.225:8000/exhibition/userSurveyView/<?= $exhibition_user->id ?>', '설문확인', '');
     });
 </script>
