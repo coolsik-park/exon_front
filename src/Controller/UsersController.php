@@ -476,7 +476,7 @@ class UsersController extends AppController
         $this->set(compact('user'));
     }
 
-    public function sendSmsCertified()
+    public function sendSmsCertified($user_id = null)
     {        
         if ($this->request->is('post')) {
             require_once("solapi-php/lib/message.php");
@@ -506,6 +506,8 @@ class UsersController extends AppController
                 }
             }
         }
+
+        $this->set(compact('user_id'));
     }
 
     public function generateCode()
@@ -520,12 +522,23 @@ class UsersController extends AppController
 
     public function confirmSms($id = null) 
     {
+        $connection = ConnectionManager::get('default');
+        $connection->begin();
+
         $commonConfirmation_table = TableRegistry::get('CommonConfirmation');
         $commonConfirmation = $commonConfirmation_table->find('all')->where(['id' => $id])->toArray();
 
         if ($this->request->is('post')) {
             if (FrozenTime::now() < $commonConfirmation[0]->expired) {
                 if ($this->request->getData('code') == $commonConfirmation[0]->confirmation_code) {
+                    if($connection->update('users', ['hp_cert' => '1'], ['id' => $this->request->getData('user_id')])) {
+                        $connection->commit();
+                        $this->Flash->success(__('Your post has been saved.'));
+                    } else {
+                        $connection->rollback();
+                        $this->Flash->error(__('Unable to add you post.'));
+                    }
+
                     $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
                     return $response;
                 } else {

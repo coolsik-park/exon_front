@@ -118,6 +118,8 @@
     });
 
     $("#confirm").click(function () {
+        var user_id = '<?php echo $user_id ?>';
+
         if ($("#cert1-1").val() == "") {
             $("#codeNoti").html("인증번호를 입력해 주세요.");
             $("#cert1-1").focus();
@@ -130,6 +132,7 @@
             type: 'json',
             data: {
                 code: $("#cert1-1").val(),
+                user_id: user_id,
             }
         }).done(function(data) {
             if (data.status == 'success') {
