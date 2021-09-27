@@ -156,19 +156,19 @@
                 data : lists,
                 }   
         }).done(function (data) {
-            if (data.type == 'email') {
-                if (data.data == null) {
-                    window.location.href = 'http://121.126.223.225:8765/exhibition/send-email-to-participant/' + <?= $id ?>;
-                } else {
-                    window.location.href = 'http://121.126.223.225:8765/exhibition/send-email-to-participant/' + <?= $id ?> + '/' + data.data;
-                }
-            } else {
-                if (data.data == null) {
-                    window.location.href = 'http://121.126.223.225:8765/exhibition/send-sms-to-participant/' + <?= $id ?>;
-                } else {
-                    window.location.href = 'http://121.126.223.225:8765/exhibition/send-sms-to-participant/' + <?= $id ?> + '/' + data.data;
-                }
-            }
+            // if (data.type == 'email') {
+            //     if (data.data == null) {
+            //         window.location.href = 'http://121.126.223.225:8765/exhibition/send-email-to-participant/' + <?= $id ?>;
+            //     } else {
+            //         window.location.href = 'http://121.126.223.225:8765/exhibition/send-email-to-participant/' + <?= $id ?> + '/' + data.data;
+            //     }
+            // } else {
+            //     if (data.data == null) {
+            //         window.location.href = 'http://121.126.223.225:8765/exhibition/send-sms-to-participant/' + <?= $id ?>;
+            //     } else {
+            //         window.location.href = 'http://121.126.223.225:8765/exhibition/send-sms-to-participant/' + <?= $id ?> + '/' + data.data;
+            //     }
+            // }
         });
     });
 
