@@ -20,6 +20,7 @@
 
 <script>
     $('#hpButton').on('click', function() {
-        window.open('/users/sendSmsCertified', '휴대전화 인증', 'width=800px,height=500px,left=800px,top=300px');
+        var user_id = '<?php echo $user[0]->id ?>';
+        window.open('/users/sendSmsCertified/'+user_id+'', '휴대전화 인증', 'width=800px,height=500px,left=800px,top=300px');
     });
 </script>
