@@ -462,29 +462,22 @@ class ExhibitionController extends AppController
     //     return $this->redirect(['action' => 'managerPerson', $exhibition_user->exhibition_id]);
     // }
 
-    public function sendEmailToParticipant($id = null)
+    public function sendEmailToParticipant($id = null, $exhibition_users_id = null)
     {
-        $session = $this->request->getSession();
-        
-        if ($session->read('result')) {
-            $exhibitionUsers = $session->read('result');
+        if ($exhibition_users_id != null) {
+            $lists = explode(",", $exhibition_users_id);
+            $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['id IN' => $lists])->toArray();
 
         } else {
             $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find()->select('exhibition_id')->where(['exhibition_id' => $id])->toArray();
         }
         
-        if ($this->request->is('put')) {
-            
+        if ($this->request->is('post')) {
             $mailer = new Mailer();
             $mailer->setTransport('mailjet');
 
-            $users = $this->request->getData('users_email');
-            $count = count($users);
-            $to[] ='';
-
-            for ($i = 0; $i < $count; $i++) {
-                $to[$i] = $exhibitionUsers[$users[$i]]['users_email'];
-            }
+            $users_email = $this->request->getData('users_email');
+            $to = explode(",", $users_email);
 
             try {                   
                 // $host = HOST;
@@ -498,9 +491,8 @@ class ExhibitionController extends AppController
                     ->setSubject('Exon Test Email')
                     ->deliver($this->request->getData('email_content'))) 
                     {
-                        $this->Flash->success(__('The Email has been delivered.'));
-                        $session->delete('result');
-                        return $this->redirect(['action' => 'sendEmailToParticipant', $id]);
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                        return $response;
 
                     } else {
                         $this->Flash->error(__('The Email could not be delivered.'));
@@ -511,30 +503,25 @@ class ExhibitionController extends AppController
                 echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
             }
         }
-        $this->set(compact('id', 'exhibitionUsers'));
+        $this->set(compact('id', 'exhibitionUsers', 'exhibition_users_id'));
     }
 
-    public function sendSmsToParticipant($id = null)
+    public function sendSmsToParticipant($id = null, $exhibition_users_id = null)
     {
         require_once("solapi-php/lib/message.php");
-        $session = $this->request->getSession();
-
-        if ($session->read('result')) {
-            $exhibitionUsers = $session->read('result'); 
+        
+        if ($exhibition_users_id != null) {
+            $lists = explode(",", $exhibition_users_id);
+            $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['id IN' => $lists])->toArray();
         
         } else {
             $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find()->select('exhibition_id')->where(['exhibition_id' => $id])->toArray();
         }
         
-        if ($this->request->is('put')) {
+        if ($this->request->is('post')) {
             
-            $users = $this->request->getData('users_hp');
-            $count = count($users);
-            $to[] ='';
-
-            for ($i = 0; $i < $count; $i++) {
-                $to[$i] = $exhibitionUsers[$users[$i]]['users_hp'];
-            }
+            $users_hp = $this->request->getData('users_hp');
+            $to = explode(",", $users_hp);
 
             $messages = [
                 [
@@ -545,38 +532,34 @@ class ExhibitionController extends AppController
             ];
 
             if (send_messages($messages)) {
-                $this->Flash->success(__('The SMS has been delivered.'));
-                $session->delete('result');
-                return $this->redirect(['action' => 'sendSmsToParticipant', $id]);
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                return $response;
             
             } else {
                 $this->Flash->error(__('The SMS could not be delivered.'));
             }
         }
-        $this->set(compact('id', 'exhibitionUsers'));
+        $this->set(compact('id', 'exhibitionUsers', 'exhibition_users_id'));
     }
 
     public function participantList($id = null, $type = null)
     {
-        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id])->toArray();
-        if ($this->request->is('put')) {
-            $data = $this->request->getData('data');
-            $count = count($data);
-            $result[] = '';
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
+        $exhibitionGroups = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
 
-            for ($i = 0; $i < $count; $i++) {
-                $result[$i] = $exhibitionUsers[$data[$i]];
-            }
-            $this->request->getSession()->write('result', $result);
+        if ($this->request->is('post')) {
+            $data = $this->request->getData('data');
             
             if ($type == 'email') {
-                return $this->redirect(['action' => 'sendEmailToParticipant', $id]);
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'type' => 'email', 'data' => $data]));
+                return $response;
             
             } else {
-                return $this->redirect(['action' => 'sendSmsToParticipant', $id]);
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'type' => 'sms', 'data' => $data]));
+                return $response;
             }
         }
-        $this->set(compact('exhibitionUsers'));
+        $this->set(compact('exhibitionUsers', 'exhibitionGroups', 'id', 'type'));
     }
 
     public function surveyData($id = null)

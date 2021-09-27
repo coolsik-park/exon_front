@@ -1,4 +1,4 @@
-<?= $this->Html->link(__('행사 설정 수정'), ['controller' => 'Exhibition', 'action' => 'edit', $id, 'class' => 'side-nav-item']) ?> 
+<!-- <?= $this->Html->link(__('행사 설정 수정'), ['controller' => 'Exhibition', 'action' => 'edit', $id, 'class' => 'side-nav-item']) ?> 
 <?= $this->Html->link(__('설문 데이터'), ['controller' => 'Exhibition', 'action' => 'surveyData', $id, 'class' => 'side-nav-item']) ?> 
 <?= $this->Html->link(__('참가자 관리'), ['controller' => 'Exhibition', 'action' => 'managerPerson', $id, 'class' => 'side-nav-item']) ?> 
 <?= $this->Html->link(__('웨비나 송출 설정'), ['controller' => 'ExhibitionStream', 'action' => 'setExhibitionStream', $id, 'class' => 'side-nav-item']) ?> 
@@ -42,4 +42,122 @@
             <?= $this->Form->end() ?>
         </div>
     </div>
+</div> -->
+
+<div id="container">
+    <div class="sub-menu">
+        <div class="sub-menu-inner">
+            <ul class="tab">
+                <li><a href="http://121.126.223.225:8765/exhibition/edit/<?= $id ?>">행사 설정 수정</a></li>
+                <li class="active"><a href="#">설문 데이터</a></li>
+                <li><a href="http://121.126.223.225:8765/exhibition/manager-person/<?= $id ?>">참가자 관리</a></li>
+                <li><a href="http://121.126.223.225:8765/exhibition-stream/set-exhibition-stream/<?= $id ?>">웨비나 송출
+                        설정</a></li>
+                <li><a href="http://121.126.223.225:8765/exhibition/exhibition-statistics-apply/<?= $id ?>">행사 통계</a>
+                </li>
+            </ul>
+        </div>
+    </div>        
+    <div class="contents static">
+        <h2 class="sr-only">참가자 관리</h2>
+        <div class="pr3-title">                         
+            <ul class="s-tabs2">
+                <li><a href="http://121.126.223.225:8765/exhibition/manager-person/<?= $id ?>">참가자</a></li>
+                <li class="active"><a href="">문자</a></li>
+                <li><a href="http://121.126.223.225:8765/exhibition/send-email-to-participant/<?= $id ?>">이메일</a></li>
+            </ul>
+            <h3 class="s-hty1">문자</h3>       
+        </div>
+        <div class="pr3-section2">
+        <form id="postForm">                
+            <div class="msg-editor">
+                <textarea name="sms_content" id="sms_content" cols="30" rows="10" placeholder="발신 내용을 입력해 주세요"></textarea>       
+                <div class="btns">
+                    <button type="button" class="btn-ss">내용 초기화</button>
+                </div>                                    
+            </div>
+            <div class="msg-btns">
+                <div class="ln1">
+                    <button type="button" class="btn-ty2 bor">행사 URL 복사</button>                        
+                </div>                    
+                <div class="ln2">
+                    <span class="tx">발신번호 추가</span>
+                    <button type="button" id="participantList" class="btn-ty2 bor">참가자 리스트</button>
+                    <button type="button" class="btn-ty2 bor">등록된 발신번호</button>   
+                </div>
+            </div>
+            <div class="msg-numbers">
+                <h4 class="s-hty2">발신번호</h4>
+                <div class="msg-numbers-lists-wp">
+                    <div class="msg-numbers-lists">
+                        <?php
+                            if (count($exhibitionUsers) > 0 && $exhibitionUsers[0]['users_hp']) {
+                                foreach ($exhibitionUsers as $exhibitionUser) {
+                        ?>
+                        <ul>
+                            <li>
+                                <div class="number">
+                                    <span>
+                                        <?php 
+                                           echo substr($exhibitionUser['users_hp'], 0, 3) . '-' . substr($exhibitionUser['users_hp'], 3, 4) . '-' . substr($exhibitionUser['users_hp'], 7, 4); 
+                                        ?>
+                                    </span>
+                                    <input type="hidden" id="hp" name="hp" value="<?= $exhibitionUser['users_hp'] ?>">
+                                    <button type="button" class="btn-x">삭제</button>
+                                </div>
+                            </li>
+                        </ul>
+                        <?php 
+                                }
+                            } 
+                        ?>
+                    </div>
+                    <div class="desc">
+                        <p class="txt">수신자 수 : 
+                            <?php 
+                                if ($exhibition_users_id != null) {
+                                    echo count($exhibitionUsers);
+                                } else {
+                                    echo 0;
+                                }
+                            ?> (문자 건당 00원입니다)</p>
+                        <div class="btns">
+                            <button type="button" class="btn-ty2 red">목록 초기화</button>
+                            <button type="button" id="send" class="btn-ty2">발신하기</button>
+                        </div>
+                    </div>
+                </div>                    
+            </div>
+        </div>
+        </form>
+        
+    </div>        
 </div>
+
+<script>
+    $("#send").click(function () {
+        var queryString = $("#postForm").serialize();
+        var users_hp = new Array($("input[name=hp]").length);
+        
+        for (var i = 0; i < $("input[name=hp]").length; i++) {
+            users_hp[i] = $("input[name=hp]").eq(i).val();
+        }
+        
+        jQuery.ajax({
+            url: "/exhibition/send-sms-to-participant/" + <?= $id ?>,
+            method: 'POST',
+            type: 'json',
+            data: queryString + '&users_hp=' + users_hp,
+        }).done(function (data) {
+            if (data.status == 'success') {
+                alert("전송되었습니다.")
+            } else {
+                alert("전송에 실패하였습니다. 다시 시도해 주세요.");
+            }
+        });
+    });
+    
+    $("#participantList").click(function () {
+        window.location.href ="http://121.126.223.225:8765/exhibition/participant-list/<?= $id ?>/sms";
+    });
+</script>  

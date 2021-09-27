@@ -1,4 +1,4 @@
-<script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+<!-- <script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 <?= $this->Html->link(__('행사 설정 수정'), ['controller' => 'Exhibition', 'action' => 'edit', $id, 'class' => 'side-nav-item']) ?> 
 <?= $this->Html->link(__('설문 데이터'), ['controller' => 'Exhibition', 'action' => 'surveyData', $id, 'class' => 'side-nav-item']) ?> 
 <?= $this->Html->link(__('참가자 관리'), ['controller' => 'Exhibition', 'action' => 'managerPerson',$id, 'class' => 'side-nav-item']) ?> 
@@ -46,7 +46,7 @@
             <?= $this->Form->end() ?>
         </div>
     </div>
-</div>
+</div> -->
 
 <div id="container">
     <div class="sub-menu">
@@ -73,6 +73,7 @@
             <h3 class="s-hty1">이메일</h3>      
         </div>
         <div class="pr3-section3">
+            <form id="postForm">
             <div class="pr3-sect">                   
                 <div class="msg-editor">
                     <textarea name="email_content" id="email_content" cols="30" rows="10" placeholder="전송 내용을 입력해 주세요."></textarea>
@@ -87,10 +88,6 @@
                     <div class="btns">
                         <button type="button" class="btn-ty2 bor">행사 URL 복사</button>
                         <button type="button" id="participantList" class="btn-ty2 bor">참가자 리스트</button>
-                    </div>
-                    <div class="msg-numbers-lists-wp">
-                        <div class="msg-numbers-lists" id="list" style="width:100%; margin-top:10px;">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -108,7 +105,8 @@
                         <ul>
                             <li>
                                 <div class="number">
-                                    <span id="users_email" name="users_email"><?= $exhibitionUser['users_email'] ?></span>
+                                    <span><?= $exhibitionUser['users_email'] ?></span>
+                                    <input type="hidden" id="email" name="email" value="<?= $exhibitionUser['users_email'] ?>">
                                     <button type="button" class="btn-x">삭제</button>
                                 </div>
                             </li>                       
@@ -119,22 +117,53 @@
                     ?>
                     </div>
                     <div class="desc">
-                        <p class="txt">받는 사람 : <?php count($exhibitionUsers) ?></p>
+                        <p class="txt">받는 사람 : 
+                            <?php 
+                                if ($exhibition_users_id != null) {
+                                    echo count($exhibitionUsers);
+                                } else {
+                                    echo 0;
+                                }
+                                
+                            ?>
+                        </p>
                         <div class="btns">
                             <button type="button" class="btn-ty2 red">목록 초기화</button>
-                            <button type="button" class="btn-ty2">전송하기</button>
+                            <button type="button" id="send" class="btn-ty2">전송하기</button>
                         </div>
                     </div>
                 </div>
             </div>
-
+            </form>
         </div>
         
     </div>        
 </div>
     
 <script>
+    $("#send").click(function () {
+        var queryString = $("#postForm").serialize();
+        var users_email = new Array($("input[name=email]").length);
+        
+        for (var i = 0; i < $("input[name=email]").length; i++) {
+            users_email[i] = $("input[name=email]").eq(i).val();
+        }
+        
+        jQuery.ajax({
+            url: "/exhibition/send-email-to-participant/" + <?= $id ?>,
+            method: 'POST',
+            type: 'json',
+            data: queryString + '&users_email=' + users_email,
+        }).done(function (data) {
+            if (data.status == 'success') {
+                alert("전송되었습니다.")
+            } else {
+                alert("전송에 실패하였습니다. 다시 시도해 주세요.");
+            }
+        });
+    });
+    
     $("#participantList").click(function () {
-        $("#list").load("http://121.126.223.225:8765/exhibition/participant-list/<?= $id ?>/email");
+        window.location.href ="http://121.126.223.225:8765/exhibition/participant-list/<?= $id ?>/email";
     });
 </script>  
