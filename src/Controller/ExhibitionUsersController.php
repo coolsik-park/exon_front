@@ -79,7 +79,7 @@ class ExhibitionUsersController extends AppController
             if ($this->ExhibitionUsers->save($exhibitionUser)) {
                 
                 //설문 응답 저장
-                $survey = $this->getTableLocator()->get('ExhibitionSurvey')->find()->select(['id', 'parent_id', 'is_multiple'])->where(['exhibition_id' => $id])->toArray();
+                $survey = $this->getTableLocator()->get('ExhibitionSurvey')->find()->select(['id', 'parent_id', 'is_multiple'])->where(['exhibition_id' => $id, 'survey_type' => 'B'])->toArray();
                 $UserAnswer = $this->getTableLocator()->get('ExhibitionSurveyUsersAnswer');
                 $userAnswer = $this->request->getData('exhibition_survey_users_answer');
     
@@ -157,9 +157,9 @@ class ExhibitionUsersController extends AppController
             }
         }
         $exhibition = $this->ExhibitionUsers->Exhibition->find('list', ['limit' => 200]);
-        $exhibitionGroup = $this->ExhibitionUsers->ExhibitionGroup->find('list', ['keyField' => 'id', 'valueField' => 'name'])->where(['exhibition_id' => $id]);
+        $exhibitionGroup = $this->ExhibitionUsers->ExhibitionGroup->find('all')->where(['exhibition_id' => $id]);
         $pay = $this->ExhibitionUsers->Pay->find('list', ['limit' => 200]);
-        $exhibitionSurveys = $this->getTableLocator()->get('ExhibitionSurvey')->find('all')->where(['exhibition_id' => $id]);
+        $exhibitionSurveys = $this->getTableLocator()->get('ExhibitionSurvey')->find('all', ['contain' => 'ChildExhibitionSurvey'])->where(['exhibition_id' => $id, 'survey_type' => 'B']);
         $this->set(compact('exhibitionUser', 'exhibition', 'exhibitionGroup', 'pay', 'exhibitionSurveys', 'id'));
     }
 
