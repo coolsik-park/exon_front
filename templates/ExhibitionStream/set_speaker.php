@@ -16,6 +16,67 @@
     </div>
 </div>
 
+<div class="wb-in-tab-cont">
+    <div id="wbCon1" class="on">
+        <h4 class="sr-only">연사자</h4>
+        <ul class="ph-items">
+            <li>
+                <div class="ph-item">
+                    <div class="photo"></div>
+                    <div class="tx">전체</div>
+                    <button type="button" class="btn-del">삭제</button>
+                </div>
+            </li>
+            <li>
+                <div class="ph-item">
+                    <div class="photo"></div>
+                    <div class="tx">유비 교수</div>
+                    <button type="button" class="btn-del">삭제</button>
+                </div>
+            </li>
+            <li>
+                <div class="ph-item">
+                    <div class="photo"></div>
+                    <div class="tx">관우 교수</div>
+                    <button type="button" class="btn-del">삭제</button>
+                </div>
+            </li>
+            <li>
+                <div class="ph-item">
+                    <div class="photo"></div>
+                    <div class="tx">장비 교수</div>
+                    <button type="button" class="btn-del">삭제</button>
+                </div>
+            </li>
+            <li>
+                <div class="ph-item">
+                    <div class="photo"></div>
+                    <div class="tx">장비 교수</div>
+                    <button type="button" class="btn-del">삭제</button>
+                </div>
+            </li>
+            <li>
+                <div class="ph-item">
+                    <div class="photo"></div>
+                    <div class="tx">장비 교수</div>
+                    <button type="button" class="btn-del">삭제</button>
+                </div>
+            </li>
+            <li>
+                <div class="ph-item">
+                    <div class="photo"></div>
+                    <div class="tx">장비 교수</div>
+                    <button type="button" class="btn-del">삭제</button>
+                </div>
+            </li>
+            <li>
+                <div class="ph-item-btn">
+                    <button type="button" class="ph-item-add">추가</button>
+                </div>                                                    
+            </li>
+        </ul>
+    </div>
+</div>
 <script>  
 
 $(document).ready(function(){

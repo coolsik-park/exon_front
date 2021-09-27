@@ -289,16 +289,21 @@ class ExhibitionStreamController extends AppController
         $ExhibitionQuestion = $this->getTableLocator()->get('ExhibitionQuestion');
         $answeredQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])->select(['ExhibitionQuestion.parent_id'])
             ->where(['ExhibitionQuestion.parent_id IS NOT' => null, 'ExhibitionUsers.exhibition_id' => $id])->toArray();
-    
+        
         $count = count($answeredQuestions);
         $answeredQuestionId[] = '';
-
+        
         for ($i = 0; $i < $count; $i++) {
             $answeredQuestionId[$i] = $answeredQuestions[$i]['parent_id'];
         }
+        if ($answeredQuestionId[0] != '') {
+            $exhibitionQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])
+                ->where(['ExhibitionQuestion.id NOT IN' => $answeredQuestionId, 'ExhibitionQuestion.contents IS NOT' => '답변완료', 'ExhibitionUsers.exhibition_id' => $id])->toArray();
+        } else {
+            $exhibitionQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])
+            ->where(['ExhibitionQuestion.contents IS NOT' => '답변완료', 'ExhibitionUsers.exhibition_id' => $id])->toArray();
+        }
         
-        $exhibitionQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])
-            ->where(['ExhibitionQuestion.id NOT IN' => $answeredQuestionId, 'ExhibitionQuestion.contents IS NOT' => '답변완료', 'ExhibitionUsers.exhibition_id' => $id])->toArray();
         
         if ($this->request->is('post')) {
 

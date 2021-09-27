@@ -10,7 +10,7 @@
 <?= $this->Html->link(__('웨비나 송출 설정'), ['controller' => 'ExhibitionStream', 'action' => 'setExhibitionStream', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?> 
 <?= $this->Html->link(__('행사 통계'), ['controller' => 'Exhibition', 'action' => 'ExhibitionStatisticsApply', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?>
 
-<div class="row">
+<!-- <div class="row">
     <aside class="column">
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
@@ -64,7 +64,249 @@
         </div>
     </div>
     <div id = "tabContent"></div>
-</div>
+</div> -->
+
+<div class="contents">
+            
+    <div class="section-webinar3">
+        <div class="webinar-cont">
+            <div class="wb-cont1">
+                <img src="../images/@mov.jpg" alt="">
+            </div>
+            <div class="wb-cont2">
+                <input type="text" placeholder="(필수) 방송제목">
+                <textarea name="" id="" cols="30" rows="3" placeholder="방송 설명을 입력해주세요."></textarea>
+            </div>
+            <div class="wb-cont3">
+                <button type="button" class="btn-ty4 black">저장</button>
+                <button type="button" class="btn-ty4 gray">종료</button>
+            </div>
+
+            <div class="wb-stream-sect">
+                <h2 class="s-hty3">스트림 키</h2>
+                <div class="stream-sect">
+                    <div class="row2">
+                        <div class="col-th">프로모션 키</div>
+                        <div class="col-td">
+                            <div class="stream-ipt1">
+                                <input type="text">
+                                <button type="button" class="btn-ty2 bor">확인</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row2-wp">
+                        <div class="row2">
+                            <div class="col-th">시간</div>
+                            <div class="col-td">
+                                <div class="stream-itp2">
+                                    <select>
+                                        <option value="">half day</option>
+                                        <option value="">all day</option>
+                                    </select>
+                                    <select>
+                                        <option value="">50</option>
+                                        <option value="">100</option>
+                                        <option value="">150</option>
+                                        <option value="">200</option>
+                                        <option value="">150</option>
+                                    </select>
+                                    명
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row2">
+                            <div class="col-th">금액</div>
+                            <div class="col-td">
+                                <div class="stream-ipt1">
+                                    <input type="text">
+                                    <button type="button" class="btn-ty2 bor">결제</button>
+                                </div>                    
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stream-btn">
+                        <button type="button" class="btn-ty2">스트림 키 발급</button>
+                    </div>
+                    <div class="row2">
+                        <div class="col-th">스트림 URL</div>
+                        <div class="col-td">
+                            <div class="stream-ipt1">
+                                <input type="text">
+                                <button type="button" class="btn-ty2 bor">복사</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wb-stream-sect">
+                <h2 class="s-hty3">스트림 키</h2>
+                <div class="stream-sect">
+                    <div class="row2">
+                        <div class="col-th">프로모션 키</div>
+                        <div class="col-td">
+                            <div class="stream-ipt1">
+                                <input type="text">
+                                <button type="button" class="btn-ty2 gray2">확인</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row2-wp">
+                        <div class="row2">
+                            <div class="col-th">시간</div>
+                            <div class="col-td">
+                                <div class="stream-itp2">
+                                    <select>
+                                        <option value="">half day</option>
+                                        <option value="">all day</option>
+                                    </select>
+                                    <select>
+                                        <option value="">50</option>
+                                        <option value="">100</option>
+                                        <option value="">150</option>
+                                        <option value="">200</option>
+                                        <option value="">150</option>
+                                    </select>
+                                    명
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row2">
+                            <div class="col-th">금액</div>
+                            <div class="col-td">
+                                <div class="stream-ipt1">
+                                    <input type="text">
+                                    <button type="button" class="btn-ty2 bor">결제</button>
+                                </div>                    
+                            </div>
+                        </div>
+                    </div>            
+                    <div class="stream-ipt3">
+                        <div class="ipt-eye">
+                            <input type="password" class="ipt-tx">
+                            <button type="button" class="ico-eye">히든</button>
+                        </div>
+                        <button type="button" class="btn-ty2 bor">복사</button>
+                    </div>            
+                    <div class="row2">
+                        <div class="col-th">스트림 URL</div>
+                        <div class="col-td">
+                            <div class="stream-ipt1">
+                                <input type="text">
+                                <button type="button" class="btn-ty2 bor">복사</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- webinar-tab -->
+        <div class="webinar-tab">
+            <div class="webinar-tab-top">
+                <div class="webinar-toggle">
+                    <button type="button" class="webinar-tab-tg">토글버튼</button>
+                    <button type="button" class="ico-sett">설정</button>
+                </div>                        
+                <div class="w-tab-wrap">
+                    <div class="w-tab-wrap-inner">
+                        <ul class="w-tab">
+                            <li class="active"><button type="button">실시간 채팅</button></li>
+                            <li><button type="button" id="tab8">설문</button></li>
+                            <li><button type="button" id="tab7">공지사항</button></li>
+                            <li><button type="button" id="tab6">질의 응답</button></li>
+                            <li><button type="button" id="tab5">출석체크</button></li>
+                            <li><button type="button" id="tab4">프로그램</button></li>
+                            <li><button type="button" id="tab3">담당자 정보</button></li>
+                            <li><button type="button" id="tab2">개설자 정보</button></li>
+                            <li><button type="button" id="tab1">행사 정보</button></li>
+                            <li><button type="button" id="tab0">자료</button></li>
+                        </ul>
+                    </div>                            
+                </div>
+            </div>   
+            <!-- // top -->
+            <div class="webinar-tab-body">  
+
+                <div class="webinar-cont1">
+                    <h3 class="sr-only">실시간 채팅</h3>
+                    <div class="webinar-cont-ty1">
+                        <div class="webinar-cont-ty1-body"> 
+                            <p class="wb-alert">사용할 탭을 선택해주세요</p>                                   
+                            <p class="wb-alert">실시간 채팅 탭이 활성화되었습니다</p>                                   
+                            <div class="chatting-msg-box">
+                                <div class="chat-msg">
+                                    <div class="nick"><span>닉네임1</span></div>
+                                    <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1</div>
+                                </div>
+                                <div class="chat-msg">
+                                    <div class="nick"><span>닉네임2</span></div>
+                                    <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅</div>
+                                </div>
+                                <div class="chat-msg chat-my">
+                                    <div class="nick"><span>개설자</span></div>
+                                    <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1</div>
+                                </div>
+                                <div class="chat-msg">
+                                    <div class="nick"><span>닉네임3</span></div>
+                                    <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1</div>
+                                </div>
+                                <div class="chat-msg">
+                                    <div class="nick"><span>닉네임5</span></div>
+                                    <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅</div>
+                                </div>
+                                <div class="chat-msg">
+                                    <div class="nick"><span>닉네임1</span></div>
+                                    <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1</div>
+                                </div>
+                                <div class="chat-msg">
+                                    <div class="nick"><span>닉네임2</span></div>
+                                    <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅</div>
+                                </div>
+                                <div class="chat-msg chat-my">
+                                    <div class="nick"><span>개설자</span></div>
+                                    <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1</div>
+                                </div>
+                                <div class="chat-msg">
+                                    <div class="nick"><span>닉네임3</span></div>
+                                    <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1</div>
+                                </div>
+                                <div class="chat-msg">
+                                    <div class="nick"><span>닉네임5</span></div>
+                                    <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅</div>
+                                </div>
+                                <div class="chat-msg">
+                                    <div class="nick"><span>닉네임5</span></div>
+                                    <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅</div>
+                                </div>
+                                <div class="chat-msg">
+                                    <div class="nick"><span>닉네임5</span></div>
+                                    <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅</div>
+                                </div>
+                                <div class="chat-msg">
+                                    <div class="nick"><span>닉네임5</span></div>
+                                    <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅</div>
+                                </div>
+                                <div class="chat-msg">
+                                    <div class="nick"><span>닉네임5</span></div>
+                                    <div class="msg">채팅1채팅1채팅1채팅1채팅1채팅1 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅 채팅1채팅1채팅1채팅</div>
+                                </div> -->
+
+                            </div>  
+                        </div>
+                        <div class="webinar-cont-ty1-btm">
+                            <div class="chatting-submit">
+                                <input type="text" placeholder="Message...">
+                                <button type="submit" class="btn-ty4 redbg">전송</button>
+                            </div>
+                        </div>
+                    </div>                            
+                </div>
+
+            </div>
+            <!-- body -->
+        </div>
+        <!-- webinar-tab -->
+    </div>
+</div>        
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
@@ -208,146 +450,131 @@
         }
     });
 
-    $("button#tab0").click(function () {
-        if ($("input#setting").val() == 1) {
-            if ($("input#tab0").val() == 0) {
-                $("input#tab0").val(1);
-                $("button#tab0").css("background-color", "blue");
-                $("#tab").val(parseInt($("#tab").val()) + 512);
-                alert($("button#tab0").attr('name')+' 탭이 활성화되었습니다.');
-            } else {
-                $("input#tab0").val(0);
-                $("button#tab0").css("background-color", "white");
-                $("#tab").val(parseInt($("#tab").val()) - 512);
-                alert($("button#tab0").attr('name')+' 탭이 비활성화되었습니다.');
-            }
-        } else {
-<<<<<<< HEAD
-            $("div#tabContent").load("/exhibition-stream/exhibition-files/" + <?= $exhibitionStream->exhibition_id ?>);
-=======
-            $("div#tabContent").load("/exhibition-stream/set-exhibition-files/" + <?= $exhibitionStream->exhibition_id ?>);
->>>>>>> master
-        }
+    $("#tab0").click(function () {
+        // if ($("input#setting").val() == 1) {
+        //     if ($("input#tab0").val() == 0) {
+        //         $("input#tab0").val(1);
+        //         $("button#tab0").css("background-color", "blue");
+        //         $("#tab").val(parseInt($("#tab").val()) + 512);
+        //         alert($("button#tab0").attr('name')+' 탭이 활성화되었습니다.');
+        //     } else {
+        //         $("input#tab0").val(0);
+        //         $("button#tab0").css("background-color", "white");
+        //         $("#tab").val(parseInt($("#tab").val()) - 512);
+        //         alert($("button#tab0").attr('name')+' 탭이 비활성화되었습니다.');
+        //     }
+        // } else {
+            
+            $(".webinar-tab-body").load("/exhibition-stream/set-exhibition-files/" + <?= $exhibitionStream->exhibition_id ?>);
+        // }
     });
 
-    $("button#tab1").click(function () {
-        if ($("input#setting").val() == 1) {
-            if ($("input#tab1").val() == 0) {
-                $("input#tab1").val(1);
-                $("button#tab1").css("background-color", "blue");
-                $("#tab").val(parseInt($("#tab").val()) + 256);
-                alert($("button#tab1").attr('name')+' 탭이 활성화되었습니다.');
-            } else {
-                $("input#tab1").val(0);
-                $("button#tab1").css("background-color", "white");
-                $("#tab").val(parseInt($("#tab").val()) - 256);
-                alert($("button#tab1").attr('name')+' 탭이 비활성화되었습니다.');
-            }
-        } else {
-            $("div#tabContent").load("/exhibition-stream/exhibition-info/" + <?= $exhibitionStream->exhibition_id ?>);
-        }
+    $("#tab1").click(function () {
+        // if ($("input#setting").val() == 1) {
+        //     if ($("input#tab1").val() == 0) {
+        //         $("input#tab1").val(1);
+        //         $("button#tab1").css("background-color", "blue");
+        //         $("#tab").val(parseInt($("#tab").val()) + 256);
+        //         alert($("button#tab1").attr('name')+' 탭이 활성화되었습니다.');
+        //     } else {
+        //         $("input#tab1").val(0);
+        //         $("button#tab1").css("background-color", "white");
+        //         $("#tab").val(parseInt($("#tab").val()) - 256);
+        //         alert($("button#tab1").attr('name')+' 탭이 비활성화되었습니다.');
+        //     }
+        // } else {
+            $(".webinar-tab-body").load("/exhibition-stream/exhibition-info/" + <?= $exhibitionStream->exhibition_id ?>);
+        // }
     });
 
-    $("button#tab2").click(function () {
-        if ($("input#setting").val() == 1) {
-            if ($("input#tab2").val() == 0) {
-                $("input#tab2").val(1);
-                $("button#tab2").css("background-color", "blue");
-                $("#tab").val(parseInt($("#tab").val()) + 128);
-                alert($("button#tab2").attr('name')+' 탭이 활성화되었습니다.');
-            } else {
-                $("input#tab2").val(0);
-                $("button#tab2").css("background-color", "white");
-                $("#tab").val(parseInt($("#tab").val()) - 128);
-                alert($("button#tab2").attr('name')+' 탭이 비활성화되었습니다.');
-            }
-        } else {
-            $("div#tabContent").load("/exhibition-stream/founder/" + <?= $exhibitionStream->exhibition_id ?>);
-        } 
+    $("#tab2").click(function () {
+        // if ($("input#setting").val() == 1) {
+        //     if ($("input#tab2").val() == 0) {
+        //         $("input#tab2").val(1);
+        //         $("button#tab2").css("background-color", "blue");
+        //         $("#tab").val(parseInt($("#tab").val()) + 128);
+        //         alert($("button#tab2").attr('name')+' 탭이 활성화되었습니다.');
+        //     } else {
+        //         $("input#tab2").val(0);
+        //         $("button#tab2").css("background-color", "white");
+        //         $("#tab").val(parseInt($("#tab").val()) - 128);
+        //         alert($("button#tab2").attr('name')+' 탭이 비활성화되었습니다.');
+        //     }
+        // } else {
+            $(".webinar-tab-body").load("/exhibition-stream/founder/" + <?= $exhibitionStream->exhibition_id ?>);
+        // } 
     });
 
-    $("button#tab3").click(function () {
-        if ($("input#setting").val() == 1) {
-            if ($("input#tab3").val() == 0) {
-                $("input#tab3").val(1);
-                $("button#tab3").css("background-color", "blue");
-                $("#tab").val(parseInt($("#tab").val()) + 64);
-                alert($("button#tab3").attr('name')+' 탭이 활성화되었습니다.');
-            } else {
-                $("input#tab3").val(0);
-                $("button#tab3").css("background-color", "white");
-                $("#tab").val(parseInt($("#tab").val()) - 64);
-                alert($("button#tab3").attr('name')+' 탭이 비활성화되었습니다.');
-            }
-        } else {
-            $("div#tabContent").load("/exhibition-stream/person-in-charge/" + <?= $exhibitionStream->exhibition_id ?>);
-        }
+    $("#tab3").click(function () {
+        // if ($("input#setting").val() == 1) {
+        //     if ($("input#tab3").val() == 0) {
+        //         $("input#tab3").val(1);
+        //         $("button#tab3").css("background-color", "blue");
+        //         $("#tab").val(parseInt($("#tab").val()) + 64);
+        //         alert($("button#tab3").attr('name')+' 탭이 활성화되었습니다.');
+        //     } else {
+        //         $("input#tab3").val(0);
+        //         $("button#tab3").css("background-color", "white");
+        //         $("#tab").val(parseInt($("#tab").val()) - 64);
+        //         alert($("button#tab3").attr('name')+' 탭이 비활성화되었습니다.');
+        //     }
+        // } else {
+            $(".webinar-tab-body").load("/exhibition-stream/person-in-charge/" + <?= $exhibitionStream->exhibition_id ?>);
+        // }
     });
 
-    $("button#tab4").click(function () {
-        if ($("input#setting").val() == 1) {
-            if ($("input#tab4").val() == 0) {
-                $("input#tab4").val(1);
-                $("button#tab4").css("background-color", "blue");
-                $("#tab").val(parseInt($("#tab").val()) + 32);
-                alert($("button#tab4").attr('name')+' 탭이 활성화되었습니다.');
-            } else {
-                $("input#tab4").val(0);
-                $("button#tab4").css("background-color", "white");
-                $("#tab").val(parseInt($("#tab").val()) - 32);
-                alert($("button#tab4").attr('name')+' 탭이 비활성화되었습니다.');
-            }
-        } else {
-<<<<<<< HEAD
-            $("div#tabContent").load("/exhibition-stream/program/" + <?= $exhibitionStream->exhibition_id ?>);
-=======
-            $("div#tabContent").load("/exhibition-stream/set-program/" + <?= $exhibitionStream->exhibition_id ?>);
->>>>>>> master
-        }
+    $("#tab4").click(function () {
+        // if ($("input#setting").val() == 1) {
+        //     if ($("input#tab4").val() == 0) {
+        //         $("input#tab4").val(1);
+        //         $("button#tab4").css("background-color", "blue");
+        //         $("#tab").val(parseInt($("#tab").val()) + 32);
+        //         alert($("button#tab4").attr('name')+' 탭이 활성화되었습니다.');
+        //     } else {
+        //         $("input#tab4").val(0);
+        //         $("button#tab4").css("background-color", "white");
+        //         $("#tab").val(parseInt($("#tab").val()) - 32);
+        //         alert($("button#tab4").attr('name')+' 탭이 비활성화되었습니다.');
+        //     }
+        // } else {
+            $(".webinar-tab-body").load("/exhibition-stream/set-program/" + <?= $exhibitionStream->exhibition_id ?>);
+        // }
     });
 
-    $("button#tab5").click(function () {
-        if ($("input#setting").val() == 1) {
-            if ($("input#tab5").val() == 0) {
-                $("input#tab5").val(1);
-                $("button#tab5").css("background-color", "blue");
-                $("#tab").val(parseInt($("#tab").val()) + 16);
-                alert($("button#tab5").attr('name')+' 탭이 활성화되었습니다.');
-            } else {
-                $("input#tab5").val(0);
-                $("button#tab5").css("background-color", "white");
-                $("#tab").val(parseInt($("#tab").val()) - 16);
-                alert($("button#tab5").attr('name')+' 탭이 비활성화되었습니다.');
-            } 
-        } else {
-            $("div#tabContent").load("/exhibition-stream/attendance/" + <?= $exhibitionStream->exhibition_id ?>);
-        }
+    $("#tab5").click(function () {
+        // if ($("input#setting").val() == 1) {
+        //     if ($("input#tab5").val() == 0) {
+        //         $("input#tab5").val(1);
+        //         $("button#tab5").css("background-color", "blue");
+        //         $("#tab").val(parseInt($("#tab").val()) + 16);
+        //         alert($("button#tab5").attr('name')+' 탭이 활성화되었습니다.');
+        //     } else {
+        //         $("input#tab5").val(0);
+        //         $("button#tab5").css("background-color", "white");
+        //         $("#tab").val(parseInt($("#tab").val()) - 16);
+        //         alert($("button#tab5").attr('name')+' 탭이 비활성화되었습니다.');
+        //     } 
+        // } else {
+            $(".webinar-tab-body").load("/exhibition-stream/attendance/" + <?= $exhibitionStream->exhibition_id ?>);
+        // }
     });
 
-    $("button#tab6").click(function () {
-        if ($("input#setting").val() == 1) {
-            if ($("input#tab6").val() == 0) {
-                $("input#tab6").val(1);
-                $("button#tab6").css("background-color", "blue");
-                $("#tab").val(parseInt($("#tab").val()) + 8);
-                alert($("button#tab6").attr('name')+' 탭이 활성화되었습니다.');
-            } else {
-                $("input#tab6").val(0);
-                $("button#tab6").css("background-color", "white");
-                $("#tab").val(parseInt($("#tab").val()) - 8);
-                alert($("button#tab6").attr('name')+' 탭이 비활성화되었습니다.');
-            }
-        } else {
-<<<<<<< HEAD
-<<<<<<< HEAD
-            $("div#tabContent").load("/exhibition-stream/speaker-menu/" + <?= $exhibitionStream->exhibition_id ?>);
-=======
-            $("div#tabContent").load("/exhibition-stream/question-menu/" + <?= $exhibitionStream->exhibition_id ?>);
->>>>>>> 85afc0d88a36c121135fb9ada89efc86f4771676
-=======
-            $("div#tabContent").load("/exhibition-stream/question-menu/" + <?= $exhibitionStream->exhibition_id ?>);
->>>>>>> master
-        }
+    $("#tab6").click(function () {
+        // if ($("input#setting").val() == 1) {
+        //     if ($("input#tab6").val() == 0) {
+        //         $("input#tab6").val(1);
+        //         $("button#tab6").css("background-color", "blue");
+        //         $("#tab").val(parseInt($("#tab").val()) + 8);
+        //         alert($("button#tab6").attr('name')+' 탭이 활성화되었습니다.');
+        //     } else {
+        //         $("input#tab6").val(0);
+        //         $("button#tab6").css("background-color", "white");
+        //         $("#tab").val(parseInt($("#tab").val()) - 8);
+        //         alert($("button#tab6").attr('name')+' 탭이 비활성화되었습니다.');
+        //     }
+        // } else {
+            $(".webinar-tab-body").load("/exhibition-stream/question-menu/" + <?= $exhibitionStream->exhibition_id ?>);
+        // }
     });
 
     $("button#tab7").click(function () {
@@ -364,11 +591,7 @@
                 alert($("button#tab7").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-<<<<<<< HEAD
-            $("div#tabContent").load("/exhibition-stream/notice/" + <?= $exhibitionStream->exhibition_id ?>);
-=======
             $("div#tabContent").load("/exhibition-stream/set-notice/" + <?= $exhibitionStream->exhibition_id ?>);
->>>>>>> master
         }
     });
 
@@ -386,11 +609,7 @@
                 alert($("button#tab8").attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-<<<<<<< HEAD
-            $("div#tabContent").load("/exhibition-stream/survey/" + <?= $exhibitionStream->exhibition_id ?>);
-=======
             $("div#tabContent").load("/exhibition-stream/set-survey/" + <?= $exhibitionStream->exhibition_id ?>);
->>>>>>> master
         }
     });
 
