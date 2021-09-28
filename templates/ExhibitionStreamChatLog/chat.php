@@ -163,8 +163,8 @@
   <h3 class="sr-only">실시간 채팅</h3>
   <div class="webinar-cont-ty1">
       <div class="webinar-cont-ty1-body"> 
-          <p class="wb-alert">사용할 탭을 선택해주세요</p>                                   
-          <p class="wb-alert">실시간 채팅 탭이 활성화되었습니다</p>                                   
+          <!-- <p class="wb-alert">사용할 탭을 선택해주세요</p>                                   
+          <p class="wb-alert">실시간 채팅 탭이 활성화되었습니다</p>                                    -->
           <div class="chatting-msg-box">
             <div id="chatbox"></div>
           </div>  
