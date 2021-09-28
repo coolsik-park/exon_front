@@ -14,30 +14,30 @@
 <a href="#" onclick="uploadFile(); return false;" class="btn bg_01">파일 업로드</a>
 
 <form name="uploadForm" id="uploadForm">
-<div class="webinar-cont2">
-    <h3 class="sr-only">자료</h3>
-    <div class="webinar-cont-ty2">
-        <div class="wb10-btn">
-            <button type="button" class="btn3">불러오기</button>
-        </div>
-        <div class="mouse-area">
-            <button typte="button"><span class="ico-plus-c">+</span></button>
-            <p>마우스로 자료를 끌어오세요</p>
-        </div>
-        <div class="data-itmes">
-            <a href="#" class="data-itme edit">
-                <span class="tx">자료사진.png 자료사진.png자료사진.png자료사진.png자료사진.png자료사진.png</span>
-                <span class='kb'>176KB</span>
-                <button type="button" class="btn-del">삭제</button>
-            </a>
-            <a href="#" class="data-itme edit">
-                <span class="tx">자료사진.png</span>
-                <span class='kb'>76KB</span>
-                <button type="button" class="btn-del">삭제</button>
-            </a>
-        </div>                                
-    </div>                               
-</div>
+    <div class="webinar-cont2">
+        <h3 class="sr-only">자료</h3>
+        <div class="webinar-cont-ty2">
+            <div class="wb10-btn">
+                <button type="button" class="btn3">불러오기</button>
+            </div>
+            <div class="mouse-area">
+                <button typte="button"><span class="ico-plus-c">+</span></button>
+                <p>마우스로 자료를 끌어오세요</p>
+            </div>
+            <div class="data-itmes">
+                <a href="#" class="data-itme edit">
+                    <span class="tx">자료사진.png 자료사진.png자료사진.png자료사진.png자료사진.png자료사진.png</span>
+                    <span class='kb'>176KB</span>
+                    <button type="button" class="btn-del">삭제</button>
+                </a>
+                <a href="#" class="data-itme edit">
+                    <span class="tx">자료사진.png</span>
+                    <span class='kb'>76KB</span>
+                    <button type="button" class="btn-del">삭제</button>
+                </a>
+            </div>                                
+        </div>                               
+    </div>
 </form>
 
 <script>

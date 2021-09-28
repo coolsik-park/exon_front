@@ -1,17 +1,24 @@
-<div>
-    <?= $this->Form->create()?>
-    <?php echo $this->Form->control('notice', ['type' => 'textarea']); ?>
-    <?= $this->Form->end() ?>
-    <?= $this->Form->button('저장', ['id' => 'noticeAdd']) ?>
+<div class="webinar-cont2">
+    <h3 class="sr-only">공지사항</h3>
+    <div class="webinar-cont-ty1">
+        <div class="webinar-cont-ty1-body">
+            <?php echo $this->Form->control('notice', ['type' => 'textarea']); ?>
+        </div>
+        <div class="webinar-cont-ty1-btm">
+            <div class="poll-submit">                                        
+                <button id="noticeAdd" class="btn-ty4 redbg">저장</button>
+            </div>
+        </div>
+    </div>                               
 </div>
 
 <script>
     CKEDITOR.replace('notice');
 
-    $("#noticeAdd").click(function () {
+    $("button#noticeAdd").click(function () {
         var notice = CKEDITOR.instances['notice'].getData();
         jQuery.ajax({
-            url: "/exhibition-stream/notice/" + <?= $id ?>, 
+            url: "/exhibition-stream/set-notice/" + <?= $id ?>, 
             method: 'POST',
             type: 'json',
             data: {
