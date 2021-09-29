@@ -67,7 +67,17 @@
 </div> -->
 
 <div class="contents">
-            
+    <div class="sub-menu">
+        <div class="sub-menu-inner">
+            <ul class="tab">
+                <li><a href="/exhibition/edit/<?= $exhibition_id ?>">행사 설정 수정</a></li>
+                <li><a href="/exhibition/survey-data/<?= $exhibition_id ?>">설문 데이터</a></li>
+                <li><a href="/exhibition/manager-person/<?= $exhibition_id ?>">참가자 관리</a></li>
+                <li class="active"><a href="">웨비나 송출 설정</a></li>
+                <li><a href="/exhibition/exhibition-statistics-apply/<?= $exhibition_id ?>">행사 통계</a></li>
+            </ul>
+        </div>
+    </div>    
     <div class="section-webinar3">
         <div class="webinar-cont">
             <div class="wb-cont1">

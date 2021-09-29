@@ -4,11 +4,11 @@
  * @var \App\Model\Entity\ExhibitionStream $exhibitionStream
  */
 ?>
-<?= $this->Html->link(__('행사 설정 수정'), ['controller' => 'Exhibition', 'action' => 'edit', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?> 
+<!-- <?= $this->Html->link(__('행사 설정 수정'), ['controller' => 'Exhibition', 'action' => 'edit', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?> 
 <?= $this->Html->link(__('설문 데이터'), ['controller' => 'Exhibition', 'action' => 'surveyData', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?> 
 <?= $this->Html->link(__('참가자 관리'), ['controller' => 'Exhibition', 'action' => 'managerPerson', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?> 
 <?= $this->Html->link(__('웨비나 송출 설정'), ['controller' => 'ExhibitionStream', 'action' => 'setExhibitionStream', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?> 
-<?= $this->Html->link(__('행사 통계'), ['controller' => 'Exhibition', 'action' => 'ExhibitionStatisticsApply', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?>
+<?= $this->Html->link(__('행사 통계'), ['controller' => 'Exhibition', 'action' => 'ExhibitionStatisticsApply', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?> -->
 
 <head>
     <meta charset="UTF-8">
@@ -74,7 +74,18 @@
     </div> -->
 
 
-    <div class="contents">
+<div class="contents">
+    <div class="sub-menu">
+        <div class="sub-menu-inner">
+            <ul class="tab">
+                <li><a href="/exhibition/edit/<?= $exhibition_id ?>">행사 설정 수정</a></li>
+                <li><a href="/exhibition/survey-data/<?= $exhibition_id ?>">설문 데이터</a></li>
+                <li><a href="/exhibition/manager-person/<?= $exhibition_id ?>">참가자 관리</a></li>
+                <li class="active"><a href="">웨비나 송출 설정</a></li>
+                <li><a href="/exhibition/exhibition-statistics-apply/<?= $exhibition_id ?>">행사 통계</a></li>
+            </ul>
+        </div>
+    </div>       
     <?= $this->Form->create($exhibitionStream) ?>
     <div class="section-webinar3">
         <div class="webinar-cont">

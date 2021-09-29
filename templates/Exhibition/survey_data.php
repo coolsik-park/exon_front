@@ -89,13 +89,11 @@
     <div class="sub-menu">
         <div class="sub-menu-inner">
             <ul class="tab">
-                <li><a href="http://121.126.223.225:8765/exhibition/edit/<?= $id ?>">행사 설정 수정</a></li>
-                <li class="active"><a href="#">설문 데이터</a></li>
-                <li><a href="http://121.126.223.225:8765/exhibition/manager-person/<?= $id ?>">참가자 관리</a></li>
-                <li><a href="http://121.126.223.225:8765/exhibition-stream/set-exhibition-stream/<?= $id ?>">웨비나 송출
-                        설정</a></li>
-                <li><a href="http://121.126.223.225:8765/exhibition/exhibition-statistics-apply/<?= $id ?>">행사 통계</a>
-                </li>
+                <li><a href="/exhibition/edit/<?= $id ?>">행사 설정 수정</a></li>
+                <li class="active"><a href="">설문 데이터</a></li>
+                <li><a href="/exhibition/manager-person/<?= $id ?>">참가자 관리</a></li>
+                <li><a href="/exhibition-stream/set-exhibition-stream/<?= $id ?>">웨비나 송출 설정</a></li>
+                <li><a href="/exhibition/exhibition-statistics-apply/<?= $id ?>">행사 통계</a></li>
             </ul>
         </div>
     </div>

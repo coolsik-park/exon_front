@@ -34,9 +34,7 @@
                         <?php if (!empty($exhibitionSurveys)) : ?>
                             <?php $i=0; ?>
                             <?php foreach ($exhibitionSurveys as $exhibitionSurvey) : ?>
-                                <?php
-                                    if ($exhibitionSurvey->is_multiple == 'N' || $exhibitionSurvey->parent_id != null) {
-                                ?>
+                                <?php if ($exhibitionSurvey->is_multiple == 'N' || $exhibitionSurvey->parent_id != null) : ?>
                                     <div class="poll-item">
                                         <p class="poll-q"><?=$exhibitionSurvey->text?></p>
                                         <div class="poll-a">
@@ -44,9 +42,7 @@
                                             <?php $i++; ?>
                                         </div>
                                     </div>
-                                <?php
-                                    } else {
-                                ?>
+                                <?php else : ?>
                                     <div class="poll-item">
                                         <p class="poll-q"><?=$exhibitionSurvey->text?></p>
                                         <input type="hidden" name="exhibition_survey_users_answer.<?=$i?>.text" value="question">
@@ -61,9 +57,7 @@
                                             <?php endforeach; ?>
                                         </div>
                                     </div>
-                                <?php
-                                    }
-                                ?>
+                                <?php endif; ?>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </div>
@@ -89,7 +83,6 @@
     $("#send").click(function () {
         $(":input:radio").removeAttr("name");
         var formData = $("#surveyForm").serialize();
-        console.log(formData);
         jQuery.ajax({
             url: "/exhibition-stream/answer-survey/" + <?= $id ?>, 
             method: 'POST',
