@@ -34,7 +34,7 @@
                         <?php if (!empty($exhibitionSurveys)) : ?>
                             <?php $i=0; ?>
                             <?php foreach ($exhibitionSurveys as $exhibitionSurvey) : ?>
-                                <?php if ($exhibitionSurvey->is_multiple == 'N' || $exhibitionSurvey->parent_id != null) : ?>
+                                <?php if ($exhibitionSurvey->is_multiple == 'N') : ?>
                                     <div class="poll-item">
                                         <p class="poll-q"><?=$exhibitionSurvey->text?></p>
                                         <div class="poll-a">
