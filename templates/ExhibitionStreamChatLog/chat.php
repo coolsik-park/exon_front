@@ -1,4 +1,4 @@
-
+<!-- 
 <style>
     * {
     margin: 0;
@@ -142,7 +142,7 @@
   .msgln b.user-name-left {
     background: orangered;
   }
-</style>
+</style> -->
 
 <!-- <div id="wrapper">
     <div id="menu">
@@ -160,23 +160,23 @@
 </div> -->
 
 <div class="webinar-cont1">
-  <h3 class="sr-only">실시간 채팅</h3>
-  <div class="webinar-cont-ty1">
-      <div class="webinar-cont-ty1-body"> 
-          <!-- <p class="wb-alert">사용할 탭을 선택해주세요</p>                                   
-          <p class="wb-alert">실시간 채팅 탭이 활성화되었습니다</p>                                    -->
-          <div class="chatting-msg-box">
-            <div id="chatbox"></div>
-          </div>  
-      </div>
-      <div class="webinar-cont-ty1-btm">
-          <div class="chatting-submit">
-              <input type="hidden" name="last_id" id="last_id" value="1">
-              <input type="text" id="usermsg" name="usermsg" placeholder="Message...">
-              <button type="submit" id="submitmsg" name="submitmsg" class="btn-ty4 redbg">전송</button>
-          </div>
-      </div>
-  </div>                            
+    <h3 class="sr-only">실시간 채팅</h3>
+    <div class="webinar-cont-ty1">
+        <div class="webinar-cont-ty1-body"> 
+              <!-- <p class="wb-alert">사용할 탭을 선택해주세요</p>                                   
+              <p class="wb-alert">실시간 채팅 탭이 활성화되었습니다</p>                                    -->
+              <!-- <div class="chatting-msg-box"> -->
+                  <div id="chatbox"></div>
+              <!-- </div>   -->
+        </div>
+        <div class="webinar-cont-ty1-btm">
+            <div class="chatting-submit">
+                <input type="hidden" name="last_id" id="last_id" value="1">
+                <input type="text" id="usermsg" name="usermsg" placeholder="Message...">
+                <button type="submit" id="submitmsg" name="submitmsg" class="btn-ty4 redbg">전송</button>
+            </div>
+        </div>
+    </div>                            
 </div>
 
 
