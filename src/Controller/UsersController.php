@@ -38,7 +38,7 @@ class UsersController extends AppController
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $user->email = $this->request->getData('email');
-            $user->password = $this->request->getData('password');
+            $user->password = password_hash($this->request->getData('password'), PASSWORD_DEFAULT);
             $user->name = $this->request->getData('name');
             $user->hp = $this->request->getData('hp');
             $user->ip = $this->request->ClientIp();    
@@ -57,7 +57,7 @@ class UsersController extends AppController
         $user = $this->Users->get($id);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $user->password = $this->request->getData('password');
+            $user->password = password_hash($this->request->getData('password'), PASSWORD_DEFAULT);
             $user->name = $this->request->getData('name');
             $user->birthday = date('Y-m-d', strtotime($this->request->getData('birthday')));
             $user->sex = $this->request->getData('sex');
