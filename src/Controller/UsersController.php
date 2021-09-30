@@ -8,12 +8,6 @@ use Cake\Auth\DefaultPasswordHasher;
 use Cake\ORM\TableRegistry;
 use Cake\I18n\FrozenTime;
 
-/**
- * Users Controller
- *
- * @property \App\Model\Table\UsersTable $Users
- * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
- */
 class UsersController extends AppController
 {
 
@@ -26,38 +20,19 @@ class UsersController extends AppController
         $this->Auth->allow();
         // $this->Auth->deny(['test'])
     }
-
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null|void Renders view
-     */
+    
     public function index()
     {
         $users = $this->paginate($this->Users);
 
         $this->set(compact('users'));
     }
-
-    /**
-     * View method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+    
     public function view($id = null)
     {
         echo($id);exit;
     }
     
-    
-    
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
     public function add()
     {
         $user = $this->Users->newEmptyEntity();
@@ -77,79 +52,103 @@ class UsersController extends AppController
         $this->set(compact('user'));
     }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function edit($id = null)
     {
-        // $user = $this->Users->get($id, [
-        //     'contain' => [],
-        // ]);
-        // if ($this->request->is(['patch', 'post', 'put'])) {
-        //     $user = $this->Users->patchEntity($user, $this->request->getData());
-        //     if ($this->Users->save($user)) {
-        //         $this->Flash->success(__('The user has been saved.'));
+        $user = $this->Users->get($id);
 
-        //         return $this->redirect(['action' => 'edit', $id]);
-        //     }
-        //     $this->Flash->error(__('The user could not be saved. Please, try again.'));
-        // }
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user->password = $this->request->getData('password');
+            $user->name = $this->request->getData('name');
+            $user->birthday = date('Y-m-d', strtotime($this->request->getData('birthday')));
+            $user->sex = $this->request->getData('sex');
+            $user->company = $this->request->getData('company');
+            $user->title = $this->request->getData('title');
+            $user->ip = $this->request->ClientIp();
+
+            if ($this->Users->save($user)) {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+            } else {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+            }
+            return $response;
+        }
+
+        $this->set(compact('user'));
+    }
+
+    public function hpUpdate($id = null)
+    {
+        $user = $this->Users->get($id);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user->hp = $this->request->getData('hp');
+            $user->hp_cert = '0';
+
+            if ($this->Users->save($user)) {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+            } else {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+            }
+            return $response;
+        }
+
+        $this->set(compact('user'));
+    }
+
+    public function imgUpdate($id = null)
+    {
+        $connection = ConnectionManager::get('default');
+        $connection->begin();
+
+        if ($this->request->is('post')) {
+            $image = $this->request->getData('imgSaveButton');
+            $imageName = $image->getClientFilename();
+            $index = strpos(strrev($imageName), strrev('.'));
+            $expen = strtolower(substr($imageName, ($index * -1)));
+            $path = 'upload' . DS . 'users' . DS . date("Y") . DS . date("m");
+
+            if (!file_exists(WWW_ROOT . $path)) {
+                $oldMask = umask(0);
+                mkdir(WWW_ROOT . $path, 0777, true);
+                chmod(WWW_ROOT . $path, 0777);
+                umask($oldMask);
+            }
+
+            $imageName = $id . "_users." . $expen;
+            $destination = WWW_ROOT . $path . DS . $imageName;
+            $image->moveTo($destination);
+
+            if ($connection->update('users', ['image_path' => $path, 'image_name' => $imageName], ['id' => $id])) {
+                $connection->commit();
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+            } else {
+                $connection->rollback();
+            }  
+            return $response;
+        }
+    }
+
+    public function imgDelete($id = null)
+    {
         $connection = ConnectionManager::get('default');
         $connection->begin();
 
         $user = $this->Users->get($id);
 
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            
-            if ($result = $this->Users->save($user)) {
-            
-                $image = $this->request->getData('image');
-                $imageName = $image->getClientFilename();
-                $index = strpos(strrev($imageName), strrev('.'));
-                $expen = strtolower(substr($imageName, ($index * -1)));
-                $path = 'upload' . DS . 'users' . DS . date("Y") . DS . date("m");
-
-                if (!file_exists(WWW_ROOT . $path)) {
-                    $oldMask = umask(0);
-                    mkdir(WWW_ROOT . $path, 0777, true);
-                    chmod(WWW_ROOT . $path, 0777);
-                    umask($oldMask);
-                }
-
-                $imageName = $result->id . "_users" . $expen;
-                $destination = WWW_ROOT . $path . DS . $imageName;
-                $image->moveTo($destination);
-
-                echo('a');
-                if ($connection->update('users',['image_path' => $path, 'image_name' => $imageName], ['id' => $id])) {
-                    $connection->commit();
-                    $this->Flash->success(__('Your Post has been saved.'));
-                    return $this->redirect(['action' => 'index']);
-                } else {
-                    $connection->rollback();
-                    $this->Flash->success(__('Unable to add you post.'));
-                }                
-            } else {
-                $connection->rollback();
-                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+        if ($connection->update('users', ['image_path' => null, 'image_name' => null], ['id' => $id])) {
+            $connection->commit();
+            $path = WWW_ROOT . $user->image_path;
+            unlink($path . DS . $user->image_name);
+            if (file_exists($path)) {
+                rmdir($path);
             }
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+        } else {
+            $connection->rollback();
         }
-        $this->set(compact('user'));
+        return $response;
     }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+    
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
