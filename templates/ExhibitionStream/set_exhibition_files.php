@@ -20,11 +20,12 @@
             <div class="wb10-btn">
                 <button type="button" class="btn3" onclick="uploadFile()">불러오기</button>
             </div>
-            <div class="mouse-area">
+            <div class="mouse-area" id="dropZone">
                 <label for="addFile"><span class="ico-plus-c">+</span></button>
                 <input name="file[]" id="addFile" type="file" multiple="multiple" style="display:none">
-                <p id="dropZone">마우스로 자료를 끌어오세요</p>
+                <p>마우스로 자료를 끌어오세요</p>
             </div>
+            <br><br>
             <div id = "fileTableTbody" class="data-itmes">
 
             </div>                                
