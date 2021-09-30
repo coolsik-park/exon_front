@@ -2,7 +2,7 @@
     <h3 class="sr-only">프로그램</h3>
     <div class="webinar-cont-ty1">
         <div class="webinar-cont-ty1-body">
-            <?php echo $this->Form->control('program', ['type' => 'textarea']); ?>
+            <?php echo $this->Form->control('program', ['type' => 'textarea', 'label' => false]); ?>
         </div>
         <div class="webinar-cont-ty1-btm">
             <div class="poll-submit">                                        

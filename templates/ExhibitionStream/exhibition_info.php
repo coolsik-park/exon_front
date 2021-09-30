@@ -1,8 +1,8 @@
-<div class="column-responsive column-80">
+<!-- <div class="column-responsive column-80">
     <div class="exhibitionStream form content"> 
         <?= $this->Text->autoParagraph($exhibition[0]['detail_html']) ?>
     </div>
-</div>
+</div> -->
 
 <div class="webinar-cont2">
     <h3 class="sr-only">행사 정보</h3>
