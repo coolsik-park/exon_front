@@ -142,7 +142,7 @@ class BoardsController extends AppController
                 $path = 'upload' . DS . 'notice' . DS . date("Y") . date("m");
 
                 if(!file_exists(WWW_ROOT . $path)) {
-                    $olfMask = umask(0);
+                    $oldMask = umask(0);
                     mkdir(WWW_ROOT . $path, 0777, true);
                     chmod(WWW_ROOT . $path, 0777);
                     umask($oldMask);
