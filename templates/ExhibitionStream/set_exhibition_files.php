@@ -1,4 +1,4 @@
-<form name="uploadForm" id="uploadForm">
+<!-- <form name="uploadForm" id="uploadForm">
     <input name="file[]" id="addFile" type="file" multiple="multiple">
     <table class="table" width="100%" border="1px">
         <tbody id="fileTableTbody">
@@ -11,30 +11,22 @@
     </table>
 </form>
     
-<a href="#" onclick="uploadFile(); return false;" class="btn bg_01">파일 업로드</a>
+<a href="#" onclick="uploadFile(); return false;" class="btn bg_01">파일 업로드</a> -->
 
 <form name="uploadForm" id="uploadForm">
     <div class="webinar-cont2">
         <h3 class="sr-only">자료</h3>
         <div class="webinar-cont-ty2">
             <div class="wb10-btn">
-                <button type="button" class="btn3">불러오기</button>
+                <button type="button" class="btn3" onclick="uploadFile()">불러오기</button>
             </div>
             <div class="mouse-area">
-                <button typte="button"><span class="ico-plus-c">+</span></button>
-                <p>마우스로 자료를 끌어오세요</p>
+                <label for="addFile"><span class="ico-plus-c">+</span></button>
+                <input name="file[]" id="addFile" type="file" multiple="multiple" style="display:none">
+                <p id="dropZone">마우스로 자료를 끌어오세요</p>
             </div>
-            <div class="data-itmes">
-                <a href="#" class="data-itme edit">
-                    <span class="tx">자료사진.png 자료사진.png자료사진.png자료사진.png자료사진.png자료사진.png</span>
-                    <span class='kb'>176KB</span>
-                    <button type="button" class="btn-del">삭제</button>
-                </a>
-                <a href="#" class="data-itme edit">
-                    <span class="tx">자료사진.png</span>
-                    <span class='kb'>76KB</span>
-                    <button type="button" class="btn-del">삭제</button>
-                </a>
+            <div id = "fileTableTbody" class="data-itmes">
+
             </div>                                
         </div>                               
     </div>
@@ -125,7 +117,7 @@ function selectFile(files){
             // 확장자
             var ext = fileNameArr[fileNameArr.length - 1];
             // 파일 사이즈(단위 :MB)
-            var fileSize = files[i].size / 1024 / 1024;
+            var fileSize = files[i].size / 1024;
             
             if($.inArray(ext, ['exe', 'bat', 'sh', 'java', 'jsp', 'html', 'js', 'css', 'xml']) >= 0){
                 // 확장자 체크
@@ -159,12 +151,19 @@ function selectFile(files){
 
 // 업로드 파일 목록 생성
 function addFileList(fIndex, fileName, fileSize){
+    // var html = "";
+    // html += "<tr id='fileTr_" + fIndex + "'>";
+    // html += "    <td class='left' >";
+    // html +=         fileName + " / " + fileSize + "MB "  + "<a href='#' onclick='deleteFile(" + fIndex + "); return false;' class='btn small bg_02'>삭제</a>"
+    // html += "    </td>"
+    // html += "</tr>"
+
     var html = "";
-    html += "<tr id='fileTr_" + fIndex + "'>";
-    html += "    <td class='left' >";
-    html +=         fileName + " / " + fileSize + "MB "  + "<a href='#' onclick='deleteFile(" + fIndex + "); return false;' class='btn small bg_02'>삭제</a>"
-    html += "    </td>"
-    html += "</tr>"
+    html += "<a id='fileTr_" + fIndex + "' class='data-itme edit'>";
+    html += "<span class='tx'>" + fileName + "</span>";
+    html += "<span class='kb'>" + fileSize.toFixed(1) + "KB</span>";
+    html += "<button type='button' onclick='deleteFile(" + fIndex + "); return false;' class='btn-del'>삭제</button>";
+    html += "</a>";
 
     $('#fileTableTbody').append(html);
 }
