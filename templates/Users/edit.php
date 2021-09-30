@@ -13,7 +13,7 @@
                 <div class="item-row">
                     <div class="col-dt"><em>*</em>비밀번호</div>                      
                     <div class="col-dd">
-                        <input type="password"  id="password" class="full" value="<?=$user->password ?>" title="비밀번호">
+                        <input type="password"  id="password" class="full" title="비밀번호">
                         <p id="lengthNoti" class="noti hc1"></p>
                     </div>
                 </div>  

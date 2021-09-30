@@ -110,72 +110,75 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
         var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
         var getCheck = RegExp(/^[a-zA-Z0-9]{4,12}$/);
         var getName = RegExp(/^[가-힣]+$/);
+        var result = [];
 
         if ($("#email").val() == "") {
             $("#emailNoti").html("이메일 주소를 입력해 주세요.");
-            $("#email").focus();
-            return false;
+            result.push('false');
         } else {
             $("#emailNoti").html("");
+            result.push('true');
         }
 
         if (!getMail.test($("#email").val() + "@" + $("#emailTail").val())) {
             $("#emailNoti").html("올바른 이메일 형식을 입력해 주세요.");
-            $("#email").focus();
-            return false;
+            result.push('false');
         } else {
             $("#emailNoti").html("");
+            result.push('true');
         }
 
         if ($("#name").val() == "") {
             $("#nameNoti").html("이름을 입력해 주세요.");
-            $("#name").focus();
-            return false;
+            result.push('false');
         } else {
             $("#nameNoti").html("");
+            result.push('true');
         }
 
         if (!getName.test($("#name").val())) {
             $("#nameNoti").html("이름을 올바르게 입력해 주세요.");
-            $("#name").focus();
-            return false;
+            result.push('false');
         } else {
             $("#nameNoti").html("");
+            result.push('true');
         }
 
         if ($("#password").val().length < 8) {
             $("#lengthNoti").html("비밀번호는 8자 이상으로 입력해 주세요.");
-            $("#password").focus();
-            return false;
+            result.push('false');
         } else {
             $("#lengthNoti").html("");
+            result.push('true');
         }
 
         if ($("#password").val() != $("#confirm").val()) {
             $("#confirmNoti").html("비밀번호가 다릅니다. 다시 입력해 주세요.");
-            $("#confirm").focus();
-            return false;
+            result.push('false');
         } else {
             $("#confirmNoti").html("");
+            result.push('true');
         }
 
-        jQuery.ajax({
-            url: "/users/add",
-            method: 'POST',
-            type: 'json',
-            data: {
-                email: $("#email").val() + "@" + $("#emailTail").val(),
-                password: $("#password").val(),
-                name: $("#name").val(),
-                hp: $("#cellNumber").val() + $("#cellNumber2").val()
-            }
-        }).done(function (data) {
-            if (data.status == 'success') {
-                $(location).attr('href', 'http://121.126.223.225:8765/users/certified/' + data.id);
-            } else {
-                $("#emailNoti").html("이미 회원 가입된 이메일입니다. 다시 입력해 주세요.");
-                $("#email").focus();
-            }
-        });
+        if (!result.includes('false')) {
+            jQuery.ajax({
+                url: "/users/add",
+                method: 'POST',
+                type: 'json',
+                data: {
+                    email: $("#email").val() + "@" + $("#emailTail").val(),
+                    password: $("#password").val(),
+                    name: $("#name").val(),
+                    hp: $("#cellNumber").val() + $("#cellNumber2").val()
+                }
+            }).done(function (data) {
+                if (data.status == 'success') {
+                    $(location).attr('href', 'http://121.126.223.225:8765/users/certified/' + data.id);
+                } else {
+                    $("#emailNoti").html("이미 회원 가입된 이메일입니다. 다시 입력해 주세요.");
+                    $("#email").focus();
+                }
+            });
+        }
     });
 </script>
