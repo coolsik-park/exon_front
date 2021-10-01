@@ -29,8 +29,16 @@ class ExhibitionController extends AppController
         $this->loadComponent('Auth');
 
         $this->Auth->allow();
-        // $this->Auth->deny(['test'])
+        $this->Auth->deny(['add']);
     }   
+
+    public function isAuthorized() {
+        if(!empty($this->Auth->user('id'))) {
+            return true;
+        }
+        // Default deny
+        return parent::isAuthorized($user);
+    }
 
     public function initialize(): void
     {
@@ -76,20 +84,18 @@ class ExhibitionController extends AppController
     {
         $connection = ConnectionManager::get('default');
         $connection->begin();
-
         $exhibition = $this->Exhibition->newEmptyEntity();
 
         if ($this->request->is('post')) {
-            $exhibition = $this->Exhibition->patchEntity($exhibition, $this->request->getData(), ['associated' => ['ExhibitionGroup', 'ExhibitionSurvey']]);
-
-            if ($result = $this->Exhibition->save($exhibition)) {
-
+            
+            if ($this->request->getData()['action'] == 'image') {
+                
                 //메인 사진 업로드
-                $img = $this->request->getData('image');
+                $img = $this->request->getData()['image'];
                 $imgName = $img->getClientFilename();
                 $index = strpos(strrev($imgName), strrev('.'));
                 $expen = strtolower(substr($imgName, ($index * -1)));
-                $path = 'upload' . DS . 'exhibition' . DS . date("Y") . DS . date("m");
+                $path = 'upload' . DS . 'exhibition_temp' . DS . date("Y") . DS . date("m");
                 
                 if ($expen == 'jpeg' || $expen == 'jpg' || $expen == 'png') {
                     
@@ -100,61 +106,155 @@ class ExhibitionController extends AppController
                         umask($oldMask);
                     }
     
-                    $imgName = $result->id . "_main." . $expen;
+                    $imgName = $this->Auth->user('id') . "_main." . $expen;
                     $destination = WWW_ROOT . $path . DS . $imgName;
                     $img->moveTo($destination);
-                    
-                    if ($connection->update('exhibition', ['image_path' => $path, 'image_name' => $imgName], ['id' => $result->id])) {
 
-                        //설문 생성
-                        $parentId = 0;
-                        $whereId = 0;
-                        $count = count($result->exhibition_survey);
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'path' => $path, 'imgName' => $imgName]));
+                    return $response;
 
-                        for ($i =0; $i < $count; $i++) {
-
-                            if ($result->exhibition_survey[$i]->survey_type != null && $result->exhibition_survey[$i]->is_duplicate != null) {
-                                $parentId = $result->exhibition_survey[$i]->id;
-                                $surveyType = $result->exhibition_survey[$i]->survey_type;
-                                $isDuplicate = $result->exhibition_survey[$i]->is_duplicate;
-                                $isMultiple = $result->exhibition_survey[$i]->is_multiple;
-                            } else {
-                                $whereId = $result->exhibition_survey[$i]->id;
-
-                                if (!$connection->update('exhibition_survey', [
-                                    'parent_id' => $parentId, 'survey_type' => $surveyType,
-                                    'is_duplicate' => $isDuplicate, 'is_multiple' => $isMultiple], ['id' => $whereId])) {
-
-                                        $connection->rollback(); 
-                                        $this->Flash->error(__('The exhibition survey could not be saved. Please, try again.'));
-                                }
-                            }
-                        }
-                        $connection->commit();
-                        $this->Flash->success(__('The exhibition has been saved.'));
-                        return $this->redirect(['action' => 'index']);
-                        
-                    } else {
-                        $connection->rollback(); 
-                        $this->Flash->error(__('The exhibition survey could not be saved. Please, try again.'));
-                    }
-                
                 }else {
-                    $connection->rollback();
-                    $this->Flash->error(__('Incorrect image type.'));
-                    return $this->redirect(['action' => 'add']);
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => '이미지 확장자명을 확인해주세요.',]));
+                    return $response;
                 }
-
             } else {
-                $connection->rollback(); 
-                $this->Flash->error(__('The exhibition could not be saved. Please, try again.'));
-            }       
+                
+                $data = $this->request->getData();
+
+                $exhibition->title = $data['title'];
+                $exhibition->description = $data['description'];
+                $exhibition->category = $data['category'];
+                $exhibition->type = $data['type'];
+                $exhibition->apply_sdate = substr($data['apply_sdate'], 0, 10) .' '. substr($data['sdate'], 11, 8);
+                $exhibition->apply_edate = substr($data['apply_edate'], 0, 10) .' '. substr($data['sdate'], 11, 8);
+                $exhibition->sdate = substr($data['sdate'], 0, 10) .' '. substr($data['sdate'], 11, 8);
+                $exhibition->edate = substr($data['edate'], 0, 10) .' '. substr($data['edate'], 11, 8);
+                $exhibition->cost = $data['cost'];
+                $exhibition->private = $data['private'];
+                $exhibition->auto_approval = $data['auto_approval'];
+                $exhibition->name = $data['name'];
+                $exhibition->tel = $data['tel'];
+                $exhibition->email = $data['email'];
+                if (!empty($data['require_name'])) :
+                    $exhibition->require_name = $data['require_name'];
+                endif;
+                if (!empty($data['require_email'])) :
+                    $exhibition->require_email = $data['require_email'];
+                endif;
+                if (!empty($data['require_tel'])) :
+                    $exhibition->require_tel = $data['require_tel'];
+                endif;
+                if (!empty($data['require_age'])) :
+                    $exhibition->require_age = $data['require_age'];
+                endif;
+                if (!empty($data['require_group'])) :
+                    $exhibition->require_group = $data['require_group'];
+                endif;
+                if (!empty($data['require_sex'])) :
+                    $exhibition->require_sex = $data['require_sex'];
+                endif;
+                $exhibition->require_cert = $data['require_cert'];
+                $exhibition->detail_html = $data['detail_html'];
+                $exhibition->email_notice = $data['email_notice'];
+                $exhibition->additional = $data['additional'];
+                $exhibition->status = $data['status'];
+
+                if ($result = $this->Exhibition->save($exhibition)) {
+                    $count = count($data['group_people']);
+                              
+                    $ExhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup');
+
+                    for ($i = 0; $i < $count; $i ++) {
+                        $exhibitionGroup = $ExhibitionGroup->newEmptyEntity();
+                        $exhibitionGroup->exhibition_id = $result->id;
+                        $exhibitionGroup->name = $data['group_name'][$i];
+                        $exhibitionGroup->people = $data['group_people'][$i];
+                        $exhibitionGroup->amount = $data['group_amount'][$i];
+                        
+                        if (!$ExhibitionGroup->save($exhibitionGroup)) {
+                            $connection->rollback(); 
+                            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                            return $response;
+                        }
+                    }
+                    
+                    
+                    // //설문 생성
+                    // $parentId = 0;
+                    // $whereId = 0;
+                    // $count = count($result->exhibition_survey);
+
+                    // for ($i =0; $i < $count; $i++) {
+
+                    //     if ($result->exhibition_survey[$i]->survey_type != null && $result->exhibition_survey[$i]->is_duplicate != null) {
+                    //         $parentId = $result->exhibition_survey[$i]->id;
+                    //         $surveyType = $result->exhibition_survey[$i]->survey_type;
+                    //         $isDuplicate = $result->exhibition_survey[$i]->is_duplicate;
+                    //         $isMultiple = $result->exhibition_survey[$i]->is_multiple;
+                    //     } else {
+                    //         $whereId = $result->exhibition_survey[$i]->id;
+
+                    //         if (!$connection->update('exhibition_survey', [
+                    //             'parent_id' => $parentId, 'survey_type' => $surveyType,
+                    //             'is_duplicate' => $isDuplicate, 'is_multiple' => $isMultiple], ['id' => $whereId])) {
+
+                    //                 $connection->rollback(); 
+                    //                 $this->Flash->error(__('The exhibition survey could not be saved. Please, try again.'));
+                    //         }
+                    //     }
+                    // }
+                    $connection->commit();
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'id' => $result->id]));
+                    return $response;
+                    
+                } else {
+                    $connection->rollback(); 
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                    return $response;
+                }
+            }
         }
         $commonCategory = $this->getTableLocator()->get('CommonCategory');
         $users = $this->Exhibition->Users->find('list', ['limit' => 200]);
         $categories = $commonCategory->find('list')->select('title')->where(['tables' => 'exhibition', 'types' => 'category']);
         $types = $commonCategory->find('list')->select('title')->where(['tables' => 'exhibition', 'types' => 'type']);
         $this->set(compact('exhibition', 'users', 'categories', 'types'));
+    }
+
+    public function saveImg($id = null)
+    {
+        if ($this->request->is('post')) {
+            $data = $this->request->getData();
+            $img = $data['image'];
+            $imgName = $img->getClientFilename();
+            $index = strpos(strrev($imgName), strrev('.'));
+            $expen = strtolower(substr($imgName, ($index * -1)));
+            $path = 'upload' . DS . 'exhibition' . DS . date("Y") . DS . date("m");
+            
+            if (!file_exists(WWW_ROOT . $path)) {
+                $oldMask = umask(0);
+                mkdir(WWW_ROOT . $path, 0777, true);
+                chmod(WWW_ROOT . $path, 0777);
+                umask($oldMask);
+            }
+    
+            $imgName = $id . "_main." . $expen;
+            $destination = WWW_ROOT . $path . DS . $imgName;
+            $img->moveTo($destination);
+
+            $exhibition = $this->Exhibition->get($id);
+            $exhibition->image_path = $path;
+            $exhibition->image_name = $imgName;
+    
+            if ($this->Exhibition->save($exhibition)) {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                return $response;
+            } else {
+                $connection->rollback(); 
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                return $response;
+            }       
+        }
     }
 
     /**
@@ -261,6 +361,15 @@ class ExhibitionController extends AppController
         $exhibitionSurveys = $this->getTableLocator()->get('ExhibitionSurvey')->find('all')->where(['exhibition_id' => $id]);
         $exhibitionGroups = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id]);
         $this->set(compact('exhibition', 'users', 'categories', 'types', 'exhibitionSurveys', 'exhibitionGroups'));
+    }
+
+    public function getUserInfo()
+    {
+        $User = $this->getTableLocator()->get('Users');
+        $user = $User->get($this->Auth->user('id'));
+
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'name' => $user->name, 'tel' => $user->hp, 'email' => $user->email]));
+        return $response;
     }
 
     /**
