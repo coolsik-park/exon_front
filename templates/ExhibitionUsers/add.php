@@ -160,12 +160,12 @@
                     <?php else : ?>
                         <div class="survey"> 
                             <h4 class="survey-q"><?= $exhibitionSurvey->text ?></h4>
-                            <input type="hidden" name="exhibition_survey_users_answer.<?=$i?>.text" value="question">
+                            <input type="text" name="exhibition_survey_users_answer.<?=$i?>.text" value="question">
                             <?php $i++; ?>
                             <ul class="survey-as">
                             <?php foreach ($exhibitionSurvey->child_exhibition_survey as $child) : ?>
-                                <li><span class="survey-a"><input type="radio" id="<?=$child->id?>" name="<?=$child->parent_id?>"><label for="<?=$child->id?>"><?=$child->text?></label></span></li>
-                                <input type="hidden" id="<?=$child->id?>" name="exhibition_survey_users_answer.<?=$i?>.text" class="<?=$child->parent_id?>" value="">
+                                <li><span class="survey-a"><input type="radio" id="<?=$child->id?>" name="<?=$child->parent_id?>" value="<?=$child->text?>"><label for="<?=$child->id?>"><?=$child->text?></label></span></li>
+                                <input type="text" id="<?=$child->id?>" name="exhibition_survey_users_answer.<?=$i?>.text" class="<?=$child->parent_id?>" value="">
                                 <?php $i++; ?>
                             <?php endforeach; ?>
                             </ul>
@@ -185,8 +185,8 @@
     $(":input:radio").change(function () {
         var id = $(this).attr("id");
         var name = $(this).attr("name")
-        $(":input:hidden[class=" + name + "]").val('');
-        $(":input:hidden[id=" + id + "]").val("Y"); 
+        $(":input:text[class=" + name + "]").val('');
+        $(":input:text[id=" + id + "]").val("Y"); 
     });
 
     $("#submit").click(function () {

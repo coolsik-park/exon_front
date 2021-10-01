@@ -149,7 +149,7 @@ class PagesController extends AppController
         //case 5: threaded 샘플
         // $this->loadModel('ExhibitionSurvey');
         // $banner = $this->ExhibitionSurvey->find('threaded')
-        //             ->where(['ExhibitionSurvey.exhibition_id'=>1])
+        //             ->where(['ExhibitionSurvey.exhibition_id'=>279])
         //             ->toArray();
         // echo("<pre>");print_r($banner);exit;
 
