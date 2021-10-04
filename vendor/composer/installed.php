@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '54dae3a3ab279ba554a24dd2ae1f77dba0122c0b',
+        'reference' => 'd5588cc0b921bee948469a5892678b76994d60b0',
         'name' => 'cakephp/app',
         'dev' => true,
     ),
@@ -25,7 +25,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '54dae3a3ab279ba554a24dd2ae1f77dba0122c0b',
+            'reference' => 'd5588cc0b921bee948469a5892678b76994d60b0',
             'dev_requirement' => false,
         ),
         'cakephp/authentication' => array(
@@ -199,6 +199,12 @@
                 0 => '4.2.8',
             ),
         ),
+        'ceeram/cakepdf' => array(
+            'dev_requirement' => false,
+            'replaced' => array(
+                0 => '4.1.1',
+            ),
+        ),
         'composer/ca-bundle' => array(
             'pretty_version' => '1.2.10',
             'version' => '1.2.10.0',
@@ -278,6 +284,15 @@
             'install_path' => __DIR__ . '/../ezyang/htmlpurifier',
             'aliases' => array(),
             'reference' => '08e27c97e4c6ed02f37c5b2b20488046c8d90d75',
+            'dev_requirement' => false,
+        ),
+        'friendsofcake/cakepdf' => array(
+            'pretty_version' => '4.1.1',
+            'version' => '4.1.1.0',
+            'type' => 'cakephp-plugin',
+            'install_path' => __DIR__ . '/../friendsofcake/cakepdf',
+            'aliases' => array(),
+            'reference' => '8146a19ad6355869a1c16322c7efbc5ae700ece5',
             'dev_requirement' => false,
         ),
         'friendsofcake/search' => array(
@@ -1014,6 +1029,15 @@
             'aliases' => array(),
             'reference' => '3dd8ddd1e260e58ecc61bb78da3b6584b3bfcba0',
             'dev_requirement' => true,
+        ),
+        'tecnickcom/tcpdf' => array(
+            'pretty_version' => '6.4.2',
+            'version' => '6.4.2.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../tecnickcom/tcpdf',
+            'aliases' => array(),
+            'reference' => '172540dcbfdf8dc983bc2fe78feff48ff7ec1c76',
+            'dev_requirement' => false,
         ),
         'theseer/tokenizer' => array(
             'pretty_version' => '1.2.1',

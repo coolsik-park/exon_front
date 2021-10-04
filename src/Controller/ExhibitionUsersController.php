@@ -309,7 +309,7 @@ class ExhibitionUsersController extends AppController
             $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $id, 'ExhibitionUsers.status' => 8]))->toArray();
         }
         
-        $this->set(compact('exhibition_users'));
+        $this->set(compact('id', 'exhibition_users'));
     }
 
     public function exhibitionUsersStatus($id = null, $email = null, $pay_id = null)
