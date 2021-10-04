@@ -277,12 +277,11 @@ class ExhibitionController extends AppController
         $exhibition = $this->Exhibition->get($id);
         
         if ($this->Exhibition->delete($exhibition)) {
-            $this->Flash->success(__('The exhibition has been deleted.')); 
-        
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));        
         } else {
-            $this->Flash->error(__('The exhibition could not be deleted. Please, try again.'));
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));        
         }
-        return $this->redirect(['action' => 'index']);    
+        return $response;    
     }
 
     public function managerPerson($id = null, $word = null)
@@ -1236,9 +1235,9 @@ class ExhibitionController extends AppController
         if ($type == null) {
             $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $id]))->toArray();
         } elseif ($type == 1) {
-            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $id, 'Exhibition.apply_sdate >' => $today]))->toArray();
+            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $id, 'Exhibition.status !=' => 4, 'Exhibition.sdate >' => $today]))->toArray();
         } elseif ($type == 2) {
-            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $id, 'Exhibition.private' => 1]))->toArray();
+            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $id, 'Exhibition.status' => 4]))->toArray();
         } elseif ($type == 3) {            
             $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $id, 'Exhibition.edate <' => $today]))->toArray();
         }
