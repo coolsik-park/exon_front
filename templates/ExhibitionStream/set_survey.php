@@ -42,7 +42,7 @@
         <div class="webinar-cont-ty1-body">                                    
             <div class="poll-item-wrap">
                 <p class="poll-item-b-tit">노출시킬 설문을 선택해 주세요</p>
-                <?php if (!empty($groupedSurveys)) : ?>
+                <?php if ($groupedSurveys[0] != '') : ?>
                 <?php $i = 0; ?>
                 <?php foreach ($groupedSurveys as $groupedSurvey) : ?>
                 <div class="poll-item-b">

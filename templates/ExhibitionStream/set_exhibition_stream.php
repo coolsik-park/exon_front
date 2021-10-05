@@ -4,11 +4,6 @@
  * @var \App\Model\Entity\ExhibitionStream $exhibitionStream
  */
 ?>
-<?= $this->Html->link(__('행사 설정 수정'), ['controller' => 'Exhibition', 'action' => 'edit', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?> 
-<?= $this->Html->link(__('설문 데이터'), ['controller' => 'Exhibition', 'action' => 'surveyData', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?> 
-<?= $this->Html->link(__('참가자 관리'), ['controller' => 'Exhibition', 'action' => 'managerPerson', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?> 
-<?= $this->Html->link(__('웨비나 송출 설정'), ['controller' => 'ExhibitionStream', 'action' => 'setExhibitionStream', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?> 
-<?= $this->Html->link(__('행사 통계'), ['controller' => 'Exhibition', 'action' => 'ExhibitionStatisticsApply', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?>
 
 <!-- <div class="row">
     <aside class="column">
@@ -228,16 +223,16 @@
                 <div class="w-tab-wrap">
                     <div class="w-tab-wrap-inner">
                         <ul class="w-tab">
-                        <li id="li9" class=""><button type="button" id="tab9" name="실시간 채팅">실시간 채팅</button></li>
-                            <li id="li8" class=""><button type="button" id="tab8" name="설문">설문</button></li>
-                            <li id="li7" class=""><button type="button" id="tab7" name="공지사항">공지사항</button></li>
-                            <li id="li6" class=""><button type="button" id="tab6" name="질의 응답">질의 응답</button></li>
-                            <li id="li5" class=""><button type="button" id="tab5" name="출석체크">출석체크</button></li>
-                            <li id="li4" class=""><button type="button" id="tab4" name="프로그램">프로그램</button></li>
-                            <li id="li3" class=""><button type="button" id="tab3" name="담당자 정보">담당자 정보</button></li>
-                            <li id="li2" class=""><button type="button" id="tab2" name="개설자 정보">개설자 정보</button></li>
-                            <li id="li1" class=""><button type="button" id="tab1" name="행사 정보">행사 정보</button></li>
-                            <li id="li0" class=""><button type="button" id="tab0" name="자료">자료</button></li>
+                            <li id="li9" class=""><button type="button" id="btn_tab9" name="실시간 채팅">실시간 채팅</button></li>
+                            <li id="li8" class=""><button type="button" id="btn_tab8" name="설문">설문</button></li>
+                            <li id="li7" class=""><button type="button" id="btn_tab7" name="공지사항">공지사항</button></li>
+                            <li id="li6" class=""><button type="button" id="btn_tab6" name="질의 응답">질의 응답</button></li>
+                            <li id="li5" class=""><button type="button" id="btn_tab5" name="출석체크">출석체크</button></li>
+                            <li id="li4" class=""><button type="button" id="btn_tab4" name="프로그램">프로그램</button></li>
+                            <li id="li3" class=""><button type="button" id="btn_tab3" name="담당자 정보">담당자 정보</button></li>
+                            <li id="li2" class=""><button type="button" id="btn_tab2" name="개설자 정보">개설자 정보</button></li>
+                            <li id="li1" class=""><button type="button" id="btn_tab1" name="행사 정보">행사 정보</button></li>
+                            <li id="li0" class=""><button type="button" id="btn_tab0" name="자료">자료</button></li>
                         </ul>
                     </div>                            
                 </div>
@@ -393,7 +388,7 @@
         }
     });
 
-    $("button#tab0").click(function () {
+    $("#btn_tab0").click(function () {
         if ($("input#setting").val() == 1) {
             if ($("input#tab0").val() == 0) {
                 $("input#tab0").val(1);
@@ -413,7 +408,7 @@
         }
     });
 
-    $("button#tab1").click(function () {
+    $("#btn_tab1").click(function () {
         if ($("input#setting").val() == 1) {
             if ($("input#tab1").val() == 0) {
                 $("input#tab1").val(1);
@@ -433,7 +428,7 @@
         }
     });
 
-    $("button#tab2").click(function () {
+    $("#btn_tab2").click(function () {
         if ($("input#setting").val() == 1) {
             if ($("input#tab2").val() == 0) {
                 $("input#tab2").val(1);
@@ -453,7 +448,7 @@
         }
     });
 
-    $("button#tab3").click(function () {
+    $("#btn_tab3").click(function () {
         if ($("input#setting").val() == 1) {
             if ($("input#tab3").val() == 0) {
                 $("input#tab3").val(1);
@@ -473,7 +468,7 @@
         }
     });
 
-    $("button#tab4").click(function () {
+    $("#btn_tab4").click(function () {
         if ($("input#setting").val() == 1) {
             if ($("input#tab4").val() == 0) {
                 $("input#tab4").val(1);
@@ -493,7 +488,7 @@
         }
     });
 
-    $("button#tab5").click(function () {
+    $("#btn_tab5").click(function () {
         if ($("input#setting").val() == 1) {
             if ($("input#tab5").val() == 0) {
                 $("input#tab5").val(1);
@@ -513,7 +508,7 @@
         }
     });
 
-    $("button#tab6").click(function () {
+    $("#btn_tab6").click(function () {
         if ($("input#setting").val() == 1) {
             if ($("input#tab6").val() == 0) {
                 $("input#tab6").val(1);
@@ -533,7 +528,7 @@
         }
     });
 
-    $("button#tab7").click(function () {
+    $("#btn_tab7").click(function () {
         if ($("input#setting").val() == 1) {
             if ($("input#tab7").val() == 0) {
                 $("input#tab7").val(1);
@@ -553,7 +548,7 @@
         }
     });
 
-    $("button#tab8").click(function () {
+    $("#btn_tab8").click(function () {
         if ($("input#setting").val() == 1) {
             if ($("input#tab8").val() == 0) {
                 $("input#tab8").val(1);
@@ -573,7 +568,7 @@
         }
     });
 
-    $("button#tab9").click(function () {
+    $("#btn_tab9").click(function () {
         if ($("input#setting").val() == 1) {
             if ($("input#tab9").val() == 0) {
                 $("input#tab9").val(1);
