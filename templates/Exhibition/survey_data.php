@@ -110,9 +110,10 @@
                 </div>
             </div>
             <!-- item -->
-            <?php 
+            <?php
+                if ($beforeParentData[0] != '') { 
                     foreach ($beforeParentData as $parentData) {
-                ?>
+            ?>
             <div class="p-data-item-wp">
                 <label class="chk-dsg2"><input type="checkbox" id="checked[]" name="checked[]"
                         value=<?=$parentData['id'] ?>><span>선택</span></label>
@@ -156,6 +157,7 @@
                 </div>
             </div>
             <?php
+                        }
                     }
                 ?>
         </div>
@@ -167,7 +169,8 @@
 
             <!-- item -->
             <?php 
-                    foreach ($normalParentData as $parentData) {
+                    if ($normalParentData[0] != '') {
+                        foreach ($normalParentData as $parentData) {
                 ?>
             <div class="p-data-item-wp">
                 <label class="chk-dsg2"><input type="checkbox" id="checked[]" name="checked[]"
@@ -212,6 +215,7 @@
                 </div>
             </div>
             <?php
+                        }
                     }
                 ?>
         </div>
