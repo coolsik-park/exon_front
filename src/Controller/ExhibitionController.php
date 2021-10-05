@@ -118,9 +118,8 @@ class ExhibitionController extends AppController
                     return $response;
                 }
             } else {
-                
                 $data = $this->request->getData();
-                    
+
                 $exhibition->users_id = $this->Auth->user('id');
                 $exhibition->title = $data['title'];
                 $exhibition->description = $data['description'];
@@ -194,8 +193,9 @@ class ExhibitionController extends AppController
                     
                     if (!empty($data['group_name'])) {
                         $ExhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup');
+                        $count = count($data['group_name']);
 
-                        for ($i = 0; $i < $count; $i ++) {
+                        for ($i = 0; $i < $count; $i++) {
                             $exhibitionGroup = $ExhibitionGroup->newEmptyEntity();
                             $exhibitionGroup->exhibition_id = $result->id;
                             $exhibitionGroup->name = $data['group_name'][$i];
@@ -209,31 +209,53 @@ class ExhibitionController extends AppController
                             }
                         }
                     }
-                    
-                    // //설문 생성
-                    // $parentId = 0;
-                    // $whereId = 0;
-                    // $count = count($result->exhibition_survey);
 
-                    // for ($i =0; $i < $count; $i++) {
+                    //설문 생성
+                    if (!empty($data['text'])) {
+                        $ExhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey');
+                        $count = count($data['text']);
 
-                    //     if ($result->exhibition_survey[$i]->survey_type != null && $result->exhibition_survey[$i]->is_duplicate != null) {
-                    //         $parentId = $result->exhibition_survey[$i]->id;
-                    //         $surveyType = $result->exhibition_survey[$i]->survey_type;
-                    //         $isDuplicate = $result->exhibition_survey[$i]->is_duplicate;
-                    //         $isMultiple = $result->exhibition_survey[$i]->is_multiple;
-                    //     } else {
-                    //         $whereId = $result->exhibition_survey[$i]->id;
+                        for ($i = 0; $i < $count; $i++) {
+                            $exhibitionSurvey = $ExhibitionSurvey->newEmptyEntity();
+                            $exhibitionSurvey->exhibition_id = $result->id;
+                            $exhibitionSurvey->text = $data['text'][$i];
+                            $exhibitionSurvey->survey_type = $data['survey_type'][$i];
+                            if (!empty($data['is_duplicate'][$i])) :
+                            $exhibitionSurvey->is_duplicate = $data['is_duplicate'][$i];
+                            endif;
+                            $exhibitionSurvey->is_multiple = $data['is_multiple'][$i];
 
-                    //         if (!$connection->update('exhibition_survey', [
-                    //             'parent_id' => $parentId, 'survey_type' => $surveyType,
-                    //             'is_duplicate' => $isDuplicate, 'is_multiple' => $isMultiple], ['id' => $whereId])) {
+                            if (!$surveyResult = $ExhibitionSurvey->save($exhibitionSurvey)) {
+                                $connection->rollback(); 
+                                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                                return $response;
+                            }
 
-                    //                 $connection->rollback(); 
-                    //                 $this->Flash->error(__('The exhibition survey could not be saved. Please, try again.'));
-                    //         }
-                    //     }
-                    // }
+                            if ($surveyResult->is_multiple != 'N') {
+
+                                if (!empty($data['child_text_' . $i])) {
+
+                                    $childCount = count($data['child_text_' . $i]);
+                                
+                                    for ($j = 0; $j < $childCount; $j++) {
+                                        $exhibitionSurvey = $ExhibitionSurvey->newEmptyEntity();
+                                        $exhibitionSurvey->exhibition_id = $surveyResult->exhibition_id;
+                                        $exhibitionSurvey->text = $data['child_text_' . $i][$j];
+                                        $exhibitionSurvey->survey_type = $surveyResult->survey_type;
+                                        $exhibitionSurvey->is_duplicate = $surveyResult->is_duplicate;
+                                        $exhibitionSurvey->is_multiple = $surveyResult->is_multiple;
+                                        $exhibitionSurvey->parent_id = $surveyResult->id;
+
+                                        if (!$ExhibitionSurvey->save($exhibitionSurvey)) {
+                                            $connection->rollback(); 
+                                            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                                            return $response;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                     $connection->commit();
                     $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'id' => $result->id]));
                     return $response;
