@@ -104,61 +104,7 @@ class ExhibitionStreamController extends AppController
                 
                 //쿠폰 확인
                 if ($this->request->getData('coupon_code') != null && $this->request->getData('stream_key') == 0 && $this->request->getData('paid') == 0) {
-                    $coupon = $this->getTableLocator()->get('Coupon')->find()->where(['users_id' => $this->Auth->user()->id, 'product_type' => 'S', 'status' => 1])->toArray();
-                    $exist = 0;
-                    $coupon_id = 0;
-                    $coupon_amount = 0;
-                    $count = Count($coupon);
-                    $date = (int)FrozenTime::now()->format('Ymd');
-                    $start_date = 0;
-                    $end_date = 0;
-    
-                    for ($i = 0; $i < $count; $i++) {
-                        if ($coupon[$i]['code'] == $this->request->getData('coupon_code')) {
-                            $coupon_id = $coupon[$i]['id'];
-                            $coupon_amount = $coupon[$i]['amount']; 
-                            $exist = 1;
-                            $start_date = (int)$coupon[$i]['sdate'];
-                            $end_date = (int)$coupon[$i]['edate'];
-                        }
-                    }
-    
-                    if ($exist == 1 && $start_date <= $date && $date <= $end_date) {
-                        $title = $this->request->getData('title');
-                        $description = $this->request->getData('description');
-                        $coupon_code = $this->request->getData('coupon_code');
-                        $time = $this->request->getData('time');
-                        $people = $this->request->getData('people');
-                        $amount = (int)$this->request->getData('amount')-$coupon_amount;
-                        $tab = $this->request->getData('tab');
-    
-                        $coupon_data = [
-                            'title' => $title,
-                            'description' => $description,
-                            'coupon_code' => $coupon_code,
-                            'time' => $time,
-                            'people' => $people,
-                            'amount' => $amount,
-                            'coupon_id' => $coupon_id,
-                            'coupon_amount' => $coupon_amount,
-                            'tab' => $tab
-                        ];
-    
-                        $this->request->getSession()->write('coupon_data', $coupon_data);
-    
-                        $Coupon = $this->getTableLocator()->get('Coupon');
-                        $coupon = $Coupon->get($coupon_id);
-                        $coupon = $Coupon->patchEntity($coupon, ['status' => 4]);
-                        if (!$Coupon->save($coupon)) {
-                            $this->Flash->error(__('Could not change coupon status.'));
-                        }
-    
-                        $this->Flash->success(__('The Coupon code has been confirmed.'));
-                        return $this->redirect(['action' => 'setExhibitionStream', $exhibition_id]);
-                        
-                    } else {
-                        $this->Flash->error(__('Invalid coupon code.'));
-                    }
+                    
                 
                 //스트림 키 생성
                 } else if ($this->request->getData('paid') == 1 && $this->request->getData('stream_key') == 0) {
@@ -865,4 +811,47 @@ class ExhibitionStreamController extends AppController
     //         return $this->redirect(['action' => 'add', $id]);
     //     }
     // }
+
+    public function validateCoupon () 
+    {
+        if ($this->request->is('post')) {
+            $coupon = $this->getTableLocator()->get('Coupon')->find()->where(['users_id' => $this->Auth->user()->id, 'product_type' => 'S', 'status' => 1])->toArray();
+            $exist = 0;
+            $coupon_id = 0;
+            $coupon_amount = 0;
+            $start_date = 0;
+            $end_date = 0;
+            $date = (int)FrozenTime::now()->format('Ymd');
+            $count = Count($coupon);
+            
+            for ($i = 0; $i < $count; $i++) {
+                
+                if ($coupon[$i]['code'] == $this->request->getData('coupon_code')) {
+                    $coupon_id = $coupon[$i]['id'];
+                    $coupon_amount = $coupon[$i]['amount']; 
+                    $exist = 1;
+                    $start_date = (int)$coupon[$i]['sdate'];
+                    $end_date = (int)$coupon[$i]['edate'];
+                }
+            }
+
+            if ($exist == 1 && $start_date <= $date && $date <= $end_date) {
+                $Coupon = $this->getTableLocator()->get('Coupon');
+                $coupon = $Coupon->get($coupon_id);
+                $coupon = $Coupon->patchEntity($coupon, ['status' => 4]);
+                
+                if (!$Coupon->save($coupon)) {
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                    return $response;
+                }
+
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'amount' =>$coupon]));
+                return $response;
+                
+            } else {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                return $response;
+            }
+        }
+    }
 }

@@ -61,6 +61,15 @@
     <div id = "tabContent"></div>
 </div> -->
 
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="shortcut icon" href="#" > <!-- 음량 올릴시 오류 해결 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.1/video-js.min.css" rel="stylesheet"> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.1/video.min.js"></script>
+    <script src="/js/videojs-http-streaming.min.js"></script>
+</head>
+
 <div class="contents">
     <div class="sub-menu">
         <div class="sub-menu-inner">
@@ -72,30 +81,37 @@
                 <li><a href="/exhibition/exhibition-statistics-apply/<?= $exhibition_id ?>">행사 통계</a></li>
             </ul>
         </div>
-    </div>    
+    </div>
+    <?= $this->Form->create($exhibitionStream, ['id' => 'setForm']) ?>    
     <div class="section-webinar3">
         <div class="webinar-cont">
             <div class="wb-cont1">
-                <img src="../images/@mov.jpg" alt="">
+            <video-js id=vid1  muted="muted" class="vjs-default-skin vjs-big-play-centered" controls data-setup='{"fluid": true}'>
+                <source src="", type= "application/x-mpegURL">
+            </video-js>
+            <!-- <script>
+                var player = videojs('vid1');
+                player.play();
+            </script> -->
             </div>
             <div class="wb-cont2">
-                <input type="text" placeholder="(필수) 방송제목">
-                <textarea name="" id="" cols="30" rows="3" placeholder="방송 설명을 입력해주세요."></textarea>
+                <input name="title" id="title" type="text" placeholder="(필수) 방송제목">
+                <textarea name="description" id="description" cols="30" rows="3" placeholder="방송 설명을 입력해주세요."></textarea>
             </div>
             <div class="wb-cont3">
-                <button type="button" class="btn-ty4 black">저장</button>
-                <button type="button" class="btn-ty4 gray">종료</button>
+                <button id="save" type="button" class="btn-ty4 black">저장</button>
+                <button id="exit" type="button" class="btn-ty4 gray">종료</button>
             </div>
 
-            <div class="wb-stream-sect">
+            <div class="wb-stream-sect" id="stream_key_container">
                 <h2 class="s-hty3">스트림 키</h2>
                 <div class="stream-sect">
                     <div class="row2">
                         <div class="col-th">프로모션 키</div>
                         <div class="col-td">
                             <div class="stream-ipt1">
-                                <input type="text">
-                                <button type="button" class="btn-ty2 bor">확인</button>
+                                <input type="text" name="coupon_key">
+                                <button type="button" name="confirm_coupon" class="btn-ty2 bor">확인</button>
                             </div>
                         </div>
                     </div>
@@ -104,16 +120,21 @@
                             <div class="col-th">시간</div>
                             <div class="col-td">
                                 <div class="stream-itp2">
-                                    <select>
-                                        <option value="">half day</option>
-                                        <option value="">all day</option>
+                                    <select id="time" name="time">
+                                        <option value="18000">half day</option>
+                                        <option value="36000">all day</option>
                                     </select>
-                                    <select>
-                                        <option value="">50</option>
-                                        <option value="">100</option>
-                                        <option value="">150</option>
-                                        <option value="">200</option>
-                                        <option value="">150</option>
+                                    <select id="people" name="people">
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                        <option value="150">150</option>
+                                        <option value="200">200</option>
+                                        <option value="250">250</option>
+                                        <option value="300">300</option>
+                                        <option value="350">350</option>
+                                        <option value="400">400</option>
+                                        <option value="450">450</option>
+                                        <option value="500">500</option>
                                     </select>
                                     명
                                 </div>
@@ -123,81 +144,21 @@
                             <div class="col-th">금액</div>
                             <div class="col-td">
                                 <div class="stream-ipt1">
-                                    <input type="text">
-                                    <button type="button" class="btn-ty2 bor">결제</button>
+                                    <input type="text" id="amount" name="amout">
+                                    <button type="button" id="payment" class="btn-ty2 bor">결제</button>
                                 </div>                    
                             </div>
                         </div>
                     </div>
                     <div class="stream-btn">
-                        <button type="button" class="btn-ty2">스트림 키 발급</button>
+                        <button type="button" id="issue_stream_key" class="btn-ty2">스트림 키 발급</button>
                     </div>
                     <div class="row2">
                         <div class="col-th">스트림 URL</div>
                         <div class="col-td">
                             <div class="stream-ipt1">
-                                <input type="text">
-                                <button type="button" class="btn-ty2 bor">복사</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="wb-stream-sect">
-                <h2 class="s-hty3">스트림 키</h2>
-                <div class="stream-sect">
-                    <div class="row2">
-                        <div class="col-th">프로모션 키</div>
-                        <div class="col-td">
-                            <div class="stream-ipt1">
-                                <input type="text">
-                                <button type="button" class="btn-ty2 gray2">확인</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row2-wp">
-                        <div class="row2">
-                            <div class="col-th">시간</div>
-                            <div class="col-td">
-                                <div class="stream-itp2">
-                                    <select>
-                                        <option value="">half day</option>
-                                        <option value="">all day</option>
-                                    </select>
-                                    <select>
-                                        <option value="">50</option>
-                                        <option value="">100</option>
-                                        <option value="">150</option>
-                                        <option value="">200</option>
-                                        <option value="">150</option>
-                                    </select>
-                                    명
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row2">
-                            <div class="col-th">금액</div>
-                            <div class="col-td">
-                                <div class="stream-ipt1">
-                                    <input type="text">
-                                    <button type="button" class="btn-ty2 bor">결제</button>
-                                </div>                    
-                            </div>
-                        </div>
-                    </div>            
-                    <div class="stream-ipt3">
-                        <div class="ipt-eye">
-                            <input type="password" class="ipt-tx">
-                            <button type="button" class="ico-eye">히든</button>
-                        </div>
-                        <button type="button" class="btn-ty2 bor">복사</button>
-                    </div>            
-                    <div class="row2">
-                        <div class="col-th">스트림 URL</div>
-                        <div class="col-td">
-                            <div class="stream-ipt1">
-                                <input type="text">
-                                <button type="button" class="btn-ty2 bor">복사</button>
+                                <input type="text" name="url">
+                                <button type="button" id="url_copy" class="btn-ty2 bor">복사</button>
                             </div>
                         </div>
                     </div>
@@ -209,7 +170,7 @@
             <div class="webinar-tab-top">
                 <div class="webinar-toggle">
                     <button type="button" class="webinar-tab-tg">토글버튼</button>
-                    <button type="button" id="setting" class="ico-sett">설정</button>
+                    <button type="button" id="setting_btn" class="ico-sett">설정</button>
                     <input type="hidden" id="setting">
                     <?php
                         echo $this->Form->control('tab', ['type' => 'hidden']);
@@ -245,13 +206,128 @@
         </div>
         <!-- webinar-tab -->
     </div>
+    <?php $this->Form->end(); ?>
 </div>        
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <script>
-    $("#check_module").click(function () {
+    //쿠폰 검증
+    // $(document).on("click", "button[name='confirm_coupon']", function () {
+    //     var coupon_code = $("input[name='coupon_key']").val();
+    //     jQuery.ajax({
+    //         url: "/exhibition-stream/set-answered/" + <?= $id ?>, 
+    //         method: 'POST',
+    //         type: 'json',
+    //         data: {
+    //             coupon_code: coupon_code
+    //         }
+    //     }).done(function(data) {
+    //         if (data.status == success) {
+    //             alert("success");
+    //         }
+    //     });
+    // });
+
+    //페이지 로드시
+    $(document).on("ready", function() {
+        var amount = 0;
+        var time = 0;
+
+        switch($("#people").val()) {
+            case "50" : amount = 200000; break;
+            case "100" : amount = 400000; break;
+            case "150" : amount = 600000; break;
+            case "200" : amount = 800000; break;
+            case "250" : amount = 1000000; break;
+            case "300" : amount = 1200000; break;
+            case "350" : amount = 1400000; break;
+            case "400" : amount = 1600000; break;
+            case "450" : amount = 1800000; break;
+            case "500" : amount = 2000000; break;
+        }
+
+        switch($("#time").val()) {
+            case "18000" : time = 1; break;
+            case "36000" : time = 2; break;
+        }
+
+        $("#amount").val(amount*time);
+    });
+    
+    //스트림 키 발급
+    $("#issue_stream_key").click(function () {
+        var html = '';
+        html += '<h2 class="s-hty3">스트림 키</h2>';
+        html += '<div class="stream-sect">';
+        html += '   <div class="row2">';
+        html += '       <div class="col-th">프로모션 키</div>';
+        html += '       <div class="col-td">';
+        html += '           <div class="stream-ipt1">';
+        html += '               <input type="text" name="coupon_key">';
+        html += '               <button type="button" name="confirm_coupon" class="btn-ty2 gray2">확인</button>';
+        html += '           </div>';
+        html += '       </div>';
+        html += '   </div>';
+        html += '   <div class="row2-wp">';
+        html += '       <div class="row2">';
+        html += '           <div class="col-th">시간</div>';
+        html += '           <div class="col-td">';
+        html += '               <div class="stream-itp2">';
+        html += '                   <select id="time" name="time">';
+        html += '                       <option value="18000">half day</option>';
+        html += '                       <option value="36000">all day</option>';
+        html += '                   </select>';
+        html += '                   <select id="people" name="people">';
+        html += '                       <option value="50">50</option>';
+        html += '                       <option value="100">100</option>';
+        html += '                       <option value="150">150</option>';
+        html += '                       <option value="200">200</option>';
+        html += '                       <option value="250">250</option>';
+        html += '                       <option value="300">300</option>';
+        html += '                       <option value="350">350</option>';
+        html += '                       <option value="400">400</option>';
+        html += '                       <option value="450">450</option>';
+        html += '                       <option value="500">500</option>';
+        html += '                   </select>';
+        html += '                   명';
+        html += '               </div>';
+        html += '           </div>';
+        html += '       </div>';
+        html += '       <div class="row2">';
+        html += '           <div class="col-th">금액</div>';
+        html += '           <div class="col-td">';
+        html += '               <div class="stream-ipt1">';
+        html += '                   <input type="text" id="amount" name="amount">';
+        html += '                   <button type="button" id="payment" class="btn-ty2 bor">결제</button>';
+        html += '               </div>';
+        html += '           </div>';
+        html += '       </div>';
+        html += '   </div>';
+        html += '   <div class="stream-ipt3">';
+        html += '       <div class="ipt-eye">';
+        html += '           <input type="password" id="stream_key" name="stream_key" class="ipt-tx">';
+        html += '           <button type="button" id="hidden_stream_key" class="ico-eye">히든</button>';
+        html += '       </div>';
+        html += '       <button type="button" id="copy_stream_key" class="btn-ty2 bor">복사</button>';
+        html += '   </div> ';
+        html += '   <div class="row2">';
+        html += '       <div class="col-th">스트림 URL</div>';
+        html += '       <div class="col-td">';
+        html += '           <div class="stream-ipt1">';
+        html += '               <input type="text" name="url">';
+        html += '               <button type="button" id="url_copy" class="btn-ty2 bor">복사</button>';
+        html += '           </div>';
+        html += '       </div>';
+        html += '   </div>';
+        html += '</div>';
+        $("#stream_key_container").children().remove();
+        $("#stream_key_container").append(html);
+    });
+
+    //결제
+    $("#payment").click(function () {
         var IMP = window.IMP; 
         IMP.init('imp43823679'); //아임포트 id -> 추후 교체
         IMP.request_pay({
@@ -307,11 +383,11 @@
             }
         });
     });
-</script>
-<script>
+
+    //금액 설정
     $("#people").change(function () {
-        amount = 0;
-        time = 0;
+        var amount = 0;
+        var time = 0;
 
         switch($("#people").val()) {
             case "50" : amount = 200000; break;
@@ -335,8 +411,8 @@
     });
 
     $("#time").change(function () {
-        amount = 0;
-        time = 0;
+        var amount = 0;
+        var time = 0;
 
         switch($("#people").val()) {
             case "50" : amount = 200000; break;
@@ -358,8 +434,8 @@
 
         $("#amount").val(amount*time);
     });
-</script>
-<script>
+
+    //탭 컨트롤
     var dec = $('#tab').val();
     dec = parseInt(dec);
     var bin = dec.toString(2);
@@ -378,12 +454,12 @@
         }
     }
 
-    $("button#setting").click(function () {
-        if ($("input#setting").val() == null || $("input#setting").val() == 0) {
-            $("input#setting").val(1);
+    $("#setting_btn").click(function () {
+        if ($("#setting").val() == null || $("#setting").val() == 0) {
+            $("#setting").val(1);
             alert("사용할 탭을 선택해주세요.");
         } else {
-            $("input#setting").val(0);
+            $("#setting").val(0);
             alert("탭 설정이 완료되었습니다.");
         }
     });

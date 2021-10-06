@@ -10,14 +10,6 @@
 <?= $this->Html->link(__('웨비나 송출 설정'), ['controller' => 'ExhibitionStream', 'action' => 'setExhibitionStream', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?> 
 <?= $this->Html->link(__('행사 통계'), ['controller' => 'Exhibition', 'action' => 'ExhibitionStatisticsApply', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?> -->
 
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.1/video-js.min.css" rel="stylesheet"> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.1/video.min.js"></script>
-    <script src="./videojs-http-streaming.min.js"></script>
-</head>
-<body>
     
     <!-- <div class="row">
         <aside class="column">
@@ -73,6 +65,14 @@
         </div>
     </div> -->
 
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="shortcut icon" href="#" > <!-- 음량 올릴시 오류 해결 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.1/video-js.min.css" rel="stylesheet"> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.1/video.min.js"></script>
+    <script src="/js/videojs-http-streaming.min.js"></script>
+</head>
 
 <div class="contents">
     <div class="sub-menu">
@@ -90,12 +90,13 @@
     <div class="section-webinar3">
         <div class="webinar-cont">
             <div class="wb-cont1">
-            <video-js id=vid1 width=600 height=300 class="vjs-default-skin vjs-big-play-centered" controls>
-                <source src = <?= "http://121.126.223.225:80/live/" . $exhibitionStream->stream_key . "/index.m3u8" ?> type = "application/x-mpegURL" id = "source">
+            <video-js id=vid1  muted="muted" class="vjs-default-skin vjs-big-play-centered" controls data-setup='{"fluid": true}'>
+                <source src="", type= "application/x-mpegURL">
             </video-js>
-
-            <?php echo $this->Form->button('start', ['id' => 'start']); ?>
-            <?php echo $this->Form->button('end', ['id' => 'end']); ?>
+            <!-- <script>
+                var player = videojs('vid1');
+                player.play();
+            </script> -->
             </div>
             <div class="wb-cont2">
                 <input type="text" placeholder="(필수) 방송제목">
@@ -266,14 +267,12 @@
     </div>
     <?= $this->Form->end() ?>
 </div>    
-</body>
+
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-<script>
-    videojs('vid1').play();
-</script>
-<script>
+
+<!-- <script>
     $("#start").click(function () {
         var data = {
             stream_key: $("#streamKey").val(),
@@ -311,7 +310,7 @@
             }
         });
     });
-</script>
+</script> -->
 <script>
     $("#check_module").click(function () {
         var IMP = window.IMP; 
