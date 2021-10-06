@@ -26,9 +26,14 @@
                 <div class="sect-tit">
                     <h3 class="s-hty1">기본설정</h3>
                     <div class="btn-wp">
+                        <?php if ($exhibition->status == 4) : ?>
+                        <button type="button" name="cancel" class="btn-ty4 red">취소</button>
+                        <button type="button" name="save" class="btn-ty4">개설</button>
+                        <button type="button" name="temp" class="btn-ty4">임시저장</button>
+                        <?php else : ?>
                         <button type="button" name="cancel" class="btn-ty4 red">취소</button>
                         <button type="button" name="save" class="btn-ty4">저장</button>
-                        <button type="button" name="temp" class="btn-ty4">임시저장</button>
+                        <?php endif; ?>
                     </div>
                 </div>
                 
@@ -212,7 +217,6 @@
             <div class="section-btm3 mgtS1">
                 <button type="button" name="cancel" class="btn-big red">취소</button>
                 <button type="button" name="save" class="btn-big">저장</button>
-                <button type="button" name="temp" class="btn-big bor">임시저장</button>
             </div>
         </div>        
     </div>
