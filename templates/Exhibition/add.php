@@ -203,6 +203,7 @@
                                     </select>
                                     <div class="chk-dsg-wp">
                                         <span class="chk-dsg"><input type="checkbox" name="is_duplicate[]" id="dup0" value="Y"><label for="dup0">보기 중복 선택 가능</label></span>
+                                        <input type="checkbox" name="is_duplicate[]" id="dup_hidden_0" value="N" checked="checked" style="display:none">
                                         <!-- <span class="chk-dsg"><input type="checkbox" name="surv1" id="surv1-2" value="1"><label for="surv1-2">필수</label></span> -->
                                     </div>                                
                                 </div>
@@ -416,6 +417,7 @@
         html += '            </select>';
         html += '            <div class="chk-dsg-wp">';
         html += '                <span class="chk-dsg"><input type="checkbox" name="is_duplicate[]" id="dup'+i+'" value="Y"><label for="dup'+i+'">보기 중복 선택 가능</label></span>';
+        html += '                <input type="checkbox" name="is_duplicate[]" id="dup_hidden_'+i+'" value="N" checked="checked" style="display:none">';
         html += '                <!-- <span class="chk-dsg"><input type="checkbox" name="surv1" id="surv1-2" value="1"><label for="surv1-2">필수</label></span> -->';
         html += '            </div>';                                
         html += '        </div>';
@@ -508,6 +510,7 @@
             html += '            </select>';
             html += '            <div class="chk-dsg-wp">';
             html += '                <span class="chk-dsg"><input type="checkbox" name="is_duplicate[]" id="dup'+index+'" value="Y"><label for="dup'+index+'">보기 중복 선택 가능</label></span>';
+            html += '                <input type="checkbox" name="is_duplicate[]" id="dup_hidden_'+index+'" value="N" checked="checked" style="display:none">';
             html += '                <!-- <span class="chk-dsg"><input type="checkbox" name="surv1" id="surv1-2" value="1"><label for="surv1-2">필수</label></span> -->';
             html += '            </div>';                                
             html += '        </div>';
@@ -537,5 +540,17 @@
             $("#survey_" + index).append(html);
         }
     });
-    
+
+    //is_duplicate 제어
+    $(document).on("change", "input:checkbox[name='is_duplicate[]']", function() {
+        var id = $(this).attr("id").substr($(this).attr("id").length - 1, 1);
+        
+        if (document.getElementById("dup" + id).checked) {
+            document.getElementById("dup_hidden_" + id).disabled = true;
+        
+        } else {
+            document.getElementById("dup_hidden_" + id).disabled = false;
+        }  
+    });
+
 </script>  

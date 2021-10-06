@@ -220,9 +220,7 @@ class ExhibitionController extends AppController
                             $exhibitionSurvey->exhibition_id = $result->id;
                             $exhibitionSurvey->text = $data['text'][$i];
                             $exhibitionSurvey->survey_type = $data['survey_type'][$i];
-                            if (!empty($data['is_duplicate'][$i])) :
                             $exhibitionSurvey->is_duplicate = $data['is_duplicate'][$i];
-                            endif;
                             $exhibitionSurvey->is_multiple = $data['is_multiple'][$i];
 
                             if (!$surveyResult = $ExhibitionSurvey->save($exhibitionSurvey)) {
