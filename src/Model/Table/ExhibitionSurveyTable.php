@@ -61,9 +61,13 @@ class ExhibitionSurveyTable extends Table
         $this->hasMany('ChildExhibitionSurvey', [
             'className' => 'ExhibitionSurvey',
             'foreignKey' => 'parent_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
         $this->hasMany('ExhibitionSurveyUsersAnswer', [
             'foreignKey' => 'exhibition_survey_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
     }
 

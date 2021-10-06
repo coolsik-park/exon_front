@@ -198,74 +198,15 @@
                         <span class="chk-dsg"><input type="radio" name="additional" id="additional2" value="0"><label for="additional2">사용 안함</label></span>
                     </div>
                 </div>
-                <!-- <div class="sect10 mgtS1">
+                <div class="sect10 mgtS1">
                     <div class="survey-tit">
                         <h4 class="s-hty3">설문</h4>
-                        <button type="button" id="addSurvey" class="btn-ty4" onclick=false>+ 설문추가</button>
-                    </div>                    
-                    <div class="survey-bx">
-                        <div class="survey-bx-sect1">
-                            <div class="tits">
-                                <select>
-                                    <option>객관식</option>
-                                    <option>주관식</option>
-                                </select>
-                                <div class="chk-dsg-wp">
-                                    <span class="chk-dsg"><input type="radio" name="surv1" id="surv1-1"><label for="surv1-1">보기 중복 선택 가능</label></span>
-                                    <span class="chk-dsg"><input type="radio" name="surv1" id="surv1-2"><label for="surv1-2">필수</label></span>
-                                </div>                                
-                            </div>
-                            <div class="btns">                                
-                                <button type="button" class="btn2">삭제</button>
-                            </div>
-                        </div>
-                        <div class="survey-bx-sect2">
-                            <input type="text" class="ipt" placeholder="질문">
-                            <select>
-                                <option>일반설문</option>
-                                <option>사전설문</option>
-                            </select>
-                        </div>
-                        <div class="survey-bx-sect3">
-                            <div class="btns">
-                                <button type="button">보기 추가</button>
-                            </div>
-                            <div class="wrt-after">
-                                <input type="text" value="어느 계절이 가장 좋나요" class="ipt">
-                                <button type="button" class="btn-del">보기 삭제</button>
-                            </div>
-                            <div class="wrt-before">
-                                <input type="text" placeholder="보기" class="ipt">
-                            </div>
-                        </div>
+                        <button id="surveyAdd" type="button" class="btn-ty4">+ 설문추가</button>
+                    </div>   
+                    <div id="survey">
+
                     </div>
-                    
-                    <div class="survey-bx">
-                        <div class="survey-bx-sect1">
-                            <div class="tits">
-                                <select>
-                                    <option>객관식</option>
-                                    <option selected="selected">주관식</option>
-                                </select>
-                                <div class="chk-dsg-wp">
-                                    <span class="chk-dsg"><input type="radio" name="surv2" id="surv2-1"><label for="surv2-1">보기 중복 선택 가능</label></span>
-                                    <span class="chk-dsg"><input type="radio" name="surv2" id="surv2-2"><label for="surv2-2">필수</label></span>
-                                </div>                                
-                            </div>
-                            <div class="btns">                                
-                                <button type="button" class="btn2">삭제</button>
-                            </div>
-                        </div>
-                        <div class="survey-bx-sect2">
-                            <input type="text" class="ipt" placeholder="질문">
-                            <select>
-                                <option>일반설문</option>
-                                <option>사전설문</option>
-                            </select>
-                        </div>                        
-                    </div>
-                    
-                </div> -->
+                </div>
             </div>
 
             <div class="section-btm3 mgtS1">
@@ -341,7 +282,6 @@
         $("#select<?=$i?>").val("<?=$exhibitionGroup->people?>").prop("selected", true);
         <?php $i++; ?>
     <?php endforeach; ?>
-    
     
     //메인 이미지 삽입 
     $("#image").change(function() {
@@ -505,10 +445,264 @@
     //CKEditor 불러오기
     CKEDITOR.replace('detail_html');
     
-    // $(function() {
-    //     <?php $a=1; ?>
-    //     $('button[name=textAdd]').on('click', function() {
-    //         $('button[name=textAdd]').before('<?php echo $this->Form->control('exhibition_survey.'.++$a.'.text', ['value' => '보기', 'label' => false]) ?>');
-    //     })
-    // });
-</script>  
+    //설문
+    var i = 0; //설문 인덱스
+    var j = 0; //보기 인덱스
+
+    //설문 데이터 불러오기
+    <?php foreach ($exhibitionSurveys as $exhibitionSurvey) : ?>
+        <?php if ($exhibitionSurvey->is_multiple == 'Y') : ?>
+            var html = '';
+            html += '<div id="survey_'+i+'" class="survey-bx">';
+            html += '    <div class="survey-bx-sect1">';
+            html += '        <div class="tits">';
+            html += '            <select id="is_multiple_'+i+'" name="is_multiple[]" class="<?=$exhibitionSurvey->id?>">';
+            html += '                <option value="Y">객관식</option>';
+            html += '                <option value="N">주관식</option>';
+            html += '            </select>';
+            html += '            <div class="chk-dsg-wp">';
+            html += '                <span class="chk-dsg"><input type="checkbox" name="is_duplicate[]" id="dup'+i+'" value="Y"><label for="dup'+i+'">보기 중복 선택 가능</label></span>';
+            html += '                <input type="checkbox" name="is_duplicate[]" id="dup_hidden_'+i+'" value="N" checked="checked" style="display:none">';
+            html += '                <!-- <span class="chk-dsg"><input type="checkbox" name="surv1" id="surv1-2" value="1"><label for="surv1-2">필수</label></span> -->';
+            html += '            </div>';                                
+            html += '        </div>';
+            html += '        <div class="btns">';                                
+            html += '            <button type="button" class="btn2" onclick="deleteSurvey('+i+', <?=$exhibitionSurvey->id?>)">삭제</button>';
+            html += '        </div>';
+            html += '    </div>';
+            html += '    <div class="survey-bx-sect2">';
+            html += '        <input name="text[]" type="text" class="ipt" placeholder="질문" value="<?=$exhibitionSurvey->text?>">';
+            html += '        <input name="survey_id[]" type="hidden" value="<?=$exhibitionSurvey->id?>">'
+            html += '        <select id="survey_type_'+i+'" name="survey_type[]">';
+            html += '            <option value="N">일반설문</option>';
+            html += '            <option value="B">사전설문</option>';
+            html += '        </select>';
+            html += '    </div>';
+            html += '    <div id="rows_'+i+'" class="survey-bx-sect3">';
+            html += '        <div class="btns">';
+            html += '            <button type="button" onclick="addRow('+i+')">보기 추가</button>';
+            html += '        </div>';
+            <?php foreach ($exhibitionSurvey->child_exhibition_survey as $child) : ?>
+            html += '        <div id="row_'+j+'" class="wrt-after">';
+            html += '            <input name="child_text_'+i+'[]" type="text" class="ipt" placeholder="보기" value="<?=$child->text?>">';
+            html += '            <input name="child_survey_id_'+i+'[]" type="hidden" value="<?=$child->id?>">'
+            html += '            <button type="button" class="btn-del" onclick="deleteRow('+j+', <?=$child->id?>)">보기 삭제</button>';
+            html += '        </div>';
+            j++;
+            <?php endforeach; ?>
+            html += '    </div>';
+            html += '</div>';
+            $("#survey").append(html);
+            <?php if ($exhibitionSurvey->is_duplicate == 'Y') : ?>
+                $("#dup" + i).prop("checked", true);
+                document.getElementById("dup_hidden_" + i).disabled = true;
+            <?php else: ?>
+                $("#dup" + i).prop("checked", false);
+                document.getElementById("dup_hidden_" + i).disabled = false;
+            <?php endif; ?>
+            $("#survey_type_" + i).val("<?=$exhibitionSurvey->survey_type?>").prop("selected", true);
+        
+        <?php else : ?>
+            var html = '';
+            html += '<div id="survey_'+i+'" class="survey-bx">';
+            html += '<div class="survey-bx-sect1">';
+            html += '    <div class="tits">';
+            html += '        <select id="is_multiple_'+i+'" name="is_multiple[]" class="<?=$exhibitionSurvey->id?>">';
+            html += '            <option value="Y">객관식</option>';
+            html += '            <option selected="selected" value="N">주관식</option>';
+            html += '        </select>';
+            html += '        <div class="chk-dsg-wp">';
+            html += '        </div>';                           
+            html += '    </div>';
+            html += '    <div class="btns">';                          
+            html += '       <button type="button" class="btn2" onclick="deleteSurvey('+i+', <?=$exhibitionSurvey->id?>)">삭제</button>';
+            html += '    </div>';
+            html += '</div>';
+            html += '<div class="survey-bx-sect2">';
+            html += '    <input name="text[]" type="text" class="ipt" placeholder="질문" value="<?=$exhibitionSurvey->text?>">';
+            html += '    <input name="survey_id[]" type="hidden" value="<?=$exhibitionSurvey->id?>">'
+            html += '    <input type="checkbox" name="is_duplicate[]" id="dup_hidden_'+i+'" value="N" checked="checked" style="display:none">';
+            html += '    <select id="survey_type_'+i+'" name="survey_type[]">';
+            html += '        <option value="N">일반설문</option>';
+            html += '        <option value="B">사전설문</option>';
+            html += '    </select>';
+            html += '</div>';
+            html += '</div>';
+            $("#survey").append(html);
+            $("#survey_type_" + i).val("<?=$exhibitionSurvey->survey_type?>").prop("selected", true);
+        <?php endif; ?>
+        i++;
+    <?php endforeach; ?>
+
+    //설문 추가
+    $("#surveyAdd").click(function () {
+        var html = '';
+        html += '<div id="survey_'+i+'" class="survey-bx">';
+        html += '    <div class="survey-bx-sect1">';
+        html += '        <div class="tits">';
+        html += '            <select id="is_multiple_'+i+'" name="is_multiple[]" class="0">';
+        html += '                <option value="Y">객관식</option>';
+        html += '                <option value="N">주관식</option>';
+        html += '            </select>';
+        html += '            <div class="chk-dsg-wp">';
+        html += '                <span class="chk-dsg"><input type="checkbox" name="is_duplicate[]" id="dup'+i+'" value="Y"><label for="dup'+i+'">보기 중복 선택 가능</label></span>';
+        html += '                <input type="checkbox" name="is_duplicate[]" id="dup_hidden_'+i+'" value="N" checked="checked" style="display:none">';
+        html += '                <!-- <span class="chk-dsg"><input type="checkbox" name="surv1" id="surv1-2" value="1"><label for="surv1-2">필수</label></span> -->';
+        html += '            </div>';                                
+        html += '        </div>';
+        html += '        <div class="btns">';                                
+        html += '            <button type="button" class="btn2" onclick="deleteSurvey('+i+', 0)">삭제</button>';
+        html += '        </div>';
+        html += '    </div>';
+        html += '    <div class="survey-bx-sect2">';
+        html += '        <input name="text[]" type="text" class="ipt" placeholder="질문">';
+        html += '        <input name="survey_id[]" type="hidden" value="0">'
+        html += '        <select name="survey_type[]">';
+        html += '            <option value="N">일반설문</option>';
+        html += '            <option value="B">사전설문</option>';
+        html += '        </select>';
+        html += '    </div>';
+        html += '    <div id="rows_'+i+'" class="survey-bx-sect3">';
+        html += '        <div class="btns">';
+        html += '            <button type="button" onclick="addRow('+i+')">보기 추가</button>';
+        html += '        </div>';
+        html += '        <div id="row_'+j+'" class="wrt-after">';
+        html += '            <input name="child_text_'+i+'[]" type="text" class="ipt" placeholder="보기">';
+        html += '            <input name="child_survey_id_'+i+'[]" type="hidden" value="0">'
+        html += '            <button type="button" class="btn-del" onclick="deleteRow('+j+', 0)">보기 삭제</button>';
+        html += '        </div>';
+        html += '    </div>';
+        html += '</div>';
+        i++;
+        j++;
+        $("#survey").append(html);
+    });
+
+    //설문 삭제
+    function deleteSurvey(index, id) {
+        var html = '';
+        html += '<input name="survey_del[]" type="hidden" value="' + id + '">';
+        $("#survey").append(html);
+        $("#survey_" + index).remove();
+        i--;
+    };
+
+    //보기 추가
+    function addRow(index) {
+        var html = '';
+        html += '<div id="row_'+j+'" class="wrt-after">';
+        html += '   <input name="child_text_'+index+'[]" type="text" class="ipt" placeholder="보기">';
+        html += '   <input name="child_survey_id[]" type="hidden" value="0">'
+        html += '   <button type="button" class="btn-del" onclick="deleteRow('+j+', 0)">보기 삭제</button>';
+        html += '</div>';
+        $("#rows_" + index).append(html);
+        j++;
+    };
+
+    //보기 삭제
+    function deleteRow(index, id) {
+        var html = '';
+        html += '<input name="child_survey_del[]" type="hidden" value="' + id + '">';
+        $("#survey").append(html);
+        $("#row_" + index).remove();
+        j--;
+    };
+
+    //주관식/객관식 전환
+    $(document).on("change", "select[name='is_multiple[]']", function() {
+        
+        if ($(this).attr("class") != 0) {
+            alert("저장된 설문을 수정하시려면 삭제 후 다시 등록해 주세요.");
+            if ($("option:selected", this).val() == 'N') {
+                $(this).val("Y").prop("selected", true);
+            } else {
+                $(this).val("N").prop("selected", true);
+            }
+            return false;
+        }
+
+        if ($("option:selected", this).val() == 'N') {
+            var index = $(this).attr("id").substr($(this).attr("id").length-1, 1);
+            var html = '';
+            html += '<div class="survey-bx-sect1">';
+            html += '    <div class="tits">';
+            html += '        <select id="is_multiple_'+index+'" name="is_multiple[]" class="0">';
+            html += '            <option value="Y">객관식</option>';
+            html += '            <option selected="selected" value="N">주관식</option>';
+            html += '        </select>';
+            html += '        <div class="chk-dsg-wp">';
+            html += '        </div>';                           
+            html += '    </div>';
+            html += '    <div class="btns">';                          
+            html += '       <button type="button" class="btn2" onclick="deleteSurvey('+index+', 0)">삭제</button>';
+            html += '    </div>';
+            html += '</div>';
+            html += '<div class="survey-bx-sect2">';
+            html += '    <input name="text[]" type="text" class="ipt" placeholder="질문">';
+            html += '    <input name="survey_id[]" type="hidden" value="0">'
+            html += '    <input type="checkbox" name="is_duplicate[]" id="dup_hidden_'+index+'" value="N" checked="checked" style="display:none">';
+            html += '    <select name="survey_type[]">';
+            html += '        <option value="N">일반설문</option>';
+            html += '        <option value="B">사전설문</option>';
+            html += '    </select>';
+            html += '</div>';
+            
+            $("#survey_" + index).children().remove();
+            $("#survey_" + index).append(html);
+        
+        } else {
+            var index = $(this).attr("id").substr($(this).attr("id").length-1, 1);
+            var html = '';
+            html += '    <div class="survey-bx-sect1">';
+            html += '        <div class="tits">';
+            html += '            <select id="is_multiple_'+index+'" name="is_multiple[]" class="0">';
+            html += '                <option value="Y">객관식</option>';
+            html += '                <option value="N">주관식</option>';
+            html += '            </select>';
+            html += '            <div class="chk-dsg-wp">';
+            html += '                <span class="chk-dsg"><input type="checkbox" name="is_duplicate[]" id="dup'+index+'" value="Y"><label for="dup'+index+'">보기 중복 선택 가능</label></span>';
+            html += '                <input type="checkbox" name="is_duplicate[]" id="dup_hidden_'+index+'" value="N" checked="checked" style="display:none">';
+            html += '                <!-- <span class="chk-dsg"><input type="checkbox" name="surv1" id="surv1-2" value="1"><label for="surv1-2">필수</label></span> -->';
+            html += '            </div>';                                
+            html += '        </div>';
+            html += '        <div class="btns">';                                
+            html += '            <button type="button" class="btn2" onclick="deleteSurvey('+index+', 0)">삭제</button>';
+            html += '        </div>';
+            html += '    </div>';
+            html += '    <div class="survey-bx-sect2">';
+            html += '        <input name="text[]" type="text" class="ipt" placeholder="질문">';
+            html += '        <input name="survey_id[]" type="hidden" value="0">'
+            html += '        <select name="survey_type[]">';
+            html += '            <option value="N">일반설문</option>';
+            html += '            <option value="B">사전설문</option>';
+            html += '        </select>';
+            html += '    </div>';
+            html += '    <div id="rows_'+index+'" class="survey-bx-sect3">';
+            html += '        <div class="btns">';
+            html += '            <button type="button" onclick="addRow('+index+')">보기 추가</button>';
+            html += '        </div>';
+            html += '        <div id="row_'+j+'" class="wrt-after">';
+            html += '            <input name="child_text_'+index+'[]" type="text" class="ipt" placeholder="보기">';
+            html += '            <input name="child_survey_id_'+index+'[]" type="hidden" value="0">'
+            html += '            <button type="button" class="btn-del" onclick="deleteRow('+j+', 0)">보기 삭제</button>';
+            html += '        </div>';
+            html += '    </div>';
+
+            j++;
+            $("#survey_" + index).children().remove();
+            $("#survey_" + index).append(html);
+        }
+    });
+
+    //is_duplicate 제어
+    $(document).on("change", "input:checkbox[name='is_duplicate[]']", function() {
+        var id = $(this).attr("id").substr($(this).attr("id").length - 1, 1);
+        
+        if (document.getElementById("dup" + id).checked) {
+            document.getElementById("dup_hidden_" + id).disabled = true;
+        
+        } else {
+            document.getElementById("dup_hidden_" + id).disabled = false;
+        }  
+    });
+</script>

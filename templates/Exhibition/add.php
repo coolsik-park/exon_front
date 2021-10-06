@@ -490,6 +490,7 @@
             html += '</div>';
             html += '<div class="survey-bx-sect2">';
             html += '    <input name="text[]" type="text" class="ipt" placeholder="질문">';
+            html += '    <input type="checkbox" name="is_duplicate[]" id="dup_hidden_'+index+'" value="N" checked="checked" style="display:none">';
             html += '    <select name="survey_type[]">';
             html += '        <option value="N">일반설문</option>';
             html += '        <option value="B">사전설문</option>';
