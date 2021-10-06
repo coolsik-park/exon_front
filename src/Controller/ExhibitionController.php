@@ -312,8 +312,11 @@ class ExhibitionController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function exhibitionUsersStatus($id = null, $email = null, $pay_id = null)
+    public function exhibitionUsersStatus($id = null)
     {
+        $email = $this->request->getData('email');
+        $pay_id = $this->request->getData('pay_id');
+
         $connection = ConnectionManager::get('default');
         $connection->begin();
 
@@ -382,19 +385,20 @@ class ExhibitionController extends AppController
             } else {
                 $this->Flash->error(__('The payment could not be canceled.'));
             }
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
         
         } else {
             $connection->rollback();
-            $this->Flash->error(__('Unable to add you post.'));
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
         }
 
-        return $this->redirect(['action' => 'managerPerson', $exhibition_user->exhibition_id]);
+        return $response;
     }
 
-    public function exhibitionUsersApproval($id = null, $status = null)
+    public function exhibitionUsersApproval($id = null)
     {
-        $id = $this->request->getData('id');
         $status = $this->request->getData('status');
+        $to = $this->request->getData('email');
 
         $connection = ConnectionManager::get('default');
         $connection->begin();
@@ -407,8 +411,6 @@ class ExhibitionController extends AppController
 
             $mailer = new Mailer();
             $mailer->setTransport('mailjet');
-
-            $to = $this->request->getData('email');
 
             try {                   
                 // $host = HOST;
@@ -432,13 +434,13 @@ class ExhibitionController extends AppController
                 echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
             }
 
-            $this->Flash->success(__('Your post has been saved.'));
+            $response = $this->response->withType('json')->withStringBody(json_encode(['test' => 'success']));
         } else {
             $connection->rollback();
-            $this->Flash->error(__('Unable to add you post.'));
+            $response = $this->response->withType('json')->withStringBody(json_encode(['test' => 'fail']));
         }
 
-        return $this->redirect(['action' => 'managerPerson', $exhibition_user->exhibition_id]);
+        return $response;
     }
 
     public function userSurveyView($id = null)
@@ -446,7 +448,12 @@ class ExhibitionController extends AppController
         $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
         $exhibition_user = $exhibition_users_table->get($id);
 
-        return $this->redirect(['controller' => 'exhibitionSurvey', 'action' => 'surveyUserAnswer', $exhibition_user->exhibition_id]);
+        // return $this->redirect(['controller' => 'exhibitionSurvey', 'action' => 'surveyUserAnswer', $exhibition_user->exhibition_id]);
+    }
+
+    public function exhibitionCancle()
+    {
+        
     }
 
     // public function search()
