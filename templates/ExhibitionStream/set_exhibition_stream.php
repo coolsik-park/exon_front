@@ -86,7 +86,7 @@
     <div class="section-webinar3">
         <div class="webinar-cont">
             <div class="wb-cont1">
-            <video-js id=vid1  muted="muted" class="vjs-default-skin vjs-big-play-centered" controls data-setup='{"fluid": true}'>
+            <video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup='{"fluid": true}'>
                 <source src="", type= "application/x-mpegURL">
             </video-js>
             <!-- <script>
@@ -110,8 +110,8 @@
                         <div class="col-th">프로모션 키</div>
                         <div class="col-td">
                             <div class="stream-ipt1">
-                                <input type="text" name="coupon_key">
-                                <button type="button" name="confirm_coupon" class="btn-ty2 bor">확인</button>
+                                <input type="text" id="coupon_code" name="coupon_code">
+                                <button type="button" id="confirm_coupon" name="confirm_coupon" onclick="validateCoupon()" class="btn-ty2 bor">확인</button>
                             </div>
                         </div>
                     </div>
@@ -144,21 +144,25 @@
                             <div class="col-th">금액</div>
                             <div class="col-td">
                                 <div class="stream-ipt1">
-                                    <input type="text" id="amount" name="amout">
+                                    <input type="text" id="amount" name="amount" value="0" readonly>
+                                    <input type="hidden" id="is_paid"> 
+                                    <input type="hidden" id="pay_id" name="pay_id">
                                     <button type="button" id="payment" class="btn-ty2 bor">결제</button>
                                 </div>                    
                             </div>
                         </div>
                     </div>
-                    <div class="stream-btn">
-                        <button type="button" id="issue_stream_key" class="btn-ty2">스트림 키 발급</button>
+                    <div id="stream_key_div">
+                        <div class="stream-btn">
+                            <button type="button" id="issue_stream_key" class="btn-ty2">스트림 키 발급</button>
+                        </div>
                     </div>
                     <div class="row2">
                         <div class="col-th">스트림 URL</div>
                         <div class="col-td">
                             <div class="stream-ipt1">
-                                <input type="text" name="url">
-                                <button type="button" id="url_copy" class="btn-ty2 bor">복사</button>
+                                <input type="text" id="url" name="url" readonly>
+                                <button type="button" id="copy_url" class="btn-ty2 bor">복사</button>
                             </div>
                         </div>
                     </div>
@@ -170,16 +174,8 @@
             <div class="webinar-tab-top">
                 <div class="webinar-toggle">
                     <button type="button" class="webinar-tab-tg">토글버튼</button>
-                    <button type="button" id="setting_btn" class="ico-sett">설정</button>
-                    <input type="hidden" id="setting">
-                    <?php
-                        echo $this->Form->control('tab', ['type' => 'hidden']);
-                        $i = 9;
-                        foreach ($tabs as $tab) {
-                            echo $this->Form->control($tab->title, ['id' => 'tab' . $i, 'type' => 'hidden']);
-                            $i--;
-                        }
-                    ?>
+                    <button type="button" id="setting_btn" name="btn_off" class="ico-sett">설정</button>
+                    <input type="hidden" id="tab" name="tab" value="0">
                 </div>                        
                 <div class="w-tab-wrap">
                     <div class="w-tab-wrap-inner">
@@ -209,122 +205,173 @@
     <?php $this->Form->end(); ?>
 </div>        
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-
 <script>
-    //쿠폰 검증
-    // $(document).on("click", "button[name='confirm_coupon']", function () {
-    //     var coupon_code = $("input[name='coupon_key']").val();
-    //     jQuery.ajax({
-    //         url: "/exhibition-stream/set-answered/" + <?= $id ?>, 
-    //         method: 'POST',
-    //         type: 'json',
-    //         data: {
-    //             coupon_code: coupon_code
-    //         }
-    //     }).done(function(data) {
-    //         if (data.status == success) {
-    //             alert("success");
-    //         }
-    //     });
-    // });
-
     //페이지 로드시
-    $(document).on("ready", function() {
-        var amount = 0;
-        var time = 0;
+    
+    var amount = 0;
+    var time = 0;
+    var coupon_amount = 0;
+    var coupon_id = 0;
 
-        switch($("#people").val()) {
-            case "50" : amount = 200000; break;
-            case "100" : amount = 400000; break;
-            case "150" : amount = 600000; break;
-            case "200" : amount = 800000; break;
-            case "250" : amount = 1000000; break;
-            case "300" : amount = 1200000; break;
-            case "350" : amount = 1400000; break;
-            case "400" : amount = 1600000; break;
-            case "450" : amount = 1800000; break;
-            case "500" : amount = 2000000; break;
+    switch($("#people").val()) {
+        case "50" : amount = 200000; break;
+        case "100" : amount = 400000; break;
+        case "150" : amount = 600000; break;
+        case "200" : amount = 800000; break;
+        case "250" : amount = 1000000; break;
+        case "300" : amount = 1200000; break;
+        case "350" : amount = 1400000; break;
+        case "400" : amount = 1600000; break;
+        case "450" : amount = 1800000; break;
+        case "500" : amount = 2000000; break;
+    }
+
+    switch($("#time").val()) {
+        case "18000" : time = 1; break;
+        case "36000" : time = 2; break;
+    }
+
+    $("#amount").val(amount*time);
+
+    //저장
+    $(document).on("click", "#save", function() {
+        
+        //Validation
+        if ($("#title").val().length == 0) {
+            alert("방송제목을 입력해 주세요.");
+            $("#title").focus();
+            return false;
         }
 
-        switch($("#time").val()) {
-            case "18000" : time = 1; break;
-            case "36000" : time = 2; break;
+        if ($("#is_paid").val() == 0) {
+            alert("결제를 완료해주세요.");
+            return false;
         }
 
-        $("#amount").val(amount*time);
+        if ($("#stream_key").val().length == 0) {
+            alert("스트림 키를 발급해주세요.");
+            return false;
+        }
+
+        //ajax
+        var formData = $("#setForm").serialize();
+        formData += '&coupon_amount=' + coupon_amount;
+        formData += '&coupon_id=' + coupon_id;
+        
+        $.ajax({
+            url: "/exhibition-stream/set-exhibition-stream/<?=$exhibition_id?>",
+            method: 'POST',
+            type: 'json',
+            data: formData
+        }).done(function(data) {
+            if (data.status == 'success') {
+                alert("저장되었습니다.");
+                location.reload();
+            } else {
+                alert("오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
+            }
+        });
+    });
+
+    //종료
+    $("#exit").click(function () {
+        location.replace("/exhibition/edit/<?=$exhibition_id?>");
+    });
+
+    //스트림키 표시
+    $(document).on("click", "#hidden_stream_key", function() {
+        
+        if ($("#stream_key").attr("type") == "text") {
+            $("#stream_key").attr("type", "password");
+        } else {
+            $("#stream_key").attr("type", "text");
+        }  
+    });
+
+    //복사
+    $(document).on("click", "#copy_stream_key", function() {
+        
+        if ($("#stream_key").attr("type") == "text") {
+            $("#stream_key").select();
+            document.execCommand("copy");
+            alert('복사완료');
+        
+        } else {
+            $("#stream_key").attr("type", "text");
+            $("#stream_key").select();
+            document.execCommand("copy");
+            alert('복사되었습니다.');
+            $("#stream_key").attr("type", "password");
+        }
+    });
+
+    $(document).on("click", "#copy_url", function() {
+        $("#url").select();
+        document.execCommand("copy");
+        alert('복사되었습니다.');
     });
     
-    //스트림 키 발급
-    $("#issue_stream_key").click(function () {
-        var html = '';
-        html += '<h2 class="s-hty3">스트림 키</h2>';
-        html += '<div class="stream-sect">';
-        html += '   <div class="row2">';
-        html += '       <div class="col-th">프로모션 키</div>';
-        html += '       <div class="col-td">';
-        html += '           <div class="stream-ipt1">';
-        html += '               <input type="text" name="coupon_key">';
-        html += '               <button type="button" name="confirm_coupon" class="btn-ty2 gray2">확인</button>';
-        html += '           </div>';
-        html += '       </div>';
-        html += '   </div>';
-        html += '   <div class="row2-wp">';
-        html += '       <div class="row2">';
-        html += '           <div class="col-th">시간</div>';
-        html += '           <div class="col-td">';
-        html += '               <div class="stream-itp2">';
-        html += '                   <select id="time" name="time">';
-        html += '                       <option value="18000">half day</option>';
-        html += '                       <option value="36000">all day</option>';
-        html += '                   </select>';
-        html += '                   <select id="people" name="people">';
-        html += '                       <option value="50">50</option>';
-        html += '                       <option value="100">100</option>';
-        html += '                       <option value="150">150</option>';
-        html += '                       <option value="200">200</option>';
-        html += '                       <option value="250">250</option>';
-        html += '                       <option value="300">300</option>';
-        html += '                       <option value="350">350</option>';
-        html += '                       <option value="400">400</option>';
-        html += '                       <option value="450">450</option>';
-        html += '                       <option value="500">500</option>';
-        html += '                   </select>';
-        html += '                   명';
-        html += '               </div>';
-        html += '           </div>';
-        html += '       </div>';
-        html += '       <div class="row2">';
-        html += '           <div class="col-th">금액</div>';
-        html += '           <div class="col-td">';
-        html += '               <div class="stream-ipt1">';
-        html += '                   <input type="text" id="amount" name="amount">';
-        html += '                   <button type="button" id="payment" class="btn-ty2 bor">결제</button>';
-        html += '               </div>';
-        html += '           </div>';
-        html += '       </div>';
-        html += '   </div>';
-        html += '   <div class="stream-ipt3">';
-        html += '       <div class="ipt-eye">';
-        html += '           <input type="password" id="stream_key" name="stream_key" class="ipt-tx">';
-        html += '           <button type="button" id="hidden_stream_key" class="ico-eye">히든</button>';
-        html += '       </div>';
-        html += '       <button type="button" id="copy_stream_key" class="btn-ty2 bor">복사</button>';
-        html += '   </div> ';
-        html += '   <div class="row2">';
-        html += '       <div class="col-th">스트림 URL</div>';
-        html += '       <div class="col-td">';
-        html += '           <div class="stream-ipt1">';
-        html += '               <input type="text" name="url">';
-        html += '               <button type="button" id="url_copy" class="btn-ty2 bor">복사</button>';
-        html += '           </div>';
-        html += '       </div>';
-        html += '   </div>';
-        html += '</div>';
-        $("#stream_key_container").children().remove();
-        $("#stream_key_container").append(html);
+    //스트림키 발급
+    $("#issue_stream_key").click(function() { 
+        
+        if ($("#is_paid").val() == 1) {
+            
+            $.ajax({
+                url: "/exhibition-stream/issue-stream-key/",
+                method: 'POST',
+                type: 'json',
+                data: null
+            }).done(function(data) {
+                if (data.status == 'success') {
+                    var html = '';
+                    html += '<div class="stream-ipt3">';
+                    html += '   <div class="ipt-eye">';
+                    html += '       <input id="stream_key" name="stream_key" type="password" class="ipt-tx" readonly>';
+                    html += '       <button type="button" id="hidden_stream_key" class="ico-eye">히든</button>';
+                    html += '   </div>';
+                    html += '   <button type="button" id="copy_stream_key" class="btn-ty2 bor">복사</button>';
+                    html += '</div> ';
+                
+                    $("#stream_key_div").children().remove();
+                    $("#stream_key_div").append(html);
+                    $("#stream_key").val(data.stream_key);
+                    $("#confirm_coupon").attr("class", "btn-ty2 gray2");
+                    $("#confirm_coupon").attr("onclick", "");
+                    $("#url").val(data.stream_url);
+                
+                } else {
+                    alert("오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
+                }
+            });
+        
+        } else {
+            alert("결제를 완료해주세요.");
+            return false;
+        }
     });
+
+    //쿠폰 검증
+    function validateCoupon() {
+        var coupon_code = $("#coupon_code").val();
+        $.ajax({
+            url: "/exhibition-stream/validate-coupon/",
+            method: 'POST',
+            type: 'json',
+            data: {
+                coupon_code: coupon_code,
+            }
+        }).done(function(data) {
+            if (data.status == 'success') {
+                alert("쿠폰이 적용되었습니다.");
+                $("#amount").val($("#amount").val() - data.amount);
+                coupon_amount = data.amount;
+                coupon_id = data.coupon_id;
+    
+            } else {
+                alert("쿠폰 번호를 다시 확인해주세요.");
+            }
+        });
+    }
 
     //결제
     $("#payment").click(function () {
@@ -353,26 +400,52 @@
                         merchant_uid: rsp.merchant_uid,
                         pay_method: rsp.pay_method,
                         paid_amount: rsp.paid_amount,
-                        coupon_amount: $('#coupon').val(),
+                        coupon_amount: coupon_amount,
                         receipt_url: rsp.receipt_url,
                         paid_at: rsp.paid_at,
                         pg_tid: rsp.pg_tid
                     }
                 }).done(function(data) {
                     if (data.status == 'success') { 
-                        var msg = '결제가 완료되었습니다.';
-                        msg += '\n고유ID : ' + rsp.imp_uid;
-                        msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-                        msg += '\n결제 금액 : ' + rsp.paid_amount;
-                        msg += '\n카드 승인번호 : ' + rsp.apply_num; 
+                        var coupon_code = $("#coupon_code").val();
+                        
+                        if (coupon_code != '') {
+                            jQuery.ajax({
+                                url: "/exhibition-stream/change-coupon-status", 
+                                method: 'POST',
+                                type: 'json',
+                                data: {
+                                    coupon_code: coupon_code,
+                                }
+                            }).done(function() {
+                                $("#is_paid").val(1);
+                                $("#pay_id").val(data.pay_id);
 
-                        alert(msg);
+                                var msg = '결제가 완료되었습니다.';
+                                msg += '\n고유ID : ' + rsp.imp_uid;
+                                msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+                                msg += '\n결제 금액 : ' + rsp.paid_amount;
+                                msg += '\n카드 승인번호 : ' + rsp.apply_num; 
 
-                        $('input#paid').val(1);
-                        $('input#id').val(data.pay_id);
-                    } 
-                }).fail(function(xhr, status, errorThrown) {
-                    alert(xhr + ' ' + status + ' ' + errorThrown); 
+                                alert(msg);
+                            });
+                        
+                        } else {
+                            $("#is_paid").val(1);
+                            $("#pay_id").val(data.pay_id);
+
+                            var msg = '결제가 완료되었습니다.';
+                            msg += '\n고유ID : ' + rsp.imp_uid;
+                            msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+                            msg += '\n결제 금액 : ' + rsp.paid_amount;
+                            msg += '\n카드 승인번호 : ' + rsp.apply_num; 
+
+                            alert(msg);
+                        }
+
+                    } else {
+                        alert("결제에 실패하였습니다. 잠시 후 다시 시도해 주세요.")
+                    }
                 });
                 
             } else {
@@ -385,7 +458,7 @@
     });
 
     //금액 설정
-    $("#people").change(function () {
+    $(document).on("change", "#people", function () {
         var amount = 0;
         var time = 0;
 
@@ -407,10 +480,10 @@
             case "36000" : time = 2; break;
         }
 
-        $("#amount").val(amount*time);
+        $("#amount").val(amount*time-coupon_amount);
     });
 
-    $("#time").change(function () {
+    $(document).on("change", "#time", function () {
         var amount = 0;
         var time = 0;
 
@@ -432,237 +505,182 @@
             case "36000" : time = 2; break;
         }
 
-        $("#amount").val(amount*time);
+        $("#amount").val(amount*time-coupon_amount);
     });
 
-    //탭 컨트롤
-    var dec = $('#tab').val();
-    dec = parseInt(dec);
-    var bin = dec.toString(2);
-    if (bin.length < 10) {
-        var zero = '';
-        for (i=0; i<10-bin.length; i++) {
-            zero += '0';
-        }
-        bin = zero+bin;
-    }
-    for (i=0; i<bin.length; i++) {
-        var result = bin.substring(i,i+1);
-        if (parseInt(result) == 1) {
-            $("input#tab" + i).val(1);
-            $("button#tab" + i).css("background-color", "blue"); 
-        }
-    }
-
-    $("#setting_btn").click(function () {
-        if ($("#setting").val() == null || $("#setting").val() == 0) {
-            $("#setting").val(1);
-            alert("사용할 탭을 선택해주세요.");
+    //탭 컨트롤    
+    $(document).on("click", "#setting_btn", function () {
+        
+        if ($(this).attr("name") == "btn_off") {
+            $(this).attr("name", "btn_on");
+            alert("탭 설정이 활성화 되었습니다.");
         } else {
-            $("#setting").val(0);
-            alert("탭 설정이 완료되었습니다.");
+            $(this).attr("name", "btn_off");
+            alert("탭 설정이 비활성화 되었습니다.");
         }
     });
 
     $("#btn_tab0").click(function () {
-        if ($("input#setting").val() == 1) {
-            if ($("input#tab0").val() == 0) {
-                $("input#tab0").val(1);
+        if ($("#setting_btn").attr("name") == "btn_on") {
+            if ($("#li0").attr("class") == "") {
                 $("#li0").attr("class", "active");
                 $("#tab").val(parseInt($("#tab").val()) + 512);
-                // alert($("button#tab0").attr('name')+' 탭이 활성화되었습니다.');
-                $(".wb-alert").html($("button#tab0").attr('name')+' 탭이 활성화되었습니다.');
+                $(".wb-alert").html($(this).attr('name')+' 탭이 활성화되었습니다.');
             } else {
-                $("input#tab0").val(0);
                 $("#li0").attr("class", "");
                 $("#tab").val(parseInt($("#tab").val()) - 512);
-                // alert($("button#tab0").attr('name')+' 탭이 비활성화되었습니다.');
-                $(".wb-alert").html($("button#tab0").attr('name')+' 탭이 비활성화되었습니다.');
+                $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-            $(".webinar-tab-body").load("/exhibition-stream/set-exhibition-files/" + <?= $exhibitionStream->exhibition_id ?>);
+            $(".webinar-tab-body").load("/exhibition-stream/set-exhibition-files/" + <?= $exhibition_id ?>);
         }
     });
 
     $("#btn_tab1").click(function () {
-        if ($("input#setting").val() == 1) {
-            if ($("input#tab1").val() == 0) {
-                $("input#tab1").val(1);
+        if ($("#setting_btn").attr("name") == "btn_on") {
+            if ($("#li1").attr("class") == "") {
                 $("#li1").attr("class", "active");
                 $("#tab").val(parseInt($("#tab").val()) + 256);
-                // alert($("button#tab1").attr('name')+' 탭이 활성화되었습니다.');
-                $(".wb-alert").html($("button#tab1").attr('name')+' 탭이 활성화되었습니다.');
+                $(".wb-alert").html($(this).attr('name')+' 탭이 활성화되었습니다.');
             } else {
-                $("input#tab1").val(0);
                 $("#li1").attr("class", "");
                 $("#tab").val(parseInt($("#tab").val()) - 256);
-                // alert($("button#tab1").attr('name')+' 탭이 비활성화되었습니다.');
-                $(".wb-alert").html($("button#tab1").attr('name')+' 탭이 비활성화되었습니다.');
+                $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-            $(".webinar-tab-body").load("/exhibition-stream/exhibition-info/" + <?= $exhibitionStream->exhibition_id ?>);
+            $(".webinar-tab-body").load("/exhibition-stream/exhibition-info/" + <?= $exhibition_id ?>);
         }
     });
 
     $("#btn_tab2").click(function () {
-        if ($("input#setting").val() == 1) {
-            if ($("input#tab2").val() == 0) {
-                $("input#tab2").val(1);
+        if ($("#setting_btn").attr("name") == "btn_on") {
+            if ($("#li2").attr("class") == "") {
                 $("#li2").attr("class", "active");
                 $("#tab").val(parseInt($("#tab").val()) + 128);
-                // alert($("button#tab2").attr('name')+' 탭이 활성화되었습니다.');
-                $(".wb-alert").html($("button#tab2").attr('name')+' 탭이 활성화되었습니다.');
+                $(".wb-alert").html($(this).attr('name')+' 탭이 활성화되었습니다.');
             } else {
-                $("input#tab2").val(0);
                 $("#li2").attr("class", "");
                 $("#tab").val(parseInt($("#tab").val()) - 128);
-                // alert($("button#tab2").attr('name')+' 탭이 비활성화되었습니다.');
-                $(".wb-alert").html($("button#tab2").attr('name')+' 탭이 비활성화되었습니다.');
+                $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-            $(".webinar-tab-body").load("/exhibition-stream/founder/" + <?= $exhibitionStream->exhibition_id ?>);
+            $(".webinar-tab-body").load("/exhibition-stream/founder/" + <?= $exhibition_id ?>);
         }
     });
 
     $("#btn_tab3").click(function () {
-        if ($("input#setting").val() == 1) {
-            if ($("input#tab3").val() == 0) {
-                $("input#tab3").val(1);
+        if ($("#setting_btn").attr("name") == "btn_on") {
+            if ($("#li3").attr("class") == "") {
                 $("#li3").attr("class", "active");
                 $("#tab").val(parseInt($("#tab").val()) + 64);
-                // alert($("button#tab3").attr('name')+' 탭이 활성화되었습니다.');
-                $(".wb-alert").html($("button#tab3").attr('name')+' 탭이 활성화되었습니다.');
+                $(".wb-alert").html($(this).attr('name')+' 탭이 활성화되었습니다.');
             } else {
-                $("input#tab3").val(0);
                 $("#li3").attr("class", "");
                 $("#tab").val(parseInt($("#tab").val()) - 64);
-                // alert($("button#tab3").attr('name')+' 탭이 비활성화되었습니다.');
-                $(".wb-alert").html($("button#tab3").attr('name')+' 탭이 비활성화되었습니다.');
+                $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-            $(".webinar-tab-body").load("/exhibition-stream/person-in-charge/" + <?= $exhibitionStream->exhibition_id ?>);
+            $(".webinar-tab-body").load("/exhibition-stream/person-in-charge/" + <?= $exhibition_id ?>);
         }
     });
 
     $("#btn_tab4").click(function () {
-        if ($("input#setting").val() == 1) {
-            if ($("input#tab4").val() == 0) {
-                $("input#tab4").val(1);
+        if ($("#setting_btn").attr("name") == "btn_on") {
+            if ($("#li4").attr("class") == "") {
                 $("#li4").attr("class", "active");
                 $("#tab").val(parseInt($("#tab").val()) + 32);
-                // alert($("button#tab4").attr('name')+' 탭이 활성화되었습니다.');
-                $(".wb-alert").html($("button#tab4").attr('name')+' 탭이 활성화되었습니다.');
+                $(".wb-alert").html($(this).attr('name')+' 탭이 활성화되었습니다.');
             } else {
-                $("input#tab4").val(0);
                 $("#li4").attr("class", "");
                 $("#tab").val(parseInt($("#tab").val()) - 32);
-                // alert($("button#tab4").attr('name')+' 탭이 비활성화되었습니다.');
-                $(".wb-alert").html($("button#tab4").attr('name')+' 탭이 비활성화되었습니다.');
+                $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-            $(".webinar-tab-body").load("/exhibition-stream/set-program/" + <?= $exhibitionStream->exhibition_id ?>);
+            $(".webinar-tab-body").load("/exhibition-stream/set-program/" + <?= $exhibition_id ?>);
         }
     });
 
     $("#btn_tab5").click(function () {
-        if ($("input#setting").val() == 1) {
-            if ($("input#tab5").val() == 0) {
-                $("input#tab5").val(1);
+        if ($("#setting_btn").attr("name") == "btn_on") {
+            if ($("#li5").attr("class") == "") {
                 $("#li5").attr("class", "active");
                 $("#tab").val(parseInt($("#tab").val()) + 16);
-                // alert($("button#tab5").attr('name')+' 탭이 활성화되었습니다.');
-                $(".wb-alert").html($("button#tab5").attr('name')+' 탭이 활성화되었습니다.');
+                $(".wb-alert").html($(this).attr('name')+' 탭이 활성화되었습니다.');
             } else {
-                $("input#tab5").val(0);
                 $("#li5").attr("class", "");
                 $("#tab").val(parseInt($("#tab").val()) - 16);
-                // alert($("button#tab5").attr('name')+' 탭이 비활성화되었습니다.');
-                $(".wb-alert").html($("button#tab5").attr('name')+' 탭이 비활성화되었습니다.');
+                $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-            $(".webinar-tab-body").load("/exhibition-stream/attendance/" + <?= $exhibitionStream->exhibition_id ?>);
+            $(".webinar-tab-body").load("/exhibition-stream/attendance/" + <?= $exhibition_id ?>);
         }
     });
 
     $("#btn_tab6").click(function () {
-        if ($("input#setting").val() == 1) {
-            if ($("input#tab6").val() == 0) {
-                $("input#tab6").val(1);
+        if ($("#setting_btn").attr("name") == "btn_on") {
+            if ($("#li6").attr("class") == "") {
                 $("#li6").attr("class", "active");
                 $("#tab").val(parseInt($("#tab").val()) + 8);
-                // alert($("button#tab6").attr('name')+' 탭이 활성화되었습니다.');
-                $(".wb-alert").html($("button#tab6").attr('name')+' 탭이 활성화되었습니다.');
+                $(".wb-alert").html($(this).attr('name')+' 탭이 활성화되었습니다.');
             } else {
-                $("input#tab6").val(0);
                 $("#li6").attr("class", "");
                 $("#tab").val(parseInt($("#tab").val()) - 8);
-                // alert($("button#tab6").attr('name')+' 탭이 비활성화되었습니다.');
-                $(".wb-alert").html($("button#tab6").attr('name')+' 탭이 비활성화되었습니다.');
+                $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             } 
         } else {
-            $(".webinar-tab-body").load("/exhibition-stream/question-menu/" + <?= $exhibitionStream->exhibition_id ?>);
+            $(".webinar-tab-body").load("/exhibition-stream/question-menu/" + <?= $exhibition_id ?>);
         }
     });
 
     $("#btn_tab7").click(function () {
-        if ($("input#setting").val() == 1) {
-            if ($("input#tab7").val() == 0) {
-                $("input#tab7").val(1);
+        if ($("#setting_btn").attr("name") == "btn_on") {
+            if ($("#li7").attr("class") == "") {
                 $("#li7").attr("class", "active");
                 $("#tab").val(parseInt($("#tab").val()) + 4);
-                // alert($("button#tab7").attr('name')+' 탭이 활성화되었습니다.');
-                $(".wb-alert").html($("button#tab7").attr('name')+' 탭이 활성화되었습니다.');
+                $(".wb-alert").html($(this).attr('name')+' 탭이 활성화되었습니다.');
             } else {
-                $("input#tab7").val(0);
                 $("#li7").attr("class", "");
                 $("#tab").val(parseInt($("#tab").val()) - 4);
-                // alert($("button#tab7").attr('name')+' 탭이 비활성화되었습니다.');
-                $(".wb-alert").html($("button#tab7").attr('name')+' 탭이 비활성화되었습니다.');
+                $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-            $(".webinar-tab-body").load("/exhibition-stream/set-notice/" + <?= $exhibitionStream->exhibition_id ?>);
+            $(".webinar-tab-body").load("/exhibition-stream/set-notice/" + <?= $exhibition_id ?>);
         }
     });
 
     $("#btn_tab8").click(function () {
-        if ($("input#setting").val() == 1) {
-            if ($("input#tab8").val() == 0) {
-                $("input#tab8").val(1);
+        if ($("#setting_btn").attr("name") == "btn_on") {
+            if ($("#li8").attr("class") == "") {
                 $("#li8").attr("class", "active");
                 $("#tab").val(parseInt($("#tab").val()) + 2);
-                // alert($("button#tab8").attr('name')+' 탭이 활성화되었습니다.');
-                $(".wb-alert").html($("button#tab8").attr('name')+' 탭이 활성화되었습니다.');
+                $(".wb-alert").html($(this).attr('name')+' 탭이 활성화되었습니다.');
             } else {
-                $("input#tab8").val(0);
                 $("#li8").attr("class", "");
                 $("#tab").val(parseInt($("#tab").val()) - 2);
-                // alert($("button#tab8").attr('name')+' 탭이 비활성화되었습니다.');
-                $(".wb-alert").html($("button#tab8").attr('name')+' 탭이 비활성화되었습니다.');
+                $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-            $(".webinar-tab-body").load("/exhibition-stream/set-survey/" + <?= $exhibitionStream->exhibition_id ?>);
+            $(".webinar-tab-body").load("/exhibition-stream/set-survey/" + <?= $exhibition_id ?>);
         }
     });
 
     $("#btn_tab9").click(function () {
-        if ($("input#setting").val() == 1) {
-            if ($("input#tab9").val() == 0) {
-                $("input#tab9").val(1);
+        if ($("#setting_btn").attr("name") == "btn_on") {
+            if ($("#li9").attr("class") == "") {
                 $("#li9").attr("class", "active");
                 $("#tab").val(parseInt($("#tab").val()) + 1);
-                // alert($("button#tab9").attr('name')+' 탭이 활성화되었습니다.');
-                $(".wb-alert").html($("button#tab9").attr('name')+' 탭이 활성화되었습니다.');
+                $(".wb-alert").html($(this).attr('name')+' 탭이 활성화되었습니다.');
             } else {
-                $("input#tab9").val(0);
                 $("#li9").attr("class", "");
                 $("#tab").val(parseInt($("#tab").val()) - 1);
-                // alert($("button#tab9").attr('name')+' 탭이 비활성화되었습니다.');
-                $(".wb-alert").html($("button#tab9").attr('name')+' 탭이 비활성화되었습니다.');
+                $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-            $(".webinar-tab-body").load("/exhibition-stream-chat-log/chat/" + <?= $exhibitionStream->exhibition_id ?>);
+            $(".webinar-tab-body").load("/exhibition-stream-chat-log/chat/" + <?= $exhibition_id ?>);
         }
     });
+
 </script>
 
 <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
