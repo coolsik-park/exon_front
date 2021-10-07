@@ -61,7 +61,6 @@
                                 <p class="tit-con">
                                     <?php
                                         $date = date("Y.m.d", strtotime($exhibition_user->exhibition['sdate']));
-                                        $hour = date("A", strtotime($exhibition_user->exhibition['sdate']));
                                         $hour = date("H", strtotime($exhibition_user->exhibition['sdate']));
                                         $min = date("i", strtotime($exhibition_user->exhibition['sdate'])); 
                                         

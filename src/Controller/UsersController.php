@@ -123,6 +123,7 @@ class UsersController extends AppController
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
             } else {
                 $connection->rollback();
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
             }  
             return $response;
         }

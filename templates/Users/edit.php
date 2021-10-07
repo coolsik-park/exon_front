@@ -82,20 +82,24 @@
                     <div class="col-dt">프로필 사진</div>     
                     <div class="col-dd">
                         <div class="profile-photo">
-                            <div class="photo">
-                                <img src="/<?= $user->image_path ?>/<?= $user->image_name ?>" alt="이미지없음">
-                            </div>
+                            <?php if ($user->image_name == null) { ?>
+                                    <div class="mouse-area" id="dropZone">
+                                        <label for="imgSaveButton"><span class="ico-plus-c">+</span></label>
+                                        <input type="file" id="imgSaveButton" name="imgSaveButton" multiple="multiple" style="display:none">
+                                        <p>마우스로 자료를 끌어오세요</p>
+                                    </div>
+                            <?php } else { ?>
+                                    <div class="photo">
+                                        <img src="/<?= $user->image_path ?>/<?= $user->image_name ?>">
+                                    </div>
+                            <?php } ?>
                             <div class="btns">
                                 <form name="imgUpload" id="imgUpload">
                                     <label class="btn-ty3" for="imgSaveButton">불러오기</label>
                                     <input type="file" id="imgSaveButton" name="imgSaveButton" accept="image/*" style="display:none"/>
-                                    <?php
-                                    if ($user->image_name != null) {
-                                    ?>
+                                    <?php if ($user->image_name != null) { ?>
                                         <button type="button" class="btn-ty3 bor" id="imgDeleteButton">삭제</button>
-                                    <?php
-                                    }
-                                    ?>
+                                    <?php } ?>
                                 </form>
                             </div>
                         </div>
@@ -240,6 +244,57 @@
                 }
             });
         }
+    });
+
+    $(function() {
+        var dropZone = $('#dropZone');
+        
+        dropZone.on('dragenter', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            dropZone.css('background-color', '#E3F2FC');
+        });
+
+        dropZone.on('dragleave', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            dropZone.css('background-color', '#FFFFFF');
+        });
+        
+        dropZone.on('dragover', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            dropZone.css('background-color', '#E3F2FC');
+        });
+
+        dropZone.on('drop', function(e) {
+            e.preventDefault();
+            dropZone.css('background-color', '#FFFFFF');
+
+            var img = e.originalEvent.dataTransfer.files;
+
+            if (img.length == 1) {
+                var formData = new FormData();
+                formData.append('imgSaveButton', img[0]);
+
+                $.ajax({
+                    url: '/users/img-update/<?= $user->id ?>',
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    method: 'POST',
+                    data: formData,
+                }).done(function(data) {
+                    if (data.status == 'success') {
+                        $('#image-row').load(location.href+" #image-row");
+                    } else {
+                        alert("실패하였습니다.");
+                    }
+                });
+            } else {
+                alert('업로드 불가입니다.');
+            }
+        });
     });
 
     $('#imgSaveButton').on('change', function() {
