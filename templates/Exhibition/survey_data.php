@@ -123,14 +123,20 @@
                     </h3>
                     <?php
                             if ($parentData['is_multiple'] == 'Y') {
+                                $count = 0;
                                 foreach ($beforeChildData[$parentData['id']] as $childData) {
+                                    $count += $childData['count'];
+                                }
+                                
+                                foreach ($beforeChildData[$parentData['id']] as $childData) {
+                                    $percentage = round($childData['count'] / $count * 100);
                         ?>
                     <ul class="list">
                         <li>
                             <div class="p-data"><span class="tx">
                                     <?= $childData['text'] ?>
-                                </span><span class="p-bar" style="width:20%"></span><span class="p-bar-tx">
-                                    <?= $childData['count'] ?>
+                                </span><span class="p-bar" style="width:<?=$percentage?>%"></span><span class="p-bar-tx">
+                                    <?= $childData['count'] ?> (<?=$percentage?>%)
                                 </span></div>
                         </li>
                     </ul>
@@ -181,14 +187,20 @@
                     </h3>
                     <?php
                             if ($parentData['is_multiple'] == 'Y') {
+                                $count = 0;
                                 foreach ($normalChildData[$parentData['id']] as $childData) {
+                                    $count += $childData['count'];
+                                }
+
+                                foreach ($normalChildData[$parentData['id']] as $childData) {
+                                    $percentage = round($childData['count'] / $count * 100);
                         ?>
                     <ul class="list">
                         <li>
                             <div class="p-data"><span class="tx">
                                     <?= $childData['text'] ?>
-                                </span><span class="p-bar" style="width:20%"></span><span class="p-bar-tx">
-                                    <?= $childData['count'] ?>
+                                </span><span class="p-bar" style="width:<?=$percentage?>%"></span><span class="p-bar-tx">
+                                    <?= $childData['count'] ?> (<?=$percentage?>%)
                                 </span></div>
                         </li>
                     </ul>
