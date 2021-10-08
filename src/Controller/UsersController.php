@@ -7,6 +7,7 @@ use Cake\Datasource\ConnectionManager;
 use Cake\Auth\DefaultPasswordHasher;
 use Cake\ORM\TableRegistry;
 use Cake\I18n\FrozenTime;
+use Cake\Mailer\Mailer;
 
 class UsersController extends AppController
 {
@@ -469,14 +470,12 @@ class UsersController extends AppController
         }
     }
 
-    public function certified($id = null)
+    public function certification($id = null)
     {
-        $user = $this->Users->find('all')->where(['id' => $id])->toArray();
-
-        $this->set(compact('user'));
+        $this->set(compact('id'));
     }
 
-    public function sendSmsCertified($user_id = null)
+    public function sendSmsCertification($user_id = null)
     {        
         if ($this->request->is('post')) {
             require_once("solapi-php/lib/message.php");
@@ -510,16 +509,6 @@ class UsersController extends AppController
         $this->set(compact('user_id'));
     }
 
-    public function generateCode()
-    {
-        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
-        $code = '';
-        for ($i = 0; $i < 6; $i++) {
-            $code .= substr($characters, rand(0, strlen($characters)), 1);
-        }
-        return $code;
-    }
-
     public function confirmSms($id = null) 
     {
         $connection = ConnectionManager::get('default');
@@ -529,26 +518,114 @@ class UsersController extends AppController
         $commonConfirmation = $commonConfirmation_table->find('all')->where(['id' => $id])->toArray();
 
         if ($this->request->is('post')) {
+
             if (FrozenTime::now() < $commonConfirmation[0]->expired) {
+
                 if ($this->request->getData('code') == $commonConfirmation[0]->confirmation_code) {
+
                     if($connection->update('users', ['hp_cert' => '1'], ['id' => $this->request->getData('user_id')])) {
                         $connection->commit();
-                        $this->Flash->success(__('Your post has been saved.'));
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                        return $response;
+                    
                     } else {
                         $connection->rollback();
-                        $this->Flash->error(__('Unable to add you post.'));
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                        return $response;
                     }
 
-                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
-                    return $response;
                 } else {
+                    $connection->rollback();
                     $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
                     return $response;
                 }
             } else {
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'overTime']));
+                $connection->rollback();
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'timeover']));
                 return $response;
             }
         }
+    }
+
+    public function sendEmailCertification ($user_id = null) {
+        if ($this->request->is('post')) {
+            $mailer = new Mailer();
+            $mailer->setTransport('mailjet');
+
+            $code = $this->generateCode();
+            $CommonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
+            $commonConfirmation = $CommonConfirmations->newEmptyEntity();
+            $commonConfirmation = $CommonConfirmations->patchEntity($commonConfirmation, ['confirmation_code' => $code, 'types' => 'email']);
+
+            if ($result = $CommonConfirmations->save($commonConfirmation)) {
+                try {
+                    // $host = HOST;
+                    // $sender = SEND_EMAIL;
+                    // $view = new \Cake\View\View($this->request, $this->response);
+                    // $view->set(compact('sender')); //이메일 템플릿에 파라미터 전달
+                    // $content = $view->element('email/findPw'); //이메일 템블릿 불러오기
+                    if ($res = $mailer->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'Email Confirmation'])
+                        ->setEmailFormat('html')
+                        ->setTo($this->request->getData('email'))
+                        ->setSubject('Exon Test Email')
+                        ->deliver('Confirmation Code : ' . $code)) 
+                        {
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'id' => $result->id]));
+                        return $response;
+                    
+                    } else {
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                        return $response;
+                    }
+    
+                } catch (Exception $e) {
+                    // echo ‘Exception : ’,  $e->getMessage(), “\n”;
+                    echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
+                }
+            } else {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                return $response;
+            }
+        }
+        $this->set(compact('user_id'));
+    }
+
+    public function confirmEmail($id = null)
+    {
+        $connection = ConnectionManager::get('default');
+        $connection->begin();
+        $CommonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
+        $commonConfirmation = $CommonConfirmations->find('all')->where(['id' => $id])->toArray();
+
+        if ($this->request->is('post')) {
+            
+            if (FrozenTime::now() < $commonConfirmation[0]->expired) {
+                
+                if($connection->update('users', ['email_cert' => '1'], ['id' => $this->request->getData('user_id')])) {
+                    $connection->commit();
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                    return $response;
+                
+                } else {
+                    $connection->rollback();
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                    return $response;
+                }
+
+            } else {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'timeover']));
+                return $response;
+            }
+        }
+    }
+
+    public function generateCode()
+    {
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
+        $code = '';
+        for ($i = 0; $i < 6; $i++) {
+            $code .= substr($characters, rand(0, strlen($characters)), 1);
+        }
+        return $code;
     }
 }
