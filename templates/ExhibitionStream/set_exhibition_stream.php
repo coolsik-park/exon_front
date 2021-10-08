@@ -86,13 +86,7 @@
     <div class="section-webinar3">
         <div class="webinar-cont">
             <div class="wb-cont1">
-            <video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup='{"fluid": true}'>
-                <source src="", type= "application/x-mpegURL">
-            </video-js>
-            <!-- <script>
-                var player = videojs('vid1');
-                player.play();
-            </script> -->
+                <video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup='{"fluid": true}'></video-js>
             </div>
             <div class="wb-cont2">
                 <input name="title" id="title" type="text" placeholder="(필수) 방송제목">
@@ -232,6 +226,11 @@
     }
 
     $("#amount").val(amount*time);
+
+    //방송 버튼 클릭시
+    $("#vid1").click(function () {
+        alert("결제 및 설정을 완료해주세요.");
+    });
 
     //저장
     $(document).on("click", "#save", function() {

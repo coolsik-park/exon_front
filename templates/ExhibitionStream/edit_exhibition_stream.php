@@ -90,13 +90,7 @@
     <div class="section-webinar3">
         <div class="webinar-cont">
             <div class="wb-cont1">
-            <video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup='{"fluid": true}'>
-                <source src="", type= "application/x-mpegURL">
-            </video-js>
-            <!-- <script>
-                var player = videojs('vid1');
-                player.play();
-            </script> -->
+                <video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup='{"fluid": true}'></video-js>
             </div>
             <div class="wb-cont2">
                 <input name="title" id="title" type="text" placeholder="(필수) 방송제목">
@@ -244,6 +238,15 @@
             $(this).remove();
         }
     });
+
+    //video.js 컨트롤
+    var address = "<?=$exhibitionStream->url?>"
+    window.onload = function () {
+        var player = videojs(document.querySelector('#vid1'));
+        player.src({
+                src: address, type: 'application/x-mpegURL' });
+        player.load();
+    }
 
     //저장
     $(document).on("click", "#save", function() {
