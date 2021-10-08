@@ -4,8 +4,6 @@
  * @var \App\Model\Entity\Exhibition $exhibition
  */
 ?>
-<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
 <?= $this->Form->create($exhibition, ['id' => 'editForm', 'enctype' => 'multipart/form-data'])?>
     <div id="container">    
@@ -178,6 +176,7 @@
                 </div>
                 <div class="sect8 mgtS1">
                     <h4 class="s-hty2">행사 설명</h4>
+                    <input type="hidden" id="hidden_detail" value="<?=$exhibition->detail_html?>">
                     <textarea id="detail_html" name="detail_html" cols="30" rows="10"></textarea>                    
                 </div>
             </div>
@@ -222,9 +221,23 @@
     </div>
 <?= $this->Form->end() ?>
 
+<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 <script>
+    //CKEditor 불러오기
+    CKEDITOR.replace('detail_html');
+
     //DB 데이터 불러오기
-    $("#mainImg").attr("src", "/<?=$exhibition->image_path?>/<?=$exhibition->image_name?>");
+    var img = "<?=$exhibition->image_name?>";
+    if (img != '') {
+        $("#mainImg").attr("src", "/<?=$exhibition->image_path?>/<?=$exhibition->image_name?>");
+    } else {
+        $("#mainImg").attr("src", "../../images/img-no3.png");
+    }
+    var detail = $("#hidden_detail").val();
+    if (detail != '') {
+        CKEDITOR.instances.detail_html.setData(detail);
+    }
+
     $("#title").val("<?=$exhibition->title?>");
     $("#description").val("<?=$exhibition->description?>");
     $("#title").val("<?=$exhibition->title?>");
@@ -253,7 +266,6 @@
         $('input:checkbox[name="require_sex"]').prop("checked", true); 
     }
     $("input:radio[name='require_cert']:radio[value='<?=$exhibition->require_cert?>']").prop("checked", true);
-    $("#detail_html").val("<?=$exhibition->detail_html?>");
     $("input:radio[name='email_notice']:radio[value='<?=$exhibition->email_notice?>']").prop("checked", true);
     $("input:radio[name='additional']:radio[value='<?=$exhibition->additional?>']").prop("checked", true);
 
@@ -368,9 +380,60 @@
     
     //저장
     $("button[name='save']").click(function() {
+        //Validation
+        if ($("#title").val().length == 0) {
+            alert("행사이름을 입력해주세요.");
+            $("#title").focus();
+            return false;
+        }
+
+        if ($("#apply_sdate").val().length == 0) {
+            alert("모집 시작일시를 입력해주세요.");
+            $("#apply_sdate").focus();
+            return false;
+        }
+
+        if ($("#apply_edate").val().length == 0) {
+            alert("모집 종료일시를 입력해주세요.");
+            $("#apply_edate").focus();
+            return false;
+        }
+
+        if ($("#sdate").val().length == 0) {
+            alert("행사 시작일시를 입력해주세요.");
+            $("#sdate").focus();
+            return false;
+        }
+
+        if ($("#edate").val().length == 0) {
+            alert("행사 종료일시를 입력해주세요.");
+            $("#edate").focus();
+            return false;
+        }
+
+        if ($("#name").val().length == 0) {
+            alert("담당자 이름을 입력해주세요.");
+            $("#name").focus();
+            return false;
+        }
+
+        if ($("#tel").val().length == 0) {
+            alert("담당자 연락처를 입력해주세요.");
+            $("#tel").focus();
+            return false;
+        }
+
+        if ($("#email").val().length == 0) {
+            alert("담당자 이메일을 입력해주세요.");
+            $("#email").focus();
+            return false;
+        }
+
         var formData = $("#editForm").serialize();
         formData = formData + '&status=1';
         formData = formData + '&action=add';
+        formData = formData + '&detail=' + CKEDITOR.instances.detail_html.getData();
+
         jQuery.ajax({
             url: "/exhibition/edit/<?=$id?>",
             method: 'PUT',
@@ -410,10 +473,18 @@
 
     //임시저장
     $("button[name='temp']").click(function() {
+        //Validation
+        if ($("#title").val().length == 0) {
+            alert("행사이름을 입력해주세요.");
+            $("#title").focus();
+            return false;
+        }
+
         var formData = $("#editForm").serialize();
         formData = formData + '&status=4';
         formData = formData + '&action=add';
-
+        formData = formData + '&detail=' + CKEDITOR.instances.detail_html.getData();
+        
         jQuery.ajax({
             url: "/exhibition/edit/<?=$id?>",
             method: 'PUT',
@@ -445,9 +516,6 @@
             }
         });
     });
-
-    //CKEditor 불러오기
-    CKEDITOR.replace('detail_html');
     
     //설문
     var i = 0; //설문 인덱스

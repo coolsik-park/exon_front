@@ -5,8 +5,6 @@
  * 
  */
 ?>
-<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
 <?= $this->Form->create($exhibition, ['id' => 'createForm', 'enctype' => 'multipart/form-data'])?>
     <div id="container">    
@@ -49,10 +47,10 @@
                     <h4 class="s-hty2">모집 일시</h4>
                     <div class="date-sett-wp">
                         <div class="date-sett">
-                            <?php echo $this->Form->control('apply_sdate', ['label' => '시작 일시', 'placeholder' => '시작날짜', 'class' => 'date-date', 'style' => 'width:370px; height:48.52px']); ?>
+                            <?php echo $this->Form->control('apply_sdate', ['id' => 'apply_sdate', 'label' => '시작 일시', 'placeholder' => '시작날짜', 'class' => 'date-date', 'style' => 'width:370px; height:48.52px']); ?>
                         </div>
                         <div class="date-sett">
-                            <?php echo $this->Form->control('apply_edate', ['label' => '종료 일시', 'class' => 'date-date', 'style' => 'width:370px; height:48.52px']); ?>
+                            <?php echo $this->Form->control('apply_edate', ['id' => 'apply_edate', 'label' => '종료 일시', 'class' => 'date-date', 'style' => 'width:370px; height:48.52px']); ?>
                         </div>               
                     </div>
                 </div>
@@ -60,10 +58,10 @@
                     <h4 class="s-hty2">행사 일시</h4>
                     <div class="date-sett-wp">
                         <div class="date-sett">
-                            <?php echo $this->Form->control('sdate', ['label' => '시작 일시', 'placeholder' => '시작날짜', 'class' => 'date-date', 'style' => 'width:370px; height:48.52px']); ?>
+                            <?php echo $this->Form->control('sdate', ['id' => 'sdate', 'label' => '시작 일시', 'placeholder' => '시작날짜', 'class' => 'date-date', 'style' => 'width:370px; height:48.52px']); ?>
                         </div>
                         <div class="date-sett">
-                            <?php echo $this->Form->control('edate', ['label' => '종료 일시', 'class' => 'date-date', 'style' => 'width:370px; height:48.52px']); ?>
+                            <?php echo $this->Form->control('edate', ['id' => 'edate', 'label' => '종료 일시', 'class' => 'date-date', 'style' => 'width:370px; height:48.52px']); ?>
                         </div>                
                     </div>
                 </div>
@@ -71,7 +69,7 @@
                     <div class="row2">
                         <div class="col-th"><h4 class="s-hty2">행사유료화</h4></div>
                         <div class="col-td">
-                            <span class="chk-dsg"><input type="radio" id="cost1" name="cost" value="free"><label for="cost1">무료</label></span>
+                            <span class="chk-dsg"><input type="radio" id="cost1" name="cost" value="free" checked="checked"><label for="cost1">무료</label></span>
                             <span class="chk-dsg"><input type="radio" id="cost2" name="cost" value="charged"><label for="cost2">유료</label></span>
                         </div>
                     </div>    
@@ -82,7 +80,7 @@
                 <div class="sect4">
                     <h4 class="s-hty2">공개 여부</h4>
                     <div class="ln-rdo">
-                        <span class="chk-dsg"><input type="radio" name="private" id="private1" value="1"><label for="private1">공개</label></span>
+                        <span class="chk-dsg"><input type="radio" name="private" id="private1" value="1" checked="checked"><label for="private1">공개</label></span>
                         <p class="p-noti">누구나 이 행사를 보고 참여 할 수 있습니다.</p>
                     </div>
                     
@@ -115,7 +113,7 @@
                 <div class="sect4 mgtS1">
                     <h4 class="s-hty2">참가자 승인 방법</h4>
                     <div class="ln-rdo">
-                        <span class="chk-dsg"><input type="radio" name="auto_approval" id="auto_approval1" value="1"><label for="auto_approval1">수동 승인</label></span>
+                        <span class="chk-dsg"><input type="radio" name="auto_approval" id="auto_approval1" value="1" checked="checked"><label for="auto_approval1">수동 승인</label></span>
                         <p class="p-noti">개설자가 승인한 참가자만 참여가 가능합니다.</p>
                     </div>
                     <div class="ln-rdo">
@@ -157,7 +155,7 @@
                     <h4 class="s-hty2">웨비나 접속 시 본인 인증</h4>
                     <p class="p-noti">웨비나 접속 시 인증 절차를 진행합니다.</p>
                     <div class="list-chks">
-                        <span class="chk-dsg"><input type="radio" name="require_cert" id="require_cert1" value="1"><label for="require_cert1">인증하기</label></span>
+                        <span class="chk-dsg"><input type="radio" name="require_cert" id="require_cert1" value="1" checked="checked"><label for="require_cert1">인증하기</label></span>
                         <span class="chk-dsg"><input type="radio" name="require_cert" id="require_cert2" value="0"><label for="require_cert2">건너뛰기</label></span>
                     </div>
                 </div>
@@ -172,7 +170,7 @@
                     <h4 class="s-hty3">확인 메일</h4>
                     <p class="p-noti2">행사 시작 1시간 전에 이메일로 행사 시작 시간을 알립니다. </p>
                     <div class="ln-rdo">
-                        <span class="chk-dsg"><input type="radio" name="email_notice" id="email_notice1" value="1"><label for="email_notice1">사용</label></span>
+                        <span class="chk-dsg"><input type="radio" name="email_notice" id="email_notice1" value="1" checked="checked"><label for="email_notice1">사용</label></span>
                     </div>
                     <div class="ln-rdo">
                         <span class="chk-dsg"><input type="radio" name="email_notice" id="email_notice2" value="0"><label for="email_notice2">사용 안함</label></span>
@@ -182,7 +180,7 @@
                     <h4 class="s-hty3">추가 신청</h4>
                     <p class="p-noti2">모집 일시가 종료된 후에도 신청이 가능합니다. 이 때 신청자는 자동으로 대기 처리 됩니다.</p>
                     <div class="ln-rdo">
-                        <span class="chk-dsg"><input type="radio" name="additional" id="additional1" value="1"><label for="additional1">사용</label></span>
+                        <span class="chk-dsg"><input type="radio" name="additional" id="additional1" value="1" checked="checked"><label for="additional1">사용</label></span>
                     </div>
                     <div class="ln-rdo">
                         <span class="chk-dsg"><input type="radio" name="additional" id="additional2" value="0"><label for="additional2">사용 안함</label></span>
@@ -194,7 +192,7 @@
                         <button id="surveyAdd" type="button" class="btn-ty4">+ 설문추가</button>
                     </div>   
                     <div id="survey">                 
-                        <div id="survey_0" class="survey-bx">
+                        <!-- <div id="survey_0" class="survey-bx">
                             <div class="survey-bx-sect1">
                                 <div class="tits">
                                     <select id="is_multiple_0" name="is_multiple[]">
@@ -204,7 +202,6 @@
                                     <div class="chk-dsg-wp">
                                         <span class="chk-dsg"><input type="checkbox" name="is_duplicate[]" id="dup0" value="Y"><label for="dup0">보기 중복 선택 가능</label></span>
                                         <input type="checkbox" name="is_duplicate[]" id="dup_hidden_0" value="N" checked="checked" style="display:none">
-                                        <!-- <span class="chk-dsg"><input type="checkbox" name="surv1" id="surv1-2" value="1"><label for="surv1-2">필수</label></span> -->
                                     </div>                                
                                 </div>
                                 <div class="btns">                                
@@ -227,7 +224,7 @@
                                     <button type="button" class="btn-del" onclick="deleteRow(0)">보기 삭제</button>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -240,6 +237,7 @@
     </div>
 <?= $this->Form->end() ?>
 
+<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 <script>
     //메인 이미지 삽입 
     $("#image").change(function() {
@@ -319,9 +317,59 @@
     
     //개설
     $("button[name='save']").click(function() {
+        //Validation
+        if ($("#title").val().length == 0) {
+            alert("행사이름을 입력해주세요.");
+            $("#title").focus();
+            return false;
+        }
+
+        if ($("#apply_sdate").val().length == 0) {
+            alert("모집 시작일시를 입력해주세요.");
+            $("#apply_sdate").focus();
+            return false;
+        }
+
+        if ($("#apply_edate").val().length == 0) {
+            alert("모집 종료일시를 입력해주세요.");
+            $("#apply_edate").focus();
+            return false;
+        }
+
+        if ($("#sdate").val().length == 0) {
+            alert("행사 시작일시를 입력해주세요.");
+            $("#sdate").focus();
+            return false;
+        }
+
+        if ($("#edate").val().length == 0) {
+            alert("행사 종료일시를 입력해주세요.");
+            $("#edate").focus();
+            return false;
+        }
+
+        if ($("#name").val().length == 0) {
+            alert("담당자 이름을 입력해주세요.");
+            $("#name").focus();
+            return false;
+        }
+
+        if ($("#tel").val().length == 0) {
+            alert("담당자 연락처를 입력해주세요.");
+            $("#tel").focus();
+            return false;
+        }
+
+        if ($("#email").val().length == 0) {
+            alert("담당자 이메일을 입력해주세요.");
+            $("#email").focus();
+            return false;
+        }
+
         var formData = $("#createForm").serialize();
         formData = formData + '&status=1';
         formData = formData + '&action=add';
+        formData = formData + '&detail=' + CKEDITOR.instances.detail_html.getData();
 
         jQuery.ajax({
             url: "/exhibition/add/",
@@ -362,9 +410,17 @@
 
     //임시저장
     $("button[name='temp']").click(function() {
+        //Validation
+        if ($("#title").val().length == 0) {
+            alert("행사이름을 입력해주세요.");
+            $("#title").focus();
+            return false;
+        }
+
         var formData = $("#createForm").serialize();
         formData = formData + '&status=4';
         formData = formData + '&action=add';
+        formData = formData + '&detail=' + CKEDITOR.instances.detail_html.getData();
 
         jQuery.ajax({
             url: "/exhibition/add/",
