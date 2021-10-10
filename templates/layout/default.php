@@ -46,7 +46,7 @@
     <header id="header">
         <!-- pc -->
         <div class="static">
-            <h1 class="h-logo"><a href="http://121.126.223.225:8765">EXON</a></h1>
+            <h1 class="h-logo"><a href="/">EXON</a></h1>
             <div class="header-search">               
                 <form action="#">
                     <fieldset>
