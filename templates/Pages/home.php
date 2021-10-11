@@ -20,7 +20,7 @@
             <div class="static">
                 <div class="main-sect1">
                     <div><a href="#" class="arr-link1"><span>EXON 소개</span></a></div>
-                    <div><a href="#" class="arr-link1"><span>행사개설</span></a></div>
+                    <div><a href="/exhibition/add" class="arr-link1"><span>행사개설</span></a></div>
                 </div>
                 <div class="main-sect2">
                     <h2 class="h-ty1"><span class="t1">Top 10</span><span class="t2">지금 핫한 전시 10</span></h2>

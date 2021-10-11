@@ -110,9 +110,10 @@
                 </div>
             </div>
             <!-- item -->
-            <?php 
+            <?php
+                if ($beforeParentData[0] != '') { 
                     foreach ($beforeParentData as $parentData) {
-                ?>
+            ?>
             <div class="p-data-item-wp">
                 <label class="chk-dsg2"><input type="checkbox" id="checked[]" name="checked[]"
                         value=<?=$parentData['id'] ?>><span>선택</span></label>
@@ -122,14 +123,20 @@
                     </h3>
                     <?php
                             if ($parentData['is_multiple'] == 'Y') {
+                                $count = 0;
                                 foreach ($beforeChildData[$parentData['id']] as $childData) {
+                                    $count += $childData['count'];
+                                }
+                                
+                                foreach ($beforeChildData[$parentData['id']] as $childData) {
+                                    $percentage = round($childData['count'] / $count * 100);
                         ?>
                     <ul class="list">
                         <li>
                             <div class="p-data"><span class="tx">
                                     <?= $childData['text'] ?>
-                                </span><span class="p-bar" style="width:20%"></span><span class="p-bar-tx">
-                                    <?= $childData['count'] ?>
+                                </span><span class="p-bar" style="width:<?=$percentage?>%"></span><span class="p-bar-tx">
+                                    <?= $childData['count'] ?> (<?=$percentage?>%)
                                 </span></div>
                         </li>
                     </ul>
@@ -156,6 +163,7 @@
                 </div>
             </div>
             <?php
+                        }
                     }
                 ?>
         </div>
@@ -167,7 +175,8 @@
 
             <!-- item -->
             <?php 
-                    foreach ($normalParentData as $parentData) {
+                    if ($normalParentData[0] != '') {
+                        foreach ($normalParentData as $parentData) {
                 ?>
             <div class="p-data-item-wp">
                 <label class="chk-dsg2"><input type="checkbox" id="checked[]" name="checked[]"
@@ -178,14 +187,20 @@
                     </h3>
                     <?php
                             if ($parentData['is_multiple'] == 'Y') {
+                                $count = 0;
                                 foreach ($normalChildData[$parentData['id']] as $childData) {
+                                    $count += $childData['count'];
+                                }
+
+                                foreach ($normalChildData[$parentData['id']] as $childData) {
+                                    $percentage = round($childData['count'] / $count * 100);
                         ?>
                     <ul class="list">
                         <li>
                             <div class="p-data"><span class="tx">
                                     <?= $childData['text'] ?>
-                                </span><span class="p-bar" style="width:20%"></span><span class="p-bar-tx">
-                                    <?= $childData['count'] ?>
+                                </span><span class="p-bar" style="width:<?=$percentage?>%"></span><span class="p-bar-tx">
+                                    <?= $childData['count'] ?> (<?=$percentage?>%)
                                 </span></div>
                         </li>
                     </ul>
@@ -212,6 +227,7 @@
                 </div>
             </div>
             <?php
+                        }
                     }
                 ?>
         </div>

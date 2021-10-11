@@ -34,7 +34,6 @@
             <div class="cert-sect2">
                 <div class="label-wp">
                     <label for="cert1-1">인증번호</label><input type="text" id="cert1-1" placeholder="인증번호">
-                    <input type="hidden" id="lastId">
                     <p id="codeNoti" class="noti hc1"></p>
                 </div> 
                 <button id="reSend" type="button" class="btn-ty2 gray">재발송</button>
@@ -48,6 +47,7 @@
 </body>
 
 <script> 
+    var last_id = 0;
     $("#close").click(function () {
         window.close();
     });
@@ -60,7 +60,7 @@
         }
 
         jQuery.ajax({
-            url: "/users/send-sms-certified", 
+            url: "/exhibition-stream/send-sms-certification", 
             method: 'POST',
             type: 'json',
             data: {
@@ -69,7 +69,7 @@
         }).done(function(data) {
             if (data.status == 'success') {
                 alert("인증번호를 발송하였습니다.");
-                $("#lastId").val(data.id);
+                last_id = data.id;
                 $("#send").html("<span id='timer'></span>");
                 $("#send").attr("disabled", "dusabled");
 
@@ -92,7 +92,7 @@
         }
         
         jQuery.ajax({
-            url: "/users/send-sms-certified", 
+            url: "/exhibition-stream/send-sms-certification", 
             method: 'POST',
             type: 'json',
             data: {
@@ -101,7 +101,7 @@
         }).done(function(data) {
             if (data.status == 'success') {
                 alert("인증번호를 발송하였습니다.");
-                $("#lastId").val(data.id);
+                last_id = data.id;
 
                 $("#send").html("<span id='timer'></span>");
                 $("#send").attr("disabled", "dusabled");
@@ -118,7 +118,7 @@
     });
 
     $("#confirm").click(function () {
-        var user_id = '<?php echo $user_id ?>';
+        var user_id = '<?=$user_id?>';
 
         if ($("#cert1-1").val() == "") {
             $("#codeNoti").html("인증번호를 입력해 주세요.");
@@ -127,7 +127,7 @@
         }
         
         jQuery.ajax({
-            url: "/users/confirm-sms/" + $("#lastId").val(), 
+            url: "/exhibition-stream/confirm-sms/" + last_id, 
             method: 'POST',
             type: 'json',
             data: {

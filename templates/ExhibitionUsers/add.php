@@ -179,9 +179,18 @@
     <?= $this->Form->end() ?>
 </div>
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
+    //유저 정보 불러오기
+    <?php if (!empty($user)) : ?>
+    $("#users_email").val("<?=$user->email?>");
+    $("#users_name").val("<?=$user->name?>");
+    $("#users_hp").val("<?=$user->hp?>");      
+    $("#users_sex").val("<?=$user->sex?>").prop("selected", true);
+    $("#company").val("<?=$user->company?>");
+    $("#title").val("<?=$user->title?>");
+    <?php endif; ?>
+
     $(":input:radio").change(function () {
         var id = $(this).attr("id");
         var name = $(this).attr("name")
@@ -190,6 +199,33 @@
     });
 
     $("#submit").click(function () {
+        //Validation
+        if ($("#users_email").val().length == 0) {
+            alert("이메일을 입력해주세요.");
+            $("#users_email").focus();
+            return false;
+        }
+        
+        if ($("#users_name").val().length == 0) {
+            alert("이름을 입력해주세요.");
+            $("#users_name").focus();
+            return false;
+        }
+
+        if ($("#users_hp").val().length == 0) {
+            alert("전화번호를 입력해주세요.");
+            $("#users_hp").focus();
+            return false;
+        }
+
+        var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+        if (!getMail.test($("#users_email").val())) {
+            alert("이메일 형식을 확인해주세요.");
+            $("#users_email").focus();
+            return false;
+        }
+
+        //결제
         var IMP = window.IMP; 
         IMP.init('imp43823679'); //아임포트 id -> 추후 교체
         IMP.request_pay({

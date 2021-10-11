@@ -46,7 +46,7 @@
     <header id="header">
         <!-- pc -->
         <div class="static">
-            <h1 class="h-logo"><a href="#">EXON</a></h1>
+            <h1 class="h-logo"><a href="/">EXON</a></h1>
             <div class="header-search">               
                 <form action="#">
                     <fieldset>
@@ -64,7 +64,9 @@
                     <a href="#">행사신청내역</a>
                 <?php else: ?>
                 <!-- log after -->
-                    <a href="/Users/logout" class="btn-bor">로그아웃</a>
+                    <a href="/Users/logout">로그아웃</a>
+                    <a href="/Exhibition/index">개설행사목록</a>
+                    <a href="/Exhibition-users/sign-up">신청행사목록</a>
                 <!-- // -->
                 <?php endif;?>
             </div>            

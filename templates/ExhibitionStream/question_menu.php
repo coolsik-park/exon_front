@@ -12,11 +12,6 @@
             </ul> 
             <div id = "questionContent"></div> 
         </div>
-        <div class="webinar-cont-ty1-btm">
-            <div class="poll-submit">                                        
-                <button type="submit" class="btn-ty4 redbg">저장</button>
-            </div>
-        </div>
     </div>                               
 </div>
 

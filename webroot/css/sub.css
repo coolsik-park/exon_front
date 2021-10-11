@@ -528,6 +528,13 @@
 .mouse-area{padding:80px 0;text-align: center;}
 .mouse-area p{margin-top:1.25rem;font-size: 1.25rem;line-height: 1.45;color: #afafaf;}
 
+/*21-10-04*/
+.poll-item-b-tit{font-size: 20px;padding:0 0 20px;font-weight: 500;}
+.poll-item-b{padding:30px 0;border-top:1px solid #afafaf }
+.poll-item-b .chk-dsg input + label:before{top:2%;margin:0}
+.poll-item-b .b-list{margin-top: 20px;}
+.poll-item-b .b-list p{margin:14px 0 0;font-size:1rem;line-height: 1.4;}
+
 @media (max-width: 1440px) {
     .section-webinar3{width:96%;max-width: 1200px;}
     .section-webinar3 .webinar-cont{width:100%;}
@@ -676,6 +683,9 @@
     .webinar-cont-ty2 .popup-body .popup-btm{justify-content: center;}
     .wb-cont3{padding:0 4vw}
     .graph-bx{padding:3vw}
+
+    /*21-10-04*/
+    .poll-item-b .chk-dsg input + label:before{top:8%}
     
 }
 
@@ -874,5 +884,8 @@
     .br-mo{display: none;}
     .apply-sect1 .s-hty1{margin-bottom: 1rem;}
     .graph-bx{padding:4vw}
+
+    /*21-10-04*/
+    .poll-item-b .chk-dsg input + label:before{top:2%}
   
 }
