@@ -813,7 +813,7 @@ class ExhibitionStreamController extends AppController
             $coupon = $this->getTableLocator()->get('Coupon')->find('all')->where(['users_id' => $this->Auth->user()->id, 'product_type' => 'S', 'status' => 2])->toArray();
             $exist = 0;
             $coupon_id = 0;
-            $coupon_amount = 0;
+            $discount_rate = 0;
             $start_date = 0;
             $end_date = 0;
             $date = (int)FrozenTime::now()->format('Ymd');
@@ -823,7 +823,7 @@ class ExhibitionStreamController extends AppController
                 
                 if ($coupon[$i]['code'] == $this->request->getData('coupon_code')) {
                     $coupon_id = $coupon[$i]['id'];
-                    $coupon_amount = $coupon[$i]['amount']; 
+                    $discount_rate = $coupon[$i]['discount_rate']; 
                     $exist = 1;
                     $start_date = (int)$coupon[$i]['sdate'];
                     $end_date = (int)$coupon[$i]['edate'];
@@ -831,7 +831,7 @@ class ExhibitionStreamController extends AppController
             }
 
             if ($exist == 1 && $start_date <= $date && $date <= $end_date) {
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'coupon_id' => $coupon_id, 'amount' => $coupon_amount]));
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'coupon_id' => $coupon_id, 'discount_rate' => $discount_rate]));
                 return $response;
                 
             } else {

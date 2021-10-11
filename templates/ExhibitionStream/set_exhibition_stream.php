@@ -204,8 +204,9 @@
     
     var amount = 0;
     var time = 0;
-    var coupon_amount = 0;
+    var discount_rate = 0;
     var coupon_id = 0;
+    var coupon_amount = 0;
 
     switch($("#people").val()) {
         case "50" : amount = 200000; break;
@@ -362,10 +363,11 @@
         }).done(function(data) {
             if (data.status == 'success') {
                 alert("쿠폰이 적용되었습니다.");
-                $("#amount").val($("#amount").val() - data.amount);
-                coupon_amount = data.amount;
+                coupon_amount = $("#amount").val() * data.discount_rate / 100;
+                $("#amount").val($("#amount").val() - ($("#amount").val() * data.discount_rate / 100));
+                discount_rate = data.discount_rate
                 coupon_id = data.coupon_id;
-    
+                   
             } else {
                 alert("쿠폰 번호를 다시 확인해주세요.");
             }
@@ -458,8 +460,6 @@
 
     //금액 설정
     $(document).on("change", "#people", function () {
-        var amount = 0;
-        var time = 0;
 
         switch($("#people").val()) {
             case "50" : amount = 200000; break;
@@ -479,12 +479,10 @@
             case "36000" : time = 2; break;
         }
 
-        $("#amount").val(amount*time-coupon_amount);
+        $("#amount").val((amount*time) - coupon_amount);
     });
 
     $(document).on("change", "#time", function () {
-        var amount = 0;
-        var time = 0;
 
         switch($("#people").val()) {
             case "50" : amount = 200000; break;
@@ -504,7 +502,7 @@
             case "36000" : time = 2; break;
         }
 
-        $("#amount").val(amount*time-coupon_amount);
+        $("#amount").val((amount*time) - coupon_amount);
     });
 
     //탭 컨트롤    

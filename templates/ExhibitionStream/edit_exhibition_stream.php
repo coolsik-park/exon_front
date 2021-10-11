@@ -224,8 +224,9 @@
     var amount = $("#amount").val();
     var time = $("#time").val();
     var people = $("#people").val();
-    var coupon_amount = 0;
+    var discount_rate = 0;
     var coupon_id = 0;
+    var coupon_amount = 0;
 
     $("#time").children().each(function () {
         if (parseInt($(this).val()) < time) {
@@ -332,8 +333,9 @@
         }).done(function(data) {
             if (data.status == 'success') {
                 alert("쿠폰이 적용되었습니다.");
-                $("#amount").val($("#amount").val() - data.amount);
-                coupon_amount = data.amount;
+                coupon_amount = $("#amount").val() * data.discount_rate / 100;
+                $("#amount").val($("#amount").val() - ($("#amount").val() * data.discount_rate / 100));
+                discount_rate = data.discount_rate
                 coupon_id = data.coupon_id;
     
             } else {
@@ -426,8 +428,6 @@
 
     //금액 설정
     $(document).on("change", "#people", function () {
-        var amount = 0;
-        var time = 0;
 
         switch($("#people").val()) {
             case "50" : amount = 200000; break;
@@ -447,7 +447,7 @@
             case "36000" : time = 2; break;
         }
 
-        $("#amount").val(amount*time-coupon_amount - <?=$exhibitionStream->amount?>);
+        $("#amount").val(amount*time - coupon_amount - <?=$exhibitionStream->coupon_amount?> - <?=$exhibitionStream->amount?>);
         if ($("#amount").val() == 0) {
             $("#is_paid").val(1);
         } else {
@@ -456,8 +456,6 @@
     });
 
     $(document).on("change", "#time", function () {
-        var amount = 0;
-        var time = 0;
 
         switch($("#people").val()) {
             case "50" : amount = 200000; break;
@@ -477,7 +475,7 @@
             case "36000" : time = 2; break;
         }
 
-        $("#amount").val(amount*time-coupon_amount - <?=$exhibitionStream->amount?>);
+        $("#amount").val(amount*time - coupon_amount - <?=$exhibitionStream->coupon_amount?> - <?=$exhibitionStream->amount?>);
         if ($("#amount").val() == 0) {
             $("#is_paid").val(1);
         } else {
