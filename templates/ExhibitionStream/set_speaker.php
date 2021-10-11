@@ -8,7 +8,6 @@
                         <button id="add" type="button" class="ph-item-add">추가</button>
                     </div>                                                    
                 </li>
-<<<<<<< HEAD
                 <?php $displayIndex = 0; ?>
                 <?php if (!empty($displays)) : ?>
                 <?php foreach ($displays as $display) : ?>
@@ -17,26 +16,10 @@
                         <div class="photo"><img id="speakerImg_<?=$displayIndex?>" src="/<?=$display->image_path?>/<?=$display->image_name?>"></div>
                         <div class="tx"><input type="text" style="width:90px; height:24px;" value="<?=$display->name?>" readonly></div>
                         <button type="button" class="btn-del" onclick="deleteSpeaker(<?=$displayIndex?>, <?=$display->id?>)">삭제</button>
-=======
-            </ul>
-        </div>
-        <!-- <div id="wbCon2" class="on">
-            <h4 class="sr-only">연사자</h4>
-            <ul class="ph-items">
-                <?php $displayIndex = 0; ?>
-                <?php foreach ($displays as $display) : ?>
-                <li id="speaker_<?=$displayIndex?>">
-                    <div class="ph-item">
-                        <label for="<?=$displayIndex?>"><div class="photo"><img id="speakerImg_<?=$displayIndex?>" src="/<?=$display->image_path?>/<?=$display->image_name?>"></div>
-                        <input type="file" id="<?=$displayIndex?>" name="image[]" style="display:none">
-                        <div class="tx"><input type="text" name="name[]" style="width:90px; height:24px;" value="<?=$display->name?>"></div>
-                        <button type="button" class="btn-del" onclick="deleteSpeaker(<?=$speakerIndex?>)">삭제</button>
->>>>>>> bomi
                     </div>
                 </li>
                 <?php $displayIndex++; ?>
                 <?php endforeach; ?>
-<<<<<<< HEAD
                 <?php endif; ?>
             </ul>
         </div>
@@ -44,19 +27,10 @@
     <div class="webinar-cont-ty1-btm">
         <div class="poll-submit">                                        
             <button type="button" id="saveSpeaker" class="btn-ty4 redbg">저장</button>
-=======
-            </ul>
-        </div> -->
-    </div>
-    <div class="webinar-cont-ty1-btm">
-        <div class="poll-submit">                                        
-            <button type="button" id="save" class="btn-ty4 redbg">저장</button>
->>>>>>> bomi
         </div>
     </div>
 </form>
 
-<<<<<<< HEAD
 <script> 
     //발표자 추가
     var speakerIndex = <?=$displayIndex?>;
@@ -81,31 +55,6 @@
         $("#speakerUl").append(html);
         $("#speaker_" + index).remove();
         speakerIndex -= 1;
-=======
-
-
-<script>  
-    //발표자 추가
-    <?php $speakerIndex = 0; ?>
-    $("#add").click(function () {
-        var html = '';
-        html += '<li id="speaker_<?=$speakerIndex?>"">';
-        html += '   <div class="ph-item">';
-        html += '       <label for="<?=$speakerIndex?>"><div class="photo"><img id="speakerImg_<?=$speakerIndex?>"></div>';
-        html += '       <input type="file" id="<?=$speakerIndex?>" name="image[]" style="display:none">';
-        html += '       <div class="tx"><input type="text" name="name[]" style="width:90px; height:24px;"></div>';
-        html += '       <button type="button" class="btn-del" onclick="deleteSpeaker(<?=$speakerIndex?>)">삭제</button>';
-        html += '   </div>';
-        html += '</li>'
-        $("#speakerUl").append(html);
-        <?php $speakerIndex++; ?>
-    });
-
-    //발표자 삭제
-    function deleteSpeaker(index) {
-        $("#speaker_" + index).remove();
-        <?php $speakerIndex--; ?>
->>>>>>> bomi
     };
 
     //사진 추가
@@ -131,7 +80,6 @@
             }
         });
     });
-<<<<<<< HEAD
 
     //저장
     $(document).on("click", "#saveSpeaker", function () {
@@ -152,20 +100,6 @@
             }
         }
         
-=======
-
-    //저장
-    $("#save").click(function () {
-        var formData = new FormData();
-        var images = document.getElementsByName('image[]');
-        for (var i = 0; i < images.length; i++) {
-            formData.append('images[]', images[i].files[0]);
-        }
-        var names = document.getElementsByName('name[]');
-        for (var i = 0; i < names.length; i++) {
-            formData.append('names[]', names[i].value);
-        }
->>>>>>> bomi
         jQuery.ajax({
             url: '/exhibition-stream/set-speaker/<?=$id?>',
             processData: false,
