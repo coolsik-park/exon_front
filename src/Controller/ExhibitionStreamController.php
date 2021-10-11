@@ -157,48 +157,71 @@ class ExhibitionStreamController extends AppController
                     $response = $this->response->withType('json')->withStringBody(json_encode(['status' => '이미지 확장자명을 확인해주세요.',]));
                     return $response;
                 }
+
             } else {
                 $connection = ConnectionManager::get('default');
                 $connection->begin();
 
                 $names = $this->request->getData('names');
                 $images = $this->request->getData('images');
-                $count = count($names);
+                $speaker_dels = $this->request->getData("speaker_dels");
+            
+                if (!empty($names)) {
+                    $count = count($names);
                 
-                for ($i = 0; $i < $count; $i++) {
-                    $exhibitionSpeaker = $ExhibitionSpeaker->newEmptyEntity();
-                    $exhibitionSpeaker->name = $names[$i];
-                    $exhibitionSpeaker->exhibition_id = $id;
-                    
-                    if ($result = $ExhibitionSpeaker->save($exhibitionSpeaker)) {
-                        $img = $images[$i];
-                        $imgName = $img->getClientFilename();
-                        $index = strpos(strrev($imgName), strrev('.'));
-                        $expen = strtolower(substr($imgName, ($index * -1)));
-                        $path = 'upload' . DS . 'speaker' . DS . date("Y") . DS . date("m");
-
-                        if (!file_exists(WWW_ROOT . $path)) {
-                            $oldMask = umask(0);
-                            mkdir(WWW_ROOT . $path, 0777, true);
-                            chmod(WWW_ROOT . $path, 0777);
-                            umask($oldMask);
-                        }
-                        $imgName = $result->id . "_speaker." . $expen;
-                        $destination = WWW_ROOT . $path . DS . $imgName;
-
-                        if ($connection->update('exhibition_speaker', ['image_path' => $path, 'image_name' => $imgName], ['id' => $result->id])) {
-                            $img->moveTo($destination);
-
+                    for ($i = 0; $i < $count; $i++) {
+                        $exhibitionSpeaker = $ExhibitionSpeaker->newEmptyEntity();
+                        $exhibitionSpeaker->name = $names[$i];
+                        $exhibitionSpeaker->exhibition_id = $id;
+                        
+                        if ($result = $ExhibitionSpeaker->save($exhibitionSpeaker)) {
+                            $img = $images[$i];
+                            
+                            if ($img != 'undefined') {
+                                $imgName = $img->getClientFilename();
+                                $index = strpos(strrev($imgName), strrev('.'));
+                                $expen = strtolower(substr($imgName, ($index * -1)));
+                                $path = 'upload' . DS . 'speaker' . DS . date("Y") . DS . date("m");
+    
+                                if (!file_exists(WWW_ROOT . $path)) {
+                                    $oldMask = umask(0);
+                                    mkdir(WWW_ROOT . $path, 0777, true);
+                                    chmod(WWW_ROOT . $path, 0777);
+                                    umask($oldMask);
+                                }
+                                $imgName = $result->id . "_speaker." . $expen;
+                                $destination = WWW_ROOT . $path . DS . $imgName;
+    
+                                if ($connection->update('exhibition_speaker', ['image_path' => $path, 'image_name' => $imgName], ['id' => $result->id])) {
+                                    $img->moveTo($destination);
+    
+                                } else {
+                                    $connection->rollback(); 
+                                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                                    return $response;
+                                }
+                            }
+                            
                         } else {
-                            $connection->rollback(); 
+                            $connection->rollback();
                             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
                             return $response;
                         }
+                    }
+                }
 
-                    } else {
-                        $connection->rollback();
-                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
-                        return $response;
+                if (!empty($speaker_dels)) {
+                    $count = count($speaker_dels);
+
+                    for ($i = 0; $i < $count; $i ++) {
+
+                        if ($speaker_dels[$i] != 0) {
+                            $exhibitionSpeaker = $ExhibitionSpeaker->get($speaker_dels[$i]);
+                            if (!$ExhibitionSpeaker->delete($exhibitionSpeaker)) {
+                                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                                return $response;
+                            }
+                        }
                     }
                 }
                 $connection->commit();

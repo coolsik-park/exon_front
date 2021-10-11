@@ -54,6 +54,8 @@ class ExhibitionSpeakerTable extends Table
 
         $this->hasMany('ExhibitionQuestion', [
             'foreignKey' => 'target_users_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
     }
 
