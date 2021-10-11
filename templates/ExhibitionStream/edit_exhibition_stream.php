@@ -221,7 +221,6 @@
     $("#url").val("<?=$exhibitionStream->url?>");
     $("#tab").val("<?=$exhibitionStream->tab?>");
 
-    var amount = $("#amount").val();
     var time = $("#time").val();
     var people = $("#people").val();
     var discount_rate = 0;
@@ -274,8 +273,26 @@
             data: formData
         }).done(function(data) {
             if (data.status == 'success') {
-                alert("저장되었습니다.");
-                location.reload();
+                var coupon_code = $("#coupon_code").val();
+                        
+                if (coupon_code != '') {
+                    jQuery.ajax({
+                        url: "/exhibition-stream/change-coupon-status", 
+                        method: 'POST',
+                        type: 'json',
+                        data: {
+                            coupon_code: coupon_code,
+                        }
+                    }). done(function () {
+                        alert("저장되었습니다.");
+                        location.reload();
+                    });
+                
+                } else {
+                    alert("저장되었습니다.");
+                    location.reload();
+                }
+
             } else {
                 alert("오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
             }
@@ -378,39 +395,16 @@
                     }
                 }).done(function(data) {
                     if (data.status == 'success') { 
-                        var coupon_code = $("#coupon_code").val();
-                        
-                        if (coupon_code != '') {
-                            jQuery.ajax({
-                                url: "/exhibition-stream/change-coupon-status", 
-                                method: 'POST',
-                                type: 'json',
-                                data: {
-                                    coupon_code: coupon_code,
-                                }
-                            }).done(function() {
-                                $("#is_paid").val(1);
+                        $("#is_paid").val(1);
+                        $("#pay_id").val(data.pay_id);
 
-                                var msg = '결제가 완료되었습니다.';
-                                msg += '\n고유ID : ' + rsp.imp_uid;
-                                msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-                                msg += '\n결제 금액 : ' + rsp.paid_amount;
-                                msg += '\n카드 승인번호 : ' + rsp.apply_num; 
+                        var msg = '결제가 완료되었습니다.';
+                        msg += '\n고유ID : ' + rsp.imp_uid;
+                        msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+                        msg += '\n결제 금액 : ' + rsp.paid_amount;
+                        msg += '\n카드 승인번호 : ' + rsp.apply_num; 
 
-                                alert(msg);
-                            });
-                        
-                        } else {
-                            $("#is_paid").val(1);
-
-                            var msg = '결제가 완료되었습니다.';
-                            msg += '\n고유ID : ' + rsp.imp_uid;
-                            msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-                            msg += '\n결제 금액 : ' + rsp.paid_amount;
-                            msg += '\n카드 승인번호 : ' + rsp.apply_num; 
-
-                            alert(msg);
-                        }
+                        alert(msg);
 
                     } else {
                         alert("결제에 실패하였습니다. 잠시 후 다시 시도해 주세요.")
@@ -427,27 +421,52 @@
     });
 
     //금액 설정
+    var amount = 0;
+    var halfday_price = [];
+    var allday_price = [];
+    
+    var i = 50;
+    <?php foreach ($prices as $price) : ?>
+        halfday_price[i] = <?=$price->halfday_price?>;
+        allday_price[i] = <?=$price->allday_price?>;
+        i += 50; 
+    <?php endforeach; ?>
+
     $(document).on("change", "#people", function () {
 
-        switch($("#people").val()) {
-            case "50" : amount = 200000; break;
-            case "100" : amount = 400000; break;
-            case "150" : amount = 600000; break;
-            case "200" : amount = 800000; break;
-            case "250" : amount = 1000000; break;
-            case "300" : amount = 1200000; break;
-            case "350" : amount = 1400000; break;
-            case "400" : amount = 1600000; break;
-            case "450" : amount = 1800000; break;
-            case "500" : amount = 2000000; break;
-        }
+        if ($("#time").val() == 18000) {
+            
+            switch($("#people").val()) {
+                case "50" : amount = halfday_price[50]; break;
+                case "100" : amount = halfday_price[100]; break;
+                case "150" : amount = halfday_price[150]; break;
+                case "200" : amount = halfday_price[200]; break;
+                case "250" : amount = halfday_price[250]; break;
+                case "300" : amount = halfday_price[300]; break;
+                case "350" : amount = halfday_price[350]; break;
+                case "400" : amount = halfday_price[400]; break;
+                case "450" : amount = halfday_price[450]; break;
+                case "500" : amount = halfday_price[500]; break;
+            }
 
-        switch($("#time").val()) {
-            case "18000" : time = 1; break;
-            case "36000" : time = 2; break;
-        }
+        } else {
 
-        $("#amount").val(amount*time - coupon_amount - <?=$exhibitionStream->coupon_amount?> - <?=$exhibitionStream->amount?>);
+            switch($("#people").val()) {
+                case "50" : amount = allday_price[50]; break;
+                case "100" : amount = allday_price[100]; break;
+                case "150" : amount = allday_price[150]; break;
+                case "200" : amount = allday_price[200]; break;
+                case "250" : amount = allday_price[250]; break;
+                case "300" : amount = allday_price[300]; break;
+                case "350" : amount = allday_price[350]; break;
+                case "400" : amount = allday_price[400]; break;
+                case "450" : amount = allday_price[450]; break;
+                case "500" : amount = allday_price[500]; break;
+            }
+        }
+        coupon_amount = amount * discount_rate / 100;
+
+        $("#amount").val(amount - coupon_amount - <?=$exhibitionStream->coupon_amount?> - <?=$exhibitionStream->amount?>);
         if ($("#amount").val() == 0) {
             $("#is_paid").val(1);
         } else {
@@ -457,25 +476,39 @@
 
     $(document).on("change", "#time", function () {
 
-        switch($("#people").val()) {
-            case "50" : amount = 200000; break;
-            case "100" : amount = 400000; break;
-            case "150" : amount = 600000; break;
-            case "200" : amount = 800000; break;
-            case "250" : amount = 1000000; break;
-            case "300" : amount = 1200000; break;
-            case "350" : amount = 1400000; break;
-            case "400" : amount = 1600000; break;
-            case "450" : amount = 1800000; break;
-            case "500" : amount = 2000000; break;
-        }
+        if ($("#time").val() == 18000) {
+            
+            switch($("#people").val()) {
+                case "50" : amount = halfday_price[50]; break;
+                case "100" : amount = halfday_price[100]; break;
+                case "150" : amount = halfday_price[150]; break;
+                case "200" : amount = halfday_price[200]; break;
+                case "250" : amount = halfday_price[250]; break;
+                case "300" : amount = halfday_price[300]; break;
+                case "350" : amount = halfday_price[350]; break;
+                case "400" : amount = halfday_price[400]; break;
+                case "450" : amount = halfday_price[450]; break;
+                case "500" : amount = halfday_price[500]; break;
+            }
 
-        switch($("#time").val()) {
-            case "18000" : time = 1; break;
-            case "36000" : time = 2; break;
-        }
+        } else {
 
-        $("#amount").val(amount*time - coupon_amount - <?=$exhibitionStream->coupon_amount?> - <?=$exhibitionStream->amount?>);
+            switch($("#people").val()) {
+                case "50" : amount = allday_price[50]; break;
+                case "100" : amount = allday_price[100]; break;
+                case "150" : amount = allday_price[150]; break;
+                case "200" : amount = allday_price[200]; break;
+                case "250" : amount = allday_price[250]; break;
+                case "300" : amount = allday_price[300]; break;
+                case "350" : amount = allday_price[350]; break;
+                case "400" : amount = allday_price[400]; break;
+                case "450" : amount = allday_price[450]; break;
+                case "500" : amount = allday_price[500]; break;
+            }
+        }
+        coupon_amount = amount * discount_rate / 100;
+
+        $("#amount").val(amount - coupon_amount - <?=$exhibitionStream->coupon_amount?> - <?=$exhibitionStream->amount?>);
         if ($("#amount").val() == 0) {
             $("#is_paid").val(1);
         } else {
