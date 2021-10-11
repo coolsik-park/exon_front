@@ -1,12 +1,35 @@
+<style>
+    .pagination li {
+        display: inline;
+    }
+</style>
+
 <div id="container">        
     <div class="contents static">
         <div class="section-my">
             <h3 class="s-hty1">개설 행사 관리</h3>
             <ul class="s-tabs">
-                <li class="active"><a href="/exhibition/exhibitionSupervise/<?= $id ?>">개설행사</a></li>
-                <li><a href="/exhibition/exhibitionSupervise/<?= $id ?>/1">진행중 행사</a></li>
-                <li><a href="/exhibition/exhibitionSupervise/<?= $id ?>/2">임시저장 행사</a></li>
-                <li><a href="/exhibition/exhibitionSupervise/<?= $id ?>/3">종료 행사</a></li>
+                <?php if ($_SERVER['REQUEST_URI'] == '/exhibition/exhibitionSupervise/' . $id) { ?>
+                    <li class="active"><a href="/exhibition/exhibitionSupervise/<?= $id ?>">개설행사</a></li>
+                    <li><a href="/exhibition/exhibitionSupervise/<?= $id ?>/1">진행중 행사</a></li>
+                    <li><a href="/exhibition/exhibitionSupervise/<?= $id ?>/2">임시저장 행사</a></li>
+                    <li><a href="/exhibition/exhibitionSupervise/<?= $id ?>/3">종료 행사</a></li>
+                <?php } elseif ($_SERVER['REQUEST_URI'] == '/exhibition/exhibitionSupervise/' . $id . '/1') { ?>
+                    <li><a href="/exhibition/exhibitionSupervise/<?= $id ?>">개설행사</a></li>
+                    <li class="active"><a href="/exhibition/exhibitionSupervise/<?= $id ?>/1">진행중 행사</a></li>
+                    <li><a href="/exhibition/exhibitionSupervise/<?= $id ?>/2">임시저장 행사</a></li>
+                    <li><a href="/exhibition/exhibitionSupervise/<?= $id ?>/3">종료 행사</a></li>
+                <?php } elseif ($_SERVER['REQUEST_URI'] == '/exhibition/exhibitionSupervise/' . $id . '/2') { ?>
+                    <li><a href="/exhibition/exhibitionSupervise/<?= $id ?>">개설행사</a></li>
+                    <li><a href="/exhibition/exhibitionSupervise/<?= $id ?>/1">진행중 행사</a></li>
+                    <li class="active"><a href="/exhibition/exhibitionSupervise/<?= $id ?>/2">임시저장 행사</a></li>
+                    <li><a href="/exhibition/exhibitionSupervise/<?= $id ?>/3">종료 행사</a></li>
+                <?php } else { ?>
+                    <li><a href="/exhibition/exhibitionSupervise/<?= $id ?>">개설행사</a></li>
+                    <li><a href="/exhibition/exhibitionSupervise/<?= $id ?>/1">진행중 행사</a></li>
+                    <li><a href="/exhibition/exhibitionSupervise/<?= $id ?>/2">임시저장 행사</a></li>
+                    <li class="active"><a href="/exhibition/exhibitionSupervise/<?= $id ?>/3">종료 행사</a></li>
+                <?php } ?>
             </ul>
             <div class="table-type table-type2" id="table-type table-type2">  
                 <?php foreach ($exhibitions as $exhibition): ?>                  
@@ -110,18 +133,18 @@
                                 <div class="tg-btns">
                                     <button type="button" class="btn-ty3 bor" id="menu">메뉴</button>
                                     <ul>
-                                        <li>
+                                        <li id="exhibitionDeleteButton" name="<?= $exhibition->id ?>">
                                             <?php
                                                 $today = new DateTime();
 
                                                 if ($exhibition->status == 4) {
                                             ?>
-                                                    <button type="button" class="btn-ty3 gray" id="exhibitionDeleteButton1">행사 삭제</button>
+                                                    <button type="button" class="btn-ty3 gray">행사 삭제</button>
                                             <?php
                                                 } else {
                                                     if ($exhibition->edate < $today) {
                                             ?>
-                                                        <button type="button" class="btn-ty3 gray" id="exhibitionDeleteButton2">행사 삭제</button>
+                                                        <button type="button" class="btn-ty3 gray">행사 삭제</button>
                                             <?php
                                                     }
                                                 }
@@ -135,20 +158,12 @@
                     </div>
                 <?php endforeach; ?>
             </div>
-            <div class="pagination">
-                <a href="#" class="p-prev">이전</a>
-                <div class="paging">
-                    <strong>1</strong>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">6</a>
-                    <a href="#">7</a>
-                    <a href="#">8</a>
-                    <a href="#">9</a>
-                </div>                    
-                <a href="#" class="p-next">다음</a>
+            <div class="paginator" >
+                <ul class="pagination">
+                    <?= $this->Paginator->prev('< ' . __('이전')) ?>
+                    <?= $this->Paginator->numbers() ?>
+                    <?= $this->Paginator->next(__('다음') . ' >') ?>
+                </ul>
             </div>
         </div>
     </div>        
@@ -156,31 +171,12 @@
 <footer id="footer"></footer>
 
 <script>
-    $('#exhibitionDeleteButton1').on('click', function() {
-        console.log('a');
-        if (confirm('행사 삭제하시겠습니까?') == true) {
-            $.ajax({
-                url: '/exhibition/delete/<?= $exhibition->id ?>',
-                method: 'POST',
-                type: 'json',
-                data: {}
-            }).done(function(data) {
-                if (data.status == 'success') {
-                    $('#table-type table-type2').load(location.href+" #table-type table-type2");
-                } else {
-                    alert("성공되지 않았습니다.");
-                }
-            });   
-        } else {
-            alert("취소하였습니다.");
-        }
-    });
+    $('#exhibitionDeleteButton').on('click', function() {
+        var id = $(this).attr('name');
 
-    $('#exhibitionDeleteButton2').on('click', function() {
-        console.log('b');
         if (confirm('행사 삭제하시겠습니까?') == true) {
             $.ajax({
-                url: '/exhibition/delete/<?= $exhibition->id ?>',
+                url: '/exhibition/delete/' + id,
                 method: 'POST',
                 type: 'json',
                 data: {}
