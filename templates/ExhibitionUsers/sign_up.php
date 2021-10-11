@@ -1,11 +1,27 @@
+<style>
+    .pagination li {
+        display: inline;
+    }
+</style>
+
 <div id="container">
     <div class="contents static">
         <div class="section-my">
             <h3 class="s-hty1">신청 내역 관리</h3>
             <ul class="s-tabs">
-                <li class="active"><a href="/exhibitionUsers/signUp/<?= $id ?>">신청 행사</a></li>
-                <li class=""><a href="/exhibitionUsers/signUp/<?= $id ?>/1">종료 행사</a></li>
-                <li class=""><a href="/exhibitionUsers/signUp/<?= $id ?>/2">취소/환불</a></li>
+                <?php if ($_SERVER['REQUEST_URI'] == '/exhibitionUsers/signUp/' . $id) { ?>
+                        <li class="active"><a href="/exhibitionUsers/signUp/<?= $id ?>">신청 행사</a></li>
+                        <li class=""><a href="/exhibitionUsers/signUp/<?= $id ?>/1">종료 행사</a></li>
+                        <li class=""><a href="/exhibitionUsers/signUp/<?= $id ?>/2">취소/환불</a></li>
+                <?php } elseif ($_SERVER['REQUEST_URI'] == '/exhibitionUsers/signUp/' . $id . '/1') { ?>
+                        <li class=""><a href="/exhibitionUsers/signUp/<?= $id ?>">신청 행사</a></li>
+                        <li class="active"><a href="/exhibitionUsers/signUp/<?= $id ?>/1">종료 행사</a></li>
+                        <li class=""><a href="/exhibitionUsers/signUp/<?= $id ?>/2">취소/환불</a></li>
+                <?php } elseif ($_SERVER['REQUEST_URI'] == '/exhibitionUsers/signUp/' . $id . '/2') { ?>
+                        <li class=""><a href="/exhibitionUsers/signUp/<?= $id ?>">신청 행사</a></li>
+                        <li class=""><a href="/exhibitionUsers/signUp/<?= $id ?>/1">종료 행사</a></li>
+                        <li class="active"><a href="/exhibitionUsers/signUp/<?= $id ?>/2">취소/환불</a></li>
+                <?php } ?>
             </ul>
             <div class="table-type table-type1">
                 <div class="th-row">
@@ -19,7 +35,7 @@
                     <div class="th-col col8"></div>
                 </div>
                 <?php foreach ($exhibition_users as $exhibition_user): ?>
-                    <div class="tr-row">
+                    <div class="tr-row" id="tr-row">
                         <div class="td-col col1">
                             <div class="con">
                                 <div class="date">
@@ -94,7 +110,7 @@
                         </div>
                         <div class="td-col col4">
                             <div class="con">
-                                <?= $exhibition_user->exhibition_group['amount'] ?>
+                                <?= number_format(intval($exhibition_user->exhibition_group['amount'])) ?>원
                             </div>
                         </div>
                         <div class="td-col col5">
@@ -103,7 +119,7 @@
                                     if ($exhibition_user->attend == 1) {
                                         echo '신청 전';
                                     } elseif ($exhibition_user->attend == 2) {
-                                        echo '신청완료(참가대기)';
+                                        echo '신청완료<br>(참가대기)';
                                     } elseif ($exhibition_user->attend == 4) {
                                         echo '참가확정';
                                     } elseif ($exhibition_user->attend == 8) {
@@ -158,35 +174,32 @@
                                         }
                                     ?>
                                 </p>
+                                <?php
+                                    $today = new DateTime();
+                                    
+                                    if ($exhibition_user->attend == 1) {
+                                        if ($today <= $exhibition_user->exhibition['edate']) {
+                                ?>
+                                            <p><a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition_user->exhibition_stream_id ?>" class="btn-ty3 bor" id="exhibitionSee">웨비나 시청</a></p>
+                                <?php
+                                        }
+                                    }
+                                ?>
                             </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
             </div>
-            <div class="pagination">
-                <a href="#" class="p-prev">이전</a>
-                <div class="paging">
-                    <strong>1</strong>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">6</a>
-                    <a href="#">7</a>
-                    <a href="#">8</a>
-                    <a href="#">9</a>
-                </div>                    
-                <a href="#" class="p-next">다음</a>
+            <div class="paginatorAll">
+                <div class="paginator" >
+                    <ul class="pagination">
+                        <?= $this->Paginator->prev('< ' . __('이전')) ?>
+                        <?= $this->Paginator->numbers() ?>
+                        <?= $this->Paginator->next(__('다음') . ' >') ?>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>        
 </div>
 <footer id="footer"></footer>
-
-<script>
-    $('li').on('change', function() {
-        $('li').removeClass('active');
-        $(this).addClass('active');
-        $('#section-my').load(location.href+" #section-my");
-    });
-</script>

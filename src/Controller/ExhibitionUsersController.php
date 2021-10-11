@@ -9,12 +9,6 @@ use Cake\Datasource\ConnectionManager;
 use Cake\I18n\FrozenTime;
 use Iamport;
 
-/**
- * ExhibitionUsers Controller
- *
- * @property \App\Model\Table\ExhibitionUsersTable $ExhibitionUsers
- * @method \App\Model\Entity\ExhibitionUser[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
- */
 class ExhibitionUsersController extends AppController
 {
     public function beforeFilter(\Cake\Event\EventInterface $event)
@@ -26,11 +20,7 @@ class ExhibitionUsersController extends AppController
         $this->Auth->allow();
         // $this->Auth->deny(['test']);
     }
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null|void Renders view
-     */
+    
     public function index()
     {
         $this->paginate = [
@@ -40,14 +30,7 @@ class ExhibitionUsersController extends AppController
 
         $this->set(compact('exhibitionUsers'));
     }
-
-    /**
-     * View method
-     *
-     * @param string|null $id Exhibition User id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+    
     public function view($id = null)
     {
         $exhibitionUser = $this->ExhibitionUsers->get($id, [
@@ -56,12 +39,6 @@ class ExhibitionUsersController extends AppController
 
         $this->set(compact('exhibitionUser'));
     }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
 
     //웨비나 신청
     public function add($id = null)
@@ -171,13 +148,6 @@ class ExhibitionUsersController extends AppController
         $this->set(compact('exhibitionUser', 'exhibition', 'exhibitionGroup', 'pay', 'exhibitionSurveys', 'id'));
     }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id Exhibition User id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function edit($id = null)
     {
         $exhibitionUser = $this->ExhibitionUsers->get($id, [
@@ -198,13 +168,6 @@ class ExhibitionUsersController extends AppController
         $this->set(compact('exhibitionUser', 'exhibition', 'exhibitionGroup', 'pay'));
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Exhibition User id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
@@ -302,11 +265,11 @@ class ExhibitionUsersController extends AppController
         $today = new \DateTime();
 
         if ($signUpId == null) {
-            $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $id, 'ExhibitionUsers.status !=' => 8]))->toArray();
+            $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $id, 'ExhibitionUsers.status !=' => 8])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
         } elseif ($signUpId == 1){
-            $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $id, 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate <' => $today]))->toArray();
+            $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $id, 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate <' => $today])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
         } elseif ($signUpId == 2) {
-            $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $id, 'ExhibitionUsers.status' => 8]))->toArray();
+            $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $id, 'ExhibitionUsers.status' => 8])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
         }
         
         $this->set(compact('id', 'exhibition_users'));
