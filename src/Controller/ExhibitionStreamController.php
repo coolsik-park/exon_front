@@ -377,6 +377,8 @@ class ExhibitionStreamController extends AppController
     public function setProgram ($id = null)
     {
         $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $exhibition = $Exhibition->get($id);
+        $program = $exhibition->program;
 
         if ($this->request->is('post')) {
             $exhibition = $Exhibition->get($id);
@@ -388,7 +390,7 @@ class ExhibitionStreamController extends AppController
                  return $response;
             }
         }
-        $this->set(compact('id'));
+        $this->set(compact('id', 'program'));
     }
 
     public function setNotice ($id = null)
