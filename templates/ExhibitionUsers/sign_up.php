@@ -190,6 +190,7 @@
                     </div>
                 <?php endforeach; ?>
             </div>
+<<<<<<< HEAD
             <div class="paginatorAll">
                 <div class="paginator" >
                     <ul class="pagination">
@@ -198,6 +199,14 @@
                         <?= $this->Paginator->next(__('다음') . ' >') ?>
                     </ul>
                 </div>
+=======
+            <div class="paginator" >
+                <ul class="pagination">
+                    <?= $this->Paginator->prev('< ' . __('이전')) ?>
+                    <?= $this->Paginator->numbers() ?>
+                    <?= $this->Paginator->next(__('다음') . ' >') ?>
+                </ul>
+>>>>>>> bomi
             </div>
         </div>
     </div>        
