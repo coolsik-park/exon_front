@@ -14,12 +14,6 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Iamport;
 
-/**
- * Exhibition Controller
- *
- * @property \App\Model\Table\ExhibitionTable $Exhibition
- * @method \App\Model\Entity\Exhibition[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
- */
 class ExhibitionController extends AppController
 {
     public function beforeFilter(\Cake\Event\EventInterface $event)
@@ -45,25 +39,13 @@ class ExhibitionController extends AppController
         parent::initialize();
         $this->loadComponent('Search.Search', ['actions' => ['search'],]);
     }
-
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null|void Renders view
-     */
+    
     public function index()
     {
         $exhibition = $this->paginate($this->Exhibition->find()->where(['users_id' => $this->Auth->user('id')]));
         $this->set(compact('exhibition'));
     }
-
-    /**
-     * View method
-     *
-     * @param string|null $id Exhibition id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+    
     public function view($id = null)
     {
         $exhibition = $this->Exhibition->get($id, [
@@ -74,12 +56,7 @@ class ExhibitionController extends AppController
 
         $this->set(compact('exhibition', 'groups'));
     }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
+    
     public function add()
     {
         $connection = ConnectionManager::get('default');
@@ -313,14 +290,7 @@ class ExhibitionController extends AppController
             }
         }
     }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id Exhibition id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+    
     public function edit($id = null)
     {
         $connection = ConnectionManager::get('default');
@@ -600,17 +570,10 @@ class ExhibitionController extends AppController
         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'name' => $user->name, 'tel' => $user->hp, 'email' => $user->email]));
         return $response;
     }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id Exhibition id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+    
     public function delete($id = null)
     {
-        $this->request->allowMethod(['get', 'post', 'delete']);
+        $this->request->allowMethod(['post', 'delete']);
         
         $exhibition = $this->Exhibition->get($id);
         
@@ -619,6 +582,7 @@ class ExhibitionController extends AppController
         } else {
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));        
         }
+
         return $response;    
     }
 
