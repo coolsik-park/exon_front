@@ -214,8 +214,14 @@
             </div>
 
             <div class="section-btm3 mgtS1">
+                <?php if ($exhibition->status == 4) : ?>
+                <button type="button" name="cancel" class="btn-big red">취소</button>
+                <button type="button" name="save" class="btn-big">개설</button>
+                <button type="button" name="temp" class="btn-big">임시저장</button>
+                <?php else : ?>
                 <button type="button" name="cancel" class="btn-big red">취소</button>
                 <button type="button" name="save" class="btn-big">저장</button>
+                <?php endif; ?>
             </div>
         </div>        
     </div>

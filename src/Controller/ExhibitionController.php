@@ -291,7 +291,7 @@ class ExhibitionController extends AppController
                     return $response;
                 } else {
                     $connection->rollback(); 
-                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail', 'test' => 'img']));
                     return $response;
                 }       
 
