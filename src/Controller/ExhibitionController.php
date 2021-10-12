@@ -43,7 +43,7 @@ class ExhibitionController extends AppController
     public function index($type = null)
     {
         $this->paginate = ['limit' => 10];
-        $today = new \DateTime();
+        $today = FrozenTime::now();
 
         if ($type == 'all') {
             $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id')]))->toArray();
@@ -54,8 +54,7 @@ class ExhibitionController extends AppController
         } elseif ($type == 'ended') {            
             $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.edate <' => $today]))->toArray();
         }
-        debug($exhibitions);
-        $this->set(compact('exhibitions'));
+        $this->set(compact('exhibitions', 'today'));
     }
     
     public function view($id = null)
@@ -265,7 +264,7 @@ class ExhibitionController extends AppController
         if ($this->request->is('post')) {
             $data = $this->request->getData();
 
-            if (!empty($data['image'])) {
+            if ($data['image'] != 'undefined') {
                 $img = $data['image'];
                 $imgName = $img->getClientFilename();
                 $index = strpos(strrev($imgName), strrev('.'));
@@ -295,6 +294,7 @@ class ExhibitionController extends AppController
                     $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
                     return $response;
                 }       
+
             } else {
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
                 return $response;

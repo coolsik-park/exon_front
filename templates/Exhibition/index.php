@@ -48,12 +48,10 @@
                                 <p class="tit">
                                     <span class="st1">
                                         <?php
-                                            $today = new DateTime();
-
                                             if ($exhibition->status == 4) {
                                                 echo '임시저장';
                                             } else {
-                                                if ($exhibition->sdate > $today && $exhibition->edate > $today) {
+                                                if ($exhibition->sdate <= $today && $exhibition->edate >= $today) {
                                                     echo '진행중';
                                                 } else {
                                                     echo '종료';
@@ -165,23 +163,19 @@
                                 <div class="tg-btns">
                                     <button type="button" class="btn-ty3 bor" id="menu">메뉴</button>
                                     <ul>
-                                        <li id="exhibitionDeleteButton" name="<?= $exhibition->id ?>">
-                                            <?php
-                                                $today = new DateTime();
-
-                                                if ($exhibition->status == 4) {
-                                            ?>
-                                                    <button type="button" class="btn-ty3 gray">행사 삭제</button>
-                                            <?php
-                                                } else {
-                                                    if ($exhibition->sdate < $today && $exhibition->edate > $today) {
-                                            ?>
-                                                        <button type="button" class="btn-ty3 gray">행사 삭제</button>
-                                            <?php
-                                                    }
+                                        <?php
+                                            if ($exhibition->status == 4) {
+                                        ?>
+                                                <li><button type="button" id="<?=$exhibition->id?>" name="deleteExhibition" class="btn-ty3 gray">행사 삭제</button></li>
+                                        <?php
+                                            } else {
+                                                if ($exhibition->sdate <= $today && $exhibition->edate >= $today && !empty($exhibtion->users)) {
+                                        ?>
+                                                    <li><button type="button" id="<?=$exhibition->id?>" name="deleteExhibition" class="btn-ty3 gray">행사 삭제</button></li>
+                                        <?php
                                                 }
-                                            ?>
-                                        </li>
+                                            }
+                                        ?>
                                         <li><button type="button" class="btn-ty3 gray">행사 복사</button></li>
                                     </ul>
                                 </div>
@@ -203,8 +197,8 @@
 <footer id="footer"></footer>
 
 <script>
-    $('#exhibitionDeleteButton').on('click', function() {
-        var id = $(this).attr('name');
+    $(document).on("click", "button[name='deleteExhibition']", function() {
+        var id = $(this).attr("id");
 
         if (confirm('행사 삭제하시겠습니까?') == true) {
             $.ajax({
@@ -214,7 +208,7 @@
                 data: {}
             }).done(function(data) {
                 if (data.status == 'success') {
-                    $('#table-type table-type2').load(location.href+" #table-type table-type2");
+                    window.location.reload();
                 } else {
                     alert("성공되지 않았습니다.");
                 }
