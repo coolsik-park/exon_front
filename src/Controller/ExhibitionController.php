@@ -235,7 +235,7 @@ class ExhibitionController extends AppController
                     return $response;
                     
                 } else {
-                    $connection->rollback(); 
+                    $connection->rollback();
                     $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
                     return $response;
                 }
@@ -810,7 +810,9 @@ class ExhibitionController extends AppController
                 echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
             }
         }
-        $this->set(compact('id', 'exhibitionUsers', 'exhibition_users_id'));
+        $listExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
+        $exhibitionGroups = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
+        $this->set(compact('id', 'exhibitionUsers', 'exhibition_users_id', 'listExhibitionUsers', 'exhibitionGroups'));
     }
 
     public function sendSmsToParticipant($id = null, $exhibition_users_id = null)
@@ -846,10 +848,12 @@ class ExhibitionController extends AppController
                 $this->Flash->error(__('The SMS could not be delivered.'));
             }
         }
-        $this->set(compact('id', 'exhibitionUsers', 'exhibition_users_id'));
+        $listExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
+        $exhibitionGroups = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
+        $this->set(compact('id', 'exhibitionUsers', 'exhibition_users_id', 'listExhibitionUsers', 'exhibitionGroups'));
     }
 
-    public function participantList($id = null, $type = null)
+    public function participantList($id = null)
     {
         $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
         $exhibitionGroups = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
@@ -857,14 +861,8 @@ class ExhibitionController extends AppController
         if ($this->request->is('post')) {
             $data = $this->request->getData('data');
             
-            if ($type == 'email') {
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'type' => 'email', 'data' => $data]));
-                return $response;
-            
-            } else {
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'type' => 'sms', 'data' => $data]));
-                return $response;
-            }
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'type' => 'email', 'data' => $data]));
+            return $response;
         }
         $this->set(compact('exhibitionUsers', 'exhibitionGroups', 'id', 'type'));
     }
