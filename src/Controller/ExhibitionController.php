@@ -40,10 +40,22 @@ class ExhibitionController extends AppController
         $this->loadComponent('Search.Search', ['actions' => ['search'],]);
     }
     
-    public function index()
+    public function index($type = null)
     {
-        $exhibition = $this->paginate($this->Exhibition->find()->where(['users_id' => $this->Auth->user('id')]));
-        $this->set(compact('exhibition'));
+        $this->paginate = ['limit' => 10];
+        $today = new \DateTime();
+
+        if ($type == 'all') {
+            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id')]))->toArray();
+        } elseif ($type == 'ongoing') {
+            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.status !=' => 4, 'Exhibition.sdate <=' => $today, 'Exhibition.edate >=' => $today]))->toArray();
+        } elseif ($type == 'temp') {
+            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.status' => 4]))->toArray();
+        } elseif ($type == 'ended') {            
+            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.edate <' => $today]))->toArray();
+        }
+
+        $this->set(compact('exhibitions'));
     }
     
     public function view($id = null)

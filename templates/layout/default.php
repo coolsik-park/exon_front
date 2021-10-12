@@ -64,9 +64,9 @@
                     <a href="#">행사신청내역</a>
                 <?php else: ?>
                 <!-- log after -->
-                    <a href="/Users/logout">로그아웃</a>
-                    <a href="/Exhibition/index">개설행사목록</a>
-                    <a href="/Exhibition-users/sign-up">신청행사목록</a>
+                    <a href="/users/logout">로그아웃</a>
+                    <a href="/exhibition/index/all">개설행사목록</a>
+                    <a href="/exhibition-users/sign-up">신청행사목록</a>
                 <!-- // -->
                 <?php endif;?>
             </div>            
