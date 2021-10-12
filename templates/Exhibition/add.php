@@ -458,8 +458,8 @@
     CKEDITOR.replace('detail_html');
     
     //설문
-    var i = 1; //설문 인덱스
-    var j = 1; //보기 인덱스
+    var i = 0; //설문 인덱스
+    var j = 0; //보기 인덱스
 
     //설문 추가
     $("#surveyAdd").click(function () {
