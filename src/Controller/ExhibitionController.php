@@ -40,10 +40,21 @@ class ExhibitionController extends AppController
         $this->loadComponent('Search.Search', ['actions' => ['search'],]);
     }
     
-    public function index()
+    public function index($type = null)
     {
-        $exhibition = $this->paginate($this->Exhibition->find()->where(['users_id' => $this->Auth->user('id')]));
-        $this->set(compact('exhibition'));
+        $this->paginate = ['limit' => 10];
+        $today = FrozenTime::now();
+
+        if ($type == 'all') {
+            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id')]))->toArray();
+        } elseif ($type == 'ongoing') {
+            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.status !=' => 4, 'Exhibition.sdate <=' => $today, 'Exhibition.edate >=' => $today]))->toArray();
+        } elseif ($type == 'temp') {
+            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.status' => 4]))->toArray();
+        } elseif ($type == 'ended') {            
+            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.edate <' => $today]))->toArray();
+        }
+        $this->set(compact('exhibitions', 'today'));
     }
     
     public function view($id = null)
@@ -238,7 +249,7 @@ class ExhibitionController extends AppController
                     return $response;
                     
                 } else {
-                    $connection->rollback(); 
+                    $connection->rollback();
                     $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
                     return $response;
                 }
@@ -254,9 +265,9 @@ class ExhibitionController extends AppController
     public function saveImg($id = null)
     {
         if ($this->request->is('post')) {
-            
-            if (!empty($data['image'])) {
-                $data = $this->request->getData();
+            $data = $this->request->getData();
+
+            if ($data['image'] != 'undefined') {
                 $img = $data['image'];
                 $imgName = $img->getClientFilename();
                 $index = strpos(strrev($imgName), strrev('.'));
@@ -286,6 +297,7 @@ class ExhibitionController extends AppController
                     $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
                     return $response;
                 }       
+
             } else {
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
                 return $response;
@@ -564,6 +576,54 @@ class ExhibitionController extends AppController
         $this->set(compact('id', 'exhibition', 'users', 'categories', 'types', 'exhibitionGroups', 'exhibitionSurveys'));
     }
 
+    public function copy($id = null) {
+        
+        if ($this->request->is('post')) {
+            $copiedExhibition = $this->Exhibition->get($id);
+            $copiedExhibition->id = null;
+            $newExhibition = $this->Exhibition->newEmptyEntity();
+            
+            $newExhibition->users_id = $copiedExhibition->users_id;
+            $newExhibition->title = $copiedExhibition->title;
+            $newExhibition->description = $copiedExhibition->description;
+            $newExhibition->category = $copiedExhibition->category;
+            $newExhibition->type = $copiedExhibition->type;
+            $newExhibition->detail_html = $copiedExhibition->detail_html;
+            $newExhibition->apply_sdate = $copiedExhibition->apply_sdate;
+            $newExhibition->apply_edate = $copiedExhibition->apply_edate;
+            $newExhibition->sdate = $copiedExhibition->sdate;
+            $newExhibition->edate = $copiedExhibition->edate;
+            $newExhibition->image_path = $copiedExhibition->image_path;
+            $newExhibition->image_name = $copiedExhibition->image_name;
+            $newExhibition->private = $copiedExhibition->private;
+            $newExhibition->auto_approval = $copiedExhibition->auto_approval;
+            $newExhibition->name = $copiedExhibition->name;
+            $newExhibition->tel = $copiedExhibition->tel;
+            $newExhibition->email = $copiedExhibition->email;
+            $newExhibition->require_name = $copiedExhibition->require_name;
+            $newExhibition->require_email = $copiedExhibition->require_email;
+            $newExhibition->require_tel = $copiedExhibition->require_tel;
+            $newExhibition->require_age = $copiedExhibition->require_age;
+            $newExhibition->require_group = $copiedExhibition->require_group;
+            $newExhibition->require_sex = $copiedExhibition->require_sex;
+            $newExhibition->require_cert = $copiedExhibition->require_cert;
+            $newExhibition->email_notice = $copiedExhibition->email_notice;
+            $newExhibition->additional = $copiedExhibition->additional;
+            $newExhibition->status = 4;
+            $newExhibition->notice = $copiedExhibition->notice;
+            $newExhibition->program = $copiedExhibition->program;
+            $newExhibition->cost = $copiedExhibition->cost;
+
+            if ($this->Exhibition->save($newExhibition)) {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                return $response;
+            } else {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                return $response;
+            }
+        }
+    }
+
     public function getUserInfo()
     {
         $User = $this->getTableLocator()->get('Users');
@@ -813,7 +873,9 @@ class ExhibitionController extends AppController
                 echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
             }
         }
-        $this->set(compact('id', 'exhibitionUsers', 'exhibition_users_id'));
+        $listExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
+        $exhibitionGroups = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
+        $this->set(compact('id', 'exhibitionUsers', 'exhibition_users_id', 'listExhibitionUsers', 'exhibitionGroups'));
     }
 
     public function sendSmsToParticipant($id = null, $exhibition_users_id = null)
@@ -849,10 +911,12 @@ class ExhibitionController extends AppController
                 $this->Flash->error(__('The SMS could not be delivered.'));
             }
         }
-        $this->set(compact('id', 'exhibitionUsers', 'exhibition_users_id'));
+        $listExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
+        $exhibitionGroups = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
+        $this->set(compact('id', 'exhibitionUsers', 'exhibition_users_id', 'listExhibitionUsers', 'exhibitionGroups'));
     }
 
-    public function participantList($id = null, $type = null)
+    public function participantList($id = null)
     {
         $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
         $exhibitionGroups = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
@@ -860,14 +924,8 @@ class ExhibitionController extends AppController
         if ($this->request->is('post')) {
             $data = $this->request->getData('data');
             
-            if ($type == 'email') {
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'type' => 'email', 'data' => $data]));
-                return $response;
-            
-            } else {
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'type' => 'sms', 'data' => $data]));
-                return $response;
-            }
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'type' => 'email', 'data' => $data]));
+            return $response;
         }
         $this->set(compact('exhibitionUsers', 'exhibitionGroups', 'id', 'type'));
     }

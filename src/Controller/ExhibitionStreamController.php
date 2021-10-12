@@ -83,7 +83,8 @@ class ExhibitionStreamController extends AppController
         $pay = $this->ExhibitionStream->Pay->find('list', ['limit' => 200]);
         $coupon = $this->ExhibitionStream->Coupon->find('list', ['limit' => 200]);
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
-        $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs', 'exhibition_id'));
+        $prices = $this->getTableLocator()->get('ExhibitionStreamDefaultPrice')->find('all')->toArray();
+        $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs', 'exhibition_id', 'prices'));
     }
 
     public function watchExhibitionStream($id = null) 
@@ -134,12 +135,17 @@ class ExhibitionStreamController extends AppController
                     $response = $this->response->withType('json')->withStringBody(json_encode(['status' => '이미지 확장자명을 확인해주세요.',]));
                     return $response;
                 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> b3396ddb12cb769986ed4a36630743617e48a0ee
             } else {
                 $connection = ConnectionManager::get('default');
                 $connection->begin();
 
                 $names = $this->request->getData('names');
                 $images = $this->request->getData('images');
+<<<<<<< HEAD
                 $count = count($names);
                 
                 for ($i = 0; $i < $count; $i++) {
@@ -170,12 +176,66 @@ class ExhibitionStreamController extends AppController
                             $connection->rollback(); 
                             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
                             return $response;
+=======
+                $speaker_dels = $this->request->getData("speaker_dels");
+            
+                if (!empty($names)) {
+                    $count = count($names);
+                
+                    for ($i = 0; $i < $count; $i++) {
+                        $exhibitionSpeaker = $ExhibitionSpeaker->newEmptyEntity();
+                        $exhibitionSpeaker->name = $names[$i];
+                        $exhibitionSpeaker->exhibition_id = $id;
+                        
+                        if ($result = $ExhibitionSpeaker->save($exhibitionSpeaker)) {
+                            $img = $images[$i];
+                            
+                            if ($img != 'undefined') {
+                                $imgName = $img->getClientFilename();
+                                $index = strpos(strrev($imgName), strrev('.'));
+                                $expen = strtolower(substr($imgName, ($index * -1)));
+                                $path = 'upload' . DS . 'speaker' . DS . date("Y") . DS . date("m");
+    
+                                if (!file_exists(WWW_ROOT . $path)) {
+                                    $oldMask = umask(0);
+                                    mkdir(WWW_ROOT . $path, 0777, true);
+                                    chmod(WWW_ROOT . $path, 0777);
+                                    umask($oldMask);
+                                }
+                                $imgName = $result->id . "_speaker." . $expen;
+                                $destination = WWW_ROOT . $path . DS . $imgName;
+    
+                                if ($connection->update('exhibition_speaker', ['image_path' => $path, 'image_name' => $imgName], ['id' => $result->id])) {
+                                    $img->moveTo($destination);
+    
+                                } else {
+                                    $connection->rollback(); 
+                                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                                    return $response;
+                                }
+                            }
+                            
+                        } else {
+                            $connection->rollback();
+                            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                            return $response;
                         }
+                    }
+                }
 
-                    } else {
-                        $connection->rollback();
-                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
-                        return $response;
+                if (!empty($speaker_dels)) {
+                    $count = count($speaker_dels);
+
+                    for ($i = 0; $i < $count; $i ++) {
+
+                        if ($speaker_dels[$i] != 0) {
+                            $exhibitionSpeaker = $ExhibitionSpeaker->get($speaker_dels[$i]);
+                            if (!$ExhibitionSpeaker->delete($exhibitionSpeaker)) {
+                                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                                return $response;
+                            }
+>>>>>>> b3396ddb12cb769986ed4a36630743617e48a0ee
+                        }
                     }
                 }
                 $connection->commit();
@@ -331,6 +391,8 @@ class ExhibitionStreamController extends AppController
     public function setProgram ($id = null)
     {
         $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $exhibition = $Exhibition->get($id);
+        $program = $exhibition->program;
 
         if ($this->request->is('post')) {
             $exhibition = $Exhibition->get($id);
@@ -342,7 +404,7 @@ class ExhibitionStreamController extends AppController
                  return $response;
             }
         }
-        $this->set(compact('id'));
+        $this->set(compact('id', 'program'));
     }
 
     public function setNotice ($id = null)
@@ -710,7 +772,8 @@ class ExhibitionStreamController extends AppController
         $exhibition = $this->ExhibitionStream->Exhibition->find('list', ['limit' => 200]);
         $pay = $this->ExhibitionStream->Pay->find('list', ['limit' => 200]);
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray(); 
-        $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs', 'exhibition_id'));
+        $prices = $this->getTableLocator()->get('ExhibitionStreamDefaultPrice')->find('all')->toArray();
+        $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs', 'exhibition_id', 'prices'));
     }
 
     /**
@@ -765,7 +828,7 @@ class ExhibitionStreamController extends AppController
             $coupon = $this->getTableLocator()->get('Coupon')->find('all')->where(['users_id' => $this->Auth->user()->id, 'product_type' => 'S', 'status' => 2])->toArray();
             $exist = 0;
             $coupon_id = 0;
-            $coupon_amount = 0;
+            $discount_rate = 0;
             $start_date = 0;
             $end_date = 0;
             $date = (int)FrozenTime::now()->format('Ymd');
@@ -775,7 +838,7 @@ class ExhibitionStreamController extends AppController
                 
                 if ($coupon[$i]['code'] == $this->request->getData('coupon_code')) {
                     $coupon_id = $coupon[$i]['id'];
-                    $coupon_amount = $coupon[$i]['amount']; 
+                    $discount_rate = $coupon[$i]['discount_rate']; 
                     $exist = 1;
                     $start_date = (int)$coupon[$i]['sdate'];
                     $end_date = (int)$coupon[$i]['edate'];
@@ -783,7 +846,7 @@ class ExhibitionStreamController extends AppController
             }
 
             if ($exist == 1 && $start_date <= $date && $date <= $end_date) {
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'coupon_id' => $coupon_id, 'amount' => $coupon_amount]));
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'coupon_id' => $coupon_id, 'discount_rate' => $discount_rate]));
                 return $response;
                 
             } else {

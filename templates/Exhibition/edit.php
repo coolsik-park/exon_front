@@ -455,7 +455,7 @@
                 }).done(function (data) {
                     if (data.status == 'success') {
                         alert("저장 되었습니다.");
-                        window.location.replace("/exhibition/edit/<?=$id?>");
+                        window.location.replace("/exhibition/index/all");
                     } else {
                         alert("오류가 발생하였습니다. 잠시 후 시도해주세요.");
                     }
@@ -468,7 +468,7 @@
 
     //취소
     $("button[name='cancel']").click(function () {
-        window.location.replace("/exhibition/index");
+        window.location.replace("/exhibition/index/all");
     });
 
     //임시저장
@@ -506,7 +506,7 @@
                 }).done(function (data) {
                     if (data.status == 'success') {
                         alert("임시저장 되었습니다.");
-                        window.location.replace("/exhibition/index");
+                        window.location.replace("/exhibition/index/temp");
                     } else {
                         alert("오류가 발생하였습니다. 잠시 후 시도해주세요.");
                     }

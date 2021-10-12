@@ -173,7 +173,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                 }
             }).done(function (data) {
                 if (data.status == 'success') {
-                    $(location).attr('href', 'http://121.126.223.225:8765/users/certification/' + data.id);
+                    $(location).attr('href', '/users/certification/' + data.id);
                 } else {
                     $("#emailNoti").html("이미 회원 가입된 이메일입니다. 다시 입력해 주세요.");
                     $("#email").focus();

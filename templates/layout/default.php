@@ -31,6 +31,7 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/slick.js"></script>
@@ -64,9 +65,9 @@
                     <a href="#">행사신청내역</a>
                 <?php else: ?>
                 <!-- log after -->
-                    <a href="/Users/logout">로그아웃</a>
-                    <a href="/Exhibition/index">개설행사목록</a>
-                    <a href="/Exhibition-users/sign-up">신청행사목록</a>
+                    <a href="/users/logout">로그아웃</a>
+                    <a href="/exhibition/index/all">개설행사목록</a>
+                    <a href="/exhibition-users/sign-up">신청행사목록</a>
                 <!-- // -->
                 <?php endif;?>
             </div>            

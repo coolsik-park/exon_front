@@ -58,7 +58,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
             }
         }).done(function(data) {
             if (data.status == 'success') {
-                $(location).attr('href', 'http://121.126.223.225:8765');
+                $(location).attr('href', '/');
             } else {
                 $("#noti").html("로그인 정보가 틀렸습니다.");
             }

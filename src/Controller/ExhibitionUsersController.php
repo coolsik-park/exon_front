@@ -352,4 +352,20 @@ class ExhibitionUsersController extends AppController
 
         return $this->redirect(['action' => 'signUp', $exhibition_user->users_id]);
     }
+    
+    public function downloadPdf($id = null)
+    {
+        $this->viewBuilder()->enableAutoLayout(false); 
+        $this->viewBuilder()->setClassName('CakePdf.Pdf');
+        $this->viewBuilder()->setOption(
+            'pdfConfig',
+            [
+                'orientation' => 'portrait',
+                'download' => true, // This can be omitted if "filename" is specified.
+                'filename' => $id . '_Report.pdf' //// This can be omitted if you want file name based on URL.
+            ]
+        );   
+    }
 }
+
+

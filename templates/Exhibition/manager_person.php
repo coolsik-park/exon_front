@@ -15,8 +15,8 @@
         <div class="pr3-title">                            
             <ul class="s-tabs2">
                 <li class="active"><a href="07_cs1.html">참가자</a></li>
-                <li><a href="07_cs2.html">문자</a></li>
-                <li><a href="07_cs3.html">이메일</a></li>
+                <li><a href="/exhibition/send-sms-to-participant/<?=$id?>">문자</a></li>
+                <li><a href="/exhibition/send-email-to-participant/<?=$id?>">이메일</a></li>
             </ul>
             <h3 class="s-hty1">참가자</h3>    
         </div>
