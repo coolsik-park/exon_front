@@ -1,102 +1,234 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Exhibition $exhibition
- */
-?>
-<div class="row">
-    <div float="left">
-        <a href="#신청하기">신청하기</a>
-        <a href="#개설자 정보">개설자 정보</a>
-        <a href="#상세 정보">상세 정보</a>
-        <a href="#취소 및 환불 안내">취소 및 환불 안내</a>
-        <a href="#문의">문의</a></div>
-    </div>
-
-    <div class="column-responsive column-80">
-        <div class="exhibition view content">
-            <h2><a name="신청하기">신청하기</a></h2>
-            <table>
-                <tr>
-                    <td rowspan="8"><?php echo $this->Html->image(DS . $exhibition->image_path . DS . $exhibition->image_name); ?></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><?= h($exhibition->title) ?></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><?= h($exhibition->description) ?></td>
-                </tr>
-                <tr>
-                    <th>모집일시</th>
-                    <td><?= h($exhibition->apply_sdate) ?>~<?= h($exhibition->apply_edate) ?></td>
-                </tr>
-                <tr>
-                    <th>행사일시</th>
-                    <td><?= h($exhibition->sdate) ?>~<?= h($exhibition->edate) ?></td>
-                </tr>
-                <tr>
-                    <th>비용</th>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th>행사분야</th>
-                    <td><?= h($exhibition->category) ?>|<?= h($exhibition->type) ?></td>
-                </tr>
-                <tr>
-                    <th><?php echo $this->Form->control('', ['options' => $groups]); ?></th>
-                    <td><?= $this->Html->link(__('참가신청'), ['controller' => 'exhibitionUsers', 'action' => 'add', $exhibition->id, 'class' => 'side-nav-item']) ?></td>
-                </tr>
-            </table>
-
-
-            <h2><a name="개설자 정보">개설자 정보</a></h2>
-            <table>``
-                <tr>
-                    <td>이미지</td>
-                    <td><?= h($exhibition->name) ?></td>
-                </tr>
-                <tr>
-                    <th>이메일</td>
-                    <td><?= h($exhibition->email) ?></td>
-                </tr>
-                <tr>
-                    <th>연락처</td>
-                    <td><?= h($exhibition->tel) ?></td>
-                </tr>
-            </table>
-
-
-            <h2><a name="상세 정보">상세 정보</a></h2>
-            <?= $this->Text->autoParagraph($exhibition->detail_html) ?>
-
-
-            <h2><a name="취소 및 환불 안내">취소 및 환불 안내</a></h2>
-            <div class="column" style="background-color:#aaa;">
-                ·행사의 신청, 취소, 변경, 환불은 참여신청 기간 내에만 가능합니다.</br>
-                ·신청한 행사의 신청, 취소, 변경, 환불은 신청내역에서 확인할 수 있습니다.</br>
-                ·결제 완료된 행사는 환불 시 결제 수단과 환불 시점에 따라 수수료가 부과될 수 있습니다.</br>
-                ·신청 마감 이후의 신청 정보 취소, 변경, 환불은 행사 개설자에게 문의 부탁드립니다.</br>
-                ·행사 그룹 설정, 정원 초과 여부에 따라 대기자로 선정될 수 있습니다.</br>
-                ·EXON은 통신판매 중개자이며, 해당 행사의 개설자가 아닙니다. 행사 내용에 관한 사항은 개설자에게 문의 바랍니다.
-            </div>
-
-
-            <h2><a name="문의">문의</a></h2>
-            <table>
-                <tr>
-                    <th>담당자</td>
-                    <td><?= h($exhibition->name) ?></td>
-                </tr>
-                <tr>
-                    <th>이메일</td>
-                    <td><?= h($exhibition->email) ?></td>
-                </tr>
-                <tr>
-                    <th>연락처</td>
-                    <td><?= h($exhibition->tel) ?></td>
-                </tr>
-            </table>
-            
+<div id="container" class="sub">
+    <div class="sub-menu">
+        <div class="sub-menu-inner">
+            <ul class="tab">
+                <li class="active"><a href="#applySect1">신청하기</a></li>
+                <li><a href="#applySect2">개설자 정보</a></li>
+                <li><a href="#applySect3">상세정보</a></li>
+                <li><a href="#applySect4">취소 및 환불 안내</a></li>
+                <li><a href="#applySect5">문의</a></li>
+            </ul>
         </div>
     </div>
+    <div class="contents static cont-wide">       
+        <div class="apply-wrap">
+            <div class="apply-section apply-sect1" id="applySect1">
+                <h2 class="s-hty1">신청하기</h2>
+                <div class="apply-sect1-cont">
+                    <div class="photos">
+                        <img src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>" alt="이미지없음">
+                    </div>
+                    <div class="conts">
+                        <h3><?= $exhibition->title ?></h3>
+                        <p class="tx"><?= $exhibition->description ?></p>
+                        <ul class="info-list">
+                            <li>
+                                <span class="dt">모집 일시</span>
+                                <span class="dd">
+                                    <?php
+                                        $weekday = array("(일)", "(월)", "(화)", "(수)", "(목)", "(금)", "(토)");
+
+                                        $apply_sdate = date("m월 d일", strtotime($exhibition->apply_sdate));
+                                        $apply_sweek = $weekday[date('w', strtotime($exhibition->apply_sdate))];
+                                        $apply_shour = date("H", strtotime($exhibition->apply_sdate));
+                                        $apply_smin = date("i", strtotime($exhibition->apply_sdate));
+
+                                        if ($apply_shour > 12) {
+                                            $apply_shour = $apply_shour-12;
+                                            echo $apply_sdate . $apply_sweek . " 오후 " . $apply_shour . ":" . $apply_smin . " ~ ";
+                                        } else {
+                                            echo $apply_sdate . $apply_sweek . " 오전 " . $apply_shour . ":" . $apply_smin . " ~ ";
+                                        }
+
+                                        $apply_edate = date("m월 d일", strtotime($exhibition->apply_edate));
+                                        $apply_eweek = $weekday[date('w', strtotime($exhibition->apply_edate))];
+                                        $apply_ehour = date("H", strtotime($exhibition->apply_edate));
+                                        $apply_emin = date("i", strtotime($exhibition->apply_edate));
+
+                                        if ($apply_ehour > 12) {
+                                            $apply_ehour = $apply_ehour-12;
+                                            echo $apply_edate . $apply_eweek . " 오후 " . $apply_ehour . ":" . $apply_emin;
+                                        } else {
+                                            echo $apply_edate . $apply_eweek . " 오전 " . $apply_ehour . ":" . $apply_emin;
+                                        }
+                                    ?>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="dt">행사 일시</span>
+                                <span class="dd">
+                                    <?php
+                                        $weekday = array("(일)", "(월)", "(화)", "(수)", "(목)", "(금)", "(토)");
+
+                                        $sdate = date("m월 d일", strtotime($exhibition->sdate));
+                                        $sweek = $weekday[date('w', strtotime($exhibition->sdate))];
+                                        $shour = date("H", strtotime($exhibition->sdate));
+                                        $smin = date("i", strtotime($exhibition->sdate));
+
+                                        if ($shour > 12) {
+                                            $shour = $shour-12;
+                                            echo $sdate . $sweek . " 오후 " . $shour . ":" . $smin . " ~ ";
+                                        } else {
+                                            echo $sdate . $sweek . " 오전 " . $shour . ":" . $smin . " ~ ";
+                                        }
+
+                                        $edate = date("m월 d일", strtotime($exhibition->edate));
+                                        $eweek = $weekday[date('w', strtotime($exhibition->edate))];
+                                        $ehour = date("H", strtotime($exhibition->edate));
+                                        $emin = date("i", strtotime($exhibition->edate));
+
+                                        if ($ehour > 12) {
+                                            $ehour = $ehour-12;
+                                            echo $edate . $eweek . " 오후 " . $ehour . ":" . $emin;
+                                        } else {
+                                            echo $edate . $eweek . " 오전 " . $ehour . ":" . $emin;
+                                        }
+                                    ?>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="dt">비용</span>
+                                <span class="dd">
+                                    <?php if ($exhibition->cost == 'free') {
+                                        echo '무료';
+                                    } else {
+                                        echo '유료';
+                                    } ?>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="dt">행사 분야 및 유형</span>
+                                <span class="dd"><?= $exhibition->category ?> | <?= $exhibition->type ?></span>
+                            </li>
+                        </ul>
+                        <div class="btns">
+                            <div class="group" id="group">
+                                <?= $this->Form->select('', $groups, ['id' => 'group']) ?>                                   
+                                <span class="tx" id="spanGroup"></span>
+                            </div>
+                            <!-- <div class="group">
+                                <select name="" id="">
+                                    <option value=""></option>
+                                </select>                                   
+                                <span class="tx">무료</span>
+                            </div> -->
+                            <a href="/exhibitionUsers/add/<?= $exhibition->id ?>" class="btn-join">참가 신청</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="apply-section apply-sect2" id="applySect2">
+                <h2 class="s-hty1">개설자 정보</h2>
+                <div class="apply-sect2-cont">
+                    <div class="photo">
+                        <img src="<?= DS . $user[0]->image_path . DS . $user[0]->image_name ?>">
+                    </div>
+                    <div class="info1">
+                        <p><?= $user[0]->name ?></p>
+                        <!-- <p><?= $users->title ?>입니다</p> -->
+                    </div>
+                    <div class="info2">
+                        <p><?= $user[0]->email ?></p>
+                        <p><?= substr($user[0]->hp, 0, 3) ?>-<?= substr($user[0]->hp, 3, 4) ?>-<?= substr($user[0]->hp, 7, 4) ?></p>
+                    </div>
+                </div>
+            </div>
+            <div class="apply-section apply-sect3" id="applySect3">
+                <h2 class="s-hty1">상세 정보</h2>
+                <div class="apply-sect3-cont">
+                    <p><?= $exhibition->detail_html ?></p>  
+                </div>
+                <!-- <div class="apply-sect3-photos">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="../images/@img_square.png" alt="">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="../images/@img_square.png" alt="">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="../images/@img_square.png" alt="">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="../images/@img_square.png" alt="">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="../images/@img_square.png" alt="">
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>             
+                </div> -->
+            </div>
+            <div class="apply-section apply-sect4" id="applySect4">
+                <h2 class="s-hty1">취소 및 환불 안내</h2>
+                <div class="apply-sect4-cont">
+                    <ul>
+                        <li>행사의 신청, 취소, 변경, 환불은 참여신청 기간 내에만 가능합니다.</li>
+                        <li>신청한 행사의 신청, 취소, 변경, 환불은 신청내역에서 할 수 있습니다.</li>
+                        <li>결제 완료된 행사는 환불 시 결제 수단과 환불 시점에 따라 수수료가 부과될 수 있습니다.</li>
+                        <li>신청 마감 이후의 신청 정보 취소, 변경, 환불은 행사 개설자에게 문의 부탁드립니다.</li>
+                        <li>행사 그룹 설정, 정원 초과 여부에 따라 대기자로 선정될 수 있습니다.</li>
+                        <li>EXON은 통신판매 중개자이며, 해당 행사의 개설자가 아닙니다. 행사 내용에 관한 사항은 개설자에게 문의 바랍니다.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="apply-section apply-sect5" id="applySect5">
+                <h2 class="s-hty1">문의</h2>
+                <div class="apply-sect5-cont">
+                    <div class="info1">
+                        <h3>담당자</h3>
+                        <p><?= $exhibition->name ?></p>
+                    </div>
+                    <div class="info2">
+                        <h3>이메일</h3>
+                        <p><?= $exhibition->email ?></p>
+                    </div>
+                    <div class="info3">
+                        <h3>연락처</h3>
+                        <p><?= substr($exhibition->tel, 0, 3) ?>-<?= substr($exhibition->tel, 3, 4) ?>-<?= substr($exhibition->tel, 7, 4) ?></p>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>        
 </div>
+<footer id="footer"></footer>
+
+<script>
+     ui.slider.photoSlider();
+
+     var tabArea = $('.tab');
+     var navBtn = $('.tab li a');
+     var tabOffset = $('.tab').offset();
+     var tabHeight = $('.tab').outerHeight();
+
+    navBtn.on('click',function(event){
+        event.preventDefault();
+        $('html,body').stop().animate({scrollTop:$(this.hash).offset().top - tabHeight - 25}, 500);			
+    });
+
+    $(window).on('scroll', function(){
+        var scltop = $(window).scrollTop();	
+        navBtn.each(function(){
+            var btn = $(this);
+            if(scltop >= $(this.hash).offset().top - tabHeight - 26){
+                btn.parent().addClass('active').siblings().removeClass('active');					
+            }
+        });
+        $(window).scrollTop() > 80 ? $('.sub-menu').addClass('sticky') : $('.sub-menu').removeClass('sticky');
+    });
+
+    $('#group').on('change', function() {
+        var value = $('#group option:selected').val();
+        var amount = value.split(';')[1];
+        amount = amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+        if (amount != 0) {
+            $('#spanGroup').replaceWith('<span class="tx">' + amount + '</span>');
+        } else {
+            $('#spanGroup').replaceWith('<span class="tx">무료</span>');
+        }
+    });
+</script>

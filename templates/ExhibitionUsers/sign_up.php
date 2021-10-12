@@ -90,7 +90,6 @@
                                     <br>
                                     <?php
                                         $date = date("Y.m.d", strtotime($exhibition_user->exhibition['edate']));
-                                        $hour = date("A", strtotime($exhibition_user->exhibition['edate']));
                                         $hour = date("H", strtotime($exhibition_user->exhibition['edate']));
                                         $min = date("i", strtotime($exhibition_user->exhibition['edate'])); 
                                         
@@ -190,23 +189,12 @@
                     </div>
                 <?php endforeach; ?>
             </div>
-<<<<<<< HEAD
-            <div class="paginatorAll">
-                <div class="paginator" >
-                    <ul class="pagination">
-                        <?= $this->Paginator->prev('< ' . __('이전')) ?>
-                        <?= $this->Paginator->numbers() ?>
-                        <?= $this->Paginator->next(__('다음') . ' >') ?>
-                    </ul>
-                </div>
-=======
             <div class="paginator" >
                 <ul class="pagination">
                     <?= $this->Paginator->prev('< ' . __('이전')) ?>
                     <?= $this->Paginator->numbers() ?>
                     <?= $this->Paginator->next(__('다음') . ' >') ?>
                 </ul>
->>>>>>> bomi
             </div>
         </div>
     </div>        
