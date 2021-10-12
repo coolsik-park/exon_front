@@ -44,8 +44,6 @@ class Application extends BaseApplication
      */
     public function bootstrap(): void
     {
-        $this->addPlugin('CakePdf');
-        
         $this->addPlugin('Search');
 
         // Call parent to load bootstrap from files.
@@ -69,6 +67,7 @@ class Application extends BaseApplication
         }
 
         // Load more plugins here
+        $this->addPlugin('CakePdf');
     }
 
     /**
@@ -141,4 +140,5 @@ class Application extends BaseApplication
 
         // Load more plugins here
     }
+    
 }

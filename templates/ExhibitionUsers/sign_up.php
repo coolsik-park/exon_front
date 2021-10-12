@@ -156,7 +156,7 @@
                         <div class="td-col col8">
                             <div class="mo-only"></div>
                             <div class="con">
-                                <p><a href="#" class="btn-ty3 bor" id="pdfCreate">증빙</a></p>
+                                <p><a href="/exhibition-users/download-pdf/<?=$exhibition_user->exhibition['id']?>" class="btn-ty3 bor">증빙</a></p>
                                 <p>
                                     <?php
                                         $today = new DateTime();
@@ -190,23 +190,12 @@
                     </div>
                 <?php endforeach; ?>
             </div>
-<<<<<<< HEAD
-            <div class="paginatorAll">
-                <div class="paginator" >
-                    <ul class="pagination">
-                        <?= $this->Paginator->prev('< ' . __('이전')) ?>
-                        <?= $this->Paginator->numbers() ?>
-                        <?= $this->Paginator->next(__('다음') . ' >') ?>
-                    </ul>
-                </div>
-=======
             <div class="paginator" >
                 <ul class="pagination">
                     <?= $this->Paginator->prev('< ' . __('이전')) ?>
                     <?= $this->Paginator->numbers() ?>
                     <?= $this->Paginator->next(__('다음') . ' >') ?>
                 </ul>
->>>>>>> bomi
             </div>
         </div>
     </div>        
