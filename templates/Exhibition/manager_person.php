@@ -113,20 +113,12 @@
                     </div>
                 <?php endforeach; ?>
             </div>
-            <div class="pagination">
-                <a href="#" class="p-prev">이전</a>
-                <div class="paging">
-                    <strong>1</strong>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">6</a>
-                    <a href="#">7</a>
-                    <a href="#">8</a>
-                    <a href="#">9</a>
-                </div>                    
-                <a href="#" class="p-next">다음</a>
+            <div class="paginator" >
+                <ul class="pagination">
+                    <?= $this->Paginator->prev('< ' . __('이전')) ?>
+                    <?= $this->Paginator->numbers() ?>
+                    <?= $this->Paginator->next(__('다음') . ' >') ?>
+                </ul>
             </div>
         </div>      
     </div>        
