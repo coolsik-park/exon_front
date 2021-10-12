@@ -54,7 +54,7 @@ class ExhibitionController extends AppController
         } elseif ($type == 'ended') {            
             $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.edate <' => $today]))->toArray();
         }
-
+        debug($exhibitions);
         $this->set(compact('exhibitions'));
     }
     
@@ -263,9 +263,9 @@ class ExhibitionController extends AppController
     public function saveImg($id = null)
     {
         if ($this->request->is('post')) {
-            
+            $data = $this->request->getData();
+
             if (!empty($data['image'])) {
-                $data = $this->request->getData();
                 $img = $data['image'];
                 $imgName = $img->getClientFilename();
                 $index = strpos(strrev($imgName), strrev('.'));

@@ -53,10 +53,10 @@
                                             if ($exhibition->status == 4) {
                                                 echo '임시저장';
                                             } else {
-                                                if ($exhibition->edate < $today) {
-                                                    echo '종료';
-                                                } else {
+                                                if ($exhibition->sdate > $today && $exhibition->edate > $today) {
                                                     echo '진행중';
+                                                } else {
+                                                    echo '종료';
                                                 }
                                             }
                                         ?>
@@ -78,51 +78,83 @@
                                 <p class="tit fir">모집 일시</p>
                                 <p class="tx-1">
                                     <?php
+                                        if ($exhibition->apply_sdate != '') :
                                         $apply_sdate = date("Y.m.d", strtotime($exhibition->apply_sdate));
-                                        $apply_edate = date("Y.m.d", strtotime($exhibition->apply_edate));
                                         $apply_shour = date("H", strtotime($exhibition->apply_sdate));
-                                        $apply_ehour = date("H", strtotime($exhibition->apply_edate));
                                         $apply_smin = date("i", strtotime($exhibition->apply_sdate));
+                                        else :
+                                        $apply_sdate = '';
+                                        $apply_shour = '';
+                                        $apply_smin = '';
+                                        endif;
+                                        if ($exhibition->apply_edate != '') :
+                                        $apply_edate = date("Y.m.d", strtotime($exhibition->apply_edate));
+                                        $apply_ehour = date("H", strtotime($exhibition->apply_edate));
                                         $apply_emin = date("i", strtotime($exhibition->apply_edate));
+                                        else :
+                                        $apply_edate = '';
+                                        $apply_ehour = '';
+                                        $apply_emin = '';
+                                        endif;
 
-                                        if ($apply_shour > 12) {
-                                            $apply_shour = $apply_shour-12;
-                                            echo $apply_sdate . " 오후 " . $apply_shour . ":" . $apply_smin . " ~ ";
-                                        } else {
-                                            echo $apply_sdate . " 오전 " . $apply_shour . ":" . $apply_smin . " ~ ";
-                                        }
-
-                                        if ($apply_ehour > 12) {
-                                            $apply_ehour = $apply_ehour-12;
-                                            echo $apply_edate . " 오후 " . $apply_ehour . ":" . $apply_emin;
-                                        } else {
-                                            echo $apply_edate . " 오전 " . $apply_ehour . ":" . $apply_emin;
-                                        }
+                                        if ($exhibition->apply_sdate != '') :
+                                            if ($apply_shour > 12) {
+                                                $apply_shour = $apply_shour-12;
+                                                echo $apply_sdate . " 오후 " . $apply_shour . ":" . $apply_smin . " ~ ";
+                                            } else {
+                                                echo $apply_sdate . " 오전 " . $apply_shour . ":" . $apply_smin . " ~ ";
+                                            }
+                                        endif;
+                                        
+                                        if ($exhibition->apply_edate != '') :
+                                            if ($apply_ehour > 12) {
+                                                $apply_ehour = $apply_ehour-12;
+                                                echo $apply_edate . " 오후 " . $apply_ehour . ":" . $apply_emin;
+                                            } else {
+                                                echo $apply_edate . " 오전 " . $apply_ehour . ":" . $apply_emin;
+                                            }
+                                        endif;
                                     ?>
                                 </p>
                                 <p class="tit">행사 일시</p>
                                 <p class="tx-1">
                                     <?php
+                                        if ($exhibition->sdate != '') :
                                         $sdate = date("Y.m.d", strtotime($exhibition->sdate));
-                                        $edate = date("Y.m.d", strtotime($exhibition->edate));
                                         $shour = date("H", strtotime($exhibition->sdate));
-                                        $ehour = date("H", strtotime($exhibition->edate));
                                         $smin = date("i", strtotime($exhibition->sdate));
+                                        else :
+                                        $sdate = '';
+                                        $shour = '';
+                                        $smin = '';
+                                        endif;
+                                        if ($exhibition->edate != '') :
+                                        $edate = date("Y.m.d", strtotime($exhibition->edate));
+                                        $ehour = date("H", strtotime($exhibition->edate));
                                         $emin = date("i", strtotime($exhibition->edate));
+                                        else :
+                                        $edate = '';
+                                        $ehour = '';
+                                        $emin = '';
+                                        endif;
 
-                                        if ($shour > 12) {
-                                            $shour = $shour-12;
-                                            echo $sdate . " 오후 " . $shour . ":" . $smin . " ~ ";
-                                        } else {
-                                            echo $sdate . " 오전 " . $shour . ":" . $smin . " ~ ";
-                                        }
+                                        if ($exhibition->sdate != '') :
+                                            if ($shour > 12) {
+                                                $shour = $shour-12;
+                                                echo $sdate . " 오후 " . $shour . ":" . $smin . " ~ ";
+                                            } else {
+                                                echo $sdate . " 오전 " . $shour . ":" . $smin . " ~ ";
+                                            }
+                                        endif;
 
-                                        if ($ehour > 12) {
-                                            $ehour = $ehour-12;
-                                            echo $edate . " 오후 " . $ehour . ":" . $emin;
-                                        } else {
-                                            echo $edate . " 오전 " . $ehour . ":" . $emin;
-                                        }
+                                        if ($exhibition->edate != '') :
+                                            if ($ehour > 12) {
+                                                $ehour = $ehour-12;
+                                                echo $edate . " 오후 " . $ehour . ":" . $emin;
+                                            } else {
+                                                echo $edate . " 오전 " . $ehour . ":" . $emin;
+                                            }
+                                        endif;
                                     ?>
                                 </p>
                             </div>                           
@@ -142,7 +174,7 @@
                                                     <button type="button" class="btn-ty3 gray">행사 삭제</button>
                                             <?php
                                                 } else {
-                                                    if ($exhibition->edate < $today) {
+                                                    if ($exhibition->sdate < $today && $exhibition->edate > $today) {
                                             ?>
                                                         <button type="button" class="btn-ty3 gray">행사 삭제</button>
                                             <?php

@@ -468,7 +468,7 @@
 
     //취소
     $("button[name='cancel']").click(function () {
-        window.location.replace("/exhibition/index");
+        window.location.replace("/exhibition/index/all");
     });
 
     //임시저장
