@@ -9,18 +9,18 @@
         <div class="section-my">
             <h3 class="s-hty1">신청 내역 관리</h3>
             <ul class="s-tabs">
-                <?php if ($_SERVER['REQUEST_URI'] == '/exhibitionUsers/signUp/' . $id) { ?>
-                        <li class="active"><a href="/exhibitionUsers/signUp/<?= $id ?>">신청 행사</a></li>
-                        <li class=""><a href="/exhibitionUsers/signUp/<?= $id ?>/1">종료 행사</a></li>
-                        <li class=""><a href="/exhibitionUsers/signUp/<?= $id ?>/2">취소/환불</a></li>
-                <?php } elseif ($_SERVER['REQUEST_URI'] == '/exhibitionUsers/signUp/' . $id . '/1') { ?>
-                        <li class=""><a href="/exhibitionUsers/signUp/<?= $id ?>">신청 행사</a></li>
-                        <li class="active"><a href="/exhibitionUsers/signUp/<?= $id ?>/1">종료 행사</a></li>
-                        <li class=""><a href="/exhibitionUsers/signUp/<?= $id ?>/2">취소/환불</a></li>
-                <?php } elseif ($_SERVER['REQUEST_URI'] == '/exhibitionUsers/signUp/' . $id . '/2') { ?>
-                        <li class=""><a href="/exhibitionUsers/signUp/<?= $id ?>">신청 행사</a></li>
-                        <li class=""><a href="/exhibitionUsers/signUp/<?= $id ?>/1">종료 행사</a></li>
-                        <li class="active"><a href="/exhibitionUsers/signUp/<?= $id ?>/2">취소/환불</a></li>
+                <?php if ($_SERVER['REQUEST_URI'] == '/exhibitionUsers/signUp/application') { ?>
+                        <li class="active"><a href="/exhibitionUsers/signUp/application">신청 행사</a></li>
+                        <li class=""><a href="/exhibitionUsers/signUp/close">종료 행사</a></li>
+                        <li class=""><a href="/exhibitionUsers/signUp/cancel">취소/환불</a></li>
+                <?php } elseif ($_SERVER['REQUEST_URI'] == '/exhibitionUsers/signUp/close') { ?>
+                        <li class=""><a href="/exhibitionUsers/signUp/application">신청 행사</a></li>
+                        <li class="active"><a href="/exhibitionUsers/signUp/close">종료 행사</a></li>
+                        <li class=""><a href="/exhibitionUsers/signUp/cancel">취소/환불</a></li>
+                <?php } elseif ($_SERVER['REQUEST_URI'] == '/exhibitionUsers/signUp/cancel') { ?>
+                        <li class=""><a href="/exhibitionUsers/signUp/application">신청 행사</a></li>
+                        <li class=""><a href="/exhibitionUsers/signUp/close">종료 행사</a></li>
+                        <li class="active"><a href="/exhibitionUsers/signUp/cancel">취소/환불</a></li>
                 <?php } ?>
             </ul>
             <div class="table-type table-type1">

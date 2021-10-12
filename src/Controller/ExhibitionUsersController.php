@@ -260,20 +260,20 @@ class ExhibitionUsersController extends AppController
         return $code;
     }
 
-    public function signUp($id = null, $signUpId = null)
+    public function signUp($type = null)
     {
         $this->paginate = ['limit' => 10];
-        $today = new \DateTime();
+        $today = FrozenTime::now();
 
-        if ($signUpId == null) {
-            $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $id, 'ExhibitionUsers.status !=' => 8])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
-        } elseif ($signUpId == 1){
-            $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $id, 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate <' => $today])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
-        } elseif ($signUpId == 2) {
-            $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $id, 'ExhibitionUsers.status' => 8])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
+        if ($type == 'application') {
+            $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $this->Auth->user('id'), 'ExhibitionUsers.status !=' => 8])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
+        } elseif ($type == 'close'){
+            $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $this->Auth->user('id'), 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate <' => $today])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
+        } elseif ($type == 'cancel') {
+            $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $this->Auth->user('id'), 'ExhibitionUsers.status' => 8])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
         }
         
-        $this->set(compact('id', 'exhibition_users'));
+        $this->set(compact('exhibition_users'));
     }
 
     public function exhibitionUsersStatus($id = null, $email = null, $pay_id = null)
