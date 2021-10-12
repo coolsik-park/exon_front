@@ -69,7 +69,7 @@ class PagesController extends AppController
 
         //메인 배너
         $banner = $this->Banner->find('all')
-                        ->select(['Banner.id', 'Banner.img_path', 'Banner.img_name', 'Exhibition.title'])
+                        ->select(['Banner.id', 'Banner.exhibition_id', 'Banner.img_path', 'Banner.img_name', 'Exhibition.title'])
                         ->contain(['Exhibition'])
                         // ->leftJoinWith('Exhibition', function ($q) {
                         //     return $q->where(['Exhibition.title' => '테스트']);
@@ -80,7 +80,7 @@ class PagesController extends AppController
         
         //HOT 10
         $hot = $this->Banner->find('all')
-                        ->select(['Banner.id', 'Banner.img_path', 'Banner.img_name'
+                        ->select(['Banner.id', 'Banner.exhibition_id', 'Banner.img_path', 'Banner.img_name'
                                 ,"title" => 'Exhibition.title', "description"=>'Exhibition.description','sdate'=>'date_format(Exhibition.sdate,"%m. %d")','edate'=>'date_format(Exhibition.edate,"%m. %d")'
                                 , 'playing'=>'now() between Exhibition.sdate and Exhibition.edate' // 진행여부 ,1: 진행중
                                 ])
@@ -92,7 +92,7 @@ class PagesController extends AppController
 
         //NEW 10
         $new = $this->Banner->find('all')
-        ->select(['Banner.id', 'Banner.img_path', 'Banner.img_name'
+        ->select(['Banner.id', 'Banner.exhibition_id', 'Banner.img_path', 'Banner.img_name'
                 ,"title" => 'Exhibition.title', "description"=>'Exhibition.description','sdate'=>'date_format(Exhibition.sdate,"%m. %d")','edate'=>'date_format(Exhibition.edate,"%m. %d")'
                 , 'playing'=>'now() between Exhibition.sdate and Exhibition.edate' // 진행여부 ,1: 진행중
                 ])
@@ -104,7 +104,7 @@ class PagesController extends AppController
 
          //NORMAL 10
          $normal = $this->Banner->find('all')
-         ->select(['Banner.id', 'Banner.img_path', 'Banner.img_name'
+         ->select(['Banner.id', 'Banner.exhibition_id', 'Banner.img_path', 'Banner.img_name'
                  ,"title" => 'Exhibition.title', "description"=>'Exhibition.description','sdate'=>'date_format(Exhibition.sdate,"%m. %d")','edate'=>'date_format(Exhibition.edate,"%m. %d")'
                  , 'playing'=>'now() between Exhibition.sdate and Exhibition.edate' // 진행여부 ,1: 진행중
                  ])

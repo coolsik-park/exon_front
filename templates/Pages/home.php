@@ -6,7 +6,7 @@
                     <div class="swiper-wrapper">
 						<?php foreach ($banner as $list): ?>
 							<div class="swiper-slide">
-								<div class="imgs"><img src="<?php echo $list->img_path . $list->img_name;?>" class="responsiveImg" data-media-web="<?php echo $list->img_path . $list->img_name;?>" data-media-mobile="<?php echo $list->img_path . $list->img_name;?>" alt="" ></div>
+								<a href="/exhibition/view/<?php echo $list->exhibition_id; ?>"><div class="imgs"><img src="<?php echo $list->img_path . $list->img_name;?>" class="responsiveImg" data-media-web="<?php echo $list->img_path . $list->img_name;?>" data-media-mobile="<?php echo $list->img_path . $list->img_name;?>" alt="" ></div></a>
 							</div>
 						<?php endforeach; ?>
                     </div>
@@ -35,7 +35,7 @@
                             </div>
                             <h3 class="h-ty2"><?php echo $hot[0]['title']; ?></h3>
                             <p class="tx"><?php echo $hot[0]['description']; ?></p>
-                            <a href="#" class="btn">자세히 보기</a>
+                            <a href="exhibition/view/<?php echo $hot[0]['exhibition_id']; ?>" class="btn">자세히 보기</a>
                         </div>
                     </div>
                     <div class="main-slider2">
@@ -44,7 +44,7 @@
                             <?php foreach($hot as $index => $list): ?>
                                 <?php if($index): ?>
                                     <div class="swiper-slide">
-                                        <a href="#" class="main-sd-item">
+                                        <a href="exhibition/view/<?php echo $list['exhibition_id']; ?>" class="main-sd-item">
                                             <div class="imgs"><img src="<?php echo $list['img_path'] . $list['img_name'];?>" alt=""></div>
                                             <div class="desc">
                                                 <div class="info">
@@ -81,7 +81,7 @@
                 <div class="main-sect4">
                     <div class="h-ty1-wp">
                         <h2 class="h-ty1"><span class="t1">Top 10</span><span class="t2">이번 달에 새로<br>열리는 전시</span></h2>
-                        <a href="#">자세히 보기</a>
+                        <!-- <a href="#">자세히 보기</a> -->
                     </div>                    
                     <div class="main-slider4">
                         <div class="swiper-container">
@@ -90,6 +90,7 @@
                                 <div class="swiper-slide">
                                     <div class="swiper-slide">
                                         <div class="main-sd-item">
+                                            <a href="exhibition/view/<?php echo $list['exhibition_id']; ?>">
                                             <div class="imgs"><img src="<?php echo $list['img_path'] . $list['img_name'];?>" alt=""></div>
                                             <div class="desc">
                                                 <div class="info">
@@ -99,6 +100,7 @@
                                                 <h3 class="h-ty3"><?php echo $list['title']; ?></h3>
                                                 <p class="tx-1"><?php echo $list['description']; ?></p>
                                             </div>
+                                            </a>
                                         </div>                                    
                                     </div>
                                 </div>
@@ -112,7 +114,7 @@
                 <div class="main-sect5">
                     <div class="h-ty1-wp">
                         <h2 class="h-ty1"><span class="t1">Top 10</span><span class="t2">일반 전시</span></h2>
-                        <a href="#">자세히 보기</a>
+                        <!-- <a href="#">자세히 보기</a> -->
                     </div>                    
                     <div class="main-slider5">
                         <div class="swiper-container">
@@ -121,6 +123,7 @@
                                 <div class="swiper-slide">
                                     <div class="swiper-slide">
                                         <div class="main-sd-item">
+                                            <a href="exhibition/view/<?php echo $list['exhibition_id']; ?>">
                                             <div class="imgs"><img src="<?php echo $list['img_path'] . $list['img_name'];?>" alt=""></div>
                                             <div class="desc">
                                                 <div class="info">
@@ -130,6 +133,7 @@
                                                 <h3 class="h-ty3"><?php echo $list['title']; ?></h3>
                                                 <p class="tx-1"><?php echo $list['description']; ?></p>
                                             </div>
+                                            </a>
                                         </div>                                    
                                     </div>
                                 </div>

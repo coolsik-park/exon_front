@@ -60,12 +60,15 @@ class ExhibitionController extends AppController
     public function view($id = null)
     {
         $exhibition = $this->Exhibition->get($id, [
-            'contain' => ['Banner', 'ExhibitionFile', 'ExhibitionGroup', 'ExhibitionStream', 'ExhibitionSurvey'],
+            'contain' => ['Banner', 'ExhibitionFile', 'ExhibitionGroup', 'ExhibitionStream', 'ExhibitionSurvey', 'Users'],
         ]);
+        
         $exhibitiongroups = $this->getTableLocator()->get('ExhibitionGroup');
-        $groups = $exhibitiongroups->find('list', ['keyField' => 'id', 'valueField' => 'name'])->where(['exhibition_id' => $id]);
-
-        $this->set(compact('exhibition', 'groups'));
+        $groups = $exhibitiongroups->find('list', ['keyField' => ['id', 'amount'], 'valueField' => 'name'])->where(['exhibition_id' => $id]);
+        $users = $this->getTableLocator()->get('Users');
+        $user = $users->find()->where(['id' => $exhibition->users_id])->toList();
+        
+        $this->set(compact('exhibition', 'groups', 'user'));
     }
     
     public function add()
