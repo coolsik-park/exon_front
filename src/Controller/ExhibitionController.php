@@ -574,12 +574,43 @@ class ExhibitionController extends AppController
     }
 
     public function copy($id = null) {
+        
         if ($this->request->is('post')) {
             $copiedExhibition = $this->Exhibition->get($id);
             $copiedExhibition->id = null;
             $newExhibition = $this->Exhibition->newEmptyEntity();
             
-            $newExhibition = $this->Exhibition->patchEntity($newExhibition, $copiedExhibition);
+            $newExhibition->users_id = $copiedExhibition->users_id;
+            $newExhibition->title = $copiedExhibition->title;
+            $newExhibition->description = $copiedExhibition->description;
+            $newExhibition->category = $copiedExhibition->category;
+            $newExhibition->type = $copiedExhibition->type;
+            $newExhibition->detail_html = $copiedExhibition->detail_html;
+            $newExhibition->apply_sdate = $copiedExhibition->apply_sdate;
+            $newExhibition->apply_edate = $copiedExhibition->apply_edate;
+            $newExhibition->sdate = $copiedExhibition->sdate;
+            $newExhibition->edate = $copiedExhibition->edate;
+            $newExhibition->image_path = $copiedExhibition->image_path;
+            $newExhibition->image_name = $copiedExhibition->image_name;
+            $newExhibition->private = $copiedExhibition->private;
+            $newExhibition->auto_approval = $copiedExhibition->auto_approval;
+            $newExhibition->name = $copiedExhibition->name;
+            $newExhibition->tel = $copiedExhibition->tel;
+            $newExhibition->email = $copiedExhibition->email;
+            $newExhibition->require_name = $copiedExhibition->require_name;
+            $newExhibition->require_email = $copiedExhibition->require_email;
+            $newExhibition->require_tel = $copiedExhibition->require_tel;
+            $newExhibition->require_age = $copiedExhibition->require_age;
+            $newExhibition->require_group = $copiedExhibition->require_group;
+            $newExhibition->require_sex = $copiedExhibition->require_sex;
+            $newExhibition->require_cert = $copiedExhibition->require_cert;
+            $newExhibition->email_notice = $copiedExhibition->email_notice;
+            $newExhibition->additional = $copiedExhibition->additional;
+            $newExhibition->status = 4;
+            $newExhibition->notice = $copiedExhibition->notice;
+            $newExhibition->program = $copiedExhibition->program;
+            $newExhibition->cost = $copiedExhibition->cost;
+
             if ($this->Exhibition->save($newExhibition)) {
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
                 return $response;
