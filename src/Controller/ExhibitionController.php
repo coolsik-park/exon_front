@@ -573,6 +573,23 @@ class ExhibitionController extends AppController
         $this->set(compact('id', 'exhibition', 'users', 'categories', 'types', 'exhibitionGroups', 'exhibitionSurveys'));
     }
 
+    public function copy($id = null) {
+        if ($this->request->is('post')) {
+            $copiedExhibition = $this->Exhibition->get($id);
+            $copiedExhibition->id = null;
+            $newExhibition = $this->Exhibition->newEmptyEntity();
+            
+            $newExhibition = $this->Exhibition->patchEntity($newExhibition, $copiedExhibition);
+            if ($this->Exhibition->save($newExhibition)) {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                return $response;
+            } else {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                return $response;
+            }
+        }
+    }
+
     public function getUserInfo()
     {
         $User = $this->getTableLocator()->get('Users');

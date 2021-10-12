@@ -35,7 +35,11 @@
                 <?php foreach ($exhibitions as $exhibition): ?>                  
                     <div class="tr-row">
                         <div class="td-col col1">
-                            <p class="photo"><img src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>" alt="이미지없음"></p>
+                            <?php if ($exhibition->image_path != '') : ?>
+                            <p class="photo"><img src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>"></p>
+                            <?php else : ?>
+                            <p class="photo"><img src="../../images/img-no3.png" alt="이미지없음"></p>
+                            <?php endif; ?>
                         </div>
                         <div class="td-col col2">
                             <div class="creative">
@@ -166,17 +170,17 @@
                                         <?php
                                             if ($exhibition->status == 4) {
                                         ?>
-                                                <li><button type="button" id="<?=$exhibition->id?>" name="deleteExhibition" class="btn-ty3 gray">행사 삭제</button></li>
+                                                <li><button type="button" id="delete<?=$exhibition->id?>" name="deleteExhibition" class="btn-ty3 gray">행사 삭제</button></li>
                                         <?php
                                             } else {
                                                 if ($exhibition->sdate <= $today && $exhibition->edate >= $today && !empty($exhibtion->users)) {
                                         ?>
-                                                    <li><button type="button" id="<?=$exhibition->id?>" name="deleteExhibition" class="btn-ty3 gray">행사 삭제</button></li>
+                                                    <li><button type="button" id="delete<?=$exhibition->id?>" name="deleteExhibition" class="btn-ty3 gray">행사 삭제</button></li>
                                         <?php
                                                 }
                                             }
                                         ?>
-                                        <li><button type="button" class="btn-ty3 gray">행사 복사</button></li>
+                                        <li><button type="button" id="copy<?=$exhibition->id?>" name="copyExhibition" class="btn-ty3 gray">행사 복사</button></li>
                                     </ul>
                                 </div>
                             </div>
@@ -198,9 +202,9 @@
 
 <script>
     $(document).on("click", "button[name='deleteExhibition']", function() {
-        var id = $(this).attr("id");
+        var id = $(this).attr("id").substr(6, $(this).attr("id").length - 6);
 
-        if (confirm('행사 삭제하시겠습니까?') == true) {
+        if (confirm('행사를 삭제하시겠습니까?') == true) {
             $.ajax({
                 url: '/exhibition/delete/' + id,
                 method: 'POST',
@@ -210,7 +214,27 @@
                 if (data.status == 'success') {
                     window.location.reload();
                 } else {
-                    alert("성공되지 않았습니다.");
+                    alert("삭제에 실패하였습니다. 잠시 후 다시 시도해주세요.");
+                }
+            });   
+        } else {
+            alert("취소하였습니다.");
+        }
+    });
+
+    $(document).on("click", "button[name='copyExhibition']", function () {
+        var id = $(this).attr("id").substr(4, $(this).attr("id").length - 4);
+        
+        if (confirm('행사를 복사하시겠습니까?')) {
+            $.ajax({
+                url: '/exhibition/copy/' + id,
+                method: 'POST',
+                type: 'json',
+            }).done(function(data) {
+                if (data.status == 'success') {
+                    window.location.replace("/exhibition/index/temp");
+                } else {
+                    alert("복사에 실패하였습니다. 잠시 후 다시 시도해주세요.");
                 }
             });   
         } else {
