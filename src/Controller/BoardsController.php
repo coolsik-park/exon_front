@@ -223,8 +223,6 @@ class BoardsController extends AppController
             $faqs = $this->paginate($faqs->find()->select(['id', 'title'])->where(['faq_category_id' => $FaqCategoryId]));
         }
 
-        debug($faqs);
-
         $this->set(compact('faqs'));
     }
 }
