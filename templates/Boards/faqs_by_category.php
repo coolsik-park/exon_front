@@ -5,7 +5,7 @@
                 <ul class="s-tabs2">
                     <li class="active"><a href="">자주 하는 질문</a></li>
                     <li><a href="/boards/notice">공지사항</a></li>
-                    <li><a href="">문의하기</a></li>
+                    <li><a href="/boards/add">문의하기</a></li>
                 </ul>
             </div>
             <div class="section-cs1">
