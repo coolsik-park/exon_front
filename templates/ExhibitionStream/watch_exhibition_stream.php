@@ -1,30 +1,4 @@
 
-    <!-- <video-js id=vid1 width=600 height=300 class="vjs-default-skin vjs-big-play-centered" controls>
-        <source src = <?= "http://121.126.223.225:80/live/" . $exhibitionStream[0]['stream_key'] . "/index.m3u8" ?> type = "application/x-mpegURL", id = "source">
-    </video-js>
-
-<br><br>
-<div>
-    <p> 제목 : <?= $exhibitionStream[0]['title'] ?></p>
-    <p> 설명 : <?= $exhibitionStream[0]['description'] ?></p>
-</div>
-
-<div class="column-responsive column-80">
-    <div class="exhibitionStream form content">
-    <fieldset>
-        <legend><?= __('Set Exhibition Stream Tab') ?></legend>
-            <?php
-                $i = 9;
-                foreach ($tabs as $tab) {
-                    echo $this->Form->button($tab->title, ['id' => 'tab' . $i, 'name' => $tab->title, 'type' => 'button']). ' ';
-                    $i--;
-                }
-            ?>
-        </fieldset>
-    </div>
-</div>
-<div id = "tabContent"></div> -->
-
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
