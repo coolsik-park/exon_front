@@ -535,12 +535,17 @@
 .poll-item-b .b-list{margin-top: 20px;}
 .poll-item-b .b-list p{margin:14px 0 0;font-size:1rem;line-height: 1.4;}
 
+/*21-10-09*/
+.search-btm{display: flex;align-items: center;justify-content: center;margin-top: 60px;}
+.search-btm .ipt-kwd{width:520px;margin:0 20px}
+.search-btm .btn-ty2{width: 100px;}
+
 @media (max-width: 1440px) {
     .section-webinar3{width:96%;max-width: 1200px;}
     .section-webinar3 .webinar-cont{width:100%;}
     .section-webinar4 .webinar-cont{padding:3vw 2vw}
     .section-webinar4 .webinar-cont{width:60%}
-    .section-webinar4 .webinar-tab{width:40%}
+    .section-webinar4 .webinar-tab{width:40%}    
 }
 
 @media (max-width: 1024px) {
@@ -686,6 +691,9 @@
 
     /*21-10-04*/
     .poll-item-b .chk-dsg input + label:before{top:8%}
+
+    /*21-10-09*/
+    .search-btm .ipt-kwd{width: 50%;}
     
 }
 
@@ -887,5 +895,11 @@
 
     /*21-10-04*/
     .poll-item-b .chk-dsg input + label:before{top:2%}
-  
+
+    /*21-10-09*/
+   .search-btm{display: block;}
+   .search-btm .label{display: block;}
+   .search-btm .ipt-kwd{margin: 0;width:70%;}
+   .search-btm .btn-ty2{width: 28%;}
+   .search-btm-wp{display: flex;justify-content: space-between;margin-top: 4vw}
 }
