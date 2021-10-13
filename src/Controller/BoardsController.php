@@ -209,20 +209,36 @@ class BoardsController extends AppController
         return $this->redirect(['action' => 'notice']);
     }
 
-    public function faqsByCategory()
+    public function faqsByCategory($FaqCategoryId = null)
     {
         $this->paginate = ['limit' => 10];
 
-        $FaqCategoryId = $this->request->getData('FaqCategoryId');
+        $faq_table = TableRegistry::get('Faq');
 
-        $faqs = $this->getTableLocator()->get('Faq');
-
-        if($FaqCategoryId == null) {
-            $faqs = $this->paginate($faqs->find()->select(['id', 'title']));
-        } else {
-            $faqs = $this->paginate($faqs->find()->select(['id', 'title'])->where(['faq_category_id' => $FaqCategoryId]));
+        for ($i=0; $i<=6; $i++) {
+            $count[$i] = $faq_table->find()->where(['faq_category_id' => $i+1])->count();
         }
 
-        $this->set(compact('faqs'));
+        $faqs_main = $faq_table->find()->select(['id', 'title', 'content'])->where(['is_main' => 1]);
+
+        if ($FaqCategoryId == null) {
+            $faqs = $this->paginate($faq_table->find()->select(['id', 'title', 'content']));
+        } elseif ($FaqCategoryId == 'user') {
+            $faqs = $this->paginate($faq_table->find()->select(['id', 'title', 'content'])->where(['faq_category_id' => 1]));
+        } elseif ($FaqCategoryId == 'refund') {
+            $faqs = $this->paginate($faq_table->find()->select(['id', 'title', 'content'])->where(['faq_category_id' => 2]));
+        } elseif ($FaqCategoryId == 'pay') {
+            $faqs = $this->paginate($faq_table->find()->select(['id', 'title', 'content'])->where(['faq_category_id' => 3]));
+        } elseif ($FaqCategoryId == 'exhibitionParticipation') {
+            $faqs = $this->paginate($faq_table->find()->select(['id', 'title', 'content'])->where(['faq_category_id' => 4]));
+        } elseif ($FaqCategoryId == 'exhibitionAdd') {
+            $faqs = $this->paginate($faq_table->find()->select(['id', 'title', 'content'])->where(['faq_category_id' => 5]));
+        } elseif ($FaqCategoryId == 'webinar') {
+            $faqs = $this->paginate($faq_table->find()->select(['id', 'title', 'content'])->where(['faq_category_id' => 6]));
+        } elseif ($FaqCategoryId == 'besides') {
+            $faqs = $this->paginate($faq_table->find()->select(['id', 'title', 'content'])->where(['faq_category_id' => 7]));
+        }
+
+        $this->set(compact('count', 'faqs_main', 'faqs'));
     }
 }
