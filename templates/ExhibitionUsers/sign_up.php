@@ -9,18 +9,18 @@
         <div class="section-my">
             <h3 class="s-hty1">신청 내역 관리</h3>
             <ul class="s-tabs">
-                <?php if ($_SERVER['REQUEST_URI'] == '/exhibitionUsers/signUp/application') { ?>
-                        <li class="active"><a href="/exhibitionUsers/signUp/application">신청 행사</a></li>
-                        <li class=""><a href="/exhibitionUsers/signUp/close">종료 행사</a></li>
-                        <li class=""><a href="/exhibitionUsers/signUp/cancel">취소/환불</a></li>
-                <?php } elseif ($_SERVER['REQUEST_URI'] == '/exhibitionUsers/signUp/close') { ?>
-                        <li class=""><a href="/exhibitionUsers/signUp/application">신청 행사</a></li>
-                        <li class="active"><a href="/exhibitionUsers/signUp/close">종료 행사</a></li>
-                        <li class=""><a href="/exhibitionUsers/signUp/cancel">취소/환불</a></li>
-                <?php } elseif ($_SERVER['REQUEST_URI'] == '/exhibitionUsers/signUp/cancel') { ?>
-                        <li class=""><a href="/exhibitionUsers/signUp/application">신청 행사</a></li>
-                        <li class=""><a href="/exhibitionUsers/signUp/close">종료 행사</a></li>
-                        <li class="active"><a href="/exhibitionUsers/signUp/cancel">취소/환불</a></li>
+                <?php if ($_SERVER['REQUEST_URI'] == '/exhibition-users/sign-up/application') { ?>
+                        <li class="active"><a href="/exhibition-users/sign-up/application">신청 행사</a></li>
+                        <li class=""><a href="/exhibition-users/sign-up/close">종료 행사</a></li>
+                        <li class=""><a href="/exhibition-users/sign-up/cancel">취소/환불</a></li>
+                <?php } elseif ($_SERVER['REQUEST_URI'] == '/exhibition-users/sign-up/close') { ?>
+                        <li class=""><a href="/exhibition-users/sign-up/application">신청 행사</a></li>
+                        <li class="active"><a href="/exhibition-users/sign-up/close">종료 행사</a></li>
+                        <li class=""><a href="/exhibition-users/sign-up/cancel">취소/환불</a></li>
+                <?php } elseif ($_SERVER['REQUEST_URI'] == '/exhibition-users/sign-up/cancel') { ?>
+                        <li class=""><a href="/exhibition-users/sign-up/application">신청 행사</a></li>
+                        <li class=""><a href="/exhibition-users/sign-up/close">종료 행사</a></li>
+                        <li class="active"><a href="/exhibition-users/sign-up/cancel">취소/환불</a></li>
                 <?php } ?>
             </ul>
             <div class="table-type table-type1">
@@ -179,7 +179,7 @@
                                     if ($exhibition_user->attend == 1) {
                                         if ($today <= $exhibition_user->exhibition['edate']) {
                                 ?>
-                                            <p><a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition_user->exhibition_stream_id ?>" class="btn-ty3 bor" id="exhibitionSee">웨비나 시청</a></p>
+                                            <p><a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition_user->exhibition_id ?>" class="btn-ty3 bor" id="exhibitionSee">웨비나 시청</a></p>
                                 <?php
                                         }
                                     }
