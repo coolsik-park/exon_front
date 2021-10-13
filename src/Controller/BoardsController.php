@@ -209,15 +209,20 @@ class BoardsController extends AppController
         return $this->redirect(['action' => 'notice']);
     }
 
-    public function faqsByCategory($FaqCategoryId = null)
+    public function faqsByCategory()
     {
+        $this->paginate = ['limit' => 10];
+
+        $FaqCategoryId = $this->request->getData('FaqCategoryId');
+
         $faqs = $this->getTableLocator()->get('Faq');
+
         if($FaqCategoryId == null) {
-            $faqs = $faqs->find()->select(['id', 'title']);
+            $faqs = $this->paginate($faqs->find()->select(['id', 'title']));
         } else {
-            $faqs = $faqs->find()->select(['id', 'title'])->where(['faq_category_id' => $FaqCategoryId]);
+            $faqs = $this->paginate($faqs->find()->select(['id', 'title'])->where(['faq_category_id' => $FaqCategoryId]));
         }
-        $faqs = $this->paginate($faqs);
+
         $this->set(compact('faqs'));
     }
 }
