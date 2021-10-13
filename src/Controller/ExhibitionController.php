@@ -1168,7 +1168,7 @@ class ExhibitionController extends AppController
                 
             }
         }
-
+        
         $this->set(compact('beforeParentData', 'beforeChildData', 'normalParentData', 'normalChildData', 'id'));
     }
     // Subqueries

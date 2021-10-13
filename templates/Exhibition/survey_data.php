@@ -1,90 +1,3 @@
-<!-- <?= $this->Html->link(__('행사 설정 수정'), ['controller' => 'Exhibition', 'action' => 'edit', $id, 'class' => 'side-nav-item']) ?> 
-<?= $this->Html->link(__('설문 데이터'), ['controller' => 'Exhibition', 'action' => 'surveyData', $id, 'class' => 'side-nav-item']) ?> 
-<?= $this->Html->link(__('참가자 관리'), ['controller' => 'Exhibition', 'action' => 'managerPerson', $id, 'class' => 'side-nav-item']) ?> 
-<?= $this->Html->link(__('웨비나 송출 설정'), ['controller' => 'ExhibitionStream', 'action' => 'setExhibitionStream', $id, 'class' => 'side-nav-item']) ?> 
-<?= $this->Html->link(__('행사 통계'), ['controller' => 'Exhibition', 'action' => 'exhibitionStatisticsApply', $id, 'class' => 'side-nav-item']) ?>
-
-<?php
-    echo $this->Form->create();
-    echo $this->Form->submit('다운로드');    
-    echo "<br><br>사전 설문 데이터<br><br>";
-    if ($beforeParentData[0] == null) {
-        echo "<br><br>등록된 설문이 없습니다.<br><br>";
-    } else {
-        foreach ($beforeParentData as $parentData) {
-            echo $this->Form->checkbox('checked[]', ['value' => $parentData['id'], 'checked' => 'checked', 'hiddenField' => false]);
-?>
-            <table class="table table-bordered" id = <?= $parentData['id'] ?>>
-            <tr>
-                <td><?php echo $parentData['text']; ?></td>
-            </tr>
-<?php
-            if ($parentData['is_multiple'] == 'Y') {
-                foreach ($beforeChildData[$parentData['id']] as $childData) {
-?>
-                <tr>
-                    <td><?php echo $childData['text']; ?></td>
-                    <td><?php echo $childData['count']; ?></td>
-                </tr>
-<?php
-                }
-            } else {
-                foreach ($parentData['exhibition_survey_users_answer'] as $answer) {
-?>
-                <tr>
-                    <td><?php echo $answer['text'] ?></td>
-                </tr>
-<?php
-                }
-            }
-?>
-            </table>
-            <br>
-<?php              
-        }
-    }
-?>
-
-<?php    
-    echo "<br><br>설문 데이터<br><br>";
-    if ($normalParentData[0] == null) {
-        echo "<br><br>등록된 설문이 없습니다.<br><br>";
-    } else {
-        foreach ($normalParentData as $parentData) {
-            echo $this->Form->checkbox('checked[]', ['value' => $parentData['id'], 'checked' => 'checked', 'hiddenField' => false]);
-?>
-            <table class="table table-bordered" id = <?= $parentData['id'] ?>>
-                <tr>
-                    <td><?php echo $parentData['text']; ?></td>
-                </tr>
-<?php
-            if ($parentData['is_multiple'] == 'Y') {
-                foreach ($normalChildData[$parentData['id']] as $childData) {
-?>
-                <tr>
-                    <td><?php echo $childData['text']; ?></td>
-                    <td><?php echo $childData['count']; ?></td>
-                </tr>
-<?php
-                }
-            } else {
-                foreach ($parentData['exhibition_survey_users_answer'] as $answer) {          
-?>
-                <tr>
-                    <td><?php echo $answer['text'] ?></td>
-                </tr>
-<?php
-                }
-            }
-?>
-            </table>
-            <br>
-<?php              
-        } 
-    }
-    echo $this->Form->end();
-?> -->
-
 <div id="container">
     <div class="sub-menu">
         <div class="sub-menu-inner">
@@ -110,9 +23,84 @@
                 </div>
             </div>
             <!-- item -->
+            <?php 
+            if ($beforeParentData[0] != '') {
+                foreach ($beforeParentData as $parentData) {
+                    $count = 0;
+                    if ($parentData['is_multiple'] == 'Y') {
+                        foreach ($beforeChildData[$parentData['id']] as $childData) {
+                            $count += $childData['count'];
+                        }
+                    }
+                    if ($count == 0 && $parentData['is_multiple'] == 'Y') {
+            ?>
+            <div class="p-data-item-wp">
+                <label class="chk-dsg2"><input type="checkbox" id="checked[]" name="checked[]"
+                        value=<?=$parentData['id'] ?> disabled="disabled"><span>선택</span></label>
+                <div class="p-data-item">
+                    <h3 class="tit">
+                        <?= $parentData['text'] ?> <p style="font-size:10px;">(답변이 등록되지 않은 설문은 다운로드가 불가능합니다.)</p>
+                    </h3>
+                    <?php
+                            if ($parentData['is_multiple'] == 'Y') {
+                                $count = 0;
+                                foreach ($beforeChildData[$parentData['id']] as $childData) {
+                                    $count += $childData['count'];
+                                }
+                                
+                                foreach ($beforeChildData[$parentData['id']] as $childData) {
+                                    
+                                    if ($count == 0) {
+                                        $percentage = 0;
+                    ?>
+                    <ul class="list">
+                        <li>
+                            <div class="p-data"><span class="tx">
+                                    <?= $childData['text'] ?>
+                                </span><span class="p-bar" style="width:<?=$percentage?>%"></span><span class="p-bar-tx">
+                                    <?= $childData['count'] ?> (<?=$percentage?>%)
+                                </span></div>
+                        </li>
+                    </ul>
+                    <?php
+                                    } else {
+
+                                        $percentage = round($childData['count'] / $count * 100);
+                    ?>
+                    <ul class="list">
+                        <li>
+                            <div class="p-data"><span class="tx">
+                                    <?= $childData['text'] ?>
+                                </span><span class="p-bar" style="width:<?=$percentage?>%"></span><span class="p-bar-tx">
+                                    <?= $childData['count'] ?> (<?=$percentage?>%)
+                                </span></div>
+                        </li>
+                    </ul>
+                    <?php
+                                    }
+                                }
+                            } else {
+                        ?>
+                    <div class="con">
+                        <?php        
+                                foreach ($parentData['exhibition_survey_users_answer'] as $answer) {
+                        ?>
+                        <ul>
+                            <li>
+                                <?= $answer['text'] ?>
+                            </li>
+                        </ul>
+                        <?php
+                                }
+                        ?>
+                    </div>
+                    <?php
+                            }
+                        ?>
+                </div>
+            </div>
             <?php
-                if ($beforeParentData[0] != '') { 
-                    foreach ($beforeParentData as $parentData) {
+                    }else {
             ?>
             <div class="p-data-item-wp">
                 <label class="chk-dsg2"><input type="checkbox" id="checked[]" name="checked[]"
@@ -129,8 +117,10 @@
                                 }
                                 
                                 foreach ($beforeChildData[$parentData['id']] as $childData) {
-                                    $percentage = round($childData['count'] / $count * 100);
-                        ?>
+                                    
+                                    if ($count == 0) {
+                                        $percentage = 0;
+                    ?>
                     <ul class="list">
                         <li>
                             <div class="p-data"><span class="tx">
@@ -141,6 +131,21 @@
                         </li>
                     </ul>
                     <?php
+                                    } else {
+
+                                        $percentage = round($childData['count'] / $count * 100);
+                    ?>
+                    <ul class="list">
+                        <li>
+                            <div class="p-data"><span class="tx">
+                                    <?= $childData['text'] ?>
+                                </span><span class="p-bar" style="width:<?=$percentage?>%"></span><span class="p-bar-tx">
+                                    <?= $childData['count'] ?> (<?=$percentage?>%)
+                                </span></div>
+                        </li>
+                    </ul>
+                    <?php
+                                    }
                                 }
                             } else {
                         ?>
@@ -163,9 +168,10 @@
                 </div>
             </div>
             <?php
-                        }
                     }
-                ?>
+                }
+            }
+            ?>
         </div>
 
         <div class="section8">
@@ -175,9 +181,84 @@
 
             <!-- item -->
             <?php 
-                    if ($normalParentData[0] != '') {
-                        foreach ($normalParentData as $parentData) {
-                ?>
+            if ($normalParentData[0] != '') {
+                foreach ($normalParentData as $parentData) {
+                    $count = 0;
+                    if ($parentData['is_multiple'] == 'Y') {
+                        foreach ($normalChildData[$parentData['id']] as $childData) {
+                            $count += $childData['count'];
+                        }
+                    }
+                    if ($count == 0 && $parentData['is_multiple'] == 'Y') {
+            ?>
+            <div class="p-data-item-wp">
+                <label class="chk-dsg2"><input type="checkbox" id="checked[]" name="checked[]"
+                        value=<?=$parentData['id'] ?> disabled="disabled"><span>선택</span></label>
+                <div class="p-data-item">
+                    <h3 class="tit">
+                        <?= $parentData['text'] ?>  <p style="font-size:10px;">(답변이 등록되지 않은 설문은 다운로드가 불가능합니다.)</p>
+                    </h3>
+                    <?php
+                            if ($parentData['is_multiple'] == 'Y') {
+                                $count = 0;
+                                foreach ($normalChildData[$parentData['id']] as $childData) {
+                                    $count += $childData['count'];
+                                }
+                                
+                                foreach ($normalChildData[$parentData['id']] as $childData) {
+                                    
+                                    if ($count == 0) {
+                                        $percentage = 0;
+                    ?>
+                    <ul class="list">
+                        <li>
+                            <div class="p-data"><span class="tx">
+                                    <?= $childData['text'] ?>
+                                </span><span class="p-bar" style="width:<?=$percentage?>%"></span><span class="p-bar-tx">
+                                    <?= $childData['count'] ?> (<?=$percentage?>%)
+                                </span></div>
+                        </li>
+                    </ul>
+                    <?php
+                                    } else {
+
+                                        $percentage = round($childData['count'] / $count * 100);
+                    ?>
+                    <ul class="list">
+                        <li>
+                            <div class="p-data"><span class="tx">
+                                    <?= $childData['text'] ?>
+                                </span><span class="p-bar" style="width:<?=$percentage?>%"></span><span class="p-bar-tx">
+                                    <?= $childData['count'] ?> (<?=$percentage?>%)
+                                </span></div>
+                        </li>
+                    </ul>
+                    <?php
+                                    }
+                                }
+                            } else {
+                        ?>
+                    <div class="con">
+                        <?php        
+                                foreach ($parentData['exhibition_survey_users_answer'] as $answer) {
+                        ?>
+                        <ul>
+                            <li>
+                                <?= $answer['text'] ?>
+                            </li>
+                        </ul>
+                        <?php
+                                }
+                        ?>
+                    </div>
+                    <?php
+                            }
+                        ?>
+                </div>
+            </div>
+            <?php
+                    }else {
+            ?>
             <div class="p-data-item-wp">
                 <label class="chk-dsg2"><input type="checkbox" id="checked[]" name="checked[]"
                         value=<?=$parentData['id'] ?>><span>선택</span></label>
@@ -191,10 +272,12 @@
                                 foreach ($normalChildData[$parentData['id']] as $childData) {
                                     $count += $childData['count'];
                                 }
-
+                                
                                 foreach ($normalChildData[$parentData['id']] as $childData) {
-                                    $percentage = round($childData['count'] / $count * 100);
-                        ?>
+                                    
+                                    if ($count == 0) {
+                                        $percentage = 0;
+                    ?>
                     <ul class="list">
                         <li>
                             <div class="p-data"><span class="tx">
@@ -205,6 +288,21 @@
                         </li>
                     </ul>
                     <?php
+                                    } else {
+
+                                        $percentage = round($childData['count'] / $count * 100);
+                    ?>
+                    <ul class="list">
+                        <li>
+                            <div class="p-data"><span class="tx">
+                                    <?= $childData['text'] ?>
+                                </span><span class="p-bar" style="width:<?=$percentage?>%"></span><span class="p-bar-tx">
+                                    <?= $childData['count'] ?> (<?=$percentage?>%)
+                                </span></div>
+                        </li>
+                    </ul>
+                    <?php
+                                    }
                                 }
                             } else {
                         ?>
@@ -227,9 +325,10 @@
                 </div>
             </div>
             <?php
-                        }
                     }
-                ?>
+                }
+            }
+            ?>
         </div>
     </div>
     <?php
