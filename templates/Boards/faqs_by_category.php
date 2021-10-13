@@ -3,9 +3,9 @@
             <h2 class="s-hty0">고객센터</h2>            
             <div class="cs-tab">
                 <ul class="s-tabs2">
-                    <li class="active"><a href="07_cs1.html">자주 하는 질문</a></li>
-                    <li><a href="07_cs2.html">공지사항</a></li>
-                    <li><a href="07_cs3.html">문의하기</a></li>
+                    <li class="active"><a href="">자주 하는 질문</a></li>
+                    <li><a href="/boards/notice">공지사항</a></li>
+                    <li><a href="">문의하기</a></li>
                 </ul>
             </div>
             <div class="section-cs1">

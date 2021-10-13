@@ -1,46 +1,42 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
- */
-?>
-<div class="userquestion index content">
-    <?= $this->Html->link(__('New Notice'), ['action' => 'notice_add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Notice') ?></h3>
-    <div class="table-responsive">
-        <table>
-            <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('title') ?></th>
-                    <th><?= $this->Paginator->sort('created') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
-                </tr>
-            </thead>
-            <tbody>
+<div id="container">        
+    <div class="contents static">
+        <h2 class="s-hty0">고객센터</h2>            
+        <div class="cs-tab">
+            <ul class="s-tabs2">
+                <li><a href="/boards/faqs-by-category">자주 하는 질문</a></li>
+                <li class="active"><a href="">공지사항</a></li>
+                <li><a href="">문의하기</a></li>
+            </ul>
+        </div>
+        <div class="section-cs1">
+            <h3 class="s-hty1">공지사항</h3>
+            <ul class="board-lists">
                 <?php foreach ($boards as $board): ?>
-                <tr>
-                    <td><?= $this->Number->format($board->id) ?></td>
-                    <td><?= h($board->title) ?></td>
-                    <td><?= h($board->created) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'noticeView', $board->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'noticeEdit', $board->id]) ?>
-                        <?= $this->Html->link(__('Delete'), ['action' => 'noticeDelete', $board->id], ['confirm' => __('Are you sure you want to delete # {0}?', $board->id)]) ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
-    </div>
+                    <li>
+                        <button type="button" class="b-tit b-noti-tit">
+                            <span class="tit"><?= $board->title ?></span>
+                            <span class="date"><?= date("Y.m.d", strtotime($board->created)); ?></span>
+                        </button>
+                        <div class="b-desc"><?= $board->content ?></div>
+                    </li>     
+                <?php endforeach; ?>              
+            </ul>
+            <div class="paginator">
+                <ul class="pagination">
+                    <?= $this->Paginator->prev('< ' . __('이전')) ?>
+                    <?= $this->Paginator->numbers() ?>
+                    <?= $this->Paginator->next(__('다음') . ' >') ?>
+                </ul>
+            </div>
+            <div class="board-sh">
+                <input type="text" placeholder="제목">
+                <button type="button" class="ico-sh">검색</button>
+            </div>               
+        </div>           
+    </div>        
 </div>
+<footer id="footer"></footer>
+
+ <script>
+    ui.addOnAction('.board-lists>li');
+ </script>
