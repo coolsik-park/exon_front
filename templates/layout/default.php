@@ -67,7 +67,7 @@
                 <!-- log after -->
                     <a href="/users/logout">로그아웃</a>
                     <a href="/exhibition/index/all">개설행사목록</a>
-                    <a href="/exhibition-users/sign-up">신청행사목록</a>
+                    <a href="/exhibition-users/sign-up/application">신청행사목록</a>
                 <!-- // -->
                 <?php endif;?>
             </div>            
