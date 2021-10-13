@@ -294,7 +294,7 @@ class ExhibitionController extends AppController
                     return $response;
                 } else {
                     $connection->rollback(); 
-                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail', 'test' => 'img']));
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
                     return $response;
                 }       
 
@@ -342,6 +342,7 @@ class ExhibitionController extends AppController
                     $response = $this->response->withType('json')->withStringBody(json_encode(['status' => '이미지 확장자명을 확인해주세요.',]));
                     return $response;
                 }
+            
             } else {
                 
                 $data = $this->request->getData();
