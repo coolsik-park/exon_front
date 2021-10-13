@@ -17,6 +17,16 @@
 </div>
 
 <script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "http://121.126.223.225:80/live/<?=$stream_key?>/index.m3u8",
+            type: 'HEAD',
+            error: function () {
+                window.location.replace("/exhibition-stream/stream-not-exist");
+            }
+        });
+    });
+
     $(document).on("click", "#certify", function () {
         if ($("#cert1").prop("checked") == true) {
             var user_id = '<?=$auth_id?>';

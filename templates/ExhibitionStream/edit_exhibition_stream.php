@@ -183,7 +183,7 @@
     });
 
     //방송 컨트롤
-    var video_uri = "<?=$exhibitionStream->url?>"
+    var video_uri = "http://121.126.223.225:80/live/<?=$exhibitionStream->stream_key?>/index.m3u8"
     var stream_key = "<?=$exhibitionStream->stream_key?>"
     var player = videojs(document.querySelector('#vid1'));
     $("#start").click(function () {

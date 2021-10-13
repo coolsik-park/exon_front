@@ -861,6 +861,9 @@ class ExhibitionStreamController extends AppController
         $Exhibition = $this->getTableLocator()->get('Exhibition');
         $exhibition = $Exhibition->get($id);
 
+        $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $id])->toArray();
+        $stream_key = $exhibitionStream[0]['stream_key'];
+
         if ($exhibition->sdate <= FrozenTime::now() && FrozenTime::now() <= $exhibition->edate) {
             
             if (!empty($this->Auth->user())) {
@@ -877,9 +880,10 @@ class ExhibitionStreamController extends AppController
             }
         
         } else {
-            return $this->redirect(['action' => 'outOfTime']);
+            return $this->redirect(['action' => 'streamNotExist']);
         }
-        $this->set(compact('auth_id'));
+
+        $this->set(compact('auth_id', 'stream_key'));
     }
 
     public function sendSmsCertification($user_id = null)
@@ -1051,7 +1055,7 @@ class ExhibitionStreamController extends AppController
         return $code;
     }
 
-    public function outOfTime()
+    public function streamNotExist()
     {
 
     }
