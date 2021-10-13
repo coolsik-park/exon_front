@@ -4,66 +4,6 @@
  * @var \App\Model\Entity\ExhibitionStream $exhibitionStream
  */
 ?>
-<!-- <?= $this->Html->link(__('행사 설정 수정'), ['controller' => 'Exhibition', 'action' => 'edit', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?> 
-<?= $this->Html->link(__('설문 데이터'), ['controller' => 'Exhibition', 'action' => 'surveyData', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?> 
-<?= $this->Html->link(__('참가자 관리'), ['controller' => 'Exhibition', 'action' => 'managerPerson', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?> 
-<?= $this->Html->link(__('웨비나 송출 설정'), ['controller' => 'ExhibitionStream', 'action' => 'setExhibitionStream', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?> 
-<?= $this->Html->link(__('행사 통계'), ['controller' => 'Exhibition', 'action' => 'ExhibitionStatisticsApply', $exhibitionStream->exhibition_id, 'class' => 'side-nav-item']) ?> -->
-
-    
-    <!-- <div class="row">
-        <aside class="column">
-            <div class="side-nav">
-                <h4 class="heading"><?= __('Actions') ?></h4>
-                <?= $this->Html->link(__('List Exhibition Stream'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            </div>
-        </aside>
-
-        <div class="column-responsive column-80">
-            <div class="exhibitionStream form content">
-                <?= $this->Form->create($exhibitionStream) ?>
-                <fieldset>
-                    <legend><?= __('Add Exhibition Stream') ?></legend>
-                    <button id="check_module" type="button">결제</button>
-                    <?php
-                        echo $this->Form->control('title', ['label' => '방송 제목']);
-                        echo $this->Form->control('description', ['label' => '방송 설명']);
-                        echo $this->Form->control('time', ['type' => 'select', 'label' => '시간', 'options' => [18000 => 'Half day', 36000 => 'All day']]);
-                        echo $this->Form->control('people', ['type' => 'select', 'label' => '인원수', 'options' => [
-                            50 => '50', 100 => '100', 150 => '150', 200 => '200', 250 => '250', 300 => '300', 350 => '350', 400 => '400', 450 => '450', 500 => '500+']]);
-                        echo $this->Form->control('amount', ['label' => '금액']);
-                        echo $this->Form->control('stream_key', ['label' => '스트림 키', 'id' => 'streamKey']);
-                        echo $this->Form->control('url', ['id' => 'videoUri']);
-                        echo $this->Form->control('tab', ['type' => 'hidden']);
-                        echo $this->Form->control('coupon_amount', ['type' => 'hidden', 'id' => 'coupon']);
-                        echo $this->Form->control('paid', ['type' => 'hidden', 'value' => 0]);
-                        echo $this->Form->control('id', ['type' => 'hidden']);
-                    ?>
-                </fieldset>
-                <?= $this->Form->button(__('Submit')) ?>
-                <?= $this->Form->end() ?>
-            </div>
-        </div>
-        <div class="column-responsive column-80">
-            <div class="exhibitionStream form content">
-                <fieldset>
-                    <legend><?= __('Set Exhibition Stream Tab') ?></legend>
-                    <?php
-                        $i = 9;
-                        foreach ($tabs as $tab) {
-                            echo $this->Form->button($tab->title, ['id' => 'tab' . $i, 'name' => $tab->title, 'type' => 'button']) . ' ';
-                            echo $this->Form->control($tab->title, ['id' => 'tab' . $i, 'type' => 'hidden']);
-                            $i--;
-                        }
-                        echo $this->Form->button('setting', ['id' => 'setting']);
-                        echo $this->Form->control('setting', ['id' => 'setting', 'type' => 'hidden']);
-                    ?>
-                </fieldset>
-            </div>
-        </div>
-            <div id = "tabContent">
-        </div>
-    </div> -->
 
 <head>
     <meta charset="UTF-8">
@@ -89,8 +29,12 @@
     <?= $this->Form->create($exhibitionStream, ['id' => 'setForm']) ?>    
     <div class="section-webinar3">
         <div class="webinar-cont">
-            <div class="wb-cont1">
+            <div id="videoWrap" class="wb-cont1" >
                 <video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup='{"fluid": true}'></video-js>
+            </div>
+            <div class="wb-cont2">
+                <button id="start" type="button" class="btn-ty4 black">방송시작</button>
+                <button id="end" type="button" class="btn-ty4 gray">방송종료</button>
             </div>
             <div class="wb-cont2">
                 <input name="title" id="title" type="text" placeholder="(필수) 방송제목">
@@ -100,7 +44,6 @@
                 <button id="save" type="button" class="btn-ty4 black">저장</button>
                 <button id="exit" type="button" class="btn-ty4 gray">종료</button>
             </div>
-
             <div class="wb-stream-sect" id="stream_key_container">
                 <h2 class="s-hty3">스트림 키</h2>
                 <div class="stream-sect">
@@ -239,14 +182,58 @@
         }
     });
 
-    //video.js 컨트롤
-    var address = "<?=$exhibitionStream->url?>"
-    window.onload = function () {
-        var player = videojs(document.querySelector('#vid1'));
-        player.src({
-                src: address, type: 'application/x-mpegURL' });
-        player.load();
-    }
+    //방송 컨트롤
+    var video_uri = "<?=$exhibitionStream->url?>"
+    var stream_key = "<?=$exhibitionStream->stream_key?>"
+    var player = videojs(document.querySelector('#vid1'));
+    $("#start").click(function () {
+        $.ajax({
+            url: video_uri,
+            type: 'HEAD',
+            success: function () {
+                player.src({src: video_uri, type: 'application/x-mpegURL' });
+                player.load();
+                player.play();
+            },
+            error: function () {
+                alert("OBS에서 방송을 시작해주세요.");
+            }
+        });
+    });
+
+    $("#end").click(function () {
+        var obj = new Object();
+        obj.stream_key = stream_key;
+        obj.video_uri = stream_key;
+        var jsonData = JSON.stringify(obj);
+        
+        $.ajax({
+            url: video_uri,
+            type: 'HEAD',
+            success: function () {
+                jQuery.ajax({
+                    url: "http://121.126.223.225:9920/live", 
+                    method: 'DELETE',
+                    type: 'json',
+                    data: jsonData,
+                    success: function () {
+                        player.dispose();
+                        var html = '<video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup=\'{"fluid": true}\'></video-js>';
+                        $("#videoWrap").append(html);
+                        var newPlayer = videojs(document.querySelector('#vid1'));
+                        newPlayer.load();
+                    },
+                    error: function (data) {
+                        alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+                    }
+                });
+            },
+            error: function () {
+                alert("방송 중이 아닙니다.");
+            }
+        });
+        
+    });
 
     //저장
     $(document).on("click", "#save", function() {

@@ -446,7 +446,7 @@
             type: 'json',
             data: formData
         }).done(function (data) {
-            if (data.status == 'success') {
+            // if (data.status == 'success') {
                 var imageData = new FormData();
                 var image = document.getElementById("image").files;
                 imageData.append('image', image[0]);
@@ -466,9 +466,9 @@
                         alert("오류가 발생하였습니다. 잠시 후 시도해주세요.");
                     }
                 });
-            }else {
-                alert("오류가 발생하였습니다. 잠시 후 시도해주세요.");
-            }
+            // } else {
+            //     alert("오류가 발생하였습니다. 잠시 후 시도해주세요.");
+            // }
         });
     });
 
@@ -690,7 +690,7 @@
     $(document).on("change", "select[name='is_multiple[]']", function() {
         
         if ($(this).attr("class") != 0) {
-            alert("저장된 설문을 수정하시려면 삭제 후 다시 등록해 주세요.");
+            alert("저장된 설문의 객관식/주관식 항목을 수정하시려면 삭제 후 다시 등록해 주세요.");
             if ($("option:selected", this).val() == 'N') {
                 $(this).val("Y").prop("selected", true);
             } else {

@@ -58,9 +58,13 @@ class ExhibitionTable extends Table
         ]);
         $this->hasMany('Banner', [
             'foreignKey' => 'exhibition_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
         $this->hasMany('ExhibitionFile', [
             'foreignKey' => 'exhibition_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
         $this->hasMany('ExhibitionGroup', [
             'foreignKey' => 'exhibition_id',
@@ -69,6 +73,8 @@ class ExhibitionTable extends Table
         ]);
         $this->hasMany('ExhibitionStream', [
             'foreignKey' => 'exhibition_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
         $this->hasMany('ExhibitionSurvey', [
             'foreignKey' => 'exhibition_id',
@@ -77,6 +83,8 @@ class ExhibitionTable extends Table
         ]);
         $this->hasMany('ExhibitionSpeaker', [
             'foreignKey' => 'exhibition_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
         $this->belongsTo('CommonCategory', [
             'foreignKey' => 'common_category_id'
@@ -85,6 +93,8 @@ class ExhibitionTable extends Table
             'foreignKey' => 'exhibition_id',
             'targetForeignKey' => 'users_id',
             'joinTable' => 'exhibition_users',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
     }
 
