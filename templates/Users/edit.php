@@ -150,7 +150,7 @@
             </div>
         </div>
         <div class="section-btm2 mgtS1">
-            <a href="#" id="backButton" class="btn-big bor">취소</a>
+            <a href="javascript:history.back();" id="backButton" class="btn-big bor">취소</a>
             <a href="#" id="saveButton" class="btn-big" style="cursor:pointer;">저장</a>
         </div>
     </div>
