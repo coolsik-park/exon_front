@@ -977,30 +977,20 @@ class ExhibitionStreamController extends AppController
             $commonConfirmation = $CommonConfirmations->patchEntity($commonConfirmation, ['confirmation_code' => $code, 'types' => 'email']);
 
             if ($result = $CommonConfirmations->save($commonConfirmation)) {
-                try {
-                    // $host = HOST;
-                    // $sender = SEND_EMAIL;
-                    // $view = new \Cake\View\View($this->request, $this->response);
-                    // $view->set(compact('sender')); //이메일 템플릿에 파라미터 전달
-                    // $content = $view->element('email/findPw'); //이메일 템블릿 불러오기
-                    if ($res = $mailer->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'Email Confirmation'])
-                        ->setEmailFormat('html')
-                        ->setTo($this->request->getData('email'))
-                        ->setSubject('Exon Test Email')
-                        ->deliver('Confirmation Code : ' . $code))
-                        {
-                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'id' => $result->id]));
-                        return $response;
-                    
-                    } else {
-                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
-                        return $response;
-                    }
-    
-                } catch (Exception $e) {
-                    // echo ‘Exception : ’,  $e->getMessage(), “\n”;
-                    echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
-                }
+                $mailer->setEmailFormat('html')
+                            ->setTo($this->request->getData('email'))
+                            ->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'EXON'])
+                            ->setSubject('Exon - 인증메일입니다.')
+                            ->viewBuilder()
+                            ->setTemplate('certification')
+                        ;
+                $mailer->setViewVars(['front_url' => FRONT_URL]);
+                $mailer->setViewVars(['code' => $code]);
+                $mailer->deliver();
+
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'id' => $result->id]));
+                return $response;
+                
             } else {
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
                 return $response;
