@@ -134,6 +134,8 @@
         var id = $(this).attr('name').split(',')[0];
         var value = $(this).val();
         var email = $(this).attr('name').split(',')[1];
+        var user_name = "<?=$exhibition_user->users_name?>";
+        var group = "<?=$exhibition_user->exhibition_group_id?>";
 
         $.ajax({
             url: '/exhibition/exhibition-users-approval/' + id,
@@ -142,6 +144,8 @@
             data: {
                 status: value,
                 email: email,
+                user_name: user_name,
+                group: group
             }
         }).done(function(data) {
             if (data.test == 'success') {
@@ -156,28 +160,30 @@
     $('#exhibitionCancle').on('click', function() {
         window.open('/exhibition/exhibitionCancle', '참가자 신청 취소', 'width=400px,height=600px,left=800px,top=300px');
 
-        // var id = $(this).attr('name');
-        // var email = '<?= $exhibition_user->users_email ?>';
-        // var pay_id = '<?= $exhibition_user->pay_id ?>';
+        var id = $(this).attr('name');
+        var email = '<?= $exhibition_user->users_email ?>';
+        var pay_id = '<?= $exhibition_user->pay_id ?>';
+        var user_name = '<?= $exhibition_user->users_name?>'
 
-        // if (confirm("정말 취소하시겠습니까?") == true) {
-        //     console.log(id);
-        //     $.ajax({
-        //         url: '/exhibition/exhibition-users-status/' + id,
-        //         method: 'POST',
-        //         type: 'json',
-        //         data: {
-        //             email: email,
-        //             pay_id: pay_id,
-        //         }
-        //     }).done(function(data) {
-        //         if (data.status == 'success') {
-        //             $('#container').load(location.href+" #container");
-        //             alert("취소 메일 보내드렸습니다. 확인부탁드립니다.");
-        //         } else {
-        //             alert("실패하였습니다.");
-        //         }
-        //     });
-        // }
+        if (confirm("정말 취소하시겠습니까?") == true) {
+            
+            $.ajax({
+                url: '/exhibition/exhibition-users-status/' + id,
+                method: 'POST',
+                type: 'json',
+                data: {
+                    email: email,
+                    pay_id: pay_id,
+                    user_name: user_name
+                }
+            }).done(function(data) {
+                if (data.status == 'success') {
+                    $('#container').load(location.href+" #container");
+                    alert("취소 메일 보내드렸습니다. 확인부탁드립니다.");
+                } else {
+                    alert("실패하였습니다.");
+                }
+            });
+        }
     });
 </script>

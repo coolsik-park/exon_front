@@ -49,8 +49,10 @@ class ExhibitionUsersController extends AppController
         $exhibitionUser = $this->ExhibitionUsers->newEmptyEntity();
         if ($this->request->is('post')) {
             $answerData = $this->request->getData();
-
-            $exhibitionUser->users_id = $this->Auth->user('id');
+            
+            if ($this->Auth->user() != null) {
+                $exhibitionUser->users_id = $this->Auth->user('id');
+            }
             $exhibitionUser->exhibition_id = $id;
             $exhibitionUser->exhibition_group_id = $answerData['exhibition_group_id'];
             $exhibitionUser->users_email = $answerData['users_email'];
@@ -63,27 +65,39 @@ class ExhibitionUsersController extends AppController
             
             if ($this->ExhibitionUsers->save($exhibitionUser)) {
                 //회사 직함 저장
-                if (!$connection->update('users', ['company' => $answerData['company'], 'title' => $answerData['title']], ['id' => $this->Auth->user('id')])) {
-                    $this->Flash->error(__('The company&title could not be saved. Please, try again.'));
-                    $connection->rollback();
+                if ($this->Auth->user() != null) {
+                    
+                    if (!$connection->update('users', ['company' => $answerData['company'], 'title' => $answerData['title']], ['id' => $this->Auth->user('id')])) {
+                        $connection->rollback();
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                        return $response;
+                    }
                 }
                 
                 //설문 응답 저장
                 $exhibitionSurveys = $this->getTableLocator()->get('ExhibitionSurvey')->find('all')->where(['exhibition_id' => $id, 'survey_type' => 'B'])->toArray();
-    
+                
                 $i = 0;
                 $parentId = 0;
                 $whereId = 0;
+                
+                if ($this->Auth->user() != null) {
+                    $user_id = $this->Auth->user('id');
+                } else {
+                    $user_id = null;
+                }
+                
                 foreach ($exhibitionSurveys as $exhibitionSurvey) {
-
+                        
                     if (!$result = $connection->insert('exhibition_survey_users_answer', [
                         'exhibition_survey_id' => $exhibitionSurvey['id'],
-                        'users_id' => $this->Auth->user('id'),
+                        'users_id' => $user_id,
                         'text' => $answerData['exhibition_survey_users_answer_'. $i .'_text'],
                         'is_multiple' => $exhibitionSurvey['is_multiple']
                     ])) {
-                        $this->Flash->error(__('The survey answer could not be saved. Please, try again.'));
                         $connection->rollback();
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                        return $response;
                     }
                     
                     if ($exhibitionSurvey['parent_id'] == null && $exhibitionSurvey['is_multiple'] == "Y") {
@@ -97,8 +111,9 @@ class ExhibitionUsersController extends AppController
                             if ($connection->update('exhibition_survey_users_answer', ['parent_id' => $parentId], ['id' => $whereId])) {
                                 
                             } else {
-                                $this->Flash->error(__('The survey answer could not be saved. Please, try again.'));
                                 $connection->rollback();
+                                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                                return $response;
                             }
                         } 
                     }
@@ -110,35 +125,42 @@ class ExhibitionUsersController extends AppController
                 $mailer->setTransport('mailjet');
 
                 $to = $this->request->getData('users_email');
-
-                try {                   
-                    // $host = HOST;
-                    // $sender = SEND_EMAIL;
-                    // $view = new \Cake\View\View($this->request, $this->response);
-                    // $view->set(compact('sender')); //이메일 템플릿에 파라미터 전달
-                    // $content = $view->element('email/findPw'); //이메일 템블릿 불러오기
-                    if ($res = $mailer->setFrom([getEnv('EXON_EMAIL_ADDRESS') => '엑손 관리자'])
-                        ->setEmailFormat('html')
-                        ->setTo($to)
-                        ->setSubject('Exon Test Email')
-                        ->deliver('신청 완료 - 참가 대기중')) 
-                        {
-
-                        } else {
-                            $this->Flash->error(__('The Email could not be delivered.'));
-                        }
-        
-                } catch (Exception $e) {
-                    // echo ‘Exception : ’,  $e->getMessage(), “\n”;
-                    echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
-                }
+                $Exhibition = $this->getTableLocator()->get('Exhibition');
+                $exhibition = $Exhibition->get($id); 
+                $Group = $this->getTableLocator()->get('ExhibitionGroup');
+                $group_id = $this->request->getData('group');
+                $group = $Group->get($group_id);
+                $user_name = $this->request->getData('user_name');            
+                
+                $mailer->setEmailFormat('html')
+                            ->setTo($to)
+                            ->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'EXON'])
+                            ->setSubject('Exon - 신청완료 확인 메일입니다.')
+                            ->viewBuilder()
+                            ->setTemplate('webinar_apply')
+                        ;
+                $mailer->setViewVars(['front_url' => FRONT_URL]);
+                $mailer->setViewVars(['user_name' => $user_name]);
+                $mailer->setViewVars(['title' => $exhibition->title]);
+                $mailer->setViewVars(['apply_sdate' => $exhibition->apply_sdate]);
+                $mailer->setViewVars(['apply_edate' => $exhibition->apply_edate]);
+                $mailer->setViewVars(['sdate' => $exhibition->sdate]);
+                $mailer->setViewVars(['edate' => $exhibition->edate]);
+                $mailer->setViewVars(['name' => $exhibition->name]);
+                $mailer->setViewVars(['tel' => $exhibition->tel]);
+                $mailer->setViewVars(['email' => $exhibition->email]);
+                $mailer->setViewVars(['group' => $group->name]);
+                $mailer->setViewVars(['now' => FrozenTime::now()]);
+                
+                $mailer->deliver();
 
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
                 return $response;
 
             } else {
-                $this->Flash->error(__('The exhibition user could not be saved. Please, try again.'));
                 $connection->rollback();
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                return $response;
             }
         }
         $exhibition = $this->ExhibitionUsers->Exhibition->find('list', ['limit' => 200]);

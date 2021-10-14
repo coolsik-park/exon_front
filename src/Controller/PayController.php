@@ -141,10 +141,17 @@ class PayController extends AppController
             $receipt_url = $this->request->getData('receipt_url');
             $pay_date = $this->request->getData('paid_at');
             $pg_tid = $this->request->getData('pg_tid');
+            if ($this->Auth->user() != null) {
+                $users_id = $this->Auth->user()->id;
+                $ip = $this->Auth->user()->ip;
+            } else {
+                $users_id = null;
+                $ip = null;
+            }
             $data = [
                 'product_type' => 'S',
-                'users_id' => $this->Auth->user()->id,
-                'ip' => $this->Auth->user()->ip,
+                'users_id' => $users_id,
+                'ip' => $ip,
                 'merchant_uid' => $merchant_uid,
                 'imp_uid' => $imp_uid,
                 'pay_method' => $pay_method,
