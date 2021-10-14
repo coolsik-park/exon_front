@@ -12,7 +12,7 @@
             <h3 class="s-hty1">문의하기</h3>
             <div class="cs-contact">
                 <div class="cate">
-                    <?= $this->Form->select('', $categories, ['id' => 'group']) ?>
+                    <?= $this->Form->select('', $categories, ['id' => 'categories']) ?>
                 </div>
                 <div class="item-row">
                     <div class="col-dt"><h4>제목</h4></div>
@@ -56,7 +56,9 @@
                     </div>
                 </div>
                 <div class="add-files">
-                    <p class="tx">마우스로 파일을 끌어오세요</p>
+                    <label for="imgSaveButton"></label>
+                    <input type="file" id="imgSaveButton" name="imgSaveButton" multiple="multiple" style="display:none">
+                    <p class="tx">마우스로 자료를 끌어오세요</p>
                 </div>  
                 <div class="agree-wp">
                     <span class="chk-dsg"><input type="radio" name="rdo3" id="rdo3-1"><label for="rdo3-1">개인정보 수집 및 이용 동의</label></span>
@@ -73,14 +75,48 @@
 <script>
     ui.addOnAction('.board-lists>li');
 
-    $('#imgSaveButton').on('change', function() {
-        var img = document.getDlementById('imgSaveButton').files;
-    })
+    // $(function() {
+    //     var dropZone = $('#dropZone');
+
+    //     dropZone.on('dragenter', function(e) {
+    //         e.stopPropagation();
+    //         e.preventDefault();
+    //         dropZone.css('background-color', '#E3F2FC');
+    //     });
+
+    //     dropZone.on('dragleave', function(e) {
+    //         e.stopPropagation();
+    //         e.preventDefault();
+    //         dropZone.css('background-color', '#FFFFFF');
+    //     });
+
+    //     dropZone.on('dragover', function(e) {
+    //         e.stopPropagation();
+    //         e.preventDefault();
+    //         dropZone.css('background-color', '#E3F2FC');
+    //     });
+
+    //     dropZone.on('drop', function(e) {
+    //         e.preventDefault();
+    //         dropZone.css('background-color', '#FFFFFF');
+
+    //         var img = e.originalEvent.dataTransfer.files;
+    //         var formData = new FormData();
+    //         formData.append('imgSaveButton', img[0]);
+    //     });
+    // });
+
+    // $('#imgSaveButton').on('change', function() {
+    //     var img = document.getDlementById('imgSaveButton').files;
+    //     var formData = new FormData();
+    //     formData.append('imgSaveButton', img[0]);
+    // });
 
     $('#btn-big').on('click', function() {
         var getHp = RegExp(/^[0-9]*$/);
         var getEmail = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
         var result = [];
+        var faqCategoryId = $('#categories option:selected').val();
 
         if ($('#hp').val().length < 4) {
             $('#hpNoti').html('전화번호를 제대로 입력해 주세요.');
@@ -107,6 +143,28 @@
         } else {
             $('#emailNoti').html('');
             result.push('true');
+        }
+
+        if (!result.include('false')) {
+            $.ajax({
+                url: '/boards/add',
+                method: 'POST',
+                type: 'json',
+                data: {
+                    faq_category_id: faqCategoryId,
+                    title: $('#title').val(),
+                    users_name: $('#name').val(),
+                    users_hp: $('#hp').val(),
+                    users_email: $('#email').val(),
+                    question: $('#question').val(),
+                }
+            }).done(function (data) {
+                if (data.status == 'success') {
+                    alert('성공하였습니다.');
+                } else {
+                    alert('실패하였습니다.');
+                }
+            });
         }
     });
  </script>
