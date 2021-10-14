@@ -182,96 +182,23 @@ class ExhibitionUsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    //본인인증 이메일 발송
-    public function sendEmail()
-    {
-        if ($this->request->is('post')) {
-            $mailer = new Mailer();
-            $mailer->setTransport('mailjet');
-
-            $code = $this->generateCode();
-            $CommonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
-            $commonConfirmation = $CommonConfirmations->newEmptyEntity();
-            $commonConfirmation = $CommonConfirmations->patchEntity($commonConfirmation, ['confirmation_code' => $code, 'types' => 'email']);
-
-            if ($result = $CommonConfirmations->save($commonConfirmation)) {
-                try {
-                    // $host = HOST;
-                    // $sender = SEND_EMAIL;
-                    // $view = new \Cake\View\View($this->request, $this->response);
-                    // $view->set(compact('sender')); //이메일 템플릿에 파라미터 전달
-                    // $content = $view->element('email/findPw'); //이메일 템블릿 불러오기
-                    if ($res = $mailer->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'Email Confirmation'])
-                        ->setEmailFormat('html')
-                        ->setTo($this->request->getData('email_address'))
-                        ->setSubject('Exon Test Email')
-                        ->deliver('Confirmation Code : ' . $code)) 
-                        {
-                            $this->Flash->success(__('The Email has been delivered.'));
-                        
-                        } else {
-                            $this->Flash->error(__('The Email could not be delivered.'));
-                        }
-    
-                        return $this->redirect(['action' => 'confirmEmail', $result->id]);
-    
-                } catch (Exception $e) {
-                    // echo ‘Exception : ’,  $e->getMessage(), “\n”;
-                    echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
-                }
-            } else {
-                $this->Flash->error(__('The Confirmation Code could not be saved.'));
-            }
-        }
-    }
-
-    //본인인증 이메일 코드 검증
-    public function confirmEmail($id = null)
-    {
-        $CommonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
-        $commonConfirmation = $CommonConfirmations->find('all')->where(['id' => $id])->toArray();
-
-        if ($this->request->is('post')) {
-            
-            if (FrozenTime::now() < $commonConfirmation[0]->expired) {
-                
-                if ($this->request->getData('code') == $commonConfirmation[0]->confirmation_code) {
-                    $this->Flash->success(__('The Email has been confirmed.'));
-                    return $this->redirect(['action' => 'index']);
-                
-                } else {
-                    $this->Flash->error(__('The wrong code.'));
-                }
-
-            } else {
-                $this->Flash->error(__('Overtime'));
-            }
-        }
-    }
-
-    //본인인증 이메일 코드 발행
-    function generateCode()
-    {
-        $characters = '123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $code = '';
-        for ($i = 0; $i < 6; $i++) {
-            $code .= substr($characters, rand(0, strlen($characters)), 1);
-        }
-        return $code;
-    }
-
     public function signUp($type = null)
     {
         $this->paginate = ['limit' => 10];
         $today = FrozenTime::now();
 
-        if ($type == 'application') {
-            $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $this->Auth->user('id'), 'ExhibitionUsers.status !=' => 8])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
-        } elseif ($type == 'close'){
-            $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $this->Auth->user('id'), 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate <' => $today])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
-        } elseif ($type == 'cancel') {
-            $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $this->Auth->user('id'), 'ExhibitionUsers.status' => 8])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
+        if (!empty($this->Auth->user())) {
+            if ($type == 'application') {
+                $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $this->Auth->user('id'), 'ExhibitionUsers.status !=' => 8])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
+            } elseif ($type == 'close'){
+                $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $this->Auth->user('id'), 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate <' => $today])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
+            } elseif ($type == 'cancel') {
+                $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $this->Auth->user('id'), 'ExhibitionUsers.status' => 8])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
+            }
+        } else {
+            $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id IS' => null, 'ExhibitionUsers.status !=' => 8])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
         }
+        
         
         $this->set(compact('exhibition_users'));
     }
@@ -365,6 +292,142 @@ class ExhibitionUsersController extends AppController
                 'filename' => $id . '_Report.pdf' //// This can be omitted if you want file name based on URL.
             ]
         );   
+    }
+
+    public function certification($id = null)
+    {
+        $this->set(compact('id'));
+    }
+
+    public function sendSmsCertification()
+    {        
+        if ($this->request->is('post')) {
+            require_once("solapi-php/lib/message.php");
+
+            $code = $this->generateCode();
+            $commonConfirmation_table = TableRegistry::get('CommonConfirmation');
+            $commonConfirmation = $commonConfirmation_table->newEmptyEntity();
+            $commonConfirmation = $commonConfirmation_table->patchEntity($commonConfirmation, ['confirmation_code' =>$code, 'types' => 'SMS']);
+
+            if ($result = $commonConfirmation_table->save($commonConfirmation)) {
+                $to[0] = $this->request->getData('hp');
+
+                $messages = [
+                    [
+                        'to' => $to,
+                        'from' => getEnv('EXON_PHONE_NUMBER'),
+                        'text' => 'Confirmation Code : ' . $code
+                    ]
+                ];
+
+                if(send_messages($messages)) {
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'id' => $result->id]));
+                    return $response;
+                } else {
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                    return $response;
+                }
+            }
+        }
+
+        $this->set(compact('user_id'));
+    }
+
+    public function confirmSms($id = null) 
+    {
+        $commonConfirmation_table = TableRegistry::get('CommonConfirmation');
+        $commonConfirmation = $commonConfirmation_table->find('all')->where(['id' => $id])->toArray();
+
+        if ($this->request->is('post')) {
+
+            if (FrozenTime::now() < $commonConfirmation[0]->expired) {
+
+                if ($this->request->getData('code') == $commonConfirmation[0]->confirmation_code) {
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                    return $response;
+
+                } else {
+                    $connection->rollback();
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                    return $response;
+                }
+            } else {
+                $connection->rollback();
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'timeover']));
+                return $response;
+            }
+        }
+    }
+
+    public function sendEmailCertification () {
+        if ($this->request->is('post')) {
+            $mailer = new Mailer();
+            $mailer->setTransport('mailjet');
+
+            $code = $this->generateCode();
+            $CommonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
+            $commonConfirmation = $CommonConfirmations->newEmptyEntity();
+            $commonConfirmation = $CommonConfirmations->patchEntity($commonConfirmation, ['confirmation_code' => $code, 'types' => 'email']);
+
+            if ($result = $CommonConfirmations->save($commonConfirmation)) {
+                try {
+                    // $host = HOST;
+                    // $sender = SEND_EMAIL;
+                    // $view = new \Cake\View\View($this->request, $this->response);
+                    // $view->set(compact('sender')); //이메일 템플릿에 파라미터 전달
+                    // $content = $view->element('email/findPw'); //이메일 템블릿 불러오기
+                    if ($res = $mailer->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'Email Confirmation'])
+                        ->setEmailFormat('html')
+                        ->setTo($this->request->getData('email'))
+                        ->setSubject('Exon Test Email')
+                        ->deliver('Confirmation Code : ' . $code)) 
+                        {
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'id' => $result->id]));
+                        return $response;
+                    
+                    } else {
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                        return $response;
+                    }
+    
+                } catch (Exception $e) {
+                    // echo ‘Exception : ’,  $e->getMessage(), “\n”;
+                    echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
+                }
+            } else {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                return $response;
+            }
+        }
+        $this->set(compact('user_id'));
+    }
+
+    public function confirmEmail($id = null)
+    {
+        $CommonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
+        $commonConfirmation = $CommonConfirmations->find('all')->where(['id' => $id])->toArray();
+
+        if ($this->request->is('post')) {
+            
+            if (FrozenTime::now() < $commonConfirmation[0]->expired) {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                return $response;
+            
+            } else {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'timeover']));
+                return $response;
+            }
+        }
+    }
+
+    public function generateCode()
+    {
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
+        $code = '';
+        for ($i = 0; $i < 6; $i++) {
+            $code .= substr($characters, rand(0, strlen($characters)), 1);
+        }
+        return $code;
     }
 }
 

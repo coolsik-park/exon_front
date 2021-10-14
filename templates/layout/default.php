@@ -60,9 +60,9 @@
             <div class="h-elt">                
                 <?php if(empty($loguser)): ?>
                 <!-- before -->
-                    <a href="/Users/login">로그인</a>
-                    <a href="/Users/add">회원가입</a>
-                    <a href="#">행사신청내역</a>
+                    <a href="/users/login">로그인</a>
+                    <a href="/users/add">회원가입</a>
+                    <a href="/exhibition-users/certification">행사신청내역</a>
                 <?php else: ?>
                 <!-- log after -->
                     <a href="/users/logout">로그아웃</a>
