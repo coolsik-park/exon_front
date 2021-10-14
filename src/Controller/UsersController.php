@@ -476,7 +476,7 @@ class UsersController extends AppController
         $this->set(compact('id'));
     }
 
-    public function sendSmsCertification($user_id = null)
+    public function sendSmsCertification()
     {        
         if ($this->request->is('post')) {
             require_once("solapi-php/lib/message.php");
@@ -548,7 +548,7 @@ class UsersController extends AppController
         }
     }
 
-    public function sendEmailCertification ($user_id = null) {
+    public function sendEmailCertification () {
         if ($this->request->is('post')) {
             $mailer = new Mailer();
             $mailer->setTransport('mailjet');
