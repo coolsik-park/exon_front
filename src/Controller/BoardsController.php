@@ -55,11 +55,13 @@ class BoardsController extends AppController
                 
                 if($connection->insert('user_question_files', ['user_question_id' => $result->id, 'file_path' => $path, 'file_name' => $fileName])) {
                     $connection->commit();
-                    $this->Flash->success(__('Your post has been saved.'));
-                    return $this->redirect(['action' => 'index']);
+                    // $this->Flash->success(__('Your post has been saved.'));
+                    // return $this->redirect(['action' => 'index']);
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
                 } else {
                     $connection->rollback();
-                    $this->Flash->error(__('Unable to add your post.'));
+                    // $this->Flash->error(__('Unable to add your post.'));
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
                 }
                 
             } else {
