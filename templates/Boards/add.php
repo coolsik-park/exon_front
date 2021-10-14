@@ -49,17 +49,20 @@
                     <div class="col-dt"><h4>파일첨부</h4></div>
                     <div class="col-dd">
                         <form name="imgUpload" id="imgUpload">
-                            <label class="btn-ty2 bor" for="imgSaveButton">파일선택</label>
-                            <input type="file" id="imgSaveButton" name="imgSaveButton" style="display:none"/>
+                            <label class="btn-ty2 bor" for="fileSaveButton">파일선택</label>
+                            <input type="file" id="fileSaveButton" name="fileSaveButton" style="display:none"/>
                         </form>
                         <!-- <button type="button" class="btn-ty2 bor">파일선택</button> -->
                     </div>
                 </div>
-                <div class="add-files">
-                    <label for="imgSaveButton"></label>
-                    <input type="file" id="imgSaveButton" name="imgSaveButton" multiple="multiple" style="display:none">
+                <div class="add-files" id="dropZone">
+                    <label for="fileSaveButton"></label>
+                    <input type="file" id="fileSaveButton" name="fileSaveButton" multiple="multiple" style="display:none">
                     <p class="tx">마우스로 자료를 끌어오세요</p>
                 </div>  
+                <div id="fileTableTbody" class="data-itmes">
+
+                </div>
                 <div class="agree-wp">
                     <span class="chk-dsg"><input type="radio" name="rdo3" id="rdo3-1"><label for="rdo3-1">개인정보 수집 및 이용 동의</label></span>
                 </div>
@@ -75,44 +78,84 @@
 <script>
     ui.addOnAction('.board-lists>li');
 
-    // $(function() {
-    //     var dropZone = $('#dropZone');
+    var fileIndex = 0;
+    var totalFileSize = 0;
+    var fileList = new Array();
+    var fileSizeList = new Array();
+    var uploadSize = 50;
+    var maxUploadSize = 500;
 
-    //     dropZone.on('dragenter', function(e) {
-    //         e.stopPropagation();
-    //         e.preventDefault();
-    //         dropZone.css('background-color', '#E3F2FC');
-    //     });
+    $(function() {
+        var dropZone = $('#dropZone');
 
-    //     dropZone.on('dragleave', function(e) {
-    //         e.stopPropagation();
-    //         e.preventDefault();
-    //         dropZone.css('background-color', '#FFFFFF');
-    //     });
+        dropZone.on('dragenter', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            dropZone.css('background-color', '#E3F2FC');
+        });
 
-    //     dropZone.on('dragover', function(e) {
-    //         e.stopPropagation();
-    //         e.preventDefault();
-    //         dropZone.css('background-color', '#E3F2FC');
-    //     });
+        dropZone.on('dragleave', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            dropZone.css('background-color', '#FFFFFF');
+        });
 
-    //     dropZone.on('drop', function(e) {
-    //         e.preventDefault();
-    //         dropZone.css('background-color', '#FFFFFF');
+        dropZone.on('dragover', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            dropZone.css('background-color', '#E3F2FC');
+        });
 
-    //         var img = e.originalEvent.dataTransfer.files;
-    //         var formData = new FormData();
-    //         formData.append('imgSaveButton', img[0]);
-    //     });
-    // });
+        dropZone.on('drop', function(e) {
+            e.preventDefault();
+            dropZone.css('background-color', '#FFFFFF');
 
-    // $('#imgSaveButton').on('change', function() {
-    //     var img = document.getDlementById('imgSaveButton').files;
-    //     var formData = new FormData();
-    //     formData.append('imgSaveButton', img[0]);
-    // });
+            var file = e.originalEvent.dataTransfer.files;
+            selectFile(file);
+        });
+    });
+
+    $('#fileSaveButton').on('change', function() {
+        var file = document.getElementById('fileSaveButton').files;
+        selectFile(file);
+    });
+
+    function selectFile(files) {
+        if (files !=null) {
+            for (var i=0; i<files.length; i++) {
+                var fileName = files[i].name;
+                var fileNameArr = fileName.split("\.");
+                var ext = fileNameArr[fileNameArr.length - 1];
+
+                fileList[fileIndex] = files[i];
+                addFileList(fileIndex, fileName);
+                fileIndex++;
+            }
+        } else {
+            alert("ERROR");
+        }
+    }
+
+    function addFileList(fIndex, fileName){
+        var html = "<br>";
+        html += "<a id='fileTr_" + fIndex + "' class='data-itme edit'>";
+        html += "<span class='tx'>" + fileName + "</span>";
+        html += "<button type='button' onclick='deleteFile(" + fIndex + "); return false;' class='btn-del'>삭제</button>";
+        html += "</a>";
+
+        $('#fileTableTbody').append(html);
+    }
+
+    function deleteFile(fIndex){
+        totalFileSize -= fileSizeList[fIndex];
+        delete fileList[fIndex];
+        delete fileSizeList[fIndex];
+        $("#fileTr_" + fIndex).remove();
+    }
 
     $('#btn-big').on('click', function() {
+        var uploadFileList = Object.keys(fileList);
+
         var getHp = RegExp(/^[0-9]*$/);
         var getEmail = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
         var result = [];
@@ -145,13 +188,13 @@
             result.push('true');
         }
 
-        if (!result.include('false')) {
+        if (!result.includes('false')) {
             $.ajax({
                 url: '/boards/add',
                 method: 'POST',
                 type: 'json',
                 data: {
-                    faq_category_id: faqCategoryId,
+                    faq_category_id: $('#categories option:selected').val(),
                     title: $('#title').val(),
                     users_name: $('#name').val(),
                     users_hp: $('#hp').val(),
@@ -160,7 +203,33 @@
                 }
             }).done(function (data) {
                 if (data.status == 'success') {
-                    alert('성공하였습니다.');
+                    if (uploadFileList.length == 0) {
+                        alert('성공하였습니다.'); 
+                        location.href='/';
+                    } else {
+                        var formData = new FormData();
+
+                        for (var i=0; i<uploadFileList.length; i++) {
+                            formData.append('file[]', fileList[uploadFileList[i]]);
+                        }
+
+                        $.ajax({
+                            url: '/boards/file-upload/' + data.users_question_id,
+                            processData: false,
+                            contentType: false,
+                            cache: false,
+                            data: formData,
+                            type: 'POST',
+                        }).done(function(data) {
+                            if (data.status == 'success') {
+                               alert('파일 저장까지 성공하였습니다.'); 
+                               location.href='/';
+                            } else {
+                                console.log(data.status);
+                                alert('파일 저장은 실패하였습니다.');
+                            }
+                        });
+                    }
                 } else {
                     alert('실패하였습니다.');
                 }

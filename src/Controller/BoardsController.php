@@ -32,46 +32,82 @@ class BoardsController extends AppController
         $userquestion_table = TableRegistry::get('UserQuestion');
         $board = $userquestion_table->newEmptyEntity();
 
-        if($this->request->is('post')) {
-            $board = $userquestion_table->patchEntity($board, $this->request->getData());
-            
-            if($result = $userquestion_table->save($board)) {
-                $file = $this->request->getData('file_name');
-                $fileName = $file->getClientFilename();
-                $index = strpos(strrev($fileName), strrev('.'));
-                $expen = strtolower(substr($fileName, ($index * -1)));
-                $path = 'upload' . DS . 'boards' . DS . 'user_question' . DS . date("Y") . DS . date("m");
+        if ($this->request->is('post')) {
+            $board->faq_category_id = $this->request->getData('faq_category_id');
+            $board->users_id = $this->Auth->user('id');
+            $board->title = $this->request->getData('title');
+            $board->users_name = $this->request->getData('users_name');
+            $board->users_hp = $this->request->getData('users_hp');
+            $board->users_email = $this->request->getData('users_email');
+            $board->question = $this->request->getData('question');
 
-                if (!file_exists(WWW_ROOT . $path)) {
-                    $oldMask = umask(0);
-                    mkdir(WWW_ROOT . $path, 0777, true);
-                    chmod(WWW_ROOT . $path, 0777);
-                    umask($oldMask);
-                }
-                
-                $fileName = $result->id . "_question." . $expen;
-                $destination = WWW_ROOT . $path . DS . $fileName;
-                $file->moveTo($destination);
-                
-                if($connection->insert('user_question_files', ['user_question_id' => $result->id, 'file_path' => $path, 'file_name' => $fileName])) {
-                    $connection->commit();
-                    // $this->Flash->success(__('Your post has been saved.'));
-                    // return $this->redirect(['action' => 'index']);
-                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
-                } else {
-                    $connection->rollback();
-                    // $this->Flash->error(__('Unable to add your post.'));
-                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
-                }
-                
+            if ($result = $userquestion_table->save($board)) {
+                $connection->commit();
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'users_question_id' => $result->id]));
             } else {
                 $connection->rollback();
-                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
             }
+            return $response;
         }
+
         $faqCategory = $this->getTableLocator()->get('FaqCategory');
         $categories = $faqCategory->find('list', ['keyField' => 'id', 'valueField' => 'text'])->where(['status' => 1]);
+
         $this->set(compact('board', 'categories'));
+    }
+
+    public function fileUpload($question_id = null)
+    {
+        $connection = ConnectionManager::get('default');
+        $connection->begin();
+
+        $usersquestionfiles_table = TableRegistry::get('UserQuestionFiles');
+
+        if ($this->request->is('post')) {
+            $data = $this->request->getData();
+            $count = count($data['file']);
+    
+            for ($i=0; $i<$count; $i++) {
+                $usersquestionfiles = $usersquestionfiles_table->newEmptyEntity();
+                $usersquestionfiles->user_question_id = $question_id;
+                $usersquestionfiles->file_path = '';
+                $usersquestionfiles->file_name = '';
+                
+                if ($result = $usersquestionfiles_table->save($usersquestionfiles)) {
+                    $file = $data['file'][$i];
+                    $fileName = $file->getClientFilename();
+                    $index = strpos(strrev($fileName), strrev('.'));
+                    $expen = strtolower(substr($fileName, ($index * -1)));
+                    $path = 'upload' . DS . 'user_question_files' . DS . date("Y") . DS . date("m");
+    
+                    if (!file_exists(WWW_ROOT . $path)) {
+                        $oldMask = umask(0);
+                        mkdir(WWW_ROOT . $path, 0777, true);
+                        chmod(WWW_ROOT . $path, 0777);
+                        umask($oldMask);
+                    }
+    
+                    $fileName = $result->id . "_users_question." . $expen;
+                    $destination = WWW_ROOT . $path . DS . $fileName;
+                    $file->moveTo($destination);
+        
+                    if ($connection->update('user_question_files', ['file_path' => $path, 'file_name' => $fileName], ['id' => $result->id])) {
+                        $connection->commit();
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                    } else {
+                        $connection->rollback();
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'failaaaaaa']));
+                    }
+                } else {
+                    $connection->rollback();
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'failbbbbbb']));
+                }
+            }
+            $connection->commit();
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+            return $response;
+        }
     }
 
     public function view($id = null) 
