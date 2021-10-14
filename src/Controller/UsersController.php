@@ -54,9 +54,9 @@ class UsersController extends AppController
         $this->set(compact('user'));
     }
 
-    public function edit($id = null)
+    public function edit()
     {
-        $user = $this->Users->get($id);
+        $user = $this->Users->get($this->Auth->user('id'));
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user->password = password_hash($this->request->getData('password'), PASSWORD_DEFAULT);
