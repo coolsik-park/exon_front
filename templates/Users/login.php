@@ -33,7 +33,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                     </div>
                 </div>
                 <div class="btn-btm">
-                    <a class="btn-big" style="cursor:pointer;">로그인</a>
+                    <a class="btn-big" style="cursor:pointer; color:#fff;">로그인</a>
                 </div>
                 <?= $this->Form->end() ?>
                 <div class="div-or"></div>
