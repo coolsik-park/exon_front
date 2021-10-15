@@ -285,7 +285,7 @@
         alert("복사되었습니다.");
     });
 
-    //status change
+    //status sorting
     $("#status").change(function () {
         var status = $(this).val();
 
@@ -367,7 +367,7 @@
         });
     });
 
-    //group change
+    //group sorting
     $("#group").change(function () {
         var group = $(this).val();
 
