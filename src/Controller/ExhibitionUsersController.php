@@ -46,6 +46,9 @@ class ExhibitionUsersController extends AppController
         $connection = ConnectionManager::get('default');
         $connection->begin();
 
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $exhibition = $Exhibition->get($id);
+
         $exhibitionUser = $this->ExhibitionUsers->newEmptyEntity();
         if ($this->request->is('post')) {
             $answerData = $this->request->getData();
@@ -59,8 +62,10 @@ class ExhibitionUsersController extends AppController
             $exhibitionUser->users_name = $answerData['users_name'];
             $exhibitionUser->users_hp = $answerData['users_hp'];
             $exhibitionUser->users_sex = $answerData['users_sex'];
+            if ($exhibition->cost == 'charged') :
             $exhibitionUser->pay_id = $answerData['pay_id'];
             $exhibitionUser->pay_amount = $answerData['pay_amount'];
+            endif;
             $exhibitionUser->status = 2;
             
             if ($this->ExhibitionUsers->save($exhibitionUser)) {
@@ -125,13 +130,10 @@ class ExhibitionUsersController extends AppController
                 $mailer->setTransport('mailjet');
 
                 $to = $this->request->getData('users_email');
-                $Exhibition = $this->getTableLocator()->get('Exhibition');
-                $exhibition = $Exhibition->get($id); 
                 $Group = $this->getTableLocator()->get('ExhibitionGroup');
-                $group_id = $this->request->getData('group');
+                $group_id = $this->request->getData('exhibition_group_id');
                 $group = $Group->get($group_id);
                 $user_name = $this->request->getData('user_name');            
-                
                 $mailer->setEmailFormat('html')
                             ->setTo($to)
                             ->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'EXON'])
@@ -163,7 +165,6 @@ class ExhibitionUsersController extends AppController
                 return $response;
             }
         }
-        $exhibition = $this->ExhibitionUsers->Exhibition->find('list', ['limit' => 200]);
         $exhibitionGroup = $this->ExhibitionUsers->ExhibitionGroup->find('all')->where(['exhibition_id' => $id]);
         $pay = $this->ExhibitionUsers->Pay->find('list', ['limit' => 200]);
         $exhibitionSurveys = $this->getTableLocator()->get('ExhibitionSurvey')->find('all', ['contain' => 'ChildExhibitionSurvey'])->where(['exhibition_id' => $id, 'survey_type' => 'B', 'parent_id Is' => null]);

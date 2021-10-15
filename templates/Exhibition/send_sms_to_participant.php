@@ -26,7 +26,7 @@
         <div class="pr3-section2">
         <form id="postForm">                
             <div class="msg-editor">
-                <textarea name="sms_content" id="sms_content" cols="30" rows="10" placeholder="발신 내용을 입력해 주세요"></textarea>       
+                <textarea name="sms_content" id="sms_content" cols="30" rows="10" placeholder="발신 내용을 입력해 주세요"><?=$text?></textarea>       
                 <div class="btns">
                     <button type="button" id="textReset" class="btn-ss">내용 초기화</button>
                 </div>                                    
@@ -224,6 +224,7 @@
         $("input[name='list']:checked").each(function(i) { 
             lists.push($(this).val());
         });
+        var text = $("#sms_content").val();
 
         jQuery.ajax({
             url: "/exhibition/participant-list/" + <?= $id ?>,
@@ -231,6 +232,7 @@
             type: 'json',
             data: {
                 data : lists,
+                text : text
                 }   
         }).done(function (data) {
             

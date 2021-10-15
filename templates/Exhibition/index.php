@@ -57,8 +57,10 @@
                                             } else {
                                                 if ($exhibition->sdate <= $today && $exhibition->edate >= $today) {
                                                     echo '진행중';
-                                                } else {
+                                                } else if($exhibition->edate <= $today) {
                                                     echo '종료';
+                                                } else if($exhibition->sdate >= $today) {
+                                                    echo '행사 시작 전';
                                                 }
                                             }
                                         ?>
@@ -232,6 +234,7 @@
                 type: 'json',
             }).done(function(data) {
                 if (data.status == 'success') {
+                    alert("복사되었습니다.");
                     window.location.replace("/exhibition/index/temp");
                 } else {
                     alert("복사에 실패하였습니다. 잠시 후 다시 시도해주세요.");
