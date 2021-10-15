@@ -666,16 +666,16 @@ class ExhibitionController extends AppController
         $this->set(compact('id', 'exhibition_users'));
     }
 
-    public function wordSearch()
-    {
-        $id = $this->request->getData('id');
-        $word = $this->request->getData('word');
+    // public function wordSearch()
+    // {
+    //     $id = $this->request->getData('id');
+    //     $word = $this->request->getData('word');
 
-        echo($this->request->getData());
-        exit;
+    //     echo($this->request->getData());
+    //     exit;
 
-        return $this->redirect(['action' => 'index']);
-    }
+    //     return $this->redirect(['action' => 'index']);
+    // }
 
     public function exhibitionUsersStatus($id = null)
     {
@@ -703,7 +703,8 @@ class ExhibitionController extends AppController
                 'amount' 		=> 0,				
                 'reason'		=> '행사 관리자 취소',			
             ));
-            if ( $result->success ) {
+            
+            if ($result->success) {
             
                 $payment_data = $result->data;
                 $now = FrozenTime::now();
