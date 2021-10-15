@@ -38,7 +38,7 @@
                     <!-- <input type="text" class="ipt" placeholder="이메일"> -->
                     <div class="btns">
                         <button type="button" id="urlCopy" class="btn-ty2 bor">행사 URL 복사</button>
-                        <input type="hidden" id="url" value="121.126.223.225:8765/exhibition/view/<?=$id?>">
+                        <input type="hidden" id="url" value="<?=FRONT_URL?>/exhibition/view/<?=$id?>">
                         <button type="button" class="btn-ty2 bor" data-toggle="modal" data-target="#listModal">참가자 리스트</button>
                         <!-- bootstrap modal -->
                         <div class="modal list-modal-lg" id="listModal" tabindex="-1" role="dialog" aria-labelledby="listModalLabel" aria-hidden="true">

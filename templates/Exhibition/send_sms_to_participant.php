@@ -34,7 +34,7 @@
             <div class="msg-btns">
                 <div class="ln1">
                     <button type="button" id="urlCopy" class="btn-ty2 bor">행사 URL 복사</button>
-                    <input type="hidden" id="url" value="121.126.223.225:8765/exhibition/view/<?=$id?>">                      
+                    <input type="hidden" id="url" value="<?=FRONT_URL?>/exhibition/view/<?=$id?>">                      
                 </div>                    
                 <div class="ln2">
                     <span class="tx">발신번호 추가</span>
