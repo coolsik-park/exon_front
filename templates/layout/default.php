@@ -63,13 +63,11 @@
                     <a href="/users/login">로그인</a>
                     <a href="/users/add">회원가입</a>
                     <a href="/exhibition-users/certification">행사신청내역</a>
-                    <a href="/boards/faqs-by-category">고객센터</a>
                 <?php else: ?>
                 <!-- log after -->
                     <a href="/users/logout">로그아웃</a>
                     <a href="/exhibition/index/all">개설행사목록</a>
                     <a href="/exhibition-users/sign-up/application">신청행사목록</a>
-                    <a href="/boards/faqs-by-category">고객센터</a>
                 <!-- // -->
                 <?php endif;?>
             </div>            
@@ -151,7 +149,7 @@
             <div class="footer-top">    
                 <ul>
                     <li><a href="#">회사소개</a></li>
-                    <li><a href="#">고객센터</a></li>
+                    <li><a href="/boards/faqs-by-category">고객센터</a></li>
                     <li><a href="#">서비스 이용약관 </a></li>
                     <li><a href="#">개인정보처리방침</a></li>
                     <li><a href="#">전자금융거래 이용약관</a></li>
