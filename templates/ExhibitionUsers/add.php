@@ -139,7 +139,15 @@
                         }
                     ?>  
                     </select>                      
-                    <span class="tx">1,000</span>
+                    <span class="tx">
+                        <?php
+                            if ($exhibition->cost == 'charged'): 
+                                echo $group->amount;
+                            else :
+                                echo 0;
+                            endif;
+                        ?>
+                    </span>
                 </div>
                 <button type="button" id="submit" class="btn-join">참가 신청</button>
             </div>
