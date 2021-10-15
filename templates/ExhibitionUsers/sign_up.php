@@ -57,9 +57,9 @@
                                     ?>
                                             <br>
                                             <div class="state">종료</div>
-                                    <?php
-                                        }
-                                    ?>
+                                    <?php } elseif ($exhibition_user->status == 8 && $exhibition_user->pay->status == 8) { ?>
+                                            <!-- <div class="state"></div> -->
+                                    <?php } ?>
                                 </div>
                             </div>                            
                         </div>
@@ -166,7 +166,7 @@
                                     <?php
                                         } elseif ($today > $exhibition_user->exhibition['edate']) {
                                     ?>
-                                            <p><a href="#" class="btn-ty3 gray">취소하기</a></p>
+                                            <p><a href="#" class="btn-ty3 gray" id="cancelButton">취소하기</a></p>
                                     <?php
                                         } else {
                                             echo '진행중인 행사입니다.';
