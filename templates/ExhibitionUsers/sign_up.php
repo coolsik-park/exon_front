@@ -156,23 +156,24 @@
                             <div class="mo-only"></div>
                             <div class="con">
                                 <p><a href="/exhibition-users/download-pdf/<?=$exhibition_user->exhibition['id']?>" class="btn-ty3 bor">증빙</a></p>
-                                <p>
-                                    <?php
-                                        $today = new DateTime();
+                                <?php
+                                    $today = new DateTime();
 
-                                        if ($today < $exhibition_user->exhibition['sdate']) {
-                                    ?>
-                                            <a href="#" class="btn-ty3 red" id="cancelButton">취소하기</a>
-                                    <?php
-                                        } elseif ($today > $exhibition_user->exhibition['edate']) {
-                                    ?>
-                                            <p><a href="#" class="btn-ty3 gray" id="cancelButton">취소하기</a></p>
-                                    <?php
-                                        } else {
-                                            echo '진행중인 행사입니다.';
-                                        }
-                                    ?>
-                                </p>
+                                    if ($today < $exhibition_user->exhibition['sdate']) {
+                                ?>
+                                    <button type="button" class="btn-ty3 red" style="cursor:pointer;" data-toggle="modal" data-target="#signUpCancelModal" data-backdrop="static" data-keyboard="false">
+                                        취소하기
+                                    </button>
+                                <?php } elseif ($today > $exhibition_user->exhibition['edate']) { ?>
+                                    <!-- <p><a href="#" class="btn-ty3 gray" id="cancelButton">취소하기</a></p> -->
+                                    <!-- <button type="button" class="btn-ty3 red" id="exhibitionCancel" name="<?= $exhibition_user->users_name ?>" style="cursor:pointer;" data-toggle="modal" data-target="#exhibitionCancelModal" data-backdrop="static" data-keyboard="false">
+                                        취소하기
+                                    </button> -->
+                                <?php
+                                    } else {
+                                        echo '진행중인 행사입니다.';
+                                    }
+                                ?>
                                 <?php
                                     $today = new DateTime();
                                     
@@ -184,6 +185,29 @@
                                         }
                                     }
                                 ?>
+                            </div>
+                            <div class="modal fade" id="signUpCancelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="popup-wrap popup-ty2">
+                                            <div class="popup-head">
+                                                <h1>참가자 신청 취소</h1>
+                                                <button id="close" type="button" class="popup-close close" data-dismiss="modal" aria-label="Close">팝업닫기</button>
+                                            </div>
+                                            <div class="popup-body">        
+                                                <div class="cert-sect4">
+                                                    <p>참가자의 신청을 취소할 경우 참가자가 결제한 금액은<br class="br-mo">
+                                                        모두 환불됩니다.<br>
+                                                        참가자 신청을 취소하시겠습니까?</p>
+                                                </div>
+                                                <div class="popup-btm">
+                                                    <button type="button" class="btn-ty2 red" data-dismiss="modal" aria-label="Close">취소</button>
+                                                    <button type="button" class="btn-ty2" id="exhibitionCancelOk">확인</button>
+                                                </div>        
+                                            </div>
+                                        </div> 
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

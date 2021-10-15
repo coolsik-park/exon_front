@@ -688,25 +688,25 @@ class ExhibitionController extends AppController
         $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
         $exhibition_user = $exhibition_users_table->get($id);
 
-        if($connection->update('exhibition_users', ['status' => '8'], ['id' => $id])) {
+        if($connection->update('exhibition_users', ['status' => '0'], ['id' => $id])) {
 
             $Pay = $this->getTableLocator()->get('Pay');
             $pay = $Pay->get($pay_id);
             
-            require_once("iamport-rest-client-php/src/iamport.php");
+            // require_once("iamport-rest-client-php/src/iamport.php");
             
-            $iamport = new Iamport(getEnv('IAMPORT_API_KEY'), getEnv('IAMPORT_API_SECRET'));
+            // $iamport = new Iamport(getEnv('IAMPORT_API_KEY'), getEnv('IAMPORT_API_SECRET'));
 
-            $result = $iamport->cancel(array(
-                'imp_uid'		=> $pay->imp_uid, 		
-                'merchant_uid'	=> $pay->merchant_uid, 	
-                'amount' 		=> 0,				
-                'reason'		=> '행사 관리자 취소',			
-            ));
+            // $result = $iamport->cancel(array(
+            //     'imp_uid'		=> $pay->imp_uid, 		
+            //     'merchant_uid'	=> $pay->merchant_uid, 	
+            //     'amount' 		=> 0,				
+            //     'reason'		=> '행사 관리자 취소',			
+            // ));
+
+            // if ($result->success) {
             
-            if ($result->success) {
-            
-                $payment_data = $result->data;
+                // $payment_data = $result->data;
                 $now = FrozenTime::now();
                 
 
@@ -720,7 +720,9 @@ class ExhibitionController extends AppController
                     $mailer->setTransport('mailjet');
 
                     $exhibition = $this->Exhibition->get($id);
-                    $user_name = $this->request->getData('user_name');       
+                    $user_name = $this->request->getData('user_name');   
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                    return $response;    
                     
                     $mailer->setEmailFormat('html')
                                 ->setTo($to)
@@ -748,9 +750,9 @@ class ExhibitionController extends AppController
                     $this->Flash->error(__('Pay could not be saved'));
                 }
                 
-            } else {
-                $this->Flash->error(__('The payment could not be canceled.'));
-            }
+            // } else {
+            //     $this->Flash->error(__('The payment could not be canceled.'));
+            // }
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
         
         } else {

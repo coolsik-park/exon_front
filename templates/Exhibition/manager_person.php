@@ -122,11 +122,11 @@
                             <div class="con">
                                 <?php
                                     if ($exhibition_user->attend == 1) {
-                                        echo $exhibition_user->id . '불참';
+                                        echo '불참';
                                     } elseif ($exhibition_user->attend == 2) {
-                                        echo $exhibition_user->id . '참석';
+                                        echo '참석';
                                     } elseif ($exhibition_user->attend == 4) {
-                                        echo $exhibition_user->id . '시청완료';
+                                        echo '시청완료';
                                     }
                                 ?>
                             </div>
@@ -134,25 +134,19 @@
                         <div class="td-col col6" id="td-col col6">
                             <div class="con">
                                 <select id="participateSelectBox" name="<?= $exhibition_user->id ?>,<?= $exhibition_user->users_email ?>">
-                                    <?php
-                                        if ($exhibition_user->status == 4) {
-                                    ?>
-                                            <option value="2">참가 대기</option>
-                                            <option value="4" selected="selected">참가 확정</option>
-                                    <?php
-                                        } else {
-                                    ?>
-                                            <option value="2" selected="selected">참가 대기</option>
-                                            <option value="4">참가 확정</option>
-                                    <?php
-                                        }
-                                    ?>
+                                    <?php if ($exhibition_user->status == 4) { ?>
+                                        <option value="2">참가 대기</option>
+                                        <option value="4" selected="selected">참가 확정</option>
+                                    <?php } else { ?>
+                                        <option value="2" selected="selected">참가 대기</option>
+                                        <option value="4">참가 확정</option>
+                                    <?php } ?>
                                 </select>
                             </div>
                         </div>
                         <div class="td-col col7">
                             <div class="con">
-                                <button type="button" class="btn-ty3 red" id="exhibitionCancel" name="<?= $exhibition_user->id ?>" style="cursor:pointer;" data-toggle="modal" data-target="#exhibitionCancelModal" data-backdrop="static" data-keyboard="false">
+                                <button type="button" class="btn-ty3 red" id="exhibitionCancel" name="<?= $exhibition_user->users_name ?>" style="cursor:pointer;" data-toggle="modal" data-target="#exhibitionCancelModal" data-backdrop="static" data-keyboard="false">
                                     취소
                                 </button>
                             </div>
@@ -224,27 +218,28 @@
     });
 
     $('#exhibitionCancelOk').on('click', function() {
-        var id = $('#exhibitionCancel').attr('name');
-        var email = '<?= $exhibition_user->users_email ?>';
-        var pay_id = '<?= $exhibition_user->pay_id ?>';
-        var user_name = '<?= $exhibition_user->users_name?>';
+        console.log($('#exhibitionCancel').attr('name'));
+        // var id = $('#exhibitionCance').attr('name');
+        // var email = '<?= $exhibition_user->users_email ?>';
+        // var pay_id = '<?= $exhibition_user->pay_id ?>';
+        // var user_name = '<?= $exhibition_user->users_name?>';
 
-        $.ajax({
-            url: '/exhibition/exhibition-users-status/' + id,
-            method: 'POST',
-            type: 'json',
-            data: {
-                email: email,
-                pay_id: pay_id,
-                user_name: user_name
-            }
-        }).done(function(data) {
-            if (data.status == 'success') {
-                $('#container').load(location.href+" #container");
-                alert("취소 메일 보내드렸습니다. 확인부탁드립니다.");
-            } else {
-                alert("실패하였습니다.");
-            }
-        });
+        // $.ajax({
+        //     url: '/exhibition/exhibition-users-status/' + id,
+        //     method: 'POST',
+        //     type: 'json',
+        //     data: {
+        //         email: email,
+        //         pay_id: pay_id,
+        //         user_name: user_name
+        //     }
+        // }).done(function(data) {
+        //     if (data.status == 'success') {
+        //         $('#container').load(location.href+" #container");
+        //         alert("취소 메일 보내드렸습니다. 확인부탁드립니다.");
+        //     } else {
+        //         alert("실패하였습니다.");
+        //     }
+        // });
     });
 </script>
