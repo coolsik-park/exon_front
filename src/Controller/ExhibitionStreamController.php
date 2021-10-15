@@ -864,26 +864,20 @@ class ExhibitionStreamController extends AppController
         $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $id])->toArray();
         $stream_key = $exhibitionStream[0]['stream_key'];
 
-        if ($exhibition->sdate <= FrozenTime::now() && FrozenTime::now() <= $exhibition->edate) {
-            
-            if (!empty($this->Auth->user())) {
-                $auth_id = $this->Auth->user()->id;
-                $Users = $this->getTableLocator()->get('Users');
-                $user = $Users->get($auth_id);
-    
-                if ($user->hp_cert == 1 || $user->email_cert == 1) {
-                    return $this->redirect(['action' => 'watchExhibitionStream', $id]);
-                }
-            
-            } else {
-                $auth_id = 0;
+        if ($this->Auth->user('id') != null) {
+            $auth_id = $this->Auth->user()->id;
+            $Users = $this->getTableLocator()->get('Users');
+            $user = $Users->get($auth_id);
+
+            if ($user->hp_cert == 1 || $user->email_cert == 1) {
+                return $this->redirect(['action' => 'watchExhibitionStream', $id]);
             }
         
         } else {
-            return $this->redirect(['action' => 'streamNotExist']);
+            $auth_id = 0;
         }
-
-        $this->set(compact('auth_id', 'stream_key'));
+    
+        $this->set(compact('auth_id', 'stream_key', 'id'));
     }
 
     public function sendSmsCertification($user_id = null)
@@ -934,7 +928,8 @@ class ExhibitionStreamController extends AppController
 
                 if ($this->request->getData('code') == $commonConfirmation[0]->confirmation_code) {
                     
-                    if ($id == 0) {
+                    $user_id = $this->request->getData('user_id');
+                    if ($user_id == 0) {
                         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
                         return $response;
                     
@@ -1010,7 +1005,8 @@ class ExhibitionStreamController extends AppController
             
             if (FrozenTime::now() < $commonConfirmation[0]->expired) {
 
-                if ($id == 0) {
+                $user_id = $this->request->getData('user_id');
+                if ($user_id == 0) {
                     $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
                     return $response;
                 
