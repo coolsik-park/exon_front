@@ -280,4 +280,13 @@
         $("#url").attr("type", "hidden");
         alert("복사되었습니다.");
     });
+    
+    //참가자 리스트 먼저 선택 -> 추후 수정 필요
+    $("#email_content").click(function () {
+        var count = $("div[name='number']").length;
+        if (count == 0) {
+            alert("참가자 리스트에서 메일을 보낼 참가자를 먼저 선택해주세요.");
+        }
+    });
+
 </script>  
