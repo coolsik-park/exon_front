@@ -60,7 +60,7 @@
                                                 } else if($exhibition->edate <= $today) {
                                                     echo '종료';
                                                 } else if($exhibition->sdate >= $today) {
-                                                    echo '시작 전';
+                                                    echo '행사 시작 전';
                                                 }
                                             }
                                         ?>
