@@ -57,8 +57,10 @@
                                             } else {
                                                 if ($exhibition->sdate <= $today && $exhibition->edate >= $today) {
                                                     echo '진행중';
-                                                } else {
+                                                } else if($exhibition->edate <= $today) {
                                                     echo '종료';
+                                                } else if($exhibition->sdate >= $today) {
+                                                    echo '시작 전';
                                                 }
                                             }
                                         ?>
