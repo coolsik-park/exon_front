@@ -27,7 +27,7 @@
             <form id="postForm">
             <div class="pr3-sect">                   
                 <div class="msg-editor">
-                    <textarea name="email_content" id="email_content" cols="30" rows="10" placeholder="전송 내용을 입력해 주세요."></textarea>
+                    <textarea name="email_content" id="email_content" cols="30" rows="10" placeholder="전송 내용을 입력해 주세요."><?=$text?></textarea>
                     <div class="btns">
                         <button type="button" id="textReset" class="btn-ss">내용 초기화</button>
                     </div>                    
@@ -224,13 +224,15 @@
         $("input[name='list']:checked").each(function(i) { 
             lists.push($(this).val());
         });
-
+        var text = $("#email_content").val();
+        
         jQuery.ajax({
             url: "/exhibition/participant-list/" + <?= $id ?>,
             method: 'POST',
             type: 'json',
             data: {
                 data : lists,
+                text : text
                 }   
         }).done(function (data) {
             
@@ -279,14 +281,6 @@
         document.execCommand("copy");
         $("#url").attr("type", "hidden");
         alert("복사되었습니다.");
-    });
-    
-    //참가자 리스트 먼저 선택 -> 추후 수정 필요
-    $("#email_content").click(function () {
-        var count = $("div[name='number']").length;
-        if (count == 0) {
-            alert("참가자 리스트에서 메일을 보낼 참가자를 먼저 선택해주세요.");
-        }
     });
 
 </script>  

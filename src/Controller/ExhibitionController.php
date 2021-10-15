@@ -12,13 +12,13 @@ use Cake\Event\EventInterface;
 use Cake\I18n\FrozenTime;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Cake\Routing\Router;
 use Iamport;
 
 class ExhibitionController extends AppController
 {
     public function beforeFilter(\Cake\Event\EventInterface $event)
     {
-        
         parent::beforeFilter($event);
         $this->loadComponent('Auth');
 
@@ -847,6 +847,8 @@ class ExhibitionController extends AppController
         } else {
             $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find()->select('exhibition_id')->where(['exhibition_id' => $id])->toArray();
         }
+        $session = $this->request->getSession();
+        $text = $session->consume('text');
         
         if ($this->request->is('post')) {
             $mailer = new Mailer();
@@ -874,7 +876,7 @@ class ExhibitionController extends AppController
         }
         $listExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
         $exhibitionGroups = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
-        $this->set(compact('id', 'exhibitionUsers', 'exhibition_users_id', 'listExhibitionUsers', 'exhibitionGroups'));
+        $this->set(compact('id', 'exhibitionUsers', 'exhibition_users_id', 'listExhibitionUsers', 'exhibitionGroups', 'text'));
     }
 
     public function sendSmsToParticipant($id = null, $exhibition_users_id = null)
@@ -888,6 +890,8 @@ class ExhibitionController extends AppController
         } else {
             $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find()->select('exhibition_id')->where(['exhibition_id' => $id])->toArray();
         }
+        $session = $this->request->getSession();
+        $text = $session->consume('text');
         
         if ($this->request->is('post')) {
             
@@ -912,7 +916,7 @@ class ExhibitionController extends AppController
         }
         $listExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
         $exhibitionGroups = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
-        $this->set(compact('id', 'exhibitionUsers', 'exhibition_users_id', 'listExhibitionUsers', 'exhibitionGroups'));
+        $this->set(compact('id', 'exhibitionUsers', 'exhibition_users_id', 'listExhibitionUsers', 'exhibitionGroups', 'text'));
     }
 
     public function participantList($id = null)
@@ -922,6 +926,9 @@ class ExhibitionController extends AppController
 
         if ($this->request->is('post')) {
             $data = $this->request->getData('data');
+            $text = $this->request->getData('text');
+            $session = $this->request->getSession();
+            $session->write('text', $text);
             
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'type' => 'email', 'data' => $data]));
             return $response;
