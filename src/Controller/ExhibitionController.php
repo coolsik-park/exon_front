@@ -941,7 +941,23 @@ class ExhibitionController extends AppController
 
     public function sortByStatus($id = null, $status = null) 
     {
-        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id, 'status' => $status])->toArray();
+        if ($status == 0) {
+            $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
+        } else {
+            $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.status' => $status])->toArray();
+        }
+
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $exhibitionUsers]));
+        return $response;
+    }
+
+    public function sortByGroup($id = null, $group = null) 
+    {
+        if ($group == 0) {
+            $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
+        } else {
+            $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.exhibition_group_id' => $group])->toArray();
+        }
 
         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $exhibitionUsers]));
         return $response;
