@@ -399,7 +399,7 @@ class UsersController extends AppController
                     return $this->redirect($target);
                 } else {
                     $this->Flash->error(__('회원 정보가 없습니다.'));
-                    return $this->redirect("http://121.126.223.225:8765/users/add");
+                    return $this->redirect("/users/add");
                 }
             } else {
                 echo "Error 내용:".$response;
@@ -461,7 +461,7 @@ class UsersController extends AppController
                     return $this->redirect($target);
                 } else {
                     $this->Flash->error(__('회원 정보가 없습니다.'));
-                    return $this->redirect("http://121.126.223.225:8765/users/add");
+                    return $this->redirect("/users/add");
                 }
             } else {
                 echo "Error 내용:".$response;
