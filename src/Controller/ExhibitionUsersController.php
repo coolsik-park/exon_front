@@ -260,29 +260,30 @@ class ExhibitionUsersController extends AppController
                     $mailer = new Mailer();
                     $mailer->setTransport('mailjet');
 
-                    $to = $email;
-
-                    try {                   
-                        // $host = HOST;
-                        // $sender = SEND_EMAIL;
-                        // $view = new \Cake\View\View($this->request, $this->response);
-                        // $view->set(compact('sender')); //이메일 템플릿에 파라미터 전달
-                        // $content = $view->element('email/findPw'); //이메일 템블릿 불러오기
-                        if ($res = $mailer->setFrom([getEnv('EXON_EMAIL_ADDRESS') => '엑손 관리자'])
-                            ->setEmailFormat('html')
-                            ->setTo($to)
-                            ->setSubject('Exon Test Email')
-                            ->deliver('행사취소, 취소금액 : ' . $payment_data->cancel_amount)) 
-                            {
-
-                            } else {
-                                $this->Flash->error(__('The Email could not be delivered.'));
-                            }
-            
-                    } catch (Exception $e) {
-                        // echo ‘Exception : ’,  $e->getMessage(), “\n”;
-                        echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
-                    }
+                    $exhibition = $this->Exhibition->get($id);
+                    $user_name = $this->request->getData('user_name');           
+                    
+                    $mailer->setEmailFormat('html')
+                                ->setTo($to)
+                                ->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'EXON'])
+                                ->setSubject('Exon - 참가취소 확인 메일입니다.')
+                                ->viewBuilder()
+                                ->setTemplate('self_canceled')
+                            ;
+                    $mailer->setViewVars(['front_url' => FRONT_URL]);
+                    $mailer->setViewVars(['user_name' => $user_name]);
+                    $mailer->setViewVars(['title' => $exhibition->title]);
+                    $mailer->setViewVars(['apply_sdate' => $exhibition->apply_sdate]);
+                    $mailer->setViewVars(['apply_edate' => $exhibition->apply_edate]);
+                    $mailer->setViewVars(['sdate' => $exhibition->sdate]);
+                    $mailer->setViewVars(['edate' => $exhibition->edate]);
+                    $mailer->setViewVars(['name' => $exhibition->name]);
+                    $mailer->setViewVars(['tel' => $exhibition->tel]);
+                    $mailer->setViewVars(['email' => $exhibition->email]);
+                    $mailer->setViewVars(['refund' => $payment_data->cancel_amount]);
+                    $mailer->setViewVars(['now' => FrozenTime::now()]);
+                    
+                    $mailer->deliver();
                     $this->Flash->success(__('Your post has been saved and email delivered'));
                 
                 } else {

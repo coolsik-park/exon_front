@@ -719,12 +719,12 @@ class ExhibitionController extends AppController
                     $mailer->setTransport('mailjet');
 
                     $exhibition = $this->Exhibition->get($id);
-                    $user_name = $this->request->getData('user_name');           
+                    $user_name = $this->request->getData('user_name');       
                     
                     $mailer->setEmailFormat('html')
                                 ->setTo($to)
                                 ->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'EXON'])
-                                ->setSubject('Exon - 참가확정 확인 메일입니다.')
+                                ->setSubject('Exon - 참가취소 확인 메일입니다.')
                                 ->viewBuilder()
                                 ->setTemplate('canceled')
                             ;
@@ -854,30 +854,23 @@ class ExhibitionController extends AppController
 
             $users_email = $this->request->getData('users_email');
             $to = explode(",", $users_email);
+            $contents = $this->request->getData('email_content');
 
-            try {                   
-                // $host = HOST;
-                // $sender = SEND_EMAIL;
-                // $view = new \Cake\View\View($this->request, $this->response);
-                // $view->set(compact('sender')); //이메일 템플릿에 파라미터 전달
-                // $content = $view->element('email/findPw'); //이메일 템블릿 불러오기
-                if ($res = $mailer->setFrom([getEnv('EXON_EMAIL_ADDRESS') => $this->request->getData('name')])
-                    ->setEmailFormat('html')
-                    ->setTo($to)
-                    ->setSubject('Exon Test Email')
-                    ->deliver($this->request->getData('email_content'))) 
-                    {
-                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
-                        return $response;
+            $mailer->setEmailFormat('html')
+                        ->setTo($to)
+                        ->setFrom([getEnv('EXON_EMAIL_ADDRESS') => $this->request->getData('name')])
+                        ->setSubject('Exon - 행사 메일입니다.')
+                        ->viewBuilder()
+                        ->setTemplate('exhibition')
+                    ;
 
-                    } else {
-                        $this->Flash->error(__('The Email could not be delivered.'));
-                    }
-    
-            } catch (Exception $e) {
-                // echo ‘Exception : ’,  $e->getMessage(), “\n”;
-                echo json_encode(array("error"=>true, "msg"=>$e->getMessage()));exit;
-            }
+            $mailer->setViewVars(['front_url' => FRONT_URL]);
+            $mailer->setViewVars(['contents' => $contents]);
+            
+            $mailer->deliver();
+
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+            return $response;
         }
         $listExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
         $exhibitionGroups = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
