@@ -719,7 +719,7 @@ class ExhibitionController extends AppController
                     $mailer->setTransport('mailjet');
 
                     $exhibition = $this->Exhibition->get($id);
-                    $user_name = $this->request->getData('user_name');           
+                    $user_name = $this->request->getData('user_name');       
                     
                     $mailer->setEmailFormat('html')
                                 ->setTo($to)
