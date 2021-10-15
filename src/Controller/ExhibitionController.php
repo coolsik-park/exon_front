@@ -917,14 +917,16 @@ class ExhibitionController extends AppController
                 $this->Flash->error(__('The SMS could not be delivered.'));
             }
         }
-        $listExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
+        $listExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])
+            ->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
         $exhibitionGroups = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
         $this->set(compact('id', 'exhibitionUsers', 'exhibition_users_id', 'listExhibitionUsers', 'exhibitionGroups', 'text'));
     }
 
     public function participantList($id = null)
     {
-        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])
+            ->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
         $exhibitionGroups = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
 
         if ($this->request->is('post')) {
@@ -942,9 +944,11 @@ class ExhibitionController extends AppController
     public function sortByStatus($id = null, $status = null) 
     {
         if ($status == 0) {
-            $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
+            $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])
+                ->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
         } else {
-            $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.status' => $status])->toArray();
+            $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])
+                ->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.status' => $status])->toArray();
         }
 
         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $exhibitionUsers]));
@@ -954,10 +958,21 @@ class ExhibitionController extends AppController
     public function sortByGroup($id = null, $group = null) 
     {
         if ($group == 0) {
-            $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
+            $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])
+                ->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
         } else {
-            $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.exhibition_group_id' => $group])->toArray();
+            $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])
+                ->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.exhibition_group_id' => $group])->toArray();
         }
+
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $exhibitionUsers]));
+        return $response;
+    }
+
+    public function searchParticipant($id = null, $key = null)
+    {
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])
+            ->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.users_name LIKE' => '%'.$key.'%'])->toArray();
 
         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $exhibitionUsers]));
         return $response;
