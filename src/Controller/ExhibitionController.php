@@ -724,7 +724,7 @@ class ExhibitionController extends AppController
                     $mailer->setEmailFormat('html')
                                 ->setTo($to)
                                 ->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'EXON'])
-                                ->setSubject('Exon - 참가확정 확인 메일입니다.')
+                                ->setSubject('Exon - 참가취소 확인 메일입니다.')
                                 ->viewBuilder()
                                 ->setTemplate('canceled')
                             ;
