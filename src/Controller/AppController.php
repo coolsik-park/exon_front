@@ -58,7 +58,7 @@ class AppController extends Controller
                 'controller' => 'Users',
                 'action' => 'login',
             ],
-            'authError' => 'Please check your information.',
+            'authError' => '',
             'storage' => 'Session'         
 
             ]

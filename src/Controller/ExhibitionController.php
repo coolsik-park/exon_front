@@ -37,7 +37,7 @@ class ExhibitionController extends AppController
     public function initialize(): void
     {
         parent::initialize();
-        $this->loadComponent('Search.Search', ['actions' => ['search'],]);
+        $this->loadComponent('Search.Search', ['actions' => ['search']]);
     }
     
     public function index($type = null)
@@ -935,6 +935,14 @@ class ExhibitionController extends AppController
             return $response;
         }
         $this->set(compact('exhibitionUsers', 'exhibitionGroups', 'id', 'type'));
+    }
+
+    public function sortByStatus($id = null, $status = null) 
+    {
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id, 'status' => $status])->toArray();
+
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $exhibitionUsers]));
+        return $response;
     }
 
     public function surveyData($id = null)
