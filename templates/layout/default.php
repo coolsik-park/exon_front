@@ -63,11 +63,13 @@
                     <a href="/users/login">로그인</a>
                     <a href="/users/add">회원가입</a>
                     <a href="/exhibition-users/certification">행사신청내역</a>
+                    <a href="/boards/faqs-by-category">공지사항</a>
                 <?php else: ?>
                 <!-- log after -->
                     <a href="/users/logout">로그아웃</a>
                     <a href="/exhibition/index/all">개설행사목록</a>
                     <a href="/exhibition-users/sign-up/application">신청행사목록</a>
+                    <a href="/boards/faqs-by-category">공지사항</a>
                 <!-- // -->
                 <?php endif;?>
             </div>            
