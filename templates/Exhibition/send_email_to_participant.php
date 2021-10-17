@@ -38,7 +38,7 @@
                     <!-- <input type="text" class="ipt" placeholder="이메일"> -->
                     <div class="btns">
                         <button type="button" id="urlCopy" class="btn-ty2 bor">행사 URL 복사</button>
-                        <input type="hidden" id="url" value="121.126.223.225:8765/exhibition/view/<?=$id?>">
+                        <input type="hidden" id="url" value="<?=FRONT_URL?>/exhibition/view/<?=$id?>">
                         <button type="button" class="btn-ty2 bor" data-toggle="modal" data-target="#listModal">참가자 리스트</button>
                         <!-- bootstrap modal -->
                         <div class="modal list-modal-lg" id="listModal" tabindex="-1" role="dialog" aria-labelledby="listModalLabel" aria-hidden="true">
@@ -53,12 +53,12 @@
                                         <div class="search-box1">
                                             <div class="sel-wp">
                                                 <select id="status">
-                                                    <option>승인상태</option>
+                                                    <option value=0>승인상태</option>
                                                     <option value=4>참가 확정</option>
                                                     <option value=2>참가 대기</option>
                                                 </select>
                                                 <select id="group">
-                                                    <option>그룹명</option>
+                                                    <option value=0>그룹명</option>
                                                     <?php
                                                         foreach ($exhibitionGroups as $exhibitionGroup) {
                                                     ?>
@@ -69,69 +69,73 @@
                                                 </select>
                                             </div>
                                             <div class="ipt-search">
-                                                <input type="text" placeholder="이름,이메일">
-                                                <button type="button"><span class="ico-sh">검색</span> </button>
+                                                <form id="searchForm">
+                                                    <input type="text" id="key" name="key" placeholder="이름">
+                                                    <button type="button" id="searchButton"><span class="ico-sh">검색</span></button>
+                                                </form>
                                             </div>
                                         </div>
                                         <br>
                                         <form id="listForm">
-                                            <div class="table-type4">
-                                                <div class="th-row">
-                                                    <div class="th-col col1">
-                                                        <span class="chk-dsg"><input type="checkbox" id="all"><label for="all">전체선택</label></span>   
-                                                    </div>                     
-                                                    <div class="th-col col2">승인 상태</div>
-                                                    <div class="th-col col3">그룹명</div>
-                                                    <div class="th-col col4">이름</div>
-                                                    <div class="th-col col5">이메일</div>
-                                                </div>
-                                                <?php
-                                                    foreach ($listExhibitionUsers as $exhibitionUser) {
-                                                ?>
-                                                <div class="tr-row-wp">
-                                                    <div class="tr-row">
-                                                        <div class="td-col col1">
-                                                            <div class="mo-only">선택</div>
-                                                            <div class="con">
-                                                                <label class="chk-dsg2"><input type="checkbox" name="list" value="<?= $exhibitionUser->id ?>"><span>선택</span></label>
-                                                            </div>                        
-                                                        </div>
-                                                        <div class="td-col col2">
-                                                            <div class="mo-only">승인 상태</div>
-                                                            <div class="con">
-                                                                <?php
-                                                                    switch ($exhibitionUser->status) {
-                                                                        case '1' : echo '신청전'; break;
-                                                                        case '2' : echo '신청완료(참가대기)'; break;
-                                                                        case '4' : echo '참가확정'; break;
-                                                                        case '8' : echo '취소(환불)'; break;
-                                                                    } 
-                                                                ?>
-                                                            </div>
-                                                        </div>
-                                                        <div class="td-col col3">
-                                                            <div class="mo-only">그룹명</div>
-                                                            <div class="con">
-                                                            <?= $exhibitionUser->exhibition_group->name ?>
-                                                            </div>
-                                                        </div>
-                                                        <div class="td-col col4">
-                                                            <div class="mo-only">이름</div>
-                                                            <div class="con">
-                                                            <?= $exhibitionUser->users_name ?>
-                                                            </div>
-                                                        </div>
-                                                        <div class="td-col col5">
-                                                            <div class="mo-only">연락처</div>
-                                                            <div class="con">
-                                                            <?=$exhibitionUser->users_email?>
-                                                            </div>
-                                                        </div>                    
+                                            <div id="appendWrap">
+                                                <div id="deleteWrap" class="table-type4">
+                                                    <div class="th-row">
+                                                        <div class="th-col col1">
+                                                            <span class="chk-dsg"><input type="checkbox" id="all"><label for="all">전체선택</label></span>   
+                                                        </div>                     
+                                                        <div class="th-col col2">승인 상태</div>
+                                                        <div class="th-col col3">그룹명</div>
+                                                        <div class="th-col col4">이름</div>
+                                                        <div class="th-col col5">이메일</div>
                                                     </div>
-                                                </div>   
-                                                <?php
-                                                    }
-                                                ?>           
+                                                    <?php
+                                                        foreach ($listExhibitionUsers as $exhibitionUser) {
+                                                    ?>
+                                                    <div class="tr-row-wp">
+                                                        <div class="tr-row">
+                                                            <div class="td-col col1">
+                                                                <div class="mo-only">선택</div>
+                                                                <div class="con">
+                                                                    <label class="chk-dsg2"><input type="checkbox" name="list" value="<?= $exhibitionUser->id ?>"><span>선택</span></label>
+                                                                </div>                        
+                                                            </div>
+                                                            <div class="td-col col2">
+                                                                <div class="mo-only">승인 상태</div>
+                                                                <div class="con">
+                                                                    <?php
+                                                                        switch ($exhibitionUser->status) {
+                                                                            case '1' : echo '신청전'; break;
+                                                                            case '2' : echo '신청완료(참가대기)'; break;
+                                                                            case '4' : echo '참가확정'; break;
+                                                                            case '8' : echo '취소(환불)'; break;
+                                                                        } 
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                            <div class="td-col col3">
+                                                                <div class="mo-only">그룹명</div>
+                                                                <div class="con">
+                                                                <?= $exhibitionUser->exhibition_group->name ?>
+                                                                </div>
+                                                            </div>
+                                                            <div class="td-col col4">
+                                                                <div class="mo-only">이름</div>
+                                                                <div class="con">
+                                                                <?= $exhibitionUser->users_name ?>
+                                                                </div>
+                                                            </div>
+                                                            <div class="td-col col5">
+                                                                <div class="mo-only">연락처</div>
+                                                                <div class="con">
+                                                                <?=$exhibitionUser->users_email?>
+                                                                </div>
+                                                            </div>                    
+                                                        </div>
+                                                    </div>   
+                                                    <?php
+                                                        }
+                                                    ?>           
+                                                </div>
                                             </div>
                                         </form>
                                     </div>
@@ -283,4 +287,249 @@
         alert("복사되었습니다.");
     });
 
+    //status change
+    $("#status").change(function () {
+        var status = $(this).val();
+
+        jQuery.ajax({
+            url: "/exhibition/sort-by-status/<?= $id ?>/" + status,
+            method: 'POST',
+            type: 'json',
+        }).done(function (data) {
+            if (data.status == 'success') {
+                var exhibition_users = data.data;
+                
+                var html = '';
+                html+='<div id="deleteWrap" class="table-type4">';
+                html+='    <div class="th-row">';
+                html+='        <div class="th-col col1">';
+                html+='            <span class="chk-dsg"><input type="checkbox" id="all"><label for="all">전체선택</label></span>';   
+                html+='        </div>';                     
+                html+='        <div class="th-col col2">승인 상태</div>';
+                html+='        <div class="th-col col3">그룹명</div>';
+                html+='        <div class="th-col col4">이름</div>';
+                html+='        <div class="th-col col5">이메일</div>';
+                html+='    </div>';
+
+                for (var i =0; i < exhibition_users.length; i++) {
+                html+='    <div class="tr-row-wp">';
+                html+='        <div class="tr-row">';
+                html+='            <div class="td-col col1">';
+                html+='                <div class="mo-only">선택</div>';
+                html+='                <div class="con">';
+                html+='                    <label class="chk-dsg2"><input type="checkbox" name="list" value="'+exhibition_users[i]['id']+'"><span>선택</span></label>';
+                html+='                </div>';                  
+                html+='            </div>';
+                html+='            <div class="td-col col2">';
+                html+='                <div class="mo-only">승인 상태</div>';
+                html+='                <div class="con">';
+                
+                if (exhibition_users[i]['status'] == 1) {
+                    html+='신청전';
+                } else if (exhibition_users[i]['status'] == 2) {
+                    html+='신청완료(참가대기)';
+                } else if (exhibition_users[i]['status'] == 4) {
+                    html+='참가확정';
+                } else {
+                    html+='취소(환불)';
+                }
+
+                html+='                </div>';
+                html+='            </div>';
+                html+='            <div class="td-col col3">';
+                html+='                <div class="mo-only">그룹명</div>';
+                html+='                <div class="con">';
+                html+='                '+exhibition_users[i]['exhibition_group']['name'];
+                html+='                </div>';
+                html+='            </div>';
+                html+='            <div class="td-col col4">';
+                html+='                <div class="mo-only">이름</div>';
+                html+='                <div class="con">';
+                html+='                '+exhibition_users[i]['users_name'];
+                html+='                </div>';
+                html+='            </div>';
+                html+='            <div class="td-col col5">';
+                html+='                <div class="mo-only">연락처</div>';
+                html+='                <div class="con">';
+                html+='                '+exhibition_users[i]['users_email'];
+                html+='                </div>';
+                html+='            </div>';                    
+                html+='        </div>';
+                html+='    </div>';   
+                }          
+                html+='</div>';
+
+                $("#deleteWrap").remove();
+                
+                $("#appendWrap").append(html);
+
+            } else {
+                alert("오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
+            }
+        });
+    });
+
+    //group change
+    $("#group").change(function () {
+        var group = $(this).val();
+
+        jQuery.ajax({
+            url: "/exhibition/sort-by-group/<?= $id ?>/" + group,
+            method: 'POST',
+            type: 'json',
+        }).done(function (data) {
+            if (data.status == 'success') {
+                var exhibition_users = data.data;
+                
+                var html = '';
+                html+='<div id="deleteWrap" class="table-type4">';
+                html+='    <div class="th-row">';
+                html+='        <div class="th-col col1">';
+                html+='            <span class="chk-dsg"><input type="checkbox" id="all"><label for="all">전체선택</label></span>';   
+                html+='        </div>';                     
+                html+='        <div class="th-col col2">승인 상태</div>';
+                html+='        <div class="th-col col3">그룹명</div>';
+                html+='        <div class="th-col col4">이름</div>';
+                html+='        <div class="th-col col5">이메일</div>';
+                html+='    </div>';
+
+                for (var i =0; i < exhibition_users.length; i++) {
+                html+='    <div class="tr-row-wp">';
+                html+='        <div class="tr-row">';
+                html+='            <div class="td-col col1">';
+                html+='                <div class="mo-only">선택</div>';
+                html+='                <div class="con">';
+                html+='                    <label class="chk-dsg2"><input type="checkbox" name="list" value="'+exhibition_users[i]['id']+'"><span>선택</span></label>';
+                html+='                </div>';                  
+                html+='            </div>';
+                html+='            <div class="td-col col2">';
+                html+='                <div class="mo-only">승인 상태</div>';
+                html+='                <div class="con">';
+                
+                if (exhibition_users[i]['status'] == 1) {
+                    html+='신청전';
+                } else if (exhibition_users[i]['status'] == 2) {
+                    html+='신청완료(참가대기)';
+                } else if (exhibition_users[i]['status'] == 4) {
+                    html+='참가확정';
+                } else {
+                    html+='취소(환불)';
+                }
+
+                html+='                </div>';
+                html+='            </div>';
+                html+='            <div class="td-col col3">';
+                html+='                <div class="mo-only">그룹명</div>';
+                html+='                <div class="con">';
+                html+='                '+exhibition_users[i]['exhibition_group']['name'];
+                html+='                </div>';
+                html+='            </div>';
+                html+='            <div class="td-col col4">';
+                html+='                <div class="mo-only">이름</div>';
+                html+='                <div class="con">';
+                html+='                '+exhibition_users[i]['users_name'];
+                html+='                </div>';
+                html+='            </div>';
+                html+='            <div class="td-col col5">';
+                html+='                <div class="mo-only">연락처</div>';
+                html+='                <div class="con">';
+                html+='                '+exhibition_users[i]['users_email'];
+                html+='                </div>';
+                html+='            </div>';                    
+                html+='        </div>';
+                html+='    </div>';   
+                }          
+                html+='</div>';
+
+                $("#deleteWrap").remove();
+                
+                $("#appendWrap").append(html);
+
+            } else {
+                alert("오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
+            }
+        });
+    });
+
+    //검색 
+    $("#searchButton").click(function () {
+        var key = $("#key").val();
+
+        jQuery.ajax({
+            url: "/exhibition/searchParticipant/<?= $id ?>/" + key,
+            method: 'POST',
+            type: 'json',
+        }).done(function (data) {
+            if (data.status == 'success') {
+                var exhibition_users = data.data;
+                
+                var html = '';
+                html+='<div id="deleteWrap" class="table-type4">';
+                html+='    <div class="th-row">';
+                html+='        <div class="th-col col1">';
+                html+='            <span class="chk-dsg"><input type="checkbox" id="all"><label for="all">전체선택</label></span>';   
+                html+='        </div>';                     
+                html+='        <div class="th-col col2">승인 상태</div>';
+                html+='        <div class="th-col col3">그룹명</div>';
+                html+='        <div class="th-col col4">이름</div>';
+                html+='        <div class="th-col col5">이메일</div>';
+                html+='    </div>';
+
+                for (var i =0; i < exhibition_users.length; i++) {
+                html+='    <div class="tr-row-wp">';
+                html+='        <div class="tr-row">';
+                html+='            <div class="td-col col1">';
+                html+='                <div class="mo-only">선택</div>';
+                html+='                <div class="con">';
+                html+='                    <label class="chk-dsg2"><input type="checkbox" name="list" value="'+exhibition_users[i]['id']+'"><span>선택</span></label>';
+                html+='                </div>';                  
+                html+='            </div>';
+                html+='            <div class="td-col col2">';
+                html+='                <div class="mo-only">승인 상태</div>';
+                html+='                <div class="con">';
+                
+                if (exhibition_users[i]['status'] == 1) {
+                    html+='신청전';
+                } else if (exhibition_users[i]['status'] == 2) {
+                    html+='신청완료(참가대기)';
+                } else if (exhibition_users[i]['status'] == 4) {
+                    html+='참가확정';
+                } else {
+                    html+='취소(환불)';
+                }
+
+                html+='                </div>';
+                html+='            </div>';
+                html+='            <div class="td-col col3">';
+                html+='                <div class="mo-only">그룹명</div>';
+                html+='                <div class="con">';
+                html+='                '+exhibition_users[i]['exhibition_group']['name'];
+                html+='                </div>';
+                html+='            </div>';
+                html+='            <div class="td-col col4">';
+                html+='                <div class="mo-only">이름</div>';
+                html+='                <div class="con">';
+                html+='                '+exhibition_users[i]['users_name'];
+                html+='                </div>';
+                html+='            </div>';
+                html+='            <div class="td-col col5">';
+                html+='                <div class="mo-only">연락처</div>';
+                html+='                <div class="con">';
+                html+='                '+exhibition_users[i]['users_email'];
+                html+='                </div>';
+                html+='            </div>';                    
+                html+='        </div>';
+                html+='    </div>';   
+                }          
+                html+='</div>';
+
+                $("#deleteWrap").remove();
+                
+                $("#appendWrap").append(html);
+
+            } else {
+                alert("오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
+            }
+        });
+    });
 </script>  

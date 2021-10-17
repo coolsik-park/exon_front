@@ -20,7 +20,7 @@
                 </button>
                 <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
-                        <div class="modal-content">
+                        <div class="modal-content" style="background-color:transparent; border:none;">
                             <div class="popup-wrap">
                                 <div class="popup-head">
                                     <h4>이메일 인증</h4>
@@ -52,7 +52,7 @@
                 </button>
                 <div class="modal fade" id="smsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
-                        <div class="modal-content">
+                        <div class="modal-content" style="background-color:transparent; border:none;">
                             <div class="popup-wrap">
                                 <div class="popup-head">
                                     <h4>휴대폰 인증</h4>
