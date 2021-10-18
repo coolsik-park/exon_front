@@ -1,3 +1,18 @@
+<style>
+    .paginator {
+        text-align: center;
+    }
+
+    .pagination {
+        display: inline-block;
+        width: 100%;
+    }
+
+    .pagination li {
+        display: inline;
+    }
+</style>
+
 <div id="container">
     <div class="contents static">
             <h2 class="s-hty0">고객센터</h2>            
@@ -84,7 +99,7 @@
                     <?php endforeach; ?>
                 </ul>
             </div>
-            <div class="paginator" >
+            <div class="paginator">
                 <ul class="pagination">
                     <?= $this->Paginator->prev('< ' . __('이전')) ?>
                     <?= $this->Paginator->numbers() ?>

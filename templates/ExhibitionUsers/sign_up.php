@@ -1,8 +1,19 @@
 <style>
+    .paginator {
+        text-align: center;
+    }
+
+    .pagination {
+        display: inline-block;
+        width: 100%;
+    }
+
     .pagination li {
         display: inline;
     }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 <div id="container">
     <div class="contents static">
@@ -35,7 +46,7 @@
                     <div class="th-col col8"></div>
                 </div>
                 <?php foreach ($exhibition_users as $exhibition_user): ?>
-                    <div class="tr-row" id="tr-row">
+                    <div class="tr-row" id="tr-row" name="<?= $exhibition_user->id ?>번">
                         <div class="td-col col1">
                             <div class="con">
                                 <div class="date">
@@ -165,10 +176,9 @@
                                         취소하기
                                     </button>
                                 <?php } elseif ($today > $exhibition_user->exhibition['edate']) { ?>
-                                    <!-- <p><a href="#" class="btn-ty3 gray" id="cancelButton">취소하기</a></p> -->
-                                    <!-- <button type="button" class="btn-ty3 red" id="exhibitionCancel" name="<?= $exhibition_user->users_name ?>" style="cursor:pointer;" data-toggle="modal" data-target="#exhibitionCancelModal" data-backdrop="static" data-keyboard="false">
+                                    <button type="button" class="btn-ty3 red" style="cursor:pointer;" data-toggle="modal" data-target="#signUpCancelModal" data-backdrop="static" data-keyboard="false">
                                         취소하기
-                                    </button> -->
+                                    </button>
                                 <?php
                                     } else {
                                         echo '진행중인 행사입니다.';
@@ -188,7 +198,7 @@
                             </div>
                             <div class="modal fade" id="signUpCancelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
+                                    <div class="modal-content" style="background-color:transparent; border:none;">
                                         <div class="popup-wrap popup-ty2">
                                             <div class="popup-head">
                                                 <h1>참가자 신청 취소</h1>
@@ -202,7 +212,7 @@
                                                 </div>
                                                 <div class="popup-btm">
                                                     <button type="button" class="btn-ty2 red" data-dismiss="modal" aria-label="Close">취소</button>
-                                                    <button type="button" class="btn-ty2" id="exhibitionCancelOk">확인</button>
+                                                    <button type="button" class="btn-ty2">확인</button>
                                                 </div>        
                                             </div>
                                         </div> 
@@ -213,7 +223,7 @@
                     </div>
                 <?php endforeach; ?>
             </div>
-            <div class="paginator" >
+            <div class="paginator">
                 <ul class="pagination">
                     <?= $this->Paginator->prev('< ' . __('이전')) ?>
                     <?= $this->Paginator->numbers() ?>

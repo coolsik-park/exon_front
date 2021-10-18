@@ -1,4 +1,13 @@
 <style>
+    .paginator {
+        text-align: center;
+    }
+
+    .pagination {
+        display: inline-block;
+        width: 100%;
+    }
+
     .pagination li {
         display: inline;
     }
@@ -190,7 +199,7 @@
                     </div>
                 <?php endforeach; ?>
             </div>
-            <div class="paginator" >
+            <div class="paginator">
                 <ul class="pagination">
                     <?= $this->Paginator->prev('< ' . __('이전')) ?>
                     <?= $this->Paginator->numbers() ?>
