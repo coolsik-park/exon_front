@@ -87,13 +87,17 @@
         </div>
         <div id="aside">
             <div class="aside-head">
-                <a href="#" class="a-logo">EXON</a>
+                <a href="/" class="a-logo">EXON</a>
                 <button type="button" class="tg-close">메뉴닫기</button>
             </div>
             <div class="aside-body">
                 <div class="log-area">
-                    <a href="#" class="btn1">로그인</a>
-                    <a href="#" class="btn2">회원가입</a>
+                    <?php if(empty($loguser)): ?>
+                        <a href="/users/login" class="btn1">로그인</a>
+                        <a href="/users/add" class="btn2">회원가입</a>
+                    <?php else: ?>
+                        <a href="/users/logout" class="btn1">로그아웃</a>
+                    <?php endif; ?>
                     <!-- <div>
                         <a href="#" class="btn3">회원 로그인</a>
                         <a href="#" class="btn3">비회원 신청내역 확인</a>
@@ -109,18 +113,18 @@
                                 <li>
                                     <a href="#">신청 내역 관리</a>
                                     <ul class="lst-depth">
-                                        <li><a href="#">신청 행사</a></li>
-                                        <li><a href="#">종료 행사</a></li>
-                                        <li><a href="#">취소/환불</a></li>
+                                        <li><a href="/exhibition-users/sign-up/application">신청 행사</a></li>
+                                        <li><a href="/exhibition-users/sign-up/close">종료 행사</a></li>
+                                        <li><a href="/exhibition-users/sign-up/cancel">취소/환불</a></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <a href="#">개설 행사 관리</a>
                                     <ul class="lst-depth">
-                                        <li><a href="#">개설 행사</a></li>
-                                        <li><a href="#">진행중 행사</a></li>
-                                        <li><a href="#">임시저장 행사</a></li>
-                                        <li><a href="#">종료 행사</a></li>
+                                        <li><a href="/exhibition/index/all">개설 행사</a></li>
+                                        <li><a href="/exhibition/index/ongoing">진행중 행사</a></li>
+                                        <li><a href="/exhibition/index/temp">임시저장 행사</a></li>
+                                        <li><a href="/exhibition/index/ended">종료 행사</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -128,9 +132,9 @@
                         <li>
                             <button type="button">고객센터</button>
                             <ul class="lst-depth">
-                                <li><a href="#">자주하는 질문</a></li>
-                                <li><a href="#">공지사항</a></li>
-                                <li><a href="#">문의하기</a></li>
+                                <li><a href="/boards/faqs-by-category">자주하는 질문</a></li>
+                                <li><a href="/boards/notice">공지사항</a></li>
+                                <li><a href="/boards/add">문의하기</a></li>
                             </ul>
                         </li>
                     </ul>

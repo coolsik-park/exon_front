@@ -207,6 +207,10 @@ class ExhibitionUsersController extends AppController
 
     public function signUp($type = null)
     {
+        if (empty($this->Auth->user())) {
+            return $this->redirect(['action' => 'certification']);
+        }
+
         $this->paginate = ['limit' => 10];
         $today = FrozenTime::now();
 
