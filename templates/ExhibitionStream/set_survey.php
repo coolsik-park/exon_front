@@ -46,7 +46,11 @@
                 <?php $i = 0; ?>
                 <?php foreach ($groupedSurveys as $groupedSurvey) : ?>
                 <div class="poll-item-b">
+                    <?php if ($groupedSurvey->is_display == 'Y') : ?>
+                    <span class="chk-dsg"><input type="checkbox" id="chk<?=$i?>" name="checked" value="<?=$groupedSurvey->id?>" checked="checked"><label for="chk<?=$i?>"><?=$groupedSurvey->text?></label></span>
+                    <?php else : ?>
                     <span class="chk-dsg"><input type="checkbox" id="chk<?=$i?>" name="checked" value="<?=$groupedSurvey->id?>"><label for="chk<?=$i?>"><?=$groupedSurvey->text?></label></span>
+                    <?php endif; ?>
                     <div class="b-list">
                     <?php $count = count($groupedSurvey['child_exhibition_survey']); ?>
                     <?php if ($count != 0) : ?>      
@@ -63,29 +67,38 @@
         </div>
         <div class="webinar-cont-ty1-btm">
             <div class="poll-submit">                                        
-                <button type="button" id="save" class="btn-ty4 redbg">확인</button>
+                <button type="button" id="surveySave" class="btn-ty4 redbg">확인</button>
             </div>
         </div>
     </div>                            
 </div>
 
 <script>
-    $("#save").click(function () {
-        var lists = [];
-        $("input[name='checked']:checked").each(function(i){ 
-            lists.push($(this).val());
+    $("#surveySave").click(function () {
+        var checkedLists = [];
+        var uncheckedLists = [];
+        
+        $("input[name='checked']").each(function () { 
+            if ($(this).prop("checked") == true) {
+                checkedLists.push($(this).val());
+            } else {
+                uncheckedLists.push($(this).val());
+            }
         });
-
+        
         jQuery.ajax({
-            url: "/exhibition-stream/survey/" + <?= $id ?>, 
+            url: "/exhibition-stream/set-survey/" + <?= $id ?>, 
             method: 'POST',
             type: 'json',
             data: {
-                display: lists
+                checkedLists: checkedLists,
+                uncheckedLists: uncheckedLists
             }
         }).done(function(data) {
             if (data.status == 'success') {
                 alert("저장되었습니다.");
+            } else {
+                alert("오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
             }
         });
     });
