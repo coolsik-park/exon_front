@@ -184,6 +184,7 @@
             type: 'json',
             data: {
                 code: $("#emailCode").val(),
+                email: $("#email").val()
             }
         }).done(function(data) {
             if (data.status == 'success') {
@@ -290,6 +291,7 @@
             type: 'json',
             data: {
                 code: $("#smsCode").val(),
+                hp: $("#sms").val()
             }
         }).done(function(data) {
             if (data.status == 'success') {

@@ -42,6 +42,10 @@ class ExhibitionController extends AppController
     
     public function index($type = null)
     {
+        if (empty($this->Auth->user())) {
+            return $this->redirect(['controller' => 'users', 'action' => 'login']);
+        }
+
         $this->paginate = ['limit' => 10];
         $today = FrozenTime::now();
 
