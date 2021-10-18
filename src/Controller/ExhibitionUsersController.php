@@ -208,24 +208,53 @@ class ExhibitionUsersController extends AppController
     public function signUp($type = null)
     {
         if (empty($this->Auth->user())) {
-            return $this->redirect(['action' => 'certification']);
-        }
+            $session = $this->request->getSession();
+            $email = $session->consume('email');
+            $hp = $session->consume('hp');
+            
+            if (!empty($email)) {
+                $this->paginate = ['limit' => 10];
+                $today = FrozenTime::now();
 
-        $this->paginate = ['limit' => 10];
-        $today = FrozenTime::now();
+                if ($type == 'application') {
+                    $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_email' => $email, 'ExhibitionUsers.status !=' => 8])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
+                } elseif ($type == 'close'){
+                    $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_email' => $email, 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate <' => $today])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
+                } elseif ($type == 'cancel') {
+                    $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_email' => $email, 'ExhibitionUsers.status' => 8])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
+                }
 
-        if (!empty($this->Auth->user())) {
+            } else if (!empty($hp)) {
+                $this->paginate = ['limit' => 10];
+                $today = FrozenTime::now();
+
+                if ($type == 'application') {
+                    $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_hp' => $hp, 'ExhibitionUsers.status !=' => 8])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
+                } elseif ($type == 'close'){
+                    $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_hp' => $hp, 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate <' => $today])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
+                } elseif ($type == 'cancel') {
+                    $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_hp' => $hp, 'ExhibitionUsers.status' => 8])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
+                }
+                
+            } else {
+                return $this->redirect(['action' => 'certification']);
+            }
+        
+        } else {
+            $this->paginate = ['limit' => 10];
+            $today = FrozenTime::now();
+            
             if ($type == 'application') {
                 $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $this->Auth->user('id'), 'ExhibitionUsers.status !=' => 8])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
+            
             } elseif ($type == 'close'){
                 $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $this->Auth->user('id'), 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate <' => $today])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
+            
             } elseif ($type == 'cancel') {
                 $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $this->Auth->user('id'), 'ExhibitionUsers.status' => 8])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
             }
-        } else {
-            $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id IS' => null, 'ExhibitionUsers.status !=' => 8])->order(['ExhibitionUsers.id' => 'ASC']))->toArray();
         }
-        
+
         $this->set(compact('exhibition_users'));
     }
 
@@ -370,6 +399,10 @@ class ExhibitionUsersController extends AppController
             if (FrozenTime::now() < $commonConfirmation[0]->expired) {
 
                 if ($this->request->getData('code') == $commonConfirmation[0]->confirmation_code) {
+                    $hp = $this->request->getData('hp');
+                    $session = $this->request->getSession();
+                    $session->write('hp', $hp);
+
                     $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
                     return $response;
 
@@ -428,8 +461,20 @@ class ExhibitionUsersController extends AppController
         if ($this->request->is('post')) {
             
             if (FrozenTime::now() < $commonConfirmation[0]->expired) {
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
-                return $response;
+                
+                if ($this->request->getData('code') == $commonConfirmation[0]->confirmation_code) {
+                    $email = $this->request->getData('email');
+                    $session = $this->request->getSession();
+                    $session->write('email', $email);
+
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                    return $response;
+
+                } else {
+                    $connection->rollback();
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                    return $response;
+                }
             
             } else {
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'timeover']));
