@@ -184,7 +184,7 @@
                                                 <li><button type="button" id="delete<?=$exhibition->id?>" name="deleteExhibition" class="btn-ty3 gray">행사 삭제</button></li>
                                         <?php
                                             } else {
-                                                if ($exhibition->sdate <= $today && $exhibition->edate >= $today && !empty($exhibtion->users)) {
+                                                if (empty($exhibition->users)) {
                                         ?>
                                                     <li><button type="button" id="delete<?=$exhibition->id?>" name="deleteExhibition" class="btn-ty3 gray">행사 삭제</button></li>
                                         <?php

@@ -89,11 +89,16 @@ class ExhibitionStreamController extends AppController
 
     public function watchExhibitionStream($id = null) 
     {
+        // if (empty($this->Auth->user())) {
+        //     return $this->redirect(['action' => 'certification', $id]);
+        // }
+
         $exhibition = $this->getTableLocator()->get('Exhibition')->find()->select(['require_cert'])->where(['id' => $id])->toArray();
 
         $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $id])->toArray();
         
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
+
         $this->set(compact('exhibitionStream', 'tabs'));
     }
 
