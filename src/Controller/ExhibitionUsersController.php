@@ -337,17 +337,19 @@ class ExhibitionUsersController extends AppController
     }
     
     public function downloadPdf($id = null)
-    {
+    {   
         $this->viewBuilder()->enableAutoLayout(false); 
         $this->viewBuilder()->setClassName('CakePdf.Pdf');
+        $this->viewBuilder()->setVars(['front_url' => FRONT_URL]);
         $this->viewBuilder()->setOption(
             'pdfConfig',
             [
                 'orientation' => 'portrait',
                 'download' => true, // This can be omitted if "filename" is specified.
-                'filename' => $id . '_Report.pdf' //// This can be omitted if you want file name based on URL.
+                'filename' => $id . '_Report.pdf', //// This can be omitted if you want file name based on URL.
+                'encoding' => 'UTF-8'
             ]
-        );   
+        ); 
     }
 
     public function certification($id = null)

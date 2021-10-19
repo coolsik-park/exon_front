@@ -61,7 +61,7 @@
 
 <script>
     //video.js 컨트롤
-    var address = "<?=$exhibitionStream[0]['url']?>"
+    var address = "http://121.126.223.225:80/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8"
     window.onload = function () {
         var player = videojs(document.querySelector('#vid1'));
         player.src({
