@@ -161,6 +161,19 @@ class BoardsController extends AppController
         $this->set(compact('boards'));
     }
 
+    public function searchTitle()
+    {
+        $this->paginate = ['limit' => 10];
+
+        $search = $this->request->getData('search');
+
+        $notice_table = TableRegistry::get('Notice');
+        $boards = $this->paginate($notice_table->find('all')->where(['Notice.title LIKE' => '%'.$search.'%']));
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $boards]));
+
+        return $response;
+    }
+
     public function  noticeAdd() 
     {
         $connection = ConnectionManager::get('default');
