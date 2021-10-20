@@ -102,12 +102,20 @@
                             </li>
                             <li>
                                 <span class="dt">행사 분야 및 유형</span>
-                                <span class="dd"><?= $exhibition->category ?> | <?= $exhibition->type ?></span>
-                                <!-- <span class="dd">
+                                <span class="dd">
                                     <?php
-                                        if ($exhibition->category)
+                                        $catetory = array("문화/예술/여가", "과학/기술", "관광/여행", "사회", "기타", "세미나/컨퍼런스", "강의/교육". "강연", "이벤트/공연/축제", "기타");
+
+                                        for ($i=0; $i<count($catetory); $i++) {
+                                            if ($exhibition->category == $i+1) {
+                                                echo $catetory[$i] . "  |  ";
+                                            }
+                                            if ($exhibition->type == $i+1) {
+                                                echo $catetory[$i];
+                                            }
+                                        }
                                     ?>
-                                </span> -->
+                                </span>
                             </li>
                         </ul>
                         <div class="btns">
@@ -140,7 +148,9 @@
                 <h2 class="s-hty1">개설자 정보</h2>
                 <div class="apply-sect2-cont">
                     <div class="photo">
-                        <img src="<?= DS . $user[0]->image_path . DS . $user[0]->image_name ?>">
+                        <?php if ($user[0]->image_path != '') : ?>
+                            <img src="<?= DS . $user[0]->image_path . DS . $user[0]->image_name ?>">
+                        <?php endif; ?>
                     </div>
                     <div class="info1">
                         <p><?= $user[0]->name ?></p>
