@@ -519,5 +519,3 @@ class ExhibitionUsersController extends AppController
         return $code;
     }
 }
-
-
