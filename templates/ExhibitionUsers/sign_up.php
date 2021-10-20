@@ -166,7 +166,7 @@
                         <div class="td-col col8">
                             <div class="mo-only"></div>
                             <div class="con">
-                                <p><a href="/exhibition-users/download-pdf/<?=$exhibition_user->exhibition['id']?>" class="btn-ty3 bor">증빙</a></p>
+                                <p><a href="/exhibition-users/download-pdf/<?=$exhibition_user->exhibition['id']?>/<?=$exhibition_user->id?>" class="btn-ty3 bor">증빙</a></p>
                                 <?php
                                     $today = new DateTime();
 
