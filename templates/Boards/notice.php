@@ -59,10 +59,6 @@
 
     $('#searchButton').on('click', function() {
         var search = $('#search').val();
-<<<<<<< HEAD
-        console.log(search);
-=======
->>>>>>> bomi
 
         $.ajax({
             url: '/boards/searchTitle',

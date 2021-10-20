@@ -95,7 +95,7 @@
                         <li>
                             <button type="button" class="b-tit"><?= $faq->title ?></button>
                             <div class="b-desc"><?= $faq->content ?></div>
-                            </li>
+                        </li>
                     <?php endforeach; ?>
                 </ul>
             </div>
@@ -113,31 +113,32 @@
 <script>   
     ui.addOnAction('.board-lists>li');
 
-    // $('#all').on('click', function() {
-    //     $.ajax({
-    //         url: '/boards/faqsByCategory',
-    //         method: 'POST',
-    //         type: 'json',
-    //         data: {
-    //             categoryId: 0
-    //         }
-    //     }).done(function(data) {
-    //         $('#s-hty3').replaceWith('<h4 class="s-hty3" id="s-hty3">전체</h4>');
-    //         $('#board-lists').load(location.href+" #board-lists");
-    //     });
-    // });
+    $('#all').on('click', function() {
+        $.ajax({
+            url: '/boards/faqsByCategory',
+            method: 'POST',
+            type: 'json',
+            data: {
+                categoryId: 0
+            }
+        }).done(function(data) {
+            $('#s-hty3').replaceWith('<h4 class="s-hty3" id="s-hty3">전체</h4>');
+            $('#board-lists').load(location.href+" #board-lists");
+        });
+    });
 
-    // $('#user').on('click', function() {
-    //     $.ajax({
-    //         url: '/boards/faqsByCategory/user',
-    //         method: 'POST',
-    //         type: 'json'
-    //     }).done(function() {
-    //         $('#s-hty3').replaceWith('<h4 class="s-hty3" id="s-hty3">회원</h4>');
-    //         // $('#board-lists').replaceWith('<div><ul><li>a</li></ul></div>');
-    //         $('#board-lists').load(location.href+" #board-lists");
-    //     });
-    // });
+    $('#user').on('click', function() {
+        $.ajax({
+            url: '/boards/faqs-by-category/1',
+            method: 'POST',
+            type: 'json',
+            data: {}
+        }).done(function(data) {
+            if (data.status == 'success') {
+                var faqs = data.
+            }
+        });
+    });
     
     // $('#refund').on('click', function() {
     //     $.ajax({
