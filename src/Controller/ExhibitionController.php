@@ -67,12 +67,15 @@ class ExhibitionController extends AppController
             'contain' => ['Banner', 'ExhibitionFile', 'ExhibitionGroup', 'ExhibitionStream', 'ExhibitionSurvey', 'Users'],
         ]);
         
+        $exhibitionUsers_table = TableRegistry::get('ExhibitionUsers');
+        $exhibitionUsers = $exhibitionUsers_table->find('all')->where(['users_id' => $this->Auth->user('id')])->toArray();
+
         $exhibitiongroups = $this->getTableLocator()->get('ExhibitionGroup');
         $groups = $exhibitiongroups->find('list', ['keyField' => ['id', 'amount'], 'valueField' => 'name'])->where(['exhibition_id' => $id]);
         $users = $this->getTableLocator()->get('Users');
         $user = $users->find()->where(['id' => $exhibition->users_id])->toList();
         
-        $this->set(compact('exhibition', 'groups', 'user'));
+        $this->set(compact('exhibition', 'exhibitionUsers', 'groups', 'user'));
     }
     
     public function add()
