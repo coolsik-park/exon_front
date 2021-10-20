@@ -71,7 +71,7 @@ class ExhibitionController extends AppController
         
         $exhibitionUsers_table = TableRegistry::get('ExhibitionUsers');
         $exhibitionUsers = $exhibitionUsers_table->find('all')->where(['users_id' => $this->Auth->user('id')])->toArray();
-
+        
         $exhibitiongroups = $this->getTableLocator()->get('ExhibitionGroup');
         $groups = $exhibitiongroups->find('list', ['keyField' => ['id', 'amount'], 'valueField' => 'name'])->where(['exhibition_id' => $id]);
         $users = $this->getTableLocator()->get('Users');
