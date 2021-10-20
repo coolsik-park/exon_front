@@ -11,6 +11,10 @@
     .pagination li {
         display: inline;
     }
+
+    .board-sh {
+        margin: 0 auto;
+    }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -48,11 +52,14 @@
                     <div class="th-col col6">승인 상태</div>
                     <div class="th-col col7"></div>
                 </div>
-                <?php foreach ($exhibition_users as $exhibition_user): ?>
+                <?php 
+                    $i=0;
+                    foreach ($exhibition_users as $exhibition_user): 
+                ?>
                     <div class="tr-row">
                         <div class="td-col col1">
                             <div class="con ag-ty1">
-                                <p class="tit fir">라이브몰로</p>
+                                <p class="tit fir"><?= $user[$i]['company'] ?></p>
                                 <div class="u-name">
                                     <p class="name"><?= $exhibition_user->users_name ?></p>
                                     <p class="age">
@@ -63,9 +70,7 @@
                                                 echo '여자 / ';
                                             } 
                                         ?>
-                                        <?php
-                                            echo '나이';
-                                        ?>
+                                        <?= $user[$i]['age'] ?>
                                     </p>
                                 </div>
                                 <p><?= $exhibition_user->users_email ?></p>
@@ -80,7 +85,7 @@
                             </div>
                             <div class="modal fade" id="surveyCheckModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
+                                    <div class="modal-content" style="background-color:transparent; border:none;">
                                         <div class="popup-wrap">
                                             <div class="popup-head">
                                                 <h1>설문 결과</h1>
@@ -88,31 +93,31 @@
                                             </div>
                                             <div class="popup-body">  
                                                 <div class="pop-poll-items-wrap">
-                                                    <div class="pop-poll-item">
-                                                        <p class="tit">어느 계절이 가장 좋나요?</p>
-                                                        <ul>
-                                                            <li><span class="chk-dsg"><input type="radio" id="pp1-1" name="pp1"><label for="pp1-1">봄</label></span></li>
-                                                            <li><span class="chk-dsg"><input type="radio" id="pp1-2" name="pp1"><label for="pp1-2">여름</label></span></li>
-                                                            <li><span class="chk-dsg"><input type="radio" id="pp1-3" name="pp1"><label for="pp1-3">가을</label></span></li>
-                                                            <li><span class="chk-dsg"><input type="radio" id="pp1-4" name="pp1"><label for="pp1-4">겨울</label></span></li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="pop-poll-item">
-                                                        <p class="tit">핸드폰을 가지고 있나요?</p>
-                                                        <ul>
-                                                            <li><span class="chk-dsg"><input type="radio" id="pp2-1" name="pp2"><label for="pp2-1">봄</label></span></li>
-                                                            <li><span class="chk-dsg"><input type="radio" id="pp2-2" name="pp2"><label for="pp2-2">여름</label></span></li>
-                                                            <li><span class="chk-dsg"><input type="radio" id="pp2-3" name="pp2"><label for="pp2-3">가을</label></span></li>
-                                                            <li><span class="chk-dsg"><input type="radio" id="pp2-4" name="pp2"><label for="pp2-4">겨울</label></span></li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="pop-poll-item">
-                                                        <p class="tit">행사 내용이 마음에 드시나요</p>
-                                                        <textarea name="" id="" cols="30" rows="3"></textarea>
-                                                    </div>
+                                                    <?php for ($y=0; $y<count($beforeParentData); $y++) { ?>
+                                                        <div class="pop-poll-item">
+                                                            <p class="tit"><?= $beforeParentData[$y]->text ?></p>
+                                                            <?php if ($beforeParentData[$y]->is_multiple == 'Y') { ?>
+                                                                <ul>
+                                                                    <?php for ($j=0; $j<count($beforeParentData[$y]->child_exhibition_survey); $j++) { ?>
+                                                                        <li><span class="chk-dsg"><input type="radio" id="pp<?= $y+1 ?>-<?= $j+1 ?>" name="pp<?= $y+1 ?>" checked="checked"><label for="pp<?= $y+1 ?>-<?= $j+1 ?>"><?= $beforeParentData[$y]->child_exhibition_survey[$j]->text ?></label></span></li>
+                                                                    <?php } ?>
+                                                                </ul>
+                                                            <?php } else {  ?>
+                                                                <textarea name="" id="" cols="30" rows="3"> 
+                                                                    <?php
+                                                                        for ($z=0; $z<count($beforeParentData[$y]->exhibition_survey_users_answer); $z++) { 
+                                                                            if ($beforeParentData[$y]->exhibition_survey_users_answer[$z]->users_id == $exhibition_user->users_id) {
+                                                                                echo $beforeParentData[$y]->exhibition_survey_users_answer[$z]->text;
+                                                                            }
+                                                                        }
+                                                                    ?>
+                                                                </textarea>
+                                                            <?php } ?>
+                                                        </div>
+                                                    <?php } ?>
                                                 </div>        
                                                 <div class="popup-btm alone">     
-                                                    <button type="button" class="btn-ty2">확인</button>
+                                                    <button type="button" class="btn-ty2" data-dismiss="modal" aria-label="Close">확인</button>
                                                 </div>        
                                             </div>
                                         </div>
@@ -167,7 +172,7 @@
                             </div>
                             <div class="modal fade" id="exhibitionCancelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
+                                    <div class="modal-content" style="background-color:transparent; border:none;">
                                         <div class="popup-wrap popup-ty2">
                                             <div class="popup-head">
                                                 <h1>참가자 신청 취소</h1>
@@ -190,7 +195,10 @@
                             </div>
                         </div>                        
                     </div>
-                <?php endforeach; ?>
+                <?php
+                    $i++; 
+                    endforeach; 
+                ?>
             </div>
             <div class="paginator">
                 <ul class="pagination">
@@ -199,7 +207,7 @@
                     <?= $this->Paginator->next(__('다음') . ' >') ?>
                 </ul>
             </div>
-        </div>      
+        </div>    
     </div>        
 </div>
 <footer id="footer"></footer>

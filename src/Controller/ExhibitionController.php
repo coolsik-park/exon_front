@@ -660,26 +660,39 @@ class ExhibitionController extends AppController
         $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
         $exhibition_users = $this->paginate($exhibition_users_table->find('all', array('contain' => array('Exhibition', 'ExhibitionGroup', 'Pay')))->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.status !=' => 8]))->toArray();
 
-        // if($word == null) {
-        //     $exhibition_users = $this->paginate($exhibition_users_table->find('all', array('contain' => array('Exhibition', 'ExhibitionGroup', 'Pay')))->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.status !=' => 8]))->toArray();
-        // } else {
-        //     // $exhibition_users = $this->paginate($exhibition_users_table->find('all', array('contain' => array('Exhibition', 'ExhibitionGroup', 'Pay')))->where(['Exhibition_id.exhibition_id' => $id, 'ExhibitionUsers.status !=' => 8, 'ExhibitionUsers.users_email' => $word]))->toArray();
-        //     return $this->redirect(['action' => 'index']);
-        // }
+        $exhibition = $this->Exhibition->find('all', ['contain' => 'Users'])->where(['id' => $id])->toArray();
+        $count = count($exhibition[0]->users);
+        $user[] = [];
+        for ($i=0; $i<$count; $i++) {
+            if ($exhibition[0]->users[$i]->_joinData) {
+                $user[$i]['age'] = date('Y') - (int)$exhibition[0]->users[$i]->birthday->i18nFormat('yyyy') + 1;
+                $user[$i]['company'] = $exhibition[0]->users[$i]->company;
+            }
+        }
 
-        $this->set(compact('id', 'exhibition_users'));
+        $exhibitionSurvey_table = TableRegistry::get('ExhibitionSurvey');
+        $exhibitionSurvey = $exhibitionSurvey_table->find('all', ['contain' => ['ChildExhibitionSurvey', 'ExhibitionSurveyUsersAnswer']]);
+        $exhibitionSurveys = $exhibitionSurvey->select(['ExhibitionSurvey.id', 'ExhibitionSurvey.parent_id', 'ExhibitionSurvey.text', 'ExhibitionSurvey.is_multiple', 'ExhibitionSurveyUsersAnswer.text', 'ExhibitionSurvey.survey_type', 'count' => $exhibitionSurvey->func()->count('ExhibitionSurveyUsersAnswer.text')])
+            ->leftJoinWith('ExhibitionSurveyUsersAnswer', function ($q) {
+                return $q->where(['ExhibitionSurveyUsersAnswer.text' => 'Y']);
+            })
+            ->group('ExhibitionSurvey.id')
+            ->where(['exhibition_id' => $id, 'survey_type' => 'B'])
+            ->toArray();
+        $parent_id = 0;
+        $i = 0;
+        $j = 0;
+        $beforeParentData[] = null;
+        foreach ($exhibitionSurveys as $exhibitionSurvey) {
+            if ($exhibitionSurvey['parent_id'] == null) {
+                $parent_id = $exhibitionSurvey['id'];
+                $beforeParentData[$i] = $exhibitionSurvey;
+                $i++;
+            }
+        }
+        
+        $this->set(compact('id', 'exhibition_users', 'user', 'beforeParentData'));
     }
-
-    // public function wordSearch()
-    // {
-    //     $id = $this->request->getData('id');
-    //     $word = $this->request->getData('word');
-
-    //     echo($this->request->getData());
-    //     exit;
-
-    //     return $this->redirect(['action' => 'index']);
-    // }
 
     public function exhibitionUsersStatus($id = null)
     {
