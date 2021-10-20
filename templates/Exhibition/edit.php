@@ -37,7 +37,11 @@
                 
                 <div class="sect1">
                     <div class="sect1-col1">
-                        <div class="photo"><label for="image"><img id="mainImg" src="" alt="메인이미지" style="width:380px; height:214px"></div> 
+                        <?php if ($exhibition->image_path != '') : ?>
+                        <p class="photo"><img src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>"></p>
+                        <?php else : ?>
+                        <p class="photo"><img src="../../images/img-no3.png" alt="이미지없음"></p>
+                        <?php endif; ?>
                         <input type="file" id="image" name="image" style="display:none">
                     </div>
                     <div class="sect1-col2">
