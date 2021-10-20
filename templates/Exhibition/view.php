@@ -106,7 +106,11 @@
                             </li>
                         </ul>
                         <div class="btns">
+<<<<<<< HEAD
                             <?php if ($exhibitionUsers == 0): ?>
+=======
+                            <?php if ($exhibitionUsers == null): ?>
+>>>>>>> bomi
                                 <div class="group" id="group">
                                     <?= $this->Form->select('', $groups, ['id' => 'group']) ?>                                   
                                     <span class="tx" id="spanGroup"></span>
@@ -114,15 +118,25 @@
                                 <a href="/exhibitionUsers/add/<?= $exhibition->id ?>" class="btn-join">참가 신청</a>
                             <?php 
                                 else: 
+<<<<<<< HEAD
                                     if($exhibitionUsers[0]->status == '4'):
                             ?>
                                         <a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition->id ?>" class="btn-join">웨비나 접속</a>
                             <?php   else: ?>
+=======
+                                    if($exhibitionUsers[0]->status != '4'):
+                            ?>
+>>>>>>> bomi
                                         <div class="group" id="group">
                                             <?= $this->Form->select('', $groups, ['id' => 'group']) ?>                                   
                                             <span class="tx" id="spanGroup"></span>
                                         </div>
                                         <a href="/exhibitionUsers/add/<?= $exhibition->id ?>" class="btn-join">참가 신청</a>
+<<<<<<< HEAD
+=======
+                            <?php   else: ?>
+                                        <a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition->id ?>" class="btn-join">웨비나 접속</a>
+>>>>>>> bomi
                             <?php 
                                     endif;
                                 endif; 
