@@ -15,8 +15,12 @@
             <div class="apply-section apply-sect1" id="applySect1">
                 <h2 class="s-hty1">신청하기</h2>
                 <div class="apply-sect1-cont">
-                    <div class="photos">
-                        <img src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>" alt="이미지없음">
+                    <div class="photos" style="border-radius: 2em;">
+                    <?php if ($exhibition->image_path != '') : ?>
+                        <img src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>">
+                    <?php else : ?>
+                        <img src="../../images/img-no3.png" alt="이미지없음">
+                    <?php endif; ?>
                     </div>
                     <div class="conts">
                         <h3><?= $exhibition->title ?></h3>
@@ -102,15 +106,27 @@
                             </li>
                         </ul>
                         <div class="btns">
-                            <?php if ($exhibitionUsers[0]->status == '4') { ?>
-                                <a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition->id ?>" class="btn-join">웨비나 접속</a>
-                            <?php } else { ?>
+                            <?php if ($exhibitionUsers == 0): ?>
                                 <div class="group" id="group">
                                     <?= $this->Form->select('', $groups, ['id' => 'group']) ?>                                   
                                     <span class="tx" id="spanGroup"></span>
                                 </div>
                                 <a href="/exhibitionUsers/add/<?= $exhibition->id ?>" class="btn-join">참가 신청</a>
-                            <?php } ?>
+                            <?php 
+                                else: 
+                                    if($exhibitionUsers[0]->status == '4'):
+                            ?>
+                                        <a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition->id ?>" class="btn-join">웨비나 접속</a>
+                            <?php   else: ?>
+                                        <div class="group" id="group">
+                                            <?= $this->Form->select('', $groups, ['id' => 'group']) ?>                                   
+                                            <span class="tx" id="spanGroup"></span>
+                                        </div>
+                                        <a href="/exhibitionUsers/add/<?= $exhibition->id ?>" class="btn-join">참가 신청</a>
+                            <?php 
+                                    endif;
+                                endif; 
+                            ?>
                         </div>
                     </div>
                 </div>
