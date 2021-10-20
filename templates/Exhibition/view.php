@@ -103,6 +103,11 @@
                             <li>
                                 <span class="dt">행사 분야 및 유형</span>
                                 <span class="dd"><?= $exhibition->category ?> | <?= $exhibition->type ?></span>
+                                <!-- <span class="dd">
+                                    <?php
+                                        if ($exhibition->category)
+                                    ?>
+                                </span> -->
                             </li>
                         </ul>
                         <div class="btns">
