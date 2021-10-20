@@ -73,7 +73,7 @@ class UsersController extends AppController
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
             }
             return $response;
-        }
+        }        
 
         $this->set(compact('user'));
     }
