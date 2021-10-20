@@ -89,9 +89,16 @@ class ExhibitionStreamController extends AppController
 
     public function watchExhibitionStream($id = null) 
     {
-        // if (empty($this->Auth->user())) {
-        //     return $this->redirect(['action' => 'certification', $id]);
-        // }
+        if (empty($this->Auth->user())) {
+            return $this->redirect(['action' => 'certification', $id]);
+        } else {
+            $Users = $this->getTableLocator()->get('Users');
+            $user = $Users->get($this->Auth->user('id'));
+
+            if ($user->hp_cert != 1 && $user->email_cert != 1) {
+                return $this->redirect(['action' => 'certification', $id]);
+            }
+        }
 
         $exhibition = $this->getTableLocator()->get('Exhibition')->find()->select(['require_cert'])->where(['id' => $id])->toArray();
 
