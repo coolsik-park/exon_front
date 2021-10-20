@@ -262,7 +262,7 @@ class BoardsController extends AppController
         return $this->redirect(['action' => 'notice']);
     }
 
-    public function faqsByCategory($FaqCategoryId = null)
+    public function customerService()
     {
         $this->paginate = ['limit' => 10];
 
@@ -274,24 +274,25 @@ class BoardsController extends AppController
 
         $faqs_main = $faq_table->find()->select(['id', 'title', 'content'])->where(['is_main' => 1]);
 
-        if ($FaqCategoryId == null) {
-            $faqs = $this->paginate($faq_table->find()->select(['id', 'title', 'content']));
-        } elseif ($FaqCategoryId == 'user') {
-            $faqs = $this->paginate($faq_table->find()->select(['id', 'title', 'content'])->where(['faq_category_id' => 1]));
-        } elseif ($FaqCategoryId == 'refund') {
-            $faqs = $this->paginate($faq_table->find()->select(['id', 'title', 'content'])->where(['faq_category_id' => 2]));
-        } elseif ($FaqCategoryId == 'pay') {
-            $faqs = $this->paginate($faq_table->find()->select(['id', 'title', 'content'])->where(['faq_category_id' => 3]));
-        } elseif ($FaqCategoryId == 'exhibitionParticipation') {
-            $faqs = $this->paginate($faq_table->find()->select(['id', 'title', 'content'])->where(['faq_category_id' => 4]));
-        } elseif ($FaqCategoryId == 'exhibitionAdd') {
-            $faqs = $this->paginate($faq_table->find()->select(['id', 'title', 'content'])->where(['faq_category_id' => 5]));
-        } elseif ($FaqCategoryId == 'webinar') {
-            $faqs = $this->paginate($faq_table->find()->select(['id', 'title', 'content'])->where(['faq_category_id' => 6]));
-        } elseif ($FaqCategoryId == 'besides') {
-            $faqs = $this->paginate($faq_table->find()->select(['id', 'title', 'content'])->where(['faq_category_id' => 7]));
-        }
+        $faqs = $this->paginate($faq_table->find()->select(['id', 'title', 'content']));
 
         $this->set(compact('count', 'faqs_main', 'faqs'));
+    }
+
+    public function faqsByCategory($categoryId = null)
+    {
+        $this->paginate = ['limit' => 10];
+
+        $faq_table = TableRegistry::get('Faq');
+
+        if ($categoryId == '0') {
+            $faqs = $this->paginate($faq_table->find()->select(['id', 'title', 'content']));
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $faqs]));
+        } else {
+            $faqs = $this->paginate($faq_table->find()->select(['id', 'title', 'content'])->where(['faq_category_id' => $categoryId]));
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $faqs]));
+        }
+    
+        return $response;
     }
 }
