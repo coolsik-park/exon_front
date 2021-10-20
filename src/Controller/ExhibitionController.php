@@ -49,6 +49,8 @@ class ExhibitionController extends AppController
         $this->paginate = ['limit' => 10];
         $today = FrozenTime::now();
 
+        $front_url = FRONT_URL;
+
         if ($type == 'all') {
             $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id')]))->toArray();
         } elseif ($type == 'ongoing') {
@@ -58,7 +60,7 @@ class ExhibitionController extends AppController
         } elseif ($type == 'ended') {            
             $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.edate <' => $today]))->toArray();
         }
-        $this->set(compact('exhibitions', 'today'));
+        $this->set(compact('exhibitions', 'today', 'front_url'));
     }
     
     public function view($id = null)

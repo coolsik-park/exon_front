@@ -307,7 +307,7 @@
         if ($("#stream_key").attr("type") == "text") {
             $("#stream_key").select();
             document.execCommand("copy");
-            alert('복사완료');
+            alert('복사되었습니다.');
         
         } else {
             $("#stream_key").attr("type", "text");
