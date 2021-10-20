@@ -336,17 +336,41 @@ class ExhibitionUsersController extends AppController
         return $this->redirect(['action' => 'signUp', $exhibition_user->users_id]);
     }
     
-    public function downloadPdf($id = null)
+    public function downloadPdf($exhibition_id = null, $exhibition_users_id = null)
     {   
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $exhibition = $Exhibition->get($exhibition_id);
+
+        $exhibitionUsers = $this->ExhibitionUsers->get($exhibition_users_id);
+
+        $Pay = $this->getTableLocator()->get('Pay');
+        $pay = $this->get($exhibitionUsers->pay_id);
+    
         $this->viewBuilder()->enableAutoLayout(false); 
         $this->viewBuilder()->setClassName('CakePdf.Pdf');
-        $this->viewBuilder()->setVars(['front_url' => FRONT_URL]);
+        $this->viewBuilder()->setVars([
+            'front_url' => FRONT_URL,
+            'title' => $exhibition->title,
+            'category' => $exhibition->category,
+            'type' => $exhibition->type,
+            'cost' => $exhibition->cost,
+            'amount' => $pay->amount,
+            'apply_date' => $exhibitionUsers->created,
+            'sdate' => $exhibition->sdate,
+            'edate' => $exhibition->edate,
+            'users_name' => $exhibitionUsers->users_name,
+            'users_email' => $exhibitionUsers->users_email,
+            'users_hp' => $exhibitionUsers->users_hp,
+            'name' => $exhibition->name,
+            'tel' => $exhibition->tel,
+            'email' => $exhibition->email
+        ]);
         $this->viewBuilder()->setOption(
             'pdfConfig',
             [
                 'orientation' => 'portrait',
                 'download' => true, // This can be omitted if "filename" is specified.
-                'filename' => $id . '_Report.pdf', //// This can be omitted if you want file name based on URL.
+                'filename' => $exhibition_id . '_Report.pdf', //// This can be omitted if you want file name based on URL.
                 'encoding' => 'UTF-8'
             ]
         ); 
