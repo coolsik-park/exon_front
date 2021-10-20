@@ -88,23 +88,25 @@
                     </li>
                 </ul>
             </div>
-            <h4 class="s-hty3" id="s-hty3">전체</h4>
-            <div id="board-lists">
-                <ul class="board-lists">
-                    <?php foreach ($faqs as $faq): ?>
-                        <li>
-                            <button type="button" class="b-tit"><?= $faq->title ?></button>
-                            <div class="b-desc"><?= $faq->content ?></div>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-            <div class="paginator">
-                <ul class="pagination">
-                    <?= $this->Paginator->prev('< ' . __('이전')) ?>
-                    <?= $this->Paginator->numbers() ?>
-                    <?= $this->Paginator->next(__('다음') . ' >') ?>
-                </ul>
+            <div id="category-list">
+                <h4 class="s-hty3" id="s-hty3">전체</h4>
+                <div>
+                    <ul class="board-lists">
+                        <?php foreach ($faqs as $faq): ?>
+                            <li>
+                                <button type="button" class="b-tit"><?= $faq->title ?></button>
+                                <div class="b-desc"><?= $faq->content ?></div>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+                <div class="paginator">
+                    <ul class="pagination">
+                        <?= $this->Paginator->prev('< ' . __('이전')) ?>
+                        <?= $this->Paginator->numbers() ?>
+                        <?= $this->Paginator->next(__('다음') . ' >') ?>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -115,15 +117,32 @@
 
     $('#all').on('click', function() {
         $.ajax({
-            url: '/boards/faqsByCategory',
+            url: '/boards/faqs-by-category/0',
             method: 'POST',
             type: 'json',
-            data: {
-                categoryId: 0
-            }
+            data: {}
         }).done(function(data) {
-            $('#s-hty3').replaceWith('<h4 class="s-hty3" id="s-hty3">전체</h4>');
-            $('#board-lists').load(location.href+" #board-lists");
+            if (data.status == 'success') {
+                var faqs = data.data;
+
+                var html = '';
+                html += '<h4 class="s-hty3" id="s-hty3">전체</h4>';
+                html += '<div>';
+                html += '   <ul class="board-lists">';
+                for (var i=0; i<faqs.length; i++) {
+                    html += '   <li>';
+                    html += '       <button type="button" class="b-tit">' + faqs[i]['title'] + '</button>';
+                    html += '       <div class="b-desc">' + faqs[i]['content'] + '</div>';
+                    html += '   </li>';
+                }
+                html += '   </ul>';
+                html += '</div>';
+
+                $('#category-list').html(html);
+                ui.addOnAction('.board-lists>li');
+            } else {
+                alert("실패하였습니다.");
+            }
         });
     });
 
@@ -135,92 +154,212 @@
             data: {}
         }).done(function(data) {
             if (data.status == 'success') {
-                var faqs = data.
+                var faqs = data.data;
+
+                var html = '';
+                html += '<h4 class="s-hty3" id="s-hty3">회원</h4>';
+                html += '<div>';
+                html += '   <ul class="board-lists">';
+                for (var i=0; i<faqs.length; i++) {
+                    html += '   <li>';
+                    html += '       <button type="button" class="b-tit">' + faqs[i]['title'] + '</button>';
+                    html += '       <div class="b-desc">' + faqs[i]['content'] + '</div>';
+                    html += '   </li>';
+                }
+                html += '   </ul>';
+                html += '</div>';
+
+                $('#category-list').html(html);
+                ui.addOnAction('.board-lists>li');
+            } else {
+                alert("실패하였습니다.");
             }
         });
     });
     
-    // $('#refund').on('click', function() {
-    //     $.ajax({
-    //         url: '/boards/faqs-by-category',
-    //         method: 'POST',
-    //         type: 'json',
-    //         data: {
-    //             FaqCategoryId: 2
-    //         }
-    //     }).done(function(data) {
-    //         $('#s-hty3').replaceWith('<h4 class="s-hty3" id="s-hty3">환불</h4>');
-    //         $('#board-lists').load(location.href+" #board-lists");
-    //     });
-    // });
+    $('#refund').on('click', function() {
+        $.ajax({
+            url: '/boards/faqs-by-category/2',
+            method: 'POST',
+            type: 'json',
+            data: {}
+        }).done(function(data) {
+            if (data.status == 'success') {
+                var faqs = data.data;
 
-    // $('#pay').on('click', function() {
-    //     $.ajax({
-    //         url: '/boards/faqs-by-category',
-    //         method: 'POST',
-    //         type: 'json',
-    //         data: {
-    //             FaqCategoryId: 3
-    //         }
-    //     }).done(function(data) {
-    //         $('#s-hty3').replaceWith('<h4 class="s-hty3" id="s-hty3">결제</h4>');
-    //         $('#board-lists').load(location.href+" #board-lists");
-    //     });
-    // });
+                var html = '';
+                html += '<h4 class="s-hty3" id="s-hty3">환불</h4>';
+                html += '<div>';
+                html += '   <ul class="board-lists">';
+                for (var i=0; i<faqs.length; i++) {
+                    html += '   <li>';
+                    html += '       <button type="button" class="b-tit">' + faqs[i]['title'] + '</button>';
+                    html += '       <div class="b-desc">' + faqs[i]['content'] + '</div>';
+                    html += '   </li>';
+                }
+                html += '   </ul>';
+                html += '</div>';
+
+                $('#category-list').html(html);
+                ui.addOnAction('.board-lists>li');
+            } else {
+                alert("실패하였습니다.");
+            }
+        });
+    });
+
+    $('#pay').on('click', function() {
+        $.ajax({
+            url: '/boards/faqs-by-category/3',
+            method: 'POST',
+            type: 'json',
+            data: {}
+        }).done(function(data) {
+            if (data.status == 'success') {
+                var faqs = data.data;
+
+                var html = '';
+                html += '<h4 class="s-hty3" id="s-hty3">결제</h4>';
+                html += '<div>';
+                html += '   <ul class="board-lists">';
+                for (var i=0; i<faqs.length; i++) {
+                    html += '   <li>';
+                    html += '       <button type="button" class="b-tit">' + faqs[i]['title'] + '</button>';
+                    html += '       <div class="b-desc">' + faqs[i]['content'] + '</div>';
+                    html += '   </li>';
+                }
+                html += '   </ul>';
+                html += '</div>';
+
+                $('#category-list').html(html);
+                ui.addOnAction('.board-lists>li');
+            } else {
+                alert("실패하였습니다.");
+            }
+        });
+    });
     
-    // $('#exhibitionParticipation').on('click', function() {
-    //     $.ajax({
-    //         url: '/boards/faqs-by-category',
-    //         method: 'POST',
-    //         type: 'json',
-    //         data: {
-    //             FaqCategoryId: 4
-    //         }
-    //     }).done(function(data) {
-    //         $('#s-hty3').replaceWith('<h4 class="s-hty3" id="s-hty3">행사 참여</h4>');
-    //         $('#board-lists').load(location.href+" #board-lists");
-    //     });
-    // });
+    $('#exhibitionParticipation').on('click', function() {
+        $.ajax({
+            url: '/boards/faqs-by-category/4',
+            method: 'POST',
+            type: 'json',
+            data: {}
+        }).done(function(data) {
+            if (data.status == 'success') {
+                var faqs = data.data;
 
-    // $('#exhibitionAdd').on('click', function() {
-    //     $.ajax({
-    //         url: '/boards/faqs-by-category',
-    //         method: 'POST',
-    //         type: 'json',
-    //         data: {
-    //             FaqCategoryId: 5
-    //         }
-    //     }).done(function(data) {
-    //         $('#s-hty3').replaceWith('<h4 class="s-hty3" id="s-hty3">행사 개설</h4>');
-    //         $('#board-lists').load(location.href+" #board-lists");
-    //     });
-    // });
+                var html = '';
+                html += '<h4 class="s-hty3" id="s-hty3">행사 참여</h4>';
+                html += '<div>';
+                html += '   <ul class="board-lists">';
+                for (var i=0; i<faqs.length; i++) {
+                    html += '   <li>';
+                    html += '       <button type="button" class="b-tit">' + faqs[i]['title'] + '</button>';
+                    html += '       <div class="b-desc">' + faqs[i]['content'] + '</div>';
+                    html += '   </li>';
+                }
+                html += '   </ul>';
+                html += '</div>';
+
+                $('#category-list').html(html);
+                ui.addOnAction('.board-lists>li');
+            } else {
+                alert("실패하였습니다.");
+            }
+        });
+    });
+
+    $('#exhibitionAdd').on('click', function() {
+        $.ajax({
+            url: '/boards/faqs-by-category/5',
+            method: 'POST',
+            type: 'json',
+            data: {}
+        }).done(function(data) {
+            if (data.status == 'success') {
+                var faqs = data.data;
+
+                var html = '';
+                html += '<h4 class="s-hty3" id="s-hty3">행사 개설</h4>';
+                html += '<div>';
+                html += '   <ul class="board-lists">';
+                for (var i=0; i<faqs.length; i++) {
+                    html += '   <li>';
+                    html += '       <button type="button" class="b-tit">' + faqs[i]['title'] + '</button>';
+                    html += '       <div class="b-desc">' + faqs[i]['content'] + '</div>';
+                    html += '   </li>';
+                }
+                html += '   </ul>';
+                html += '</div>';
+
+                $('#category-list').html(html);
+                ui.addOnAction('.board-lists>li');
+            } else {
+                alert("실패하였습니다.");
+            }
+        });
+    });
     
-    // $('#webinar').on('click', function() {
-    //     $.ajax({
-    //         url: '/boards/faqs-by-category',
-    //         method: 'POST',
-    //         type: 'json',
-    //         data: {
-    //             FaqCategoryId: 6
-    //         }
-    //     }).done(function(data) {
-    //         $('#s-hty3').replaceWith('<h4 class="s-hty3" id="s-hty3">웨비나</h4>');
-    //         $('#board-lists').load(location.href+" #board-lists");
-    //     });
-    // });
+    $('#webinar').on('click', function() {
+        $.ajax({
+            url: '/boards/faqs-by-category/6',
+            method: 'POST',
+            type: 'json',
+            data: {}
+        }).done(function(data) {
+            if (data.status == 'success') {
+                var faqs = data.data;
 
-    // $('#besides').on('click', function() {
-    //     $.ajax({
-    //         url: '/boards/faqs-by-category',
-    //         method: 'POST',
-    //         type: 'json',
-    //         data: {
-    //             FaqCategoryId: 7
-    //         }
-    //     }).done(function(data) {
-    //         $('#s-hty3').replaceWith('<h4 class="s-hty3" id="s-hty3">기타</h4>');
-    //         $('#board-lists').load(location.href+" #board-lists");
-    //     });
-    // });
+                var html = '';
+                html += '<h4 class="s-hty3" id="s-hty3">웨비나</h4>';
+                html += '<div>';
+                html += '   <ul class="board-lists">';
+                for (var i=0; i<faqs.length; i++) {
+                    html += '   <li>';
+                    html += '       <button type="button" class="b-tit">' + faqs[i]['title'] + '</button>';
+                    html += '       <div class="b-desc">' + faqs[i]['content'] + '</div>';
+                    html += '   </li>';
+                }
+                html += '   </ul>';
+                html += '</div>';
+
+                $('#category-list').html(html);
+                ui.addOnAction('.board-lists>li');
+            } else {
+                alert("실패하였습니다.");
+            }
+        });
+    });
+
+    $('#besides').on('click', function() {
+        $.ajax({
+            url: '/boards/faqs-by-category/7',
+            method: 'POST',
+            type: 'json',
+            data: {}
+        }).done(function(data) {
+            if (data.status == 'success') {
+                var faqs = data.data;
+
+                var html = '';
+                html += '<h4 class="s-hty3" id="s-hty3">기타</h4>';
+                html += '<div>';
+                html += '   <ul class="board-lists">';
+                for (var i=0; i<faqs.length; i++) {
+                    html += '   <li>';
+                    html += '       <button type="button" class="b-tit">' + faqs[i]['title'] + '</button>';
+                    html += '       <div class="b-desc">' + faqs[i]['content'] + '</div>';
+                    html += '   </li>';
+                }
+                html += '   </ul>';
+                html += '</div>';
+
+                $('#category-list').html(html);
+                ui.addOnAction('.board-lists>li');
+            } else {
+                alert("실패하였습니다.");
+            }
+        });
+    });
 </script>
