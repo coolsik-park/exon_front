@@ -5,13 +5,13 @@
  */
 
 $naver_client_id = getEnv('NAVER_CLIENT_ID');
-$naver_redirectURI = urlencode("http://121.126.223.225:8765/users/naverJoin");
+$naver_redirectURI = urlencode(NAVER_JOIN_URL);
 $_SESSION['state'] = md5(microtime()) . mt_rand();
 $state = $_SESSION['state'];
 $naver_apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=".$naver_client_id."&redirect_uri=".$naver_redirectURI."&state=".$state;
 
 $kakao_client_id = getEnv('KAKAO_CLIENT_ID');
-$kakao_redirectURI = urlencode("http://121.126.223.225:8765/users/kakaoJoin");
+$kakao_redirectURI = urlencode(KAKAO_JOIN_URL);
 $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=".$kakao_client_id."&redirect_uri=".$kakao_redirectURI
 ?>
 
@@ -106,6 +106,14 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
 </div>
 
 <script>
+    $(document).ready(function () {
+        var msg = "<?=$msg?>";
+
+        if (msg != '') {
+            alert(msg);
+        }
+    });
+    
     $(".btn-big").click(function () {
         var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
         var getCheck = RegExp(/^[a-zA-Z0-9]{4,12}$/);

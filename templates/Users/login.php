@@ -1,12 +1,12 @@
 <?php
 $naver_client_id = getEnv('NAVER_CLIENT_ID');
-$naver_redirectURI = urlencode("http://121.126.223.225:8765/users/naverLogin");
+$naver_redirectURI = urlencode(NAVER_LOGIN_URL);
 $_SESSION['state'] = md5(microtime()) . mt_rand();
 $state = $_SESSION['state'];
 $naver_apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=" . $naver_client_id . "&redirect_uri=" . $naver_redirectURI . "&state=" . $state;
 
 $kakao_client_id = getEnv('KAKAO_CLIENT_ID');
-$kakao_redirectURI = urlencode("http://121.126.223.225:8765/users/kakaoLogin");
+$kakao_redirectURI = urlencode(KAKAO_LOGIN_URL);
 $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=" . $kakao_client_id . "&redirect_uri=" . $kakao_redirectURI
 ?>
 
@@ -47,6 +47,14 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
 </div>
 
 <script>
+    $(document).ready(function () {
+        var msg = "<?=$msg?>";
+
+        if (msg != '') {
+            alert(msg);
+        }
+    });
+
     $(".btn-big").click(function () {
         jQuery.ajax({
             url: "/users/login", 
@@ -60,7 +68,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
             if (data.status == 'success') {
                 $(location).attr('href', '/');
             } else {
-                $("#noti").html("로그인 정보가 틀렸습니다.");
+                $("#noti").html("로그인 정보를 다시 확인해주세요.");
             }
         });
     });

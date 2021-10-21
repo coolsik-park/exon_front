@@ -37,6 +37,9 @@ class UsersController extends AppController
     
     public function add()
     {
+        $session = $this->request->getSession();
+        $msg = $session->consume('msg');
+
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $user->email = $this->request->getData('email');
@@ -51,12 +54,14 @@ class UsersController extends AppController
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
             return $response;
         }
-        $this->set(compact('user'));
+        $this->set(compact('user', 'msg'));
     }
 
     public function edit()
     {
         $user = $this->Users->get($this->Auth->user('id'));
+        $session = $this->request->getSession();
+        $msg = $session->consume('connect_msg');
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user->password = password_hash($this->request->getData('password'), PASSWORD_DEFAULT);
@@ -75,7 +80,7 @@ class UsersController extends AppController
             return $response;
         }        
 
-        $this->set(compact('user'));
+        $this->set(compact('user', 'msg'));
     }
 
     public function hpUpdate($id = null)
@@ -165,18 +170,15 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function successJoin()
-    {
-        
-    }
-
     public function naverJoin()
     {
+        $session = $this->request->getSession();
+
         $client_id = getEnv('NAVER_CLIENT_ID');
         $client_secret = getEnv('NAVER_CLIENT_SECRET');
         $code = $_GET["code"];
         $state = $_GET["state"];
-        $redirectURI = urlencode("http://121.126.223.225:8765/users/naverJoin");
+        $redirectURI = urlencode(NAVER_JOIN_URL);
         $url = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=".$client_id.
             "&client_secret=".$client_secret.
             "&redirect_uri=".$redirectURI.
@@ -214,17 +216,18 @@ class UsersController extends AppController
             if($status_code == 200) {
                 $responseArr = json_decode($response, true);
                 $this->loadModel('Users');
-                $query = $this->Users->findByName($responseArr['response']['id'])->toArray();
+                $query = $this->Users->findBySocialId($responseArr['response']['id'])->toArray();
 
                 if(count($query)) {
-                    $naver_redirectURI = urlencode("http://121.126.223.225:8765/users/naverLogin");
-                    $naver_apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=" . $client_id . "&redirect_uri=" . $naver_redirectURI . "&state=" . $state;
-                    return $this->redirect($naver_apiURL);
+                    $session->write('msg', '네이버 연동이 완료된 이메일 주소 입니다. 로그인을 진행해 주세요.');
+                    return $this->redirect(['action' => 'login']);
                 } else {
                     $Users = $this->getTableLocator()->get('Users');
                     $user = $Users->newEmptyEntity(); 
                     $user->email = $responseArr['response']['email'];
-                    $user->name = $responseArr['response']['id'];
+                    $user->name = $responseArr['response']['name'];
+                    $user->password = null;
+                    $user->social_id = $responseArr['response']['id'];
                     $user->hp = substr($responseArr['response']['mobile'], 0, 3).
                         substr($responseArr['response']['mobile'], 4, 4).
                         substr($responseArr['response']['mobile'], 9, 4);
@@ -232,23 +235,29 @@ class UsersController extends AppController
                     $user->refer = 'naver';       
                     
                     if(!$Users->save($user)) {
-                        echo("wrong!!");exit;
+                        $session->write('msg', 'EXON 계정이 존재합니다. 로그인 후 마이페이지에서 연동을 진행해 주세요.');
+                        return $this->redirect(['action' => 'login']);
                     } else {
-                        echo("success");exit;
+                        $session->write('msg', '회원가입이 완료되었습니다. 로그인을 진행해 주세요.');
+                        return $this->redirect(['action' => 'login']);
                     }
                 }
             } else {
-                echo "Error 내용:".$response;
+                $session->write('msg', '오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.');
+                return $this->redirect(['action' => 'join']);
             }
         } else {
-            echo "Error 내용:".$response;
+            $session->write('msg', '오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.');
+            return $this->redirect(['action' => 'join']);
         }
     }
 
     public function kakaoJoin()
     {
+        $session = $this->request->getSession();
+
         $client_id = getEnv('KAKAO_CLIENT_ID');
-        $redirect_uri = urlencode("http://121.126.223.225:8765/users/kakaoJoin");
+        $redirect_uri = urlencode(KAKAO_JOIN_URL);
         $grant_type="authorization_code";
         $code = $_GET["code"];
         $url = "https://kauth.kakao.com/oauth/token";
@@ -282,36 +291,43 @@ class UsersController extends AppController
             if($status_code == 200) {
                 $responseArr = json_decode($response, true);
                 $this->loadModel('Users');
-                $query = $this->Users->findByName($responseArr['id'])->toArray();
+                $query = $this->Users->findBySocialId($responseArr['id'])->toArray();
 
                 if(count($query)) {
-                    $kakao_redirectURI = urlencode("http://121.126.223.225:8765/users/kakaoLogin");
-                    $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=" . $client_id . "&redirect_uri=" . $kakao_redirectURI;
-                    return $this->redirect($kakao_apiURL);
+                    $session->write('msg', '카카오 연동이 완료된 이메일 주소 입니다. 로그인을 진행해 주세요.');
+                    return $this->redirect(['action' => 'login']);
                 } else {
                     $Users = $this->getTableLocator()->get('Users');
                     $user = $Users->newEmptyEntity(); 
                     $user->email = $responseArr['kakao_account']['email'];
-                    $user->name = $responseArr['id'];
+                    $user->name = $responseArr['kakao_account']['profile']['nickname'];
+                    $user->password = null;
+                    $user->social_id = $responseArr['id'];
                     $user->hp = '01011112222'; //카카오 사업자 계정 인증 후 수정
                     $user->ip = $this->request->ClientIp();
                     $user->refer = 'kakao';       
                     
                     if(!$Users->save($user)) {
-                        echo("wrong!!");exit;
+                        $session->write('msg', 'EXON 계정이 존재합니다. 로그인 후 마이페이지에서 연동을 진행해 주세요.');
+                        return $this->redirect(['action' => 'login']);
                     } else {
-                        echo("success");exit;
+                        $session->write('msg', '회원가입이 완료되었습니다. 로그인을 진행해 주세요.');
+                        return $this->redirect(['action' => 'login']);
                     }
                 }
             } else {
-                echo "Error 내용:".$response;
+                $session->write('msg', '오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.');
+                return $this->redirect(['action' => 'join']);
             }
         } else {
-            echo "Error 내용:".$response;
+            $session->write('msg', '오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.');
+            return $this->redirect(['action' => 'join']);
         }
     }
 
     public function login(){
+        $session = $this->request->getSession();
+        $msg = $session->consume('msg');
 
         if ($this->request->is('post')) {
             $this->loadComponent('Auth');
@@ -336,7 +352,7 @@ class UsersController extends AppController
                 return $response;
             }
         }
-
+        $this->set(compact('msg'));
     }
 
     public function logout(){
@@ -346,11 +362,13 @@ class UsersController extends AppController
 
     public function naverLogin()
     {
+        $session = $this->request->getSession();
+
         $client_id = getEnv('NAVER_CLIENT_ID');
         $client_secret = getEnv('NAVER_CLIENT_SECRET');
         $code = $_GET["code"];
         $state = $_GET["state"];
-        $redirectURI = urlencode("http://121.126.223.225:8765/users/naverLogin");
+        $redirectURI = urlencode(NAVER_LOGIN_URL);
         $url = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=".$client_id.
             "&client_secret=".$client_secret.
             "&redirect_uri=".$redirectURI.
@@ -388,35 +406,39 @@ class UsersController extends AppController
             if($status_code == 200) {
                 $responseArr = json_decode($response, true);
                 $this->loadModel('Users');
-                $query = $this->Users->findByName($responseArr['response']['id'])->toArray();
+                $query = $this->Users->findBySocialId($responseArr['response']['id'])->toArray();
 
                 if(count($query)) {
                     $this->loadComponent('Auth');
                     $this->conn = ConnectionManager::get('default');
 
                     $user = $this->Users->find('all')                            
-                    ->where(['email'=>$responseArr['response']['email'], 'status'=>1])
+                    ->where(['social_id'=>$responseArr['response']['id'], 'status'=>1])
                     ->first();
 
                     $this->Auth->setUser($user);
                     $target = $this->Auth->redirectUrl() ?? '/home';
                     return $this->redirect($target);
                 } else {
-                    $this->Flash->error(__('회원 정보가 없습니다.'));
-                    return $this->redirect("/users/add");
+                    $session->write('msg', '네이버 연동이 필요합니다. 회원가입 또는 EXON 계정이 존재하는 경우 로그인 후 마이페이지에서 연동을 진행해 주세요.');
+                    return $this->redirect(['action' => 'login']);
                 }
             } else {
-                echo "Error 내용:".$response;
+                $session->write('msg', '오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.');
+                return $this->redirect(['action' => 'login']);
             }
         } else {
-            echo "Error 내용:".$response;
+            $session->write('msg', '오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.');
+            return $this->redirect(['action' => 'login']);
         }
     }
 
     public function kakaoLogin()
     {
+        $session = $this->request->getSession();
+
         $client_id = getEnv('KAKAO_CLIENT_ID');
-        $redirect_uri = urlencode("http://121.126.223.225:8765/users/kakaoLogin");
+        $redirect_uri = urlencode(KAKAO_LOGIN_URL);
         $grant_type="authorization_code";
         $code = $_GET["code"];
         $url = "https://kauth.kakao.com/oauth/token";
@@ -450,28 +472,30 @@ class UsersController extends AppController
             if($status_code == 200) {
                 $responseArr = json_decode($response, true);
                 $this->loadModel('Users');
-                $query = $this->Users->findByName($responseArr['id'])->toArray();
+                $query = $this->Users->findBySocialId($responseArr['id'])->toArray();
 
                 if(count($query)) {
                     $this->loadComponent('Auth');
                     $this->conn = ConnectionManager::get('default');
 
                     $user = $this->Users->find('all')                            
-                    ->where(['email'=>$responseArr['kakao_account']['email'], 'status'=>1])
+                    ->where(['social_id'=>$responseArr['id'], 'status'=>1])
                     ->first();
 
                     $this->Auth->setUser($user);
                     $target = $this->Auth->redirectUrl() ?? '/home';
                     return $this->redirect($target);
                 } else {
-                    $this->Flash->error(__('회원 정보가 없습니다.'));
-                    return $this->redirect("/users/add");
+                    $session->write('msg', '카카오 연동이 필요합니다. 회원가입 또는 EXON 계정이 존재하는 경우 로그인 후 마이페이지에서 연동을 진행해 주세요.');
+                    return $this->redirect(['action' => 'login']);
                 }
             } else {
-                echo "Error 내용:".$response;
+                $session->write('msg', '오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.');
+                return $this->redirect(['action' => 'login']);
             }
         } else {
-            echo "Error 내용:".$response;
+            $session->write('msg', '오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.');
+            return $this->redirect(['action' => 'login']);
         }
     }
 
@@ -622,5 +646,165 @@ class UsersController extends AppController
             $code .= substr($characters, rand(0, strlen($characters)), 1);
         }
         return $code;
+    }
+
+    public function naverConnect()
+    {
+        $session = $this->request->getSession();
+
+        $client_id = getEnv('NAVER_CLIENT_ID');
+        $client_secret = getEnv('NAVER_CLIENT_SECRET');
+        $code = $_GET["code"];
+        $state = $_GET["state"];
+        $redirectURI = urlencode(NAVER_CONNECT_URL);
+        $url = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=".$client_id.
+            "&client_secret=".$client_secret.
+            "&redirect_uri=".$redirectURI.
+            "&code=".$code.
+            "&state=".$state;
+        $is_post = false;
+        
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, $is_post);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $headers = array();
+        $response = curl_exec($ch);
+        $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if($status_code == 200) {
+            $responseArr = json_decode($response, true);
+            $token = $responseArr['access_token'];
+            $header = "Bearer ".$token;
+            $url = "https://openapi.naver.com/v1/nid/me";
+            $is_post = false;
+        
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, $is_post);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $headers = array();
+            $headers[] = "Authorization: ".$header;
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            $response = curl_exec ($ch);
+            $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close ($ch);
+
+            if($status_code == 200) {
+                $responseArr = json_decode($response, true);
+                $this->loadModel('Users');
+
+                $is_connected = $this->Users->findBySocialId($responseArr['response']['id'])->toArray();
+
+                if (count($is_connected)) {
+                    $session->write('connect_msg', '해당 네이버 계정은 이미 다른 EXON 계정과 연동되어있는 계정입니다.');
+                    return $this->redirect(['action' => 'edit']);
+                }
+                $query = $this->Users->findById($session->consume('user_id'))->toArray();
+
+                if(count($query)) {
+                    $Users = $this->getTableLocator()->get('Users');
+                    $user = $Users->get($query[0]->id);
+                    $user->social_id = $responseArr['response']['id'];
+                    $user->hp = substr($responseArr['response']['mobile'], 0, 3).
+                        substr($responseArr['response']['mobile'], 4, 4).
+                        substr($responseArr['response']['mobile'], 9, 4);
+                    $user->refer = 'naver';
+
+                    if(!$Users->save($user)) {
+                        $session->write('connect_msg', '오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.');
+                        return $this->redirect(['action' => 'edit']);
+                    } else {
+                        $session->write('connect_msg', '네이버 아이디와 연동되었습니다.');
+                        return $this->redirect(['action' => 'edit']);
+                    }
+                } else {
+                    $session->write('connect_msg', '가입정보 오류입니다. 관리자에게 문의해주세요.');
+                    return $this->redirect(['action' => 'edit']);
+                }
+            } else {
+                $session->write('connect_msg', '오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.');
+                return $this->redirect(['action' => 'edit']);
+            }
+        } else {
+            $session->write('connect_msg', '오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.');
+            return $this->redirect(['action' => 'edit']);
+        }
+    }
+
+    public function kakaoConnect()
+    {
+        $session = $this->request->getSession();
+
+        $client_id = getEnv('KAKAO_CLIENT_ID');
+        $redirect_uri = urlencode(KAKAO_CONNECT_URL);
+        $grant_type="authorization_code";
+        $code = $_GET["code"];
+        $url = "https://kauth.kakao.com/oauth/token";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        $post_param = "grant_type=".$grant_type."&client_id=".$client_id."&redirect_uri=".$redirect_uri."&code=".$code;
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_param);
+        $response = curl_exec($ch);
+        $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if($status_code == 200) {
+            $responseArr = json_decode($response, true);
+            $access_token = $responseArr['access_token'];
+            $header = "Bearer ".$access_token;
+            $headers = array();
+            $headers[] = "Authorization: ".$header;
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, "https://kapi.kakao.com/v2/user/me");
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POST, false);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            $response = curl_exec($ch);
+            $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+
+            if($status_code == 200) {
+                $responseArr = json_decode($response, true);
+                $this->loadModel('Users');
+                
+                $is_connected = $this->Users->findBySocialId($responseArr['id'])->toArray();
+
+                if (count($is_connected)) {
+                    $session->write('connect_msg', '해당 카카오 계정은 이미 다른 EXON 계정과 연동되어있는 계정입니다.');
+                    return $this->redirect(['action' => 'edit']);
+                }
+                $query = $this->Users->findById($session->consume('user_id'))->toArray();
+
+                if(count($query)) {
+                    $Users = $this->getTableLocator()->get('Users');
+                    $user = $Users->get($query[0]->id);
+                    $user->social_id = $responseArr['id'];
+                    $user->refer = 'kakao';
+
+                    if(!$Users->save($user)) {
+                        $session->write('connect_msg', '오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.');
+                        return $this->redirect(['action' => 'edit']);
+                    } else {
+                        $session->write('connect_msg', '카카오 아이디와 연동되었습니다.');
+                        return $this->redirect(['action' => 'edit']);
+                    }
+                } else {
+                    $session->write('connect_msg', '가입정보 오류입니다. 관리자에게 문의해주세요.');
+                    return $this->redirect(['action' => 'edit']);
+                }
+            } else {
+                $session->write('connect_msg', '오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.');
+                return $this->redirect(['action' => 'edit']);
+            }
+        } else {
+            $session->write('connect_msg', '오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.');
+            return $this->redirect(['action' => 'edit']);
+        }
     }
 }

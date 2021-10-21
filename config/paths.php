@@ -94,3 +94,9 @@ define('CORE_PATH', CAKE_CORE_INCLUDE_PATH . DS);
 define('CAKE', CORE_PATH . 'src' . DS);
 
 define('FRONT_URL', 'http://121.126.223.225:8765');
+define('NAVER_JOIN_URL', FRONT_URL . '/users/naverJoin');
+define('KAKAO_JOIN_URL', FRONT_URL . '/users/kakaoJoin');
+define('NAVER_LOGIN_URL', FRONT_URL . '/users/naverLogin');
+define('KAKAO_LOGIN_URL', FRONT_URL . '/users/kakaoLogin');
+define('NAVER_CONNECT_URL', FRONT_URL . '/users/naverConnect');
+define('KAKAO_CONNECT_URL', FRONT_URL . '/users/kakaoConnect');

@@ -1,3 +1,20 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\User $user
+ */
+
+$naver_client_id = getEnv('NAVER_CLIENT_ID');
+$naver_redirectURI = urlencode(NAVER_CONNECT_URL);
+$_SESSION['state'] = md5(microtime()) . mt_rand();
+$state = $_SESSION['state'];
+$naver_apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=".$naver_client_id."&redirect_uri=".$naver_redirectURI."&state=".$state;
+
+$kakao_client_id = getEnv('KAKAO_CLIENT_ID');
+$kakao_redirectURI = urlencode(KAKAO_CONNECT_URL);
+$kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=".$kakao_client_id."&redirect_uri=".$kakao_redirectURI
+?>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <div id="container">
@@ -102,11 +119,11 @@
             <h3 class="s-hty1">부가 정보</h3>
             <div class="log-other">
                 <label class="chk-box">
-                    <input type="radio" name="logOther">
+                    <input id="kakao-connect" type="radio" name="logOther">
                     <span class="btn-kakao"><span>KaKao 연동하기</span></span>
                 </label>
                 <label class="chk-box">
-                    <input type="radio" name="logOther">
+                    <input id="naver-connect" type="radio" name="logOther">
                     <span class="btn-naver"><span>NAVER 연동하기</span></span>
                 </label>
             </div>
@@ -558,5 +575,43 @@
                 }
             });
         }
+    });
+
+    //연동 확인 및 알림
+    $(document).ready(function () {
+        var msg = "<?=$msg?>";
+        var refer = "<?=$user->refer?>";
+
+        if (msg != '') {
+            alert(msg);
+        }
+
+        if (refer == 'naver') {
+            $("#naver-connect").prop("checked", "checked");
+            $("#naver-connect").prop("disabled", "disabled");
+            $("#kakao-connect").prop("disabled", "disabled");
+        }
+
+        if (refer == 'kakao') {
+            $("#kakao-connect").prop("checked", "checked");
+            $("#naver-connect").prop("disabled", "disabled");
+            $("#kakao-connect").prop("disabled", "disabled");
+        }
+    });
+
+    //네이버 연동
+    $("#naver-connect").click(function () {
+        <?php $this->request->getSession()->write('user_id', $user->id) ?>
+
+        var url = "<?=$naver_apiURL?>";
+        window.location.replace(url);
+    });
+
+    //카카오 연동
+    $("#kakao-connect").click(function () {
+        <?php $this->request->getSession()->write('user_id', $user->id) ?>
+
+        var url = "<?=$kakao_apiURL?>";
+        window.location.replace(url);
     });
 </script>
