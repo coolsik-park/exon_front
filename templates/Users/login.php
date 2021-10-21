@@ -38,8 +38,8 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                 <?= $this->Form->end() ?>
                 <div class="div-or"></div>
                 <div class="log-other">
-                    <a href="<?php echo $kakao_apiURL ?>" class="btn-kakao"><span>KaKao 연동하기</span></a>
-                    <a href="<?php echo $naver_apiURL ?>" class="btn-naver"><span>NAVER 연동하기</span></a>
+                    <a href="<?php echo $kakao_apiURL ?>" class="btn-kakao"><span>KaKao 로그인</span></a>
+                    <a href="<?php echo $naver_apiURL ?>" class="btn-naver"><span>NAVER 로그인</span></a>
                 </div>
             </div>
         </div>

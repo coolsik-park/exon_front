@@ -66,8 +66,15 @@
                 <?php else: ?>
                 <!-- log after -->
                     <a href="/users/logout">로그아웃</a>
-                    <a href="/exhibition/index/all">개설행사목록</a>
-                    <a href="/exhibition-users/sign-up/application">신청행사목록</a>
+                    <div id="my-page" style="display:inline-block; padding-left:30px;">
+                        <a href="#">마이페이지</a>
+                        <br>
+                        <ul id="sub-menu" style="display:inline-block;">
+                            <li><a href="/users/edit">회원 정보 변경</a></li>
+                            <li><a href="/exhibition-users/sign-up/application">신청 내역 관리</a></li>
+                            <li><a href="/exhibition/index/all">개설 행사 관리</a></li>
+                        </ul> 
+                    <div> 
                 <!-- // -->
                 <?php endif;?>
             </div>            
@@ -187,3 +194,17 @@
  </script>
 </body>
 </html>
+
+<script>
+    $(document).ready(function () {
+        $('#sub-menu').hide();
+
+        $('#my-page').mouseover(function(){
+            $('#sub-menu').slideDown();
+        });
+        
+        $('#my-page').mouseleave(function(){
+            $('#sub-menu').hide();
+        });
+    });
+</script>
