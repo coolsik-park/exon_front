@@ -499,8 +499,10 @@ class UsersController extends AppController
         }
     }
 
-    public function certification($id = null)
+    public function certification()
     {
+        $id = $this->Auth->user('id');
+
         $this->set(compact('id'));
     }
 
