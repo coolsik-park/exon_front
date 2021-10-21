@@ -343,9 +343,6 @@ class ExhibitionUsersController extends AppController
 
         $exhibitionUsers = $this->ExhibitionUsers->get($exhibition_users_id);
 
-        $Pay = $this->getTableLocator()->get('Pay');
-        $pay = $this->get($exhibitionUsers->pay_id);
-    
         $this->viewBuilder()->enableAutoLayout(false); 
         $this->viewBuilder()->setClassName('CakePdf.Pdf');
         $this->viewBuilder()->setVars([
@@ -354,7 +351,6 @@ class ExhibitionUsersController extends AppController
             'category' => $exhibition->category,
             'type' => $exhibition->type,
             'cost' => $exhibition->cost,
-            'amount' => $pay->amount,
             'apply_date' => $exhibitionUsers->created,
             'sdate' => $exhibition->sdate,
             'edate' => $exhibition->edate,
@@ -365,6 +361,15 @@ class ExhibitionUsersController extends AppController
             'tel' => $exhibition->tel,
             'email' => $exhibition->email
         ]);
+
+        $Pay = $this->getTableLocator()->get('Pay');
+        if ($exhibitionUsers->pay_id != null) {
+            $pay = $Pay->get($exhibitionUsers->pay_id);
+            $this->viewBuilder()->setVars(['amount' => $pay->amount]);
+        } else {
+            $this->viewBuilder()->setVars(['amount' => 0]);
+        }
+        
         $this->viewBuilder()->setOption(
             'pdfConfig',
             [

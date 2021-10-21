@@ -13,9 +13,6 @@
     <script src="../common/js/common.js"></script>
     <title>EXON</title>
 </head>
-<style>
-    *{ font-family: NotoSans !important;}
-</style>
 <body>
     <h1 style="text-align: center;">증빙 영수증</h1><br>
     <div style="max-width: 700px;margin: 0 auto;border: 1px solid #dbdbdb;border-radius: 0.938rem;">
