@@ -190,7 +190,7 @@
                                     if ($exhibition_user->attend == 1) {
                                         if ($today <= $exhibition_user->exhibition['edate']) {
                                 ?>
-                                            <p><a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition_user->exhibition_id ?>" class="btn-ty3 bor" id="exhibitionSee">웨비나 시청</a></p>
+                                            <p><a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition_user->exhibition_id ?>/<?= $exhibition_user->id ?>" class="btn-ty3 bor" id="exhibitionSee">웨비나 시청</a></p>
                                 <?php
                                         }
                                     }

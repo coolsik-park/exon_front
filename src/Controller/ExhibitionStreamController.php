@@ -87,11 +87,29 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs', 'exhibition_id', 'prices'));
     }
 
-    public function watchExhibitionStream($id = null) 
+    public function watchExhibitionStream($id = null, $exhibition_users_id = null) 
     {
+        $connection = ConnectionManager::get('default');
+        $connection->begin();
+
         if (empty($this->Auth->user())) {
             return $this->redirect(['action' => 'certification', $id]);
         } else {
+
+            $exhibition_users_table = $this->getTableLocator()->get('ExhibitionUsers');
+            $exhibition_users = $exhibition_users_table->find('all')->where(['id' => $exhibition_users_id])->toArray();
+            $last_view_time = strtotime($exhibition_users[0]->last_view_time->format('Y-m-d H:i:s'));
+            $now = date("Y-m-d H:i:s");
+            $duration = strtotime($now) - $last_view_time;
+
+            if ($connection->update('exhibition_users', ['last_view_time' => date("Y-m-d H:i:s"), 'duration' => $duration], ['id' => $exhibition_users_id])) {
+                $connection->commit();
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+            } else {
+                $connection->rollback();
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+            }
+
             $Users = $this->getTableLocator()->get('Users');
             $user = $Users->get($this->Auth->user('id'));
 

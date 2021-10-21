@@ -219,8 +219,9 @@ class UsersController extends AppController
                 $query = $this->Users->findBySocialId($responseArr['response']['id'])->toArray();
 
                 if(count($query)) {
-                    $session->write('msg', '네이버 연동이 완료된 이메일 주소 입니다. 로그인을 진행해 주세요.');
-                    return $this->redirect(['action' => 'login']);
+                    $naver_redirectURI = urlencode("http://121.126.223.225:8765/users/naverLogin");
+                    $naver_apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=" . $client_id . "&redirect_uri=" . $naver_redirectURI . "&state=" . $state;
+                    return $this->redirect($naver_apiURL);
                 } else {
                     $Users = $this->getTableLocator()->get('Users');
                     $user = $Users->newEmptyEntity(); 
@@ -294,8 +295,9 @@ class UsersController extends AppController
                 $query = $this->Users->findBySocialId($responseArr['id'])->toArray();
 
                 if(count($query)) {
-                    $session->write('msg', '카카오 연동이 완료된 이메일 주소 입니다. 로그인을 진행해 주세요.');
-                    return $this->redirect(['action' => 'login']);
+                    $kakao_redirectURI = urlencode("http://121.126.223.225:8765/users/kakaoLogin");
+                    $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=" . $client_id . "&redirect_uri=" . $kakao_redirectURI;
+                    return $this->redirect($kakao_apiURL);
                 } else {
                     $Users = $this->getTableLocator()->get('Users');
                     $user = $Users->newEmptyEntity(); 
