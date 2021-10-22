@@ -203,23 +203,35 @@
         var user_id = '<?=$auth_id?>';
 
         jQuery.ajax({
-            url: "/exhibition-stream/confirm-email/" + last_id, 
+            url: "/exhibition-stream/confirm-email/" + last_id + "/<?=$id?>", 
             method: 'POST',
             type: 'json',
             data: {
+                email: $("#email").val(),
                 code: $("#emailCode").val(),
                 user_id: user_id,
             }
         }).done(function(data) {
             if (data.status == 'success') {
                 alert("인증이 완료되었습니다.");
-                window.location.replace("/exhibition-stream/watch-exhibition-stream/<?=$id?>");
+                window.location.replace("/exhibition-stream/watch-exhibition-stream/<?=$id?>/" + data.exhibition_users_id);
             } else if (data.status == 'fail') {
                 alert("인증번호를 다시 확인해주세요.");
                 $("#emailCode").val("");
-            } else {
+            } else if (data.status == 'timeover') {
                 alert("시간이 초과되었습니다. 재발송 해주세요.");
                 $("#emailCode").val("");
+            } else if (data.status == 'email_not_exist') {
+                alert("참가신청 되어 있지 않은 이메일 주소입니다. 신청서에 작성하신 이메일 주소를 확인해주세요.");
+                $("#emailCode").val("");
+                $("#email").val("");
+            } else if (data.status == 'hp_not_exist') {
+                alert("참가신청 되어 있지 않은 휴대폰 번호입니다. 신청서에 작성하신 휴대전화 번호를 확인해주세요.");
+                $("#emailCode").val("");
+                $("#email").val("");
+            } else {
+                alert("참가신청 되어 있지 않은 행사입니다. 마이페이지에서 신청 행사를 확인해주세요.");
+                window.location.replace("/exhibition-users/sign-up/application");
             }
         });
     });
@@ -310,23 +322,28 @@
         var user_id = '<?=$auth_id?>';
         
         jQuery.ajax({
-            url: "/exhibition-stream/confirm-sms/" + last_id, 
+            url: "/exhibition-stream/confirm-sms/" + last_id + "/<?=$id?>", 
             method: 'POST',
             type: 'json',
             data: {
+                hp: $("#sms").val(),
                 code: $("#smsCode").val(),
                 user_id: user_id,
             }
         }).done(function(data) {
             if (data.status == 'success') {
                 alert("인증이 완료되었습니다.");
-                window.location.replace("/exhibition-stream/watch-exhibition-stream/<?=$id?>");
+                window.location.replace("/exhibition-stream/watch-exhibition-stream/<?=$id?>/" + data.exhibition_users_id);
             } else if (data.status == 'fail') {
                 alert("인증번호를 다시 확인해주세요.");
                 $("#smsCode").val("");
-            } else {
+            } else if (data.status == 'timeover') {
                 alert("시간이 초과되었습니다. 재발송 해주세요.");
                 $("#smsCode").val("");
+            } else {
+                alert("참가신청 되어 있지 않은 이메일 주소입니다. 이메일 주소를 확인해주세요");
+                $("#smsCode").val("");
+                $("#sms").val("");
             }
         });
     });

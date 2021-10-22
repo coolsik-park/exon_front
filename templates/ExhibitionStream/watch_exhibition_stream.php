@@ -20,7 +20,7 @@
                     <h3 class="w-tit"><?= $exhibitionStream[0]['title'] ?></h3>
                     <div class="w-desc">
                         <p class="wd1"><span class="w-dt">스트리밍 시간 :</span><span class="w-dd">1:21:08</span></p>
-                        <p class="wd2"><span class="w-dt">시청자 :</span><span class="w-dd">50명</span></p>
+                        <p class="wd2"><span class="w-dt">시청자 :</span><span id="viewer" class="w-dd">0명</span></p>
                     </div>
                 </div>                   
             </div>
@@ -60,154 +60,180 @@
 </div>
 
 <script>
-    //video.js 컨트롤
-    var address = "http://121.126.223.225:80/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8"
-    window.onload = function () {
-        var player = videojs(document.querySelector('#vid1'));
-        player.src({
-                src: address, type: 'application/x-mpegURL' });
-        player.load();
-    }
-
-    //탭 컨트롤 
-    $("#tab0").click(function () {
-        $(".webinar-tab-body").load("/exhibition-stream/exhibition-files/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
-        $("#li0").attr("class", "active");
-        $("#li1").attr("class", "");
-        $("#li2").attr("class", "");
-        $("#li3").attr("class", "");
-        $("#li4").attr("class", "");
-        $("#li5").attr("class", "");
-        $("#li6").attr("class", "");
-        $("#li7").attr("class", "");
-        $("#li8").attr("class", "");
-        $("#li9").attr("class", "");
-    });
-
-    $("#tab1").click(function () {
-        $(".webinar-tab-body").load("/exhibition-stream/exhibition-info/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
-        $("#li0").attr("class", "");
-        $("#li1").attr("class", "active");
-        $("#li2").attr("class", "");
-        $("#li3").attr("class", "");
-        $("#li4").attr("class", "");
-        $("#li5").attr("class", "");
-        $("#li6").attr("class", "");
-        $("#li7").attr("class", "");
-        $("#li8").attr("class", "");
-        $("#li9").attr("class", "");
-    });
-
-    $("#tab2").click(function () {
-        $(".webinar-tab-body").load("/exhibition-stream/founder/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
-        $("#li0").attr("class", "");
-        $("#li1").attr("class", "");
-        $("#li2").attr("class", "active");
-        $("#li3").attr("class", "");
-        $("#li4").attr("class", "");
-        $("#li5").attr("class", "");
-        $("#li6").attr("class", "");
-        $("#li7").attr("class", "");
-        $("#li8").attr("class", "");
-        $("#li9").attr("class", "");
-    });
-
-    $("#tab3").click(function () {
-        $(".webinar-tab-body").load("/exhibition-stream/person-in-charge/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
-        $("#li0").attr("class", "");
-        $("#li1").attr("class", "");
-        $("#li2").attr("class", "");
-        $("#li3").attr("class", "active");
-        $("#li4").attr("class", "");
-        $("#li5").attr("class", "");
-        $("#li6").attr("class", "");
-        $("#li7").attr("class", "");
-        $("#li8").attr("class", "");
-        $("#li9").attr("class", "");
-    });
-
-    $("#tab4").click(function () {
-        $(".webinar-tab-body").load("/exhibition-stream/program/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
-        $("#li0").attr("class", "");
-        $("#li1").attr("class", "");
-        $("#li2").attr("class", "");
-        $("#li3").attr("class", "");
-        $("#li4").attr("class", "active");
-        $("#li5").attr("class", "");
-        $("#li6").attr("class", "");
-        $("#li7").attr("class", "");
-        $("#li8").attr("class", "");
-        $("#li9").attr("class", "");
-    });
-
-    $("#tab5").click(function () {
-        $(".webinar-tab-body").load('/exhibition-stream/set-attendance/' + <?= $exhibitionStream[0]['exhibition_id'] ?>);
-        $("#li0").attr("class", "");
-        $("#li1").attr("class", "");
-        $("#li2").attr("class", "");
-        $("#li3").attr("class", "");
-        $("#li4").attr("class", "");
-        $("#li5").attr("class", "active");
-        $("#li6").attr("class", "");
-        $("#li7").attr("class", "");
-        $("#li8").attr("class", "");
-        $("#li9").attr("class", "");
+    $(document).ready(function () {
+        //시청자수 카운트
+        setInterval("updateLastViewTime()" , 1000);
+        setInterval("countViewer()" , 1000);
         
+        //video.js 컨트롤
+        var address = "http://121.126.223.225:80/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8"
+        window.onload = function () {
+            var player = videojs(document.querySelector('#vid1'));
+            player.src({
+                    src: address, type: 'application/x-mpegURL' });
+            player.load();
+        }
+
+        //탭 컨트롤 
+        $("#tab0").click(function () {
+            $(".webinar-tab-body").load("/exhibition-stream/exhibition-files/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
+            $("#li0").attr("class", "active");
+            $("#li1").attr("class", "");
+            $("#li2").attr("class", "");
+            $("#li3").attr("class", "");
+            $("#li4").attr("class", "");
+            $("#li5").attr("class", "");
+            $("#li6").attr("class", "");
+            $("#li7").attr("class", "");
+            $("#li8").attr("class", "");
+            $("#li9").attr("class", "");
+        });
+
+        $("#tab1").click(function () {
+            $(".webinar-tab-body").load("/exhibition-stream/exhibition-info/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
+            $("#li0").attr("class", "");
+            $("#li1").attr("class", "active");
+            $("#li2").attr("class", "");
+            $("#li3").attr("class", "");
+            $("#li4").attr("class", "");
+            $("#li5").attr("class", "");
+            $("#li6").attr("class", "");
+            $("#li7").attr("class", "");
+            $("#li8").attr("class", "");
+            $("#li9").attr("class", "");
+        });
+
+        $("#tab2").click(function () {
+            $(".webinar-tab-body").load("/exhibition-stream/founder/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
+            $("#li0").attr("class", "");
+            $("#li1").attr("class", "");
+            $("#li2").attr("class", "active");
+            $("#li3").attr("class", "");
+            $("#li4").attr("class", "");
+            $("#li5").attr("class", "");
+            $("#li6").attr("class", "");
+            $("#li7").attr("class", "");
+            $("#li8").attr("class", "");
+            $("#li9").attr("class", "");
+        });
+
+        $("#tab3").click(function () {
+            $(".webinar-tab-body").load("/exhibition-stream/person-in-charge/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
+            $("#li0").attr("class", "");
+            $("#li1").attr("class", "");
+            $("#li2").attr("class", "");
+            $("#li3").attr("class", "active");
+            $("#li4").attr("class", "");
+            $("#li5").attr("class", "");
+            $("#li6").attr("class", "");
+            $("#li7").attr("class", "");
+            $("#li8").attr("class", "");
+            $("#li9").attr("class", "");
+        });
+
+        $("#tab4").click(function () {
+            $(".webinar-tab-body").load("/exhibition-stream/program/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
+            $("#li0").attr("class", "");
+            $("#li1").attr("class", "");
+            $("#li2").attr("class", "");
+            $("#li3").attr("class", "");
+            $("#li4").attr("class", "active");
+            $("#li5").attr("class", "");
+            $("#li6").attr("class", "");
+            $("#li7").attr("class", "");
+            $("#li8").attr("class", "");
+            $("#li9").attr("class", "");
+        });
+
+        $("#tab5").click(function () {
+            $(".webinar-tab-body").load('/exhibition-stream/set-attendance/' + <?= $exhibitionStream[0]['exhibition_id'] ?>);
+            $("#li0").attr("class", "");
+            $("#li1").attr("class", "");
+            $("#li2").attr("class", "");
+            $("#li3").attr("class", "");
+            $("#li4").attr("class", "");
+            $("#li5").attr("class", "active");
+            $("#li6").attr("class", "");
+            $("#li7").attr("class", "");
+            $("#li8").attr("class", "");
+            $("#li9").attr("class", "");
+            
+        });
+
+        $("#tab6").click(function () {
+            $(".webinar-tab-body").load("/exhibition-stream/set-question/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
+            $("#li0").attr("class", "");
+            $("#li1").attr("class", "");
+            $("#li2").attr("class", "");
+            $("#li3").attr("class", "");
+            $("#li4").attr("class", "");
+            $("#li5").attr("class", "");
+            $("#li6").attr("class", "active");
+            $("#li7").attr("class", "");
+            $("#li8").attr("class", "");
+            $("#li9").attr("class", "");
+        });
+
+        $("#tab7").click(function () {
+            $(".webinar-tab-body").load("/exhibition-stream/notice/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
+            $("#li0").attr("class", "");
+            $("#li1").attr("class", "");
+            $("#li2").attr("class", "");
+            $("#li3").attr("class", "");
+            $("#li4").attr("class", "");
+            $("#li5").attr("class", "");
+            $("#li6").attr("class", "");
+            $("#li7").attr("class", "active");
+            $("#li8").attr("class", "");
+            $("#li9").attr("class", "");
+        });
+
+        $("#tab8").click(function () {
+            $(".webinar-tab-body").load("/exhibition-stream/answer-survey/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
+            $("#li0").attr("class", "");
+            $("#li1").attr("class", "");
+            $("#li2").attr("class", "");
+            $("#li3").attr("class", "");
+            $("#li4").attr("class", "");
+            $("#li5").attr("class", "");
+            $("#li6").attr("class", "");
+            $("#li7").attr("class", "");
+            $("#li8").attr("class", "active");
+            $("#li9").attr("class", "");
+        });
+
+        $("#tab9").click(function () {
+            $(".webinar-tab-body").load("/exhibition-stream-chat-log/chat/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
+            $("#li0").attr("class", "");
+            $("#li1").attr("class", "");
+            $("#li2").attr("class", "");
+            $("#li3").attr("class", "");
+            $("#li4").attr("class", "");
+            $("#li5").attr("class", "");
+            $("#li6").attr("class", "");
+            $("#li7").attr("class", "");
+            $("#li8").attr("class", "");
+            $("#li9").attr("class", "active");
+        });
     });
 
-    $("#tab6").click(function () {
-        $(".webinar-tab-body").load("/exhibition-stream/set-question/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
-        $("#li0").attr("class", "");
-        $("#li1").attr("class", "");
-        $("#li2").attr("class", "");
-        $("#li3").attr("class", "");
-        $("#li4").attr("class", "");
-        $("#li5").attr("class", "");
-        $("#li6").attr("class", "active");
-        $("#li7").attr("class", "");
-        $("#li8").attr("class", "");
-        $("#li9").attr("class", "");
-    });
-
-    $("#tab7").click(function () {
-        $(".webinar-tab-body").load("/exhibition-stream/notice/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
-        $("#li0").attr("class", "");
-        $("#li1").attr("class", "");
-        $("#li2").attr("class", "");
-        $("#li3").attr("class", "");
-        $("#li4").attr("class", "");
-        $("#li5").attr("class", "");
-        $("#li6").attr("class", "");
-        $("#li7").attr("class", "active");
-        $("#li8").attr("class", "");
-        $("#li9").attr("class", "");
-    });
-
-    $("#tab8").click(function () {
-        $(".webinar-tab-body").load("/exhibition-stream/answer-survey/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
-        $("#li0").attr("class", "");
-        $("#li1").attr("class", "");
-        $("#li2").attr("class", "");
-        $("#li3").attr("class", "");
-        $("#li4").attr("class", "");
-        $("#li5").attr("class", "");
-        $("#li6").attr("class", "");
-        $("#li7").attr("class", "");
-        $("#li8").attr("class", "active");
-        $("#li9").attr("class", "");
-    });
-
-    $("#tab9").click(function () {
-        $(".webinar-tab-body").load("/exhibition-stream-chat-log/chat/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
-        $("#li0").attr("class", "");
-        $("#li1").attr("class", "");
-        $("#li2").attr("class", "");
-        $("#li3").attr("class", "");
-        $("#li4").attr("class", "");
-        $("#li5").attr("class", "");
-        $("#li6").attr("class", "");
-        $("#li7").attr("class", "");
-        $("#li8").attr("class", "");
-        $("#li9").attr("class", "active");
-    });
+    function updateLastViewTime() {
+        var exhibition_users_id = "<?=$exhibition_users_id?>";
+        jQuery.ajax({
+            url: "/exhibition-stream/update-last-view-time/" + exhibition_users_id, 
+            method: 'POST',
+            type: 'json',
+        });
+    }
+    
+    function countViewer () {
+        jQuery.ajax({
+            url: "/exhibition-stream/count-viewer/" + <?= $exhibitionStream[0]['exhibition_id'] ?>, 
+            method: 'POST',
+            type: 'json',
+        }).done(function(data) {
+            $("#viewer").html(data.count + "명");
+        });
+    }
+    
 </script>

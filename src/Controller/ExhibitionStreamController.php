@@ -88,43 +88,13 @@ class ExhibitionStreamController extends AppController
     }
 
     public function watchExhibitionStream($id = null, $exhibition_users_id = null) 
-    {
-        $connection = ConnectionManager::get('default');
-        $connection->begin();
-
-        if (empty($this->Auth->user())) {
-            return $this->redirect(['action' => 'certification', $id]);
-        } else {
-
-            $exhibition_users_table = $this->getTableLocator()->get('ExhibitionUsers');
-            $exhibition_users = $exhibition_users_table->find('all')->where(['id' => $exhibition_users_id])->toArray();
-            $last_view_time = strtotime($exhibition_users[0]->last_view_time->format('Y-m-d H:i:s'));
-            $now = date("Y-m-d H:i:s");
-            $duration = strtotime($now) - $last_view_time;
-
-            if ($connection->update('exhibition_users', ['last_view_time' => date("Y-m-d H:i:s"), 'duration' => $duration], ['id' => $exhibition_users_id])) {
-                $connection->commit();
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
-            } else {
-                $connection->rollback();
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
-            }
-
-            $Users = $this->getTableLocator()->get('Users');
-            $user = $Users->get($this->Auth->user('id'));
-
-            if ($user->hp_cert != 1 && $user->email_cert != 1) {
-                return $this->redirect(['action' => 'certification', $id]);
-            }
+    {   
+        if ($exhibition_users_id == null) {
+            $this->redirect(['action' => 'certification', $id]);
         }
-
-        $exhibition = $this->getTableLocator()->get('Exhibition')->find()->select(['require_cert'])->where(['id' => $id])->toArray();
-
         $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $id])->toArray();
-        
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
-
-        $this->set(compact('exhibitionStream', 'tabs'));
+        $this->set(compact('exhibitionStream', 'tabs', 'exhibition_users_id'));
     }
 
     public function questionMenu ($id = null) 
@@ -918,15 +888,27 @@ class ExhibitionStreamController extends AppController
         $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $id])->toArray();
         $stream_key = $exhibitionStream[0]['stream_key'];
 
-        if ($this->Auth->user('id') != null) {
-            $auth_id = $this->Auth->user()->id;
-            $Users = $this->getTableLocator()->get('Users');
-            $user = $Users->get($auth_id);
+        if (!empty($this->Auth->user())) {
+            $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
+            $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id, 'users_id' => $this->Auth->user()->id])->toArray();
 
-            if ($user->hp_cert == 1 || $user->email_cert == 1) {
-                return $this->redirect(['action' => 'watchExhibitionStream', $id]);
+            if (empty($exhibitionUser)) {
+                return $this->redirect(['controller' => 'exhibitionUsers', 'action' => 'signUp', 'application']);
             }
-        
+
+            if ($exhibition->require_cert == 1) {
+                $auth_id = $this->Auth->user()->id;
+                $Users = $this->getTableLocator()->get('Users');
+                $user = $Users->get($auth_id);
+
+                if ($user->hp_cert == 1 || $user->email_cert == 1) {
+                    return $this->redirect(['action' => 'watchExhibitionStream', $id, $exhibitionUser[0]['id']]);
+                }
+            
+            } else {
+                return $this->redirect(['action' => 'watchExhibitionStream', $id, $exhibitionUser[0]['id']]);
+            }
+            
         } else {
             $auth_id = 0;
         }
@@ -975,6 +957,7 @@ class ExhibitionStreamController extends AppController
 
         $commonConfirmation_table = TableRegistry::get('CommonConfirmation');
         $commonConfirmation = $commonConfirmation_table->find('all')->where(['id' => $id])->toArray();
+        $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
 
         if ($this->request->is('post')) {
 
@@ -984,14 +967,26 @@ class ExhibitionStreamController extends AppController
                     
                     $user_id = $this->request->getData('user_id');
                     if ($user_id == 0) {
-                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                        $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id, 'users_hp' => $this->request->getData('hp')])->toArray();
+                        
+                        if (empty($exhibitionUser)) {
+                            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'hp_not_exist']));
+                            return $response;
+                        }
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
                         return $response;
                     
                     } else {
                         
-                        if($connection->update('users', ['hp_cert' => '1'], ['id' => $this->request->getData('user_id')])) {
+                        if($connection->update('users', ['hp_cert' => '1'], ['id' => $user_id])) {
                             $connection->commit();
-                            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                            $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id, 'users_id' => $user_id])->toArray();
+
+                            if (empty($exhibitionUser)) {
+                                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'id_not_exist']));
+                                return $response;
+                            }
+                            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
                             return $response;
                         
                         } else {
@@ -1048,12 +1043,13 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('user_id'));
     }
 
-    public function confirmEmail($id = null)
+    public function confirmEmail($id = null, $exhibition_id = null)
     {
         $connection = ConnectionManager::get('default');
         $connection->begin();
         $CommonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
         $commonConfirmation = $CommonConfirmations->find('all')->where(['id' => $id])->toArray();
+        $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
 
         if ($this->request->is('post')) {
             
@@ -1061,14 +1057,26 @@ class ExhibitionStreamController extends AppController
 
                 $user_id = $this->request->getData('user_id');
                 if ($user_id == 0) {
-                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                    $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id, 'users_email' => $this->request->getData('email')])->toArray();
+                    
+                    if (empty($exhibitionUser)) {
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'email_not_exist']));
+                        return $response;
+                    }
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
                     return $response;
                 
                 } else {
                     
-                    if($connection->update('users', ['email_cert' => '1'], ['id' => $this->request->getData('user_id')])) {
+                    if($connection->update('users', ['email_cert' => '1'], ['id' => $user_id])) {
                         $connection->commit();
-                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                        $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id, 'users_id' => $user_id])->toArray();
+                        
+                        if (empty($exhibitionUser)) {
+                            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'id_not_exist']));
+                            return $response;
+                        }
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
                         return $response;
                     
                     } else {
@@ -1098,5 +1106,44 @@ class ExhibitionStreamController extends AppController
     public function streamNotExist()
     {
 
+    }
+
+    public function updateLastViewTime($exhibition_users_id = null) 
+    {
+        $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
+        $exhibitionUser = $ExhibitionUsers->get($exhibition_users_id);
+        
+        $now = date("Y-m-d H:i:s");
+        $exhibitionUser->last_view_time = $now;
+
+        $ExhibitionUsers->save($exhibitionUser);
+
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+        return $response;
+    }
+    
+    public function countViewer($exhibition_id = null)
+    {
+        $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
+        $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id])->toArray();
+
+        $now = date("Y-m-d H:i:s");
+        $count = 0;
+        
+        foreach($exhibitionUsers as $exhibitionUser) {
+
+            if ($exhibitionUser['last_view_time'] != null) {
+                $to_time = strtotime($now);
+                $from_time = strtotime($exhibitionUser['last_view_time']->format('Y-m-d H:i:s'));
+                $minutes = round(abs($to_time - $from_time) / 60,2);
+
+                if ($minutes < 0.5) {
+                    $count++;
+                }
+            }
+        }
+        
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'count' => $count]));
+        return $response;
     }
 }
