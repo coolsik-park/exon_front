@@ -6,6 +6,17 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.1/video-js.min.css" rel="stylesheet"> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.1/video.min.js"></script>
     <script src="/js/videojs-http-streaming.min.js"></script>
+
+    <style>
+        .video-js .vjs-time-control{display:block;}
+        .video-js .vjs-remaining-time{display: none;}
+        .video-js .vjs-progress-holder {
+            position:absolute;
+            margin:0px;
+            top:0%;
+            width:100%;
+        }
+    </style>
 </head>
 
 <div id="container">       
@@ -19,8 +30,8 @@
                 <div class="wb-cont2">
                     <h3 class="w-tit"><?= $exhibitionStream[0]['title'] ?></h3>
                     <div class="w-desc">
-                        <p class="wd1"><span class="w-dt">스트리밍 시간 :</span><span class="w-dd">1:21:08</span></p>
-                        <p class="wd2"><span class="w-dt">시청자 :</span><span id="viewer" class="w-dd">0명</span></p>
+                        <p class="wd1"><span class="w-dt">스트리밍 시간 : </span><span id="live_duration_time" class="w-dd">00:00:00</span></p>
+                        <p class="wd2"><span class="w-dt">시청자 : </span><span id="viewer" class="w-dd">0명</span></p>
                     </div>
                 </div>                   
             </div>
@@ -64,6 +75,7 @@
         //시청자수 카운트
         setInterval("updateLastViewTime()" , 1000);
         setInterval("countViewer()" , 1000);
+        setInterval("updateLiveDurationTime()" , 1000);
         
         //video.js 컨트롤
         var address = "http://121.126.223.225:80/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8"
@@ -233,6 +245,17 @@
             type: 'json',
         }).done(function(data) {
             $("#viewer").html(data.count + "명");
+        });
+    }
+
+    function updateLiveDurationTime () {
+        jQuery.ajax({
+            url: "/exhibition-stream/get-live-duration-time/" + <?= $exhibitionStream[0]['id'] ?>, 
+            method: 'POST',
+            type: 'json',
+        }).done(function(data) {
+            var time = new Date(data.time * 1000).toISOString().substr(11, 8);
+            $("#live_duration_time").html(time);
         });
     }
     

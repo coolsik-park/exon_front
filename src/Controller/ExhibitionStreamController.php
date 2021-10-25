@@ -1146,4 +1146,33 @@ class ExhibitionStreamController extends AppController
         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'count' => $count]));
         return $response;
     }
+
+    public function setStartedTime($exhibition_stream_id = null)
+    {
+        if ($this->request->is('post')) {
+            $exhibitionStream = $this->ExhibitionStream->get($exhibition_stream_id);
+            $now = strtotime(date("Y-m-d H:i:s"));
+            $exhibitionStream->live_started = $now;
+
+            if ($this->ExhibitionStream->save($exhibitionStream)) {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                return $response;
+            
+            } else {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                return $response;
+            }
+        }
+    }
+
+    public function getLiveDurationTime($exhibition_stream_id = null) 
+    {
+        $exhibitionStream = $this->ExhibitionStream->get($exhibition_stream_id);
+        $now = strtotime(date("Y-m-d H:i:s"));
+        $live_started = strtotime($exhibitionStream->live_started->format('Y-m-d H:i:s'));
+        $time = $now - $live_started;
+        
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'time' => $time]));
+        return $response;
+    }   
 }

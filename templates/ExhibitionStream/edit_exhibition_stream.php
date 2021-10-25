@@ -12,6 +12,17 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.1/video-js.min.css" rel="stylesheet"> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.1/video.min.js"></script>
     <script src="/js/videojs-http-streaming.min.js"></script>
+
+    <style>
+        .video-js .vjs-time-control{display:block;}
+        .video-js .vjs-remaining-time{display: none;}
+        .video-js .vjs-progress-holder {
+            position:absolute;
+            margin:0px;
+            top:0%;
+            width:100%;
+        }
+    </style>
 </head>
 
 <div class="contents">
@@ -191,9 +202,19 @@
             url: video_uri,
             type: 'HEAD',
             success: function () {
-                player.src({src: video_uri, type: 'application/x-mpegURL' });
-                player.load();
-                player.play();
+                $.ajax({
+                    url: "/exhibition-stream/set-started-time/<?=$exhibitionStream->id?>", 
+                    type: 'POST',
+                }).done(function (data) {
+                    if (data.status == 'success') {
+                        player.src({src: video_uri, type: 'application/x-mpegURL' });
+                        player.load();
+                        player.play();
+                    
+                    } else {
+                        alert("오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
+                    }
+                });
             },
             error: function () {
                 alert("OBS에서 방송을 시작해주세요.");
