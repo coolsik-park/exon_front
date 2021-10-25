@@ -1168,10 +1168,15 @@ class ExhibitionStreamController extends AppController
     public function getLiveDurationTime($exhibition_stream_id = null) 
     {
         $exhibitionStream = $this->ExhibitionStream->get($exhibition_stream_id);
-        $now = strtotime(date("Y-m-d H:i:s"));
-        $live_started = strtotime($exhibitionStream->live_started->format('Y-m-d H:i:s'));
-        $time = $now - $live_started;
+
+        if ($exhibitionStream->live_started != null) {
+            $now = strtotime(date("Y-m-d H:i:s"));
+            $live_started = strtotime($exhibitionStream->live_started->format('Y-m-d H:i:s'));
+            $time = $now - $live_started;
         
+        } else {
+            $time = 0;
+        }
         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'time' => $time]));
         return $response;
     }   
