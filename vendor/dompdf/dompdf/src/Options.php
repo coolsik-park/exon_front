@@ -107,7 +107,7 @@ class Options
      *
      * @var string
      */
-    private $defaultFont = "serif";
+    private $defaultFont = "dejavu sans";
 
     /**
      * Image DPI setting

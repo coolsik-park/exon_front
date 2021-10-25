@@ -228,5 +228,4 @@ Configure::write('CakePdf', [
     ],
     'orientation' => 'portrait',
     'download' => true,
-    'encoding' => 'UTF-8'
 ]);

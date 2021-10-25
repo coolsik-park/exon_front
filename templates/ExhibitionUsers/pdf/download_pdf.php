@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta charset="UTF-8"> -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script src="../common/js/jquery-3.2.1.min.js"></script>
@@ -12,6 +12,21 @@
     <script src="../common/js/responsiveImg.js"></script>   
     <script src="../common/js/common.js"></script>
     <title>EXON</title>
+    <style type="text/css">
+        /* @font-face {
+            font-family: DejaVu Sans;
+            font-style: normal;
+            font-weight: normal;
+            src: url(http://121.126.223.225:8765/font/DejaVuSans.ttf);
+        } */
+        /* *{ font-family: DejaVu Sans !important;} */
+        /* @font-face {
+            font-family: 'Nanum Gothic';
+            font-style: normal;
+            font-weight: normal;
+            src: url(https://hangeul.pstatic.net/hangeul_static/css/nanum-gothic.css) format('truetype');
+        } */
+    </style>
 </head>
 <body>
     <h1 style="text-align: center;">증빙 영수증</h1><br>
