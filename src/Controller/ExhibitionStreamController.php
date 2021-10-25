@@ -1179,5 +1179,17 @@ class ExhibitionStreamController extends AppController
         }
         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'time' => $time]));
         return $response;
-    }   
+    }
+    
+    public function deleteStartedTime($exhibition_stream_id = null)
+    {
+        $exhibitionStream = $this->ExhibitionStream->get($exhibition_stream_id);
+
+        $exhibitionStream->live_started = null;
+
+        $this->ExhibitionStream->save($exhibitionStream);
+
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+        return $response;
+    }
 }

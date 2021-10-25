@@ -238,11 +238,16 @@
                     type: 'json',
                     data: jsonData,
                     success: function () {
-                        player.dispose();
-                        var html = '<video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup=\'{"fluid": true}\'></video-js>';
-                        $("#videoWrap").append(html);
-                        var newPlayer = videojs(document.querySelector('#vid1'));
-                        newPlayer.load();
+                        $.ajax({
+                            url: "/exhibition-stream/delete-started-time/<?=$exhibitionStream->id?>", 
+                            type: 'POST',
+                        }).done(function (data) {
+                            player.dispose();
+                            var html = '<video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup=\'{"fluid": true}\'></video-js>';
+                            $("#videoWrap").append(html);
+                            var newPlayer = videojs(document.querySelector('#vid1'));
+                            newPlayer.load();
+                        });  
                     },
                     error: function (data) {
                         alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
