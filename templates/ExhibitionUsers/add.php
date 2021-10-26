@@ -4,59 +4,6 @@
  * @var \App\Model\Entity\ExhibitionUser $exhibitionUser
  */
 ?>
-<!-- <div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Exhibition Users'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="exhibitionUsers form content">
-            <?= $this->Form->create($exhibitionUser, ['id' => 'apply', 'enctype' => 'multipart/form-data']) ?>
-            <fieldset>
-                <legend><?= __('Add Exhibition User') ?></legend>
-                <?php
-                    echo $this->Form->control('exhibition_group_id', ['options' => $exhibitionGroup]);
-                    echo $this->Form->control('users_email');
-                    echo $this->Form->control('users_name');
-                    echo $this->Form->control('users_hp');
-                    echo $this->Form->control('users_group');
-                    echo $this->Form->control('users_sex');
-                ?>
-                 <div class="related">
-                <h4><?= __('Exhibition Survey') ?></h4>
-                <?php if (!empty($exhibitionSurveys)) : ?>
-                <div class="table-responsive">
-                    <table>
-                        <?php $i = 0; ?>
-                        <?php foreach ($exhibitionSurveys as $exhibitionSurvey) : ?>
-                        <tr>
-                            <td><?= h($exhibitionSurvey->text) ?></td>
-                            <td>
-                                <?php
-                                    if ($exhibitionSurvey->is_multiple == 'N' || $exhibitionSurvey->parent_id != null) {
-                                        echo $this->Form->control('exhibition_survey_users_answer.' . $i . '.text');
-                                        $i++; 
-                                    } else {
-                                        echo $this->Form->control('exhibition_survey_users_answer.' . $i . '.text', ['type' => 'hidden', 'value' => 'question']);
-                                        $i++;
-                                    }
-                                ?>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </table>
-                </div>
-                <?php endif; ?>
-            </div>
-            </fieldset>
-            
-            <?= $this->Form->end() ?>
-            <?= $this->Form->button('Submit', ['id' => 'submit']) ?>
-        </div>
-    </div>
-</div> -->
 
 <div id="container"> 
     <?= $this->Form->create($exhibitionUser, ['id' => 'apply', 'enctype' => 'multipart/form-data']) ?>
