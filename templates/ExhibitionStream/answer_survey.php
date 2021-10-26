@@ -48,13 +48,23 @@
                                         <input type="hidden" name="exhibition_survey_users_answer.<?=$i?>.text" value="question">
                                         <?php $i++; ?>
                                         <div class="poll-a">
-                                            <?php foreach ($exhibitionSurvey->child_exhibition_survey as $child) : ?>
-                                            <div class="ln-rdo">
-                                                <span class="chk-dsg"><input type="radio" id="<?=$child->id?>" name="<?=$child->parent_id?>"><label for="<?=$child->id?>"><?=$child->text?></label></span>
-                                                <input type="hidden" id="<?=$child->id?>" name="exhibition_survey_users_answer.<?=$i?>.text" class="<?=$child->parent_id?>" value="">
-                                                <?php $i++; ?>
-                                            </div>
-                                            <?php endforeach; ?>
+                                            <?php if ($exhibitionSurvey->is_duplicate == 'N') : ?>
+                                                <?php foreach ($exhibitionSurvey->child_exhibition_survey as $child) : ?>
+                                                <div class="ln-rdo">
+                                                    <span class="chk-dsg"><input type="radio" id="<?=$child->id?>" name="<?=$child->parent_id?>"><label for="<?=$child->id?>"><?=$child->text?></label></span>
+                                                    <input type="hidden" id="<?=$child->id?>" name="exhibition_survey_users_answer.<?=$i?>.text" class="<?=$child->parent_id?>" value="">
+                                                    <?php $i++; ?>
+                                                </div>
+                                                <?php endforeach; ?>
+                                            <?php else : ?>
+                                                <?php foreach ($exhibitionSurvey->child_exhibition_survey as $child) : ?>
+                                                <div class="ln-rdo">
+                                                    <span class="chk-dsg"><input type="checkbox" id="<?=$child->id?>" name="<?=$child->parent_id?>"><label for="<?=$child->id?>"><?=$child->text?></label></span>
+                                                    <input type="hidden" id="<?=$child->id?>" name="exhibition_survey_users_answer.<?=$i?>.text" class="<?=$child->parent_id?>" value="">
+                                                    <?php $i++; ?>
+                                                </div>
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 <?php endif; ?>
@@ -78,6 +88,15 @@
         var name = $(this).attr("name")
         $(":input:hidden[class=" + name + "]").val('');
         $(":input:hidden[id=" + id + "]").val("Y"); 
+    });
+
+    $(":input:checkbox").change(function () {
+        var id = $(this).attr("id");
+        if ($(":input:hidden[id=" + id + "]").val() == 'Y' ) {
+            $(":input:hidden[id=" + id + "]").val(""); 
+        } else {
+            $(":input:hidden[id=" + id + "]").val("Y"); 
+        }
     });
 
     $("#send").click(function () {
