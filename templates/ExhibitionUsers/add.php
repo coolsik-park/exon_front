@@ -171,11 +171,19 @@
                             <input type="hidden" name="exhibition_survey_users_answer.<?=$i?>.text" value="question">
                             <?php $i++; ?>
                             <ul class="survey-as">
-                            <?php foreach ($exhibitionSurvey->child_exhibition_survey as $child) : ?>
-                                <li><span class="survey-a"><input type="radio" id="<?=$child->id?>" name="<?=$child->parent_id?>" value="<?=$child->text?>"><label for="<?=$child->id?>"><?=$child->text?></label></span></li>
-                                <input type="hidden" id="<?=$child->id?>" name="exhibition_survey_users_answer.<?=$i?>.text" class="<?=$child->parent_id?>" value="">
-                                <?php $i++; ?>
-                            <?php endforeach; ?>
+                            <?php if ($exhibitionSurvey->is_duplicate == 'N') : ?>
+                                <?php foreach ($exhibitionSurvey->child_exhibition_survey as $child) : ?>
+                                    <li><span class="survey-a"><input type="radio" id="<?=$child->id?>" name="<?=$child->parent_id?>" value="<?=$child->text?>"><label for="<?=$child->id?>"><?=$child->text?></label></span></li>
+                                    <input type="text" id="<?=$child->id?>" name="exhibition_survey_users_answer.<?=$i?>.text" class="<?=$child->parent_id?>" value="">
+                                    <?php $i++; ?>
+                                <?php endforeach; ?>
+                            <?php else : ?>
+                                <?php foreach ($exhibitionSurvey->child_exhibition_survey as $child) : ?>
+                                    <li><span class="survey-a"><input type="checkbox" id="<?=$child->id?>" name="<?=$child->parent_id?>" value="<?=$child->text?>"><label for="<?=$child->id?>"><?=$child->text?></label></span></li>
+                                    <input type="text" id="<?=$child->id?>" name="exhibition_survey_users_answer.<?=$i?>.text" class="<?=$child->parent_id?>" value="">
+                                    <?php $i++; ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                             </ul>
                         </div>
                     <?php endif; ?>
@@ -204,6 +212,15 @@
         var name = $(this).attr("name")
         $(":input:text[class=" + name + "]").val('');
         $(":input:text[id=" + id + "]").val("Y"); 
+    });
+
+    $(":input:checkbox").change(function () {
+        var id = $(this).attr("id");
+        if ($(":input:text[id=" + id + "]").val() == 'Y' ) {
+            $(":input:text[id=" + id + "]").val(""); 
+        } else {
+            $(":input:text[id=" + id + "]").val("Y"); 
+        }
     });
 
     $("#submit").click(function () {
