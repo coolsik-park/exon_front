@@ -404,52 +404,57 @@ class ExhibitionStreamController extends AppController
         }
 
         if ($this->request->is('post')) {
-            $count = count($this->request->getData('checkedLists'));
-            
-            for ($i = 0; $i < $count; $i++) {
-                $survey_id = $this->request->getData('checkedLists')[$i];
-                $parentSurvey = $ExhibitionSurvey->get($survey_id);
-                $parentSurvey->is_display = 'Y';
 
-                $ExhibitionSurvey->save($parentSurvey);
+            if (!empty($this->request->getData('checkedLists'))) {
+                $count = count($this->request->getData('checkedLists'));
                 
-                if ($parentSurvey->is_multiple == 'Y') {
+                for ($i = 0; $i < $count; $i++) {
+                    $survey_id = $this->request->getData('checkedLists')[$i];
+                    $parentSurvey = $ExhibitionSurvey->get($survey_id);
+                    $parentSurvey->is_display = 'Y';
 
-                    $childSurveys = $ExhibitionSurvey->find('all')->where(['parent_id' => $survey_id])->toArray();
-                    $childCount = count($childSurveys);
+                    $ExhibitionSurvey->save($parentSurvey);
                     
-                    for ($j = 0; $j < $childCount; $j++) {
-                        $child_survey_id = $childSurveys[$j]['id'];
-                        $childSurvey = $ExhibitionSurvey->get($child_survey_id);
-                        $childSurvey->is_display = 'Y';
+                    if ($parentSurvey->is_multiple == 'Y') {
 
-                        $ExhibitionSurvey->save($childSurvey);
-                    }
-                } 
+                        $childSurveys = $ExhibitionSurvey->find('all')->where(['parent_id' => $survey_id])->toArray();
+                        $childCount = count($childSurveys);
+                        
+                        for ($j = 0; $j < $childCount; $j++) {
+                            $child_survey_id = $childSurveys[$j]['id'];
+                            $childSurvey = $ExhibitionSurvey->get($child_survey_id);
+                            $childSurvey->is_display = 'Y';
+
+                            $ExhibitionSurvey->save($childSurvey);
+                        }
+                    } 
+                }
             }
-
-            $count = count($this->request->getData('uncheckedLists'));
             
-            for ($i = 0; $i < $count; $i++) {
-                $survey_id = $this->request->getData('uncheckedLists')[$i];
-                $parentSurvey = $ExhibitionSurvey->get($survey_id);
-                $parentSurvey->is_display = 'N';
+            if (!empty($this->request->getData('uncheckedLists'))) {
+                $count = count($this->request->getData('uncheckedLists'));
+            
+                for ($i = 0; $i < $count; $i++) {
+                    $survey_id = $this->request->getData('uncheckedLists')[$i];
+                    $parentSurvey = $ExhibitionSurvey->get($survey_id);
+                    $parentSurvey->is_display = 'N';
 
-                $ExhibitionSurvey->save($parentSurvey);
-                
-                if ($parentSurvey->is_multiple == 'Y') {
-
-                    $childSurveys = $ExhibitionSurvey->find('all')->where(['parent_id' => $survey_id])->toArray();
-                    $childCount = count($childSurveys);
+                    $ExhibitionSurvey->save($parentSurvey);
                     
-                    for ($j = 0; $j < $childCount; $j++) {
-                        $child_survey_id = $childSurveys[$j]['id'];
-                        $childSurvey = $ExhibitionSurvey->get($child_survey_id);
-                        $childSurvey->is_display = 'N';
+                    if ($parentSurvey->is_multiple == 'Y') {
 
-                        $ExhibitionSurvey->save($childSurvey);
-                    }
-                } 
+                        $childSurveys = $ExhibitionSurvey->find('all')->where(['parent_id' => $survey_id])->toArray();
+                        $childCount = count($childSurveys);
+                        
+                        for ($j = 0; $j < $childCount; $j++) {
+                            $child_survey_id = $childSurveys[$j]['id'];
+                            $childSurvey = $ExhibitionSurvey->get($child_survey_id);
+                            $childSurvey->is_display = 'N';
+
+                            $ExhibitionSurvey->save($childSurvey);
+                        }
+                    } 
+                }
             }
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
             return $response;

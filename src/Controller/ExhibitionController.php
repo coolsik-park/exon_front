@@ -1101,7 +1101,7 @@ class ExhibitionController extends AppController
             }
 
             $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
-            $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id])->toArray();
+            $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id, 'users_id IS NOT' => null])->toArray();
             $rowCount = count($exhibitionUsers);
 
             $ExhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey');
@@ -1122,6 +1122,7 @@ class ExhibitionController extends AppController
             }
 
             $answered[] = '';
+            $answeredCount = 0;
             for ($i = 0; $i < $rowCount; $i++) {
                 $exhibitionSurveyUsersAnswer = $ExhibitionSurveyUsersAnswer->find('all', [
                     'conditions' => [
@@ -1137,20 +1138,44 @@ class ExhibitionController extends AppController
                 $answerCount = count($exhibitionSurveyUsersAnswer);
                 
                 if ($answerCount != 0) {
+
+                    $k = 0;
                     for ($j = 0; $j < $answerCount; $j++) {
                         
                         if ($exhibitionSurveyUsersAnswer[$j]['text'] == 'Y') {
-                            $answered[$j] = (int)$exhibitionSurveyUsersAnswer[$j]['exhibition_survey_id'];
+                            
+                            $count = 0;
+                            $survey_text = '';
+                            foreach ($exhibitionSurveyUsersAnswer as $answer) {
+                                if ($exhibitionSurveyUsersAnswer[$j]['parent_id'] == $answer['parent_id']) {
+                                    $count ++;
+                                    $text = $ExhibitionSurvey->find('all')->where(['id' => $answer['exhibition_survey_id']])->toArray()[0]['text']; 
+                                    $survey_text .= $text . ' ';
+                                }
+                            }
+                            if ($count == 0) {
+                                $text = $ExhibitionSurvey->find('all')->where(['id' => $exhibitionSurveyUsersAnswer[$j]['exhibition_survey_id']])->toArray()[0]['text'];
+                                $answered[$k] = $exhibitionSurveyUsersAnswer[$j]['exhibition_survey_id'];
+                            
+                            } else {
+                                $answered[$k] = $survey_text;
+                            }
+                            $j = $j + $count -1;
                             
                         } else {
-                            $answered[$j] = $exhibitionSurveyUsersAnswer[$j]['text'];
+                            $answered[$k] = $exhibitionSurveyUsersAnswer[$j]['text'];
                         }
-                    } 
+                        $k++;
+                    }
+                    $answeredCount = count($answered); 
+
                 } else {
-                    $answered[0] = '';
+                    for ($x = 0; $x < $answeredCount; $x ++) {
+                        $answered[$x] = '';    
+                    }
                 }
-            
-                $answerData[$i] = [
+                
+                $answerData[$i] = [ 
                     'users_id' => $exhibitionUsers[$i]['users_id'],
                     'answered' => $answered 
                 ];
@@ -1182,16 +1207,14 @@ class ExhibitionController extends AppController
                         ->setCellValue('C' . ($j+2), $exhibitionUsers[$j]['users_email']);           
                 }
                 for ($j = 0; $j < $rowCount; $j++) {
+                    
                     if ($answerData[$j]['answered'][0] == '') {
                         $spreadsheet->getActiveSheet($i)
                         ->setCellValue('D' . ($j+2), '');
-                    } else {
-                        if (is_int($answerData[$j]['answered'][$i])) {
-                            $text = $ExhibitionSurvey->find()->select(['text'])->where(['id' => $answerData[$j]['answered'][$i]])->toArray();
-                            $text = $text[0]['text'];
-                        } else {
-                            $text = $answerData[$j]['answered'][$i];
-                        }
+                    
+                    } else {  
+                        $text =  $answerData[$j]['answered'][$i];
+                        $lists = explode(" ", $text);
                         
                         $spreadsheet->getActiveSheet($i)
                         ->setCellValue('D' . ($j+2), $text);
@@ -1244,27 +1267,6 @@ class ExhibitionController extends AppController
         
         $this->set(compact('beforeParentData', 'beforeChildData', 'normalParentData', 'normalChildData', 'id'));
     }
-    // Subqueries
-    // Subqueries enable you to compose queries together and build conditions and results based on the results of other queries:
-
-    // $matchingComment = $articles->getAssociation('Comments')->find()
-    //     ->select(['article_id'])
-    //     ->distinct()
-    //     ->where(['comment LIKE' => '%CakePHP%']);
-
-    // $query = $articles->find()
-    //     ->where(['id IN' => $matchingComment]);
-    // Subqueries are accepted anywhere a query expression can be used. For example, in the select() and join() methods. The above example uses a standard Orm\Query object that will generate aliases, these aliases can make referencing results in the outer query more complex. As of 4.2.0 you can use Table::subquery() to create a specialized query instance that will not generate aliases:
-
-    // $comments = $articles->getAssociation('Comments')->getTarget();
-
-    // $matchingComment = $comments->subquery()
-    //     ->select(['article_id'])
-    //     ->distinct()
-    //     ->where(['comment LIKE' => '%CakePHP%']);
-
-    // $query = $articles->find()
-    //     ->where(['id IN' => $matchingComment]);
 
     public function exhibitionStatisticsApply($id = null)
     {
