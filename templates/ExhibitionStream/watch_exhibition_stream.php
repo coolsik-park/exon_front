@@ -25,7 +25,7 @@
             <div class="webinar-cont">
                 <div class="wb-cont1">
                     <!-- autoplay="autoplay" muted="muted" -->
-                    <video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup='{"fluid": true}'></video-js>
+                    <video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup='{"fluid": true}' muted="muted" autoplay="autoplay"></video-js>
                 </div>
                 <div class="wb-cont2">
                     <h3 class="w-tit"><?= $exhibitionStream[0]['title'] ?></h3>
@@ -71,6 +71,17 @@
 </div>
 
 <script>
+    //방송 중 체크
+    $(document).ready(function () {
+        $.ajax({
+            url: "http://121.126.223.225:80/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8",
+            type: 'HEAD',
+            error: function () {
+                window.location.replace("/exhibition-stream/stream-not-exist");
+            }
+        });
+    });
+
     $(document).ready(function () {
         //시청자수 카운트
         setInterval("updateLastViewTime()" , 1000);
