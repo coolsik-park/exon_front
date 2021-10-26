@@ -594,10 +594,10 @@ class ExhibitionStreamController extends AppController
             $exhibitionUsers->attend = 2;
             $ExhibitionUsers->save($exhibitionUsers);
             $num = 2;
-        } else if ($status == 2) {
-            $exhibitionUsers->attend = 4;
-            $ExhibitionUsers->save($exhibitionUsers);
-            $num = 4;
+        // } else if ($status == 2) {
+        //     $exhibitionUsers->attend = 4;
+        //     $ExhibitionUsers->save($exhibitionUsers);
+        //     $num = 4;
         } else {
             $num = 8;
         }
@@ -693,28 +693,6 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('groupedSurveys', 'id'));
     }
 
-    // public function setTab()
-    // {
-    //     if ($this->request->is('post')) {
-    //         $tab_title = $this->request->getData('tab_title');
-    //         $is_on = $this->request->getData('is_on');
-    //         $value = $this->request->getData('value');
-    //         $stream_id = $this->request->getData('stream_id');
-
-    //         $exhibitionStream = $this->ExhibitionStream->get($stream_id);
-    //         if ($is_on == 0) {
-    //             $exhibitionStream->tab = $exhibitionStream->tab - $value;
-    //         } else {
-    //             $exhibitionStream->tab = $exhibitionStream->tab + $value;
-    //         }
-
-    //         if ($this->ExhibitionStream->save($exhibitionStream)) {
-    //             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
-    //             return $response;
-    //         }        
-    //     }
-    // }
-
     /**
      * Edit method
      *
@@ -782,32 +760,6 @@ class ExhibitionStreamController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-
-    // public function setTitleDescription($exhibition_id = null)
-    // {   
-    //     $connection = ConnectionManager::get('default');
-    //     $connection->begin();
-
-    //     if ($this->request->is('post')) {
-    //         $title = $this->request->getData('title');
-    //         $description = $this->request->getData('description');
-            
-    //         if ($result = $connection->insert('exhibition_stream', [
-    //             'exhibition_id' => $exhibition_id,
-    //             'title' => $title, 
-    //             'description' => $description,
-    //             'ip' => $this->Auth->user()->ip
-    //         ])) {
-    //             $this->Flash->success(__('The stream title&description has been saved.'));
-    //             $stream_id = $result->lastInsertId();
-    //             $connection -> commit();
-    //             return $this->redirect(['action' => 'setExhibitionStream', $exhibition_id, $stream_id]);
-    //         }
-    //         $this->Flash->error(__('The title&description could not be saved. Please, try again.'));
-    //         $connection -> rollback();
-    //         return $this->redirect(['action' => 'add', $id]);
-    //     }
-    // }
 
     public function validateCoupon () 
     {
