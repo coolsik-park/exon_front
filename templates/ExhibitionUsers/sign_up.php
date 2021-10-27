@@ -45,8 +45,8 @@
                     <div class="th-col col7">신청 그룹</div>
                     <div class="th-col col8"></div>
                 </div>
-                <?php foreach ($exhibition_users as $exhibition_user): ?>
-                    <div class="tr-row" id="tr-row" name="<?= $exhibition_user->id ?>번">
+                <?php foreach ($exhibition_users as $key => $exhibition_user): ?>
+                    <div class="tr-row">
                         <div class="td-col col1">
                             <div class="con">
                                 <div class="date">
@@ -65,12 +65,15 @@
                                         }
 
                                         if ($today > $exhibition_user->exhibition['edate']) {
+                                            if ($exhibition_user->status == 8) {
                                     ?>
-                                            <br>
-                                            <div class="state">종료</div>
-                                    <?php } elseif ($exhibition_user->status == 8 && $exhibition_user->pay->status == 8) { ?>
-                                            <!-- <div class="state"></div> -->
-                                    <?php } ?>
+                                                <div class="state">환불 완료</div>
+                                    <?php   } else { ?>
+                                                <div class="state">종료</div> 
+                                    <?php   
+                                            }
+                                        } 
+                                    ?>
                                 </div>
                             </div>                            
                         </div>
@@ -78,7 +81,11 @@
                             <div class="con ag-ty1">
                                 <p class="tit fir tit-name"><?= $exhibition_user->exhibition['title'] ?></p>
                                 <p class="photo">
-                                    <img src="<?= DS . $exhibition_user->exhibition['image_path'] . DS . $exhibition_user->exhibition['image_name'] ?>" alt="이미지없음">
+                                    <?php if ($exhibition_user->exhibition['image_path'] == null) { ?>
+                                        <img src="../../images/img-no3.png">
+                                    <?php } else { ?>
+                                        <img src="<?= DS . $exhibition_user->exhibition['image_path'] . DS . $exhibition_user->exhibition['image_name'] ?>">
+                                    <?php } ?>
                                 </p>
                             </div>
                         </div>
@@ -164,61 +171,32 @@
                             </div>
                         </div>
                         <div class="td-col col8">
-                            <div class="mo-only"></div>
-                            <div class="con">
-                                <p><a href="/exhibition-users/download-pdf/<?=$exhibition_user->exhibition['id']?>/<?=$exhibition_user->id?>" class="btn-ty3 bor">증빙</a></p>
-                                <?php
+                            <?php if ($exhibition_user->status != 8){ ?>
+                                <div class="con">
+                                    <p><a href="/exhibition-users/download-pdf/<?= $exhibition_user->exhibition['id'] ?>/<?= $exhibition_user->id ?>" class="btn-ty3 bor">증빙</a></p>
+                                    <?php
                                     $today = new DateTime();
-
-                                    if ($today < $exhibition_user->exhibition['sdate']) {
-                                ?>
-                                    <button type="button" class="btn-ty3 red" style="cursor:pointer;" data-toggle="modal" data-target="#signUpCancelModal" data-backdrop="static" data-keyboard="false">
-                                        취소하기
-                                    </button>
-                                <?php } elseif ($today > $exhibition_user->exhibition['edate']) { ?>
-                                    <button type="button" class="btn-ty3 red" style="cursor:pointer;" data-toggle="modal" data-target="#signUpCancelModal" data-backdrop="static" data-keyboard="false">
-                                        취소하기
-                                    </button>
-                                <?php
-                                    } else {
-                                        echo '진행중인 행사입니다.';
-                                    }
-                                ?>
-                                <?php
-                                    $today = new DateTime();
-                                    
-                                    if ($exhibition_user->attend == 1) {
-                                        if ($today <= $exhibition_user->exhibition['edate']) {
-                                ?>
-                                            <p><a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition_user->exhibition_id ?>/<?= $exhibition_user->id ?>" class="btn-ty3 bor" id="exhibitionSee">웨비나 시청</a></p>
-                                <?php
-                                        }
-                                    }
-                                ?>
-                            </div>
-                            <div class="modal fade" id="signUpCancelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content" style="background-color:transparent; border:none;">
-                                        <div class="popup-wrap popup-ty2">
-                                            <div class="popup-head">
-                                                <h1>참가자 신청 취소</h1>
-                                                <button id="close" type="button" class="popup-close close" data-dismiss="modal" aria-label="Close">팝업닫기</button>
-                                            </div>
-                                            <div class="popup-body">        
-                                                <div class="cert-sect4">
-                                                    <p>참가자의 신청을 취소할 경우 참가자가 결제한 금액은<br class="br-mo">
-                                                        모두 환불됩니다.<br>
-                                                        참가자 신청을 취소하시겠습니까?</p>
-                                                </div>
-                                                <div class="popup-btm">
-                                                    <button type="button" class="btn-ty2 red" data-dismiss="modal" aria-label="Close">취소</button>
-                                                    <button type="button" class="btn-ty2">확인</button>
-                                                </div>        
-                                            </div>
-                                        </div> 
-                                    </div>
+                                    if ($today > $exhibition_user->exhibition['edate']):
+                                    else:
+                                        if ($today > $exhibition_user->exhibition['sdate']):
+                                            echo '진행중인 행사입니다.';
+                                            if ($exhibition_user->attend == 1):
+                                    ?>
+                                                <p><a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition_user->exhibition_id ?>/<?= $exhibition_user->id ?>" class="btn-ty3 bor" id="exhibitionSee">웨비나 시청</a></p>
+                                    <?php
+                                            endif;
+                                        else:
+                                    ?>
+                                            <button type="button" class="btn-ty3 red" style="cursor:pointer;" data-toggle="modal" data-target="#signUpCancelModal" data-backdrop="static" data-keyboard="false" onClick="signUpCancel(<?= $key ?>)">
+                                                취소하기
+                                            </button>
+                                    <?php 
+                                        endif;
+                                    endif;
+                                    ?>
                                 </div>
-                            </div>
+                            <?php } ?>
+                            <div id="popup"></div>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -234,3 +212,59 @@
     </div>        
 </div>
 <footer id="footer"></footer>
+
+<script>
+    function signUpCancel(key) {
+        var html = '';
+        html += '<div class="modal fade" id="signUpCancelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
+        html += '   <div class="modal-dialog" role="document">';
+        html += '        <div class="modal-content" style="background-color:transparent; border:none;">';
+        html += '            <div class="popup-wrap popup-ty2">';
+        html += '                <div class="popup-head">';
+        html += '                    <h1>참가자 신청 취소</h1>';
+        html += '                    <button id="close" type="button" class="popup-close close" data-dismiss="modal" aria-label="Close">팝업닫기</button>';
+        html += '                </div>';
+        html += '                <div class="popup-body">';
+        html += '                    <div class="cert-sect4">';
+        html += '                        <p>참가자의 신청을 취소할 경우 참가자가 결제한 금액은<br class="br-mo">모두 환불됩니다.<br>참가자 신청을 취소하시겠습니까?</p>';
+        html += '                    </div>';
+        html += '                    <div class="popup-btm">';
+        html += '                        <button type="button" class="btn-ty2 red" data-dismiss="modal" aria-label="Close">취소</button>';
+        html += '                        <button type="button" class="btn-ty2" onClick="signUpCancleOK(' + key + ')">확인</button>';
+        html += '                    </div>';
+        html += '               </div>';
+        html += '           </div>';
+        html += '       </div>';
+        html += '   </div>';
+        html += '</div>';
+        $("#popup").html(html);
+    }
+
+    function signUpCancleOK(index) {
+        var exhibition_users = <?= json_encode($exhibition_users)  ?>;
+        var id = exhibition_users[index]['id'];
+        var exhibition_id = exhibition_users[index]['exhibition_id'];
+        var users_name = exhibition_users[index]['users_name'];
+        var users_email = exhibition_users[index]['users_email'];
+        var pay_id = exhibition_users[index]['pay_id'];
+
+        $.ajax({
+            url: '/exhibition-users/exhibition-users-status',
+            method: 'POST',
+            type: 'json',
+            data: {
+                id: id,
+                exhibition_id: exhibition_id,
+                users_name: users_name,
+                email: users_email,
+                pay_id: pay_id
+            }
+        }).done(function(data) {
+            if (data.status == 'success') {
+                window.location.reload();
+            } else {
+                alert('실패하였습니다. 다시 시도해주세요.');
+            }
+        });
+    }
+</script>
