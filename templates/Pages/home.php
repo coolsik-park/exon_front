@@ -25,9 +25,11 @@
                 <div class="main-sect2">
                     <h2 class="h-ty1"><span class="t1">Top 10</span><span class="t2">지금 핫한 전시 10</span></h2>
                     <div class="main-sect2-hot-item">
-                        <div class="imgs">
-                            <img src="<?php echo $hot[0]['img_path'] . $hot[0]['img_name'];?>" alt="">
-                        </div>
+                        <a href="exhibition/view/<?php echo $hot[0]['exhibition_id']; ?>" class="main-sd-item">
+                            <div class="imgs">
+                                <img src="<?php echo $hot[0]['img_path'] . $hot[0]['img_name'];?>" alt="">
+                            </div>
+                        </a>
                         <div class="desc">
                             <div class="info">
                                 <span class="state"><?php if($hot[0]['playing']) echo "진행중"; else echo "진행전"; ?></span>
