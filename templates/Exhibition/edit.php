@@ -68,10 +68,10 @@
                     <h4 class="s-hty2">모집 일시</h4>
                     <div class="date-sett-wp">
                         <div class="date-sett">
-                            <?php echo $this->Form->control('apply_sdate', ['id' =>'apply_sdate', 'label' => '시작 일시', 'placeholder' => '시작날짜', 'class' => 'date-date', 'style' => 'width:370px; height:48.52px']); ?>
+                            <?php echo $this->Form->control('apply_sdate', ['step' => null, 'id' =>'apply_sdate', 'label' => '시작 일시', 'placeholder' => '시작날짜', 'class' => 'date-date', 'style' => 'width:370px; height:48.52px']); ?>
                         </div>
                         <div class="date-sett">
-                            <?php echo $this->Form->control('apply_edate', ['id' =>'apply_edate', 'label' => '종료 일시', 'class' => 'date-date', 'style' => 'width:370px; height:48.52px']); ?>
+                            <?php echo $this->Form->control('apply_edate', ['step' => null, 'id' =>'apply_edate', 'label' => '종료 일시', 'class' => 'date-date', 'style' => 'width:370px; height:48.52px']); ?>
                         </div>               
                     </div>
                 </div>
@@ -79,10 +79,10 @@
                     <h4 class="s-hty2">행사 일시</h4>
                     <div class="date-sett-wp">
                         <div class="date-sett">
-                            <?php echo $this->Form->control('sdate', ['id' =>'sdate', 'label' => '시작 일시', 'placeholder' => '시작날짜', 'class' => 'date-date', 'style' => 'width:370px; height:48.52px']); ?>
+                            <?php echo $this->Form->control('sdate', ['step' => null, 'id' =>'sdate', 'label' => '시작 일시', 'placeholder' => '시작날짜', 'class' => 'date-date', 'style' => 'width:370px; height:48.52px']); ?>
                         </div>
                         <div class="date-sett">
-                            <?php echo $this->Form->control('edate', ['id' =>'edate', 'label' => '종료 일시', 'class' => 'date-date', 'style' => 'width:370px; height:48.52px']); ?>
+                            <?php echo $this->Form->control('edate', ['step' => null, 'id' =>'edate', 'label' => '종료 일시', 'class' => 'date-date', 'style' => 'width:370px; height:48.52px']); ?>
                         </div>                
                     </div>
                 </div>
