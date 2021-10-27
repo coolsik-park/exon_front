@@ -879,11 +879,11 @@ class ExhibitionStreamController extends AppController
             require_once("solapi-php/lib/message.php");
 
             $code = $this->generateCode();
-            $commonConfirmation_table = TableRegistry::get('CommonConfirmation');
-            $commonConfirmation = $commonConfirmation_table->newEmptyEntity();
-            $commonConfirmation = $commonConfirmation_table->patchEntity($commonConfirmation, ['confirmation_code' =>$code, 'types' => 'SMS']);
+            $commonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
+            $commonConfirmation = $commonConfirmations->newEmptyEntity();
+            $commonConfirmation = $commonConfirmations->patchEntity($commonConfirmation, ['confirmation_code' =>$code, 'types' => 'SMS']);
 
-            if ($result = $commonConfirmation_table->save($commonConfirmation)) {
+            if ($result = $commonConfirmations->save($commonConfirmation)) {
                 $to[0] = $this->request->getData('hp');
 
                 $messages = [
@@ -912,8 +912,8 @@ class ExhibitionStreamController extends AppController
         $connection = ConnectionManager::get('default');
         $connection->begin();
 
-        $commonConfirmation_table = TableRegistry::get('CommonConfirmation');
-        $commonConfirmation = $commonConfirmation_table->find('all')->where(['id' => $id])->toArray();
+        $commonConfirmation_table = $this->getTableLocator()->get('CommonConfirmation');
+        $commonConfirmation = $commonConfirmations->find('all')->where(['id' => $id])->toArray();
         $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
 
         if ($this->request->is('post')) {
