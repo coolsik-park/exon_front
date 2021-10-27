@@ -1144,23 +1144,23 @@ class ExhibitionController extends AppController
                         
                         if ($exhibitionSurveyUsersAnswer[$j]['text'] == 'Y') {
                             
-                            $count = 0;
+                            $nextCount = 0;
                             $survey_text = '';
                             foreach ($exhibitionSurveyUsersAnswer as $answer) {
                                 if ($exhibitionSurveyUsersAnswer[$j]['parent_id'] == $answer['parent_id']) {
-                                    $count ++;
+                                    $nextCount ++;
                                     $text = $ExhibitionSurvey->find('all')->where(['id' => $answer['exhibition_survey_id']])->toArray()[0]['text']; 
                                     $survey_text .= $text . ' ';
                                 }
                             }
-                            if ($count == 0) {
+                            if ($nextCount == 0) {
                                 $text = $ExhibitionSurvey->find('all')->where(['id' => $exhibitionSurveyUsersAnswer[$j]['exhibition_survey_id']])->toArray()[0]['text'];
                                 $answered[$k] = $exhibitionSurveyUsersAnswer[$j]['exhibition_survey_id'];
                             
                             } else {
                                 $answered[$k] = $survey_text;
                             }
-                            $j = $j + $count -1;
+                            $j = $j + $nextCount -1;
                             
                         } else {
                             $answered[$k] = $exhibitionSurveyUsersAnswer[$j]['text'];
