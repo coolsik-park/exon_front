@@ -6,7 +6,7 @@
                     <div class="swiper-wrapper">
 						<?php foreach ($banner as $list): ?>
 							<div class="swiper-slide">
-								<a href="/exhibition/view/<?php echo $list->exhibition_id; ?>"><div class="imgs"><img src="<?php echo $list->img_path . $list->img_name;?>" class="responsiveImg" data-media-web="<?php echo $list->img_path . $list->img_name;?>" data-media-mobile="<?php echo $list->img_path . $list->img_name;?>" alt="" ></div></a>
+								<a href="/exhibition/view/<?php echo $list->exhibition_id; ?>" class="imgs"><img src="<?php echo $list->img_path . $list->img_name;?>" class="responsiveImg" data-media-web="<?php echo $list->img_path . $list->img_name;?>" data-media-mobile="<?php echo $list->img_path . $list->img_name;?>" alt="" ></a>
 							</div>
 						<?php endforeach; ?>
                     </div>
