@@ -41,7 +41,7 @@
     <div class="section-webinar3">
         <div class="webinar-cont">
             <div id="videoWrap" class="wb-cont1" >
-                <video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup='{"fluid": true}'></video-js>
+                <video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup='{"fluid": true}' muted="muted" autoplay="autoplay"></video-js>
             </div>
             <div class="wb-cont2">
                 <button id="start" type="button" class="btn-ty4 black">방송시작</button>
@@ -191,6 +191,24 @@
         if (parseInt($(this).val()) < people) {
             $(this).remove();
         }
+    });
+    
+    //방송 중 체크
+    $(document).ready(function () {
+        var player = videojs(document.querySelector('#vid1'));
+        $.ajax({
+            url: "http://121.126.223.225:80/live/<?=$exhibitionStream->stream_key?>/index.m3u8",
+            type: 'HEAD',
+            success: function () {
+                player.src({src: video_uri, type: 'application/x-mpegURL' });
+                player.load();
+                player.play();
+            },
+            error: function () {
+                player.attr("autoplay", false);
+                player.attr("muted", false);
+            }
+        });
     });
 
     //방송 컨트롤

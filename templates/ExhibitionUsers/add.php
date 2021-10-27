@@ -4,59 +4,6 @@
  * @var \App\Model\Entity\ExhibitionUser $exhibitionUser
  */
 ?>
-<!-- <div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Exhibition Users'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="exhibitionUsers form content">
-            <?= $this->Form->create($exhibitionUser, ['id' => 'apply', 'enctype' => 'multipart/form-data']) ?>
-            <fieldset>
-                <legend><?= __('Add Exhibition User') ?></legend>
-                <?php
-                    echo $this->Form->control('exhibition_group_id', ['options' => $exhibitionGroup]);
-                    echo $this->Form->control('users_email');
-                    echo $this->Form->control('users_name');
-                    echo $this->Form->control('users_hp');
-                    echo $this->Form->control('users_group');
-                    echo $this->Form->control('users_sex');
-                ?>
-                 <div class="related">
-                <h4><?= __('Exhibition Survey') ?></h4>
-                <?php if (!empty($exhibitionSurveys)) : ?>
-                <div class="table-responsive">
-                    <table>
-                        <?php $i = 0; ?>
-                        <?php foreach ($exhibitionSurveys as $exhibitionSurvey) : ?>
-                        <tr>
-                            <td><?= h($exhibitionSurvey->text) ?></td>
-                            <td>
-                                <?php
-                                    if ($exhibitionSurvey->is_multiple == 'N' || $exhibitionSurvey->parent_id != null) {
-                                        echo $this->Form->control('exhibition_survey_users_answer.' . $i . '.text');
-                                        $i++; 
-                                    } else {
-                                        echo $this->Form->control('exhibition_survey_users_answer.' . $i . '.text', ['type' => 'hidden', 'value' => 'question']);
-                                        $i++;
-                                    }
-                                ?>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </table>
-                </div>
-                <?php endif; ?>
-            </div>
-            </fieldset>
-            
-            <?= $this->Form->end() ?>
-            <?= $this->Form->button('Submit', ['id' => 'submit']) ?>
-        </div>
-    </div>
-</div> -->
 
 <div id="container"> 
     <?= $this->Form->create($exhibitionUser, ['id' => 'apply', 'enctype' => 'multipart/form-data']) ?>
@@ -171,11 +118,19 @@
                             <input type="hidden" name="exhibition_survey_users_answer.<?=$i?>.text" value="question">
                             <?php $i++; ?>
                             <ul class="survey-as">
-                            <?php foreach ($exhibitionSurvey->child_exhibition_survey as $child) : ?>
-                                <li><span class="survey-a"><input type="radio" id="<?=$child->id?>" name="<?=$child->parent_id?>" value="<?=$child->text?>"><label for="<?=$child->id?>"><?=$child->text?></label></span></li>
-                                <input type="hidden" id="<?=$child->id?>" name="exhibition_survey_users_answer.<?=$i?>.text" class="<?=$child->parent_id?>" value="">
-                                <?php $i++; ?>
-                            <?php endforeach; ?>
+                            <?php if ($exhibitionSurvey->is_duplicate == 'N') : ?>
+                                <?php foreach ($exhibitionSurvey->child_exhibition_survey as $child) : ?>
+                                    <li><span class="survey-a"><input type="radio" id="<?=$child->id?>" name="<?=$child->parent_id?>" value="<?=$child->text?>"><label for="<?=$child->id?>"><?=$child->text?></label></span></li>
+                                    <input type="hidden" id="<?=$child->id?>" name="exhibition_survey_users_answer.<?=$i?>.text" class="<?=$child->parent_id?>" value="">
+                                    <?php $i++; ?>
+                                <?php endforeach; ?>
+                            <?php else : ?>
+                                <?php foreach ($exhibitionSurvey->child_exhibition_survey as $child) : ?>
+                                    <li><span class="survey-a"><input type="checkbox" id="<?=$child->id?>" name="<?=$child->parent_id?>" value="<?=$child->text?>"><label for="<?=$child->id?>"><?=$child->text?></label></span></li>
+                                    <input type="hidden" id="<?=$child->id?>" name="exhibition_survey_users_answer.<?=$i?>.text" class="<?=$child->parent_id?>" value="">
+                                    <?php $i++; ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                             </ul>
                         </div>
                     <?php endif; ?>
@@ -202,8 +157,17 @@
     $(":input:radio").change(function () {
         var id = $(this).attr("id");
         var name = $(this).attr("name")
-        $(":input:text[class=" + name + "]").val('');
-        $(":input:text[id=" + id + "]").val("Y"); 
+        $(":input:hidden[class=" + name + "]").val('');
+        $(":input:hidden[id=" + id + "]").val("Y"); 
+    });
+
+    $(":input:checkbox").change(function () {
+        var id = $(this).attr("id");
+        if ($(":input:hidden[id=" + id + "]").val() == 'Y' ) {
+            $(":input:hidden[id=" + id + "]").val(""); 
+        } else {
+            $(":input:hidden[id=" + id + "]").val("Y"); 
+        }
     });
 
     $("#submit").click(function () {

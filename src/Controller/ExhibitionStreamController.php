@@ -404,52 +404,57 @@ class ExhibitionStreamController extends AppController
         }
 
         if ($this->request->is('post')) {
-            $count = count($this->request->getData('checkedLists'));
-            
-            for ($i = 0; $i < $count; $i++) {
-                $survey_id = $this->request->getData('checkedLists')[$i];
-                $parentSurvey = $ExhibitionSurvey->get($survey_id);
-                $parentSurvey->is_display = 'Y';
 
-                $ExhibitionSurvey->save($parentSurvey);
+            if (!empty($this->request->getData('checkedLists'))) {
+                $count = count($this->request->getData('checkedLists'));
                 
-                if ($parentSurvey->is_multiple == 'Y') {
+                for ($i = 0; $i < $count; $i++) {
+                    $survey_id = $this->request->getData('checkedLists')[$i];
+                    $parentSurvey = $ExhibitionSurvey->get($survey_id);
+                    $parentSurvey->is_display = 'Y';
 
-                    $childSurveys = $ExhibitionSurvey->find('all')->where(['parent_id' => $survey_id])->toArray();
-                    $childCount = count($childSurveys);
+                    $ExhibitionSurvey->save($parentSurvey);
                     
-                    for ($j = 0; $j < $childCount; $j++) {
-                        $child_survey_id = $childSurveys[$j]['id'];
-                        $childSurvey = $ExhibitionSurvey->get($child_survey_id);
-                        $childSurvey->is_display = 'Y';
+                    if ($parentSurvey->is_multiple == 'Y') {
 
-                        $ExhibitionSurvey->save($childSurvey);
-                    }
-                } 
+                        $childSurveys = $ExhibitionSurvey->find('all')->where(['parent_id' => $survey_id])->toArray();
+                        $childCount = count($childSurveys);
+                        
+                        for ($j = 0; $j < $childCount; $j++) {
+                            $child_survey_id = $childSurveys[$j]['id'];
+                            $childSurvey = $ExhibitionSurvey->get($child_survey_id);
+                            $childSurvey->is_display = 'Y';
+
+                            $ExhibitionSurvey->save($childSurvey);
+                        }
+                    } 
+                }
             }
-
-            $count = count($this->request->getData('uncheckedLists'));
             
-            for ($i = 0; $i < $count; $i++) {
-                $survey_id = $this->request->getData('uncheckedLists')[$i];
-                $parentSurvey = $ExhibitionSurvey->get($survey_id);
-                $parentSurvey->is_display = 'N';
+            if (!empty($this->request->getData('uncheckedLists'))) {
+                $count = count($this->request->getData('uncheckedLists'));
+            
+                for ($i = 0; $i < $count; $i++) {
+                    $survey_id = $this->request->getData('uncheckedLists')[$i];
+                    $parentSurvey = $ExhibitionSurvey->get($survey_id);
+                    $parentSurvey->is_display = 'N';
 
-                $ExhibitionSurvey->save($parentSurvey);
-                
-                if ($parentSurvey->is_multiple == 'Y') {
-
-                    $childSurveys = $ExhibitionSurvey->find('all')->where(['parent_id' => $survey_id])->toArray();
-                    $childCount = count($childSurveys);
+                    $ExhibitionSurvey->save($parentSurvey);
                     
-                    for ($j = 0; $j < $childCount; $j++) {
-                        $child_survey_id = $childSurveys[$j]['id'];
-                        $childSurvey = $ExhibitionSurvey->get($child_survey_id);
-                        $childSurvey->is_display = 'N';
+                    if ($parentSurvey->is_multiple == 'Y') {
 
-                        $ExhibitionSurvey->save($childSurvey);
-                    }
-                } 
+                        $childSurveys = $ExhibitionSurvey->find('all')->where(['parent_id' => $survey_id])->toArray();
+                        $childCount = count($childSurveys);
+                        
+                        for ($j = 0; $j < $childCount; $j++) {
+                            $child_survey_id = $childSurveys[$j]['id'];
+                            $childSurvey = $ExhibitionSurvey->get($child_survey_id);
+                            $childSurvey->is_display = 'N';
+
+                            $ExhibitionSurvey->save($childSurvey);
+                        }
+                    } 
+                }
             }
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
             return $response;
@@ -594,10 +599,10 @@ class ExhibitionStreamController extends AppController
             $exhibitionUsers->attend = 2;
             $ExhibitionUsers->save($exhibitionUsers);
             $num = 2;
-        } else if ($status == 2) {
-            $exhibitionUsers->attend = 4;
-            $ExhibitionUsers->save($exhibitionUsers);
-            $num = 4;
+        // } else if ($status == 2) {
+        //     $exhibitionUsers->attend = 4;
+        //     $ExhibitionUsers->save($exhibitionUsers);
+        //     $num = 4;
         } else {
             $num = 8;
         }
@@ -693,28 +698,6 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('groupedSurveys', 'id'));
     }
 
-    // public function setTab()
-    // {
-    //     if ($this->request->is('post')) {
-    //         $tab_title = $this->request->getData('tab_title');
-    //         $is_on = $this->request->getData('is_on');
-    //         $value = $this->request->getData('value');
-    //         $stream_id = $this->request->getData('stream_id');
-
-    //         $exhibitionStream = $this->ExhibitionStream->get($stream_id);
-    //         if ($is_on == 0) {
-    //             $exhibitionStream->tab = $exhibitionStream->tab - $value;
-    //         } else {
-    //             $exhibitionStream->tab = $exhibitionStream->tab + $value;
-    //         }
-
-    //         if ($this->ExhibitionStream->save($exhibitionStream)) {
-    //             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
-    //             return $response;
-    //         }        
-    //     }
-    // }
-
     /**
      * Edit method
      *
@@ -782,32 +765,6 @@ class ExhibitionStreamController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-
-    // public function setTitleDescription($exhibition_id = null)
-    // {   
-    //     $connection = ConnectionManager::get('default');
-    //     $connection->begin();
-
-    //     if ($this->request->is('post')) {
-    //         $title = $this->request->getData('title');
-    //         $description = $this->request->getData('description');
-            
-    //         if ($result = $connection->insert('exhibition_stream', [
-    //             'exhibition_id' => $exhibition_id,
-    //             'title' => $title, 
-    //             'description' => $description,
-    //             'ip' => $this->Auth->user()->ip
-    //         ])) {
-    //             $this->Flash->success(__('The stream title&description has been saved.'));
-    //             $stream_id = $result->lastInsertId();
-    //             $connection -> commit();
-    //             return $this->redirect(['action' => 'setExhibitionStream', $exhibition_id, $stream_id]);
-    //         }
-    //         $this->Flash->error(__('The title&description could not be saved. Please, try again.'));
-    //         $connection -> rollback();
-    //         return $this->redirect(['action' => 'add', $id]);
-    //     }
-    // }
 
     public function validateCoupon () 
     {
@@ -922,11 +879,11 @@ class ExhibitionStreamController extends AppController
             require_once("solapi-php/lib/message.php");
 
             $code = $this->generateCode();
-            $commonConfirmation_table = TableRegistry::get('CommonConfirmation');
-            $commonConfirmation = $commonConfirmation_table->newEmptyEntity();
-            $commonConfirmation = $commonConfirmation_table->patchEntity($commonConfirmation, ['confirmation_code' =>$code, 'types' => 'SMS']);
+            $commonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
+            $commonConfirmation = $commonConfirmations->newEmptyEntity();
+            $commonConfirmation = $commonConfirmations->patchEntity($commonConfirmation, ['confirmation_code' =>$code, 'types' => 'SMS']);
 
-            if ($result = $commonConfirmation_table->save($commonConfirmation)) {
+            if ($result = $commonConfirmations->save($commonConfirmation)) {
                 $to[0] = $this->request->getData('hp');
 
                 $messages = [
@@ -955,8 +912,8 @@ class ExhibitionStreamController extends AppController
         $connection = ConnectionManager::get('default');
         $connection->begin();
 
-        $commonConfirmation_table = TableRegistry::get('CommonConfirmation');
-        $commonConfirmation = $commonConfirmation_table->find('all')->where(['id' => $id])->toArray();
+        $commonConfirmation_table = $this->getTableLocator()->get('CommonConfirmation');
+        $commonConfirmation = $commonConfirmations->find('all')->where(['id' => $id])->toArray();
         $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
 
         if ($this->request->is('post')) {

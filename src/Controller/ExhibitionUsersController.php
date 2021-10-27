@@ -427,15 +427,16 @@ class ExhibitionUsersController extends AppController
     public function sendSmsCertification()
     {        
         if ($this->request->is('post')) {
+            
             require_once("solapi-php/lib/message.php");
-
+            
             $code = $this->generateCode();
-            $commonConfirmation_table = TableRegistry::get('CommonConfirmation');
-            $commonConfirmation = $commonConfirmation_table->newEmptyEntity();
-            $commonConfirmation = $commonConfirmation_table->patchEntity($commonConfirmation, ['confirmation_code' =>$code, 'types' => 'SMS']);
+            $CommonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
+            $commonConfirmation = $CommonConfirmations->newEmptyEntity();
+            $commonConfirmation = $CommonConfirmations->patchEntity($commonConfirmation, ['confirmation_code' =>$code, 'types' => 'SMS']);
 
-            if ($result = $commonConfirmation_table->save($commonConfirmation)) {
-                $to[0] = $this->request->getData('hp');
+            if ($result = $CommonConfirmations->save($commonConfirmation)) {
+                $to = $this->request->getData('hp');
 
                 $messages = [
                     [
@@ -454,14 +455,12 @@ class ExhibitionUsersController extends AppController
                 }
             }
         }
-
-        $this->set(compact('user_id'));
     }
 
     public function confirmSms($id = null) 
     {
-        $commonConfirmation_table = TableRegistry::get('CommonConfirmation');
-        $commonConfirmation = $commonConfirmation_table->find('all')->where(['id' => $id])->toArray();
+        $CommonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
+        $commonConfirmation = $CommonConfirmations->find('all')->where(['id' => $id])->toArray();
 
         if ($this->request->is('post')) {
 
@@ -519,7 +518,6 @@ class ExhibitionUsersController extends AppController
                 return $response;
             }
         }
-        $this->set(compact('user_id'));
     }
 
     public function confirmEmail($id = null)
