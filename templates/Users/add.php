@@ -113,6 +113,37 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
             alert(msg);
         }
     });
+
+    //전체동의
+    $("#agree1").click(function () {
+        if ($("#agree1").prop("checked")) {
+            $("#agree2").prop("checked", true);
+            $("#agree3").prop("checked", true);
+            $("#agree4").prop("checked", true);
+        } else {
+            $("#agree2").prop("checked", false);
+            $("#agree3").prop("checked", false);
+            $("#agree4").prop("checked", false);
+        }
+    });
+
+    $("#agree2").click(function () {
+        $("#agree1").prop("checked", false);
+    });
+
+    $("#agree3").click(function () {
+        $("#agree1").prop("checked", false);
+    });
+
+    $("#agree4").click(function () {
+        $("#agree1").prop("checked", false);
+    });
+
+    $(document).on("change", function () {
+        if ($("#agree2").prop("checked") && $("#agree3").prop("checked") && $("#agree4").prop("checked")) {
+            $("#agree1").prop("checked", true);
+        }
+    });
     
     $(".btn-big").click(function () {
         var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
@@ -166,6 +197,11 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
         } else {
             $("#confirmNoti").html("");
             result.push('true');
+        }
+
+        if ($("#agree2").prop("checked") == false && $("#agree3").prop("checked") == false) {
+            alert("필수 이용약관 및 개인정보 수집/이용 동의를 확인해주세요.");
+            result.push('false');
         }
 
         if (!result.includes('false')) {
