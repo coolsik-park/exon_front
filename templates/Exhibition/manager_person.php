@@ -211,7 +211,6 @@
             alert("비회원이라 사전설문 결과를 확인할 수 없습니다.");
         } else {
             var beforeParentData = <?= json_encode($beforeParentData) ?>;
-            console.log(beforeParentData[0]['child_exhibition_survey']);
             var html = '';
             html += '<div class="modal fade" id="surveyCheckModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
             html += '   <div class="modal-dialog" role="document">';
