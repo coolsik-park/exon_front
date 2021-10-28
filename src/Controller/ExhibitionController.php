@@ -1317,7 +1317,11 @@ class ExhibitionController extends AppController
         $ages[] = '';
         for ($i = 0; $i < $count; $i++) {
             if ($exhibition[0]->users[$i]->_joinData->status != 8) {
-                $ages[$i] = date('Y')-(int)$exhibition[0]->users[$i]->birthday->i18nFormat('yyyy') + 1;
+                if ($exhibition[0]->users[$i]->birthday != null) {
+                    $ages[$i] = date('Y')-(int)$exhibition[0]->users[$i]->birthday->i18nFormat('yyyy') + 1;
+                } else {
+                    $ages[$i] = 0;
+                }
             }
         }
 
@@ -1341,7 +1345,11 @@ class ExhibitionController extends AppController
         $ages[] = '';
         for ($i = 0; $i < $count; $i++) {
             if ($exhibition[0]->users[$i]->_joinData->status == 4) {
-                $ages[$i] = date('Y')-(int)$exhibition[0]->users[$i]->birthday->i18nFormat('yyyy') + 1;
+                if ($exhibition[0]->users[$i]->birthday != null) {
+                    $ages[$i] = date('Y')-(int)$exhibition[0]->users[$i]->birthday->i18nFormat('yyyy') + 1;
+                } else {
+                    $ages[$i] = 0;
+                }
             }
         }
 
@@ -1366,7 +1374,11 @@ class ExhibitionController extends AppController
         $ages[] = '';
         for ($i = 0; $i < $count; $i++) {
             if ($exhibition[0]->users[$i]->_joinData->status == 4 && $exhibition[0]->users[$i]->_joinData->exhibition_group_id == $group) {
-                $ages[$i] = date('Y')-(int)$exhibition[0]->users[$i]->birthday->i18nFormat('yyyy') + 1;
+                if ($exhibition[0]->users[$i]->birthday != null) {
+                    $ages[$i] = date('Y')-(int)$exhibition[0]->users[$i]->birthday->i18nFormat('yyyy') + 1;
+                } else {
+                    $ages[$i] = 0;
+                }
             }
         }
         $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
@@ -1418,7 +1430,11 @@ class ExhibitionController extends AppController
         $ages[] = '';
         for ($i = 0; $i < $count; $i++) {
             if ($exhibition[0]->users[$i]->_joinData->attend == 2 || $exhibition[0]->users[$i]->_joinData->attend == 4) {
-                $ages[$i] = date('Y')-(int)$exhibition[0]->users[$i]->birthday->i18nFormat('yyyy') + 1;
+                if ($exhibition[0]->users[$i]->birthday != null) {
+                    $ages[$i] = date('Y')-(int)$exhibition[0]->users[$i]->birthday->i18nFormat('yyyy') + 1;
+                } else {
+                    $ages[$i] = 0;
+                }
             }
         }
 
@@ -1476,7 +1492,11 @@ class ExhibitionController extends AppController
         $ages[] = '';
         for ($i = 0; $i < $count; $i++) {
             if ($exhibition[0]->users[$i]->_joinData->attend == 2 && $exhibition[0]->users[$i]->_joinData->exhibition_group_id == $group || $exhibition[0]->users[$i]->_joinData->attend == 4 && $exhibition[0]->users[$i]->_joinData->exhibition_group_id == $group) {
-                $ages[$i] = date('Y')-(int)$exhibition[0]->users[$i]->birthday->i18nFormat('yyyy') + 1;
+                if ($exhibition[0]->users[$i]->birthday != null) {
+                    $ages[$i] = date('Y')-(int)$exhibition[0]->users[$i]->birthday->i18nFormat('yyyy') + 1;
+                } else {
+                    $ages[$i] = 0;
+                }
             }
         }
 
