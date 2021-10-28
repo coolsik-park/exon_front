@@ -89,6 +89,11 @@
         });
     });
 
+    //모달 팝업 창 닫기 시
+    $("#close").click(function () {
+        window.location.replace('/exhibition-stream/certification');
+    });
+
     $(document).on("click", "#certify", function () {
         if ($("#cert1").prop("checked") == true) {
             var user_id = '<?=$auth_id?>';

@@ -17,9 +17,9 @@
         <h2 class="sr-only">참가자 관리</h2>
         <div class="pr3-title">                         
             <ul class="s-tabs2">
-                <li><a href="http://121.126.223.225:8765/exhibition/manager-person/<?= $id ?>">참가자</a></li>
+                <li><a href="/exhibition/manager-person/<?= $id ?>">참가자</a></li>
                 <li class="active"><a href="">문자</a></li>
-                <li><a href="http://121.126.223.225:8765/exhibition/send-email-to-participant/<?= $id ?>">이메일</a></li>
+                <li><a href="/exhibition/send-email-to-participant/<?= $id ?>">이메일</a></li>
             </ul>
             <h3 class="s-hty1">문자</h3>       
         </div>

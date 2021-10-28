@@ -942,7 +942,7 @@ class ExhibitionController extends AppController
 
     public function sendSmsToParticipant($id = null, $exhibition_users_id = null)
     {
-        require_once("solapi-php/lib/message.php");
+        require_once(ROOT . "/solapi-php/lib/message.php");
         
         if ($exhibition_users_id != null) {
             $lists = explode(",", $exhibition_users_id);

@@ -45,16 +45,16 @@
                     <div class="w-tab-wrap">
                         <div class="w-tab-wrap-inner">
                             <ul class="w-tab">
-                                <li id="li9" class=""><button type="button" id="tab9" name="실시간 채팅">실시간 채팅</button></li>
-                                <li id="li8" class=""><button type="button" id="tab8" name="설문">설문</button></li>
-                                <li id="li7" class=""><button type="button" id="tab7" name="공지사항">공지사항</button></li>
-                                <li id="li6" class=""><button type="button" id="tab6" name="질의 응답">질의 응답</button></li>
-                                <li id="li5" class=""><button type="button" id="tab5" name="출석체크">출석체크</button></li>
-                                <li id="li4" class=""><button type="button" id="tab4" name="프로그램">프로그램</button></li>
-                                <li id="li3" class=""><button type="button" id="tab3" name="담당자 정보">담당자 정보</button></li>
-                                <li id="li2" class=""><button type="button" id="tab2" name="개설자 정보">개설자 정보</button></li>
-                                <li id="li1" class=""><button type="button" id="tab1" name="행사 정보">행사 정보</button></li>
-                                <li id="li0" class=""><button type="button" id="tab0" name="자료">자료</button></li>
+                                <li id="li9" class="" style="display:none;"><button type="button" id="tab9" name="실시간 채팅">실시간 채팅</button></li>
+                                <li id="li8" class="" style="display:none;"><button type="button" id="tab8" name="설문">설문</button></li>
+                                <li id="li7" class="" style="display:none;"><button type="button" id="tab7" name="공지사항">공지사항</button></li>
+                                <li id="li6" class="" style="display:none;"><button type="button" id="tab6" name="질의 응답">질의 응답</button></li>
+                                <li id="li5" class="" style="display:none;"><button type="button" id="tab5" name="출석체크">출석체크</button></li>
+                                <li id="li4" class="" style="display:none;"><button type="button" id="tab4" name="프로그램">프로그램</button></li>
+                                <li id="li3" class="" style="display:none;"><button type="button" id="tab3" name="담당자 정보">담당자 정보</button></li>
+                                <li id="li2" class="" style="display:none;"><button type="button" id="tab2" name="개설자 정보">개설자 정보</button></li>
+                                <li id="li1" class="" style="display:none;"><button type="button" id="tab1" name="행사 정보">행사 정보</button></li>
+                                <li id="li0" class="" style="display:none;"><button type="button" id="tab0" name="자료">자료</button></li>
                             </ul>
                         </div>                            
                     </div>
@@ -98,7 +98,24 @@
         }
 
         //탭 컨트롤 
-        $("#tab0").click(function () {
+        var dec = "<?=$exhibitionStream[0]['tab']?>";
+        dec = parseInt(dec);
+        var bin = dec.toString(2);
+        if (bin.length < 10) {
+            var zero = '';
+            for (i=0; i<10-bin.length; i++) {
+                zero += '0';
+            }
+            bin = zero+bin;
+        }
+        for (i=0; i<bin.length; i++) {
+            var result = bin.substring(i,i+1);
+            if (parseInt(result) == 1) {
+                $("#li" + i).attr("style", "display:true");
+            }
+        }
+
+        $("#li0").click(function () {
             $(".webinar-tab-body").load("/exhibition-stream/exhibition-files/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
             $("#li0").attr("class", "active");
             $("#li1").attr("class", "");
@@ -112,7 +129,7 @@
             $("#li9").attr("class", "");
         });
 
-        $("#tab1").click(function () {
+        $("#li1").click(function () {
             $(".webinar-tab-body").load("/exhibition-stream/exhibition-info/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
             $("#li0").attr("class", "");
             $("#li1").attr("class", "active");
@@ -126,7 +143,8 @@
             $("#li9").attr("class", "");
         });
 
-        $("#tab2").click(function () {
+        $("#li2").click(function () {
+            
             $(".webinar-tab-body").load("/exhibition-stream/founder/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
             $("#li0").attr("class", "");
             $("#li1").attr("class", "");
@@ -138,9 +156,11 @@
             $("#li7").attr("class", "");
             $("#li8").attr("class", "");
             $("#li9").attr("class", "");
+            
         });
 
-        $("#tab3").click(function () {
+        $("#li3").click(function () {
+            
             $(".webinar-tab-body").load("/exhibition-stream/person-in-charge/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
             $("#li0").attr("class", "");
             $("#li1").attr("class", "");
@@ -152,9 +172,11 @@
             $("#li7").attr("class", "");
             $("#li8").attr("class", "");
             $("#li9").attr("class", "");
+            
         });
 
-        $("#tab4").click(function () {
+        $("#li4").click(function () {
+            
             $(".webinar-tab-body").load("/exhibition-stream/program/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
             $("#li0").attr("class", "");
             $("#li1").attr("class", "");
@@ -166,9 +188,11 @@
             $("#li7").attr("class", "");
             $("#li8").attr("class", "");
             $("#li9").attr("class", "");
+            
         });
 
-        $("#tab5").click(function () {
+        $("#li5").click(function () {
+            
             $(".webinar-tab-body").load('/exhibition-stream/set-attendance/' + <?= $exhibitionStream[0]['exhibition_id'] ?>);
             $("#li0").attr("class", "");
             $("#li1").attr("class", "");
@@ -183,7 +207,8 @@
             
         });
 
-        $("#tab6").click(function () {
+        $("#li6").click(function () {
+            
             $(".webinar-tab-body").load("/exhibition-stream/set-question/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
             $("#li0").attr("class", "");
             $("#li1").attr("class", "");
@@ -195,9 +220,11 @@
             $("#li7").attr("class", "");
             $("#li8").attr("class", "");
             $("#li9").attr("class", "");
+            
         });
 
-        $("#tab7").click(function () {
+        $("#li7").click(function () {
+            
             $(".webinar-tab-body").load("/exhibition-stream/notice/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
             $("#li0").attr("class", "");
             $("#li1").attr("class", "");
@@ -209,9 +236,11 @@
             $("#li7").attr("class", "active");
             $("#li8").attr("class", "");
             $("#li9").attr("class", "");
+            
         });
 
-        $("#tab8").click(function () {
+        $("#li8").click(function () {
+            
             $(".webinar-tab-body").load("/exhibition-stream/answer-survey/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
             $("#li0").attr("class", "");
             $("#li1").attr("class", "");
@@ -223,9 +252,11 @@
             $("#li7").attr("class", "");
             $("#li8").attr("class", "active");
             $("#li9").attr("class", "");
+            
         });
 
-        $("#tab9").click(function () {
+        $("#li9").click(function () {
+            
             $(".webinar-tab-body").load("/exhibition-stream-chat-log/chat/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
             $("#li0").attr("class", "");
             $("#li1").attr("class", "");
@@ -236,7 +267,8 @@
             $("#li6").attr("class", "");
             $("#li7").attr("class", "");
             $("#li8").attr("class", "");
-            $("#li9").attr("class", "active");
+            $("#li9").attr("class", "active");               
+            
         });
     });
 
