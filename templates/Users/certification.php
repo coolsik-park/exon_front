@@ -85,6 +85,11 @@
 </div>
 
 <script>
+    //모달 팝업 창 닫기 시
+    $("#close").click(function () {
+        window.location.replace('/exhibition-users/certification');
+    });
+    
     //이메일
     var last_id = 0;
 

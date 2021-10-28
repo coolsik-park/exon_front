@@ -475,12 +475,10 @@ class ExhibitionUsersController extends AppController
                     return $response;
 
                 } else {
-                    $connection->rollback();
                     $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
                     return $response;
                 }
             } else {
-                $connection->rollback();
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'timeover']));
                 return $response;
             }
@@ -538,7 +536,6 @@ class ExhibitionUsersController extends AppController
                     return $response;
 
                 } else {
-                    $connection->rollback();
                     $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
                     return $response;
                 }

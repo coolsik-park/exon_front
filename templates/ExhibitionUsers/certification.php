@@ -85,6 +85,11 @@
 </div>
 
 <script>
+    //모달 팝업 창 닫기 시
+    $("#close").click(function () {
+        window.location.replace('/exhibition-users/certification');
+    });
+
     //라디오 버튼 컨트롤
     $(document).on("change", "input[name='auth']", function () {
         if ($(this).attr("id") == 'authEmail') {
