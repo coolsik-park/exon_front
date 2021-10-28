@@ -662,23 +662,26 @@ class ExhibitionController extends AppController
         return $response;    
     }
 
-    public function managerPerson($id = null, $word = null)
+    public function managerPerson($id = null)
     {
         $this->paginate = ['limit' => 10];
 
         $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
         $exhibition_users = $this->paginate($exhibition_users_table->find('all', array('contain' => array('Exhibition', 'ExhibitionGroup', 'Pay')))->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.status !=' => 8]))->toArray();
 
-        $exhibition = $this->Exhibition->find('all', ['contain' => 'Users'])->where(['id' => $id])->toArray();
-        $count = count($exhibition[0]->users);
-        $user[] = [];
-        for ($i=0; $i<$count; $i++) {
-            if ($exhibition[0]->users[$i]->_joinData) {
-                $user[$i]['age'] = date('Y') - (int)$exhibition[0]->users[$i]->birthday->i18nFormat('yyyy') + 1;
-                $user[$i]['company'] = $exhibition[0]->users[$i]->company;
+        $users_table = TableRegistry::get('Users');
+        $users = [];
+        for ($i=0; $i<count($exhibition_users); $i++) {
+            if ($exhibition_users[$i]->users_id != null) {
+                $users_data = $users_table->find()->where(['id' => $exhibition_users[$i]->users_id])->toArray();
+                $users[$i]['id'] = $users_data[0]->id;
+                $users[$i]['age'] = date('Y') - (int)$users_data[0]->birthday->i18nFormat('yyyy') + 1;
+                $users[$i]['company'] = $users_data[0]->company;
+            } else {
+                $users[$i] = 0;
             }
         }
-
+        
         $exhibitionSurvey_table = TableRegistry::get('ExhibitionSurvey');
         $exhibitionSurvey = $exhibitionSurvey_table->find('all', ['contain' => ['ChildExhibitionSurvey', 'ExhibitionSurveyUsersAnswer']]);
         $exhibitionSurveys = $exhibitionSurvey->select(['ExhibitionSurvey.id', 'ExhibitionSurvey.parent_id', 'ExhibitionSurvey.text', 'ExhibitionSurvey.is_multiple', 'ExhibitionSurveyUsersAnswer.text', 'ExhibitionSurvey.survey_type', 'count' => $exhibitionSurvey->func()->count('ExhibitionSurveyUsersAnswer.text')])
@@ -699,13 +702,15 @@ class ExhibitionController extends AppController
                 $i++;
             }
         }
-        
-        $this->set(compact('id', 'exhibition_users', 'user', 'beforeParentData'));
+        debug($beforeParentData);
+        $this->set(compact('id', 'exhibition_users', 'users', 'beforeParentData'));
     }
 
-    public function exhibitionUsersStatus($id = null)
+    public function exhibitionUsersStatus()
     {
-        $email = $this->request->getData('email');
+        $id = $this->request->getData('id');
+        $exhibition_id = $this->request->getData('exhibition_id');
+        $to = $this->request->getData('email');
         $pay_id = $this->request->getData('pay_id');
 
         $connection = ConnectionManager::get('default');
@@ -714,73 +719,100 @@ class ExhibitionController extends AppController
         $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
         $exhibition_user = $exhibition_users_table->get($id);
 
-        if($connection->update('exhibition_users', ['status' => '0'], ['id' => $id])) {
-
-            $Pay = $this->getTableLocator()->get('Pay');
-            $pay = $Pay->get($pay_id);
-            
-            // require_once("iamport-rest-client-php/src/iamport.php");
-            
-            // $iamport = new Iamport(getEnv('IAMPORT_API_KEY'), getEnv('IAMPORT_API_SECRET'));
-
-            // $result = $iamport->cancel(array(
-            //     'imp_uid'		=> $pay->imp_uid, 		
-            //     'merchant_uid'	=> $pay->merchant_uid, 	
-            //     'amount' 		=> 0,				
-            //     'reason'		=> '행사 관리자 취소',			
-            // ));
-
-            // if ($result->success) {
-            
-                // $payment_data = $result->data;
-                $now = FrozenTime::now();
+        if($connection->update('exhibition_users', ['status' => '8'], ['id' => $id])) {
+            if ($pay_id != '') {
+                $Pay = $this->getTableLocator()->get('Pay');
+                $pay = $Pay->get($pay_id);
                 
-
-                $pay->cancel_reason = '행사 관리자 취소';
-                $pay->cancel_date = $now->i18nFormat('yyyy-MM-dd HH:mm:ss');
+                require_once("iamport-rest-client-php/src/iamport.php");
                 
-                if ($Pay->save($pay)) {
-                    $connection->commit();
-
-                    $mailer = new Mailer();
-                    $mailer->setTransport('mailjet');
-
-                    $exhibition = $this->Exhibition->get($id);
-                    $user_name = $this->request->getData('user_name');   
-                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
-                    return $response;    
+                $iamport = new Iamport(getEnv('IAMPORT_API_KEY'), getEnv('IAMPORT_API_SECRET'));
+    
+                $result = $iamport->cancel(array(
+                    'imp_uid'		=> $pay->imp_uid, 		
+                    'merchant_uid'	=> $pay->merchant_uid, 	
+                    'amount' 		=> 0,				
+                    'reason'		=> '행사 관리자 취소',			
+                ));
+    
+                if ($result->success) {
+                
+                    $payment_data = $result->data;
+                    $now = FrozenTime::now();
                     
-                    $mailer->setEmailFormat('html')
-                                ->setTo($to)
-                                ->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'EXON'])
-                                ->setSubject('Exon - 참가취소 확인 메일입니다.')
-                                ->viewBuilder()
-                                ->setTemplate('canceled')
-                            ;
-                    $mailer->setViewVars(['front_url' => FRONT_URL]);
-                    $mailer->setViewVars(['user_name' => $user_name]);
-                    $mailer->setViewVars(['title' => $exhibition->title]);
-                    $mailer->setViewVars(['apply_sdate' => $exhibition->apply_sdate]);
-                    $mailer->setViewVars(['apply_edate' => $exhibition->apply_edate]);
-                    $mailer->setViewVars(['sdate' => $exhibition->sdate]);
-                    $mailer->setViewVars(['edate' => $exhibition->edate]);
-                    $mailer->setViewVars(['name' => $exhibition->name]);
-                    $mailer->setViewVars(['tel' => $exhibition->tel]);
-                    $mailer->setViewVars(['email' => $exhibition->email]);
-                    $mailer->setViewVars(['refund' => $payment_data->cancel_amount]);
-                    $mailer->setViewVars(['now' => FrozenTime::now()]);
+    
+                    $pay->cancel_reason = '행사 관리자 취소';
+                    $pay->cancel_date = $now->i18nFormat('yyyy-MM-dd HH:mm:ss');
                     
-                    $mailer->deliver();
-                
+                    if ($Pay->save($pay)) {
+                        $connection->commit();
+    
+                        $mailer = new Mailer();
+                        $mailer->setTransport('mailjet');
+    
+                        $exhibition = $this->Exhibition->get($id);
+                        $user_name = $this->request->getData('user_name');
+                        
+                        $mailer->setEmailFormat('html')
+                                    ->setTo($to)
+                                    ->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'EXON'])
+                                    ->setSubject('Exon - 참가취소 확인 메일입니다.')
+                                    ->viewBuilder()
+                                    ->setTemplate('canceled')
+                                ;
+                        $mailer->setViewVars(['front_url' => FRONT_URL]);
+                        $mailer->setViewVars(['user_name' => $user_name]);
+                        $mailer->setViewVars(['title' => $exhibition->title]);
+                        $mailer->setViewVars(['apply_sdate' => $exhibition->apply_sdate]);
+                        $mailer->setViewVars(['apply_edate' => $exhibition->apply_edate]);
+                        $mailer->setViewVars(['sdate' => $exhibition->sdate]);
+                        $mailer->setViewVars(['edate' => $exhibition->edate]);
+                        $mailer->setViewVars(['name' => $exhibition->name]);
+                        $mailer->setViewVars(['tel' => $exhibition->tel]);
+                        $mailer->setViewVars(['email' => $exhibition->email]);
+                        $mailer->setViewVars(['refund' => $payment_data->cancel_amount]);
+                        $mailer->setViewVars(['now' => FrozenTime::now()]);
+                        
+                        $mailer->deliver();
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                    } else {
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                    }
                 } else {
-                    $this->Flash->error(__('Pay could not be saved'));
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
                 }
+            } else {
+                $mailer = new Mailer();
+                $mailer->setTransport('mailjet');
+
+                $exhibition = $this->Exhibition->get($id);
+                $user_name = $this->request->getData('user_name');   
                 
-            // } else {
-            //     $this->Flash->error(__('The payment could not be canceled.'));
-            // }
+                $mailer->setEmailFormat('html')
+                            ->setTo($to)
+                            ->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'EXON'])
+                            ->setSubject('Exon - 참가취소 확인 메일입니다.')
+                            ->viewBuilder()
+                            ->setTemplate('canceled')
+                        ;
+                $mailer->setViewVars(['front_url' => FRONT_URL]);
+                $mailer->setViewVars(['user_name' => $user_name]);
+                $mailer->setViewVars(['title' => $exhibition->title]);
+                $mailer->setViewVars(['apply_sdate' => $exhibition->apply_sdate]);
+                $mailer->setViewVars(['apply_edate' => $exhibition->apply_edate]);
+                $mailer->setViewVars(['sdate' => $exhibition->sdate]);
+                $mailer->setViewVars(['edate' => $exhibition->edate]);
+                $mailer->setViewVars(['name' => $exhibition->name]);
+                $mailer->setViewVars(['tel' => $exhibition->tel]);
+                $mailer->setViewVars(['email' => $exhibition->email]);
+                $mailer->setViewVars(['refund' => 0]);
+                $mailer->setViewVars(['now' => FrozenTime::now()]);
+                
+                $mailer->deliver();
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+            }
+            $connection->commit();
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
-        
         } else {
             $connection->rollback();
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));

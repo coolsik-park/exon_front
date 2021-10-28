@@ -52,14 +52,22 @@
                     <div class="th-col col6">승인 상태</div>
                     <div class="th-col col7"></div>
                 </div>
-                <?php 
-                    $i=0;
-                    foreach ($exhibition_users as $exhibition_user): 
-                ?>
+                <?php foreach ($exhibition_users as $key => $exhibition_user): ?>
                     <div class="tr-row">
                         <div class="td-col col1">
                             <div class="con ag-ty1">
-                                <p class="tit fir"><?= $user[$i]['company'] ?></p>
+                                <p class="tit fir">
+                                    <?php 
+                                        if ($exhibition_user->users_id != null):
+                                            for ($i=0; $i<count($users)+1; $i++) {
+                                                if ($exhibition_user->users_id == $users[$i]['id']) {
+                                                    echo $users[$i]['company'];
+                                                    break;
+                                                }
+                                            }
+                                        endif;
+                                    ?>
+                                </p>
                                 <div class="u-name">
                                     <p class="name"><?= $exhibition_user->users_name ?></p>
                                     <p class="age">
@@ -70,7 +78,16 @@
                                                 echo '여자 / ';
                                             } 
                                         ?>
-                                        <?= $user[$i]['age'] ?>
+                                        <?php 
+                                            if ($exhibition_user->users_id != null):
+                                                for ($i=0; $i<count($users); $i++) {
+                                                    if ($exhibition_user->users_id == $users[$i]['id']) {
+                                                        echo $users[$i]['age'];
+                                                        break;
+                                                    }
+                                                }
+                                            endif;
+                                        ?>
                                     </p>
                                 </div>
                                 <p><?= $exhibition_user->users_email ?></p>
@@ -79,11 +96,12 @@
                         </div>
                         <div class="td-col col2">
                             <div class="con">
-                                <button type="button" class="btn-ty3 bor" style="cursor:pointer;" data-toggle="modal" data-target="#surveyCheckModal" data-backdrop="static" data-keyboard="false">
+                                <button type="button" class="btn-ty3 bor" style="cursor:pointer;" data-toggle="modal" data-target="#surveyCheckModal" data-backdrop="static" data-keyboard="false" onClick="surveyCheck(<?= $exhibition_user->users_id ?>)">
                                     설문확인
                                 </button>
                             </div>
-                            <div class="modal fade" id="surveyCheckModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div id="surveyPopup"></div>
+                            <!-- <div class="modal fade" id="surveyCheckModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content" style="background-color:transparent; border:none;">
                                         <div class="popup-wrap">
@@ -123,7 +141,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="td-col col3">
                             <div class="con">
@@ -166,39 +184,14 @@
                         </div>
                         <div class="td-col col7">
                             <div class="con">
-                                <button type="button" class="btn-ty3 red" id="exhibitionCancel" name="<?= $exhibition_user->users_name ?>" style="cursor:pointer;" data-toggle="modal" data-target="#exhibitionCancelModal" data-backdrop="static" data-keyboard="false">
+                                <button type="button" class="btn-ty3 red" style="cursor:pointer;" data-toggle="modal" data-target="#exhibitionCancelModal" data-backdrop="static" data-keyboard="false" onClick="exhibitionCancel(<?= $key ?>)">
                                     취소
                                 </button>
                             </div>
-                            <div class="modal fade" id="exhibitionCancelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content" style="background-color:transparent; border:none;">
-                                        <div class="popup-wrap popup-ty2">
-                                            <div class="popup-head">
-                                                <h1>참가자 신청 취소</h1>
-                                                <button id="close" type="button" class="popup-close close" data-dismiss="modal" aria-label="Close">팝업닫기</button>
-                                            </div>
-                                            <div class="popup-body">        
-                                                <div class="cert-sect4">
-                                                    <p>참가자의 신청을 취소할 경우 참가자가 결제한 금액은<br class="br-mo">
-                                                        모두 환불됩니다.<br>
-                                                        참가자 신청을 취소하시겠습니까?</p>
-                                                </div>
-                                                <div class="popup-btm">
-                                                    <button type="button" class="btn-ty2 red" data-dismiss="modal" aria-label="Close">취소</button>
-                                                    <button type="button" class="btn-ty2" id="exhibitionCancelOk">확인</button>
-                                                </div>        
-                                            </div>
-                                        </div> 
-                                    </div>
-                                </div>
-                            </div>
+                            <div id="popup"></div>
                         </div>                        
                     </div>
-                <?php
-                    $i++; 
-                    endforeach; 
-                ?>
+                <?php endforeach; ?>
             </div>
             <div class="paginator">
                 <ul class="pagination">
@@ -213,6 +206,56 @@
 <footer id="footer"></footer>
 
 <script>
+    function surveyCheck(users_id) {
+        if (users_id == null) {
+            alert("비회원이라 사전설문 결과를 확인할 수 없습니다.");
+        } else {
+            var beforeParentData = <?= json_encode($beforeParentData) ?>;
+            console.log(beforeParentData[0]['child_exhibition_survey']);
+            var html = '';
+            html += '<div class="modal fade" id="surveyCheckModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
+            html += '   <div class="modal-dialog" role="document">';
+            html += '       <div class="modal-content" style="background-color:transparent; border:none;">';
+            html += '           <div class="popup-wrap">';
+            html += '               <div class="popup-head">';
+            html += '                   <h1>설문 결과</h1>';
+            html += '                   <button id="close" type="button" class="popup-close close" data-dismiss="modal" aria-label="Close">팝업닫기</button>';
+            html += '               </div>';
+            html += '               <div class="popup-body">';
+            html += '                   <div class="pop-poll-items-wrap">';
+            for (var i =0; i<beforeParentData.length; i++) {
+                html += '                    <div class="pop-poll-item">';
+                html += '                       <p class="tit">' + beforeParentData[i]['text'] +'</p>';
+                if (beforeParentData[i]['is_multiple'] == 'Y') {
+                    html += '                   <ul>';
+                    for (var y=0; y<beforeParentData[i]['child_exhibition_survey'].length; y++) {
+                        html += '                   <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '" checked="checked"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeParentData[i]['child_exhibition_survey'][y]['text'] + '</label></span></li>';
+                    }
+                    html += '                   </ul>';
+                } else {
+                    html += '                   <textarea readonly name="" id="" cols="30" rows="3">';
+                    for (var j=0; j<beforeParentData[i]['exhibition_survey_users_answer'].length; j++) {
+                        if (beforeParentData[i]['exhibition_survey_users_answer'][j]['users_id'] == users_id) {
+                            html += '                ' + beforeParentData[i]['exhibition_survey_users_answer'][j]['text'] + '';
+                        }
+                    }
+                    html += '                   </textarea>';
+                }
+                html += '                   </div>';
+            }
+            html += '                   </div>';
+            html += '                   <div class="popup-btm alone">';
+            html += '                       <button type="button" class="btn-ty2" data-dismiss="modal" aria-label="Close">확인</button>';
+            html += '                   </div>';
+            html += '               </div>';
+            html += '           </div>';
+            html += '       </div>';
+            html += '   </div>';
+            html += '</div>';
+            $("#surveyPopup").html(html);
+        }
+    }
+
     $('#participateSelectBox').on('change', function() {
         var id = $(this).attr('name').split(',')[0];
         var value = $(this).val();
@@ -240,29 +283,57 @@
         });
     });
 
-    $('#exhibitionCancelOk').on('click', function() {
-        console.log($('#exhibitionCancel').attr('name'));
-        // var id = $('#exhibitionCance').attr('name');
-        // var email = '<?= $exhibition_user->users_email ?>';
-        // var pay_id = '<?= $exhibition_user->pay_id ?>';
-        // var user_name = '<?= $exhibition_user->users_name?>';
+    function exhibitionCancel(key) {
+        var html = '';
+        html += '<div class="modal fade" id="exhibitionCancelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
+        html += '   <div class="modal-dialog" role="document">';
+        html += '        <div class="modal-content" style="background-color:transparent; border:none;">';
+        html += '            <div class="popup-wrap popup-ty2">';
+        html += '                <div class="popup-head">';
+        html += '                    <h1>참가자 신청 취소</h1>';
+        html += '                    <button id="close" type="button" class="popup-close close" data-dismiss="modal" aria-label="Close">팝업닫기</button>';
+        html += '                </div>';
+        html += '                <div class="popup-body">';
+        html += '                    <div class="cert-sect4">';
+        html += '                        <p>참가자의 신청을 취소할 경우 참가자가 결제한 금액은<br class="br-mo">모두 환불됩니다.<br>참가자 신청을 취소하시겠습니까?</p>';
+        html += '                    </div>';
+        html += '                    <div class="popup-btm">';
+        html += '                        <button type="button" class="btn-ty2 red" data-dismiss="modal" aria-label="Close">취소</button>';
+        html += '                        <button type="button" class="btn-ty2" onClick="exhibitionCancelOK(' + key + ')">확인</button>';
+        html += '                    </div>';
+        html += '               </div>';
+        html += '           </div>';
+        html += '       </div>';
+        html += '   </div>';
+        html += '</div>';
+        $("#popup").html(html);
+    }
 
-        // $.ajax({
-        //     url: '/exhibition/exhibition-users-status/' + id,
-        //     method: 'POST',
-        //     type: 'json',
-        //     data: {
-        //         email: email,
-        //         pay_id: pay_id,
-        //         user_name: user_name
-        //     }
-        // }).done(function(data) {
-        //     if (data.status == 'success') {
-        //         $('#container').load(location.href+" #container");
-        //         alert("취소 메일 보내드렸습니다. 확인부탁드립니다.");
-        //     } else {
-        //         alert("실패하였습니다.");
-        //     }
-        // });
-    });
+    function exhibitionCancelOK(index) {
+        var exhibition_users = <?= json_encode($exhibition_users)  ?>;
+        var id = exhibition_users[index]['id'];
+        var exhibition_id = exhibition_users[index]['exhibition_id'];
+        var users_name = exhibition_users[index]['users_name'];
+        var users_email = exhibition_users[index]['users_email'];
+        var pay_id = exhibition_users[index]['pay_id'];
+        
+        $.ajax({
+            url: '/exhibition-users/exhibition-users-status',
+            method: 'POST',
+            type: 'json',
+            data: {
+                id: id,
+                exhibition_id: exhibition_id,
+                users_name: users_name,
+                email: users_email,
+                pay_id: pay_id
+            }
+        }).done(function(data) {
+            if (data.status == 'success') {
+                window.location.reload();
+            } else {
+                alert('실패하였습니다. 다시 시도해주세요.');
+            }
+        });
+    }
 </script>
