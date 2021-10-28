@@ -702,7 +702,7 @@ class ExhibitionController extends AppController
                 $i++;
             }
         }
-        debug($beforeParentData);
+        
         $this->set(compact('id', 'exhibition_users', 'users', 'beforeParentData'));
     }
 
