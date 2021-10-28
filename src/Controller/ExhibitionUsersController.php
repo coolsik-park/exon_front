@@ -48,6 +48,7 @@ class ExhibitionUsersController extends AppController
 
         $Exhibition = $this->getTableLocator()->get('Exhibition');
         $exhibition = $Exhibition->get($id);
+        
 
         $exhibitionUser = $this->ExhibitionUsers->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -57,7 +58,9 @@ class ExhibitionUsersController extends AppController
                 $exhibitionUser->users_id = $this->Auth->user('id');
             }
             $exhibitionUser->exhibition_id = $id;
+            if (!empty($answerData['exhibition_group_id'])) :
             $exhibitionUser->exhibition_group_id = $answerData['exhibition_group_id'];
+            endif;
             $exhibitionUser->users_email = $answerData['users_email'];
             $exhibitionUser->users_name = $answerData['users_name'];
             $exhibitionUser->users_hp = $answerData['users_hp'];
@@ -129,32 +132,60 @@ class ExhibitionUsersController extends AppController
                 $mailer = new Mailer();
                 $mailer->setTransport('mailjet');
 
-                $to = $this->request->getData('users_email');
-                $Group = $this->getTableLocator()->get('ExhibitionGroup');
-                $group_id = $this->request->getData('exhibition_group_id');
-                $group = $Group->get($group_id);
-                $user_name = $this->request->getData('user_name');            
-                $mailer->setEmailFormat('html')
-                            ->setTo($to)
-                            ->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'EXON'])
-                            ->setSubject('Exon - 신청완료 확인 메일입니다.')
-                            ->viewBuilder()
-                            ->setTemplate('webinar_apply')
-                        ;
-                $mailer->setViewVars(['front_url' => FRONT_URL]);
-                $mailer->setViewVars(['user_name' => $user_name]);
-                $mailer->setViewVars(['title' => $exhibition->title]);
-                $mailer->setViewVars(['apply_sdate' => $exhibition->apply_sdate]);
-                $mailer->setViewVars(['apply_edate' => $exhibition->apply_edate]);
-                $mailer->setViewVars(['sdate' => $exhibition->sdate]);
-                $mailer->setViewVars(['edate' => $exhibition->edate]);
-                $mailer->setViewVars(['name' => $exhibition->name]);
-                $mailer->setViewVars(['tel' => $exhibition->tel]);
-                $mailer->setViewVars(['email' => $exhibition->email]);
-                $mailer->setViewVars(['group' => $group->name]);
-                $mailer->setViewVars(['now' => FrozenTime::now()]);
+                if (!empty($this->request->getData('exhibition_group_id'))) {
+                    $to = $this->request->getData('users_email');
+                    $Group = $this->getTableLocator()->get('ExhibitionGroup');
+                    $group_id = $this->request->getData('exhibition_group_id');
+                    $group = $Group->get($group_id);
+                    $user_name = $this->request->getData('user_name');            
+                    $mailer->setEmailFormat('html')
+                                ->setTo($to)
+                                ->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'EXON'])
+                                ->setSubject('Exon - 신청완료 확인 메일입니다.')
+                                ->viewBuilder()
+                                ->setTemplate('webinar_apply')
+                            ;
+                    $mailer->setViewVars(['front_url' => FRONT_URL]);
+                    $mailer->setViewVars(['user_name' => $user_name]);
+                    $mailer->setViewVars(['title' => $exhibition->title]);
+                    $mailer->setViewVars(['apply_sdate' => $exhibition->apply_sdate]);
+                    $mailer->setViewVars(['apply_edate' => $exhibition->apply_edate]);
+                    $mailer->setViewVars(['sdate' => $exhibition->sdate]);
+                    $mailer->setViewVars(['edate' => $exhibition->edate]);
+                    $mailer->setViewVars(['name' => $exhibition->name]);
+                    $mailer->setViewVars(['tel' => $exhibition->tel]);
+                    $mailer->setViewVars(['email' => $exhibition->email]);
+                    $mailer->setViewVars(['group' => $group->name]);
+                    $mailer->setViewVars(['now' => FrozenTime::now()]);
+                    
+                    $mailer->deliver();
                 
-                $mailer->deliver();
+                } else {
+                    $to = $this->request->getData('users_email');
+                    $user_name = $this->request->getData('user_name');            
+                    $mailer->setEmailFormat('html')
+                                ->setTo($to)
+                                ->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'EXON'])
+                                ->setSubject('Exon - 신청완료 확인 메일입니다.')
+                                ->viewBuilder()
+                                ->setTemplate('webinar_apply')
+                            ;
+                    $mailer->setViewVars(['front_url' => FRONT_URL]);
+                    $mailer->setViewVars(['user_name' => $user_name]);
+                    $mailer->setViewVars(['title' => $exhibition->title]);
+                    $mailer->setViewVars(['apply_sdate' => $exhibition->apply_sdate]);
+                    $mailer->setViewVars(['apply_edate' => $exhibition->apply_edate]);
+                    $mailer->setViewVars(['sdate' => $exhibition->sdate]);
+                    $mailer->setViewVars(['edate' => $exhibition->edate]);
+                    $mailer->setViewVars(['name' => $exhibition->name]);
+                    $mailer->setViewVars(['tel' => $exhibition->tel]);
+                    $mailer->setViewVars(['email' => $exhibition->email]);
+                    $mailer->setViewVars(['group' => '']);
+                    $mailer->setViewVars(['now' => FrozenTime::now()]);
+                    
+                    $mailer->deliver();
+                }
+                
 
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
                 return $response;
