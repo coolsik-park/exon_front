@@ -84,6 +84,7 @@
                     <div class="con">
                         <?php        
                                 foreach ($parentData['exhibition_survey_users_answer'] as $answer) {
+                                    if ($answer['text'] != null) {
                         ?>
                         <ul>
                             <li>
@@ -91,6 +92,7 @@
                             </li>
                         </ul>
                         <?php
+                                    }
                                 }
                         ?>
                     </div>

@@ -56,7 +56,7 @@ class ExhibitionUsersTable extends Table
         ]);
         $this->belongsTo('ExhibitionGroup', [
             'foreignKey' => 'exhibition_group_id',
-            'joinType' => 'INNER',
+            'joinType' => 'left',
         ]);
         $this->belongsTo('Pay', [
             'foreignKey' => 'pay_id',

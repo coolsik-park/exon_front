@@ -903,17 +903,19 @@ class ExhibitionController extends AppController
     //     return $this->redirect(['action' => 'managerPerson', $exhibition_user->exhibition_id]);
     // }
 
-    public function sendEmailToParticipant($id = null, $exhibition_users_id = null)
+    public function sendEmailToParticipant($id = null)
     {
-        if ($exhibition_users_id != null) {
-            $lists = explode(",", $exhibition_users_id);
+        $session = $this->request->getSession();
+        $text = $session->consume('text');
+        $name = $session->consume('name');
+        $lists = $session->consume('data');
+
+        if (!empty($lists)) {
             $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['id IN' => $lists])->toArray();
 
         } else {
             $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find()->select('exhibition_id')->where(['exhibition_id' => $id])->toArray();
         }
-        $session = $this->request->getSession();
-        $text = $session->consume('text');
         
         if ($this->request->is('post')) {
             $mailer = new Mailer();
@@ -941,22 +943,23 @@ class ExhibitionController extends AppController
         }
         $listExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
         $exhibitionGroups = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
-        $this->set(compact('id', 'exhibitionUsers', 'exhibition_users_id', 'listExhibitionUsers', 'exhibitionGroups', 'text'));
+        $this->set(compact('id', 'exhibitionUsers', 'listExhibitionUsers', 'exhibitionGroups', 'text', 'name', 'lists'));
     }
 
-    public function sendSmsToParticipant($id = null, $exhibition_users_id = null)
+    public function sendSmsToParticipant($id = null)
     {
         require_once(ROOT . "/solapi-php/lib/message.php");
+
+        $session = $this->request->getSession();
+        $text = $session->consume('text');
+        $lists = $session->consume('data');
         
-        if ($exhibition_users_id != null) {
-            $lists = explode(",", $exhibition_users_id);
+        if (!empty($lists)) {
             $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['id IN' => $lists])->toArray();
-        
+
         } else {
             $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find()->select('exhibition_id')->where(['exhibition_id' => $id])->toArray();
         }
-        $session = $this->request->getSession();
-        $text = $session->consume('text');
         
         if ($this->request->is('post')) {
             
@@ -982,25 +985,23 @@ class ExhibitionController extends AppController
         $listExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])
             ->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
         $exhibitionGroups = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
-        $this->set(compact('id', 'exhibitionUsers', 'exhibition_users_id', 'listExhibitionUsers', 'exhibitionGroups', 'text'));
+        $this->set(compact('id', 'exhibitionUsers', 'listExhibitionUsers', 'exhibitionGroups', 'text', 'lists'));
     }
 
     public function participantList($id = null)
     {
-        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])
-            ->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
-        $exhibitionGroups = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
-
         if ($this->request->is('post')) {
             $data = $this->request->getData('data');
             $text = $this->request->getData('text');
+            $name = $this->request->getData('name');
             $session = $this->request->getSession();
             $session->write('text', $text);
+            $session->write('data', $data);
+            $session->write('name', $name);
             
-            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'type' => 'email', 'data' => $data]));
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
             return $response;
         }
-        $this->set(compact('exhibitionUsers', 'exhibitionGroups', 'id', 'type'));
     }
 
     public function sortByStatus($id = null, $status = null) 

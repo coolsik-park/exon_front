@@ -34,7 +34,7 @@
                 </div>
                 <div class="msg-post">
                     <h4 class="s-hty2">보내는 사람</h4>
-                    <input type="text" id="name" name="name" class="ipt" placeholder="담당자">
+                    <input type="text" id="name" name="name" class="ipt" placeholder="담당자" value="<?=$name?>">
                     <!-- <input type="text" class="ipt" placeholder="이메일"> -->
                     <div class="btns">
                         <button type="button" id="urlCopy" class="btn-ty2 bor">행사 URL 복사</button>
@@ -115,7 +115,9 @@
                                                             <div class="td-col col3">
                                                                 <div class="mo-only">그룹명</div>
                                                                 <div class="con">
+                                                                <?php if ($exhibitionUser->exhibition_group != null) : ?>
                                                                 <?= $exhibitionUser->exhibition_group->name ?>
+                                                                <?php endif; ?>
                                                                 </div>
                                                             </div>
                                                             <div class="td-col col4">
@@ -177,8 +179,8 @@
                     <div class="desc">
                         <p id="count" class="txt">받는 사람 : 
                             <?php 
-                                if ($exhibition_users_id != null) {
-                                    echo count($exhibitionUsers);
+                                if (!empty($lists)) {
+                                    echo count($lists);
                                 } else {
                                     echo 0;
                                 }
@@ -229,6 +231,7 @@
             lists.push($(this).val());
         });
         var text = $("#email_content").val();
+        var name = $("#name").val();
         
         jQuery.ajax({
             url: "/exhibition/participant-list/" + <?= $id ?>,
@@ -236,15 +239,11 @@
             type: 'json',
             data: {
                 data : lists,
-                text : text
+                text : text,
+                name : name
                 }   
         }).done(function (data) {
-            
-            if (data.data == null) {
-                window.location.href = '/exhibition/send-email-to-participant/' + <?= $id ?>;
-            } else {
-                window.location.href = '/exhibition/send-email-to-participant/' + <?= $id ?> + '/' + data.data;
-            }
+            window.location.href = '/exhibition/send-email-to-participant/' + <?= $id ?>;
         });
     });
 

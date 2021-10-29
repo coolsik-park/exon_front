@@ -113,7 +113,9 @@
                                                         <div class="td-col col3">
                                                             <div class="mo-only">그룹명</div>
                                                             <div class="con">
-                                                            <?= $exhibitionUser->exhibition_group->name ?>
+                                                            <?php if ($exhibitionUser->exhibition_group != null) : ?>
+                                                                <?= $exhibitionUser->exhibition_group->name ?>
+                                                            <?php endif; ?>
                                                             </div>
                                                         </div>
                                                         <div class="td-col col4">
@@ -178,12 +180,13 @@
                     <div class="desc">
                         <p id="count" class="txt">수신자 수 : 
                             <?php 
-                                if ($exhibition_users_id != null) {
-                                    echo count($exhibitionUsers);
+                                if (!empty($lists)) {
+                                    echo count($lists);
                                 } else {
                                     echo 0;
                                 }
-                            ?> (문자 건당 00원입니다)</p>
+                            ?> 
+                        </p>
                         <div class="btns">
                             <button type="button" id="listReset" class="btn-ty2 red">목록 초기화</button>
                             <button type="button" id="send" class="btn-ty2">발신하기</button>
@@ -267,7 +270,7 @@
     $("button[name='delete']").click(function () {
         $("#number" + $(this).attr("id")).remove();
         var count = $("div[name='number']").length;
-        $("#count").html("수신자 수 : " + count + " (문자 건당 00원입니다)");
+        $("#count").html("수신자 수 : " + count);
     });
 
     //입력 초기화
