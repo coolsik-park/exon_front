@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <!-- <meta charset="UTF-8"> -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" charset="UTF-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge" charset="UTF-8"> -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script src="../common/js/jquery-3.2.1.min.js"></script>
@@ -11,21 +12,18 @@
     <script src="../common/js/mobile-detect.min.js"></script>
     <script src="../common/js/responsiveImg.js"></script>   
     <script src="../common/js/common.js"></script>
-    <title>EXON</title>
-    <style type="text/css">
-        /* @font-face {
-            font-family: DejaVu Sans;
-            font-style: normal;
-            font-weight: normal;
-            src: url(http://121.126.223.225:8765/font/DejaVuSans.ttf);
-        } */
-        /* *{ font-family: DejaVu Sans !important;} */
-        /* @font-face {
-            font-family: 'Nanum Gothic';
-            font-style: normal;
-            font-weight: normal;
-            src: url(https://hangeul.pstatic.net/hangeul_static/css/nanum-gothic.css) format('truetype');
-        } */
+    <title>EXON</title>    
+
+
+    <style type="text/css">  
+  @font-face {
+    font-family: 'NanumGothic';
+    font-style: normal;
+    font-weight: 400;
+}
+* {
+    font-family: 'NanumGothic';;
+}
     </style>
 </head>
 <body>
@@ -36,9 +34,9 @@
         </div>
         <div style="padding: 0 1.875rem 1.875rem;color: #000;">
             <div style="font-size: 1.250rem;line-height: 1.45;">
-                <h1 style="margin:0;padding:0;margin-bottom: 3.750rem;font-size: 2.188rem;font-weight: 700;line-height: 1.49;">증빙 영수증</h1>
+                <h1 style="margin:0;padding:0;margin-bottom: 3.750rem;font-size: 2.188rem;font-weight: 700;line-height: 1.49;">증빙 영수증</h1>                
                 <p style="font-size: 1.25rem;line-height: 1.45;color: #afafaf;">기타/설명회</p>
-                <p style="margin-top: 10px;font-size: 1.875rem;line-height: 1.33;font-weight: 500;">2021년 언택트 박람회 EXON<br>온라인 설명회</p>
+                <p style=" font-size: 1.875rem;line-height: 1.45;line-height: 1.33;">2021년 언택트 박람회 EXON<br>온라인 설명회</p>                
                 <ul style="margin:0;padding:0;list-style: none;margin-top: 3.125rem;">
                     <li style="margin-bottom: 1.875rem;">
                         <p style="margin:0;padding:0;font-size: 1.25rem;line-height: 1.45;color: #afafaf;">금액</p>
@@ -49,14 +47,14 @@
                         <p style="margin:0;padding:0">21.06.11 (금) 20:12</p>
                     </li>
                     <li style="margin-bottom: 1.875rem;">
-                        <p style="margin:0;padding:0;font-size: 1.25rem;line-height: 1.45;color: #afafaf;">행사 기간</p>
+                        <p style="margin:0;padding:0;font-size: 1.25rem;line-height: 1.45;color: #afafaf;"><?php echo $users_name; ?>행사 기간</p>
                         <p style="margin:0;padding:0">21.06.12 (토) 13:00 ~ 21.06.12 (토) 22:00</p>
                     </li>
                 </ul>
                 <ul style="margin:0;padding:0;list-style: none;border-top: 1px solid #afafaf;">
                     <li style="padding: 1.875rem 0 0;">
                         <p style="margin:0;padding:0;font-size: 1.25rem;line-height: 1.45;color: #afafaf;">이름</p>
-                        <p style="margin:0;padding:0">홍길동</p>
+                        <p style="margin:0;padding:0"><?php echo $users_name; ?></p>
                     </li>
                     <li style="padding: 1.875rem 0 0;">
                         <p style="margin:0;padding:0;font-size: 1.25rem;line-height: 1.45;color: #afafaf;">이메일</p>

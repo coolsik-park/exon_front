@@ -443,7 +443,7 @@ class ExhibitionUsersController extends AppController
             'pdfConfig',
             [
                 'orientation' => 'portrait',
-                'defaultFont' => 'DejaVu Sans',
+                'defaultFont' => 'NanumGothic',
                 'download' => true, // This can be omitted if "filename" is specified.
                 'filename' => $exhibition_id . '_Report.pdf', //// This can be omitted if you want file name based on URL.
             ]
