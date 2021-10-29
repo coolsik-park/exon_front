@@ -675,7 +675,11 @@ class ExhibitionController extends AppController
             if ($exhibition_users[$i]->users_id != null) {
                 $users_data = $users_table->find()->where(['id' => $exhibition_users[$i]->users_id])->toArray();
                 $users[$i]['id'] = $users_data[0]->id;
-                $users[$i]['age'] = date('Y') - (int)$users_data[0]->birthday->i18nFormat('yyyy') + 1;
+                if ($users_data[0]->birthday != null) {
+                    $users[$i]['age'] = date('Y') - (int)$users_data[0]->birthday->i18nFormat('yyyy') + 1;
+                } else {
+                    $users[$i]['age'] = '연령 미상';
+                }
                 $users[$i]['company'] = $users_data[0]->company;
             } else {
                 $users[$i] = 0;

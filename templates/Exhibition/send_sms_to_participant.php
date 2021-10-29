@@ -144,7 +144,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn-ty2 bor">등록된 발신번호</button>   
+                    <!-- <button type="button" class="btn-ty2 bor">등록된 발신번호</button>    -->
                 </div>
             </div>
             <div class="msg-numbers">
