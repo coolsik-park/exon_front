@@ -304,6 +304,9 @@ class ExhibitionStreamController extends AppController
 
     public function setExhibitionFiles ($id = null)
     {
+        $ExhibitionFile = $this->getTableLocator()->get('ExhibitionFile');
+        $exhibitionFiles = $ExhibitionFile->find('all')->where(['exhibition_id' => $id])->toArray();
+
         if ($this->request->is('post')) {
             $connection = ConnectionManager::get('default');
             $connection->begin();
@@ -348,7 +351,20 @@ class ExhibitionStreamController extends AppController
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
             return $response;
         }
-        $this->set(compact('id'));
+        $this->set(compact('id', 'exhibitionFiles'));
+    }
+
+    public function deleteExhibitionFile ($file_id = null)
+    {
+        if ($this->request->is('delete')) {
+            $ExhibitionFile = $this->getTableLocator()->get('ExhibitionFile');
+            $exhibitionFile = $ExhibitionFile->get($file_id);
+
+            if ($ExhibitionFile->delete($exhibitionFile)) {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                return $response;
+            }
+        }
     }
 
     public function setProgram ($id = null)

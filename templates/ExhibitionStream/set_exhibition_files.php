@@ -1,24 +1,9 @@
-<!-- <form name="uploadForm" id="uploadForm">
-    <input name="file[]" id="addFile" type="file" multiple="multiple">
-    <table class="table" width="100%" border="1px">
-        <tbody id="fileTableTbody">
-            <tr>
-                <td id="dropZone">
-                    파일을 드래그 하세요
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</form>
-    
-<a href="#" onclick="uploadFile(); return false;" class="btn bg_01">파일 업로드</a> -->
-
 <form name="uploadForm" id="uploadForm">
     <div class="webinar-cont2">
         <h3 class="sr-only">자료</h3>
         <div class="webinar-cont-ty2">
             <div class="wb10-btn">
-                <button type="button" class="btn3" onclick="uploadFile()">불러오기</button>
+                <button type="button" class="btn3" onclick="uploadFile()">저장하기</button>
             </div>
             <div class="mouse-area" id="dropZone">
                 <label for="addFile"><span class="ico-plus-c">+</span></button>
@@ -27,8 +12,27 @@
             </div>
             <br><br>
             <div id = "fileTableTbody" class="data-itmes">
-
-            </div>                                
+                <!-- <p>저장할 파일</p> -->
+            </div>
+            <div>
+                <!-- <br><br>
+                <p>저장된 파일</p>
+                <br> -->
+                <?php
+                    $i = 0;
+                    foreach ($exhibitionFiles as $exhibitionFile) {
+                        $destination = WWW_ROOT . $exhibitionFile['file_path'] . DS . $exhibitionFile['file_name'];
+                        $fileSize = round((fileSize($destination) / 1024), 1);
+                ?>
+                        <a id='<?=$exhibitionFile['id']?>' class='data-itme edit'>
+                            <span class="tx"><?= $exhibitionFile['name'] ?></span>
+                            <span class='kb'><?= $fileSize ?>KB</span>
+                            <button type='button' onclick='deleteUploadedFile(<?=$exhibitionFile["id"]?>)' class='btn-del'>삭제</button>
+                        </a>
+                <?php
+                    }
+                ?>       
+            </div>                   
         </div>                               
     </div>
 </form>
@@ -152,13 +156,6 @@ function selectFile(files){
 
 // 업로드 파일 목록 생성
 function addFileList(fIndex, fileName, fileSize){
-    // var html = "";
-    // html += "<tr id='fileTr_" + fIndex + "'>";
-    // html += "    <td class='left' >";
-    // html +=         fileName + " / " + fileSize + "MB "  + "<a href='#' onclick='deleteFile(" + fIndex + "); return false;' class='btn small bg_02'>삭제</a>"
-    // html += "    </td>"
-    // html += "</tr>"
-
     var html = "";
     html += "<a id='fileTr_" + fIndex + "' class='data-itme edit'>";
     html += "<span class='tx'>" + fileName + "</span>";
@@ -182,6 +179,20 @@ function deleteFile(fIndex){
     
     // 업로드 파일 테이블 목록에서 삭제
     $("#fileTr_" + fIndex).remove();
+}
+
+function deleteUploadedFile(id){
+    jQuery.ajax({
+        url: "/exhibition-stream/delete-exhibition-file/" + id, 
+        method: 'DELETE',
+        type: 'json',
+    }).done(function(data) {
+        if (data.status == 'success') {
+            $("#" + id).remove();
+        } else {
+            alert("오류가 발생하였습니다. 잠시 후 다시 시도해주세요.")
+        }
+    });
 }
 
 //파일 등록
@@ -219,7 +230,9 @@ function uploadFile(){
             type: 'POST',
         }).done(function (data) {
             if (data.status == 'success') {
+                $(".webinar-tab-body").load("/exhibition-stream/set-exhibition-files/" + <?= $id ?>);
                 alert('저장되었습니다.');
+            
             } else {
                 alert('failed');
             }
