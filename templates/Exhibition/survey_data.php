@@ -13,11 +13,12 @@
     <?php
     echo $this->Form->create();
     ?>
+    <?php if ($beforeParentData[0] != '') : ?>
     <div class="contents static">
         <h2 class="sr-only">설문 데이터</h2>
         <div class="section8 fir">
             <div class="sect-tit">
-                <h3 class="s-hty1">사전 설문 데이터</h3>
+                <h3 class="s-hty1">사전 설문 데이터<p style="color:gray; font-size:5px;">(비회원 참가자의 데이터는 다운로드 되지 않습니다.)</p></h3>
                 <div class="btn-wp">
                     <input type="submit" value="다운로드" class="btn-ty2 bor">
                 </div>
@@ -175,10 +176,12 @@
             }
             ?>
         </div>
+        <?php endif; ?>
 
+        <?php if ($normalParentData[0] != '') : ?>
         <div class="section8">
             <div class="sect-tit">
-                <h3 class="s-hty1">설문 데이터</h3>
+                <h3 class="s-hty1">설문 데이터<p style="color:gray; font-size:5px;">(비회원 참가자의 데이터는 다운로드 되지 않습니다.)</p></h3>
             </div>
 
             <!-- item -->
@@ -333,6 +336,7 @@
             ?>
         </div>
     </div>
+    <?php endif; ?>
     <?php
     echo $this->Form->end();
     ?>
