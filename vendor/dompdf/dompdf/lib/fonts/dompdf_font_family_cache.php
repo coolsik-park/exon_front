@@ -1,5 +1,5 @@
 <?php return array (
-  'sans-serif' => array(
+   'sans-serif' => array(
     'normal' => $fontDir . '/Helvetica',
     'bold' => $fontDir . '/Helvetica-Bold',
     'italic' => $fontDir . '/Helvetica-Oblique',
@@ -91,5 +91,11 @@
     'bold' => $fontDir . '/DroidSansFallback',
     'italic' => $fontDir . '/DroidSansFallback',
     'bold_italic' => $fontDir . '/DroidSansFallback',
+  ),
+  'nanumgothic' => array(
+    'normal' => $fontDir . '/NanumGothic',
+    'bold' => $fontDir . '/NanumGothicLight',
+    'italic' => $fontDir . '/NanumGothicBold',
+    'bold_italic' => $fontDir . '/NanumGothicExtraBold',
   ),
 ) ?>

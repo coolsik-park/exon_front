@@ -511,7 +511,7 @@ class UsersController extends AppController
     public function sendSmsCertification()
     {        
         if ($this->request->is('post')) {
-            require_once("solapi-php/lib/message.php");
+            require_once(ROOT . "/solapi-php/lib/message.php");
 
             $code = $this->generateCode();
             $commonConfirmations = $this->getTableLocator()->get('CommonConfirmation');

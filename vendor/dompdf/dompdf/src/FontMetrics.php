@@ -408,7 +408,7 @@ class FontMetrics
             return null;
         }
 
-        $family = "dejavu sans";
+        $family = "serif";
 
         if (isset($this->fontLookup[$family][$subtype])) {
             return $cache[$familyRaw][$subtypeRaw] = $this->fontLookup[$family][$subtype];

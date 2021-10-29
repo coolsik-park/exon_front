@@ -91,5 +91,12 @@ return [
             'bold_italic' => $distFontDir . '/DejaVuSerif-BoldItalic',
             'italic' => $distFontDir . '/DejaVuSerif-Italic',
             'normal' => $distFontDir . '/DejaVuSerif'
+        ],
+    'nanum gothic' =>
+        [
+            'normal' => $fontDir . '/NanumGothic',
+            'bold' => $fontDir . '/NanumGothicLight',
+            'italic' => $fontDir . '/NanumGothicBold',
+            'bold_italic' => $fontDir . '/NanumGothicExtraBold',
         ]
 ];

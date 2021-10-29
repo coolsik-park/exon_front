@@ -459,7 +459,7 @@ class ExhibitionUsersController extends AppController
     {        
         if ($this->request->is('post')) {
             
-            require_once("solapi-php/lib/message.php");
+            require_once(ROOT . "/solapi-php/lib/message.php");
             
             $code = $this->generateCode();
             $CommonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
