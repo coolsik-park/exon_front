@@ -80,4 +80,16 @@
   'open sans' => array(
     'normal' => $fontDir . '/open_sans_normal_bf11512877ef2223afd06e89358ef2fc',
   ),
+  'notosans' => array(
+    'normal' => $fontDir . '/NanumGothic',
+    'bold' => $fontDir . '/NanumGothic',
+    'italic' => $fontDir . '/NanumGothic',
+    'bold_italic' => $fontDir . '/NanumGothic',
+  ),
+  'droidsansfallbackfull' => array(
+    'normal' => $fontDir . '/DroidSansFallback',
+    'bold' => $fontDir . '/DroidSansFallback',
+    'italic' => $fontDir . '/DroidSansFallback',
+    'bold_italic' => $fontDir . '/DroidSansFallback',
+  ),
 ) ?>
