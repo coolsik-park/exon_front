@@ -1,21 +1,3 @@
-<!-- <?php
-    echo '설문 별 응답률<br><br>';
-    if ($answerRates != null) {
-        foreach ($answerRates as $answerRate) {
-            foreach ($applyRates as $applyRate) {
-                echo $answerRate->text . ' : ' . $answerRate->count . '/' . $applyRate->count . '<br>';
-            }
-        }
-    } else {
-        echo '응답한 설문이 없습니다.<br>';
-    }
-    
-    echo '<br>';
-    echo '참가자 수 : ' . $participatedData['total'] . '<br>';
-    echo '재방문 참가자 수 : ' . $participatedData['participated'] . '<br>';
-    echo '첫방문 참가자 수 : ' . ($participatedData['total'] - $participatedData['participated']);
-?> -->
-
 <div id="container">
     <div class="sub-menu">
         <div class="sub-menu-inner">

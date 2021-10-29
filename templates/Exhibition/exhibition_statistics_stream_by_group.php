@@ -91,7 +91,7 @@
             <br>
             <div class="pr-graph2">
                 <div class="graph-bx">
-                    <h3 class="s-hty2">시청자 나이 대</h3>
+                    <h3 class="s-hty2">시청자 나이 대<p style="color:gray; font-size:5px;">(비회원은 표시되지 않습니다.)</p></h3>
                     <div>
                         <canvas id="chart3" style="width:315.59px; height:300px; margin-left:auto; margin-right:auto;"></canvas>
                     </div>
