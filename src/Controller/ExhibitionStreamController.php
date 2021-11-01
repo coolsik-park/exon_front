@@ -389,18 +389,18 @@ class ExhibitionStreamController extends AppController
     public function setNotice ($id = null)
     {
         $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $display = $Exhibition->get($id)->notice;
 
         if ($this->request->is('post')) {
             $exhibition = $Exhibition->get($id);
             $notice = $this->request->getData('notice');
-            $exhibition->notice = $notice;
 
             if ($Exhibition->save($exhibition)) {
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
                 return $response;
             }
         }
-        $this->set(compact('id'));
+        $this->set(compact('id', 'display'));
     }
 
     public function setSurvey ($id = null)

@@ -3,6 +3,7 @@
     <div class="webinar-cont-ty1">
         <div class="webinar-cont-ty1-body">
             <?php echo $this->Form->control('notice', ['type' => 'textarea', 'label' => false]); ?>
+            <input type="hidden" id="hidden_notice" value="<?=$display?>">
         </div>
         <div class="webinar-cont-ty1-btm">
             <div class="poll-submit">                                        
@@ -14,6 +15,11 @@
 
 <script>
     CKEDITOR.replace('notice');
+
+    var notice = $("#hidden_notice").val();
+    if (notice != '') {
+        CKEDITOR.instances.notice.setData(notice);
+    }
 
     $("#noticeAdd").click(function () {
         var notice = CKEDITOR.instances['notice'].getData();
