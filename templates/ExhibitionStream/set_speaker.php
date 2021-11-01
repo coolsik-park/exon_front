@@ -82,7 +82,7 @@
     });
 
     //저장
-    $(document).on("click", "#saveSpeaker", function () {
+    $("#saveSpeaker").click(function () {
         var formData = new FormData();
         var images = document.getElementsByName('image[]');
         for (var i = 0; i < images.length; i++) {
