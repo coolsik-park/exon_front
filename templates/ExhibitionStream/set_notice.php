@@ -6,7 +6,7 @@
         </div>
         <div class="webinar-cont-ty1-btm">
             <div class="poll-submit">                                        
-                <button id="noticeAdd" class="btn-ty4 redbg">저장</button>
+                <button type="button" id="noticeAdd" class="btn-ty4 redbg">저장</button>
             </div>
         </div>
     </div>                               
@@ -15,7 +15,7 @@
 <script>
     CKEDITOR.replace('notice');
 
-    $("button#noticeAdd").click(function () {
+    $("#noticeAdd").click(function () {
         var notice = CKEDITOR.instances['notice'].getData();
         jQuery.ajax({
             url: "/exhibition-stream/set-notice/" + <?= $id ?>, 
