@@ -16,17 +16,18 @@
 
 
     <style type="text/css">  
-  @font-face {
-    font-family: 'NanumGothic';
-    font-style: normal;
-    font-weight: 400;
-}
-* {
-    font-family: 'NanumGothic';;
-}
+        @font-face {
+            font-family: 'NanumGothic';
+            font-style: normal;
+            font-weight: 400;
+        }
+        
+        *{
+            font-family: 'NanumGothic';;
+        }
     </style>
 </head>
-<body>
+<body style="max-height:300px;">
     <h1 style="text-align: center;">증빙 영수증</h1><br>
     <div style="max-width: 700px;margin: 0 auto;border: 1px solid #dbdbdb;border-radius: 0.938rem;">
         <div style="padding: 3.125rem 1.875rem 1.875rem;">
@@ -34,7 +35,7 @@
         </div>
         <div style="padding: 0 1.875rem 1.875rem;color: #000;">
             <div style="font-size: 1.250rem;line-height: 1.45;">
-                <!-- <h1 style="margin:0;padding:0;margin-bottom: 3.750rem;font-size: 2.188rem;font-weight: 700;line-height: 1.49;">증빙 영수증</h1>                -->
+                <h1 style="margin:0;padding:0;margin-bottom: 3.750rem;font-size: 2.188rem;font-weight: 700;line-height: 1.49;">증빙 영수증</h1>               
                 <p style="font-size: 1.25rem;line-height: 1.45;color: #afafaf;"><?=$category?></p>
                 <p style=" font-size: 1.875rem;line-height: 1.45;line-height: 1.33;"><?=$title?></p>                
                 <ul style="margin:0;padding:0;list-style: none;margin-top: 3.125rem;">
