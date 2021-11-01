@@ -412,7 +412,11 @@ class ExhibitionUsersController extends AppController
         $exhibitionUsers = $this->ExhibitionUsers->get($exhibition_users_id);
 
         $img_path = 'webroot/images/h1-logo.png';
-        $img_src = $this->encode_img_base64($img_path);
+        $img_data = fopen ( $img_path, 'rb' );
+        $img_size = filesize ( $img_path );
+        $binary_image = fread ( $img_data, $img_size );
+        fclose ( $img_data );
+        $img_src = "data:image/png;base64,".str_replace ("\n", "", base64_encode($binary_image));
 
         $category = $this->getTableLocator()->get('CommonCategory')->get($exhibition->category)->title;
         
@@ -461,22 +465,6 @@ class ExhibitionUsersController extends AppController
                 'filename' => $exhibition_id . '_Report.pdf', //// This can be omitted if you want file name based on URL.
             ]
         ); 
-    }
-
-    function encode_img_base64($img_path = false, $img_type = 'png') {
-        
-        if($img_path) {    
-            $img_data = fopen ( $img_path, 'rb' );
-            $img_size = filesize ( $img_path );
-            $binary_image = fread ( $img_data, $img_size );
-            fclose ( $img_data );
-    
-            $img_src = "data:image/".$img_type.";base64,".str_replace ("\n", "", base64_encode($binary_image));
-    
-            return $img_src;
-        }
-    
-        return false;
     }
 
     public function certification($id = null)
