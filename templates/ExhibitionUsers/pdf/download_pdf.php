@@ -30,53 +30,53 @@
     <h1 style="text-align: center;">증빙 영수증</h1><br>
     <div style="max-width: 700px;margin: 0 auto;border: 1px solid #dbdbdb;border-radius: 0.938rem;">
         <div style="padding: 3.125rem 1.875rem 1.875rem;">
-            <a href="<?=$front_url?>"><img src="../images/h1-logo.png" alt="EXON"></a>
+            <a href="<?=$front_url?>"><img src="<?=$img_src?>" alt="EXON"></a>
         </div>
         <div style="padding: 0 1.875rem 1.875rem;color: #000;">
             <div style="font-size: 1.250rem;line-height: 1.45;">
-                <h1 style="margin:0;padding:0;margin-bottom: 3.750rem;font-size: 2.188rem;font-weight: 700;line-height: 1.49;">증빙 영수증</h1>                
-                <p style="font-size: 1.25rem;line-height: 1.45;color: #afafaf;">기타/설명회</p>
-                <p style=" font-size: 1.875rem;line-height: 1.45;line-height: 1.33;">2021년 언택트 박람회 EXON<br>온라인 설명회</p>                
+                <!-- <h1 style="margin:0;padding:0;margin-bottom: 3.750rem;font-size: 2.188rem;font-weight: 700;line-height: 1.49;">증빙 영수증</h1>                -->
+                <p style="font-size: 1.25rem;line-height: 1.45;color: #afafaf;"><?=$category?></p>
+                <p style=" font-size: 1.875rem;line-height: 1.45;line-height: 1.33;"><?=$title?></p>                
                 <ul style="margin:0;padding:0;list-style: none;margin-top: 3.125rem;">
                     <li style="margin-bottom: 1.875rem;">
                         <p style="margin:0;padding:0;font-size: 1.25rem;line-height: 1.45;color: #afafaf;">금액</p>
-                        <p style="margin:0;padding:0">무료</p>
+                        <p style="margin:0;padding:0"><?=$cost?></p>
                     </li>
                     <li style="margin-bottom: 1.875rem;">
                         <p style="margin:0;padding:0;font-size: 1.25rem;line-height: 1.45;color: #afafaf;">신청일</p>
-                        <p style="margin:0;padding:0">21.06.11 (금) 20:12</p>
+                        <p style="margin:0;padding:0"><?=$apply_date?></p>
                     </li>
                     <li style="margin-bottom: 1.875rem;">
-                        <p style="margin:0;padding:0;font-size: 1.25rem;line-height: 1.45;color: #afafaf;"><?php echo $users_name; ?>행사 기간</p>
-                        <p style="margin:0;padding:0">21.06.12 (토) 13:00 ~ 21.06.12 (토) 22:00</p>
+                        <p style="margin:0;padding:0;font-size: 1.25rem;line-height: 1.45;color: #afafaf;">행사 기간</p>
+                        <p style="margin:0;padding:0"><?=$sdate?> ~ <?=$edate?></p>
                     </li>
                 </ul>
                 <ul style="margin:0;padding:0;list-style: none;border-top: 1px solid #afafaf;">
                     <li style="padding: 1.875rem 0 0;">
                         <p style="margin:0;padding:0;font-size: 1.25rem;line-height: 1.45;color: #afafaf;">이름</p>
-                        <p style="margin:0;padding:0"><?php echo $users_name; ?></p>
+                        <p style="margin:0;padding:0"><?=$users_name;?></p>
                     </li>
                     <li style="padding: 1.875rem 0 0;">
                         <p style="margin:0;padding:0;font-size: 1.25rem;line-height: 1.45;color: #afafaf;">이메일</p>
-                        <p style="margin:0;padding:0">hong@gmail.com</p>
+                        <p style="margin:0;padding:0"><?=$users_email?></p>
                     </li>
                     <li style="padding: 1.875rem 0;">
                         <p style="margin:0;padding:0;font-size: 1.25rem;line-height: 1.45;color: #afafaf;">연락처</p>
-                        <p style="margin:0;padding:0">010-1234-5678</p>
+                        <p style="margin:0;padding:0"><?=$users_hp?></p>
                     </li>
                 </ul>
                 <ul style="margin:0;padding:0;list-style: none;border-top: 1px solid #afafaf;">
                     <li style="padding: 1.875rem 0 0">
                         <p style="margin:0;padding:0;font-size: 1.25rem;line-height: 1.45;color: #afafaf;">담당자</p>
-                        <p style="margin:0;padding:0">홍길동</p>
+                        <p style="margin:0;padding:0"><?=$name?></p>
                     </li>
                     <li style="padding: 1.875rem 0 0;">
                         <p style="margin:0;padding:0;font-size: 1.25rem;line-height: 1.45;color: #afafaf;">담당자 이메일</p>
-                        <p style="margin:0;padding:0">cck@orcatv.co.kr</p>
+                        <p style="margin:0;padding:0"><?=$email?></p>
                     </li>
                     <li style="padding: 1.875rem 0;">
                         <p style="margin:0;padding:0;font-size: 1.25rem;line-height: 1.45;color: #afafaf;">담당자 연락처</p>
-                        <p style="margin:0;padding:0">010-1234-5678</p>
+                        <p style="margin:0;padding:0"><?=$tel?></p>
                     </li>
                 </ul>
             </div>

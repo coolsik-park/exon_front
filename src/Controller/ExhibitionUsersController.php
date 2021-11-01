@@ -409,17 +409,27 @@ class ExhibitionUsersController extends AppController
     {   
         $Exhibition = $this->getTableLocator()->get('Exhibition');
         $exhibition = $Exhibition->get($exhibition_id);
-
         $exhibitionUsers = $this->ExhibitionUsers->get($exhibition_users_id);
+
+        $img_path = 'webroot/images/h1-logo.png';
+        $img_src = $this->encode_img_base64($img_path);
+
+        $category = $this->getTableLocator()->get('CommonCategory')->get($exhibition->category)->title;
+        
+        if ($exhibition->cost == 'free') :
+            $cost = '무료';
+        else :
+            $cost = $exhibitionUsers->pay_amount . '원';
+        endif;
 
         $this->viewBuilder()->enableAutoLayout(false); 
         $this->viewBuilder()->setClassName('CakePdf.Pdf');
         $this->viewBuilder()->setVars([
             'front_url' => FRONT_URL,
             'title' => $exhibition->title,
-            'category' => $exhibition->category,
+            'category' => $category,
             'type' => $exhibition->type,
-            'cost' => $exhibition->cost,
+            'cost' => $cost,
             'apply_date' => $exhibitionUsers->created,
             'sdate' => $exhibition->sdate,
             'edate' => $exhibition->edate,
@@ -428,7 +438,8 @@ class ExhibitionUsersController extends AppController
             'users_hp' => $exhibitionUsers->users_hp,
             'name' => $exhibition->name,
             'tel' => $exhibition->tel,
-            'email' => $exhibition->email
+            'email' => $exhibition->email,
+            'img_src' => $img_src
         ]);
 
         $Pay = $this->getTableLocator()->get('Pay');
@@ -444,10 +455,28 @@ class ExhibitionUsersController extends AppController
             [
                 'orientation' => 'portrait',
                 'defaultFont' => 'NanumGothic',
+                'isHtml5ParserEnabled' => true, 
+                'isRemoteEnabled' => true,
                 'download' => true, // This can be omitted if "filename" is specified.
                 'filename' => $exhibition_id . '_Report.pdf', //// This can be omitted if you want file name based on URL.
             ]
         ); 
+    }
+
+    function encode_img_base64($img_path = false, $img_type = 'png') {
+        
+        if($img_path) {    
+            $img_data = fopen ( $img_path, 'rb' );
+            $img_size = filesize ( $img_path );
+            $binary_image = fread ( $img_data, $img_size );
+            fclose ( $img_data );
+    
+            $img_src = "data:image/".$img_type.";base64,".str_replace ("\n", "", base64_encode($binary_image));
+    
+            return $img_src;
+        }
+    
+        return false;
     }
 
     public function certification($id = null)
