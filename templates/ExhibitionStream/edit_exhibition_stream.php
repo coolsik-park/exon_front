@@ -43,9 +43,12 @@
             <div id="videoWrap" class="wb-cont1" >
                 <video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup='{"fluid": true}' muted="muted" autoplay="autoplay"></video-js>
             </div>
-            <div class="wb-cont2">
+            <div id="liveButtons" class="wb-cont2">
+                <?php if ($exhibitionStream->live_started == '') : ?>
                 <button id="start" type="button" class="btn-ty4 black">방송시작</button>
+                <?php else : ?>
                 <button id="end" type="button" class="btn-ty4 gray">방송종료</button>
+                <?php endif; ?>
             </div>
             <div class="wb-cont2">
                 <input name="title" id="title" type="text" placeholder="(필수) 방송제목">
@@ -193,23 +196,29 @@
         }
     });
 
-    //방송 중 체크
-    // $(document).ready(function () {
-    //     var player = videojs(document.querySelector('#vid1'));
-    //     $.ajax({
-    //         url: "http://121.126.223.225:80/live/<?=$exhibitionStream->stream_key?>/index.m3u8",
-    //         type: 'HEAD',
-    //         success: function () {
-    //             player.src({src: video_uri, type: 'application/x-mpegURL' });
-    //             player.load();
-    //             player.play();
-    //         },
-    //         error: function () {
-    //             player.attr("autoplay", false);
-    //             player.attr("muted", false);
-    //         }
-    //     });
-    // });
+    var setDuration;
+    var timeCheck;
+
+    setDuration = setInterval("setLiveDuration()", 1000);
+    timeCheck = setInterval("liveTimeCheck()", 1000);
+
+    //OBS방송 중 체크
+    $(document).ready(function () {
+        var player = videojs(document.querySelector('#vid1'));
+        $.ajax({
+            url: "http://121.126.223.225:80/live/<?=$exhibitionStream->stream_key?>/index.m3u8",
+            type: 'HEAD',
+            success: function () {
+                player.src({src: video_uri, type: 'application/x-mpegURL' });
+                player.load();
+                player.play();
+            },
+            error: function () {
+                player.attr("autoplay", false);
+                player.attr("muted", false);
+            }
+        });
+    });
 
     //방송 종료시간 컨트롤
     function setLiveDuration () {
@@ -262,10 +271,8 @@
     var video_uri = "http://121.126.223.225:80/live/<?=$exhibitionStream->stream_key?>/index.m3u8"
     var stream_key = "<?=$exhibitionStream->stream_key?>"
     var player = videojs(document.querySelector('#vid1'));
-    var setDuration;
-    var tiemCheck;
 
-    $("#start").click(function () {
+    $(document).on("click", "#start", function () {
         $.ajax({
             url: video_uri,
             type: 'HEAD',
@@ -278,9 +285,9 @@
                         player.src({src: video_uri, type: 'application/x-mpegURL' });
                         player.load();
                         player.play();
-            
-                        setDuration = setInterval("setLiveDuration()", 1000);
-                        timeCheck = setInterval("liveTimeCheck()", 1000)
+
+                        $("#liveButtons").children().remove();
+                        $("#liveButtons").append('<button id="end" type="button" class="btn-ty4 gray">방송종료</button>');
                     
                     } else {
                         alert("오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
@@ -293,7 +300,7 @@
         });
     });
 
-    $("#end").click(function () {
+    $(document).on("click", "#end", function () {
         clearInterval(setDuration);
         clearInterval(timeCheck);
         liveEnd();
@@ -324,6 +331,9 @@
                             $("#videoWrap").append(html);
                             var newPlayer = videojs(document.querySelector('#vid1'));
                             newPlayer.load();
+
+                            $("#liveButtons").children().remove();
+                            $("#liveButtons").append('<button id="start" type="button" class="btn-ty4 black">방송시작</button>');
                         });  
                     },
                     error: function (data) {
@@ -333,12 +343,6 @@
             }
         });
     }
-
-    // 페이지 unload 시
-    $(window).bind("beforeunload", function (e) {
-        return confirm("창을 나가시면 방송이 종료됩니다. 나가시겠습니까?");
-        liveEnd();
-    });
 
     //저장
     $(document).on("click", "#save", function() {

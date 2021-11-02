@@ -1174,13 +1174,13 @@ class ExhibitionStreamController extends AppController
             $now = strtotime(date("Y-m-d H:i:s"));
             $live_started = strtotime($exhibitionStream->live_started->format('Y-m-d H:i:s'));
             $duration = abs($now - $live_started);
-        }
-        
-        if ($exhibitionStream->live_duration < $duration) {
-            $exhibitionStream->live_duration = $duration;
-        
-        } else {
-            $exhibitionStream->live_duration = $exhibitionStream->live_duration + 1;
+
+            if ($exhibitionStream->live_duration < $duration) {
+                $exhibitionStream->live_duration = $duration;
+            
+            } else {
+                $exhibitionStream->live_duration = $exhibitionStream->live_duration + 1;
+            }
         }
         
         if ($this->ExhibitionStream->save($exhibitionStream)) {
