@@ -139,7 +139,7 @@
                         <li>
                             <button type="button">고객센터</button>
                             <ul class="lst-depth">
-                                <li><a href="/boards/faqs-by-category">자주하는 질문</a></li>
+                                <li><a href="/boards/customer-service">자주하는 질문</a></li>
                                 <li><a href="/boards/notice">공지사항</a></li>
                                 <li><a href="/boards/add">문의하기</a></li>
                             </ul>
@@ -160,7 +160,7 @@
             <div class="footer-top">    
                 <ul>
                     <li><a href="#">회사소개</a></li>
-                    <li><a href="/boards/faqs-by-category">고객센터</a></li>
+                    <li><a href="/boards/customer-service">고객센터</a></li>
                     <li><a href="#">서비스 이용약관 </a></li>
                     <li><a href="#">개인정보처리방침</a></li>
                     <li><a href="#">전자금융거래 이용약관</a></li>
