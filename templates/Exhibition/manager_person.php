@@ -235,7 +235,7 @@
                     html += '                   <textarea readonly name="" id="" cols="30" rows="3">';
                     for (var j=0; j<beforeParentData[i]['exhibition_survey_users_answer'].length; j++) {
                         if (beforeParentData[i]['exhibition_survey_users_answer'][j]['users_id'] == users_id) {
-                            html += '                ' + beforeParentData[i]['exhibition_survey_users_answer'][j]['text'] + '';
+                            html += beforeParentData[i]['exhibition_survey_users_answer'][j]['text'];
                         }
                     }
                     html += '                   </textarea>';
