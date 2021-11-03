@@ -126,19 +126,21 @@
                                 </div>
                                 <a href="/exhibitionUsers/add/<?= $exhibition->id ?>" class="btn-join">참가 신청</a>
                             <?php 
-                                else: 
-                                    if($exhibitionUsers[0]->status != '4'):
+                                else:
+                                    if ($exhibitionUsers[0]->status == 4):
+                            ?>
+                                        <a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition->id ?>" class="btn-join">웨비나 접속</a>
+                            <?php
+                                    else:
                             ?>
                                         <div class="group" id="group">
-                                            <?= $this->Form->select('', $groups, ['id' => 'group']) ?>                                   
+                                            <?= $this->Form->select('', $groups, ['id' => 'group']) ?>
                                             <span class="tx" id="spanGroup"></span>
                                         </div>
-                                        <a href="/exhibitionUsers/add/<?= $exhibition->id ?>" class="btn-join">참가 신청</a>
-                            <?php   else: ?>
-                                        <a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition->id ?>" class="btn-join">웨비나 접속</a>
-                            <?php 
+                                        <a href="/exhibition-users/add/<?= $exhibition->id ?>" class="btn-join">참가 신청</a>
+                            <?php
                                     endif;
-                                endif; 
+                                endif;
                             ?>
                         </div>
                     </div>
@@ -154,7 +156,9 @@
                     </div>
                     <div class="info1">
                         <p><?= $user[0]->name ?></p>
-                        <!-- <p><?= $users->title ?>입니다</p> -->
+                        <?php if ($user[0]->title != null): ?>
+                            <p><?= $user[0]->title ?>입니다</p>
+                        <?php endif; ?>
                     </div>
                     <div class="info2">
                         <p><?= $user[0]->email ?></p>
