@@ -1165,4 +1165,46 @@ class ExhibitionStreamController extends AppController
         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
         return $response;
     }
+
+    public function setLiveDuration($exhibition_stream_id = null)
+    {
+        $exhibitionStream = $this->ExhibitionStream->get($exhibition_stream_id);
+        
+        if ($exhibitionStream->live_started != null) {
+            $now = strtotime(date("Y-m-d H:i:s"));
+            $live_started = strtotime($exhibitionStream->live_started->format('Y-m-d H:i:s'));
+            $duration = abs($now - $live_started);
+
+            if ($exhibitionStream->live_duration < $duration) {
+                $exhibitionStream->live_duration = $duration;
+            
+            } else {
+                $exhibitionStream->live_duration = $exhibitionStream->live_duration + 1;
+            }
+        }
+        
+        if ($this->ExhibitionStream->save($exhibitionStream)) {
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'duration' => $exhibitionStream->live_duration]));
+            return $response;
+        }
+    }
+
+    public function addLiveDuration($exhibition_stream_id = null)
+    {
+        $exhibitionStream = $this->ExhibitionStream->get($exhibition_stream_id);
+
+        $time_count = $this->request->getData('time_count');
+
+        $exhibitionStream->live_duration = (int)$exhibitionStream->live_duration + (int)$time_count;
+
+        $this->ExhibitionStream->save($exhibitionStream);
+    }
+
+    public function liveTimeCheck($exhibition_stream_id = null)
+    {
+        $exhibitionStream = $this->ExhibitionStream->get($exhibition_stream_id);
+
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'time' => (int)$exhibitionStream->time, 'live_duration' => (int)$exhibitionStream->live_duration]));
+        return $response;
+    }
 }

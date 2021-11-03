@@ -43,9 +43,12 @@
             <div id="videoWrap" class="wb-cont1" >
                 <video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup='{"fluid": true}' muted="muted" autoplay="autoplay"></video-js>
             </div>
-            <div class="wb-cont2">
+            <div id="liveButtons" class="wb-cont2">
+                <?php if ($exhibitionStream->live_started == '') : ?>
                 <button id="start" type="button" class="btn-ty4 black">방송시작</button>
+                <?php else : ?>
                 <button id="end" type="button" class="btn-ty4 gray">방송종료</button>
+                <?php endif; ?>
             </div>
             <div class="wb-cont2">
                 <input name="title" id="title" type="text" placeholder="(필수) 방송제목">
@@ -192,8 +195,14 @@
             $(this).remove();
         }
     });
-    
-    //방송 중 체크
+
+    var setDuration;
+    var timeCheck;
+
+    setDuration = setInterval("setLiveDuration()", 1000);
+    timeCheck = setInterval("liveTimeCheck()", 1000);
+
+    //OBS방송 중 체크
     $(document).ready(function () {
         var player = videojs(document.querySelector('#vid1'));
         $.ajax({
@@ -211,11 +220,59 @@
         });
     });
 
+    //방송 종료시간 컨트롤
+    function setLiveDuration () {
+        var exhibition_stream_id = "<?=$exhibitionStream->id?>";
+        jQuery.ajax({
+            url: "/exhibition-stream/set-live-duration/" + exhibition_stream_id, 
+            method: 'POST',
+            type: 'json',
+        });
+    }
+
+    function liveTimeCheck () {
+        var exhibition_stream_id = "<?=$exhibitionStream->id?>";
+        jQuery.ajax({
+            url: "/exhibition-stream/live-time-check/" + exhibition_stream_id, 
+            method: 'POST',
+            type: 'json',
+            success: function (data) {
+                if (data.time - data.live_duration == 600) {
+                    var before = new Date();
+                    
+                    if (confirm("결제하신 방송 서비스 시간이 10분 남았습니다. 추가 결제가 필요하신 경우 결제를 클릭해주세요.")) {
+                        var after = new Date();
+                        var count = (after - before);
+                        var seconds = (after.getTime() - before.getTime()) / 1000;
+                        seconds = Math.round(seconds);
+
+                        jQuery.ajax({
+                            url: "/exhibition-stream/add-live-duration/" + exhibition_stream_id, 
+                            method: 'POST',
+                            type: 'json',
+                            data: {
+                                time_count: seconds
+                            }
+                        });
+                    }
+                }
+
+                if (data.time <= data.live_duration) {
+                    clearInterval(setDuration);
+                    clearInterval(timeCheck);
+                    liveEnd();
+                    alert("서비스 시간 만료로 방송이 종료되었습니다.");
+                }
+            }
+        });
+    }
+
     //방송 컨트롤
     var video_uri = "http://121.126.223.225:80/live/<?=$exhibitionStream->stream_key?>/index.m3u8"
     var stream_key = "<?=$exhibitionStream->stream_key?>"
     var player = videojs(document.querySelector('#vid1'));
-    $("#start").click(function () {
+
+    $(document).on("click", "#start", function () {
         $.ajax({
             url: video_uri,
             type: 'HEAD',
@@ -228,6 +285,9 @@
                         player.src({src: video_uri, type: 'application/x-mpegURL' });
                         player.load();
                         player.play();
+
+                        $("#liveButtons").children().remove();
+                        $("#liveButtons").append('<button id="end" type="button" class="btn-ty4 gray">방송종료</button>');
                     
                     } else {
                         alert("오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
@@ -235,12 +295,18 @@
                 });
             },
             error: function () {
-                alert("OBS에서 방송을 시작해주세요. (OBS 방송 시작 후 6초 정도의 지연시간이 존재합니다.)");
+                alert("OBS에서 방송을 시작해주세요. (OBS에서 방송 시작 후 10초 정도의 지연시간이 존재합니다.)");
             }
         });
     });
 
-    $("#end").click(function () {
+    $(document).on("click", "#end", function () {
+        clearInterval(setDuration);
+        clearInterval(timeCheck);
+        liveEnd();
+    });
+
+    function liveEnd () {
         var obj = new Object();
         obj.stream_key = stream_key;
         obj.video_uri = stream_key;
@@ -265,19 +331,18 @@
                             $("#videoWrap").append(html);
                             var newPlayer = videojs(document.querySelector('#vid1'));
                             newPlayer.load();
+
+                            $("#liveButtons").children().remove();
+                            $("#liveButtons").append('<button id="start" type="button" class="btn-ty4 black">방송시작</button>');
                         });  
                     },
                     error: function (data) {
                         alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
                     }
                 });
-            },
-            error: function () {
-                alert("방송 중이 아닙니다.");
             }
         });
-        
-    });
+    }
 
     //저장
     $(document).on("click", "#save", function() {
