@@ -66,6 +66,9 @@ class ExhibitionStreamController extends AppController
                 $exhibitionStream->url = $data['url'];
                 $exhibitionStream->ip = $this->Auth->user('ip');
                 $exhibitionStream->tab = $data['tab'];
+                if (!empty($data['is_download'])) :
+                $exhibitionStream->is_download = $data['is_download'];
+                endif;
 
                 if (!$this->ExhibitionStream->save($exhibitionStream)) {
                     $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
@@ -747,6 +750,11 @@ class ExhibitionStreamController extends AppController
             $exhibitionStream->coupon_amount = $data['coupon_amount'];
             endif;
             $exhibitionStream->tab = $data['tab'];
+            if (!empty($data['is_download'])) :
+            $exhibitionStream->is_download = $data['is_download'];
+            else :
+            $exhibitionStream->is_download = 0;
+            endif;
 
             if (!$this->ExhibitionStream->save($exhibitionStream)) {
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));

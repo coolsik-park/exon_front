@@ -129,6 +129,12 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row2" style="height:48px; padding-top:5px;">
+                        <div class="col-th">VOD 저장</div>
+                        <div class="col-td">
+                            <span class="chk-dsg"><input type="checkbox" id="is_download" name="is_download" value="1"><label for="is_download"></label></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -177,6 +183,10 @@
     $("#stream_key").val("<?=$exhibitionStream->stream_key?>");
     $("#url").val("<?=$exhibitionStream->url?>");
     $("#tab").val("<?=$exhibitionStream->tab?>");
+    var is_download = "<?=$exhibitionStream->is_download?>";
+    if (is_download == 1) {
+        $("#is_download").prop("checked", true);
+    }
 
     var time = $("#time").val();
     var people = $("#people").val();
