@@ -699,15 +699,23 @@ class ExhibitionController extends AppController
         $i = 0;
         $j = 0;
         $beforeParentData[] = null;
+        $beforeChildData[] = null;
         foreach ($exhibitionSurveys as $exhibitionSurvey) {
             if ($exhibitionSurvey['parent_id'] == null) {
                 $parent_id = $exhibitionSurvey['id'];
                 $beforeParentData[$i] = $exhibitionSurvey;
                 $i++;
+            } else {
+                if ($exhibitionSurvey['parent_id'] == $parent_id) {
+                    $beforeChildData[$parent_id][$j] = $exhibitionSurvey;
+                    $j++;
+                }
             }
         }
+        debug($beforeParentData);
+        debug($beforeChildData);
         
-        $this->set(compact('id', 'exhibition_users', 'users', 'beforeParentData'));
+        $this->set(compact('id', 'exhibition_users', 'users', 'beforeParentData', 'beforeChildData'));
     }
 
     public function exhibitionUsersStatus()

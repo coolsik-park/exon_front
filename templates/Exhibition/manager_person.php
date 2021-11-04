@@ -208,9 +208,13 @@
 <script>
     function surveyCheck(users_id) {
         if (users_id == null) {
+            var html = '';
+            $("#surveyPopup").html(html);
             alert("비회원이라 사전설문 결과를 확인할 수 없습니다.");
+            return;
         } else {
             var beforeParentData = <?= json_encode($beforeParentData) ?>;
+            var beforeChildData = <?= json_encode($beforeChildData) ?>;
             var html = '';
             html += '<div class="modal fade" id="surveyCheckModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
             html += '   <div class="modal-dialog" role="document">';
@@ -227,8 +231,16 @@
                 html += '                       <p class="tit">' + beforeParentData[i]['text'] +'</p>';
                 if (beforeParentData[i]['is_multiple'] == 'Y') {
                     html += '                   <ul>';
-                    for (var y=0; y<beforeParentData[i]['child_exhibition_survey'].length; y++) {
-                        html += '                   <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '" checked="checked"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeParentData[i]['child_exhibition_survey'][y]['text'] + '</label></span></li>';
+                    for (var y=0; y<beforeChildData[beforeParentData[i]['id']].length; y++) {
+                        for (var z=0; z<beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'].length; z++) {
+                            if (beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'][z]['users_id'] == users_id) {
+                                if (beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'][z]['text'] == 'Y') {
+                                    html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '" checked="checked"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
+                                } else {
+                                    html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
+                                }
+                            }
+                        }
                     }
                     html += '                   </ul>';
                 } else {
