@@ -178,19 +178,24 @@
             return false;
         }
         
+        var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+        if (!getMail.test($("#users_email").val())) {
+            alert("이메일 형식을 확인해주세요.");
+            $("#users_email").focus();
+            return false;
+        }
+        
         if ($("#users_name").val().length == 0) {
             alert("이름을 입력해주세요.");
             $("#users_name").focus();
             return false;
         }
 
-        
-        if (!getName.test($("#name").val())) {
-            $("#nameNoti").html("이름을 올바르게 입력해 주세요.");
-            result.push('false');
-        } else {
-            $("#nameNoti").html("");
-            result.push('true');
+        var getName = RegExp(/^[가-힣]+$/);
+        if (!getName.test($("#users_name").val())) {
+            alert("이름을 올바르게 입력해 주세요.");
+            $("#users_name").focus();
+            return false;
         }
 
         if ($("#users_hp").val().length == 0) {
@@ -202,13 +207,6 @@
         if ($("#users_sex").val() == null) {
             alert("성별을 입력해주세요.");
             $("#users_sex").focus();
-            return false;
-        }
-        
-        var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
-        if (!getMail.test($("#users_email").val())) {
-            alert("이메일 형식을 확인해주세요.");
-            $("#users_email").focus();
             return false;
         }
 
