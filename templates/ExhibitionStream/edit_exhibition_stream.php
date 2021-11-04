@@ -251,7 +251,7 @@
                 if (data.time - data.live_duration == 600) {
                     var before = new Date();
                     
-                    if (confirm("결제하신 방송 서비스 시간이 10분 남았습니다. 추가 결제가 필요하신 경우 결제를 클릭해주세요.")) {
+                    if (confirm("결제하신 방송 서비스 시간이 10분 남았습니다. 10분 후 방송이 자동 종료되며, VOD 저장을 체크하지 않을 경우 스트리밍이 저장되지 않습니다. 추가 결제가 필요하신 경우 결제를 클릭해주세요.")) {
                         var after = new Date();
                         var count = (after - before);
                         var seconds = (after.getTime() - before.getTime()) / 1000;
