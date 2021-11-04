@@ -134,6 +134,7 @@
                         <div class="col-td">
                             <span class="chk-dsg"><input type="checkbox" id="is_download" name="is_download" value="1"><label for="is_download"></label></span>
                         </div>
+                        <a id="download_vod" href="http://121.126.223.225/videos/<?=$exhibitionStream->stream_key?>/source.mp4" style="display:none"></a>
                     </div>
                 </div>
             </div>
@@ -344,6 +345,9 @@
 
                             $("#liveButtons").children().remove();
                             $("#liveButtons").append('<button id="start" type="button" class="btn-ty4 black">방송시작</button>');
+                            if ($("#is_download").prop("checked") == true) {
+                                $("#download_vod").get(0).click();
+                            }
                         });  
                     },
                     error: function (data) {

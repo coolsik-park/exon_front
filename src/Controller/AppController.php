@@ -73,15 +73,15 @@ class AppController extends Controller
 
     public function beforeFilter(\Cake\Event\EventInterface $event)
     {
-        $uri = substr($_SERVER['REQUEST_URI'], 0, 40);
-        if ($uri != '/exhibition-stream/set-exhibition-stream') {
-            $this->request->getSession()->delete('coupon_data');
-            $this->request->getSession()->delete('stream_data');
-        }
+        // $uri = substr($_SERVER['REQUEST_URI'], 0, 40);
+        // if ($uri != '/exhibition-stream/set-exhibition-stream') {
+        //     $this->request->getSession()->delete('coupon_data');
+        //     $this->request->getSession()->delete('stream_data');
+        // }
 
-        $uri = substr($_SERVER['REQUEST_URI'], 0, 16);
-        if ($uri != '/exhibition/send') {
-            $this->request->getSession()->delete('result');
-        }
+        // $uri = substr($_SERVER['REQUEST_URI'], 0, 16);
+        // if ($uri != '/exhibition/send') {
+        //     $this->request->getSession()->delete('result');
+        // }
     }
 }
