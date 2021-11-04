@@ -107,6 +107,10 @@
                         <?= $this->Paginator->next(__('다음') . ' >') ?>
                     </ul>
                 </div>
+                <div class="board-sh">
+                    <input type="text" id="search" placeholder="제목">
+                    <button type="button" class="ico-sh" id="ico-sh">검색</button>
+                </div> 
             </div>
         </div>
     </div>
@@ -344,6 +348,41 @@
 
                 var html = '';
                 html += '<h4 class="s-hty3" id="s-hty3">기타</h4>';
+                html += '<div>';
+                html += '   <ul class="board-lists">';
+                for (var i=0; i<faqs.length; i++) {
+                    html += '   <li>';
+                    html += '       <button type="button" class="b-tit">' + faqs[i]['title'] + '</button>';
+                    html += '       <div class="b-desc">' + faqs[i]['content'] + '</div>';
+                    html += '   </li>';
+                }
+                html += '   </ul>';
+                html += '</div>';
+
+                $('#category-list').html(html);
+                ui.addOnAction('.board-lists>li');
+            } else {
+                alert("실패하였습니다.");
+            }
+        });
+    });
+
+    $('#ico-sh').on('click', function() {
+        var word = document.getElementById("search").value;
+
+        $.ajax({
+            url: '/boards/title-search',
+            method: 'POST',
+            type: 'json',
+            data: {
+                word: word,
+            }
+        }).done(function(data) {
+            if (data.status == 'success') {
+                console.log(data.data);
+                var faqs = data.data;
+                
+                var html = '';
                 html += '<div>';
                 html += '   <ul class="board-lists">';
                 for (var i=0; i<faqs.length; i++) {

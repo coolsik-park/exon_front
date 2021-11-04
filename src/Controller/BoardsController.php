@@ -295,4 +295,18 @@ class BoardsController extends AppController
     
         return $response;
     }
+    
+    public function titleSearch()
+    {
+        $this->paginate = ['limit' => 10];
+
+        $word = $this->request->getData('word');
+
+        $faq_table = TableRegistry::get('Faq');
+
+        $faqs = $this->paginate($faq_table->find()->select(['id', 'title', 'content'])->where(['title LIKE' => '%'.$word.'%']));
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $faqs]));
+
+        return $response;
+    }
 }
