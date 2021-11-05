@@ -263,7 +263,7 @@
         $("div[name='number']").each(function () {
             $(this).remove();
         });
-        $("#count").html("수신자 수 : 0 (문자 건당 00원입니다)");
+        $("#count").html("수신자 수 : 0 ");
     });
 
     //개별 초기화
