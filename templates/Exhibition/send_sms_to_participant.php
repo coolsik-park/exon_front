@@ -299,7 +299,6 @@
         }).done(function (data) {
             if (data.status == 'success') {
                 var exhibition_users = data.data;
-                console.log(data.data);
                 
                 var html = '';
                 html+='<div id="deleteWrap" class="table-type4">';
