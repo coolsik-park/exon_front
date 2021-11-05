@@ -1018,7 +1018,7 @@ class ExhibitionController extends AppController
         return $response;
     }
 
-    public function sortByGroup($id = null, $group = null) 
+    public function sortByGroup($id = null, $group = 0) 
     {
         if ($group == 0) {
             $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])

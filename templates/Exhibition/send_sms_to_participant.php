@@ -299,6 +299,7 @@
         }).done(function (data) {
             if (data.status == 'success') {
                 var exhibition_users = data.data;
+                console.log(data.data);
                 
                 var html = '';
                 html+='<div id="deleteWrap" class="table-type4">';
@@ -340,7 +341,9 @@
                 html+='            <div class="td-col col3">';
                 html+='                <div class="mo-only">그룹명</div>';
                 html+='                <div class="con">';
-                html+='                '+exhibition_users[i]['exhibition_group']['name'];
+                if (exhibition_users[i]['exhibition_group'] != null) {
+                    html += exhibition_users[i]['exhibition_group']['name'];
+                }
                 html+='                </div>';
                 html+='            </div>';
                 html+='            <div class="td-col col4">';
@@ -422,7 +425,9 @@
                 html+='            <div class="td-col col3">';
                 html+='                <div class="mo-only">그룹명</div>';
                 html+='                <div class="con">';
-                html+='                '+exhibition_users[i]['exhibition_group']['name'];
+                if (exhibition_users[i]['exhibition_group'] != null) {
+                    html += exhibition_users[i]['exhibition_group']['name'];
+                }
                 html+='                </div>';
                 html+='            </div>';
                 html+='            <div class="td-col col4">';
