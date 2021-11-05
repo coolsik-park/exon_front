@@ -188,6 +188,13 @@
             result.push('true');
         }
 
+        if ($('#rdo3-1').prop('checked') == false) {
+            alert("개인정보 수집 및 이용 동의를 확인해주세요.");
+            result.push('flase');
+        } else {
+            result.push('true');
+        }
+
         if (!result.includes('false')) {
             $.ajax({
                 url: '/boards/add',
