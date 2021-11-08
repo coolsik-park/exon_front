@@ -308,7 +308,7 @@ class ExhibitionUsersController extends AppController
                 $Pay = $this->getTableLocator()->get('Pay');
                 $pay = $Pay->get($pay_id);
                 
-                require_once("iamport-rest-client-php/src/iamport.php");
+                require_once(ROOT . "/iamport-rest-client-php/src/iamport.php");
                 
                 $iamport = new Iamport(getEnv('IAMPORT_API_KEY'), getEnv('IAMPORT_API_SECRET'));
     
@@ -411,7 +411,7 @@ class ExhibitionUsersController extends AppController
         $exhibition = $Exhibition->get($exhibition_id);
         $exhibitionUsers = $this->ExhibitionUsers->get($exhibition_users_id);
 
-        $img_path = 'webroot/images/h1-logo.png';
+        $img_path = ROOT . '/webroot/images/h1-logo.png';
         $img_data = fopen ( $img_path, 'rb' );
         $img_size = filesize ( $img_path );
         $binary_image = fread ( $img_data, $img_size );
