@@ -44,7 +44,15 @@ class ExhibitionStreamChatLogController extends AppController
         // else{
 
         //세션 생성 (샘플이므로 별도 세션 생성, 원래는 로그인 정보로 이용)
-        $this->getRequest()->getSession()->write('Chat.UserName', $this->Auth->user('name'));
+        $user_name = '';
+        if (!empty($this->getRequest()->getSession()->read('exhibition_users_name'))) {
+            $users_name = $this->getRequest()->getSession()->consume('exhibition_users_name');
+        
+        } else {
+            $users_name = $this->Auth->user('name');
+        }   
+        
+        $this->getRequest()->getSession()->write('Chat.UserName', $users_name);
 
         $ExhibitionStream = $this->getTableLocator()->get('ExhibitionStream');
         $exhibitionStream = $ExhibitionStream->find()->select(['id'])->where(['exhibition_id' => $exhibition_id])->toArray();
@@ -80,8 +88,10 @@ class ExhibitionStreamChatLogController extends AppController
             $chat = $ChatLogs->newEmptyEntity();
     
             $chat->exhibition_stream_id = $this->getRequest()->getSession()->read('Chat.StreamId');
-            $chat->users_id = $this->Auth->user('id');
-            $chat->user_name = $this->Auth->user('name');
+            if (!empty($this->Auth->user())) {
+                $chat->users_id = $this->Auth->user('id');   
+            }
+            $chat->user_name = $username;
             $chat->message = $text;
     
             if(!$ChatLogs->save($chat))

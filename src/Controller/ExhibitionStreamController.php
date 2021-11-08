@@ -959,6 +959,7 @@ class ExhibitionStreamController extends AppController
                             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'hp_not_exist']));
                             return $response;
                         }
+                        $this->getRequest()->getSession()->write('exhibition_users_name', $exhibitionUser[0]['users_name']);
                         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
                         return $response;
                     
@@ -1049,6 +1050,7 @@ class ExhibitionStreamController extends AppController
                         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'email_not_exist']));
                         return $response;
                     }
+                    $this->getRequest()->getSession()->write('exhibition_users_name', $exhibitionUser[0]['users_name']);
                     $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
                     return $response;
                 

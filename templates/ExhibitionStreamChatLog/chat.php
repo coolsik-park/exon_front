@@ -215,8 +215,7 @@ $(document).ready(function(){
             url: "/ExhibitionStreamChatLog/getChatLog/"+$("#last_id").val(),
             cache: false,
             dataType: 'json',
-            success: function(data){        
-                console.log(data.last_id);
+            success: function(data){     
                 $("#chatbox").append(data.contents); //Insert chat log into the #chatbox div                       
                 $("#last_id").val(data.last_id); 
                 
