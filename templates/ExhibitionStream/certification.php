@@ -32,7 +32,7 @@
                                     <div class="label-wp">
                                         <label for="emailCode">인증번호</label><input type="text" id="emailCode" placeholder="인증번호">
                                     </div> 
-                                    <button id="eamilResend" type="button" class="btn-ty2 gray">재발송</button>
+                                    <button id="emailResend" type="button" class="btn-ty2 gray">재발송</button>
                                 </div>
                                 <p id="emailCodeNoti" class="noti hc1"></p>
                                 <div class="popup-btm alone">
@@ -284,7 +284,7 @@
         });
     });
 
-    $("#reSend").click(function () {
+    $("#smsReSend").click(function () {
         if ($("#sms").val() == "") {
             $("#smsNoti").html("전화번호를 입력해 주세요.");
             $("#sms").focus();

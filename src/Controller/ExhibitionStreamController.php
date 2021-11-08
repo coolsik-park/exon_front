@@ -496,11 +496,16 @@ class ExhibitionStreamController extends AppController
             $i = 0;
             $parentId = 0;
             $whereId = 0;
+            $users_id = null;
+            if (!empty($this->Auth->user())) {
+                $users_id = $this->Auth->user('id');
+            }
+
             foreach ($exhibitionSurveys as $exhibitionSurvey) {
 
                 if (!$result = $connection->insert('exhibition_survey_users_answer', [
                     'exhibition_survey_id' => $exhibitionSurvey['id'],
-                    'users_id' => $this->Auth->user('id'),
+                    'users_id' => $users_id,
                     'text' => $answerData['exhibition_survey_users_answer_'. $i .'_text'],
                     'is_multiple' => $exhibitionSurvey['is_multiple']
                 ])) {
