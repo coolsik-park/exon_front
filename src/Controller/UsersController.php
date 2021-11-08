@@ -647,7 +647,7 @@ class UsersController extends AppController
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
         $code = '';
         for ($i = 0; $i < 6; $i++) {
-            $code .= substr($characters, rand(0, strlen($characters)), 1);
+            $code .= substr($characters, rand(0, strlen($characters)-1), 1);
         }
         return $code;
     }
