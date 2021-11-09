@@ -1,11 +1,11 @@
-<!-- 
+
 <style>
     * {
     margin: 0;
     padding: 0;
   }
    
-  body {
+  /* body {
     margin: 20px auto;
     font-family: "Lato";
     font-weight: 300;
@@ -25,9 +25,9 @@
    
   input {
     font-family: "Lato";
-  }
+  } */
    
-  a {
+  /* a {
     color: #0000ff;
     text-decoration: none;
   }
@@ -56,16 +56,15 @@
     padding: 15px 25px;
     font-size: 1.4rem;
     font-weight: bold;
-  }
+  } */
    
   #chatbox {
     text-align: left;
-    margin: 0 auto;
-    margin-bottom: 25px;
+    /* margin: 3px; */
     padding: 10px;
     background: #fff;
-    height: 300px;
-    width: 530px;
+    height: 100%;
+    width: 100%;
     border: 1px solid #a7a7a7;
     overflow: auto;
     border-radius: 4px;
@@ -84,7 +83,7 @@
     padding: 2px 8px;
   }
    
-  #submitmsg,
+  /* #submitmsg,
   #enter{
     background: #ff9800;
     border: 2px solid #e65100;
@@ -92,9 +91,9 @@
     padding: 4px 10px;
     font-weight: bold;
     border-radius: 4px;
-  }
+  } */
    
-  .error {
+  /* .error {
     color: #ff0000;
   }
    
@@ -113,7 +112,7 @@
     padding: 4px 8px;
     border-radius: 4px;
     font-weight: bold;
-  }
+  } */
    
   .msgln {
     margin: 0 0 5px 0;
@@ -142,7 +141,7 @@
   .msgln b.user-name-left {
     background: orangered;
   }
-</style> -->
+</style>
 
 <!-- <div id="wrapper">
     <div id="menu">
