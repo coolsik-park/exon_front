@@ -13,7 +13,11 @@
                 <?php foreach ($displays as $display) : ?>
                 <li id="speaker_<?=$displayIndex?>">
                     <div class="ph-item">
+                        <?php if ($display->image_name == '') : ?>
+                        <div class="photo"><img id="speakerImg_<?=$displayIndex?>" src="/images/img-no.png"></div>
+                        <?php else : ?>
                         <div class="photo"><img id="speakerImg_<?=$displayIndex?>" src="/<?=$display->image_path?>/<?=$display->image_name?>"></div>
+                        <?php endif; ?>
                         <div class="tx"><input type="text" style="width:90px; height:24px;" value="<?=$display->name?>" readonly></div>
                         <button type="button" class="btn-del" onclick="deleteSpeaker(<?=$displayIndex?>, <?=$display->id?>)">삭제</button>
                     </div>

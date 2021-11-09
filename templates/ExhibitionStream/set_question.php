@@ -6,7 +6,7 @@
                 <ul class="ph-items">
                     <li class="box" id="all">
                         <div class="ph-item">
-                            <div class="photo"></div>
+                            <div class="photo"><img style = "width:100%; height:100%;" src="/images/img-no.png"></div>
                             <div class="tx">전체</div>
                         </div>
                     </li>
@@ -16,7 +16,11 @@
                     ?> 
                     <li class="box" id=<?= $exhibitionSpeaker['id'] ?>>
                         <div class="ph-item">
+                            <?php if ($exhibitionSpeaker['image_name'] == '') : ?>
+                            <div class="photo"><img style = "width:100%; height:100%;" src="/images/img-no.png"></div>
+                            <?php else : ?>
                             <div class="photo"><img style = "width:100%; height:100%;" src = <?= DS . $exhibitionSpeaker['image_path'] . DS . $exhibitionSpeaker['image_name'] ?>></div>
+                            <?php endif; ?>
                             <div class="tx"><?php echo $exhibitionSpeaker['name']; ?></div>
                         </div>
                     </li>
@@ -70,11 +74,10 @@
         </div>
     </div>                               
 </div>
-
 <script>
     $(".box").click(function () {
-        $(".box").css("border", "none");
-        $(this).css("border", "1px solid red");
+        $(".box").css("background", "none");
+        $(this).css("background", "rgba(228, 52, 45, 0.15)");
         $("#target").val($(this).attr('id'));
     });
 
