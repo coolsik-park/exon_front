@@ -656,6 +656,7 @@
         }
     });
 
+    var chatInterval
     $("#btn_tab0").click(function () {
         if ($("#setting_btn").attr("name") == "btn_on") {
             if ($("#li0").attr("class") == "") {
@@ -668,6 +669,7 @@
                 $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
+            clearInterval(chatInterval);
             $(".webinar-tab-body").load("/exhibition-stream/set-exhibition-files/" + <?= $exhibition_id ?>);
         }
     });
@@ -684,6 +686,7 @@
                 $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
+            clearInterval(chatInterval);
             $(".webinar-tab-body").load("/exhibition-stream/exhibition-info/" + <?= $exhibition_id ?>);
         }
     });
@@ -700,6 +703,7 @@
                 $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
+            clearInterval(chatInterval);
             $(".webinar-tab-body").load("/exhibition-stream/founder/" + <?= $exhibition_id ?>);
         }
     });
@@ -716,6 +720,7 @@
                 $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
+            clearInterval(chatInterval);
             $(".webinar-tab-body").load("/exhibition-stream/person-in-charge/" + <?= $exhibition_id ?>);
         }
     });
@@ -732,6 +737,7 @@
                 $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
+            clearInterval(chatInterval);
             $(".webinar-tab-body").load("/exhibition-stream/set-program/" + <?= $exhibition_id ?>);
         }
     });
@@ -748,6 +754,7 @@
                 $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
+            clearInterval(chatInterval);
             $(".webinar-tab-body").load("/exhibition-stream/attendance/" + <?= $exhibition_id ?>);
         }
     });
@@ -764,6 +771,7 @@
                 $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             } 
         } else {
+            clearInterval(chatInterval);
             $(".webinar-tab-body").load("/exhibition-stream/question-menu/" + <?= $exhibition_id ?>);
         }
     });
@@ -780,6 +788,7 @@
                 $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
+            clearInterval(chatInterval);
             $(".webinar-tab-body").load("/exhibition-stream/set-notice/" + <?= $exhibition_id ?>);
         }
     });
@@ -796,6 +805,7 @@
                 $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
+            clearInterval(chatInterval);
             $(".webinar-tab-body").load("/exhibition-stream/set-survey/" + <?= $exhibition_id ?>);
         }
     });
