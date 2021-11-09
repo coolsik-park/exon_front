@@ -3,7 +3,7 @@
     <div class="webinar-cont-ty1">
         <form id="surveyForm">
             <div class="webinar-cont-ty1-body">                                    
-                <div class="poll-item-wrap">
+                <div class="poll-item-wrap" style="overflow: auto; height:659px;">
                     <?php if (!empty($exhibitionSurveys)) : ?>
                         <?php $i=0; ?>
                         <?php foreach ($exhibitionSurveys as $exhibitionSurvey) : ?>
