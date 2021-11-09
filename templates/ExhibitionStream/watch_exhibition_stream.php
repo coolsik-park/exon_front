@@ -71,6 +71,7 @@
 </div>
 
 <script>
+    var chatInterval
     //방송 중 체크
     $(document).ready(function () {
         $.ajax({
@@ -116,6 +117,7 @@
         }
 
         $("#li0").click(function () {
+            clearInterval(chatInterval);
             $(".webinar-tab-body").load("/exhibition-stream/exhibition-files/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
             $("#li0").attr("class", "active");
             $("#li1").attr("class", "");
@@ -130,6 +132,7 @@
         });
 
         $("#li1").click(function () {
+            clearInterval(chatInterval);
             $(".webinar-tab-body").load("/exhibition-stream/exhibition-info/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
             $("#li0").attr("class", "");
             $("#li1").attr("class", "active");
@@ -144,7 +147,7 @@
         });
 
         $("#li2").click(function () {
-            
+            clearInterval(chatInterval);
             $(".webinar-tab-body").load("/exhibition-stream/founder/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
             $("#li0").attr("class", "");
             $("#li1").attr("class", "");
@@ -160,7 +163,7 @@
         });
 
         $("#li3").click(function () {
-            
+            clearInterval(chatInterval);
             $(".webinar-tab-body").load("/exhibition-stream/person-in-charge/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
             $("#li0").attr("class", "");
             $("#li1").attr("class", "");
@@ -176,7 +179,7 @@
         });
 
         $("#li4").click(function () {
-            
+            clearInterval(chatInterval);
             $(".webinar-tab-body").load("/exhibition-stream/program/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
             $("#li0").attr("class", "");
             $("#li1").attr("class", "");
@@ -192,7 +195,7 @@
         });
 
         $("#li5").click(function () {
-            
+            clearInterval(chatInterval);
             $(".webinar-tab-body").load('/exhibition-stream/set-attendance/' + <?= $exhibitionStream[0]['exhibition_id'] ?>);
             $("#li0").attr("class", "");
             $("#li1").attr("class", "");
@@ -208,7 +211,7 @@
         });
 
         $("#li6").click(function () {
-            
+            clearInterval(chatInterval);
             $(".webinar-tab-body").load("/exhibition-stream/set-question/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
             $("#li0").attr("class", "");
             $("#li1").attr("class", "");
@@ -224,7 +227,7 @@
         });
 
         $("#li7").click(function () {
-            
+            clearInterval(chatInterval);
             $(".webinar-tab-body").load("/exhibition-stream/notice/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
             $("#li0").attr("class", "");
             $("#li1").attr("class", "");
@@ -240,7 +243,7 @@
         });
 
         $("#li8").click(function () {
-            
+            clearInterval(chatInterval);
             $(".webinar-tab-body").load("/exhibition-stream/answer-survey/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
             $("#li0").attr("class", "");
             $("#li1").attr("class", "");
@@ -256,7 +259,6 @@
         });
 
         $("#li9").click(function () {
-            
             $(".webinar-tab-body").load("/exhibition-stream-chat-log/chat/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
             $("#li0").attr("class", "");
             $("#li1").attr("class", "");
