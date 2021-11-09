@@ -183,7 +183,7 @@
                                 <div class="tg-btns">
                                     <button type="button" class="btn-ty3 bor" id="menu">메뉴</button>
                                     <ul>
-                                        <?php if ($exhibition->edate > $today && empty($exhibition->users)) : ?>
+                                        <?php if ($exhibition->status == 4 || $exhibition->edate > $today && empty($exhibition->users)) : ?>
                                         <li><button type="button" id="delete<?=$exhibition->id?>" name="deleteExhibition" class="btn-ty3 bor">행사 삭제</button></li>
                                         <?php endif; ?>
                                         <li><button type="button" id="copy<?=$exhibition->id?>" name="copyExhibition" class="btn-ty3 bor">행사 복사</button></li>
