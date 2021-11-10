@@ -1,3 +1,20 @@
+<style>
+    .webinar-cont-ty1-body::-webkit-scrollbar {
+    width: 10px;
+    }
+    .webinar-cont-ty1-body::-webkit-scrollbar-thumb {
+        background-color: #2f3542;
+        border-radius: 10px;
+        background-clip: padding-box;
+        border: 2px solid transparent;
+    }
+    .webinar-cont-ty1-body::-webkit-scrollbar-track {
+        background-color: grey;
+        border-radius: 10px;
+        box-shadow: inset 0px 0px 5px white;
+    }
+</style>
+
 <div class="webinar-cont1">
     <h3 class="sr-only">설문</h3>
     <div class="webinar-cont-ty1">

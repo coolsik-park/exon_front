@@ -1,6 +1,3 @@
-<!-- <input type = "button" id = "speaker" value = "연사자">
-<input type = "button" id = "question" value = "질문">
-<input type = "button" id = "answered" value = "답변완료"> -->
 <div class="webinar-cont1">
     <h3 class="sr-only">질의 응답</h3>
     <div class="webinar-cont-ty1">

@@ -1,41 +1,43 @@
-<form name="uploadForm" id="uploadForm">
+
     <div class="webinar-cont2">
         <h3 class="sr-only">자료</h3>
         <div class="webinar-cont-ty2">
-            <div class="wb10-btn">
-                <button type="button" class="btn3" onclick="uploadFile()">저장하기</button>
-            </div>
-            <div class="mouse-area" id="dropZone">
-                <label for="addFile"><span class="ico-plus-c">+</span></button>
-                <input name="file[]" id="addFile" type="file" multiple="multiple" style="display:none">
-                <p>마우스로 자료를 끌어오세요</p>
-            </div>
-            <br><br>
-            <div id = "fileTableTbody" class="data-itmes">
-                <!-- <p>저장할 파일</p> -->
-            </div>
-            <div>
-                <!-- <br><br>
-                <p>저장된 파일</p>
-                <br> -->
-                <?php
-                    $i = 0;
-                    foreach ($exhibitionFiles as $exhibitionFile) {
-                        $destination = WWW_ROOT . $exhibitionFile['file_path'] . DS . $exhibitionFile['file_name'];
-                        $fileSize = round((fileSize($destination) / 1024), 1);
-                ?>
-                        <a id='<?=$exhibitionFile['id']?>' class='data-itme edit'>
-                            <span class="tx"><?= $exhibitionFile['name'] ?></span>
-                            <span class='kb'><?= $fileSize ?>KB</span>
-                            <button type='button' onclick='deleteUploadedFile(<?=$exhibitionFile["id"]?>)' class='btn-del'>삭제</button>
-                        </a>
-                <?php
-                    }
-                ?>       
-            </div>                   
+            <form name="uploadForm" id="uploadForm">
+                <div class="wb10-btn">
+                    <button type="button" class="btn3" onclick="uploadFile()">저장하기</button>
+                </div>
+                <div class="mouse-area" id="dropZone">
+                    <label for="addFile"><span class="ico-plus-c">+</span></button>
+                    <input name="file[]" id="addFile" type="file" multiple="multiple" style="display:none">
+                    <p>마우스로 자료를 끌어오세요</p>
+                </div>
+                <br><br>
+                <div id = "fileTableTbody" class="data-itmes">
+                    <!-- <p>저장할 파일</p> -->
+                </div>
+                <div>
+                    <!-- <br><br>
+                    <p>저장된 파일</p>
+                    <br> -->
+                    <?php
+                        $i = 0;
+                        foreach ($exhibitionFiles as $exhibitionFile) {
+                            $destination = WWW_ROOT . $exhibitionFile['file_path'] . DS . $exhibitionFile['file_name'];
+                            $fileSize = round((fileSize($destination) / 1024), 1);
+                    ?>
+                            <a id='<?=$exhibitionFile['id']?>' class='data-itme edit'>
+                                <span class="tx"><?= $exhibitionFile['name'] ?></span>
+                                <span class='kb'><?= $fileSize ?>KB</span>
+                                <button type='button' onclick='deleteUploadedFile(<?=$exhibitionFile["id"]?>)' class='btn-del'>삭제</button>
+                            </a>
+                    <?php
+                        }
+                    ?>       
+                </div>
+            </form>                   
         </div>                               
     </div>
-</form>
+
 
 <script>
 // 파일 리스트 번호
@@ -201,11 +203,11 @@ function uploadFile(){
     var uploadFileList = Object.keys(fileList);
 
     // 파일이 있는지 체크
-    if(uploadFileList.length == 0){
-        // 파일등록 경고창
-        alert("파일이 없습니다.");
-        return;
-    }
+    // if(uploadFileList.length == 0){
+    //     // 파일등록 경고창
+    //     alert("파일이 없습니다.");
+    //     return;
+    // }
     
     // 용량을 500MB를 넘을 경우 업로드 불가
     if(totalFileSize > maxUploadSize){
@@ -234,7 +236,7 @@ function uploadFile(){
                 alert('저장되었습니다.');
             
             } else {
-                alert('failed');
+                alert('삭제되었습니다.');
             }
         });
     }

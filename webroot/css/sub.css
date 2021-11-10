@@ -1345,6 +1345,20 @@
   overflow: hidden;
   overflow-y: auto;
 }
+.webinar-cont-ty1-body::-webkit-scrollbar {
+  width: 10px;
+}
+.webinar-cont-ty1-body::-webkit-scrollbar-thumb {
+  background-color: #2f3542;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+.webinar-cont-ty1-body::-webkit-scrollbar-track {
+  background-color: grey;
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px white;
+}
 .webinar-cont-ty1-btm {
   position: absolute;
   bottom: 0;
@@ -1367,6 +1381,20 @@
   height: 100%;
   overflow-y: auto;
 }
+.webinar-cont2::-webkit-scrollbar {
+  width: 10px;
+}
+.webinar-cont2::-webkit-scrollbar-thumb {
+  background-color: #2f3542;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+.webinar-cont2::-webkit-scrollbar-track {
+  background-color: grey;
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px white;
+}
 .webinar-cont2 .popup-wrap {
   width: 100%;
 }
@@ -1378,6 +1406,34 @@
 .webinar-cont-ty4-body .sect-ovf2 {
   overflow: hidden;
   overflow-y: auto;
+}
+.webinar-cont-ty4-body .sect-ovf1::-webkit-scrollbar {
+  width: 10px;
+}
+.webinar-cont-ty4-body .sect-ovf1::-webkit-scrollbar-thumb {
+  background-color: #2f3542;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+.webinar-cont-ty4-body .sect-ovf1::-webkit-scrollbar-track {
+  background-color: grey;
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px white;
+}
+.webinar-cont-ty4-body .sect-ovf2::-webkit-scrollbar {
+  width: 10px;
+}
+.webinar-cont-ty4-body .sect-ovf2::-webkit-scrollbar-thumb {
+  background-color: #2f3542;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+.webinar-cont-ty4-body .sect-ovf2::-webkit-scrollbar-track {
+  background-color: grey;
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px white;
 }
 .webinar-cont-ty4-body .sect-ovf1 {
   height: 30%;
@@ -2120,6 +2176,20 @@
   height: calc(100% - 2.5rem);
   overflow: hidden;
   overflow-y: auto;
+}
+.wb-in-tab-cont::-webkit-scrollbar {
+  width: 10px;
+}
+.wb-in-tab-cont::-webkit-scrollbar-thumb {
+  background-color: #2f3542;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+.wb-in-tab-cont::-webkit-scrollbar-track {
+  background-color: grey;
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px white;
 }
 .ph-item-add {
   display: inline-block;
