@@ -397,6 +397,7 @@ class ExhibitionStreamController extends AppController
         if ($this->request->is('post')) {
             $exhibition = $Exhibition->get($id);
             $notice = $this->request->getData('notice');
+            $exhibition->notice = $notice;
 
             if ($Exhibition->save($exhibition)) {
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
