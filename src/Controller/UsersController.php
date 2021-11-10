@@ -219,7 +219,7 @@ class UsersController extends AppController
                 $query = $this->Users->findBySocialId($responseArr['response']['id'])->toArray();
 
                 if(count($query)) {
-                    $naver_redirectURI = urlencode("http://121.126.223.225:8765/users/naverLogin");
+                    $naver_redirectURI = urlencode(NAVER_LOGIN_URL);
                     $naver_apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=" . $client_id . "&redirect_uri=" . $naver_redirectURI . "&state=" . $state;
                     return $this->redirect($naver_apiURL);
                 } else {
@@ -295,7 +295,7 @@ class UsersController extends AppController
                 $query = $this->Users->findBySocialId($responseArr['id'])->toArray();
 
                 if(count($query)) {
-                    $kakao_redirectURI = urlencode("http://121.126.223.225:8765/users/kakaoLogin");
+                    $kakao_redirectURI = urlencode(KAKAO_LOGIN_URL);
                     $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=" . $client_id . "&redirect_uri=" . $kakao_redirectURI;
                     return $this->redirect($kakao_apiURL);
                 } else {
