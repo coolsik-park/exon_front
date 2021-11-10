@@ -1401,6 +1401,21 @@
 .webinar-cont-ty4-body {
   height: calc(100% - 60px);
   overflow: hidden;
+  overflow-y: auto;
+}
+.webinar-cont-ty4-body::-webkit-scrollbar {
+  width: 10px;
+}
+.webinar-cont-ty4-body::-webkit-scrollbar-thumb {
+  background-color: #2f3542;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+.webinar-cont-ty4-body::-webkit-scrollbar-track {
+  background-color: grey;
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px white;
 }
 .webinar-cont-ty4-body .sect-ovf1,
 .webinar-cont-ty4-body .sect-ovf2 {
