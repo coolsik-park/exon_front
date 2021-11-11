@@ -336,8 +336,7 @@
             ?>
         </div>
     </div>
-    <?php endif; ?>
-    <?php
-    echo $this->Form->end();
-    ?>
-</div>
+<?php endif; ?>
+<?php
+echo $this->Form->end();
+?>
