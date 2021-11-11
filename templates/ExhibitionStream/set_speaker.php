@@ -87,6 +87,19 @@
 
     //저장
     $("#saveSpeaker").click(function () {
+        var is_empty = 0;
+        $("input[name='name[]']").each(function () {
+            if ($(this).val() == '') {
+                alert('발표자 이름을 입력해주세요.');
+                $(this).focus();
+                is_empty = 1;
+            }
+        });
+
+        if (is_empty == 1) {
+            return false;
+        }
+
         var formData = new FormData();
         var images = document.getElementsByName('image[]');
         for (var i = 0; i < images.length; i++) {
