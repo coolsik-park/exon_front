@@ -74,7 +74,8 @@
                             <li><a href="/exhibition-users/sign-up/application">신청 내역 관리</a></li>
                             <li><a href="/exhibition/index/all">개설 행사 관리</a></li>
                         </ul> 
-                </div> 
+                    <div> 
+                <!-- // -->
                 <?php endif;?>
             </div>            
         </div>
