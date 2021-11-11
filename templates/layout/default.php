@@ -81,7 +81,7 @@
         </div>
         <!-- mo -->
         <div class="static-mo">
-            <h1 class="h-logo"><a href="#">EXON</a></h1>
+            <h1 class="h-logo"><a href="/">EXON</a></h1>
             <button type="button" class="tg-search">검색</button>
             <div class="header-search-mo">
                 <div class="search-ipt-wp">
