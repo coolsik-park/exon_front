@@ -77,7 +77,7 @@ class ExhibitionController extends AppController
         }
         
         $exhibitiongroups = $this->getTableLocator()->get('ExhibitionGroup');
-        $groups = $exhibitiongroups->find('list', ['keyField' => ['id', 'amount', 'people'], 'valueField' => 'name'])->where(['exhibition_id' => $id]);
+        $groups = $exhibitiongroups->find('list', ['keyField' => ['id', 'amount', 'people'], 'valueField' => 'name'])->where(['exhibition_id' => $id])->toArray();
         $users = $this->getTableLocator()->get('Users');
         $user = $users->find()->where(['id' => $exhibition->users_id])->toList();
         
@@ -92,6 +92,8 @@ class ExhibitionController extends AppController
 
         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'test' => $people_count]));
         return $response;
+
+        $this->set(compact('people_count')); 
     }
     
     public function add()

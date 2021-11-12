@@ -122,19 +122,19 @@
                             <?php 
                                 $today = date("Y-m-d H:i:s");
                                 if ($today > $exhibition->apply_edate):
-                                    // if ($exhibition->additional == 1):
+                                    if ($exhibition->additional == 1):
                                         if ($exhibitionUsers == null): 
                             ?>
                                             <div class="group" id="group">
                                                 <?= $this->Form->select('', $groups, ['id' => 'group']) ?>                                   
                                                 <span class="tx" id="spanGroup"></span>
                                             </div>
-                                            <a href="/exhibitionUsers/add/<?= $exhibition->id ?>" class="btn-join" id="btn-join">참가 신청</a>
+                                            <a href="" class="btn-join" id="btn-join"></a>
                             <?php 
                                         else:
                                             if ($exhibitionUsers[0]->status == 4):
                             ?>
-                                                <a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition->id ?>" class="btn-join" id="btn-join">웨비나 접속</a>
+                                                <a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition->id ?>" class="btn-join">웨비나 접속</a>
                             <?php
                                             else:
                             ?>
@@ -142,11 +142,11 @@
                                                     <?= $this->Form->select('', $groups, ['id' => 'group']) ?>
                                                     <span class="tx" id="spanGroup"></span>
                                                 </div>
-                                                <a href="/exhibition-users/add/<?= $exhibition->id ?>" class="btn-join" id="btn-join">참가 신청</a>
+                                                <a href="" class="btn-join" id="btn-join"></a>
                             <?php
                                             endif;
                                         endif;
-                                    // endif;
+                                    endif;
                                 endif;
                             ?>
                         </div>
@@ -237,12 +237,12 @@
 <footer id="footer"></footer>
 
 <script>
-     ui.slider.photoSlider();
+    ui.slider.photoSlider();
 
-     var tabArea = $('.tab');
-     var navBtn = $('.tab li a');
-     var tabOffset = $('.tab').offset();
-     var tabHeight = $('.tab').outerHeight();
+    var tabArea = $('.tab');
+    var navBtn = $('.tab li a');
+    var tabOffset = $('.tab').offset();
+    var tabHeight = $('.tab').outerHeight();
 
     navBtn.on('click',function(event){
         event.preventDefault();
@@ -260,7 +260,7 @@
         $(window).scrollTop() > 80 ? $('.sub-menu').addClass('sticky') : $('.sub-menu').removeClass('sticky');
     });
 
-    $('#group').on('change', function() {
+    function group() {
         var value = $('#group option:selected').val();
         var group_id = value.split(';')[0];
         var amount = value.split(';')[1];
@@ -272,27 +272,32 @@
         } else {
             $('#spanGroup').replaceWith('<span class="tx" id="spanGroup">무료</span>');
         }
-        button(group_id);
 
-        function button(group_id) {
-            $.ajax({
-                url: '/exhibition/group-people-count',
-                method: 'POST',
-                type: 'json',
-                data: {
-                    group_id: group_id
-                }
-            }).done(function(data) {
-                if (data.status == 'success') {
-                    if (data.test.length >= people_count) {
-                        $('#btn-join').replaceWith('<a href="" class="btn-join" id="btn-join">신청 만료</a>');
-                    } else {
-                        $('#btn-join').replaceWith('<a href="/exhibition-users/add/<?= $exhibition->id ?>" class="btn-join" id="btn-join">참가 신청</a>');
-                    }
+        $.ajax({
+            url: '/exhibition/group-people-count',
+            method: 'POST',
+            type: 'json',
+            data: {
+                group_id: group_id
+            }
+        }).done(function(data) {
+            if (data.status == 'success') {
+                if (data.test.length >= people_count) {
+                    $('#btn-join').replaceWith('<a href="" class="btn-join" id="btn-join">신청 만료</a>');
                 } else {
-                    alert("실패하였습니다.");
+                    $('#btn-join').replaceWith('<a href="/exhibition-users/add/<?= $exhibition->id ?>" class="btn-join" id="btn-join">참가 신청</a>');
                 }
-            });
-        }
+            } else {
+                alert("실패하였습니다.");
+            }
+        });
+    }
+
+    $(function() {
+        group();
+    });
+
+    $('#group').on('change', function() {
+        group();
     });
 </script>
