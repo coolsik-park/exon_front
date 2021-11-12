@@ -129,12 +129,12 @@
                                                 <?= $this->Form->select('', $groups, ['id' => 'group']) ?>                                   
                                                 <span class="tx" id="spanGroup"></span>
                                             </div>
-                                            <a href="" class="btn-join" id="btn-join"></a>
+                                            <a href="/exhibitionUsers/add/<?= $exhibition->id ?>" class="btn-join" id="btn-join">참가 신청</a>
                             <?php 
                                         else:
                                             if ($exhibitionUsers[0]->status == 4):
                             ?>
-                                                <a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition->id ?>" class="btn-join">웨비나 접속</a>
+                                                <a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition->id ?>" class="btn-join" id="btn-join">웨비나 접속</a>
                             <?php
                                             else:
                             ?>
@@ -142,7 +142,7 @@
                                                     <?= $this->Form->select('', $groups, ['id' => 'group']) ?>
                                                     <span class="tx" id="spanGroup"></span>
                                                 </div>
-                                                <a href="" class="btn-join" id="btn-join"></a>
+                                                <a href="/exhibition-users/add/<?= $exhibition->id ?>" class="btn-join" id="btn-join">참가 신청</a>
                             <?php
                                             endif;
                                         endif;
@@ -237,12 +237,12 @@
 <footer id="footer"></footer>
 
 <script>
-    ui.slider.photoSlider();
+     ui.slider.photoSlider();
 
-    var tabArea = $('.tab');
-    var navBtn = $('.tab li a');
-    var tabOffset = $('.tab').offset();
-    var tabHeight = $('.tab').outerHeight();
+     var tabArea = $('.tab');
+     var navBtn = $('.tab li a');
+     var tabOffset = $('.tab').offset();
+     var tabHeight = $('.tab').outerHeight();
 
     navBtn.on('click',function(event){
         event.preventDefault();
@@ -272,7 +272,7 @@
         } else {
             $('#spanGroup').replaceWith('<span class="tx" id="spanGroup">무료</span>');
         }
-
+        
         $.ajax({
             url: '/exhibition/group-people-count',
             method: 'POST',
