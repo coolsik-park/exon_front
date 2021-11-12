@@ -274,10 +274,12 @@
         html += '           <input name="group_amount[]" type="text" value="0" class="ipt" placeholder="그룹별 금액" style="margin-right:20px;">';
         html += '           <select name="group_people[]" class="select">';
         html += '               <option value="0">인원수</option>';
-        html += '               <option value="1000">1,000</option>';
-        html += '               <option value="2000">2,000</option>';
-        html += '               <option value="3000">3,000</option>';
-        html += '               <option value="4000">4,000</option>';
+        html += '               <option value="50">50</option>';
+        html += '               <option value="100">100</option>';
+        html += '               <option value="200">200</option>';
+        html += '               <option value="300">300</option>';
+        html += '               <option value="400">400</option>';
+        html += '               <option value="500">500</option>';
         html += '           </select>';
         html += '           <a onclick="deleteGroup(' + groupIndex + ')" class="btn-ty3 md" style="cursor:pointer">삭제</a>';
         html += '       </div>';
