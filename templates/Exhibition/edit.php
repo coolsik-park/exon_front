@@ -101,12 +101,12 @@
                 <div class="sect4">
                     <h4 class="s-hty2">공개 여부</h4>
                     <div class="ln-rdo">
-                        <span class="chk-dsg"><input type="radio" name="private" id="private1" value="1"><label for="private1">공개</label></span>
+                        <span class="chk-dsg"><input type="radio" name="private" id="private1" value="0"><label for="private1">공개</label></span>
                         <p class="p-noti">누구나 이 행사를 보고 참여 할 수 있습니다.</p>
                     </div>
                     
                     <div class="ln-rdo">
-                        <span class="chk-dsg"><input type="radio" name="private" id="private2" value="0"><label for="private2">비공개</label></span>
+                        <span class="chk-dsg"><input type="radio" name="private" id="private2" value="1"><label for="private2">비공개</label></span>
                         <p class="p-noti">행사 URL을 얻은 사람만 행사에 참여 할 수 있습니다.</p>
                     </div>
                 </div>
@@ -295,10 +295,12 @@
         html += '           <input name="group_amount[]" type="text" class="ipt" value="<?=$exhibitionGroup->amount?>" placeholder="그룹별 금액" style="margin-right:20px;">';
         html += '           <select id="select' + groupIndex + '" name="group_people[]" class="select">';
         html += '               <option value="0">인원수</option>';
-        html += '               <option value="1000">1,000</option>';
-        html += '               <option value="2000">2,000</option>';
-        html += '               <option value="3000">3,000</option>';
-        html += '               <option value="4000">4,000</option>';
+        html += '               <option value="50">50</option>';
+        html += '               <option value="100">100</option>';
+        html += '               <option value="200">200</option>';
+        html += '               <option value="300">300</option>';
+        html += '               <option value="400">400</option>';
+        html += '               <option value="500">500</option>';
         html += '           </select>';
         html += '           <a onclick="deleteGroup(' + groupIndex + ',' + <?=$exhibitionGroup->id?> + ')" class="btn-ty3 md" style="cursor:pointer">삭제</a>';
         html += '       </div>';
@@ -346,10 +348,12 @@
         html += '           <input name="group_amount[]" type="text" class="ipt" placeholder="그룹별 금액" style="margin-right:20px;">';
         html += '           <select name="group_people[]" class="select">';
         html += '               <option value="0">인원수</option>';
-        html += '               <option value="1000">1,000</option>';
-        html += '               <option value="2000">2,000</option>';
-        html += '               <option value="3000">3,000</option>';
-        html += '               <option value="4000">4,000</option>';
+        html += '               <option value="50">50</option>';
+        html += '               <option value="100">100</option>';
+        html += '               <option value="200">200</option>';
+        html += '               <option value="300">300</option>';
+        html += '               <option value="400">400</option>';
+        html += '               <option value="500">500</option>';
         html += '           </select>';
         html += '           <a onclick="deleteGroup(' + groupIndex+ ', 0)" class="btn-ty3 md" style="cursor:pointer">삭제</a>';
         html += '       </div>';
