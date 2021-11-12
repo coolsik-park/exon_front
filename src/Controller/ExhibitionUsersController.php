@@ -69,13 +69,13 @@ class ExhibitionUsersController extends AppController
             $exhibitionUser->pay_id = $answerData['pay_id'];
             $exhibitionUser->pay_amount = $answerData['pay_amount'];
             endif;
-            if ($exhibition->auto_approval == 0) :
+            if ($exhibition->auto_approval == 0 || $exhibition->apply_edate < FrozenTime::now()) :
             $exhibitionUser->status = 2;
             else :
             $exhibitionUser->status = 4;
             endif;
 
-            if (!empty($this->ExhibitionUsers->find('all')->where(['users_email' => $answerData['users_email']]))) {
+            if (!empty($this->ExhibitionUsers->find('all')->where(['users_email' => $answerData['users_email']])->toArray())) {
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'exist']));
                 return $response;
             }
@@ -148,7 +148,7 @@ class ExhibitionUsersController extends AppController
                     $group = $Group->get($group_id);
                     $user_name = $this->request->getData('user_name');
                     
-                    if ($exhibition->auto_approval == 0) :
+                    if ($exhibition->auto_approval == 0 || $exhibition->apply_edate < FrozenTime::now()) :
                         $mailer->setEmailFormat('html')
                                     ->setTo($to)
                                     ->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'EXON'])
@@ -199,7 +199,7 @@ class ExhibitionUsersController extends AppController
                     $to = $this->request->getData('users_email');
                     $user_name = $this->request->getData('user_name');
                     
-                    if ($exhibition->auto_approval == 0) :
+                    if ($exhibition->auto_approval == 0 || $exhibition->apply_edate < FrozenTime::now()) :
                         $mailer->setEmailFormat('html')
                                     ->setTo($to)
                                     ->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'EXON'])

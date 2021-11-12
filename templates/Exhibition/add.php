@@ -166,7 +166,7 @@
             </div>
             <div class="section4">
                 <h3 class="s-hty1">부가 정보</h3>
-                <div class="sect9 mgtS1">
+                <!-- <div class="sect9 mgtS1">
                     <h4 class="s-hty3">확인 메일</h4>
                     <p class="p-noti2">행사 시작 1시간 전에 이메일로 행사 시작 시간을 알립니다. </p>
                     <div class="ln-rdo">
@@ -175,7 +175,7 @@
                     <div class="ln-rdo">
                         <span class="chk-dsg"><input type="radio" name="email_notice" id="email_notice2" value="0"><label for="email_notice2">사용 안함</label></span>
                     </div>
-                </div>
+                </div> -->
                 <div class="sect9 mgtS1">
                     <h4 class="s-hty3">추가 신청</h4>
                     <p class="p-noti2">모집 일시가 종료된 후에도 신청이 가능합니다. 이 때 신청자는 자동으로 대기 처리 됩니다.</p>
