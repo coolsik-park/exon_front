@@ -122,7 +122,7 @@
                             <?php 
                                 $today = date("Y-m-d H:i:s");
                                 if ($today > $exhibition->apply_edate):
-                                    // if ($exhibition->additional == 1):
+                                    if ($exhibition->additional == 1):
                                         if ($exhibitionUsers == null): 
                             ?>
                                             <div class="group" id="group">
@@ -146,7 +146,7 @@
                             <?php
                                             endif;
                                         endif;
-                                    // endif;
+                                    endif;
                                 endif;
                             ?>
                         </div>
