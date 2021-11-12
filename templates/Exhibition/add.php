@@ -366,6 +366,37 @@
             return false;
         }
 
+        var group_empty = 0;
+        $("input[name='group_name[]']").each(function () {
+            if ($(this).val() == '') {
+                $(this).val('참가자');
+            }
+        });
+
+        $("input[name='group_amount[]']").each(function () {
+            if ($(this).val() == '') {
+                alert("그룹 금액을 입력해 주세요.");
+                $(this).focus();
+                group_empty = 1;
+            }
+        });
+
+        if (group_empty == 1) {
+            return false
+        }
+
+        $("select[name='group_people[]']").each(function () {
+            if ($(this).val() == '0') {
+                alert("그룹 인원수를 선택해 주세요.");
+                $(this).focus();
+                group_empty = 1;
+            }
+        });
+        
+        if (group_empty == 1) {
+            return false
+        }
+
         var formData = $("#createForm").serialize();
         formData = formData + '&status=1';
         formData = formData + '&action=add';

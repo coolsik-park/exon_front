@@ -460,9 +460,17 @@ class ExhibitionController extends AppController
                     }
                     
                     if (!empty($data['group_del'])) {
+                        $ExhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup');
+                        $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
                         $count = count($data['group_del']);
 
                         for ($i = 0; $i < $count; $i ++) {
+                            $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_group_id' => $data['group_del'][$i]])->toArray();
+                            
+                            if (!empty($exhibitionUsers)) {
+                                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'exist']));
+                                return $response;
+                            }
 
                             if ($data['group_del'][$i] != 0) {
                                 $exhibitionGroup = $ExhibitionGroup->get($data['group_del'][$i]);

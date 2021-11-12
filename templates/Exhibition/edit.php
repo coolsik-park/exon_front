@@ -345,7 +345,7 @@
         html += '       <div class="ln-group-wp">';
         html += '           <input name="group_amount[]" type="text" class="ipt" placeholder="그룹별 금액" style="margin-right:20px;">';
         html += '           <select name="group_people[]" class="select">';
-        html += '               <option>인원수</option>';
+        html += '               <option value="0">인원수</option>';
         html += '               <option value="1000">1,000</option>';
         html += '               <option value="2000">2,000</option>';
         html += '               <option value="3000">3,000</option>';
@@ -444,14 +444,24 @@
         var group_empty = 0;
         $("input[name='group_name[]']").each(function () {
             if ($(this).val() == '') {
-                alert("그룹 명을 입력해 주세요.");
+                $(this).val('참가자');
+            }
+        });
+
+        $("input[name='group_amount[]']").each(function () {
+            if ($(this).val() == '') {
+                alert("그룹 금액을 입력해 주세요.");
                 $(this).focus();
                 group_empty = 1;
             }
         });
 
+        if (group_empty == 1) {
+            return false
+        }
+
         $("select[name='group_people[]']").each(function () {
-            if ($(this).val() == '0') {
+            if ($(this).val() == "0") {
                 alert("그룹 인원수를 선택해 주세요.");
                 $(this).focus();
                 group_empty = 1;
@@ -488,11 +498,14 @@
                 }).done(function (data) {
                     if (data.status == 'success') {
                         alert("저장 되었습니다.");
-                        window.location.replace("/exhibition/index/all");
+                        window.location.reload();
                     } else {
                         alert("오류가 발생하였습니다. 잠시 후 시도해주세요.");
                     }
                 });
+            } else if (data.status == 'exist') {
+                alert("삭제하려는 그룹에 참가자가 존재하여 삭제 할 수 없습니다. 참가자를 확인해주세요.");
+                window.location.reload();
             } else {
                 alert("오류가 발생하였습니다. 잠시 후 시도해주세요.");
             }
@@ -505,12 +518,43 @@
     });
 
     //임시저장
-    $(document).on("clickf", "button[name='temp']", function() {
+    $(document).on("click", "button[name='temp']", function() {
         //Validation
         if ($("#title").val().length == 0) {
             alert("행사이름을 입력해주세요.");
             $("#title").focus();
             return false;
+        }
+
+        var group_empty = 0;
+        $("input[name='group_name[]']").each(function () {
+            if ($(this).val() == '') {
+                $(this).val('참가자');
+            }
+        });
+
+        $("input[name='group_amount[]']").each(function () {
+            if ($(this).val() == '') {
+                alert("그룹 금액을 입력해 주세요.");
+                $(this).focus();
+                group_empty = 1;
+            }
+        });
+
+        if (group_empty == 1) {
+            return false
+        }
+
+        $("select[name='group_people[]']").each(function () {
+            if ($(this).val() == "0") {
+                alert("그룹 인원수를 선택해 주세요.");
+                $(this).focus();
+                group_empty = 1;
+            }
+        });
+        
+        if (group_empty == 1) {
+            return false
         }
 
         var formData = $("#editForm").serialize();
@@ -538,13 +582,16 @@
                     type: 'POST',
                 }).done(function (data) {
                     if (data.status == 'success') {
-                        alert("임시저장 되었습니다.");
-                        window.location.replace("/exhibition/index/temp");
+                        alert("임시 저장 되었습니다.");
+                        window.location.reload();
                     } else {
                         alert("오류가 발생하였습니다. 잠시 후 시도해주세요.");
                     }
                 });
-            }else {
+            } else if (data.status == 'exist') {
+                alert("삭제하려는 그룹에 참가자가 존재하여 삭제 할 수 없습니다. 참가자를 확인해주세요.");
+                window.location.reload();
+            } else {
                 alert("오류가 발생하였습니다. 잠시 후 시도해주세요.");
             }
         });
