@@ -231,8 +231,10 @@
                 if (data.status == 'success') {
                     alert("신청이 완료되었습니다.");
                     window.location.replace("/exhibition/view/<?=$id?>");
+                } else if (data.status == 'exist') {
+                    alert("이미 신청이 완료된 행사입니다.");
+                    window.location.replace("/exhibition/view/<?=$id?>");
                 } else {
-                    alert(data.test);
                     alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
                 }
             });

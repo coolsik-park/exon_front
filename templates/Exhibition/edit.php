@@ -134,11 +134,11 @@
                 <div class="sect4 mgtS1">
                     <h4 class="s-hty2">참가자 승인 방법</h4>
                     <div class="ln-rdo">
-                        <span class="chk-dsg"><input type="radio" name="auto_approval" id="auto_approval1" value="1"><label for="auto_approval1">수동 승인</label></span>
+                        <span class="chk-dsg"><input type="radio" name="auto_approval" id="auto_approval1" value="0"><label for="auto_approval1">수동 승인</label></span>
                         <p class="p-noti">개설자가 승인한 참가자만 참여가 가능합니다.</p>
                     </div>
                     <div class="ln-rdo">
-                        <span class="chk-dsg"><input type="radio" name="auto_approval" id="auto_approval2" value="0"><label for="auto_approval2">자동 승인</label></span>
+                        <span class="chk-dsg"><input type="radio" name="auto_approval" id="auto_approval2" value="1"><label for="auto_approval2">자동 승인</label></span>
                         <p class="p-noti">참가자가 행사 참여 신청을 하면 자동으로 승인이 됩니다.</p>
                     </div>
                 </div>
@@ -294,7 +294,7 @@
         html += '       <div class="ln-group-wp">';
         html += '           <input name="group_amount[]" type="text" class="ipt" value="<?=$exhibitionGroup->amount?>" placeholder="그룹별 금액" style="margin-right:20px;">';
         html += '           <select id="select' + groupIndex + '" name="group_people[]" class="select">';
-        html += '               <option>인원수</option>';
+        html += '               <option value="0">인원수</option>';
         html += '               <option value="1000">1,000</option>';
         html += '               <option value="2000">2,000</option>';
         html += '               <option value="3000">3,000</option>';
@@ -391,7 +391,7 @@
     });
     
     //저장
-    $("button[name='save']").click(function() {
+    $(document).on("click", "button[name='save']", function() {
         //Validation
         if ($("#title").val().length == 0) {
             alert("행사이름을 입력해주세요.");
@@ -440,6 +440,27 @@
             $("#email").focus();
             return false;
         }
+
+        var group_empty = 0;
+        $("input[name='group_name[]']").each(function () {
+            if ($(this).val() == '') {
+                alert("그룹 명을 입력해 주세요.");
+                $(this).focus();
+                group_empty = 1;
+            }
+        });
+
+        $("select[name='group_people[]']").each(function () {
+            if ($(this).val() == '0') {
+                alert("그룹 인원수를 선택해 주세요.");
+                $(this).focus();
+                group_empty = 1;
+            }
+        });
+        
+        if (group_empty == 1) {
+            return false
+        }
         
         var formData = $("#editForm").serialize();
         formData = formData + '&status=1';
@@ -452,7 +473,7 @@
             type: 'json',
             data: formData
         }).done(function (data) {
-            // if (data.status == 'success') {
+            if (data.status == 'success') {
                 var imageData = new FormData();
                 var image = document.getElementById("image").files;
                 imageData.append('image', image[0]);
@@ -472,9 +493,9 @@
                         alert("오류가 발생하였습니다. 잠시 후 시도해주세요.");
                     }
                 });
-            // } else {
-            //     alert("오류가 발생하였습니다. 잠시 후 시도해주세요.");
-            // }
+            } else {
+                alert("오류가 발생하였습니다. 잠시 후 시도해주세요.");
+            }
         });
     });
 
@@ -484,7 +505,7 @@
     });
 
     //임시저장
-    $("button[name='temp']").click(function() {
+    $(document).on("clickf", "button[name='temp']", function() {
         //Validation
         if ($("#title").val().length == 0) {
             alert("행사이름을 입력해주세요.");
