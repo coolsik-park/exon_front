@@ -379,12 +379,8 @@ class ExhibitionController extends AppController
                 if (!empty($data['cost'])) :
                 $exhibition->cost = $data['cost'];
                 endif;
-                if (!empty($data['private'])) :
                 $exhibition->private = $data['private'];
-                endif;
-                if (!empty($data['auto_approval'])) :
                 $exhibition->auto_approval = $data['auto_approval'];
-                endif;
                 if (!empty($data['name'])) :
                 $exhibition->name = $data['name'];
                 endif;
@@ -396,34 +392,40 @@ class ExhibitionController extends AppController
                 endif;
                 if (!empty($data['require_name'])) :
                     $exhibition->require_name = $data['require_name'];
+                else :
+                    $exhibition->require_name = 0;
                 endif;
                 if (!empty($data['require_email'])) :
                     $exhibition->require_email = $data['require_email'];
+                else :
+                    $exhibition->require_email = 0;
                 endif;
                 if (!empty($data['require_tel'])) :
                     $exhibition->require_tel = $data['require_tel'];
+                else :
+                    $exhibition->require_tel = 0;
                 endif;
                 if (!empty($data['require_age'])) :
                     $exhibition->require_age = $data['require_age'];
+                else :
+                    $exhibition->require_age = 0;
                 endif;
                 if (!empty($data['require_group'])) :
                     $exhibition->require_group = $data['require_group'];
+                else :
+                    $exhibition->require_group = 0;
                 endif;
                 if (!empty($data['require_sex'])) :
                     $exhibition->require_sex = $data['require_sex'];
+                else :
+                    $exhibition->require_sex = 0;
                 endif;
-                if (!empty($data['require_cert'])) :
                 $exhibition->require_cert = $data['require_cert'];
-                endif;
                 if (!empty($data['detail'])) :
                 $exhibition->detail_html = $data['detail'];
                 endif;
-                if (!empty($data['email_notice'])) :
-                $exhibition->email_notice = $data['email_notice'];
-                endif;
-                if (!empty($data['additional'])) :
+                // $exhibition->email_notice = $data['email_notice'];
                 $exhibition->additional = $data['additional'];
-                endif;
                 if (!empty($data['status'])) :
                 $exhibition->status = $data['status'];
                 endif;

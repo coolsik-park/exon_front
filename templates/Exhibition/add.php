@@ -80,12 +80,12 @@
                 <div class="sect4">
                     <h4 class="s-hty2">공개 여부</h4>
                     <div class="ln-rdo">
-                        <span class="chk-dsg"><input type="radio" name="private" id="private1" value="1" checked="checked"><label for="private1">공개</label></span>
+                        <span class="chk-dsg"><input type="radio" name="private" id="private1" value="0" checked="checked"><label for="private1">공개</label></span>
                         <p class="p-noti">누구나 이 행사를 보고 참여 할 수 있습니다.</p>
                     </div>
                     
                     <div class="ln-rdo">
-                        <span class="chk-dsg"><input type="radio" name="private" id="private2" value="0"><label for="private2">비공개</label></span>
+                        <span class="chk-dsg"><input type="radio" name="private" id="private2" value="1"><label for="private2">비공개</label></span>
                         <p class="p-noti">행사 URL을 얻은 사람만 행사에 참여 할 수 있습니다.</p>
                     </div>
                 </div>
