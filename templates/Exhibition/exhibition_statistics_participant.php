@@ -1,21 +1,3 @@
-<!-- <?= $this->Html->link(__('행사 설정 수정'), ['controller' => 'Exhibition', 'action' => 'edit', $id, 'class' => 'side-nav-item']) ?> 
-<?= $this->Html->link(__('설문 데이터'), ['controller' => 'Exhibition', 'action' => 'surveyData', $id, 'class' => 'side-nav-item']) ?> 
-<?= $this->Html->link(__('참가자 관리'), ['controller' => 'Exhibition', 'action' => 'managerPerson', $id, 'class' => 'side-nav-item']) ?> 
-<?= $this->Html->link(__('웨비나 송출 설정'), ['controller' => 'ExhibitionStream', 'action' => 'setExhibitionStream', $id, 'class' => 'side-nav-item']) ?> 
-<?= $this->Html->link(__('행사 통계'), ['controller' => 'Exhibition', 'action' => 'exhibitionStatisticsApply', $id, 'class' => 'side-nav-item']) ?>
-<br>
-<?= $this->Html->link(__('행사 신청'), ['controller' => 'Exhibition', 'action' => 'exhibitionStatisticsApply', $id, 'class' => 'side-nav-item']) ?> 
-<?= $this->Html->link(__('행사 참가'), ['controller' => 'Exhibition', 'action' => 'exhibitionStatisticsParticipant', $id, 'class' => 'side-nav-item']) ?> 
-<?= $this->Html->link(__('스트리밍'), ['controller' => 'Exhibition', 'action' => 'exhibitionStatisticsStream', $id, 'class' => 'side-nav-item']) ?> 
-<?= $this->Html->link(__('기타'), ['controller' => 'Exhibition', 'action' => 'exhibitionStatisticsExtra', $id, 'class' => 'side-nav-item']) ?> 
-<br>
-<?php
-    echo $this->Html->link(__('전체 '), ['controller' => 'Exhibition', 'action' => 'exhibitionStatisticsParticipant', $id, 'class' => 'side-nav-item']);
-    foreach ($exhibitionGroup as $group) {
-        echo $this->Html->link(__($group->name.' '), ['controller' => 'Exhibition', 'action' => 'exhibitionStatisticsParticipantByGroup', $id, $group->id, 'class' => 'side-nav-item']);
-    }
-?>
-<br><br> -->
 <?php
     $total = 0;
     $participants = 0;
@@ -27,7 +9,6 @@
         }
     }
 
-    $unknown = 0;
     $zero = 0;
     $ten = 0;
     $twenty = 0;
@@ -36,16 +17,17 @@
     $fifty = 0;
     $sixty = 0;
 
-    foreach ($ages as $age) {
-        switch ((int)substr($age, 0, 1)) {
-            case 0 : $unknown++; break;
-            case 1 : $ten++; break;
-            case 2 : $twenty++; break;
-            case 3 : $thirty++; break;
-            case 4 : $fourty++; break;
-            case 5 : $fifty++; break;
-            case (int)substr($age, 0, 1) >= 6 : $sixty++; break;
-            default : $zero++; break; 
+    if ($ages[0] != '') {
+        foreach ($ages as $age) {
+            switch ((int)substr($age, 0, 1)) {
+                case 1 : $ten++; break;
+                case 2 : $twenty++; break;
+                case 3 : $thirty++; break;
+                case 4 : $fourty++; break;
+                case 5 : $fifty++; break;
+                case (int)substr($age, 0, 1) >= 6 : $sixty++; break;
+                default : $zero++; break; 
+            }
         }
     }
 
@@ -105,7 +87,7 @@
                     </div>
                 </div>
                 <div class="graph-bx">
-                    <h3 class="s-hty2">참가자 나이 대<p style="color:gray; font-size:5px;">(비회원은 표시되지 않습니다.)</p></h3>
+                    <h3 class="s-hty2">참가자 나이 대<p style="color:gray; font-size:5px;">(비회원 및 생년월일 미기입자는 표시되지 않습니다.)</p></h3>
                     <div>
                         <canvas id="chart2" style="width:315.59px; height:300px;"></canvas>
                     </div>
@@ -167,9 +149,9 @@
     var myChart = new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: ['10대', '20대', '30대', '40대', '50대', '60세 이상', '미기입'],
+            labels: ['10대', '20대', '30대', '40대', '50대', '60세 이상'],
             datasets: [{
-                data: [<?=$ten?>, <?=$twenty?>, <?=$thirty?>, <?=$fourty?>, <?=$fifty?>, <?=$sixty?>, <?=$unknown?>],
+                data: [<?=$ten?>, <?=$twenty?>, <?=$thirty?>, <?=$fourty?>, <?=$fifty?>, <?=$sixty?>],
                 borderWidth: 1,
             }]
         },

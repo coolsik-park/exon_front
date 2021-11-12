@@ -8,8 +8,6 @@
             $participants += (int)$applyRate->count;
         }
     }
-
-    $unknown = 0;
     $zero = 0;
     $ten = 0;
     $twenty = 0;
@@ -18,17 +16,17 @@
     $fifty = 0;
     $sixty = 0;
 
-    foreach ($ages as $age) {
-        
-        switch ((int)substr($age, 0, 1)) {
-            case 0 : $unknown++; break;
-            case 1 : $ten++; break;
-            case 2 : $twenty++; break;
-            case 3 : $thirty++; break;
-            case 4 : $fourty++; break;
-            case 5 : $fifty++; break;
-            case (int)substr($age, 0, 1) >= 6 : $sixty++; break;
-            default : $zero++; break; 
+    if ($ages[0] != '') {
+        foreach ($ages as $age) {
+            switch ((int)substr($age, 0, 1)) {
+                case 1 : $ten++; break;
+                case 2 : $twenty++; break;
+                case 3 : $thirty++; break;
+                case 4 : $fourty++; break;
+                case 5 : $fifty++; break;
+                case (int)substr($age, 0, 1) >= 6 : $sixty++; break;
+                default : $zero++; break; 
+            }
         }
     }
     
@@ -88,7 +86,7 @@
                     </div>
                 </div>
                 <div class="graph-bx">
-                    <h3 class="s-hty2">참가자 나이 대<p style="color:gray; font-size:5px;">(비회원은 표시되지 않습니다.)</p></h3>
+                    <h3 class="s-hty2">참가자 나이 대<p style="color:gray; font-size:5px;">(비회원 및 생년월일 미기입자는 표시되지 않습니다.)</p></h3>
                     <div>
                         <canvas id="chart2" style="width:315.59px; height:300px;"></canvas>
                     </div>
@@ -153,9 +151,9 @@
     var myChart = new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: ['10대', '20대', '30대', '40대', '50대', '60세 이상', '미기입'],
+            labels: ['10대', '20대', '30대', '40대', '50대', '60세 이상'],
             datasets: [{
-                data: [<?=$ten?>, <?=$twenty?>, <?=$thirty?>, <?=$fourty?>, <?=$fifty?>, <?=$sixty?>, <?=$unknown?>],
+                data: [<?=$ten?>, <?=$twenty?>, <?=$thirty?>, <?=$fourty?>, <?=$fifty?>, <?=$sixty?>],
                 borderWidth: 1,
             }]
         },
