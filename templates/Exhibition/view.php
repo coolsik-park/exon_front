@@ -118,28 +118,35 @@
                                 </span>
                             </li>
                         </ul>
-                        <div class="btns">
-                            <?php if ($exhibitionUsers == null): ?>
-                                <div class="group" id="group">
-                                    <?= $this->Form->select('', $groups, ['id' => 'group']) ?>                                   
-                                    <span class="tx" id="spanGroup"></span>
-                                </div>
-                                <a href="/exhibitionUsers/add/<?= $exhibition->id ?>" class="btn-join">참가 신청</a>
+                        <div class="btns" id="btns">
                             <?php 
-                                else:
-                                    if ($exhibitionUsers[0]->status == 4):
+                                $today = date("Y-m-d H:i:s");
+                                if ($today > $exhibition->apply_edate):
+                                    // if ($exhibition->additional == 1):
+                                        if ($exhibitionUsers == null): 
                             ?>
-                                        <a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition->id ?>" class="btn-join">웨비나 접속</a>
-                            <?php
-                                    else:
+                                            <div class="group" id="group">
+                                                <?= $this->Form->select('', $groups, ['id' => 'group']) ?>                                   
+                                                <span class="tx" id="spanGroup"></span>
+                                            </div>
+                                            <a href="/exhibitionUsers/add/<?= $exhibition->id ?>" class="btn-join" id="btn-join">참가 신청</a>
+                            <?php 
+                                        else:
+                                            if ($exhibitionUsers[0]->status == 4):
                             ?>
-                                        <div class="group" id="group">
-                                            <?= $this->Form->select('', $groups, ['id' => 'group']) ?>
-                                            <span class="tx" id="spanGroup"></span>
-                                        </div>
-                                        <a href="/exhibition-users/add/<?= $exhibition->id ?>" class="btn-join">참가 신청</a>
+                                                <a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition->id ?>" class="btn-join" id="btn-join">웨비나 접속</a>
                             <?php
-                                    endif;
+                                            else:
+                            ?>
+                                                <div class="group" id="group">
+                                                    <?= $this->Form->select('', $groups, ['id' => 'group']) ?>
+                                                    <span class="tx" id="spanGroup"></span>
+                                                </div>
+                                                <a href="/exhibition-users/add/<?= $exhibition->id ?>" class="btn-join" id="btn-join">참가 신청</a>
+                            <?php
+                                            endif;
+                                        endif;
+                                    // endif;
                                 endif;
                             ?>
                         </div>
@@ -255,13 +262,37 @@
 
     $('#group').on('change', function() {
         var value = $('#group option:selected').val();
+        var group_id = value.split(';')[0];
         var amount = value.split(';')[1];
         amount = amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        var people_count = value.split(';')[2];
 
         if (amount != 0) {
-            $('#spanGroup').replaceWith('<span class="tx">' + amount + '</span>');
+            $('#spanGroup').replaceWith('<span class="tx" id="spanGroup">' + amount + '</span>');
         } else {
-            $('#spanGroup').replaceWith('<span class="tx">무료</span>');
+            $('#spanGroup').replaceWith('<span class="tx" id="spanGroup">무료</span>');
+        }
+        button(group_id);
+
+        function button(group_id) {
+            $.ajax({
+                url: '/exhibition/group-people-count',
+                method: 'POST',
+                type: 'json',
+                data: {
+                    group_id: group_id
+                }
+            }).done(function(data) {
+                if (data.status == 'success') {
+                    if (data.test.length >= people_count) {
+                        $('#btn-join').replaceWith('<a href="" class="btn-join" id="btn-join">신청 만료</a>');
+                    } else {
+                        $('#btn-join').replaceWith('<a href="/exhibition-users/add/<?= $exhibition->id ?>" class="btn-join" id="btn-join">참가 신청</a>');
+                    }
+                } else {
+                    alert("실패하였습니다.");
+                }
+            });
         }
     });
 </script>
