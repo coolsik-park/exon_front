@@ -13,19 +13,19 @@
             <h3 class="s-hty1">신청자 정보</h3>
             <div class="mbr-form">
                 <div class="item-row">
-                <div class="col-dt">이메일</div>
+                <div class="col-dt"><em class="st">*</em>이메일</div>
                 <div class="col-dd">
                         <input type="text" id="users_email" name="users_email" class="ipt">          
                 </div>
                 </div>
                 <div class="item-row">
-                    <div class="col-dt">이름</div>
+                    <div class="col-dt"><em class="st">*</em>이름</div>
                     <div class="col-dd">
                         <input type="text" id="users_name" name="users_name" class="ipt">          
                     </div>
                 </div>
                 <div class="item-row">
-                    <div class="col-dt">전화번호</div>
+                    <div id="require_tel" class="col-dt">전화번호</div>
                     <div class="col-dd">
                         <div class="col-cell-wp">
                             <!-- <select id="cellNumber">
@@ -42,16 +42,17 @@
                     </div>
                 </div> -->
                 <div class="item-row">
-                    <div class="col-dt">성별</div>
+                    <div id="require_sex" class="col-dt">성별</div>
                     <div class="col-dd">
                         <select class="gender" id="users_sex" name="users_sex">
+                            <option value="">성별</option>
                             <option value="M">남성</option>
                             <option value="F">여성</option>
                         </select>              
                     </div>
                 </div>
                 <div class="item-row">
-                    <div class="col-dt">소속/직함</div>
+                    <div id="require_group" class="col-dt">소속/직함</div>
                     <div class="col-dd">
                         <div class="belong">
                             <input type="text" id="company" name="company" title="소속">
@@ -78,13 +79,13 @@
             <div class="group-join">
                 <div class="ipt-form">
                     <select name="exhibition_group_id" id="exhibition_group_id">
-                    <?php
-                        foreach ($exhibitionGroup as $group) {
-                    ?>
-                        <option value="<?= $group->id ?>"><?= $group->name ?></option>
-                    <?php
-                        }
-                    ?>  
+                    <?php if ($exhibitionGroup == '') : ?>
+                        <option value="">그룹 미선택</option>
+                    <?php else : ?>
+                        <?php foreach ($exhibitionGroup as $group) : ?>
+                            <option value="<?= $group->id ?>"><?= $group->name ?></option>
+                        <?php endforeach; ?>
+                    <?php endif; ?>  
                     </select>                      
                     <span class="tx">
                         <?php
@@ -154,6 +155,21 @@
     $("#title").val("<?=$user->title?>");
     <?php endif; ?>
 
+    //필수 정보 불러오기
+    var require_tel = "<?=$exhibition->require_tel?>";
+    var require_sex = "<?=$exhibition->require_sex?>";
+    var require_group = "<?=$exhibition->require_group?>";
+    var star = '<em class="st">*</em>';
+    if (require_tel == 1) {
+        $("#require_tel").append(star);
+    }
+    if (require_sex == 1) {
+        $("#require_sex").append(star);
+    }
+    if (require_group == 1) {
+        $("#require_group").append(star);
+    }
+
     $(":input:radio").change(function () {
         var id = $(this).attr("id");
         var name = $(this).attr("name")
@@ -191,23 +207,40 @@
             return false;
         }
 
-        var getName = RegExp(/^[가-힣]+$/);
-        if (!getName.test($("#users_name").val())) {
-            alert("이름을 올바르게 입력해 주세요.");
-            $("#users_name").focus();
-            return false;
+        // var getName = RegExp(/^[가-힣]+$/);
+        // if (!getName.test($("#users_name").val())) {
+        //     alert("이름을 올바르게 입력해 주세요.");
+        //     $("#users_name").focus();
+        //     return false;
+        // }
+
+        if (require_tel == 1) {
+            if ($("#users_hp").val().length == 0) {
+                alert("전화번호를 입력해주세요.");
+                $("#users_hp").focus();
+                return false;
+            }
         }
 
-        if ($("#users_hp").val().length == 0) {
-            alert("전화번호를 입력해주세요.");
-            $("#users_hp").focus();
-            return false;
+        if (require_sex == 1) {
+            if ($("#users_sex").val() == '') {
+                alert("성별을 입력해주세요.");
+                $("#users_sex").focus();
+                return false;
+            }
         }
 
-        if ($("#users_sex").val() == null) {
-            alert("성별을 입력해주세요.");
-            $("#users_sex").focus();
-            return false;
+        if (require_group == 1) {
+            if ($("#company").val() == '') {
+                alert("소속을 입력해주세요.");
+                $("#company").focus();
+                return false
+            }
+            if ($("#title").val() == '') {
+                alert("직함을 입력해주세요.");
+                $("#title").focus();
+                return false
+            }
         }
 
         if ($("#agree2").prop("checked") == false && $("#agree3").prop("checked") == false) {
@@ -232,7 +265,7 @@
                     alert("신청이 완료되었습니다.");
                     window.location.replace("/exhibition/view/<?=$id?>");
                 } else if (data.status == 'exist') {
-                    alert("이미 신청이 완료된 행사입니다.");
+                    alert("해당 이메일 주소로 이미 신청이 완료된 행사입니다.");
                     window.location.replace("/exhibition/view/<?=$id?>");
                 } else {
                     alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");

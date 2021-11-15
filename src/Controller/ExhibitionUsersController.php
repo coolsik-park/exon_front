@@ -41,7 +41,7 @@ class ExhibitionUsersController extends AppController
     }
 
     //웨비나 신청
-    public function add($id = null)
+    public function add($id = null, $group_id = null)
     {
         $connection = ConnectionManager::get('default');
         $connection->begin();
@@ -257,7 +257,11 @@ class ExhibitionUsersController extends AppController
                 return $response;
             }
         }
-        $exhibitionGroup = $this->ExhibitionUsers->ExhibitionGroup->find('all')->where(['exhibition_id' => $id]);
+        if ($group_id != null) :
+        $exhibitionGroup = $this->ExhibitionUsers->ExhibitionGroup->find('all')->where(['id' => $group_id,'exhibition_id' => $id]);
+        else :
+        $exhibitionGroup = '';
+        endif;
         $pay = $this->ExhibitionUsers->Pay->find('list', ['limit' => 200]);
         $exhibitionSurveys = $this->getTableLocator()->get('ExhibitionSurvey')->find('all', ['contain' => 'ChildExhibitionSurvey'])->where(['exhibition_id' => $id, 'survey_type' => 'B', 'parent_id Is' => null]);
         $user = $this->Auth->user();
