@@ -143,10 +143,10 @@
                     <h4 class="s-hty2">참가자 정보</h4>
                     <p class="p-noti">필요한 참가자 정보를 선택합니다.</p>
                     <div class="list-chks">
-                        <span class="chk-dsg"><input type="checkbox" id="require_name" name="require_name" value="1"><label for="require_name">이름</label></span>
-                        <span class="chk-dsg"><input type="checkbox" id="require_email" name="require_email" value="1"><label for="require_email">이메일</label></span>
+                        <span class="chk-dsg"><input type="checkbox" id="require_name" name="require_name" value="1" checked="checked" disabled="disabled"><label for="require_name">이름</label></span>
+                        <span class="chk-dsg"><input type="checkbox" id="require_email" name="require_email" value="1" checked="checked" disabled="disabled"><label for="require_email">이메일</label></span>
                         <span class="chk-dsg"><input type="checkbox" id="require_tel" name="require_tel" value="1"><label for="require_tel">연락처</label></span>
-                        <span class="chk-dsg"><input type="checkbox" id="require_age" name="require_age" value="1"><label for="require_age">나이</label></span>
+                        <!-- <span class="chk-dsg"><input type="checkbox" id="require_age" name="require_age" value="1"><label for="require_age">나이</label></span> -->
                         <span class="chk-dsg"><input type="checkbox" id="require_group" name="require_group" value="1"><label for="require_group">소속</label></span>
                         <span class="chk-dsg"><input type="checkbox" id="require_sex" name="require_sex" value="1"><label for="require_sex">성별</label></span>
                     </div>
