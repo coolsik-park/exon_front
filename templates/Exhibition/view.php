@@ -285,10 +285,12 @@
                 if (data.test.length >= people_count) {
                     $('#btn-join').replaceWith('<a href="" class="btn-join" id="btn-join">신청 만료</a>');
                 } else {
-                    alert("실패하였습니다.");
+                    $('#btn-join').replaceWith('<a href="/exhibition-users/add/<?= $exhibition->id ?>" class="btn-join" id="btn-join">참가 신청</a>');
                 }
-            });
-        }
+            } else {
+                alert("실패하였습니다.");
+            }
+        });
     }
 
     $(function() {
