@@ -65,7 +65,7 @@
     background: #fff;
     height: 100%;
     width: 100%;
-    border: 1px solid #a7a7a7;
+    /* border: 1px solid #a7a7a7; */
     overflow: auto;
     border-radius: 4px;
     border-bottom: 4px solid #a7a7a7;
@@ -74,7 +74,7 @@
   #usermsg {
     flex: 1;
     border-radius: 4px;
-    border: 1px solid #ff9800;
+    /* border: 1px solid #ff9800; */
   }
    
   #name {
