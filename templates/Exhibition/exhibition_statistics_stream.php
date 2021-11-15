@@ -68,11 +68,11 @@
             </ul>
         </div>
         <div class="pr5-graph">
-            <div class="cate">
-                <select>
+            <div class="cate" style="height:30px;">
+                <!-- <select>
                     <option>1차 웨비나</option>
                     <option>2차 웨비나</option>
-                </select>
+                </select> -->
             </div>
             <div class="pr-graph2">
                 <div class="graph-bx">
