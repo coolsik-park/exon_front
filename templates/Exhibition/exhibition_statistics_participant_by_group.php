@@ -61,7 +61,7 @@
                 <li><a href="/exhibition/exhibition-statistics-apply/<?=$id?>">행사신청</a></li>
                 <li class="active">
                     <a href="">행사참가</a>
-                    <ul class="s-sub s-sub1">
+                    <ul class="s-sub s-sub1" style="width:900px; border:none; padding:0px;">
                         <li><a href="/exhibition/exhibition-statistics-participant/<?=$id?>">전체</a></li>
                         <?php foreach ($exhibitionGroup as $exGroup) : ?>
                         <li id="<?=$exGroup->id?>"><a href="/exhibition/exhibition-statistics-participant-by-group/<?=$id?>/<?=$exGroup->id?>"><?=$exGroup->name?></a></li>

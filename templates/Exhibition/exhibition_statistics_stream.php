@@ -55,7 +55,7 @@
                 </li>
                 <li class="active">
                     <a href="">스트리밍</a>
-                    <ul class="s-sub s-sub2">
+                    <ul class="s-sub s-sub2" style="width:900px; border:none; padding:0px;">
                         <li class="active"><a href="/exhibition/exhibition-statistics-stream/<?=$id?>">전체</a></li>
                         <?php foreach ($exhibitionGroup as $exGroup) : ?>
                         <li id="<?=$exGroup->id?>"><a href="/exhibition/exhibition-statistics-stream-by-group/<?=$id?>/<?=$exGroup->id?>"><?=$exGroup->name?></a></li>
