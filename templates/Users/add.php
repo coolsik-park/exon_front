@@ -175,13 +175,13 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
             result.push('true');
         }
 
-        if (!getName.test($("#name").val())) {
-            $("#nameNoti").html("이름을 올바르게 입력해 주세요.");
-            result.push('false');
-        } else {
-            $("#nameNoti").html("");
-            result.push('true');
-        }
+        // if (!getName.test($("#name").val())) {
+        //     $("#nameNoti").html("이름을 올바르게 입력해 주세요.");
+        //     result.push('false');
+        // } else {
+        //     $("#nameNoti").html("");
+        //     result.push('true');
+        // }
 
         if ($("#password").val().length < 8) {
             $("#lengthNoti").html("비밀번호는 8자 이상으로 입력해 주세요.");
