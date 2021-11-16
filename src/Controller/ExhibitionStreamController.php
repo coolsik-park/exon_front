@@ -1174,7 +1174,7 @@ class ExhibitionStreamController extends AppController
     {
         $exhibitionStream = $this->ExhibitionStream->get($exhibition_stream_id);
 
-        $exhibitionStream->live_started = null;
+        $exhibitionStream->live_started = "0000-00-00 00:00:00";
 
         $this->ExhibitionStream->save($exhibitionStream);
 

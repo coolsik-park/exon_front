@@ -142,7 +142,7 @@
                                                     <?= $this->Form->select('', $groups, ['id' => 'group']) ?>
                                                     <span class="tx" id="spanGroup"></span>
                                                 </div>
-                                                <a href="/exhibition-users/add/<?= $exhibition->id ?>" class="btn-join" id="btn-join">참가 신청</a>
+                                                <a id="apply_button" href="/exhibition-users/add/<?= $exhibition->id ?>" class="btn-join" id="btn-join">참가 신청</a>
                             <?php
                                             endif;
                                         endif;
@@ -285,7 +285,7 @@
                 if (data.test.length >= people_count) {
                     $('#btn-join').replaceWith('<a href="" class="btn-join" id="btn-join">신청 만료</a>');
                 } else {
-                    $('#btn-join').replaceWith('<a href="/exhibition-users/add/<?= $exhibition->id ?>" class="btn-join" id="btn-join">참가 신청</a>');
+                    $('#btn-join').replaceWith('<a href="/exhibition-users/add/<?= $exhibition->id ?>/'+group_id+'" class="btn-join" id="btn-join">참가 신청</a>');
                 }
             } else {
                 alert("실패하였습니다.");
