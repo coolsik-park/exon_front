@@ -140,10 +140,10 @@ class ExhibitionController extends AppController
                 $exhibition->category = $data['category'];
                 $exhibition->type = $data['type'];
                 if (!empty($data['apply_sdate'])) : 
-                $exhibition->apply_sdate = substr($data['apply_sdate'], 0, 10) .' '. substr($data['sdate'], 11, 8);
+                $exhibition->apply_sdate = substr($data['apply_sdate'], 0, 10) .' '. substr($data['apply_sdate'], 11, 8);
                 endif;
                 if (!empty($data['apply_edate'])) :
-                $exhibition->apply_edate = substr($data['apply_edate'], 0, 10) .' '. substr($data['sdate'], 11, 8);
+                $exhibition->apply_edate = substr($data['apply_edate'], 0, 10) .' '. substr($data['apply_edate'], 11, 8);
                 endif;
                 if (!empty($data['sdate'])) :
                 $exhibition->sdate = substr($data['sdate'], 0, 10) .' '. substr($data['sdate'], 11, 8);
