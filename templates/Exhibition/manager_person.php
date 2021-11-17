@@ -171,7 +171,7 @@
                         </div>
                         <div class="td-col col6" id="td-col col6">
                             <div class="con">
-                                <select id="participateSelectBox" name="<?= $exhibition_user->id ?>,<?= $exhibition_user->users_email ?>">
+                                <select id="participateSelectBox" name="<?= $exhibition_user->id ?>,<?= $exhibition_user->users_email ?>" onClick="exhibitionUsersStatus('<?= $exhibition_user->id ?>', '<?= $exhibition_user->users_email ?>', '<?=$exhibition_user->users_name?>', '<?=$exhibition_user->exhibition_group_id?>')">
                                     <?php if ($exhibition_user->status == 4) { ?>
                                         <option value="2">참가 대기</option>
                                         <option value="4" selected="selected">참가 확정</option>
@@ -271,22 +271,19 @@
         }
     }
 
-    $('#participateSelectBox').on('change', function() {
-        var id = $(this).attr('name').split(',')[0];
-        var value = $(this).val();
-        var email = $(this).attr('name').split(',')[1];
-        var user_name = "<?=$exhibition_user->users_name?>";
-        var group = "<?=$exhibition_user->exhibition_group_id?>";
+    function exhibitionUsersStatus(id, users_email, users_name, exhibition_group_id) {
+        var value = $('#participateSelectBox').val();
 
         $.ajax({
-            url: '/exhibition/exhibition-users-approval/' + id,
+            url: '/exhibition/exhibition-users-approval',
             method: 'POST',
             type: 'json',
             data: {
+                id: id,
                 status: value,
-                email: email,
-                user_name: user_name,
-                group: group
+                email: users_email,
+                user_name: users_name,
+                group: exhibition_group_id
             }
         }).done(function(data) {
             if (data.test == 'success') {
@@ -296,7 +293,7 @@
                 $('#td-col col6').load(location.href+" #td-col col6");
             }
         });
-    });
+    }
 
     function exhibitionCancel(key) {
         var html = '';
