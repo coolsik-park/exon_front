@@ -687,7 +687,7 @@ class ExhibitionController extends AppController
         $this->paginate = ['limit' => 10];
 
         $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
-        $exhibition_users = $this->paginate($exhibition_users_table->find('all', array('contain' => array('Exhibition', 'ExhibitionGroup', 'Pay')))->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.status !=' => 8]))->toArray();
+        $exhibition_users = $this->paginate($exhibition_users_table->find('all', array('contain' => array('Exhibition', 'ExhibitionGroup', 'Pay')))->where(['ExhibitionUsers.exhibition_id' => $id]))->toArray();
 
         $users_table = TableRegistry::get('Users');
         $users = [];

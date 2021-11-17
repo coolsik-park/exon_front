@@ -52,146 +52,152 @@
                     <div class="th-col col6">승인 상태</div>
                     <div class="th-col col7"></div>
                 </div>
-                <?php foreach ($exhibition_users as $key => $exhibition_user): ?>
-                    <div class="tr-row">
-                        <div class="td-col col1">
-                            <div class="con ag-ty1">
-                                <p class="tit fir">
-                                    <?php 
-                                        if ($exhibition_user->users_id != null):
-                                            for ($i=0; $i<count($users)+1; $i++) {
-                                                if ($exhibition_user->users_id == $users[$i]['id']) {
-                                                    echo $users[$i]['company'];
-                                                    break;
-                                                }
-                                            }
-                                        endif;
-                                    ?>
-                                </p>
-                                <div class="u-name">
-                                    <p class="name"><?= $exhibition_user->users_name ?></p>
-                                    <p class="age">
-                                        <?php
-                                            if ($exhibition_user->users_sex == 'M') {
-                                                echo '남자 / ';
-                                            } else {
-                                                echo '여자 / ';
-                                            } 
-                                        ?>
-                                        <?php 
-                                            if ($exhibition_user->users_id != null):
-                                                for ($i=0; $i<count($users); $i++) {
-                                                    if ($exhibition_user->users_id == $users[$i]['id']) {
-                                                        echo $users[$i]['age'];
-                                                        break;
+                <?php 
+                    foreach ($exhibition_users as $key => $exhibition_user):
+                        if ($exhibition_user->status != 8):
+                ?>
+                            <div class="tr-row">
+                                <div class="td-col col1">
+                                    <div class="con ag-ty1">
+                                        <p class="tit fir">
+                                            <?php 
+                                                if ($exhibition_user->users_id != null):
+                                                    for ($i=0; $i<count($users)+1; $i++) {
+                                                        if ($exhibition_user->users_id == $users[$i]['id']) {
+                                                            echo $users[$i]['company'];
+                                                            break;
+                                                        }
                                                     }
-                                                }
-                                            endif;
-                                        ?>
-                                    </p>
+                                                endif;
+                                            ?>
+                                        </p>
+                                        <div class="u-name">
+                                            <p class="name"><?= $exhibition_user->users_name ?></p>
+                                            <p class="age">
+                                                <?php
+                                                    if ($exhibition_user->users_sex == 'M') {
+                                                        echo '남자 / ';
+                                                    } else {
+                                                        echo '여자 / ';
+                                                    } 
+                                                ?>
+                                                <?php 
+                                                    if ($exhibition_user->users_id != null):
+                                                        for ($i=0; $i<count($users); $i++) {
+                                                            if ($exhibition_user->users_id == $users[$i]['id']) {
+                                                                echo $users[$i]['age'];
+                                                                break;
+                                                            }
+                                                        }
+                                                    endif;
+                                                ?>
+                                            </p>
+                                        </div>
+                                        <p><?= $exhibition_user->users_email ?></p>
+                                        <p><?= substr($exhibition_user->users_hp, 0, 3) ?>-<?= substr($exhibition_user->users_hp, 3, 4) ?>-<?= substr($exhibition_user->users_hp, 7, 4) ?></p>
+                                    </div>                            
                                 </div>
-                                <p><?= $exhibition_user->users_email ?></p>
-                                <p><?= substr($exhibition_user->users_hp, 0, 3) ?>-<?= substr($exhibition_user->users_hp, 3, 4) ?>-<?= substr($exhibition_user->users_hp, 7, 4) ?></p>
-                            </div>                            
-                        </div>
-                        <div class="td-col col2">
-                            <div class="con">
-                                <button type="button" class="btn-ty3 bor" style="cursor:pointer;" data-toggle="modal" data-target="#surveyCheckModal" data-backdrop="static" data-keyboard="false" onClick="surveyCheck(<?= $exhibition_user->users_id ?>)">
-                                    설문확인
-                                </button>
-                            </div>
-                            <div id="surveyPopup"></div>
-                            <!-- <div class="modal fade" id="surveyCheckModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content" style="background-color:transparent; border:none;">
-                                        <div class="popup-wrap">
-                                            <div class="popup-head">
-                                                <h1>설문 결과</h1>
-                                                <button id="close" type="button" class="popup-close close" data-dismiss="modal" aria-label="Close">팝업닫기</button>
-                                            </div>
-                                            <div class="popup-body">  
-                                                <div class="pop-poll-items-wrap">
-                                                    <?php for ($y=0; $y<count($beforeParentData); $y++) { ?>
-                                                        <div class="pop-poll-item">
-                                                            <p class="tit"><?= $beforeParentData[$y]->text ?></p>
-                                                            <?php if ($beforeParentData[$y]->is_multiple == 'Y') { ?>
-                                                                <ul>
-                                                                    <?php for ($j=0; $j<count($beforeParentData[$y]->child_exhibition_survey); $j++) { ?>
-                                                                        <li><span class="chk-dsg"><input type="radio" id="pp<?= $y+1 ?>-<?= $j+1 ?>" name="pp<?= $y+1 ?>" checked="checked"><label for="pp<?= $y+1 ?>-<?= $j+1 ?>"><?= $beforeParentData[$y]->child_exhibition_survey[$j]->text ?></label></span></li>
+                                <div class="td-col col2">
+                                    <div class="con">
+                                        <button type="button" class="btn-ty3 bor" style="cursor:pointer;" data-toggle="modal" data-target="#surveyCheckModal" data-backdrop="static" data-keyboard="false" onClick="surveyCheck(<?= $exhibition_user->users_id ?>)">
+                                            설문확인
+                                        </button>
+                                    </div>
+                                    <div id="surveyPopup"></div>
+                                    <!-- <div class="modal fade" id="surveyCheckModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content" style="background-color:transparent; border:none;">
+                                                <div class="popup-wrap">
+                                                    <div class="popup-head">
+                                                        <h1>설문 결과</h1>
+                                                        <button id="close" type="button" class="popup-close close" data-dismiss="modal" aria-label="Close">팝업닫기</button>
+                                                    </div>
+                                                    <div class="popup-body">  
+                                                        <div class="pop-poll-items-wrap">
+                                                            <?php for ($y=0; $y<count($beforeParentData); $y++) { ?>
+                                                                <div class="pop-poll-item">
+                                                                    <p class="tit"><?= $beforeParentData[$y]->text ?></p>
+                                                                    <?php if ($beforeParentData[$y]->is_multiple == 'Y') { ?>
+                                                                        <ul>
+                                                                            <?php for ($j=0; $j<count($beforeParentData[$y]->child_exhibition_survey); $j++) { ?>
+                                                                                <li><span class="chk-dsg"><input type="radio" id="pp<?= $y+1 ?>-<?= $j+1 ?>" name="pp<?= $y+1 ?>" checked="checked"><label for="pp<?= $y+1 ?>-<?= $j+1 ?>"><?= $beforeParentData[$y]->child_exhibition_survey[$j]->text ?></label></span></li>
+                                                                            <?php } ?>
+                                                                        </ul>
+                                                                    <?php } else {  ?>
+                                                                        <textarea name="" id="" cols="30" rows="3"> 
+                                                                            <?php
+                                                                                for ($z=0; $z<count($beforeParentData[$y]->exhibition_survey_users_answer); $z++) { 
+                                                                                    if ($beforeParentData[$y]->exhibition_survey_users_answer[$z]->users_id == $exhibition_user->users_id) {
+                                                                                        echo $beforeParentData[$y]->exhibition_survey_users_answer[$z]->text;
+                                                                                    }
+                                                                                }
+                                                                            ?>
+                                                                        </textarea>
                                                                     <?php } ?>
-                                                                </ul>
-                                                            <?php } else {  ?>
-                                                                <textarea name="" id="" cols="30" rows="3"> 
-                                                                    <?php
-                                                                        for ($z=0; $z<count($beforeParentData[$y]->exhibition_survey_users_answer); $z++) { 
-                                                                            if ($beforeParentData[$y]->exhibition_survey_users_answer[$z]->users_id == $exhibition_user->users_id) {
-                                                                                echo $beforeParentData[$y]->exhibition_survey_users_answer[$z]->text;
-                                                                            }
-                                                                        }
-                                                                    ?>
-                                                                </textarea>
+                                                                </div>
                                                             <?php } ?>
-                                                        </div>
-                                                    <?php } ?>
-                                                </div>        
-                                                <div class="popup-btm alone">     
-                                                    <button type="button" class="btn-ty2" data-dismiss="modal" aria-label="Close">확인</button>
-                                                </div>        
+                                                        </div>        
+                                                        <div class="popup-btm alone">     
+                                                            <button type="button" class="btn-ty2" data-dismiss="modal" aria-label="Close">확인</button>
+                                                        </div>        
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+                                    </div> -->
+                                </div>
+                                <div class="td-col col3">
+                                    <div class="con">
+                                        <p><?= $exhibition_user->exhibition_group['name'] ?></p>  
                                     </div>
                                 </div>
-                            </div> -->
-                        </div>
-                        <div class="td-col col3">
-                            <div class="con">
-                                <p><?= $exhibition_user->exhibition_group['name'] ?></p>  
+                                <div class="td-col col4">
+                                    <div class="con">
+                                        <?php 
+                                            $amount = intval($exhibition_user->exhibition_group['amount']);
+                                            echo number_format($amount) . "원"; 
+                                        ?>
+                                    </div>
+                                </div>
+                                <div class="td-col col5">
+                                    <div class="con">
+                                        <?php
+                                            if ($exhibition_user->attend == 1) {
+                                                echo '불참';
+                                            } elseif ($exhibition_user->attend == 2) {
+                                                echo '참석';
+                                            } elseif ($exhibition_user->attend == 4) {
+                                                echo '시청완료';
+                                            }
+                                        ?>
+                                    </div>
+                                </div>
+                                <div class="td-col col6" id="td-col col6">
+                                    <div class="con">
+                                        <select id="participateSelectBox" name="<?= $exhibition_user->id ?>,<?= $exhibition_user->users_email ?>" onClick="exhibitionUsersStatus('<?= $exhibition_user->id ?>', '<?= $exhibition_user->users_email ?>', '<?=$exhibition_user->users_name?>', '<?=$exhibition_user->exhibition_group_id?>')">
+                                            <?php if ($exhibition_user->status == 4) { ?>
+                                                <option value="2">참가 대기</option>
+                                                <option value="4" selected="selected">참가 확정</option>
+                                            <?php } else { ?>
+                                                <option value="2" selected="selected">참가 대기</option>
+                                                <option value="4">참가 확정</option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="td-col col7">
+                                    <div class="con">
+                                        <button type="button" class="btn-ty3 red" style="cursor:pointer;" data-toggle="modal" data-target="#exhibitionCancelModal" data-backdrop="static" data-keyboard="false" onClick="exhibitionCancel(<?= $key ?>)">
+                                            취소
+                                        </button>
+                                    </div>
+                                    <div id="popup"></div>
+                                </div>                        
                             </div>
-                        </div>
-                        <div class="td-col col4">
-                            <div class="con">
-                                <?php 
-                                    $amount = intval($exhibition_user->exhibition_group['amount']);
-                                    echo number_format($amount) . "원"; 
-                                ?>
-                            </div>
-                        </div>
-                        <div class="td-col col5">
-                            <div class="con">
-                                <?php
-                                    if ($exhibition_user->attend == 1) {
-                                        echo '불참';
-                                    } elseif ($exhibition_user->attend == 2) {
-                                        echo '참석';
-                                    } elseif ($exhibition_user->attend == 4) {
-                                        echo '시청완료';
-                                    }
-                                ?>
-                            </div>
-                        </div>
-                        <div class="td-col col6" id="td-col col6">
-                            <div class="con">
-                                <select id="participateSelectBox" name="<?= $exhibition_user->id ?>,<?= $exhibition_user->users_email ?>" onClick="exhibitionUsersStatus('<?= $exhibition_user->id ?>', '<?= $exhibition_user->users_email ?>', '<?=$exhibition_user->users_name?>', '<?=$exhibition_user->exhibition_group_id?>')">
-                                    <?php if ($exhibition_user->status == 4) { ?>
-                                        <option value="2">참가 대기</option>
-                                        <option value="4" selected="selected">참가 확정</option>
-                                    <?php } else { ?>
-                                        <option value="2" selected="selected">참가 대기</option>
-                                        <option value="4">참가 확정</option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="td-col col7">
-                            <div class="con">
-                                <button type="button" class="btn-ty3 red" style="cursor:pointer;" data-toggle="modal" data-target="#exhibitionCancelModal" data-backdrop="static" data-keyboard="false" onClick="exhibitionCancel(<?= $key ?>)">
-                                    취소
-                                </button>
-                            </div>
-                            <div id="popup"></div>
-                        </div>                        
-                    </div>
-                <?php endforeach; ?>
+                <?php 
+                        endif;
+                    endforeach;
+                ?>
             </div>
             <div class="paginator">
                 <ul class="pagination">
@@ -322,7 +328,7 @@
     }
 
     function exhibitionCancelOK(index) {
-        var exhibition_users = <?= json_encode($exhibition_users)  ?>;
+        var exhibition_users = <?= json_encode($exhibition_users) ?>;
         var id = exhibition_users[index]['id'];
         var exhibition_id = exhibition_users[index]['exhibition_id'];
         var users_name = exhibition_users[index]['users_name'];
