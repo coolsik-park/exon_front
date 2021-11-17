@@ -343,4 +343,12 @@
     </div>
     <?php endif; ?>
     <?php echo $this->Form->end(); ?>
+
+    <?php if ($beforeParentData[0] == '' && $normalParentData[0] == '') : ?>
+    <div class="section8 fir" style="height:650px;">
+        <div class="sect-tit">
+            <h3 class="s-hty1">등록된 설문이 없습니다.</h3>
+        </div>
+    </div>
+    <?php endif; ?>
 </div>
