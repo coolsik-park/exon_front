@@ -851,8 +851,9 @@ class ExhibitionController extends AppController
         return $response;
     }
 
-    public function exhibitionUsersApproval($id = null)
+    public function exhibitionUsersApproval()
     {
+        $id = $this->request->getData('id');
         $status = $this->request->getData('status');
         $to = $this->request->getData('email');
 
@@ -896,12 +897,11 @@ class ExhibitionController extends AppController
             $mailer->deliver();
 
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
-            return $response;
-
         } else {
             $connection->rollback();
             $response = $this->response->withType('json')->withStringBody(json_encode(['test' => 'fail']));
         }
+        return $response;
     }
 
     public function userSurveyView($id = null)
