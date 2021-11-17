@@ -724,13 +724,13 @@
         html += '        </select>';
         html += '    </div>';
         html += '    <div id="rows_'+i+'" class="survey-bx-sect3">';
-        // html += '        <div class="btns">';
-        // html += '            <button type="button" onclick="addRow('+i+')">보기 추가</button>';
-        // html += '        </div>';
+        html += '        <div class="btns">';
+        html += '            <button type="button" onclick="addRow('+i+')">보기 추가</button>';
+        html += '        </div>';
         html += '        <div id="row_'+j+'" class="wrt-after">';
         html += '            <input name="child_text_'+i+'[]" type="text" class="ipt" placeholder="보기">';
         html += '            <input name="child_survey_id_'+i+'[]" type="hidden" value="0">'
-        // html += '            <button type="button" class="btn-del" onclick="deleteRow('+j+', 0)">보기 삭제</button>';
+        html += '            <button type="button" class="btn-del" onclick="deleteRow('+j+', 0)">보기 삭제</button>';
         html += '        </div>';
         html += '    </div>';
         html += '</div>';
