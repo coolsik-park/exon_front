@@ -17,7 +17,7 @@
                 <div class="apply-sect1-cont">
                     <div class="photos" style="border-radius: 2em;">
                     <?php if ($exhibition->image_path != '') : ?>
-                        <img src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>">
+                        <img src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>" style="width:577.69px; height:369px;">
                     <?php else : ?>
                         <img src="../../images/img-no3.png" alt="이미지없음">
                     <?php endif; ?>
