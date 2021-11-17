@@ -17,17 +17,15 @@
     $fifty = 0;
     $sixty = 0;
 
-    if ($ages[0] != '') {
-        foreach ($ages as $age) {
-            switch ((int)substr($age, 0, 1)) {
-                case 0 : $zero++; break; 
-                case 1 : $ten++; break;
-                case 2 : $twenty++; break;
-                case 3 : $thirty++; break;
-                case 4 : $fourty++; break;
-                case 5 : $fifty++; break;
-                default : $sixty++; break;
-            }
+    foreach ($ages as $age) {
+        switch ((int)substr($age, 0, 1)) {
+            case 0 : $zero++; break; 
+            case 1 : $ten++; break;
+            case 2 : $twenty++; break;
+            case 3 : $thirty++; break;
+            case 4 : $fourty++; break;
+            case 5 : $fifty++; break;
+            default : $sixty++; break;
         }
     }
 
