@@ -174,12 +174,12 @@
                                 </div>
                                 <div class="td-col col6" id="td-col col6">
                                     <div class="con">
-                                        <select id="participateSelectBox" name="<?= $exhibition_user->id ?>,<?= $exhibition_user->users_email ?>" onClick="exhibitionUsersStatus('<?= $exhibition_user->id ?>', '<?= $exhibition_user->users_email ?>', '<?=$exhibition_user->users_name?>', '<?=$exhibition_user->exhibition_group_id?>')">
+                                        <select id="participateSelectBox" onClick="exhibitionUsersStatus('<?= $exhibition_user->id ?>', '<?= $exhibition_user->exhibition_id ?>', '<?= $exhibition_user->users_email ?>', '<?=$exhibition_user->users_name?>', '<?=$exhibition_user->exhibition_group_id?>')">
                                             <?php if ($exhibition_user->status == 4) { ?>
                                                 <option value="2">참가 대기</option>
-                                                <option value="4" selected="selected">참가 확정</option>
+                                                <option value="4" selected>참가 확정</option>
                                             <?php } else { ?>
-                                                <option value="2" selected="selected">참가 대기</option>
+                                                <option value="2" selected>참가 대기</option>
                                                 <option value="4">참가 확정</option>
                                             <?php } ?>
                                         </select>
@@ -244,9 +244,9 @@
                             for (var z=0; z<beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'].length; z++) {
                                 if (beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'][z]['users_id'] == users_id) {
                                     if (beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'][z]['text'] == 'Y') {
-                                        html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '" checked="checked"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
+                                        html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '" checked="checked" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
                                     } else {
-                                        html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
+                                        html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
                                     }
                                 }
                             }
@@ -277,28 +277,32 @@
         }
     }
 
-    function exhibitionUsersStatus(id, users_email, users_name, exhibition_group_id) {
-        var value = $('#participateSelectBox').val();
-
-        $.ajax({
-            url: '/exhibition/exhibition-users-approval',
-            method: 'POST',
-            type: 'json',
-            data: {
-                id: id,
-                status: value,
-                email: users_email,
-                user_name: users_name,
-                group: exhibition_group_id
-            }
-        }).done(function(data) {
-            if (data.test == 'success') {
-                $('#td-col col6').load(location.href+" #td-col col6");
-            } else {
-                alert("실패하였습니다.");
-                $('#td-col col6').load(location.href+" #td-col col6");
-            }
-        });
+    function exhibitionUsersStatus(id, exhibition_id, users_email, users_name, exhibition_group_id) {
+        var sel = document.getElementById("participateSelectBox");
+        var val = sel.options[sel.selectedIndex].value;
+        console.log(val);
+        // $.ajax({
+        //     url: '/exhibition/exhibition-users-approval',
+        //     method: 'POST',
+        //     type: 'json',
+        //     data: {
+        //         id: id,
+        //         exhibition_id: exhibition_id,
+        //         status: value,
+        //         email: users_email,
+        //         name: users_name,
+        //         group_id: exhibition_group_id
+        //     }
+        // }).done(function(data) {
+        //     if (data.test == 'success') {
+        //         console.log("성공");
+        //         // $('#td-col col6').load(location.href+" #td-col col6");
+        //     } else {
+        //         console.log("실패");
+        //         // alert("실패하였습니다.");
+        //         // $('#td-col col6').load(location.href+" #td-col col6");
+        //     }
+        // });
     }
 
     function exhibitionCancel(key) {

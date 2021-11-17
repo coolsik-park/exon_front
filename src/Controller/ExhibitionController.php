@@ -854,8 +854,11 @@ class ExhibitionController extends AppController
     public function exhibitionUsersApproval()
     {
         $id = $this->request->getData('id');
+        $exhibition_id = $this->request->getData('exhibition_id');
         $status = $this->request->getData('status');
         $to = $this->request->getData('email');
+        $name = $this->request->getData('name');
+        $group_id = $this->request->getData('group_id');
 
         $connection = ConnectionManager::get('default');
         $connection->begin();
@@ -864,25 +867,32 @@ class ExhibitionController extends AppController
         $exhibition_user = $exhibition_users_table->get($id);
         
         if($connection->update('exhibition_users', ['status' => $status], ['id' => $id])) {
-            $connection->commit();
-
             $mailer = new Mailer();
             $mailer->setTransport('mailjet');
 
             $Exhibition = $this->getTableLocator()->get('Exhibition');
-            $exhibition = $Exhibition->get($id); 
+            $exhibition = $Exhibition->get($exhibition_id);
             $Group = $this->getTableLocator()->get('ExhibitionGroup');
-            $group = $Group->get($answerData['exhibition_group_id']);            
+            $group = $Group->get($group_id);
             
-            $mailer->setEmailFormat('html')
-                        ->setTo($to)
-                        ->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'EXON'])
-                        ->setSubject('Exon - 참가확정 확인 메일입니다.')
-                        ->viewBuilder()
-                        ->setTemplate('webinar_apply_confirmed')
-                    ;
+            if ($status == 4) {
+                $mailer->setEmailFormat('html')
+                            ->setTo($to)
+                            ->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'EXON'])
+                            ->setSubject('Exon - 참가확정 확인 메일입니다.')
+                            ->viewBuilder()
+                            ->setTemplate('webinar_apply_confirmed');
+            } elseif ($status == 2) {
+                $mailer->setEmailFormat('html')
+                            ->setTo($to)
+                            ->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'EXON'])
+                            ->setSubject('Exon - 참가대기 확인 메일입니다.')
+                            ->viewBuilder()
+                            ->setTemplate('webinar_apply');
+            }
+            
             $mailer->setViewVars(['front_url' => FRONT_URL]);
-            $mailer->setViewVars(['user_name' => $answerData['users_name']]);
+            $mailer->setViewVars(['user_name' => $name]);
             $mailer->setViewVars(['title' => $exhibition->title]);
             $mailer->setViewVars(['apply_sdate' => $exhibition->apply_sdate]);
             $mailer->setViewVars(['apply_edate' => $exhibition->apply_edate]);
@@ -893,10 +903,12 @@ class ExhibitionController extends AppController
             $mailer->setViewVars(['email' => $exhibition->email]);
             $mailer->setViewVars(['group' => $group->name]);
             $mailer->setViewVars(['now' => FrozenTime::now()]);
-            
             $mailer->deliver();
+            $response = $this->response->withType('json')->withStringBody(json_encode(['test' => 'success']));
+            return $response;
 
-            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+            $connection->commit();
+            $response = $this->response->withType('json')->withStringBody(json_encode(['test' => 'success']));
         } else {
             $connection->rollback();
             $response = $this->response->withType('json')->withStringBody(json_encode(['test' => 'fail']));
