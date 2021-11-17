@@ -100,6 +100,7 @@
                 <button type="button" id="submit" class="btn-join">참가 신청</button>
             </div>
         </div>
+        <?php if (!$exhibitionSurveys != '') : ?>
         <div class="select8">
             <h3 class="s-hty1">사전 설문 데이터</h3>
             <?php if (!empty($exhibitionSurveys)) : ?>
@@ -139,6 +140,7 @@
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
+        <?php endif; ?>
     </div>        
     <?= $this->Form->end() ?>
 </div>
