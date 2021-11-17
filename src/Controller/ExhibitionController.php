@@ -1345,7 +1345,6 @@ class ExhibitionController extends AppController
         //나이대
         $exhibition = $this->Exhibition->find('all', ['contain' => 'Users'])->where(['id' => $id])->toArray();
         $count = count($exhibition[0]->users);
-        $ages[] = '';
         for ($i = 0; $i < $count; $i++) {
             if ($exhibition[0]->users[$i]->_joinData->status != 8) {
                 if ($exhibition[0]->users[$i]->birthday != null) {
