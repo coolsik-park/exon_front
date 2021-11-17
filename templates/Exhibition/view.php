@@ -158,7 +158,7 @@
                 <div class="apply-sect2-cont">
                     <div class="photo">
                         <?php if ($user[0]->image_path != '') : ?>
-                            <img src="<?= DS . $user[0]->image_path . DS . $user[0]->image_name ?>">
+                            <img src="<?= DS . $user[0]->image_path . DS . $user[0]->image_name ?>" style="width:130px; height:130px;">
                         <?php endif; ?>
                     </div>
                     <div class="info1">
