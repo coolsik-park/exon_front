@@ -725,6 +725,7 @@ class ExhibitionController extends AppController
                 $parent_id = $exhibitionSurvey['id'];
                 $beforeParentData[$i] = $exhibitionSurvey;
                 $i++;
+                $j=0;
             } else {
                 if ($exhibitionSurvey['parent_id'] == $parent_id) {
                     $beforeChildData[$parent_id][$j] = $exhibitionSurvey;
