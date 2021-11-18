@@ -98,6 +98,11 @@ class ExhibitionSurveyTable extends Table
             ->scalar('is_duplicate')
             ->maxLength('is_duplicate', 2)
             ->allowEmptyString('is_duplicate');
+
+        $validator
+            ->scalar('is_required')
+            ->maxLength('is_required', 2)
+            ->allowEmptyString('is_required');
         
         $validator
             ->scalar('is_multiple')

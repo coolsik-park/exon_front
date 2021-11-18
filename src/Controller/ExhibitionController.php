@@ -235,6 +235,7 @@ class ExhibitionController extends AppController
                             $exhibitionSurvey->text = $data['text'][$i];
                             $exhibitionSurvey->survey_type = $data['survey_type'][$i];
                             $exhibitionSurvey->is_duplicate = $data['is_duplicate'][$i];
+                            $exhibitionSurvey->is_required = $data['is_required'][$i];
                             $exhibitionSurvey->is_multiple = $data['is_multiple'][$i];
 
                             if (!$surveyResult = $ExhibitionSurvey->save($exhibitionSurvey)) {
@@ -254,6 +255,7 @@ class ExhibitionController extends AppController
                                         $exhibitionSurvey->text = $data['child_text_' . $i][$j];
                                         $exhibitionSurvey->survey_type = $surveyResult->survey_type;
                                         $exhibitionSurvey->is_duplicate = $surveyResult->is_duplicate;
+                                        $exhibitionSurvey->is_required = $surveyResult->is_required;
                                         $exhibitionSurvey->is_multiple = $surveyResult->is_multiple;
                                         $exhibitionSurvey->parent_id = $surveyResult->id;
 
@@ -507,6 +509,7 @@ class ExhibitionController extends AppController
                                 $exhibitionSurvey->text = $data['text'][$i];
                                 $exhibitionSurvey->survey_type = $data['survey_type'][$i];
                                 $exhibitionSurvey->is_duplicate = $data['is_duplicate'][$i];
+                                $exhibitionSurvey->is_required = $data['is_required'][$i];
                                 $exhibitionSurvey->is_multiple = $data['is_multiple'][$i];
                             
                             } else {
@@ -515,6 +518,7 @@ class ExhibitionController extends AppController
                                 $exhibitionSurvey->text = $data['text'][$i];
                                 $exhibitionSurvey->survey_type = $data['survey_type'][$i];
                                 $exhibitionSurvey->is_duplicate = $data['is_duplicate'][$i];
+                                $exhibitionSurvey->is_required = $data['is_required'][$i];
                                 $exhibitionSurvey->is_multiple = $data['is_multiple'][$i];
                             }
                             
@@ -537,6 +541,7 @@ class ExhibitionController extends AppController
                                             $exhibitionSurvey->text = $data['child_text_' . $i][$j];
                                             $exhibitionSurvey->survey_type = $surveyResult->survey_type;
                                             $exhibitionSurvey->is_duplicate = $surveyResult->is_duplicate;
+                                            $exhibitionSurvey->is_required = $surveyResult->is_required;
                                             $exhibitionSurvey->is_multiple = $surveyResult->is_multiple;
                                         
                                         } else {
@@ -545,6 +550,7 @@ class ExhibitionController extends AppController
                                             $exhibitionSurvey->text = $data['child_text_' . $i][$j];
                                             $exhibitionSurvey->survey_type = $surveyResult->survey_type;
                                             $exhibitionSurvey->is_duplicate = $surveyResult->is_duplicate;
+                                            $exhibitionSurvey->is_required = $surveyResult->is_required;
                                             $exhibitionSurvey->is_multiple = $surveyResult->is_multiple;
                                             $exhibitionSurvey->parent_id = $surveyResult->id;
                                         }

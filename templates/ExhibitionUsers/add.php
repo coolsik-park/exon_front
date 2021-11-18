@@ -100,21 +100,36 @@
                 <button type="button" id="submit" class="btn-join">참가 신청</button>
             </div>
         </div>
-        <?php if (!$exhibitionSurveys != '') : ?>
         <div class="select8">
+            <?php
+            $m = 0;
+            $s = 0;
+            ?>
             <h3 class="s-hty1">사전 설문 데이터</h3>
             <?php if (!empty($exhibitionSurveys)) : ?>
                 <?php $i = 0; ?>
-                <?php foreach ($exhibitionSurveys as $exhibitionSurvey) : ?>         
+                <?php foreach ($exhibitionSurveys as $exhibitionSurvey) : ?>  
                     <?php if ($exhibitionSurvey->is_multiple == 'N') : ?>
+                        <?php
+                        if ($exhibitionSurvey->is_required == 'Y') : 
+                        $subjective_parents[$s] = $exhibitionSurvey->id;
+                        $s++;
+                        endif; 
+                        ?>   
                         <div class="survey"> 
                             <h4 class="survey-q"><?= $exhibitionSurvey->text ?></h4>
                             <ul class="survey-as">
-                                <li><input type="text" name="exhibition_survey_users_answer.<?=$i?>.text"></li>
+                                <li><input type="text" id="<?=$exhibitionSurvey->id?>" name="exhibition_survey_users_answer.<?=$i?>.text"></li>
                                 <?php $i++; ?>
                             </ul>
                         </div>
                     <?php else : ?>
+                        <?php
+                        if ($exhibitionSurvey->is_required == 'Y') : 
+                        $multiple_parents[$m] = $exhibitionSurvey->id;
+                        $m++;
+                        endif; 
+                        ?>
                         <div class="survey"> 
                             <h4 class="survey-q"><?= $exhibitionSurvey->text ?></h4>
                             <input type="hidden" name="exhibition_survey_users_answer.<?=$i?>.text" value="question">
@@ -140,7 +155,6 @@
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
-        <?php endif; ?>
     </div>        
     <?= $this->Form->end() ?>
 </div>
@@ -248,6 +262,35 @@
         if ($("#agree2").prop("checked") == false && $("#agree3").prop("checked") == false) {
             alert("필수 이용약관 및 개인정보 수집/이용 동의를 확인해주세요.");
             return false;
+        }
+        
+        var subjective_parents = [];
+        var multiple_parents = [];    
+        var s = 0;
+        var m = 0;
+        <?php foreach ($subjective_parents as $subjective_parent) : ?>
+            subjective_parents[s] = "<?=$subjective_parent?>"
+            s++;
+        <?php endforeach; ?>
+        <?php foreach ($multiple_parents as $multiple_parent) : ?>
+            multiple_parents[m] = "<?=$multiple_parent?>"
+            m++;
+        <?php endforeach; ?>
+
+        for (var i=0; i<subjective_parents.length; i++) {
+            if ($("#"+subjective_parents[i]).val() == '') {
+                alert("응답되지 않은 필수 사전설문이 있습니다.");
+                return false;
+                $("#"+subjective_parents[i]).focus();
+            }
+        }
+
+        for (var i=0; i<multiple_parents.length; i++) {
+            if ($("input[name='"+multiple_parents[i]+"']:checked").length == 0) {
+                alert("응답되지 않은 필수 사전설문이 있습니다.");
+                return false;
+                $("input[name='"+multiple_parents[i]+"']").focus();
+            }
         }
         
         var cost = "<?=$exhibition->cost?>";

@@ -500,23 +500,25 @@
         html += '<div id="survey_'+i+'" class="survey-bx">';
         html += '    <div class="survey-bx-sect1">';
         html += '        <div class="tits">';
-        html += '            <select id="is_multiple_'+i+'" name="is_multiple[]">';
+        html += '            <select id="is_multiple_'+i+'" name="is_multiple[]" class="0">';
         html += '                <option value="Y">객관식</option>';
         html += '                <option value="N">주관식</option>';
         html += '            </select>';
         html += '            <div class="chk-dsg-wp">';
         html += '                <span class="chk-dsg"><input type="checkbox" name="is_duplicate[]" id="dup'+i+'" value="Y"><label for="dup'+i+'">보기 중복 선택 가능</label></span>';
         html += '                <input type="checkbox" name="is_duplicate[]" id="dup_hidden_'+i+'" value="N" checked="checked" style="display:none">';
-        html += '                <!-- <span class="chk-dsg"><input type="checkbox" name="surv1" id="surv1-2" value="1"><label for="surv1-2">필수</label></span> -->';
+        html += '                <span class="chk-dsg" id="req_span_'+i+'" style="display:none;"><input type="checkbox" name="is_required[]" id="req'+i+'" value="Y"><label for="req'+i+'">필수</label></span>';
+        html += '                <input type="checkbox" name="is_required[]" id="req_hidden_'+i+'" value="N" checked="checked" style="display:none">';
         html += '            </div>';                                
         html += '        </div>';
         html += '        <div class="btns">';                                
-        html += '            <button type="button" class="btn2" onclick="deleteSurvey('+i+')">삭제</button>';
+        html += '            <button type="button" class="btn2" onclick="deleteSurvey('+i+', 0)">삭제</button>';
         html += '        </div>';
         html += '    </div>';
         html += '    <div class="survey-bx-sect2">';
         html += '        <input name="text[]" type="text" class="ipt" placeholder="질문">';
-        html += '        <select name="survey_type[]">';
+        html += '        <input name="survey_id[]" type="hidden" value="0">'
+        html += '        <select id="survey_type_'+i+'" name="survey_type[]">';
         html += '            <option value="N">일반설문</option>';
         html += '            <option value="B">사전설문</option>';
         html += '        </select>';
@@ -527,7 +529,8 @@
         html += '        </div>';
         html += '        <div id="row_'+j+'" class="wrt-after">';
         html += '            <input name="child_text_'+i+'[]" type="text" class="ipt" placeholder="보기">';
-        html += '            <button type="button" class="btn-del" onclick="deleteRow('+j+')">보기 삭제</button>';
+        html += '            <input name="child_survey_id_'+i+'[]" type="hidden" value="0">'
+        html += '            <button type="button" class="btn-del" onclick="deleteRow('+j+', 0)">보기 삭제</button>';
         html += '        </div>';
         html += '    </div>';
         html += '</div>';
@@ -566,21 +569,24 @@
             var html = '';
             html += '<div class="survey-bx-sect1">';
             html += '    <div class="tits">';
-            html += '        <select id="is_multiple_'+index+'" name="is_multiple[]">';
+            html += '        <select id="is_multiple_'+index+'" name="is_multiple[]" class="0">';
             html += '            <option value="Y">객관식</option>';
             html += '            <option selected="selected" value="N">주관식</option>';
             html += '        </select>';
             html += '        <div class="chk-dsg-wp">';
+            html += '                <span class="chk-dsg" id="req_span_'+index+'" style="display:none;"><input type="checkbox" name="is_required[]" id="req'+index+'" value="Y"><label for="req'+index+'">필수</label></span>';
+            html += '                <input type="checkbox" name="is_required[]" id="req_hidden_'+index+'" value="N" checked="checked" style="display:none">';
             html += '        </div>';                           
             html += '    </div>';
             html += '    <div class="btns">';                          
-            html += '       <button type="button" class="btn2" onclick="deleteSurvey('+index+')">삭제</button>';
+            html += '       <button type="button" class="btn2" onclick="deleteSurvey('+index+', 0)">삭제</button>';
             html += '    </div>';
             html += '</div>';
             html += '<div class="survey-bx-sect2">';
             html += '    <input name="text[]" type="text" class="ipt" placeholder="질문">';
+            html += '    <input name="survey_id[]" type="hidden" value="0">'
             html += '    <input type="checkbox" name="is_duplicate[]" id="dup_hidden_'+index+'" value="N" checked="checked" style="display:none">';
-            html += '    <select name="survey_type[]">';
+            html += '    <select id="survey_type_'+index+'" name="survey_type[]">';
             html += '        <option value="N">일반설문</option>';
             html += '        <option value="B">사전설문</option>';
             html += '    </select>';
@@ -594,23 +600,25 @@
             var html = '';
             html += '    <div class="survey-bx-sect1">';
             html += '        <div class="tits">';
-            html += '            <select id="is_multiple_'+index+'" name="is_multiple[]">';
+            html += '            <select id="is_multiple_'+index+'" name="is_multiple[]" class="0">';
             html += '                <option value="Y">객관식</option>';
             html += '                <option value="N">주관식</option>';
             html += '            </select>';
             html += '            <div class="chk-dsg-wp">';
             html += '                <span class="chk-dsg"><input type="checkbox" name="is_duplicate[]" id="dup'+index+'" value="Y"><label for="dup'+index+'">보기 중복 선택 가능</label></span>';
-            html += '                <input type="checkbox" name="is_duplicate[]" id="dup_hidden_'+index+'" value="N" checked="checked" style="display:none">';
-            html += '                <!-- <span class="chk-dsg"><input type="checkbox" name="surv1" id="surv1-2" value="1"><label for="surv1-2">필수</label></span> -->';
+            html += '                <input type="checkbox" name="is_duplicate[]" id="dup_hidden_'+index+'" value="N" checked="checked" style="display:none;">';
+            html += '                <span class="chk-dsg" id="req_span_'+index+'" style="display:none;"><input type="checkbox" name="is_required[]" id="req'+index+'" value="Y"><label for="req'+index+'">필수</label></span>';
+            html += '                <input type="checkbox" name="is_required[]" id="req_hidden_'+index+'" value="N" checked="checked" style="display:none">';
             html += '            </div>';                                
             html += '        </div>';
             html += '        <div class="btns">';                                
-            html += '            <button type="button" class="btn2" onclick="deleteSurvey('+index+')">삭제</button>';
+            html += '            <button type="button" class="btn2" onclick="deleteSurvey('+index+', 0)">삭제</button>';
             html += '        </div>';
             html += '    </div>';
             html += '    <div class="survey-bx-sect2">';
             html += '        <input name="text[]" type="text" class="ipt" placeholder="질문">';
-            html += '        <select name="survey_type[]">';
+            html += '        <input name="survey_id[]" type="hidden" value="0">'
+            html += '        <select id="survey_type_'+index+'" name="survey_type[]">';
             html += '            <option value="N">일반설문</option>';
             html += '            <option value="B">사전설문</option>';
             html += '        </select>';
@@ -621,7 +629,8 @@
             html += '        </div>';
             html += '        <div id="row_'+j+'" class="wrt-after">';
             html += '            <input name="child_text_'+index+'[]" type="text" class="ipt" placeholder="보기">';
-            html += '            <button type="button" class="btn-del" onclick="deleteRow('+j+')">보기 삭제</button>';
+            html += '            <input name="child_survey_id_'+index+'[]" type="hidden" value="0">'
+            html += '            <button type="button" class="btn-del" onclick="deleteRow('+j+', 0)">보기 삭제</button>';
             html += '        </div>';
             html += '    </div>';
 
@@ -641,6 +650,29 @@
         } else {
             document.getElementById("dup_hidden_" + id).disabled = false;
         }  
+    });
+
+    //is_required 제어
+    $(document).on("change", "input:checkbox[name='is_required[]']", function() {
+        var id = $(this).attr("id").substr($(this).attr("id").length - 1, 1);
+        
+        if (document.getElementById("req" + id).checked) {
+            document.getElementById("req_hidden_" + id).disabled = true;
+        
+        } else {
+            document.getElementById("req_hidden_" + id).disabled = false;
+        }  
+    });
+
+    $(document).on("change", "select[name='survey_type[]']", function () {
+        var id = $(this).attr("id").substr($(this).attr("id").length - 1, 1);
+        if ($(this).val() == 'N') {
+            $("#req_span_"+id).hide();
+            $("#req"+id).prop("checked", false);
+            $("#req_hidden_"+id).attr("disabled", false);
+        } else {
+            $("#req_span_"+id).show();
+        }
     });
 
 </script>  
