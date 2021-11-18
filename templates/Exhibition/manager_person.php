@@ -244,9 +244,9 @@
                             for (var z=0; z<beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'].length; z++) {
                                 if (beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'][z]['users_id'] == users_id) {
                                     if (beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'][z]['text'] == 'Y') {
-                                        html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '" checked="checked" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
+                                        html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '-' + y+1 + '" checked="checked" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
                                     } else {
-                                        html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
+                                        html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '-' + y+1 + '" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
                                     }
                                 }
                             }
