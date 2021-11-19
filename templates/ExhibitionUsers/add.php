@@ -292,100 +292,106 @@
                 $("input[name='"+multiple_parents[i]+"']").focus();
             }
         }
-        
-        var cost = "<?=$exhibition->cost?>";
-        //무료
-        if (cost == 'free') {
-            var formData = new FormData($('#apply')[0]);
+        var html = "";
+        html += "이메일 : " + $("#users_email").val() + "\n";
+        html += "이름 : " + $("#users_name").val() + "\n";
+        html += "전화번호 : " + $("#users_hp").val() + "\n";
+        html += "웨비나 접속 시 인증이 필요할 수 있습니다.\n위 내용으로 신청하시겠습니까?";
+        if (confirm(html)) {
+            var cost = "<?=$exhibition->cost?>";
+            //무료
+            if (cost == 'free') {
+                var formData = new FormData($('#apply')[0]);
 
-            jQuery.ajax({
-                url: "/exhibition-users/add/" + <?= $id ?>,
-                processData: false,
-                contentType: false,
-                cache: false,
-                data: formData,
-                type: 'POST',
-            }).done(function(data) {
-                if (data.status == 'success') {
-                    alert("신청이 완료되었습니다.");
-                    window.location.replace("/exhibition/view/<?=$id?>");
-                } else if (data.status == 'exist') {
-                    alert("해당 이메일 주소로 이미 신청이 완료된 행사입니다.");
-                    window.location.replace("/exhibition/view/<?=$id?>");
-                } else {
-                    alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
-                }
-            });
+                jQuery.ajax({
+                    url: "/exhibition-users/add/" + <?= $id ?>,
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    data: formData,
+                    type: 'POST',
+                }).done(function(data) {
+                    if (data.status == 'success') {
+                        alert("신청이 완료되었습니다.");
+                        window.location.replace("/exhibition/view/<?=$id?>");
+                    } else if (data.status == 'exist') {
+                        alert("해당 이메일 주소로 이미 신청이 완료된 행사입니다.");
+                        window.location.replace("/exhibition/view/<?=$id?>");
+                    } else {
+                        alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+                    }
+                });
 
-        } else {
-            //결제
-            var IMP = window.IMP; 
-            IMP.init('imp43823679'); //아임포트 id -> 추후 교체
-            IMP.request_pay({
-                pg : 'inicis',
-                pay_method : 'card',
-                merchant_uid : 'merchant_' + new Date().getTime(),
-                name : '주문명:결제테스트',
-                amount : 1000, //$('input#amount').val()
-                //세션 유저정보에서 가져오기
-                buyer_email : '',
-                buyer_name : '구매자이름',
-                buyer_tel : '010-1234-5678',
-                buyer_addr : '서울특별시 강남구 삼성동',
-                buyer_postcode : '123-456'
-            }, function(rsp) {
-                if ( rsp.success ) {
-                    jQuery.ajax({
-                        url: "/pay/import-pay", 
-                        method: 'POST',
-                        type: 'json',
-                        data: {
-                            imp_uid: rsp.imp_uid,
-                            merchant_uid: rsp.merchant_uid,
-                            pay_method: rsp.pay_method,
-                            paid_amount: rsp.paid_amount,
-                            coupon_amount: 0,
-                            receipt_url: rsp.receipt_url,
-                            paid_at: rsp.paid_at,
-                            pg_tid: rsp.pg_tid
-                        }
-                    }).done(function(data) {
-                        if (data.status == 'success') { 
-                            var msg = '결제가 완료되었습니다.';
-                            msg += '\n고유ID : ' + rsp.imp_uid;
-                            msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-                            msg += '\n결제 금액 : ' + rsp.paid_amount;
-                            msg += '\n카드 승인번호 : ' + rsp.apply_num; 
+            } else {
+                //결제
+                var IMP = window.IMP; 
+                IMP.init('imp43823679'); //아임포트 id -> 추후 교체
+                IMP.request_pay({
+                    pg : 'inicis',
+                    pay_method : 'card',
+                    merchant_uid : 'merchant_' + new Date().getTime(),
+                    name : '주문명:결제테스트',
+                    amount : 1000, //$('input#amount').val()
+                    //세션 유저정보에서 가져오기
+                    buyer_email : '',
+                    buyer_name : '구매자이름',
+                    buyer_tel : '010-1234-5678',
+                    buyer_addr : '서울특별시 강남구 삼성동',
+                    buyer_postcode : '123-456'
+                }, function(rsp) {
+                    if ( rsp.success ) {
+                        jQuery.ajax({
+                            url: "/pay/import-pay", 
+                            method: 'POST',
+                            type: 'json',
+                            data: {
+                                imp_uid: rsp.imp_uid,
+                                merchant_uid: rsp.merchant_uid,
+                                pay_method: rsp.pay_method,
+                                paid_amount: rsp.paid_amount,
+                                coupon_amount: 0,
+                                receipt_url: rsp.receipt_url,
+                                paid_at: rsp.paid_at,
+                                pg_tid: rsp.pg_tid
+                            }
+                        }).done(function(data) {
+                            if (data.status == 'success') { 
+                                var msg = '결제가 완료되었습니다.';
+                                msg += '\n고유ID : ' + rsp.imp_uid;
+                                msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+                                msg += '\n결제 금액 : ' + rsp.paid_amount;
+                                msg += '\n카드 승인번호 : ' + rsp.apply_num; 
 
-                            alert(msg);
+                                alert(msg);
 
-                            var formData = new FormData($('#apply')[0]);
-                            formData.append('pay_id', data.pay_id);
-                            formData.append('pay_amount', rsp.paid_amount);
+                                var formData = new FormData($('#apply')[0]);
+                                formData.append('pay_id', data.pay_id);
+                                formData.append('pay_amount', rsp.paid_amount);
 
-                            jQuery.ajax({
-                                url: "/exhibition-users/add/" + <?= $id ?>,
-                                processData: false,
-                                contentType: false,
-                                cache: false,
-                                data: formData,
-                                type: 'POST',
-                            }).done(function(data) {
-                                if (data.status == 'success') {
-                                    alert("신청이 완료되었습니다.");
-                                    window.location.replace("/exhibition/view/<?=$id?>");
-                                }
-                            });
-                        } 
-                    });
-                    
-                } else {
-                    var msg = '결제에 실패하였습니다.';
-                    msg += '에러내용 : ' + rsp.error_msg;
+                                jQuery.ajax({
+                                    url: "/exhibition-users/add/" + <?= $id ?>,
+                                    processData: false,
+                                    contentType: false,
+                                    cache: false,
+                                    data: formData,
+                                    type: 'POST',
+                                }).done(function(data) {
+                                    if (data.status == 'success') {
+                                        alert("신청이 완료되었습니다.");
+                                        window.location.replace("/exhibition/view/<?=$id?>");
+                                    }
+                                });
+                            } 
+                        });
+                        
+                    } else {
+                        var msg = '결제에 실패하였습니다.';
+                        msg += '에러내용 : ' + rsp.error_msg;
 
-                    alert(msg);
-                }
-            });
+                        alert(msg);
+                    }
+                });
+            }
         }
     });
 </script>
