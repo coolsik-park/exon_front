@@ -160,8 +160,8 @@
                 <ul>
                     <li><a href="#">회사소개</a></li>
                     <li><a href="/boards/customer-service">고객센터</a></li>
-                    <li><a href="#">서비스 이용약관 </a></li>
-                    <li><a href="#">개인정보처리방침</a></li>
+                    <li><a href="/pages/terms-of-service">서비스 이용약관 </a></li>
+                    <li><a href="/pages/personal-info-agreement">개인정보처리방침</a></li>
                     <li><a href="#">전자금융거래 이용약관</a></li>
                     <li><a href="#">취소 및 환불 약관</a></li>
                     <li><a href="#">이메일 주소 무단수집 거부</a></li>

@@ -85,11 +85,11 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                     </div>
                     <div>
                         <span class="chk-dsg"><input type="checkbox" id="agree2"><label for="agree2">(필수)
-                                이용약관</label></span><a href="#" target="_blank" class="btn-ss">약관보기</a>
+                                이용약관</label></span><a href="/pages/terms-of-service" target="_blank" class="btn-ss">약관보기</a>
                     </div>
                     <div>
                         <span class="chk-dsg"><input type="checkbox" id="agree3"><label for="agree3">(필수) 개인정보 수집 및 이용
-                                동의</label></span><a href="#" target="_blank" class="btn-ss">약관보기</a>
+                                동의</label></span><a href="/pages/personal-info-agreement" target="_blank" class="btn-ss">약관보기</a>
                     </div>
                     <div>
                         <span class="chk-dsg"><input type="checkbox" id="agree4"><label for="agree4">(선택) 이메일
