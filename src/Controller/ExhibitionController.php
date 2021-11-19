@@ -1156,194 +1156,196 @@ class ExhibitionController extends AppController
         if ($this->request->is('post')) {
             
             $data = $this->request->getData('checked');
-            $count = count($data);
+            if (!empty($data)) {
+                $count = count($data);
 
-            //엑셀 파일 저장
-            $spreadsheet = new Spreadsheet();
+                //엑셀 파일 저장
+                $spreadsheet = new Spreadsheet();
 
-            //Specify the properties for this document
-            $spreadsheet->getProperties()
-                ->setTitle('설문 데이터')
-                ->setCreator('EXON.com')
-                ->setLastModifiedBy('EXON.com');
+                //Specify the properties for this document
+                $spreadsheet->getProperties()
+                    ->setTitle('설문 데이터')
+                    ->setCreator('EXON.com')
+                    ->setLastModifiedBy('EXON.com');
 
-            for ($i = 0; $i < ($count-1); $i++) {
-                $spreadsheet->createSheet();
-            }
+                for ($i = 0; $i < ($count-1); $i++) {
+                    $spreadsheet->createSheet();
+                }
 
-            for ($i = 0; $i < $count; $i++) {
-                $spreadsheet->setActiveSheetIndex($i)
-                ->setTitle('질문' . ($i+1))
-                ->setCellValue('A1', '');
+                for ($i = 0; $i < $count; $i++) {
+                    $spreadsheet->setActiveSheetIndex($i)
+                    ->setTitle('질문' . ($i+1))
+                    ->setCellValue('A1', '');
 
-                $spreadsheet->getActiveSheet($i)
-                ->setCellValue('B1', '이름')
-                ->setCellValue('C1', '이메일')
-                ->setCellValue('D1', '질문' . ($i+1));
-            }
+                    $spreadsheet->getActiveSheet($i)
+                    ->setCellValue('B1', '이름')
+                    ->setCellValue('C1', '이메일')
+                    ->setCellValue('D1', '질문' . ($i+1));
+                }
 
-            $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
-            $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id, 'users_id IS NOT' => null])->toArray();
-            $rowCount = count($exhibitionUsers);
+                $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
+                $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id, 'users_id IS NOT' => null])->toArray();
+                $rowCount = count($exhibitionUsers);
 
-            $ExhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey');
-            $ExhibitionSurveyUsersAnswer = $this->getTableLocator()->get('ExhibitionSurveyUsersAnswer');
+                $ExhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey');
+                $ExhibitionSurveyUsersAnswer = $this->getTableLocator()->get('ExhibitionSurveyUsersAnswer');
 
-            $exhibitionSurvey = $ExhibitionSurvey->find('all', [
-                'conditions' => [
-                    'or' => [
-                        'id IN' => $data,
-                        'parent_id IN' => $data
-                    ]
-                ]
-            ])->select(['id'])->toArray();
-
-            $checkedCount = count($exhibitionSurvey);
-            for ($i = 0; $i < $checkedCount; $i++) {
-                $checked[$i] = $exhibitionSurvey[$i]['id'];
-            }
-
-            $answered[] = '';
-            $answeredCount = 0;
-            for ($i = 0; $i < $rowCount; $i++) {
-                $exhibitionSurveyUsersAnswer = $ExhibitionSurveyUsersAnswer->find('all', [
+                $exhibitionSurvey = $ExhibitionSurvey->find('all', [
                     'conditions' => [
-                        'text IS NOT' => 'question',
-                        'exhibition_survey_id IN' => $checked,
                         'or' => [
-                            'text' => 'Y',
-                            'text IS NOT' => ''
+                            'id IN' => $data,
+                            'parent_id IN' => $data
                         ]
                     ]
-                ])->where(['users_id' => $exhibitionUsers[$i]['users_id']])->toArray();
-                
-                $answerCount = count($exhibitionSurveyUsersAnswer);
-                
-                if ($answerCount != 0) {
+                ])->select(['id'])->toArray();
 
-                    $k = 0;
-                    for ($j = 0; $j < $answerCount; $j++) {
-                        
-                        if ($exhibitionSurveyUsersAnswer[$j]['text'] == 'Y') {
+                $checkedCount = count($exhibitionSurvey);
+                for ($i = 0; $i < $checkedCount; $i++) {
+                    $checked[$i] = $exhibitionSurvey[$i]['id'];
+                }
+
+                $answered[] = '';
+                $answeredCount = 0;
+                for ($i = 0; $i < $rowCount; $i++) {
+                    $exhibitionSurveyUsersAnswer = $ExhibitionSurveyUsersAnswer->find('all', [
+                        'conditions' => [
+                            'text IS NOT' => 'question',
+                            'exhibition_survey_id IN' => $checked,
+                            'or' => [
+                                'text' => 'Y',
+                                'text IS NOT' => ''
+                            ]
+                        ]
+                    ])->where(['users_id' => $exhibitionUsers[$i]['users_id']])->toArray();
+                    
+                    $answerCount = count($exhibitionSurveyUsersAnswer);
+                    
+                    if ($answerCount != 0) {
+
+                        $k = 0;
+                        for ($j = 0; $j < $answerCount; $j++) {
                             
-                            $nextCount = 0;
-                            $survey_text = '';
-                            foreach ($exhibitionSurveyUsersAnswer as $answer) {
-                                if ($exhibitionSurveyUsersAnswer[$j]['parent_id'] == $answer['parent_id']) {
-                                    $nextCount ++;
-                                    $text = $ExhibitionSurvey->find('all')->where(['id' => $answer['exhibition_survey_id']])->toArray()[0]['text']; 
-                                    $survey_text .= $text . ' ';
+                            if ($exhibitionSurveyUsersAnswer[$j]['text'] == 'Y') {
+                                
+                                $nextCount = 0;
+                                $survey_text = '';
+                                foreach ($exhibitionSurveyUsersAnswer as $answer) {
+                                    if ($exhibitionSurveyUsersAnswer[$j]['parent_id'] == $answer['parent_id']) {
+                                        $nextCount ++;
+                                        $text = $ExhibitionSurvey->find('all')->where(['id' => $answer['exhibition_survey_id']])->toArray()[0]['text']; 
+                                        $survey_text .= $text . ' ';
+                                    }
                                 }
-                            }
-                            if ($nextCount == 0) {
-                                $text = $ExhibitionSurvey->find('all')->where(['id' => $exhibitionSurveyUsersAnswer[$j]['exhibition_survey_id']])->toArray()[0]['text'];
-                                $answered[$k] = $exhibitionSurveyUsersAnswer[$j]['exhibition_survey_id'];
-                            
+                                if ($nextCount == 0) {
+                                    $text = $ExhibitionSurvey->find('all')->where(['id' => $exhibitionSurveyUsersAnswer[$j]['exhibition_survey_id']])->toArray()[0]['text'];
+                                    $answered[$k] = $exhibitionSurveyUsersAnswer[$j]['exhibition_survey_id'];
+                                
+                                } else {
+                                    $answered[$k] = $survey_text;
+                                }
+                                $j = $j + $nextCount -1;
+                                
                             } else {
-                                $answered[$k] = $survey_text;
+                                $answered[$k] = $exhibitionSurveyUsersAnswer[$j]['text'];
                             }
-                            $j = $j + $nextCount -1;
-                            
-                        } else {
-                            $answered[$k] = $exhibitionSurveyUsersAnswer[$j]['text'];
+                            $k++;
                         }
-                        $k++;
-                    }
-                    $answeredCount = count($answered); 
+                        $answeredCount = count($answered); 
 
-                } else {
-                    for ($x = 0; $x < $answeredCount; $x ++) {
-                        $answered[$x] = '';    
+                    } else {
+                        for ($x = 0; $x < $answeredCount; $x ++) {
+                            $answered[$x] = '';    
+                        }
                     }
+                    
+                    $answerData[$i] = [ 
+                        'users_id' => $exhibitionUsers[$i]['users_id'],
+                        'answered' => $answered 
+                    ];
                 }
                 
-                $answerData[$i] = [ 
-                    'users_id' => $exhibitionUsers[$i]['users_id'],
-                    'answered' => $answered 
-                ];
-            }
-            
-            for ($i = 0; $i < $count; $i++) {
-                $exhibitionSurvey = $ExhibitionSurvey->find('all')->where(['id' => $data[$i]])->toArray();
-                $question = $exhibitionSurvey[0]['text'];
+                for ($i = 0; $i < $count; $i++) {
+                    $exhibitionSurvey = $ExhibitionSurvey->find('all')->where(['id' => $data[$i]])->toArray();
+                    $question = $exhibitionSurvey[0]['text'];
 
-                $spreadsheet->setActiveSheetIndex($i)
-                ->setTitle($question)
-                ->setCellValue('A1', '');
+                    $spreadsheet->setActiveSheetIndex($i)
+                    ->setTitle($question)
+                    ->setCellValue('A1', '');
 
-                $spreadsheet->setActiveSheetIndex($i)
-                ->getColumnDimension('C')->setWidth(30);	
+                    $spreadsheet->setActiveSheetIndex($i)
+                    ->getColumnDimension('C')->setWidth(30);	
 
-                $spreadsheet->setActiveSheetIndex($i)
-                ->getColumnDimension('D')->setWidth(30);
+                    $spreadsheet->setActiveSheetIndex($i)
+                    ->getColumnDimension('D')->setWidth(30);
 
-                $spreadsheet->getActiveSheet($i)
-                ->setCellValue('B1', '이름')
-                ->setCellValue('C1', '이메일')
-                ->setCellValue('D1', $question);
+                    $spreadsheet->getActiveSheet($i)
+                    ->setCellValue('B1', '이름')
+                    ->setCellValue('C1', '이메일')
+                    ->setCellValue('D1', $question);
 
-                for ($j = 0; $j < $rowCount; $j++) {
-                        $spreadsheet->getActiveSheet($i)
-                        ->setCellValue('A' . ($j+2), ($j+1))
-                        ->setCellValue('B' . ($j+2), $exhibitionUsers[$j]['users_name'])
-                        ->setCellValue('C' . ($j+2), $exhibitionUsers[$j]['users_email']);           
-                }
-                for ($j = 0; $j < $rowCount; $j++) {
-                    
-                    if ($answerData[$j]['answered'][0] == '') {
-                        $spreadsheet->getActiveSheet($i)
-                        ->setCellValue('D' . ($j+2), '');
-                    
-                    } else {  
-                        $text =  $answerData[$j]['answered'][$i];
-                        $lists = explode(" ", $text);
+                    for ($j = 0; $j < $rowCount; $j++) {
+                            $spreadsheet->getActiveSheet($i)
+                            ->setCellValue('A' . ($j+2), ($j+1))
+                            ->setCellValue('B' . ($j+2), $exhibitionUsers[$j]['users_name'])
+                            ->setCellValue('C' . ($j+2), $exhibitionUsers[$j]['users_email']);           
+                    }
+                    for ($j = 0; $j < $rowCount; $j++) {
                         
-                        $spreadsheet->getActiveSheet($i)
-                        ->setCellValue('D' . ($j+2), $text);
+                        if ($answerData[$j]['answered'][0] == '') {
+                            $spreadsheet->getActiveSheet($i)
+                            ->setCellValue('D' . ($j+2), '');
+                        
+                        } else {  
+                            $text =  $answerData[$j]['answered'][$i];
+                            $lists = explode(" ", $text);
+                            
+                            $spreadsheet->getActiveSheet($i)
+                            ->setCellValue('D' . ($j+2), $text);
+                        }
                     }
                 }
-            }
-            
-            $path = 'download' . DS . 'exhibition' . DS . date("Y") . DS . date("m");
-        
-            if (!file_exists(WWW_ROOT . $path)) {
-                $oldMask = umask(0);
-                mkdir(WWW_ROOT . $path, 0777, true);
-                chmod(WWW_ROOT . $path, 0777);
-                umask($oldMask);
-            }
-
-            $fileName = $id . "_survey_data." . "xlsx";
-            $destination = WWW_ROOT . $path . DS . $fileName;
-
-            $writer = IOFactory::createWriter($spreadsheet, "Xlsx"); //Xls is also possible
-            $writer->save($destination);
-            
-            //엑셀 파일 다운로드
-            $down = $destination;
-            
-            if(file_exists($down)) {
-                header("Content-Type:application/octet-stream");
-                header("Content-Disposition:attachment;filename=$fileName");
-                header("Content-Transfer-Encoding:binary");
-                header("Content-Length:".filesize($down));
-                header("Cache-Control:cache,must-revalidate");
-                header("Pragma:no-cache");
-                header("Expires:0");
                 
-                if(is_file($down)){
-                    $fp = fopen($down,"r");
+                $path = 'download' . DS . 'exhibition' . DS . date("Y") . DS . date("m");
+            
+                if (!file_exists(WWW_ROOT . $path)) {
+                    $oldMask = umask(0);
+                    mkdir(WWW_ROOT . $path, 0777, true);
+                    chmod(WWW_ROOT . $path, 0777);
+                    umask($oldMask);
+                }
+
+                $fileName = $id . "_survey_data." . "xlsx";
+                $destination = WWW_ROOT . $path . DS . $fileName;
+
+                $writer = IOFactory::createWriter($spreadsheet, "Xlsx"); //Xls is also possible
+                $writer->save($destination);
+                
+                //엑셀 파일 다운로드
+                $down = $destination;
+                
+                if(file_exists($down)) {
+                    header("Content-Type:application/octet-stream");
+                    header("Content-Disposition:attachment;filename=$fileName");
+                    header("Content-Transfer-Encoding:binary");
+                    header("Content-Length:".filesize($down));
+                    header("Cache-Control:cache,must-revalidate");
+                    header("Pragma:no-cache");
+                    header("Expires:0");
                     
-                    while(!feof($fp)){
-                        $buf = fread($fp,8096);
-                        $read = strlen($buf);
-                        print($buf);
-                        flush();
+                    if(is_file($down)){
+                        $fp = fopen($down,"r");
+                        
+                        while(!feof($fp)){
+                            $buf = fread($fp,8096);
+                            $read = strlen($buf);
+                            print($buf);
+                            flush();
+                        }
+                    fclose($fp);
                     }
-                fclose($fp);
+                } else {
+                    
                 }
-            } else {
-                
             }
         }
         
