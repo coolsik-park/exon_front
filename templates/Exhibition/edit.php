@@ -622,9 +622,9 @@
             html += '                <option value="N">주관식</option>';
             html += '            </select>';
             html += '            <div class="chk-dsg-wp">';
-            html += '                <span class="chk-dsg"><input type="checkbox" name="is_duplicate[]" id="dup'+i+'" value="Y"><label for="dup'+i+'">보기 중복 선택 가능</label></span>';
+            html += '                <span class="chk-dsg"><input type="checkbox" name="is_duplicate[]" id="dup_'+i+'" value="Y"><label for="dup_'+i+'">보기 중복 선택 가능</label></span>';
             html += '                <input type="checkbox" name="is_duplicate[]" id="dup_hidden_'+i+'" value="N" checked="checked" style="display:none">';
-            html += '                <span class="chk-dsg" id="req_span_'+i+'"><input type="checkbox" name="is_required[]" id="req'+i+'" value="Y"><label for="req'+i+'" id="req_label_'+i+'">필수</label></span>';
+            html += '                <span class="chk-dsg" id="req_span_'+i+'"><input type="checkbox" name="is_required[]" id="req_'+i+'" value="Y"><label for="req_'+i+'">필수</label></span>';
             html += '                <input type="checkbox" name="is_required[]" id="req_hidden_'+i+'" value="N" checked="checked" style="display:none">';
             html += '            </div>';                                
             html += '        </div>';
@@ -656,17 +656,17 @@
             html += '</div>';
             $("#survey").append(html);
             <?php if ($exhibitionSurvey->is_duplicate == 'Y') : ?>
-                $("#dup" + i).prop("checked", true);
+                $("#dup_" + i).prop("checked", true);
                 document.getElementById("dup_hidden_" + i).disabled = true;
             <?php else: ?>
-                $("#dup" + i).prop("checked", false);
+                $("#dup_" + i).prop("checked", false);
                 document.getElementById("dup_hidden_" + i).disabled = false;
             <?php endif; ?>
             <?php if ($exhibitionSurvey->is_required == 'Y') : ?>
-                $("#req" + i).prop("checked", true);
+                $("#req_" + i).prop("checked", true);
                 document.getElementById("req_hidden_" + i).disabled = true;
             <?php else: ?>
-                $("#req" + i).prop("checked", false);
+                $("#req_" + i).prop("checked", false);
                 document.getElementById("req_hidden_" + i).disabled = false;
             <?php endif; ?>
             $("#survey_type_" + i).val("<?=$exhibitionSurvey->survey_type?>").prop("selected", true);
@@ -681,7 +681,7 @@
             html += '            <option selected="selected" value="N">주관식</option>';
             html += '        </select>';
             html += '        <div class="chk-dsg-wp">';
-            html += '            <span class="chk-dsg" id="req_span_'+i+'"><input type="checkbox" name="is_required[]" id="req'+i+'" value="Y"><label for="req'+i+'">필수</label></span>';
+            html += '            <span class="chk-dsg" id="req_span_'+i+'"><input type="checkbox" name="is_required[]" id="req_'+i+'" value="Y"><label for="req_'+i+'">필수</label></span>';
             html += '            <input type="checkbox" name="is_required[]" id="req_hidden_'+i+'" value="N" checked="checked" style="display:none">';
             html += '        </div>';                           
             html += '    </div>';
@@ -701,10 +701,10 @@
             html += '</div>';
             $("#survey").append(html);
             <?php if ($exhibitionSurvey->is_required == 'Y') : ?>
-                $("#req" + i).prop("checked", true);
+                $("#req_" + i).prop("checked", true);
                 document.getElementById("req_hidden_" + i).disabled = true;
             <?php else: ?>
-                $("#req" + i).prop("checked", false);
+                $("#req_" + i).prop("checked", false);
                 document.getElementById("req_hidden_" + i).disabled = false;
             <?php endif; ?>
             $("#survey_type_" + i).val("<?=$exhibitionSurvey->survey_type?>").prop("selected", true);
@@ -723,9 +723,9 @@
         html += '                <option value="N">주관식</option>';
         html += '            </select>';
         html += '            <div class="chk-dsg-wp">';
-        html += '                <span class="chk-dsg"><input type="checkbox" name="is_duplicate[]" id="dup'+i+'" value="Y"><label for="dup'+i+'">보기 중복 선택 가능</label></span>';
+        html += '                <span class="chk-dsg"><input type="checkbox" name="is_duplicate[]" id="dup_'+i+'" value="Y"><label for="dup_'+i+'">보기 중복 선택 가능</label></span>';
         html += '                <input type="checkbox" name="is_duplicate[]" id="dup_hidden_'+i+'" value="N" checked="checked" style="display:none">';
-        html += '                <span class="chk-dsg" id="req_span_'+i+'" style="display:none;"><input type="checkbox" name="is_required[]" id="req'+i+'" value="Y"><label for="req'+i+'">필수</label></span>';
+        html += '                <span class="chk-dsg" id="req_span_'+i+'" style="display:none;"><input type="checkbox" name="is_required[]" id="req_'+i+'" value="Y"><label for="req_'+i+'">필수</label></span>';
         html += '                <input type="checkbox" name="is_required[]" id="req_hidden_'+i+'" value="N" checked="checked" style="display:none">';
         html += '            </div>';                                
         html += '        </div>';
@@ -801,7 +801,9 @@
         }
 
         if ($("option:selected", this).val() == 'N') {
-            var index = $(this).attr("id").substr($(this).attr("id").length-1, 1);
+            var index = $(this).attr("id").substr($(this).attr("id"));
+            index = index.split("_")[2]
+            
             var html = '';
             html += '<div class="survey-bx-sect1">';
             html += '    <div class="tits">';
@@ -810,7 +812,7 @@
             html += '            <option selected="selected" value="N">주관식</option>';
             html += '        </select>';
             html += '        <div class="chk-dsg-wp">';
-            html += '                <span class="chk-dsg" id="req_span_'+index+'" style="display:none;"><input type="checkbox" name="is_required[]" id="req'+index+'" value="Y"><label for="req'+index+'">필수</label></span>';
+            html += '                <span class="chk-dsg" id="req_span_'+index+'" style="display:none;"><input type="checkbox" name="is_required[]" id="req_'+index+'" value="Y"><label for="req_'+index+'">필수</label></span>';
             html += '                <input type="checkbox" name="is_required[]" id="req_hidden_'+index+'" value="N" checked="checked" style="display:none">';
             html += '        </div>';                           
             html += '    </div>';
@@ -832,7 +834,9 @@
             $("#survey_" + index).append(html);
         
         } else {
-            var index = $(this).attr("id").substr($(this).attr("id").length-1, 1);
+            var index = $(this).attr("id").substr($(this).attr("id"));
+            index = index.split("_")[2]
+            
             var html = '';
             html += '    <div class="survey-bx-sect1">';
             html += '        <div class="tits">';
@@ -841,9 +845,9 @@
             html += '                <option value="N">주관식</option>';
             html += '            </select>';
             html += '            <div class="chk-dsg-wp">';
-            html += '                <span class="chk-dsg"><input type="checkbox" name="is_duplicate[]" id="dup'+index+'" value="Y"><label for="dup'+index+'">보기 중복 선택 가능</label></span>';
+            html += '                <span class="chk-dsg"><input type="checkbox" name="is_duplicate[]" id="dup_'+index+'" value="Y"><label for="dup_'+index+'">보기 중복 선택 가능</label></span>';
             html += '                <input type="checkbox" name="is_duplicate[]" id="dup_hidden_'+index+'" value="N" checked="checked" style="display:none;">';
-            html += '                <span class="chk-dsg" id="req_span_'+index+'" style="display:none;"><input type="checkbox" name="is_required[]" id="req'+index+'" value="Y"><label for="req'+index+'">필수</label></span>';
+            html += '                <span class="chk-dsg" id="req_span_'+index+'" style="display:none;"><input type="checkbox" name="is_required[]" id="req_'+index+'" value="Y"><label for="req_'+index+'">필수</label></span>';
             html += '                <input type="checkbox" name="is_required[]" id="req_hidden_'+index+'" value="N" checked="checked" style="display:none">';
             html += '            </div>';                                
             html += '        </div>';
@@ -878,9 +882,11 @@
 
     //is_duplicate 제어
     $(document).on("change", "input:checkbox[name='is_duplicate[]']", function() {
-        var id = $(this).attr("id").substr($(this).attr("id").length - 1, 1);
+        var id = $(this).attr("id").substr($(this).attr("id"));
+        id = id.split("_")[1]
         
-        if (document.getElementById("dup" + id).checked) {
+        
+        if (document.getElementById("dup_" + id).checked) {
             document.getElementById("dup_hidden_" + id).disabled = true;
         
         } else {
@@ -890,9 +896,11 @@
 
     //is_required 제어
     $(document).on("change", "input:checkbox[name='is_required[]']", function() {
-        var id = $(this).attr("id").substr($(this).attr("id").length - 1, 1);
+        var id = $(this).attr("id").substr($(this).attr("id"));
+        id = id.split("_")[1]
         
-        if (document.getElementById("req" + id).checked) {
+        
+        if (document.getElementById("req_" + id).checked) {
             document.getElementById("req_hidden_" + id).disabled = true;
         
         } else {
@@ -902,16 +910,20 @@
 
     $("select[name='survey_type[]']").each(function () {
         if ($(this).val() == 'N') {
-            var id = $(this).attr("id").substr($(this).attr("id").length - 1, 1);
+            var id = $(this).attr("id").substr($(this).attr("id"));
+            id = id.split("_")[1]
+            
             $("#req_span_"+id).hide();
         }
     });
 
     $(document).on("change", "select[name='survey_type[]']", function () {
-        var id = $(this).attr("id").substr($(this).attr("id").length - 1, 1);
+        var id = $(this).attr("id").substr($(this).attr("id"));
+        id = id.split("_")[2]
+        
         if ($(this).val() == 'N') {
             $("#req_span_"+id).hide();
-            $("#req"+id).prop("checked", false);
+            $("#req_"+id).prop("checked", false);
             $("#req_hidden_"+id).attr("disabled", false);
         } else {
             $("#req_span_"+id).show();
