@@ -258,14 +258,16 @@ class ExhibitionUsersController extends AppController
             }
         }
         if ($group_id != null) :
-        $exhibitionGroup = $this->ExhibitionUsers->ExhibitionGroup->find('all')->where(['id' => $group_id,'exhibition_id' => $id]);
+        $exhibitionGroup = $this->ExhibitionUsers->ExhibitionGroup->find('all')->where(['id' => $group_id,'exhibition_id' => $id])->toArray();
+        $amount = $exhibitionGroup[0]['amount'];
         else :
         $exhibitionGroup = '';
+        $amount = 0;
         endif;
         $pay = $this->ExhibitionUsers->Pay->find('list', ['limit' => 200]);
         $exhibitionSurveys = $this->getTableLocator()->get('ExhibitionSurvey')->find('all', ['contain' => 'ChildExhibitionSurvey'])->where(['exhibition_id' => $id, 'survey_type' => 'B', 'parent_id Is' => null]);
         $user = $this->Auth->user();
-        $this->set(compact('exhibitionUser', 'exhibition', 'exhibitionGroup', 'pay', 'exhibitionSurveys', 'id', 'user'));
+        $this->set(compact('exhibitionUser', 'exhibition', 'exhibitionGroup', 'pay', 'exhibitionSurveys', 'id', 'user', 'amount'));
     }
 
     public function edit($id = null)

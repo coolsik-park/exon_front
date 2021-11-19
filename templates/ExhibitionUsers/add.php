@@ -90,7 +90,7 @@
                     <span id="amount" class="tx">
                         <?php
                             if ($exhibition->cost == 'charged'): 
-                                echo $group->amount;
+                                echo $amount;
                             else :
                                 echo 0;
                             endif;
@@ -104,6 +104,8 @@
             <?php
             $m = 0;
             $s = 0;
+            $subjective_parents = [];
+            $multiple_parents = [];
             ?>
             <h3 class="s-hty1">사전 설문 데이터</h3>
             <?php if (!empty($exhibitionSurveys)) : ?>
@@ -268,14 +270,18 @@
         var multiple_parents = [];    
         var s = 0;
         var m = 0;
+        <?php if ($subjective_parents != '') : ?> 
         <?php foreach ($subjective_parents as $subjective_parent) : ?>
             subjective_parents[s] = "<?=$subjective_parent?>"
             s++;
         <?php endforeach; ?>
+        <?php endif ?>
+        <?php if ($multiple_parents != '') : ?>
         <?php foreach ($multiple_parents as $multiple_parent) : ?>
             multiple_parents[m] = "<?=$multiple_parent?>"
             m++;
         <?php endforeach; ?>
+        <?php endif; ?>
 
         for (var i=0; i<subjective_parents.length; i++) {
             if ($("#"+subjective_parents[i]).val() == '') {
@@ -324,7 +330,7 @@
 
             } else {
                 //결제
-                var amount = "<?=$group->amount?>";
+                var amount = "<?=$amount?>";              
                 var IMP = window.IMP; 
                 IMP.init('imp43823679'); //아임포트 id -> 추후 교체
                 IMP.request_pay({
