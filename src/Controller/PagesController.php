@@ -79,40 +79,65 @@ class PagesController extends AppController
                         ->toArray();
         
         //HOT 10
-        $hot = $this->Banner->find('all')
-                        ->select(['Banner.id', 'Banner.exhibition_id', 'Banner.img_path', 'Banner.img_name'
-                                ,"title" => 'Exhibition.title', "description"=>'Exhibition.description','sdate'=>'date_format(Exhibition.sdate,"%m. %d")','edate'=>'date_format(Exhibition.edate,"%m. %d")'
-                                , 'playing'=>'now() between Exhibition.sdate and Exhibition.edate' // 진행여부 ,1: 진행중
-                                ])
-                        ->contain(['Exhibition'])
-                        ->where(['Banner.status'=>1, 'now() between Banner.sdate AND Banner.edate', 'Banner.type'=>'hot'])
-                        ->order(['Banner.sort'])
-                        ->limit('10')
-                        ->toArray();
+        // $hot = $this->Banner->find('all')
+        //                 ->select(['Banner.id', 'Banner.exhibition_id', 'Banner.img_path', 'Banner.img_name'
+        //                         ,"title" => 'Exhibition.title', "description"=>'Exhibition.description','sdate'=>'date_format(Exhibition.sdate,"%m. %d")','edate'=>'date_format(Exhibition.edate,"%m. %d")'
+        //                         , 'playing'=>'now() between Exhibition.sdate and Exhibition.edate' // 진행여부 ,1: 진행중
+        //                         ])
+        //                 ->contain(['Exhibition'])
+        //                 ->where(['Banner.status'=>1, 'now() between Banner.sdate AND Banner.edate', 'Banner.type'=>'hot'])
+        //                 ->order(['Banner.sort'])
+        //                 ->limit('10')
+        //                 ->toArray();
+
+        $conn = ConnectionManager::get('default'); 
+
+        
+
+        //HOT 10
+        $query  = " SELECT ";
+        $query .= "  id AS exhibition_id, ";
+        $query .= "  title AS title, image_path as img_path, image_name as img_name, ";
+        $query .= "  description AS description, ";
+        $query .= "  date_format(sdate, '%m. %d') AS sdate, ";
+        $query .= "  date_format(edate, '%m. %d') AS edate, ";
+        $query .= "  now() between sdate ";
+        $query .= "  and edate AS playing ";
+        $query .= "FROM ";
+        $query .= "  exhibition  ";
+        $query .= "ORDER BY ";
+        $query .= "  id desc ";
+        $query .= "LIMIT ";
+        $query .= "  10 ";
+        
+        $stmt = $conn->query($query);
+        $hot = $stmt->fetchAll('assoc');
+
+                        // print_r($hot);exit;
 
         //NEW 10
-        $new = $this->Banner->find('all')
-        ->select(['Banner.id', 'Banner.exhibition_id', 'Banner.img_path', 'Banner.img_name'
-                ,"title" => 'Exhibition.title', "description"=>'Exhibition.description','sdate'=>'date_format(Exhibition.sdate,"%m. %d")','edate'=>'date_format(Exhibition.edate,"%m. %d")'
-                , 'playing'=>'now() between Exhibition.sdate and Exhibition.edate' // 진행여부 ,1: 진행중
-                ])
-        ->contain(['Exhibition'])
-        ->where(['Banner.status'=>1, 'now() between Banner.sdate AND Banner.edate', 'Banner.type'=>'new'])
-        ->order(['Banner.sort'])
-        ->limit('10')
-        ->toArray();                        
+        // $new = $this->Banner->find('all')
+        // ->select(['Banner.id', 'Banner.exhibition_id', 'Banner.img_path', 'Banner.img_name'
+        //         ,"title" => 'Exhibition.title', "description"=>'Exhibition.description','sdate'=>'date_format(Exhibition.sdate,"%m. %d")','edate'=>'date_format(Exhibition.edate,"%m. %d")'
+        //         , 'playing'=>'now() between Exhibition.sdate and Exhibition.edate' // 진행여부 ,1: 진행중
+        //         ])
+        // ->contain(['Exhibition'])
+        // ->where(['Banner.status'=>1, 'now() between Banner.sdate AND Banner.edate', 'Banner.type'=>'new'])
+        // ->order(['Banner.sort'])
+        // ->limit('10')
+        // ->toArray();                        
 
          //NORMAL 10
-         $normal = $this->Banner->find('all')
-         ->select(['Banner.id', 'Banner.exhibition_id', 'Banner.img_path', 'Banner.img_name'
-                 ,"title" => 'Exhibition.title', "description"=>'Exhibition.description','sdate'=>'date_format(Exhibition.sdate,"%m. %d")','edate'=>'date_format(Exhibition.edate,"%m. %d")'
-                 , 'playing'=>'now() between Exhibition.sdate and Exhibition.edate' // 진행여부 ,1: 진행중
-                 ])
-         ->contain(['Exhibition'])
-         ->where(['Banner.status'=>1, 'now() between Banner.sdate AND Banner.edate', 'Banner.type'=>'normal'])
-         ->order(['Banner.sort'])
-         ->limit('10')
-         ->toArray();
+        //  $normal = $this->Banner->find('all')
+        //  ->select(['Banner.id', 'Banner.exhibition_id', 'Banner.img_path', 'Banner.img_name'
+        //          ,"title" => 'Exhibition.title', "description"=>'Exhibition.description','sdate'=>'date_format(Exhibition.sdate,"%m. %d")','edate'=>'date_format(Exhibition.edate,"%m. %d")'
+        //          , 'playing'=>'now() between Exhibition.sdate and Exhibition.edate' // 진행여부 ,1: 진행중
+        //          ])
+        //  ->contain(['Exhibition'])
+        //  ->where(['Banner.status'=>1, 'now() between Banner.sdate AND Banner.edate', 'Banner.type'=>'normal'])
+        //  ->order(['Banner.sort'])
+        //  ->limit('10')
+        //  ->toArray();
 
        /* case 2 : Custom Query */ 
         // $this->conn = ConnectionManager::get('default'); 
@@ -201,7 +226,7 @@ class PagesController extends AppController
         // echo("<pre>");print_r($hot);exit;
 
         try {
-            $this->set(compact('banner', 'hot', 'new','normal')); //key-value 연관배열을 쌍으로 적용('banner'=>$banner)
+            $this->set(compact('banner', 'hot')); //key-value 연관배열을 쌍으로 적용('banner'=>$banner)
             return $this->render(implode('/', $path));
         } catch (MissingTemplateException $exception) {
             if (Configure::read('debug')) {
