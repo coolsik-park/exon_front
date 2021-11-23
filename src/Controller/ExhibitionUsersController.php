@@ -65,7 +65,7 @@ class ExhibitionUsersController extends AppController
             $exhibitionUser->users_name = $answerData['users_name'];
             $exhibitionUser->users_hp = $answerData['users_hp'];
             $exhibitionUser->users_sex = $answerData['users_sex'];
-            if ($exhibition->cost == 'charged') :
+            if ($answerData['pay_amount'] != 0) :
             $exhibitionUser->pay_id = $answerData['pay_id'];
             $exhibitionUser->pay_amount = $answerData['pay_amount'];
             endif;

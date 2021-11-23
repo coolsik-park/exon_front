@@ -310,7 +310,7 @@
         html += '           <a onclick="deleteGroup(' + groupIndex + ',' + <?=$exhibitionGroup->id?> + ')" class="btn-ty3 md" style="cursor:pointer">삭제</a>';
         html += '       </div>';
         html += '   </div>';
-        html += '   <p class="p-noti">그룹명 미 설정 시 그룹명은 ‘참가자’가 됩니다.</p>';
+        html += '   <p class="p-noti">그룹명 미 설정 시 그룹명은 ‘참가자’가 됩니다. / 무료 행사의 경우 그룹별 금액은 0을 입력해주세요.</p>';
         html += '</div>';
         groupIndex += 1;
         $("#group").append(html);
@@ -363,7 +363,7 @@
         html += '           <a onclick="deleteGroup(' + groupIndex+ ', 0)" class="btn-ty3 md" style="cursor:pointer">삭제</a>';
         html += '       </div>';
         html += '   </div>';
-        html += '   <p class="p-noti">그룹명 미 설정 시 그룹명은 ‘참가자’가 됩니다.</p>';
+        html += '   <p class="p-noti">그룹명 미 설정 시 그룹명은 ‘참가자’가 됩니다. / 무료 행사의 경우 그룹별 금액은 0을 입력해주세요.</p>';
         html += '</div>';
         groupIndex += 1;
         $("#group").append(html);
@@ -469,6 +469,20 @@
             return false
         }
 
+        if ($("input:radio[name='cost']").val() == "free") {
+            $("input[name='group_amount[]']").each(function () {
+                if ($(this).val() != 0) {
+                    alert("무료 행사인 경우 그룹별 금액에 0을 입력해주세요.");
+                    $(this).focus();
+                    group_empty = 1;
+                }
+            });
+        }
+
+        if (group_empty == 1) {
+            return false
+        }
+
         $("select[name='group_people[]']").each(function () {
             if ($(this).val() == "0") {
                 alert("그룹 인원수를 선택해 주세요.");
@@ -549,6 +563,20 @@
                 group_empty = 1;
             }
         });
+
+        if (group_empty == 1) {
+            return false
+        }
+
+        if ($("input:radio[name='cost']").val() == "free") {
+            $("input[name='group_amount[]']").each(function () {
+                if ($(this).val() != 0) {
+                    alert("무료 행사인 경우 그룹별 금액에 0을 입력해주세요.");
+                    $(this).focus();
+                    group_empty = 1;
+                }
+            });
+        }
 
         if (group_empty == 1) {
             return false

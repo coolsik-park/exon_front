@@ -90,9 +90,13 @@
                     <span id="amount" class="tx">
                         <?php
                             if ($exhibition->cost == 'charged'): 
-                                echo $amount;
+                                if ($amount == 0) {
+                                    echo "무료";
+                                } else {
+                                    echo $amount;
+                                }
                             else :
-                                echo 0;
+                                echo '무료';
                             endif;
                         ?>
                     </span>
@@ -304,10 +308,13 @@
         html += "전화번호 : " + $("#users_hp").val() + "\n";
         html += "웨비나 접속 시 인증이 필요할 수 있습니다.\n위 내용으로 신청하시겠습니까?";
         if (confirm(html)) {
+            var amount = "<?=$amount?>";     
             var cost = "<?=$exhibition->cost?>";
             //무료
-            if (cost == 'free') {
+            if (cost == 'free' || amount == 0) {
                 var formData = new FormData($('#apply')[0]);
+                formData.append('pay_id', 0);
+                formData.append('pay_amount', 0);
 
                 jQuery.ajax({
                     url: "/exhibition-users/add/" + <?= $id ?>,
@@ -329,8 +336,7 @@
                 });
 
             } else {
-                //결제
-                var amount = "<?=$amount?>";              
+                //결제         
                 var IMP = window.IMP; 
                 IMP.init('imp43823679'); //아임포트 id -> 추후 교체
                 IMP.request_pay({
