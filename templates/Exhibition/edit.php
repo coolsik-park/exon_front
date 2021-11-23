@@ -462,6 +462,7 @@
                 alert("그룹 금액을 입력해 주세요.");
                 $(this).focus();
                 group_empty = 1;
+                return false
             }
         });
 
@@ -469,12 +470,26 @@
             return false
         }
 
-        if ($("input:radio[name='cost']").val() == "free") {
+        if ($("input:radio[name='cost']:checked").val() == "free") {
             $("input[name='group_amount[]']").each(function () {
                 if ($(this).val() != 0) {
                     alert("무료 행사인 경우 그룹별 금액에 0을 입력해주세요.");
                     $(this).focus();
                     group_empty = 1;
+                    return false
+                }
+            });
+        } else {
+            if (groupIndex == 0) {
+                alert("유료 행사인 경우 그룹 생성 및 그룹별 금액을 설정해주세요.");
+                group_empty = 1;
+            }
+            $("input[name='group_amount[]']").each(function () {
+                if ($(this).val() == 0) {
+                    alert("유료 행사인 경우 그룹별 금액을 입력해주세요.");
+                    $(this).focus();
+                    group_empty = 1;
+                    return false
                 }
             });
         }
@@ -561,6 +576,7 @@
                 alert("그룹 금액을 입력해 주세요.");
                 $(this).focus();
                 group_empty = 1;
+                return false
             }
         });
 
@@ -568,12 +584,26 @@
             return false
         }
 
-        if ($("input:radio[name='cost']").val() == "free") {
+        if ($("input:radio[name='cost']:checked").val() == "free") {
             $("input[name='group_amount[]']").each(function () {
                 if ($(this).val() != 0) {
                     alert("무료 행사인 경우 그룹별 금액에 0을 입력해주세요.");
                     $(this).focus();
                     group_empty = 1;
+                    return false
+                }
+            });
+        } else {
+            if (groupIndex == 0) {
+                group_empty = 1;
+                alert("유료 행사인 경우 그룹 생성 및 그룹별 금액을 설정해주세요.");
+            }
+            $("input[name='group_amount[]']").each(function () {
+                if ($(this).val() == 0) {
+                    alert("유료 행사인 경우 그룹별 금액을 입력해주세요.");
+                    $(this).focus();
+                    group_empty = 1;
+                    return false
                 }
             });
         }
@@ -587,6 +617,7 @@
                 alert("그룹 인원수를 선택해 주세요.");
                 $(this).focus();
                 group_empty = 1;
+                return false
             }
         });
         
