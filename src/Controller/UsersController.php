@@ -525,7 +525,7 @@ class UsersController extends AppController
                     [
                         'to' => $to,
                         'from' => getEnv('EXON_PHONE_NUMBER'),
-                        'text' => 'Confirmation Code : ' . $code
+                        'text' => '[EXON] 본인인증 인증번호는 ' . $code . ' 입니다.' 
                     ]
                 ];
 
@@ -623,12 +623,20 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             
             if (FrozenTime::now() < $commonConfirmation[0]->expired) {
+
+                if ($this->request->getData('code') == $commonConfirmation[0]->confirmation_code) {
                 
-                if($connection->update('users', ['email_cert' => '1'], ['id' => $this->request->getData('user_id')])) {
-                    $connection->commit();
-                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
-                    return $response;
-                
+                    if($connection->update('users', ['email_cert' => '1'], ['id' => $this->request->getData('user_id')])) {
+                        $connection->commit();
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                        return $response;
+                    
+                    } else {
+                        $connection->rollback();
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                        return $response;
+                    }
+
                 } else {
                     $connection->rollback();
                     $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
@@ -810,5 +818,161 @@ class UsersController extends AppController
             $session->write('connect_msg', '오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.');
             return $this->redirect(['action' => 'edit']);
         }
+    }
+
+    public function findPassword ()
+    {
+
+    }
+
+    public function findUser ($users_id = null)
+    {
+        $email = $this->request->getData('email');
+        $users = $this->Users->find('all')->toArray();
+        foreach($users as $user) :
+            if ($user['email'] == $email) :
+                $users_id = $user['id'];
+            endif;
+        endforeach;
+
+        if ($users_id != null) :
+            $data = $this->Users->get($users_id);
+            if ($data->email_cert == 0 && $data->hp_cert == 0) {
+                $cert = 0;
+            } else if ($data->email_cert == 1 && $data->hp_cert == 0) {
+                $cert = 1;
+            } else if ($data->email_cert == 0 && $data->hp_cert == 1) {
+                $cert = 2;
+            } else if ($data->email_cert == 1 && $data->hp_cert == 1) {
+                $cert = 4;
+            }
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'exist', 'users_id' => $users_id, 'cert' => $cert]));
+            return $response;
+        else :
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'not_exist']));
+            return $response;
+        endif;
+    }
+
+    public function pwdCert ($users_id = null, $cert = null)
+    {
+        if ($cert == 0) :
+            $this->redirect(['action' => 'notCertified']);
+        endif; 
+        $this->set(compact('users_id', 'cert'));
+    }
+
+    public function notCertified ()
+    {
+
+    }
+
+    public function pwdEmailCertification ($users_id = null)
+    {
+        $user = $this->Users->get($users_id);
+        $to = $user->email;
+
+        $mailer = new Mailer();
+        $mailer->setTransport('mailjet');
+
+        $code = $this->generateCode();
+        $CommonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
+        $commonConfirmation = $CommonConfirmations->newEmptyEntity();
+        $commonConfirmation = $CommonConfirmations->patchEntity($commonConfirmation, ['confirmation_code' => $code, 'types' => 'email']);
+
+        if ($result = $CommonConfirmations->save($commonConfirmation)) {
+            $mailer->setEmailFormat('html')
+                        ->setTo($to)
+                        ->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'EXON'])
+                        ->setSubject('Exon - 인증메일입니다.')
+                        ->viewBuilder()
+                        ->setTemplate('certification')
+                    ;
+            $mailer->setViewVars(['front_url' => FRONT_URL]);
+            $mailer->setViewVars(['code' => $code]);
+            $mailer->deliver();
+
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'id' => $result->id]));
+            return $response;
+        
+        } else {
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+            return $response;
+        }
+    }
+
+    public function pwdSmsCertification ($users_id = null)
+    {
+        require_once(ROOT . "/solapi-php/lib/message.php");
+
+        $user = $this->Users->get($users_id);
+        $to = $user->hp;
+
+        $code = $this->generateCode();
+        $commonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
+        $commonConfirmation = $commonConfirmations->newEmptyEntity();
+        $commonConfirmation = $commonConfirmations->patchEntity($commonConfirmation, ['confirmation_code' =>$code, 'types' => 'SMS']);
+
+        if ($result = $commonConfirmations->save($commonConfirmation)) {
+
+            $messages = [
+                [
+                    'to' => $to,
+                    'from' => getEnv('EXON_PHONE_NUMBER'),
+                    'text' => '[EXON] 본인인증 인증번호는 ' . $code . ' 입니다.' 
+                ]
+            ];
+
+            if(send_messages($messages)) {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'id' => $result->id]));
+                return $response;
+            } else {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                return $response;
+            }
+        }
+    }
+
+    public function pwdConfirm ($id = null)
+    {
+        $CommonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
+        $commonConfirmation = $CommonConfirmations->find('all')->where(['id' => $id])->toArray();
+
+        if ($this->request->is('post')) {
+
+            if (FrozenTime::now() < $commonConfirmation[0]->expired) {
+
+                if ($this->request->getData('code') == $commonConfirmation[0]->confirmation_code) {
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                    return $response;
+                
+                } else {
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                    return $response;
+                }
+            
+            } else {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'timeover']));
+                return $response;
+            }
+        }
+    }
+
+    public function resetPassword ($users_id = null)
+    {
+        if ($this->request->is(['post', 'put'])) {
+            $user = $this->Users->get($users_id);
+            $user->password = password_hash($this->request->getData('pwd'), PASSWORD_DEFAULT);
+
+            if ($this->Users->save($user)) {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                return $response;
+            
+            } else {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                return $response;
+            }
+        } 
+        $this->set(compact('users_id'));
     }
 }

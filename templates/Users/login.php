@@ -31,6 +31,9 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                                 <p id="noti" class="noti hc1"></p>
                             </div>
                         </div>
+                        <div style="text-align:center;">
+                            <a href="/users/find-password">비밀번호 찾기</a> | <a href="/users/add">회원가입</a>
+                        </div>
                     </div>
                     <div class="btn-btm">
                         <a id="login" class="btn-big" style="cursor:pointer; color:#fff;">로그인</a>

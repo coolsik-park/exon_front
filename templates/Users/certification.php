@@ -87,7 +87,7 @@
 <script>
     //모달 팝업 창 닫기 시
     $("#close").click(function () {
-        window.location.replace('/exhibition-users/certification');
+        window.location.reload();
     });
     
     //이메일

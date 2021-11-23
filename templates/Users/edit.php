@@ -54,7 +54,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                   <?php
                     if ($user->hp_cert == 0) {
                   ?>
-                        <div class="col-dt">휴대전화 번호</div>                    
+                        <div class="col-dt"><em>*</em>휴대전화 번호</div>                    
                             <div class="col-dd col-cell">
                             <div class="col-cell-wp">
                                 <select id="cellNumber">
@@ -98,7 +98,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                   <?php
                     } else {
                   ?>
-                        <div class="col-dt">휴대전화 번호</div>                    
+                        <div class="col-dt"><em>*</em>휴대전화 번호</div>                    
                           <div class="col-dd col-cell">
                           <div class="col-cell-wp">
                               <select id="cellNumber">
