@@ -285,7 +285,7 @@
                 if (data.test.length >= people_count) {
                     $('#btn-join').replaceWith('<a href="" class="btn-join" id="btn-join">신청 만료</a>');
                 } else {
-                    $('#btn-join').replaceWith('<a href="/exhibition-users/add/<?= $exhibition->id ?>/'+group_id+'" class="btn-join" id="btn-join">참가 신청</a>');
+                    $('#apply_button').replaceWith('<a id="apply_button" href="/exhibition-users/add/<?= $exhibition->id ?>/'+group_id+'" class="btn-join" id="btn-join">참가 신청</a>');
                 }
             } else {
                 alert("실패하였습니다.");

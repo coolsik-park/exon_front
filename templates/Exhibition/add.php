@@ -271,7 +271,7 @@
         html += '   <div class="ln-group">';
         html += '       <input name="group_name[]" type="text" class="ipt" placeholder="그룹명">';
         html += '       <div class="ln-group-wp">';
-        html += '           <input name="group_amount[]" type="text" value="0" class="ipt" placeholder="그룹별 금액" style="margin-right:20px;">';
+        html += '           <input name="group_amount[]" type="text" class="ipt" placeholder="그룹별 금액" style="margin-right:20px;">';
         html += '           <select name="group_people[]" class="select">';
         html += '               <option value="0">인원수</option>';
         html += '               <option value="50">50</option>';
