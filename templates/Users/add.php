@@ -37,7 +37,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                                 <input type="text" id="emailTail" list="list">
                                 <datalist id="list">
                                     <option value="naver.com">
-                                    <option value="google.com">
+                                    <option value="gmail.com">
                                     <option value="daum.net">
                                 </datalist>
                             </div>
@@ -47,7 +47,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                     <div class="item-row">
                         <div class="col-dt"><em class="st">*</em>비밀번호</div>
                         <div class="col-dd">
-                            <input type="password" id="password" placeholder="최소 8자 이상 영어 + 숫자" class="full"
+                            <input type="password" id="password" placeholder="최소 8자 이상" class="full"
                                 title="비밀번호">
                             <p id="lengthNoti" class="noti hc1"></p>
                         </div>
@@ -67,7 +67,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                         </div>
                     </div>
                     <div class="item-row">
-                        <div class="col-dt">휴대전화 번호</div>
+                        <div class="col-dt"><em class="st">*</em>휴대전화 번호</div>
                         <div class="col-dd">
                             <div class="col-cell-wp">
                                 <select id="cellNumber">
@@ -75,6 +75,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                                 </select>
                                 <input type="text" id="cellNumber2" placeholder="'-' 없이 입력해 주세요" title="휴대전화 번호">
                             </div>
+                            <p id="cellNoti" class="noti hc1"></p>
                         </div>
                     </div>
                 </div>
@@ -85,11 +86,11 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                     </div>
                     <div>
                         <span class="chk-dsg"><input type="checkbox" id="agree2"><label for="agree2">(필수)
-                                이용약관</label></span><a href="#" class="btn-ss">약관동의</a>
+                                이용약관</label></span><a href="/pages/terms-of-service" target="_blank" class="btn-ss">약관보기</a>
                     </div>
                     <div>
                         <span class="chk-dsg"><input type="checkbox" id="agree3"><label for="agree3">(필수) 개인정보 수집 및 이용
-                                동의</label></span><a href="#" class="btn-ss">약관보기</a>
+                                동의</label></span><a href="/pages/personal-info-agreement" target="_blank" class="btn-ss">약관보기</a>
                     </div>
                     <div>
                         <span class="chk-dsg"><input type="checkbox" id="agree4"><label for="agree4">(선택) 이메일
@@ -196,6 +197,14 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
             result.push('false');
         } else {
             $("#confirmNoti").html("");
+            result.push('true');
+        }
+
+        if ($("#cellNumber2").val().length < 8 || isNaN($("#cellNumber2").val())) {
+            $("#cellNoti").html("휴대전화 번호를 올바르게 입력해주세요.");
+            result.push('false');
+        } else {
+            $("#cellNoti").html("");
             result.push('true');
         }
 

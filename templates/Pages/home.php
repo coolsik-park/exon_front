@@ -88,7 +88,7 @@
                     <div class="main-slider4">
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
-                            <?php foreach($new as $index => $list): ?>
+                            <?php foreach($hot as $index => $list): ?>
                                 <div class="swiper-slide">
                                     <div class="swiper-slide">
                                         <div class="main-sd-item">
@@ -121,7 +121,7 @@
                     <div class="main-slider5">
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
-                            <?php foreach($normal as $index => $list): ?>
+                            <?php foreach($hot as $index => $list): ?>
                                 <div class="swiper-slide">
                                     <div class="swiper-slide">
                                         <div class="main-sd-item">

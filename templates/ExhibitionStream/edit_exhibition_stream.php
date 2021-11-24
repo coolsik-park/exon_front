@@ -207,10 +207,10 @@
         }
     });
 
-    var setDuration;
+    // var setDuration;
     var timeCheck;
 
-    setDuration = setInterval("setLiveDuration()", 1000);
+    // setDuration = setInterval("setLiveDuration()", 1000);
     timeCheck = setInterval("liveTimeCheck()", 1000);
 
     //OBS방송 중 체크
@@ -269,7 +269,7 @@
                 }
 
                 if (data.time <= data.live_duration) {
-                    clearInterval(setDuration);
+                    // clearInterval(setDuration);
                     clearInterval(timeCheck);
                     liveEnd();
                     alert("서비스 시간 만료로 방송이 종료되었습니다.");
@@ -284,6 +284,7 @@
     var player = videojs(document.querySelector('#vid1'));
 
     $(document).on("click", "#start", function () {
+        player = videojs(document.querySelector('#vid1'));
         $.ajax({
             url: video_uri,
             type: 'HEAD',
@@ -312,7 +313,7 @@
     });
 
     $(document).on("click", "#end", function () {
-        clearInterval(setDuration);
+        // clearInterval(setDuration);
         clearInterval(timeCheck);
         liveEnd();
     });
@@ -480,14 +481,14 @@
             pg : 'inicis',
             pay_method : 'card',
             merchant_uid : 'merchant_' + new Date().getTime(),
-            name : '주문명:결제테스트',
-            amount : 1000, //$('input#amount').val()
+            name : '스트리밍 서비스',
+            amount : $('input#amount').val()
             //세션 유저정보에서 가져오기
-            buyer_email : '',
-            buyer_name : '구매자이름',
-            buyer_tel : '010-1234-5678',
-            buyer_addr : '서울특별시 강남구 삼성동',
-            buyer_postcode : '123-456'
+            // buyer_email : '',
+            // buyer_name : '구매자이름',
+            // buyer_tel : '010-1234-5678',
+            // buyer_addr : '서울특별시 강남구 삼성동',
+            // buyer_postcode : '123-456'
         }, function(rsp) {
             if ( rsp.success ) {
                 jQuery.ajax({
@@ -516,6 +517,7 @@
                         msg += '\n카드 승인번호 : ' + rsp.apply_num; 
 
                         alert(msg);
+                        $("#save").click();
 
                     } else {
                         alert("결제에 실패하였습니다. 잠시 후 다시 시도해 주세요.")

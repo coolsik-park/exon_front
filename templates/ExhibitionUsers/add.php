@@ -67,10 +67,10 @@
             <h3 class="s-hty1">이용약관 / 개인정보 수집 및 이용 동의</h3>
             <div class="agree-wp">                    
                 <div>
-                    <span class="chk-dsg"><input type="checkbox" id="agree2"><label for="agree2">(필수) 이용약관</label></span><a href="#" class="btn-ss">약관동의</a>
+                    <span class="chk-dsg"><input type="checkbox" id="agree2"><label for="agree2">(필수) 이용약관</label></span><a href="/pages/terms-of-service" target="_blank" class="btn-ss">약관보기</a>
                 </div>
                 <div>
-                    <span class="chk-dsg"><input type="checkbox" id="agree3"><label for="agree3">(필수) 개인정보 수집 및 이용 동의</label></span><a href="#" class="btn-ss">약관보기</a>
+                    <span class="chk-dsg"><input type="checkbox" id="agree3"><label for="agree3">(필수) 개인정보 수집 및 이용 동의</label></span><a href="/pages/personal-info-agreement" target="_blank" class="btn-ss">약관보기</a>
                 </div>   
             </div>
         </div>
@@ -87,12 +87,16 @@
                         <?php endforeach; ?>
                     <?php endif; ?>  
                     </select>                      
-                    <span class="tx">
+                    <span id="amount" class="tx">
                         <?php
                             if ($exhibition->cost == 'charged'): 
-                                echo $group->amount;
+                                if ($amount == 0) {
+                                    echo "무료";
+                                } else {
+                                    echo $amount;
+                                }
                             else :
-                                echo 0;
+                                echo '무료';
                             endif;
                         ?>
                     </span>
@@ -100,21 +104,38 @@
                 <button type="button" id="submit" class="btn-join">참가 신청</button>
             </div>
         </div>
-        <?php if (!$exhibitionSurveys != '') : ?>
         <div class="select8">
+            <?php
+            $m = 0;
+            $s = 0;
+            $subjective_parents = [];
+            $multiple_parents = [];
+            ?>
             <h3 class="s-hty1">사전 설문 데이터</h3>
             <?php if (!empty($exhibitionSurveys)) : ?>
                 <?php $i = 0; ?>
-                <?php foreach ($exhibitionSurveys as $exhibitionSurvey) : ?>         
+                <?php foreach ($exhibitionSurveys as $exhibitionSurvey) : ?>  
                     <?php if ($exhibitionSurvey->is_multiple == 'N') : ?>
+                        <?php
+                        if ($exhibitionSurvey->is_required == 'Y') : 
+                        $subjective_parents[$s] = $exhibitionSurvey->id;
+                        $s++;
+                        endif; 
+                        ?>   
                         <div class="survey"> 
                             <h4 class="survey-q"><?= $exhibitionSurvey->text ?></h4>
                             <ul class="survey-as">
-                                <li><input type="text" name="exhibition_survey_users_answer.<?=$i?>.text"></li>
+                                <li><input type="text" id="<?=$exhibitionSurvey->id?>" name="exhibition_survey_users_answer.<?=$i?>.text"></li>
                                 <?php $i++; ?>
                             </ul>
                         </div>
                     <?php else : ?>
+                        <?php
+                        if ($exhibitionSurvey->is_required == 'Y') : 
+                        $multiple_parents[$m] = $exhibitionSurvey->id;
+                        $m++;
+                        endif; 
+                        ?>
                         <div class="survey"> 
                             <h4 class="survey-q"><?= $exhibitionSurvey->text ?></h4>
                             <input type="hidden" name="exhibition_survey_users_answer.<?=$i?>.text" value="question">
@@ -140,7 +161,6 @@
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
-        <?php endif; ?>
     </div>        
     <?= $this->Form->end() ?>
 </div>
@@ -250,99 +270,141 @@
             return false;
         }
         
-        var cost = "<?=$exhibition->cost?>";
-        //무료
-        if (cost == 'free') {
-            var formData = new FormData($('#apply')[0]);
+        var subjective_parents = [];
+        var multiple_parents = [];    
+        var s = 0;
+        var m = 0;
+        <?php if ($subjective_parents != '') : ?> 
+        <?php foreach ($subjective_parents as $subjective_parent) : ?>
+            subjective_parents[s] = "<?=$subjective_parent?>"
+            s++;
+        <?php endforeach; ?>
+        <?php endif ?>
+        <?php if ($multiple_parents != '') : ?>
+        <?php foreach ($multiple_parents as $multiple_parent) : ?>
+            multiple_parents[m] = "<?=$multiple_parent?>"
+            m++;
+        <?php endforeach; ?>
+        <?php endif; ?>
 
-            jQuery.ajax({
-                url: "/exhibition-users/add/" + <?= $id ?>,
-                processData: false,
-                contentType: false,
-                cache: false,
-                data: formData,
-                type: 'POST',
-            }).done(function(data) {
-                if (data.status == 'success') {
-                    alert("신청이 완료되었습니다.");
-                    window.location.replace("/exhibition/view/<?=$id?>");
-                } else if (data.status == 'exist') {
-                    alert("해당 이메일 주소로 이미 신청이 완료된 행사입니다.");
-                    window.location.replace("/exhibition/view/<?=$id?>");
-                } else {
-                    alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
-                }
-            });
+        for (var i=0; i<subjective_parents.length; i++) {
+            if ($("#"+subjective_parents[i]).val() == '') {
+                alert("응답되지 않은 필수 사전설문이 있습니다.");
+                return false;
+                $("#"+subjective_parents[i]).focus();
+            }
+        }
 
-        } else {
-            //결제
-            var IMP = window.IMP; 
-            IMP.init('imp43823679'); //아임포트 id -> 추후 교체
-            IMP.request_pay({
-                pg : 'inicis',
-                pay_method : 'card',
-                merchant_uid : 'merchant_' + new Date().getTime(),
-                name : '주문명:결제테스트',
-                amount : 1000, //$('input#amount').val()
-                //세션 유저정보에서 가져오기
-                buyer_email : '',
-                buyer_name : '구매자이름',
-                buyer_tel : '010-1234-5678',
-                buyer_addr : '서울특별시 강남구 삼성동',
-                buyer_postcode : '123-456'
-            }, function(rsp) {
-                if ( rsp.success ) {
-                    jQuery.ajax({
-                        url: "/pay/import-pay", 
-                        method: 'POST',
-                        type: 'json',
-                        data: {
-                            imp_uid: rsp.imp_uid,
-                            merchant_uid: rsp.merchant_uid,
-                            pay_method: rsp.pay_method,
-                            paid_amount: rsp.paid_amount,
-                            coupon_amount: 0,
-                            receipt_url: rsp.receipt_url,
-                            paid_at: rsp.paid_at,
-                            pg_tid: rsp.pg_tid
-                        }
-                    }).done(function(data) {
-                        if (data.status == 'success') { 
-                            var msg = '결제가 완료되었습니다.';
-                            msg += '\n고유ID : ' + rsp.imp_uid;
-                            msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-                            msg += '\n결제 금액 : ' + rsp.paid_amount;
-                            msg += '\n카드 승인번호 : ' + rsp.apply_num; 
+        for (var i=0; i<multiple_parents.length; i++) {
+            if ($("input[name='"+multiple_parents[i]+"']:checked").length == 0) {
+                alert("응답되지 않은 필수 사전설문이 있습니다.");
+                return false;
+                $("input[name='"+multiple_parents[i]+"']").focus();
+            }
+        }
+        var html = "";
+        html += "이메일 : " + $("#users_email").val() + "\n";
+        html += "이름 : " + $("#users_name").val() + "\n";
+        html += "전화번호 : " + $("#users_hp").val() + "\n";
+        html += "웨비나 접속 시 인증이 필요할 수 있습니다.\n위 내용으로 신청하시겠습니까?";
+        if (confirm(html)) {
+            var amount = "<?=$amount?>";     
+            var cost = "<?=$exhibition->cost?>";
+            //무료
+            if (cost == 'free' || amount == 0) {
+                var formData = new FormData($('#apply')[0]);
+                formData.append('pay_id', 0);
+                formData.append('pay_amount', 0);
 
-                            alert(msg);
+                jQuery.ajax({
+                    url: "/exhibition-users/add/" + <?= $id ?>,
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    data: formData,
+                    type: 'POST',
+                }).done(function(data) {
+                    if (data.status == 'success') {
+                        alert("신청이 완료되었습니다.");
+                        window.location.replace("/exhibition/view/<?=$id?>");
+                    } else if (data.status == 'exist') {
+                        alert("해당 이메일 주소로 이미 신청이 완료된 행사입니다.");
+                        window.location.replace("/exhibition/view/<?=$id?>");
+                    } else {
+                        alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+                    }
+                });
 
-                            var formData = new FormData($('#apply')[0]);
-                            formData.append('pay_id', data.pay_id);
-                            formData.append('pay_amount', rsp.paid_amount);
+            } else {
+                //결제         
+                var IMP = window.IMP; 
+                IMP.init('imp43823679'); //아임포트 id -> 추후 교체
+                IMP.request_pay({
+                    pg : 'inicis',
+                    pay_method : 'card',
+                    merchant_uid : 'merchant_' + new Date().getTime(),
+                    name : '웨비나 신청',
+                    amount : amount
+                    //세션 유저정보에서 가져오기
+                    // buyer_email : '',
+                    // buyer_name : '구매자이름',
+                    // buyer_tel : '010-1234-5678',
+                    // buyer_addr : '서울특별시 강남구 삼성동',
+                    // buyer_postcode : '123-456'
+                }, function(rsp) {
+                    if ( rsp.success ) {
+                        jQuery.ajax({
+                            url: "/pay/import-pay", 
+                            method: 'POST',
+                            type: 'json',
+                            data: {
+                                imp_uid: rsp.imp_uid,
+                                merchant_uid: rsp.merchant_uid,
+                                pay_method: rsp.pay_method,
+                                paid_amount: rsp.paid_amount,
+                                coupon_amount: 0,
+                                receipt_url: rsp.receipt_url,
+                                paid_at: rsp.paid_at,
+                                pg_tid: rsp.pg_tid
+                            }
+                        }).done(function(data) {
+                            if (data.status == 'success') { 
+                                var msg = '결제가 완료되었습니다.';
+                                msg += '\n고유ID : ' + rsp.imp_uid;
+                                msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+                                msg += '\n결제 금액 : ' + rsp.paid_amount;
+                                msg += '\n카드 승인번호 : ' + rsp.apply_num; 
 
-                            jQuery.ajax({
-                                url: "/exhibition-users/add/" + <?= $id ?>,
-                                processData: false,
-                                contentType: false,
-                                cache: false,
-                                data: formData,
-                                type: 'POST',
-                            }).done(function(data) {
-                                if (data.status == 'success') {
-                                    alert("신청이 완료되었습니다.");
-                                    window.location.replace("/exhibition/view/<?=$id?>");
-                                }
-                            });
-                        } 
-                    });
-                    
-                } else {
-                    var msg = '결제에 실패하였습니다.';
-                    msg += '에러내용 : ' + rsp.error_msg;
+                                alert(msg);
 
-                    alert(msg);
-                }
-            });
+                                var formData = new FormData($('#apply')[0]);
+                                formData.append('pay_id', data.pay_id);
+                                formData.append('pay_amount', rsp.paid_amount);
+
+                                jQuery.ajax({
+                                    url: "/exhibition-users/add/" + <?= $id ?>,
+                                    processData: false,
+                                    contentType: false,
+                                    cache: false,
+                                    data: formData,
+                                    type: 'POST',
+                                }).done(function(data) {
+                                    if (data.status == 'success') {
+                                        alert("신청이 완료되었습니다.");
+                                        window.location.replace("/exhibition/view/<?=$id?>");
+                                    }
+                                });
+                            } 
+                        });
+                        
+                    } else {
+                        var msg = '결제에 실패하였습니다.';
+                        msg += '에러내용 : ' + rsp.error_msg;
+
+                        alert(msg);
+                    }
+                });
+            }
         }
     });
 </script>
