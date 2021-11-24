@@ -207,10 +207,10 @@
         }
     });
 
-    var setDuration;
+    // var setDuration;
     var timeCheck;
 
-    setDuration = setInterval("setLiveDuration()", 1000);
+    // setDuration = setInterval("setLiveDuration()", 1000);
     timeCheck = setInterval("liveTimeCheck()", 1000);
 
     //OBS방송 중 체크
@@ -269,7 +269,7 @@
                 }
 
                 if (data.time <= data.live_duration) {
-                    clearInterval(setDuration);
+                    // clearInterval(setDuration);
                     clearInterval(timeCheck);
                     liveEnd();
                     alert("서비스 시간 만료로 방송이 종료되었습니다.");
@@ -284,6 +284,7 @@
     var player = videojs(document.querySelector('#vid1'));
 
     $(document).on("click", "#start", function () {
+        player = videojs(document.querySelector('#vid1'));
         $.ajax({
             url: video_uri,
             type: 'HEAD',
@@ -312,7 +313,7 @@
     });
 
     $(document).on("click", "#end", function () {
-        clearInterval(setDuration);
+        // clearInterval(setDuration);
         clearInterval(timeCheck);
         liveEnd();
     });

@@ -1758,4 +1758,16 @@ class ExhibitionController extends AppController
 
         $this->set(compact('id', 'exhibitions'));
     }
+
+    public function search()
+    {
+        $this->paginate = ['limit' => 20];
+        $exhibitions = $this->paginate($this->Exhibition->find('all'))->toArray();
+
+        if ($this->request->is('post')) {
+            $exhibitions = $this->paginate($this->Exhibition->find('all')->where(['title LIKE' => '%'.$key.'%']))->toArray();
+        }
+
+        $this->set(compact('exhibitions'));
+    }
 }
