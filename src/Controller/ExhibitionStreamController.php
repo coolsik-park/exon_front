@@ -920,7 +920,7 @@ class ExhibitionStreamController extends AppController
                     [
                         'to' => $to,
                         'from' => getEnv('EXON_PHONE_NUMBER'),
-                        'text' => 'Confirmation Code : ' . $code
+                        'text' => '[EXON] 본인인증 인증번호는 ' . $code . ' 입니다.' 
                     ]
                 ];
 
