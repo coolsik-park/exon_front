@@ -174,7 +174,7 @@
                                 </div>
                                 <div class="td-col col6" id="td-col col6">
                                     <div class="con">
-                                        <select id="participateSelectBox" onClick="exhibitionUsersStatus('<?= $exhibition_user->id ?>', '<?= $exhibition_user->exhibition_id ?>', '<?= $exhibition_user->users_email ?>', '<?=$exhibition_user->users_name?>', '<?=$exhibition_user->exhibition_group_id?>')">
+                                        <select id="participateSelectBox" onClick="exhibitionUsersStatus(this, '<?= $exhibition_user->id ?>', '<?= $exhibition_user->exhibition_id ?>', '<?= $exhibition_user->users_email ?>', '<?=$exhibition_user->users_name?>', '<?=$exhibition_user->exhibition_group_id?>')">
                                             <?php if ($exhibition_user->status == 4) { ?>
                                                 <option value="2">참가 대기</option>
                                                 <option value="4" selected>참가 확정</option>
@@ -277,10 +277,13 @@
         }
     }
 
-    function exhibitionUsersStatus(id, exhibition_id, users_email, users_name, exhibition_group_id) {
-        var sel = document.getElementById("participateSelectBox");
-        var val = sel.options[sel.selectedIndex].value;
-        console.log(val);
+    function exhibitionUsersStatus(v, id, exhibition_id, users_email, users_name, exhibition_group_id) {
+        $('#participateSelectBox').on('chang', function() {
+            console.log(this.value);
+        });
+        // var value = v.value;
+
+        // console.log(value);
         // $.ajax({
         //     url: '/exhibition/exhibition-users-approval',
         //     method: 'POST',
