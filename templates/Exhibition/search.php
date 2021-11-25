@@ -171,6 +171,11 @@
         var id = $(this).attr("id");
         window.location.href = "/exhibition/view/" + id;
     });
+    $(document).ready(function () {
+        $("#category").val("all").prop("selected", true);
+        $("#type").val("all").prop("selected", true);
+        $("#cost").val("all").prop("selected", true);
+    });
 
     $(document).on("change", ".search-by", function () {
         var key = "<?=$key?>";
