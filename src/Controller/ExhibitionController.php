@@ -1778,8 +1778,9 @@ class ExhibitionController extends AppController
         $category = $this->request->getData('category');
         $type = $this->request->getData('type');
         $cost = $this->request->getData('cost');
-        
-        $exhibitions = $this->Exhibition->find('all')
+
+        $this->paginate = ['limit' => 20];
+        $exhibitions = $this->paginate($this->Exhibition->find('all')
             ->where([
                 'status' => 1, 
                 'title LIKE' => '%'.$key.'%', 
@@ -1787,7 +1788,47 @@ class ExhibitionController extends AppController
                 'type IN' => $type,
                 'cost IN' => $cost
             ])
-            ->order(['created' => 'DESC'])->toArray();
+            ->order(['created' => 'DESC']))->toArray();
+
+        $CommonCategory = $this->getTableLocator()->get('CommonCategory');
+        $commonCategory = $CommonCategory->find('all')->toArray();
+
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $exhibitions, 'commonCategory' => $commonCategory]));
+        return $response;
+    }
+
+    public function sortBy()
+    {
+        $key = $this->request->getData('key');
+        $category = $this->request->getData('category');
+        $type = $this->request->getData('type');
+        $cost = $this->request->getData('cost');
+        $order = $this->request->getData('order');
+
+        $this->paginate = ['limit' => 20];
+
+        if ($order == "accuracy") :
+        $exhibitions = $this->paginate($this->Exhibition->find('all')
+            ->where([
+                'status' => 1, 
+                'title LIKE' => '%'.$key.'%', 
+                'category IN' => $category,
+                'type IN' => $type,
+                'cost IN' => $cost
+            ])
+            ->order('(CASE WHEN title LIKE "'.$key.'" then 1 when title LIKE "'.$key.'%" then 2 when title LIKE "%'.$key.'" then 3 when title LIKE "%'.$key.'%" then 4 else 5 END)'))->toArray();
+        
+        else :
+            $exhibitions = $this->paginate($this->Exhibition->find('all')
+            ->where([
+                'status' => 1, 
+                'title LIKE' => '%'.$key.'%', 
+                'category IN' => $category,
+                'type IN' => $type,
+                'cost IN' => $cost
+            ])
+            ->order(['created' => 'DESC']))->toArray();
+        endif;
 
         $CommonCategory = $this->getTableLocator()->get('CommonCategory');
         $commonCategory = $CommonCategory->find('all')->toArray();

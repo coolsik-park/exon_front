@@ -27,6 +27,7 @@
     }
     .clickTab__item {
         padding: 8px 12px;
+        cursor: pointer;
     }
     .searchBox {
         display: flex;
@@ -97,9 +98,10 @@
                 <p>"<?php if ($key == null) : echo("전체"); else : echo($key); endif;?>" 검색결과 <?=count($exhibitions)?>개</p>
             </div>
             <ul class="clickTab">
-                <!-- <li class="clickTab__item"><a href="">최신순</a></li>
-                <li class="clickTab__item"><a href="">정확도순</a></li> -->
+                <li class="clickTab__item"><a class="order" id="new" style="color:#007bff;">최신순</a></li>
+                <li class="clickTab__item"><a class="order" id="accuracy">정확도순</a></li>
             </ul>
+            <br>
             <?php foreach ($exhibitions as $exhibition) : ?>
             <div class="searchBox" id="<?=$exhibition["id"]?>">
                 <div class="photo">
@@ -214,9 +216,10 @@
                 html +='            <p>"<?php if ($key == null) : echo("전체"); else : echo($key); endif;?>" 검색결과 '+exhibitions.length+'개</p>';
                 html +='        </div>';
                 html +='        <ul class="clickTab">';
-                // html +='            <li class="clickTab__item"><a href="">최신순</a></li>';
-                // html +='            <li class="clickTab__item"><a href="">정확도순</a></li>';
+                html +='            <li class="clickTab__item"><a class="order" id="new" style="color:#007bff;">최신순</a></li>';
+                html +='            <li class="clickTab__item"><a class="order" id="accuracy">정확도순</a></li>';
                 html +='        </ul>';
+                html +='        <br>';
                 for (var i = 0 ; i < exhibitions.length; i ++) {
                 html +='        <div class="searchBox" id="'+exhibitions[i]['id']+'">';
                 html +='            <div class="photo">';
@@ -257,7 +260,139 @@
                 html +='            </div>';
                 html +='        </div>';
                 }
-        
+                html +='<div class="paginator">';
+                html +='    <ul class="pagination">';
+                html +='        <?= $this->Paginator->prev("< ") ?>';
+                html +='        <?= $this->Paginator->numbers() ?>';
+                html +='        <?= $this->Paginator->next(" >") ?>';
+                html +='    </ul>';
+                html +='</div>';
+
+                $("#contents").children().remove();
+                $("#contents").append(html);
+            } else {
+                alert("오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
+            }
+        });
+    });
+
+    $(document).on("click", ".order", function () {
+        var key = "<?=$key?>";
+        var category = [];
+        var type = [];
+        var cost = [];
+        var order = $(this).attr("id");
+
+        if ($("#category").val() == 'all') {
+            var i = 0;
+            <?php foreach ($commonCategory as $category) : ?>
+            <?php if ($category['types'] == 'category') : ?>
+            category[i] = "<?=$category['id'];?>"
+            i++;
+            <?php endif; ?>
+            <?php endforeach; ?> 
+        } else {
+            category[0] = $("#category").val();
+        }
+
+        if ($("#type").val() == 'all') {
+            var i = 0;
+            <?php foreach ($commonCategory as $category) : ?>
+            <?php if ($category['types'] == 'type') : ?>
+            type[i] = "<?=$category['id'];?>"
+            i++;
+            <?php endif; ?>
+            <?php endforeach; ?> 
+        } else {
+            type[0] = $("#type").val();
+        }
+
+        if ($("#cost").val() == 'all') {
+            cost[0] = 'free';
+            cost[1] = 'charged';
+        } else {
+            cost[0] = $("#cost").val();
+        }
+
+        jQuery.ajax({
+            url: "/exhibition/sort-by",
+            method: 'POST',
+            type: 'json',
+            data: {
+                key: key,
+                category: category,
+                type: type,
+                cost: cost,
+                order: order
+            }
+        }).done(function (data) {
+            if (data.status == 'success') {
+                var exhibitions = data.data;
+                var commonCategory = data.commonCategory;
+                var html = '';
+                html +='    <div class="section-my">';
+                html +='        <br>';
+                html +='        <div>';
+                html +='            <p>"<?php if ($key == null) : echo("전체"); else : echo($key); endif;?>" 검색결과 '+exhibitions.length+'개</p>';
+                html +='        </div>';
+                html +='        <ul class="clickTab">';
+                if (order == "new") {
+                html +='            <li class="clickTab__item"><a class="order" id="new" style="color:#007bff;">최신순</a></li>';
+                html +='            <li class="clickTab__item"><a class="order" id="accuracy">정확도순</a></li>';
+                } else {
+                html +='            <li class="clickTab__item"><a class="order" id="new">최신순</a></li>';
+                html +='            <li class="clickTab__item"><a class="order" id="accuracy" style="color:#007bff;">정확도순</a></li>';
+                }
+                html +='        </ul>';
+                html +='        <br>';
+                for (var i = 0 ; i < exhibitions.length; i ++) {
+                html +='        <div class="searchBox" id="'+exhibitions[i]['id']+'">';
+                html +='            <div class="photo">';
+                html +='                <p>';
+                if (exhibitions[i]["image_path"] == null) {
+                html +='                    <img src="../../images/img-no.png">';
+                } else {
+                html +='                    <img src="/'+exhibitions[i]["image_path"]+'/'+exhibitions[i]["image_name"]+'" style="height:220px; width:220px;">';
+                }
+                html +='                </p>';
+                html +='            </div>';
+                html +='            <div class="tr-row">';
+                html +='                <div class="td-col col1">';
+                html +='                    <p class="tit-name">'+exhibitions[i]['title']+'</p>';
+                html +='                </div>';
+                html +='                <div class="td-col col2">';
+                html +='                    <p>'+exhibitions[i]['description']+'</p>';
+                html +='                </div>';
+                html +='                <div class="td-col col3">';
+                var sdate = new Date(exhibitions[i]['sdate']);
+                var edate = new Date(exhibitions[i]['edate']);
+                html +='                    <p class="tit-con">'+dateFormat(sdate)+' ~ '+dateFormat(edate)+'</p>';
+                html +='                </div>';
+                html +='                <div class="td-col col4">';
+                html +='                    <p class="tit">';
+                html +='                        <span class="t2">'+exhibitions[i]['name']+'</span>';
+                html +='                    </p>';
+                html +='                </div>';
+                html +='                <div class="td-col col5">';
+                html +='                    <p>'+commonCategory[exhibitions[i]["category"]]["title"]+'</p>';
+                html +='                    <p>'+commonCategory[exhibitions[i]["type"]]["title"]+'</p>';
+                if (exhibitions[i]["cost"] == "free") {
+                html +='                    <p>무료</p>';
+                } else {
+                html +='                    <p>유료</p>';
+                }
+                html +='                </div>';
+                html +='            </div>';
+                html +='        </div>';
+                }
+                html +='<div class="paginator">';
+                html +='    <ul class="pagination">';
+                html +='        <?= $this->Paginator->prev("< ") ?>';
+                html +='        <?= $this->Paginator->numbers() ?>';
+                html +='        <?= $this->Paginator->next(" >") ?>';
+                html +='    </ul>';
+                html +='</div>';
+
                 $("#contents").children().remove();
                 $("#contents").append(html);
             } else {
