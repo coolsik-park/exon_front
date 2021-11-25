@@ -267,6 +267,7 @@
     });
 
     function dateFormat(date) {
+        date.setHours(date.getHours() - 9);
         let month = date.getMonth() + 1;
         let day = date.getDate();
         let hour = date.getHours();
