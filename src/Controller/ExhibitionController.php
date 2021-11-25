@@ -1765,11 +1765,12 @@ class ExhibitionController extends AppController
         $this->paginate = ['limit' => 20];
 
         $exhibitions = $this->paginate($this->Exhibition->find('all')->where(['status' => 1, 'title LIKE' => '%'.$key.'%'])->order(['created' => 'DESC']))->toArray();
+        $count = count($this->Exhibition->find('all')->where(['status' => 1, 'title LIKE' => '%'.$key.'%'])->toArray());
 
         $CommonCategory = $this->getTableLocator()->get('CommonCategory');
         $commonCategory = $CommonCategory->find('all')->toArray();
 
-        $this->set(compact('exhibitions', 'commonCategory', 'key'));
+        $this->set(compact('exhibitions', 'commonCategory', 'key', 'count'));
     }
 
     public function searchBy()
@@ -1789,11 +1790,20 @@ class ExhibitionController extends AppController
                 'cost IN' => $cost
             ])
             ->order(['created' => 'DESC']))->toArray();
+        $count = count($this->Exhibition->find('all')->where([
+            'status' => 1, 
+            'title LIKE' => '%'.$key.'%', 
+            'category IN' => $category,
+            'type IN' => $type,
+            'cost IN' => $cost
+        ])->toArray());
 
         $CommonCategory = $this->getTableLocator()->get('CommonCategory');
         $commonCategory = $CommonCategory->find('all')->toArray();
 
-        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $exhibitions, 'commonCategory' => $commonCategory]));
+        $this->set(compact('exhibitions'));
+
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $exhibitions, 'commonCategory' => $commonCategory, 'count' => $count]));
         return $response;
     }
 
@@ -1830,10 +1840,20 @@ class ExhibitionController extends AppController
             ->order(['created' => 'DESC']))->toArray();
         endif;
 
+        $count = count($this->Exhibition->find('all')->where([
+            'status' => 1, 
+            'title LIKE' => '%'.$key.'%', 
+            'category IN' => $category,
+            'type IN' => $type,
+            'cost IN' => $cost
+        ])->toArray());
+
         $CommonCategory = $this->getTableLocator()->get('CommonCategory');
         $commonCategory = $CommonCategory->find('all')->toArray();
 
-        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $exhibitions, 'commonCategory' => $commonCategory]));
+        $this->set(compact('exhibitions'));
+
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $exhibitions, 'commonCategory' => $commonCategory, 'count' => $count]));
         return $response;
     }
 }

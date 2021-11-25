@@ -95,7 +95,7 @@
         <div class="section-my">
             <br>
             <div>
-                <p>"<?php if ($key == null) : echo("전체"); else : echo($key); endif;?>" 검색결과 <?=count($exhibitions)?>개</p>
+                <p>"<?php if ($key == null) : echo("전체"); else : echo($key); endif;?>" 검색결과 <?=$count?>개</p>
             </div>
             <ul class="clickTab">
                 <li class="clickTab__item"><a class="order" id="new" style="color:#007bff;">최신순</a></li>
@@ -213,7 +213,7 @@
                 html +='    <div class="section-my">';
                 html +='        <br>';
                 html +='        <div>';
-                html +='            <p>"<?php if ($key == null) : echo("전체"); else : echo($key); endif;?>" 검색결과 '+exhibitions.length+'개</p>';
+                html +='            <p>"<?php if ($key == null) : echo("전체"); else : echo($key); endif;?>" 검색결과 '+data.count+'개</p>';
                 html +='        </div>';
                 html +='        <ul class="clickTab">';
                 html +='            <li class="clickTab__item"><a class="order" id="new" style="color:#007bff;">최신순</a></li>';
@@ -333,7 +333,7 @@
                 html +='    <div class="section-my">';
                 html +='        <br>';
                 html +='        <div>';
-                html +='            <p>"<?php if ($key == null) : echo("전체"); else : echo($key); endif;?>" 검색결과 '+exhibitions.length+'개</p>';
+                html +='            <p>"<?php if ($key == null) : echo("전체"); else : echo($key); endif;?>" 검색결과 '+data.count+'개</p>';
                 html +='        </div>';
                 html +='        <ul class="clickTab">';
                 if (order == "new") {
