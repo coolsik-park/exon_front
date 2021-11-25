@@ -739,7 +739,7 @@ class ExhibitionController extends AppController
                 }
             }
         }
-        
+
         $this->set(compact('id', 'exhibition_users', 'users', 'beforeParentData', 'beforeChildData'));
     }
 
@@ -874,6 +874,8 @@ class ExhibitionController extends AppController
         $exhibition_user = $exhibition_users_table->get($id);
         
         if($connection->update('exhibition_users', ['status' => $status], ['id' => $id])) {
+            $connection->commit();
+
             $mailer = new Mailer();
             $mailer->setTransport('mailjet');
 
@@ -910,11 +912,10 @@ class ExhibitionController extends AppController
             $mailer->setViewVars(['email' => $exhibition->email]);
             $mailer->setViewVars(['group' => $group->name]);
             $mailer->setViewVars(['now' => FrozenTime::now()]);
-            $mailer->deliver();
-            $response = $this->response->withType('json')->withStringBody(json_encode(['test' => 'success']));
-            return $response;
+            // $mailer->deliver();
+            // $response = $this->response->withType('json')->withStringBody(json_encode(['test' => 'success']));
+            // return $response;
 
-            $connection->commit();
             $response = $this->response->withType('json')->withStringBody(json_encode(['test' => 'success']));
         } else {
             $connection->rollback();

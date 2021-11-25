@@ -134,8 +134,8 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                         <div class="profile-photo">
                             <?php if ($user->image_name == null) { ?>
                                     <div class="mouse-area" id="dropZone">
-                                        <label for="imgSaveButton"><span class="ico-plus-c">+</span></label>
-                                        <input type="file" id="imgSaveButton" name="imgSaveButton" multiple="multiple" style="display:none">
+                                        <!-- <label for="imgSaveButton"><span class="ico-plus-c">+</span></label>
+                                        <input type="file" id="imgSaveButton" name="imgSaveButton" accept="image/*" style="display:none"> -->
                                         <p>마우스로 자료를 끌어오세요</p>
                                     </div>
                             <?php } else { ?>
