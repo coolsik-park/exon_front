@@ -53,6 +53,10 @@
         display:flex;
         justify-content: center;
     }
+    .textdiv {
+        padding-top:100px;
+        text-align:center;
+    }
 </style>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -97,6 +101,15 @@
             <div>
                 <p>"<?php if ($key == null) : echo("전체"); else : echo($key); endif;?>" 검색결과 <?=$count?>개</p>
             </div>
+            <?php if ($count == 0) : ?>
+            <div class="textdiv">
+                <p>"<?=$key?>"에 대한 검색결과가 없습니다.</p>
+                <br>
+                <p>모든 단어의 철자가 맞는지 확인해 보세요.</p>
+                <p>검색도구를 다르게 설정해 보세요.</p>
+                <p>검색어를 변경해 보세요.</p>
+            </div>
+            <?php else : ?>
             <ul class="clickTab">
                 <li class="clickTab__item"><a class="order" id="new" style="color:#007bff;">최신순</a></li>
                 <li class="clickTab__item"><a class="order" id="accuracy">정확도순</a></li>
@@ -148,6 +161,7 @@
                     <?= $this->Paginator->next(" >") ?>
                 </ul>
             </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>
@@ -196,10 +210,11 @@
         }
 
         jQuery.ajax({
-            url: "/exhibition/search-by",
-            method: 'POST',
+            url: "/exhibition/search",
+            method: 'PUT',
             type: 'json',
             data: {
+                action: 'category',
                 key: key,
                 category: category,
                 type: type,
@@ -315,10 +330,11 @@
         }
 
         jQuery.ajax({
-            url: "/exhibition/sort-by",
-            method: 'POST',
+            url: "/exhibition/search",
+            method: 'PUT',
             type: 'json',
             data: {
+                action: 'sort',
                 key: key,
                 category: category,
                 type: type,

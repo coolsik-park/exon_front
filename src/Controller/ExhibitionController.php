@@ -1769,91 +1769,87 @@ class ExhibitionController extends AppController
 
         $CommonCategory = $this->getTableLocator()->get('CommonCategory');
         $commonCategory = $CommonCategory->find('all')->toArray();
-
-        $this->set(compact('exhibitions', 'commonCategory', 'key', 'count'));
-    }
-
-    public function searchBy()
-    {
-        $key = $this->request->getData('key');
-        $category = $this->request->getData('category');
-        $type = $this->request->getData('type');
-        $cost = $this->request->getData('cost');
-
-        $this->paginate = ['limit' => 20];
-        $exhibitions = $this->paginate($this->Exhibition->find('all')
-            ->where([
-                'status' => 1, 
-                'title LIKE' => '%'.$key.'%', 
-                'category IN' => $category,
-                'type IN' => $type,
-                'cost IN' => $cost
-            ])
-            ->order(['created' => 'DESC']))->toArray();
-        $count = count($this->Exhibition->find('all')->where([
-            'status' => 1, 
-            'title LIKE' => '%'.$key.'%', 
-            'category IN' => $category,
-            'type IN' => $type,
-            'cost IN' => $cost
-        ])->toArray());
-
-        $CommonCategory = $this->getTableLocator()->get('CommonCategory');
-        $commonCategory = $CommonCategory->find('all')->toArray();
-
-        $this->set(compact('exhibitions'));
-
-        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $exhibitions, 'commonCategory' => $commonCategory, 'count' => $count]));
-        return $response;
-    }
-
-    public function sortBy()
-    {
-        $key = $this->request->getData('key');
-        $category = $this->request->getData('category');
-        $type = $this->request->getData('type');
-        $cost = $this->request->getData('cost');
-        $order = $this->request->getData('order');
-
-        $this->paginate = ['limit' => 20];
-
-        if ($order == "accuracy") :
-        $exhibitions = $this->paginate($this->Exhibition->find('all')
-            ->where([
-                'status' => 1, 
-                'title LIKE' => '%'.$key.'%', 
-                'category IN' => $category,
-                'type IN' => $type,
-                'cost IN' => $cost
-            ])
-            ->order('(CASE WHEN title LIKE "'.$key.'" then 1 when title LIKE "'.$key.'%" then 2 when title LIKE "%'.$key.'" then 3 when title LIKE "%'.$key.'%" then 4 else 5 END)'))->toArray();
         
-        else :
-            $exhibitions = $this->paginate($this->Exhibition->find('all')
-            ->where([
-                'status' => 1, 
-                'title LIKE' => '%'.$key.'%', 
-                'category IN' => $category,
-                'type IN' => $type,
-                'cost IN' => $cost
-            ])
-            ->order(['created' => 'DESC']))->toArray();
-        endif;
+        $this->set(compact('exhibitions', 'commonCategory', 'key', 'count'));
 
-        $count = count($this->Exhibition->find('all')->where([
-            'status' => 1, 
-            'title LIKE' => '%'.$key.'%', 
-            'category IN' => $category,
-            'type IN' => $type,
-            'cost IN' => $cost
-        ])->toArray());
+        if ($this->request->is('put')) {
+            $action = $this->request->getData('action');
+            $key = $this->request->getData('key');
+            $category = $this->request->getData('category');
+            $type = $this->request->getData('type');
+            $cost = $this->request->getData('cost');
 
-        $CommonCategory = $this->getTableLocator()->get('CommonCategory');
-        $commonCategory = $CommonCategory->find('all')->toArray();
+            if ($action == 'category') {
+                $this->paginate = ['limit' => 20];
+                $exhibitions = $this->paginate($this->Exhibition->find('all')
+                    ->where([
+                        'status' => 1, 
+                        'title LIKE' => '%'.$key.'%', 
+                        'category IN' => $category,
+                        'type IN' => $type,
+                        'cost IN' => $cost
+                    ])
+                    ->order(['created' => 'DESC']))->toArray();
+                $count = count($this->Exhibition->find('all')->where([
+                    'status' => 1, 
+                    'title LIKE' => '%'.$key.'%', 
+                    'category IN' => $category,
+                    'type IN' => $type,
+                    'cost IN' => $cost
+                ])->toArray());
 
-        $this->set(compact('exhibitions'));
+                $CommonCategory = $this->getTableLocator()->get('CommonCategory');
+                $commonCategory = $CommonCategory->find('all')->toArray();
 
-        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $exhibitions, 'commonCategory' => $commonCategory, 'count' => $count]));
-        return $response;
+                $this->set(compact('exhibitions'));
+
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $exhibitions, 'commonCategory' => $commonCategory, 'count' => $count]));
+                return $response;
+            
+            } else {
+                $order = $this->request->getData('order');
+
+                $this->paginate = ['limit' => 20];
+
+                if ($order == "accuracy") :
+                $exhibitions = $this->paginate($this->Exhibition->find('all')
+                    ->where([
+                        'status' => 1, 
+                        'title LIKE' => '%'.$key.'%', 
+                        'category IN' => $category,
+                        'type IN' => $type,
+                        'cost IN' => $cost
+                    ])
+                    ->order('(CASE WHEN title LIKE "'.$key.'" then 1 when title LIKE "'.$key.'%" then 2 when title LIKE "%'.$key.'" then 3 when title LIKE "%'.$key.'%" then 4 else 5 END)'))->toArray();
+                
+                else :
+                    $exhibitions = $this->paginate($this->Exhibition->find('all')
+                    ->where([
+                        'status' => 1, 
+                        'title LIKE' => '%'.$key.'%', 
+                        'category IN' => $category,
+                        'type IN' => $type,
+                        'cost IN' => $cost
+                    ])
+                    ->order(['created' => 'DESC']))->toArray();
+                endif;
+
+                $count = count($this->Exhibition->find('all')->where([
+                    'status' => 1, 
+                    'title LIKE' => '%'.$key.'%', 
+                    'category IN' => $category,
+                    'type IN' => $type,
+                    'cost IN' => $cost
+                ])->toArray());
+
+                $CommonCategory = $this->getTableLocator()->get('CommonCategory');
+                $commonCategory = $CommonCategory->find('all')->toArray();
+
+                $this->set(compact('exhibitions'));
+
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $exhibitions, 'commonCategory' => $commonCategory, 'count' => $count]));
+                return $response;
+            }
+        }
     }
 }
