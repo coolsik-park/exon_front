@@ -52,8 +52,8 @@
                 <form action="#">
                     <fieldset>
                         <legend>행사 검색</legend>
-                            <input type="text" placeholder="찾으시는 행사를 검색해주세요" class="ipt">
-                            <button type="button" class="ico-sh">검색</button>
+                            <input id="search" type="text" placeholder="찾으시는 행사를 검색해주세요" class="ipt">
+                            <button id="search-button" type="button" class="ico-sh">검색</button>
                     </fieldset>                        
                 </form> 
             </div>
@@ -205,5 +205,14 @@
         $('#my-page').mouseleave(function(){
             $('#sub-menu').hide();
         });
+    });
+
+    $(document).on("click", "#search-button", function () {
+        var key = $("#search").val();
+        if (key == '') {
+            window.location.href = "/exhibition/search";
+        } else {
+            window.location.href = "/exhibition/search/" + key;
+        }
     });
 </script>

@@ -1759,15 +1759,39 @@ class ExhibitionController extends AppController
         $this->set(compact('id', 'exhibitions'));
     }
 
-    public function search()
+    public function search($key = null)
     {
         $this->paginate = ['limit' => 20];
-        $exhibitions = $this->paginate($this->Exhibition->find('all'))->toArray();
 
-        if ($this->request->is('post')) {
-            $exhibitions = $this->paginate($this->Exhibition->find('all')->where(['title LIKE' => '%'.$key.'%']))->toArray();
-        }
+        $exhibitions = $this->paginate($this->Exhibition->find('all')->where(['status' => 1, 'title LIKE' => '%'.$key.'%'])->order(['created' => 'DESC']))->toArray();
 
-        $this->set(compact('exhibitions'));
+        $CommonCategory = $this->getTableLocator()->get('CommonCategory');
+        $commonCategory = $CommonCategory->find('all')->toArray();
+
+        $this->set(compact('exhibitions', 'commonCategory', 'key'));
+    }
+
+    public function searchBy()
+    {
+        $key = $this->request->getData('key');
+        $category = $this->request->getData('category');
+        $type = $this->request->getData('type');
+        $cost = $this->request->getData('cost');
+        
+        $exhibitions = $this->Exhibition->find('all')
+            ->where([
+                'status' => 1, 
+                'title LIKE' => '%'.$key.'%', 
+                'category IN' => $category,
+                'type IN' => $type,
+                'cost IN' => $cost
+            ])
+            ->order(['created' => 'DESC'])->toArray();
+
+        $CommonCategory = $this->getTableLocator()->get('CommonCategory');
+        $commonCategory = $CommonCategory->find('all')->toArray();
+
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $exhibitions, 'commonCategory' => $commonCategory]));
+        return $response;
     }
 }
