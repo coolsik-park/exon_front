@@ -171,11 +171,12 @@
         var id = $(this).attr("id");
         window.location.href = "/exhibition/view/" + id;
     });
-    $(document).ready(function () {
-        $("#category").val("all").prop("selected", true);
-        $("#type").val("all").prop("selected", true);
-        $("#cost").val("all").prop("selected", true);
-    });
+
+    // $(document).ready(function () {
+    //     $("#category").val("all").prop("selected", true);
+    //     $("#type").val("all").prop("selected", true);
+    //     $("#cost").val("all").prop("selected", true);
+    // });
 
     $(document).on("change", ".search-by", function () {
         var key = "<?=$key?>";
@@ -228,68 +229,9 @@
         }).done(function (data) {
             if (data.status == 'success') {
                 var exhibitions = data.data;
-                var commonCategory = data.commonCategory;
-                var html = '';
-                html +='    <div class="section-my">';
-                html +='        <br>';
-                html +='        <div>';
-                html +='            <p>"<?php if ($key == null) : echo("전체"); else : echo($key); endif;?>" 검색결과 '+data.count+'개</p>';
-                html +='        </div>';
-                html +='        <ul class="clickTab">';
-                html +='            <li class="clickTab__item"><a class="order" id="new" style="color:#007bff;">최신순</a></li>';
-                html +='            <li class="clickTab__item"><a class="order" id="accuracy">정확도순</a></li>';
-                html +='        </ul>';
-                html +='        <br>';
-                for (var i = 0 ; i < exhibitions.length; i ++) {
-                html +='        <div class="searchBox" id="'+exhibitions[i]['id']+'">';
-                html +='            <div class="photo">';
-                html +='                <p>';
-                if (exhibitions[i]["image_path"] == null) {
-                html +='                    <img src="../../images/img-no.png">';
-                } else {
-                html +='                    <img src="/'+exhibitions[i]["image_path"]+'/'+exhibitions[i]["image_name"]+'" style="height:220px; width:220px;">';
-                }
-                html +='                </p>';
-                html +='            </div>';
-                html +='            <div class="tr-row">';
-                html +='                <div class="td-col col1">';
-                html +='                    <p class="tit-name">'+exhibitions[i]['title']+'</p>';
-                html +='                </div>';
-                html +='                <div class="td-col col2">';
-                html +='                    <p>'+exhibitions[i]['description']+'</p>';
-                html +='                </div>';
-                html +='                <div class="td-col col3">';
-                var sdate = new Date(exhibitions[i]['sdate']);
-                var edate = new Date(exhibitions[i]['edate']);
-                html +='                    <p class="tit-con">'+dateFormat(sdate)+' ~ '+dateFormat(edate)+'</p>';
-                html +='                </div>';
-                html +='                <div class="td-col col4">';
-                html +='                    <p class="tit">';
-                html +='                        <span class="t2">'+exhibitions[i]['name']+'</span>';
-                html +='                    </p>';
-                html +='                </div>';
-                html +='                <div class="td-col col5">';
-                html +='                    <p>'+commonCategory[exhibitions[i]["category"]]["title"]+'</p>';
-                html +='                    <p>'+commonCategory[exhibitions[i]["type"]]["title"]+'</p>';
-                if (exhibitions[i]["cost"] == "free") {
-                html +='                    <p>무료</p>';
-                } else {
-                html +='                    <p>유료</p>';
-                }
-                html +='                </div>';
-                html +='            </div>';
-                html +='        </div>';
-                }
-                html +='<div class="paginator">';
-                html +='    <ul class="pagination">';
-                html +='        <?= $this->Paginator->prev("< ") ?>';
-                html +='        <?= $this->Paginator->numbers() ?>';
-                html +='        <?= $this->Paginator->next(" >") ?>';
-                html +='    </ul>';
-                html +='</div>';
 
                 $("#contents").children().remove();
-                $("#contents").append(html);
+                $("#contents").append(exhibitions);
             } else {
                 alert("오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
             }
@@ -297,6 +239,7 @@
     });
 
     $(document).on("click", ".order", function () {
+        var id = $(this).attr("id");
         var key = "<?=$key?>";
         var category = [];
         var type = [];
@@ -349,73 +292,12 @@
         }).done(function (data) {
             if (data.status == 'success') {
                 var exhibitions = data.data;
-                var commonCategory = data.commonCategory;
-                var html = '';
-                html +='    <div class="section-my">';
-                html +='        <br>';
-                html +='        <div>';
-                html +='            <p>"<?php if ($key == null) : echo("전체"); else : echo($key); endif;?>" 검색결과 '+data.count+'개</p>';
-                html +='        </div>';
-                html +='        <ul class="clickTab">';
-                if (order == "new") {
-                html +='            <li class="clickTab__item"><a class="order" id="new" style="color:#007bff;">최신순</a></li>';
-                html +='            <li class="clickTab__item"><a class="order" id="accuracy">정확도순</a></li>';
-                } else {
-                html +='            <li class="clickTab__item"><a class="order" id="new">최신순</a></li>';
-                html +='            <li class="clickTab__item"><a class="order" id="accuracy" style="color:#007bff;">정확도순</a></li>';
-                }
-                html +='        </ul>';
-                html +='        <br>';
-                for (var i = 0 ; i < exhibitions.length; i ++) {
-                html +='        <div class="searchBox" id="'+exhibitions[i]['id']+'">';
-                html +='            <div class="photo">';
-                html +='                <p>';
-                if (exhibitions[i]["image_path"] == null) {
-                html +='                    <img src="../../images/img-no.png">';
-                } else {
-                html +='                    <img src="/'+exhibitions[i]["image_path"]+'/'+exhibitions[i]["image_name"]+'" style="height:220px; width:220px;">';
-                }
-                html +='                </p>';
-                html +='            </div>';
-                html +='            <div class="tr-row">';
-                html +='                <div class="td-col col1">';
-                html +='                    <p class="tit-name">'+exhibitions[i]['title']+'</p>';
-                html +='                </div>';
-                html +='                <div class="td-col col2">';
-                html +='                    <p>'+exhibitions[i]['description']+'</p>';
-                html +='                </div>';
-                html +='                <div class="td-col col3">';
-                var sdate = new Date(exhibitions[i]['sdate']);
-                var edate = new Date(exhibitions[i]['edate']);
-                html +='                    <p class="tit-con">'+dateFormat(sdate)+' ~ '+dateFormat(edate)+'</p>';
-                html +='                </div>';
-                html +='                <div class="td-col col4">';
-                html +='                    <p class="tit">';
-                html +='                        <span class="t2">'+exhibitions[i]['name']+'</span>';
-                html +='                    </p>';
-                html +='                </div>';
-                html +='                <div class="td-col col5">';
-                html +='                    <p>'+commonCategory[exhibitions[i]["category"]]["title"]+'</p>';
-                html +='                    <p>'+commonCategory[exhibitions[i]["type"]]["title"]+'</p>';
-                if (exhibitions[i]["cost"] == "free") {
-                html +='                    <p>무료</p>';
-                } else {
-                html +='                    <p>유료</p>';
-                }
-                html +='                </div>';
-                html +='            </div>';
-                html +='        </div>';
-                }
-                html +='<div class="paginator">';
-                html +='    <ul class="pagination">';
-                html +='        <?= $this->Paginator->prev("< ") ?>';
-                html +='        <?= $this->Paginator->numbers() ?>';
-                html +='        <?= $this->Paginator->next(" >") ?>';
-                html +='    </ul>';
-                html +='</div>';
 
                 $("#contents").children().remove();
-                $("#contents").append(html);
+                $("#contents").append(exhibitions);
+
+                $(".order").css("color", "");
+                $("#"+id).css("color", "#007bff");
             } else {
                 alert("오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
             }
