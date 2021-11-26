@@ -41,7 +41,7 @@
                 <?php } ?>
             </ul>
             <div class="table-type table-type2" id="table-type table-type2">  
-                <?php foreach ($exhibitions as $exhibition): ?>                  
+                <?php foreach ($exhibitions as $key => $exhibition): ?>                  
                     <div class="tr-row">
                         <div class="td-col col1">
                             <?php if ($exhibition->image_path != '') : ?>
@@ -92,39 +92,40 @@
                                 <p class="tx-1">
                                     <?php
                                         if ($exhibition->apply_sdate != '') :
-                                        $apply_sdate = date("Y.m.d", strtotime($exhibition->apply_sdate));
-                                        $apply_shour = date("H", strtotime($exhibition->apply_sdate));
-                                        $apply_smin = date("i", strtotime($exhibition->apply_sdate));
+                                            $apply_sdate = date("Y.m.d", strtotime($exhibition->apply_sdate));
+                                            $apply_shour = date("H", strtotime($exhibition->apply_sdate));
+                                            $apply_smin = date("i", strtotime($exhibition->apply_sdate));
                                         else :
-                                        $apply_sdate = '';
-                                        $apply_shour = '';
-                                        $apply_smin = '';
+                                            $apply_sdate = '';
+                                            $apply_shour = '';
+                                            $apply_smin = '';
                                         endif;
+
                                         if ($exhibition->apply_edate != '') :
-                                        $apply_edate = date("Y.m.d", strtotime($exhibition->apply_edate));
-                                        $apply_ehour = date("H", strtotime($exhibition->apply_edate));
-                                        $apply_emin = date("i", strtotime($exhibition->apply_edate));
+                                            $apply_edate = date("Y.m.d", strtotime($exhibition->apply_edate));
+                                            $apply_ehour = date("H", strtotime($exhibition->apply_edate));
+                                            $apply_emin = date("i", strtotime($exhibition->apply_edate));
                                         else :
-                                        $apply_edate = '';
-                                        $apply_ehour = '';
-                                        $apply_emin = '';
+                                            $apply_edate = '';
+                                            $apply_ehour = '';
+                                            $apply_emin = '';
                                         endif;
 
                                         if ($exhibition->apply_sdate != '') :
                                             if ($apply_shour > 12) {
                                                 $apply_shour = $apply_shour-12;
-                                                echo $apply_sdate . " 오후 " . $apply_shour . ":" . $apply_smin . " ~ ";
+                                                echo $apply_sdate . " 오후 " . sprintf("%02d", $apply_shour) . ":" . sprintf("%02d", $apply_smin) . " ~ ";
                                             } else {
-                                                echo $apply_sdate . " 오전 " . $apply_shour . ":" . $apply_smin . " ~ ";
+                                                echo $apply_sdate . " 오전 " . sprintf("%02d", $apply_shour) . ":" . sprintf("%02d", $apply_smin) . " ~ ";
                                             }
                                         endif;
                                         
                                         if ($exhibition->apply_edate != '') :
                                             if ($apply_ehour > 12) {
                                                 $apply_ehour = $apply_ehour-12;
-                                                echo $apply_edate . " 오후 " . $apply_ehour . ":" . $apply_emin;
+                                                echo $apply_edate . " 오후 " . sprintf("%02d", $apply_ehour) . ":" . sprintf("%02d", $apply_emin);
                                             } else {
-                                                echo $apply_edate . " 오전 " . $apply_ehour . ":" . $apply_emin;
+                                                echo $apply_edate . " 오전 " . sprintf("%02d", $apply_ehour) . ":" . sprintf("%02d", $apply_emin);
                                             }
                                         endif;
                                     ?>
@@ -133,39 +134,40 @@
                                 <p class="tx-1">
                                     <?php
                                         if ($exhibition->sdate != '') :
-                                        $sdate = date("Y.m.d", strtotime($exhibition->sdate));
-                                        $shour = date("H", strtotime($exhibition->sdate));
-                                        $smin = date("i", strtotime($exhibition->sdate));
+                                            $sdate = date("Y.m.d", strtotime($exhibition->sdate));
+                                            $shour = date("H", strtotime($exhibition->sdate));
+                                            $smin = date("i", strtotime($exhibition->sdate));
                                         else :
-                                        $sdate = '';
-                                        $shour = '';
-                                        $smin = '';
+                                            $sdate = '';
+                                            $shour = '';
+                                            $smin = '';
                                         endif;
+
                                         if ($exhibition->edate != '') :
-                                        $edate = date("Y.m.d", strtotime($exhibition->edate));
-                                        $ehour = date("H", strtotime($exhibition->edate));
-                                        $emin = date("i", strtotime($exhibition->edate));
+                                            $edate = date("Y.m.d", strtotime($exhibition->edate));
+                                            $ehour = date("H", strtotime($exhibition->edate));
+                                            $emin = date("i", strtotime($exhibition->edate));
                                         else :
-                                        $edate = '';
-                                        $ehour = '';
-                                        $emin = '';
+                                            $edate = '';
+                                            $ehour = '';
+                                            $emin = '';
                                         endif;
 
                                         if ($exhibition->sdate != '') :
                                             if ($shour > 12) {
                                                 $shour = $shour-12;
-                                                echo $sdate . " 오후 " . $shour . ":" . $smin . " ~ ";
+                                                echo $sdate . " 오후 " . sprintf("%02d", $shour) . ":" . sprintf("%02d", $smin) . " ~ ";
                                             } else {
-                                                echo $sdate . " 오전 " . $shour . ":" . $smin . " ~ ";
+                                                echo $sdate . " 오전 " . sprintf("%02d", $shour) . ":" . sprintf("%02d", $smin) . " ~ ";
                                             }
                                         endif;
 
                                         if ($exhibition->edate != '') :
                                             if ($ehour > 12) {
                                                 $ehour = $ehour-12;
-                                                echo $edate . " 오후 " . $ehour . ":" . $emin;
+                                                echo $edate . " 오후 " . sprintf("%02d", $ehour) . ":" . sprintf("%02d", $emin);
                                             } else {
-                                                echo $edate . " 오전 " . $ehour . ":" . $emin;
+                                                echo $edate . " 오전 " . sprintf("%02d", $ehour) . ":" . sprintf("%02d", $emin);
                                             }
                                         endif;
                                     ?>
@@ -175,7 +177,7 @@
                         <div class="td-col col5">                           
                             <div class="con">
                                 <?php if ($exhibition->status != 4 && $exhibition->edate > $today) : ?>
-                                <p><button type="button" id="urlCopy<?=$exhibition->id?>" name="urlCopy" class="btn-ty3 bor">URL 복사</button></p>
+                                    <p><button type="button" id="urlCopy<?=$exhibition->id?>" name="urlCopy" class="btn-ty3 bor">URL 복사</button></p>
                                 <?php else : ?>
                                 <p class="btn-ty3 gray">URL 복사</p>
                                 <?php endif; ?>    
@@ -183,8 +185,8 @@
                                 <div class="tg-btns">
                                     <button type="button" class="btn-ty3 bor" id="menu">메뉴</button>
                                     <ul>
-                                        <?php if ($exhibition->status == 4 || $exhibition->edate > $today && empty($exhibition->users)) : ?>
-                                        <li><button type="button" id="delete<?=$exhibition->id?>" name="deleteExhibition" class="btn-ty3 bor">행사 삭제</button></li>
+                                        <?php if ($exhibition->status==4 || ($exhibition->apply_edate>$today && $exhibition_user[$key] == 0)): ?>
+                                                <li><button type="button" id="delete<?=$exhibition->id?>" name="deleteExhibition" class="btn-ty3 bor">행사 삭제</button></li>
                                         <?php endif; ?>
                                         <li><button type="button" id="copy<?=$exhibition->id?>" name="copyExhibition" class="btn-ty3 bor">행사 복사</button></li>
                                     </ul>

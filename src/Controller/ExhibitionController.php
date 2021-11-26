@@ -47,9 +47,6 @@ class ExhibitionController extends AppController
         }
 
         $this->paginate = ['limit' => 10];
-        $today = FrozenTime::now();
-
-        $front_url = FRONT_URL;
 
         if ($type == 'all') {
             $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id')]))->toArray();
@@ -60,7 +57,24 @@ class ExhibitionController extends AppController
         } elseif ($type == 'ended') {            
             $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.edate <' => $today]))->toArray();
         }
-        $this->set(compact('exhibitions', 'today', 'front_url'));
+        
+        date_default_timezone_set('Asia/Seoul');
+        $today = date("m/d/Y, H:i a", time());
+        
+        $front_url = FRONT_URL;
+
+        $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
+        foreach($exhibitions as $key => $exhibition) {
+            $exhibition_users = $exhibition_users_table->find()->select(['count' => 'ExhibitionUsers.id'])->where(['ExhibitionUsers.exhibition_id' => $exhibition->id])->toArray();
+            
+            if ($exhibition_users == null) {
+                $exhibition_user[$key] = null;
+            } else {
+                $exhibition_user[$key] = $exhibition_users->count;
+            }
+        }
+
+        $this->set(compact('exhibitions', 'today', 'front_url', 'exhibition_user'));
     }
     
     public function view($id = null)
