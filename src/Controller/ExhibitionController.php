@@ -1785,7 +1785,7 @@ class ExhibitionController extends AppController
         $commonCategory = $CommonCategory->find('all')->toArray();
         
         $this->set(compact('exhibitions', 'commonCategory', 'key', 'count'));
-
+        
         if ($this->request->is('put')) {
             $action = $this->request->getData('action');
             $key = $this->request->getData('key');
@@ -1815,9 +1815,11 @@ class ExhibitionController extends AppController
                 $CommonCategory = $this->getTableLocator()->get('CommonCategory');
                 $commonCategory = $CommonCategory->find('all')->toArray();
 
-                $this->set(compact('exhibitions'));
+                $view = new \Cake\View\View($this->request, $this->response);                                
+                $view->set(compact('exhibitions', 'commonCategory', 'key', 'count'));
+                $contents = $view->element('search'); 
 
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $exhibitions, 'commonCategory' => $commonCategory, 'count' => $count]));
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $contents, 'commonCategory' => $commonCategory, 'count' => $count]));
                 return $response;
             
             } else {
@@ -1859,9 +1861,11 @@ class ExhibitionController extends AppController
                 $CommonCategory = $this->getTableLocator()->get('CommonCategory');
                 $commonCategory = $CommonCategory->find('all')->toArray();
 
-                $this->set(compact('exhibitions'));
+                $view = new \Cake\View\View($this->request, $this->response);                                
+                $view->set(compact('exhibitions', 'commonCategory', 'key', 'count'));
+                $contents = $view->element('search'); 
 
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $exhibitions, 'commonCategory' => $commonCategory, 'count' => $count]));
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $contents, 'commonCategory' => $commonCategory, 'count' => $count]));
                 return $response;
             }
         }

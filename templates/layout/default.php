@@ -49,13 +49,13 @@
         <div class="static">
             <h1 class="h-logo"><a href="/">EXON</a></h1>
             <div class="header-search">               
-                <form action="#">
+                <!-- <form action="#"> -->
                     <fieldset>
                         <legend>행사 검색</legend>
                             <input id="search" type="text" placeholder="찾으시는 행사를 검색해주세요" class="ipt">
                             <button id="search-button" type="button" class="ico-sh">검색</button>
                     </fieldset>                        
-                </form> 
+                <!-- </form>  -->
             </div>
             <div class="h-elt">                
                 <?php if(empty($loguser)): ?>
@@ -162,9 +162,9 @@
                     <li><a href="/boards/customer-service">고객센터</a></li>
                     <li><a href="/pages/terms-of-service">서비스 이용약관 </a></li>
                     <li><a href="/pages/personal-info-agreement">개인정보처리방침</a></li>
-                    <li><a href="#">전자금융거래 이용약관</a></li>
-                    <li><a href="#">취소 및 환불 약관</a></li>
-                    <li><a href="#">이메일 주소 무단수집 거부</a></li>
+                    <li><a href="/pages/electronic-transaction">전자금융거래 이용약관</a></li>
+                    <li><a href="/pages/refund">취소 및 환불 약관</a></li>
+                    <li><a href="/pages/unsubscribe">이메일 주소 무단수집 거부</a></li>
                 </ul> 
             </div>
             <div class="footer-btm">
@@ -214,5 +214,18 @@
         } else {
             window.location.href = "/exhibition/search/" + key;
         }
+    });
+
+    $(document).ready(function(e) {
+        $("#search").keydown(function(keyCode) {
+            if (keyCode.keyCode == 13) {
+                var key = $("#search").val();
+                if (key == '') {
+                    window.location.href = "/exhibition/search";
+                } else {
+                    window.location.href = "/exhibition/search/" + key;
+                }
+            }
+        });
     });
 </script>
