@@ -305,7 +305,7 @@ class UsersController extends AppController
                     $user->name = $responseArr['kakao_account']['profile']['nickname'];
                     $user->password = null;
                     $user->social_id = $responseArr['id'];
-                    $user->hp = '01011112222'; //카카오 사업자 계정 인증 후 수정
+                    $user->hp = $responseArr['kakao_account']['phone_number'];
                     $user->ip = $this->request->ClientIp();
                     $user->refer = 'kakao';       
                     
