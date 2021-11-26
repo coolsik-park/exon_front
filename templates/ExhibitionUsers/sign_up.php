@@ -59,9 +59,9 @@
                                         
                                         if ($hour > 12) {
                                             $hour = $hour-12;
-                                            echo "오후 " . $hour . ":" . $min;
+                                            echo "오후 " . sprintf("%02d", $hour) . ":" . sprintf("%02d", $min);
                                         } else {
-                                            echo "오전 " . $hour . ":" . $min;
+                                            echo "오전 " . sprintf("%02d", $hour) . ":" . sprintf("%02d", $min);
                                         }
 
                                         if ($today > $exhibition_user->exhibition['edate']) {
@@ -100,9 +100,9 @@
                                         
                                         if ($hour > 12) {
                                             $hour = $hour-12;
-                                            echo $date . " 오후 " . $hour . ":" . $min . " ~";
+                                            echo $date . " 오후 " . sprintf("%02d", $hour) . ":" . sprintf("%02d ~ ", $min);
                                         } else {
-                                            echo $date . " 오전 " . $hour . ":" . $min . " ~";
+                                            echo $date . " 오전 " . sprintf("%02d", $hour) . ":" . sprintf("%02d ~ ", $min);
                                         }
                                     ?>
                                     <br>
@@ -113,9 +113,9 @@
                                         
                                         if ($hour > 12) {
                                             $hour = $hour-12;
-                                            echo $date . " 오후 " . $hour . ":" . $min;
+                                            echo $date . " 오후 " . sprintf("%02d", $hour) . ":" . sprintf("%02d", $min);
                                         } else {
-                                            echo $date . " 오전 " . $hour . ":" . $min;
+                                            echo $date . " 오전 " . sprintf("%02d", $hour) . ":" . sprintf("%02d", $min);
                                         }
                                     ?>
                                 </p>
@@ -175,12 +175,16 @@
                                 <div class="con">
                                     <p><a href="/exhibition-users/download-pdf/<?= $exhibition_user->exhibition['id'] ?>/<?= $exhibition_user->id ?>" class="btn-ty3 bor">증빙</a></p>
                                     <?php
-                                    $today = new DateTime();
-                                    if ($today > $exhibition_user->exhibition['edate']):
+                                    date_default_timezone_set('Asia/Seoul');
+                                    $today = date("m/d/Y, H:i a", time());
+                                    $sdate = date("m/d/Y, H:i a", strtotime($exhibition_user->exhibition['sdate']));
+                                    $edate = date("m/d/Y, H:i a", strtotime($exhibition_user->exhibition['edate']));
+                                    
+                                    if ($today > $edate):
                                     else:
-                                        if ($today > $exhibition_user->exhibition['sdate']):
+                                        if ($today >= $sdate):
                                             echo '진행중인 행사입니다.';
-                                            if ($exhibition_user->attend == 1):
+                                            if ($exhibition_user->status == 4):
                                     ?>
                                                 <p><a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition_user->exhibition_id ?>/<?= $exhibition_user->id ?>" class="btn-ty3 bor" id="exhibitionSee">웨비나 시청</a></p>
                                     <?php
