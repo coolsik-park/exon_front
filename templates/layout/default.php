@@ -49,13 +49,13 @@
         <div class="static">
             <h1 class="h-logo"><a href="/">EXON</a></h1>
             <div class="header-search">               
-                <form action="#">
+                <!-- <form action="#"> -->
                     <fieldset>
                         <legend>행사 검색</legend>
                             <input id="search" type="text" placeholder="찾으시는 행사를 검색해주세요" class="ipt">
                             <button id="search-button" type="button" class="ico-sh">검색</button>
                     </fieldset>                        
-                </form> 
+                <!-- </form>  -->
             </div>
             <div class="h-elt">                
                 <?php if(empty($loguser)): ?>
@@ -214,5 +214,18 @@
         } else {
             window.location.href = "/exhibition/search/" + key;
         }
+    });
+
+    $(document).ready(function(e) {
+        $("#search").keydown(function(keyCode) {
+            if (keyCode.keyCode == 13) {
+                var key = $("#search").val();
+                if (key == '') {
+                    window.location.href = "/exhibition/search";
+                } else {
+                    window.location.href = "/exhibition/search/" + key;
+                }
+            }
+        });
     });
 </script>
