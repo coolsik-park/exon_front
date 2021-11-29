@@ -753,6 +753,7 @@ class ExhibitionController extends AppController
                 }
             }
         }
+        debug($exhibition_users);
 
         $this->set(compact('id', 'exhibition_users', 'users', 'beforeParentData', 'beforeChildData'));
     }
@@ -860,7 +861,6 @@ class ExhibitionController extends AppController
                 $mailer->setViewVars(['now' => FrozenTime::now()]);
                 
                 $mailer->deliver();
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
             }
             $connection->commit();
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));

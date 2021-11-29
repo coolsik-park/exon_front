@@ -343,7 +343,7 @@
         var pay_id = exhibition_users[index]['pay_id'];
         
         $.ajax({
-            url: '/exhibition-users/exhibition-users-status',
+            url: '/exhibition/exhibition-users-status',
             method: 'POST',
             type: 'json',
             data: {
