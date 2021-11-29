@@ -39,9 +39,9 @@
 
                                         if ($apply_shour > 12) {
                                             $apply_shour = $apply_shour-12;
-                                            echo $apply_sdate . $apply_sweek . " 오후 " . $apply_shour . ":" . $apply_smin . " ~ ";
+                                            echo $apply_sdate . $apply_sweek . " 오후 " . sprintf("%02d", $apply_shour) . ":" . sprintf("%02d", $apply_smin) . " ~ ";
                                         } else {
-                                            echo $apply_sdate . $apply_sweek . " 오전 " . $apply_shour . ":" . $apply_smin . " ~ ";
+                                            echo $apply_sdate . $apply_sweek . " 오전 " . sprintf("%02d", $apply_shour) . ":" . sprintf("%02d", $apply_smin) . " ~ ";
                                         }
 
                                         $apply_edate = date("m월 d일", strtotime($exhibition->apply_edate));
@@ -51,9 +51,9 @@
 
                                         if ($apply_ehour > 12) {
                                             $apply_ehour = $apply_ehour-12;
-                                            echo $apply_edate . $apply_eweek . " 오후 " . $apply_ehour . ":" . $apply_emin;
+                                            echo $apply_edate . $apply_eweek . " 오후 " . sprintf("%02d", $apply_ehour) . ":" . sprintf("%02d", $apply_emin);
                                         } else {
-                                            echo $apply_edate . $apply_eweek . " 오전 " . $apply_ehour . ":" . $apply_emin;
+                                            echo $apply_edate . $apply_eweek . " 오전 " . sprintf("%02d", $apply_ehour) . ":" . sprintf("%02d", $apply_emin);
                                         }
                                     ?>
                                 </span>
@@ -71,9 +71,9 @@
 
                                         if ($shour > 12) {
                                             $shour = $shour-12;
-                                            echo $sdate . $sweek . " 오후 " . $shour . ":" . $smin . " ~ ";
+                                            echo $sdate . $sweek . " 오후 " . sprintf("%02d", $shour) . ":" . sprintf("%02d", $smin) . " ~ ";
                                         } else {
-                                            echo $sdate . $sweek . " 오전 " . $shour . ":" . $smin . " ~ ";
+                                            echo $sdate . $sweek . " 오전 " . sprintf("%02d", $shour) . ":" . sprintf("%02d", $smin) . " ~ ";
                                         }
 
                                         $edate = date("m월 d일", strtotime($exhibition->edate));
@@ -83,9 +83,9 @@
 
                                         if ($ehour > 12) {
                                             $ehour = $ehour-12;
-                                            echo $edate . $eweek . " 오후 " . $ehour . ":" . $emin;
+                                            echo $edate . $eweek . " 오후 " . sprintf("%02d", $ehour) . ":" . sprintf("%02d", $emin);
                                         } else {
-                                            echo $edate . $eweek . " 오전 " . $ehour . ":" . $emin;
+                                            echo $edate . $eweek . " 오전 " . sprintf("%02d", $ehour) . ":" . sprintf("%02d", $emin);
                                         }
                                     ?>
                                 </span>
