@@ -48,6 +48,7 @@
                             <?php else : ?>
                             <label for="image"><img id="mainImg" src="../../images/img-no3.png" alt="이미지없음" style="width:380px; height:214px"></p>
                             <?php endif; ?>
+                            <p class="p-noti">클릭하여 이미지를 변경하세요.</p>
                         </div> 
                         <input type="file" id="image" name="image" style="display:none">
                     </div>

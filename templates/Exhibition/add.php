@@ -24,6 +24,7 @@
                     <div class="sect1-col1">
                         <div class="photo"><label for="image"><img id="mainImg" src="../images/img-no3.png" alt="이미지없음" style="width:380px; height:214px"></div> 
                         <input type="file" id="image" name="image" style="display:none">
+                        <p class="p-noti">클릭하여 이미지를 등록하세요.</p>
                     </div>
                     <div class="sect1-col2">
                         <div class="row2 fir">
