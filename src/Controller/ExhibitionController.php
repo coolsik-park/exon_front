@@ -60,22 +60,7 @@ class ExhibitionController extends AppController
         } elseif ($type == 'ended') {            
             $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.edate <' => $today]))->toArray();
         }
-        
-<<<<<<< HEAD
-        date_default_timezone_set('Asia/Seoul');
-        $today = date("m/d/Y, H:i a", time());
-        
-        $front_url = FRONT_URL;
 
-        $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
-        foreach($exhibitions as $key => $exhibition) {
-            $exhibition_users = $exhibition_users_table->find()->select(['count' => 'ExhibitionUsers.id'])->where(['ExhibitionUsers.exhibition_id' => $exhibition->id])->toArray();
-            
-            if ($exhibition_users == null) {
-                $exhibition_user[$key] = null;
-            } else {
-                $exhibition_user[$key] = $exhibition_users->count;
-=======
         $front_url = FRONT_URL;
 
         if ($exhibitions == null) {
@@ -90,7 +75,6 @@ class ExhibitionController extends AppController
                 } else {
                     $exhibition_user[$key] = $exhibition_users->count;
                 }
->>>>>>> bomi
             }
         }
 
