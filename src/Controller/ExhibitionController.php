@@ -42,6 +42,9 @@ class ExhibitionController extends AppController
     
     public function index($type = null)
     {
+        date_default_timezone_set('Asia/Seoul');
+        $today = date("m/d/Y, H:i a", time());
+
         if (empty($this->Auth->user())) {
             return $this->redirect(['controller' => 'users', 'action' => 'login']);
         }
@@ -58,19 +61,20 @@ class ExhibitionController extends AppController
             $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.edate <' => $today]))->toArray();
         }
         
-        date_default_timezone_set('Asia/Seoul');
-        $today = date("m/d/Y, H:i a", time());
-        
         $front_url = FRONT_URL;
 
-        $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
-        foreach($exhibitions as $key => $exhibition) {
-            $exhibition_users = $exhibition_users_table->find()->select(['count' => 'ExhibitionUsers.id'])->where(['ExhibitionUsers.exhibition_id' => $exhibition->id])->toArray();
-            
-            if ($exhibition_users == null) {
-                $exhibition_user[$key] = null;
-            } else {
-                $exhibition_user[$key] = $exhibition_users->count;
+        if ($exhibitions == null) {
+            $exhibition_user = [];
+        } else {
+            $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
+            foreach($exhibitions as $key => $exhibition) {
+                $exhibition_users = $exhibition_users_table->find()->select(['count' => 'ExhibitionUsers.id'])->where(['ExhibitionUsers.exhibition_id' => $exhibition->id])->toArray();
+                
+                if ($exhibition_users == null) {
+                    $exhibition_user[$key] = null;
+                } else {
+                    $exhibition_user[$key] = $exhibition_users->count;
+                }
             }
         }
 
