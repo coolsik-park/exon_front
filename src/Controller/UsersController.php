@@ -235,12 +235,11 @@ class UsersController extends AppController
                     $user->ip = $this->request->ClientIp();
                     $user->refer = 'naver';       
                     
-                    if(!$Users->save($user)) {
+                    if(!$result = $Users->save($user)) {
                         $session->write('msg', 'EXON 계정이 존재합니다. 로그인 후 마이페이지에서 연동을 진행해 주세요.');
                         return $this->redirect(['action' => 'login']);
                     } else {
-                        $session->write('msg', '회원가입이 완료되었습니다. 로그인을 진행해 주세요.');
-                        return $this->redirect(['action' => 'login']);
+                        return $this->redirect(['action' => 'certification', $result->id]);
                     }
                 }
             } else {
@@ -305,16 +304,16 @@ class UsersController extends AppController
                     $user->name = $responseArr['kakao_account']['profile']['nickname'];
                     $user->password = null;
                     $user->social_id = $responseArr['id'];
-                    $user->hp = $responseArr['kakao_account']['phone_number'];
+                    $user->hp = '';
+                    // $user->hp = $responseArr['kakao_account']['phone_number'];
                     $user->ip = $this->request->ClientIp();
                     $user->refer = 'kakao';       
                     
-                    if(!$Users->save($user)) {
+                    if(!$result = $Users->save($user)) {
                         $session->write('msg', 'EXON 계정이 존재합니다. 로그인 후 마이페이지에서 연동을 진행해 주세요.');
                         return $this->redirect(['action' => 'login']);
                     } else {
-                        $session->write('msg', '회원가입이 완료되었습니다. 로그인을 진행해 주세요.');
-                        return $this->redirect(['action' => 'login']);
+                        return $this->redirect(['action' => 'certification', $result->id]);
                     }
                 }
             } else {
@@ -501,9 +500,9 @@ class UsersController extends AppController
         }
     }
 
-    public function certification()
+    public function certification($users_id)
     {
-        $id = $this->Auth->user('id');
+        $id = $users_id;
 
         $this->set(compact('id'));
     }
