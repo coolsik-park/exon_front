@@ -150,14 +150,23 @@
                                 </div>
                                 <div class="td-col col3">
                                     <div class="con">
-                                        <p><?= $exhibition_user->exhibition_group['name'] ?></p>  
+                                        <p>
+                                            <?php
+                                                if ($exhibition_user->exhibition_group != null) {
+                                                    echo number_format(intval($exhibition_user->exhibition_group['name']));
+                                                }
+                                            ?>
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="td-col col4">
                                     <div class="con">
-                                        <?php 
-                                            $amount = intval($exhibition_user->exhibition_group['amount']);
-                                            echo number_format($amount) . "원"; 
+                                        <?php
+                                            if ($exhibition_user->exhibition_group != null) {
+                                                echo number_format(intval($exhibition_user->exhibition_group['amount'])) . "원";
+                                            } else {
+                                                echo '-';
+                                            }
                                         ?>
                                     </div>
                                 </div>
