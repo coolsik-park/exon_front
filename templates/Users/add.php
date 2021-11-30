@@ -20,12 +20,12 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
         <div class="log-step-wrap">
             <h1><a href="/" class="h-logo">EXON</a></h1>
             <div class="log-step-page log-step-02">
-                <h2 class="h-ty2 fir">간편 회원가입</h2>
+                <!-- <h2 class="h-ty2 fir">간편 회원가입</h2>
                 <div class="log-other">
                     <a href="<?php echo $kakao_apiURL ?>" class="btn-kakao"><span>KAKAO 연동하기</span></a>
                     <a href="<?php echo $naver_apiURL ?>" class="btn-naver"><span>NAVER 연동하기</span></a>
-                </div>
-                <div class="div-or"></div>
+                </div> -->
+                <!-- <div class="div-or"></div> -->
                 <h2 class="h-ty2">회원가입</h2>
                 <div class="mbr-form">
                     <div class="item-row">
