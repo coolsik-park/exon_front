@@ -898,8 +898,6 @@ class ExhibitionController extends AppController
 
             $Exhibition = $this->getTableLocator()->get('Exhibition');
             $exhibition = $Exhibition->get($exhibition_id);
-            $Group = $this->getTableLocator()->get('ExhibitionGroup');
-            $group = $Group->get($group_id);
             
             if ($status == 4) {
                 $mailer->setEmailFormat('html')
@@ -927,11 +925,16 @@ class ExhibitionController extends AppController
             $mailer->setViewVars(['name' => $exhibition->name]);
             $mailer->setViewVars(['tel' => $exhibition->tel]);
             $mailer->setViewVars(['email' => $exhibition->email]);
-            $mailer->setViewVars(['group' => $group->name]);
+            if ($group_id != null) {
+                $Group = $this->getTableLocator()->get('ExhibitionGroup');
+                $group = $Group->get($group_id);
+                
+                $mailer->setViewVars(['group' => $group->name]);
+            } else {
+                $mailer->setViewVars(['group' => '선택한 그룹이 없습니다.']);
+            }
             $mailer->setViewVars(['now' => FrozenTime::now()]);
-            // $mailer->deliver();
-            // $response = $this->response->withType('json')->withStringBody(json_encode(['test' => 'success']));
-            // return $response;
+            $mailer->deliver();
 
             $response = $this->response->withType('json')->withStringBody(json_encode(['test' => 'success']));
         } else {
