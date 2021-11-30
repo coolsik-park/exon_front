@@ -502,7 +502,7 @@ class UsersController extends AppController
 
     public function certification($users_id)
     {
-        $id = $this->Auth->user('id');
+        $id = $users_id;
 
         $this->set(compact('id'));
     }
