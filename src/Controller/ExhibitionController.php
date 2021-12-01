@@ -232,7 +232,13 @@ class ExhibitionController extends AppController
                             $exhibitionGroup->exhibition_id = $result->id;
                             $exhibitionGroup->name = $data['group_name'][$i];
                             $exhibitionGroup->people = $data['group_people'][$i];
-                            $exhibitionGroup->amount = $data['group_amount'][$i];
+                            $string_amount = explode(',', $data['group_amount'][$i]);
+                            $int_amount = '';
+                            foreach ($string_amount as $amount) :
+                                $int_amount .= $amount;
+                            endforeach;
+                            $exhibitionGroup->amount = (int)$int_amount;
+        
                             
                             if (!$ExhibitionGroup->save($exhibitionGroup)) {
                                 $connection->rollback(); 
@@ -472,14 +478,24 @@ class ExhibitionController extends AppController
                                 $exhibitionGroup = $ExhibitionGroup->get($data['group_id'][$i]);
                                 $exhibitionGroup->name = $data['group_name'][$i];
                                 $exhibitionGroup->people = $data['group_people'][$i];
-                                $exhibitionGroup->amount = $data['group_amount'][$i];
+                                $string_amount = explode(',', $data['group_amount'][$i]);
+                                $int_amount = '';
+                                foreach ($string_amount as $amount) :
+                                    $int_amount .= $amount;
+                                endforeach;
+                                $exhibitionGroup->amount = (int)$int_amount;
                             
                             } else {
                                 $exhibitionGroup = $ExhibitionGroup->newEmptyEntity();
                                 $exhibitionGroup->exhibition_id = $id;
                                 $exhibitionGroup->name = $data['group_name'][$i];
                                 $exhibitionGroup->people = $data['group_people'][$i];
-                                $exhibitionGroup->amount = $data['group_amount'][$i];
+                                $string_amount = explode(',', $data['group_amount'][$i]);
+                                $int_amount = '';
+                                foreach ($string_amount as $amount) :
+                                    $int_amount .= $amount;
+                                endforeach;
+                                $exhibitionGroup->amount = (int)$int_amount;
                             }
                             
                             
