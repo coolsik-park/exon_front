@@ -73,7 +73,7 @@ class ExhibitionController extends AppController
                 if ($exhibition_users == null) {
                     $exhibition_user[$key] = null;
                 } else {
-                    $exhibition_user[$key] = $exhibition_users->count;
+                    $exhibition_user[$key] = $exhibition_users[0]->count;
                 }
             }
         }
