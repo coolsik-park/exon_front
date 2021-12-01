@@ -27,7 +27,7 @@
                     <div class="main-sect2-hot-item">
                         <a href="exhibition/view/<?php echo $hot[0]['exhibition_id']; ?>" class="main-sd-item">
                             <div class="imgs">
-                                <img src="<?php echo $hot[0]['img_path'] . $hot[0]['img_name'];?>" alt="">
+                                <img src="<?php echo DS . $hot[0]['img_path'] .DS. $hot[0]['img_name'];?>" alt="">
                             </div>
                         </a>
                         <div class="desc">
@@ -47,7 +47,7 @@
                                 <?php if($index): ?>
                                     <div class="swiper-slide">
                                         <a href="exhibition/view/<?php echo $list['exhibition_id']; ?>" class="main-sd-item">
-                                            <div class="imgs"><img src="<?php echo $list['img_path'] . $list['img_name'];?>" alt=""></div>
+                                            <div class="imgs"><img src="<?php echo DS . $list['img_path'] .DS. $list['img_name'];?>" alt=""></div>
                                             <div class="desc">
                                                 <div class="info">
                                                     <span class="state"><?php if($list['playing']) echo "진행중"; else echo "진행전"; ?></span>
@@ -93,7 +93,7 @@
                                     <div class="swiper-slide">
                                         <div class="main-sd-item">
                                             <a href="exhibition/view/<?php echo $list['exhibition_id']; ?>">
-                                            <div class="imgs"><img src="<?php echo $list['img_path'] . $list['img_name'];?>" alt=""></div>
+                                            <div class="imgs"><img src="<?php echo DS . $list['img_path'] .DS. $list['img_name'];?>" alt=""></div>
                                             <div class="desc">
                                                 <div class="info">
                                                     <span class="state"><?php if($list['playing']) echo "진행중"; else echo "진행전"; ?></span>
@@ -126,7 +126,7 @@
                                     <div class="swiper-slide">
                                         <div class="main-sd-item">
                                             <a href="exhibition/view/<?php echo $list['exhibition_id']; ?>">
-                                            <div class="imgs"><img src="<?php echo $list['img_path'] . $list['img_name'];?>" alt=""></div>
+                                            <div class="imgs"><img src="<?php echo DS . $list['img_path'] .DS. $list['img_name'];?>" alt=""></div>
                                             <div class="desc">
                                                 <div class="info">
                                                     <span class="state"><?php if($list['playing']) echo "진행중"; else echo "진행전"; ?></span>
