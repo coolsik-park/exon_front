@@ -129,7 +129,7 @@
                                                 <?= $this->Form->select('', $groups, ['id' => 'group']) ?>                                   
                                                 <span class="tx" id="spanGroup"></span>
                                             </div>
-                                            <a href="/exhibitionUsers/add/<?= $exhibition->id ?>" class="btn-join" id="btn-join">참가 신청</a>
+                                            <a id="apply_button" href="" class="btn-join" id="btn-join">참가 신청</a>
                             <?php 
                                         else:
                                             if ($exhibitionUsers[0]->status == 4):
@@ -142,7 +142,7 @@
                                                     <?= $this->Form->select('', $groups, ['id' => 'group']) ?>
                                                     <span class="tx" id="spanGroup"></span>
                                                 </div>
-                                                <a id="apply_button" href="/exhibition-users/add/<?= $exhibition->id ?>" class="btn-join" id="btn-join">참가 신청</a>
+                                                <a id="apply_button" href="" class="btn-join" id="btn-join">참가 신청</a>
                             <?php
                                             endif;
                                         endif;
