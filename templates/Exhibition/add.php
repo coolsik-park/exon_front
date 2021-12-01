@@ -92,24 +92,26 @@
                 </div>
                 <div id="group" class="sect5 mgtS1">
                     <h4 class="s-hty2">그룹 설정</h4>
-                    <div class="ln-group">
-                        <!-- <input id="group_name0" name="group_name0" type="text" class="ipt" placeholder="그룹명"> -->
-                        <div class="ln-group-wp">
-                            <!-- <input id="group_amount0" name="group_amount0" type="text" class="ipt" placeholder="그룹별 금액" style="margin-right:20px;">
-                            <select class="select">
-                                <option>인원 수</option>
-                            </select>
-                            <select id="group_people0" name="group_people0" class="select">
-                                <option>인원수</option>
-                                <option>1,000</option>
-                                <option>2,000</option>
-                                <option>3,000</option>
-                                <option>4,000</option>
-                            </select> -->
-                            <a id="addGroup" class="btn-ty3 md" style="cursor:pointer">그룹추가</a>
+                    <div id="group_0">
+                    <br>
+                        <div class="ln-group">
+                            <input name="group_name[]" type="text" class="ipt" placeholder="그룹명">
+                            <div class="ln-group-wp">
+                                <input name="group_amount[]" type="hidden" class="ipt" placeholder="그룹별 금액" value="0" style="margin-right:20px;">
+                                <select name="group_people[]" class="select">
+                                    <option value="0">인원수</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                    <option value="300">300</option>
+                                    <option value="400">400</option>
+                                    <option value="500">500</option>
+                                </select>
+                                <a id="addGroup" class="btn-ty3 md" style="cursor:pointer">그룹추가</a>
+                            </div>
                         </div>
+                    <p class="p-noti">그룹명 미 설정 시 그룹명은 ‘참가자’가 됩니다.</p>
                     </div>
-                    <!-- <p class="p-noti">그룹명 미 설정 시 그룹명은 ‘참가자’가 됩니다.</p> -->
                 </div>
                 <div class="sect4 mgtS1">
                     <h4 class="s-hty2">참가자 승인 방법</h4>
@@ -190,7 +192,6 @@
                 <div class="sect10 mgtS1">
                     <div class="survey-tit">
                         <h4 class="s-hty3">설문</h4>
-                        <button id="surveyAdd" type="button" class="btn-ty4">+ 설문추가</button>
                     </div>   
                     <div id="survey">                 
                         <!-- <div id="survey_0" class="survey-bx">
@@ -227,6 +228,7 @@
                             </div>
                         </div> -->
                     </div>
+                    <a id="surveyAdd" class="btn-ty3 md" style="margin-top:10px; cursor:pointer">설문추가</a>
                 </div>
             </div>
             <div class="section-btm3 mgtS1">
@@ -238,7 +240,7 @@
     </div>
 <?= $this->Form->end() ?>
 
-<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+<script src="/js/ckeditor/ckeditor.js"></script>
 <script>
     //메인 이미지 삽입 
     $("#image").change(function() {
@@ -262,31 +264,91 @@
             }
         });
     });
+    
+    //유무료 전환
+    $(document).on("click", "input[name='cost']", function () {
+        if ($("input[name='cost']:checked").val() == "free") {
+            $("input[name='group_amount[]']").each(function () {
+                $(this).attr("type", "hidden");
+                $(this).val(0);
+            });
+        } else {
+            $("input[name='group_amount[]']").each(function () {
+                $(this).attr("type", "text");
+                $(this).val('');
+            });
+        }
+    });
+
+    //커서 맨 앞으로
+    $(document).on("click", "input[name='group_amount[]']", function () {
+        $(this).val(",000");
+        $(this).selectRange(0,0);
+    });
+
+    $.fn.selectRange = function(start, end) {
+        return this.each(function() {
+            if(this.setSelectionRange) {
+                this.focus();
+                this.setSelectionRange(start, end);
+            } else if(this.createTextRange) {
+                var range = this.createTextRange();
+                range.collapse(true);
+                range.moveEnd('character', end);
+                range.moveStart('character', start);
+                range.select();
+            }
+        });
+    }; 
 
     //그룹 추가
-    var groupIndex = 0;
-    $("#addGroup").click(function() {
-        var html = '';
-        html += '<div id=group_' + groupIndex + '>';
-        html += '   <br>';
-        html += '   <div class="ln-group">';
-        html += '       <input name="group_name[]" type="text" class="ipt" placeholder="그룹명">';
-        html += '       <div class="ln-group-wp">';
-        html += '           <input name="group_amount[]" type="text" class="ipt" placeholder="그룹별 금액" style="margin-right:20px;">';
-        html += '           <select name="group_people[]" class="select">';
-        html += '               <option value="0">인원수</option>';
-        html += '               <option value="50">50</option>';
-        html += '               <option value="100">100</option>';
-        html += '               <option value="200">200</option>';
-        html += '               <option value="300">300</option>';
-        html += '               <option value="400">400</option>';
-        html += '               <option value="500">500</option>';
-        html += '           </select>';
-        html += '           <a onclick="deleteGroup(' + groupIndex + ')" class="btn-ty3 md" style="cursor:pointer">삭제</a>';
-        html += '       </div>';
-        html += '   </div>';
-        html += '   <p class="p-noti">그룹명 미 설정 시 그룹명은 ‘참가자’가 됩니다. / 무료 행사의 경우 그룹별 금액은 0을 입력해주세요.</p>';
-        html += '</div>';
+    var groupIndex = 1;
+    $(document).on("click", "#addGroup", function() {
+        if ($("input[name='cost']:checked").val() == "free") {
+            var html = '';
+            html += '<div id=group_' + groupIndex + '>';
+            html += '   <br>';
+            html += '   <div class="ln-group">';
+            html += '       <input name="group_name[]" type="text" class="ipt" placeholder="그룹명">';
+            html += '       <div class="ln-group-wp">';
+            html += '           <input name="group_amount[]" type="hidden" class="ipt" placeholder="그룹별 금액" value="0" style="margin-right:20px;">';
+            html += '           <select name="group_people[]" class="select">';
+            html += '               <option value="0">인원수</option>';
+            html += '               <option value="50">50</option>';
+            html += '               <option value="100">100</option>';
+            html += '               <option value="200">200</option>';
+            html += '               <option value="300">300</option>';
+            html += '               <option value="400">400</option>';
+            html += '               <option value="500">500</option>';
+            html += '           </select>';
+            html += '           <a onclick="deleteGroup(' + groupIndex + ')" class="btn-ty3 md" style="cursor:pointer">삭제</a>';
+            html += '       </div>';
+            html += '   </div>';
+            html += '   <p class="p-noti">그룹명 미 설정 시 그룹명은 ‘참가자’가 됩니다.</p>';
+            html += '</div>';
+        } else {
+            var html = '';
+            html += '<div id=group_' + groupIndex + '>';
+            html += '   <br>';
+            html += '   <div class="ln-group">';
+            html += '       <input name="group_name[]" type="text" class="ipt" placeholder="그룹명">';
+            html += '       <div class="ln-group-wp">';
+            html += '           <input name="group_amount[]" type="text" class="ipt" placeholder="그룹별 금액" style="margin-right:20px;">';
+            html += '           <select name="group_people[]" class="select">';
+            html += '               <option value="0">인원수</option>';
+            html += '               <option value="50">50</option>';
+            html += '               <option value="100">100</option>';
+            html += '               <option value="200">200</option>';
+            html += '               <option value="300">300</option>';
+            html += '               <option value="400">400</option>';
+            html += '               <option value="500">500</option>';
+            html += '           </select>';
+            html += '           <a onclick="deleteGroup(' + groupIndex + ')" class="btn-ty3 md" style="cursor:pointer">삭제</a>';
+            html += '       </div>';
+            html += '   </div>';
+            html += '   <p class="p-noti">그룹명 미 설정 시 그룹명은 ‘참가자’가 됩니다.</p>';
+            html += '</div>';
+        }
         groupIndex += 1;
         $("#group").append(html);
     });
@@ -375,38 +437,11 @@
                 $(this).val('참가자');
             }
         });
-
-        $("input[name='group_amount[]']").each(function () {
-            if ($(this).val() == '') {
-                alert("그룹별 금액을 입력해 주세요.");
-                $(this).focus();
-                group_empty = 1;
-                return false
-            }
-        });
-
-        if (group_empty == 1) {
-            return false
-        }
         
-        if ($("input:radio[name='cost']:checked").val() == "free") {
+        if ($("input:radio[name='cost']:checked").val() == "charged") {
             $("input[name='group_amount[]']").each(function () {
-                if ($(this).val() != 0) {
-                    alert("무료 행사인 경우 그룹별 금액에 0을 입력해주세요.");
-                    $(this).focus();
-                    group_empty = 1;
-                    return false
-                }
-            });
-        } else {
-            if (groupIndex == 0) {
-                alert("유료 행사인 경우 그룹 생성 및 그룹별 금액을 설정해주세요.");
-                group_empty = 1;
-            }
-            $("input[name='group_amount[]']").each(function () {
-                if ($(this).val() == 0) {
+                if ($(this).val() == '' || $(this).val() == ',000') {
                     alert("유료 행사인 경우 그룹별 금액을 입력해주세요.");
-                    $(this).focus();
                     group_empty = 1;
                     return false
                 }
@@ -488,37 +523,10 @@
             }
         });
 
-        $("input[name='group_amount[]']").each(function () {
-            if ($(this).val() == '') {
-                alert("그룹별 금액을 입력해 주세요.");
-                $(this).focus();
-                group_empty = 1;
-                return false
-            }
-        });
-
-        if (group_empty == 1) {
-            return false
-        }
-
-        if ($("input:radio[name='cost']:checked").val() == "free") {
+        if ($("input:radio[name='cost']:checked").val() == "charged") {
             $("input[name='group_amount[]']").each(function () {
-                if ($(this).val() != 0) {
-                    alert("무료 행사인 경우 그룹별 금액에 0을 입력해주세요.");
-                    $(this).focus();
-                    group_empty = 1;
-                    return false
-                }
-            });
-        } else {
-            if (groupIndex == 0) {
-                alert("유료 행사인 경우 그룹 생성 및 그룹별 금액을 설정해주세요.");
-                group_empty = 1;
-            }
-            $("input[name='group_amount[]']").each(function () {
-                if ($(this).val() == 0) {
+                if ($(this).val() == '' || $(this).val() == ',000') {
                     alert("유료 행사인 경우 그룹별 금액을 입력해주세요.");
-                    $(this).focus();
                     group_empty = 1;
                     return false
                 }
