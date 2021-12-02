@@ -8,6 +8,23 @@
     .date-sett label {
         padding-bottom:10px;
     }
+    
+    em {
+        color:#e4342d;
+        font-weight:700;
+        position:absolute;
+        top:-8px;
+        left:-6px;
+    }
+
+    .col-th { 
+        vertical-align: top;
+        position: relative;
+    } 
+
+    .s-hty2 { 
+        position: relative;
+    } 
 </style>
 
 <?= $this->Form->create($exhibition, ['id' => 'editForm', 'enctype' => 'multipart/form-data'])?>
@@ -54,7 +71,7 @@
                     </div>
                     <div class="sect1-col2">
                         <div class="row2 fir">
-                            <div class="col-th">행사이름</div>
+                            <div class="col-th"><em class="st">*</em>행사이름</div>
                             <div class="col-td"><input type="text" id="title" name="title" class="ipt"></div>
                         </div>
                         <div class="row2">
@@ -71,7 +88,7 @@
                     </div>
                 </div>
                 <div class="sect2">
-                    <h4 class="s-hty2">모집 일시</h4>
+                    <h4 class="s-hty2"><em class="st">*</em>모집 일시</h4>
                     <div class="date-sett-wp">
                         <div class="date-sett">
                             <?php echo $this->Form->control('apply_sdate', ['step' => null, 'id' =>'apply_sdate', 'label' => '시작 일시', 'class' => 'date-date', 'style' => 'width:370px; height:48.52px']); ?>
@@ -82,7 +99,7 @@
                     </div>
                 </div>
                 <div class="sect2">
-                    <h4 class="s-hty2">행사 일시</h4>
+                    <h4 class="s-hty2"><em class="st">*</em>행사 일시</h4>
                     <div class="date-sett-wp">
                         <div class="date-sett">
                             <?php echo $this->Form->control('sdate', ['step' => null, 'id' =>'sdate', 'label' => '시작 일시', 'class' => 'date-date', 'style' => 'width:370px; height:48.52px']); ?>
@@ -151,7 +168,7 @@
                 </div>
                 <div class="sect6 mgtS1">
                     <div class="sect-tit">
-                        <h4 class="s-hty2">담당자 정보 입력</h4>
+                        <h4 class="s-hty2"><em class="st">*</em>담당자 정보 입력</h4>
                         <span class="chk-dsg"><input type="checkbox" id="getUser"><label for="getUser">개설자 정보로 담당자 정보 입력</label></span>
                     </div>
                     <div>
