@@ -117,7 +117,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
         </div>
         <div class="section4">
             <h3 class="s-hty1">부가 정보</h3>
-            <!-- <div class="log-other">
+            <div class="log-other">
                 <label class="chk-box">
                     <input id="kakao-connect" type="radio" name="logOther">
                     <span class="btn-kakao"><span>KaKao 연동하기</span></span>
@@ -126,7 +126,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                     <input id="naver-connect" type="radio" name="logOther">
                     <span class="btn-naver"><span>NAVER 연동하기</span></span>
                 </label>
-            </div> -->
+            </div>
             <div class="mbr-form mgtS1">
                 <div class="item-row" id="image-row">
                     <div class="col-dt">프로필 사진</div>     
