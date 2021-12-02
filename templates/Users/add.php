@@ -67,7 +67,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                         </div>
                     </div>
                     <div class="item-row">
-                        <div class="col-dt"><em class="st">*</em>휴대전화 번호</div>
+                        <div class="col-dt">휴대전화 번호</div>
                         <div class="col-dd">
                             <div class="col-cell-wp">
                                 <select id="cellNumber">
@@ -200,13 +200,13 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
             result.push('true');
         }
 
-        if ($("#cellNumber2").val().length < 8 || isNaN($("#cellNumber2").val())) {
-            $("#cellNoti").html("휴대전화 번호를 올바르게 입력해주세요.");
-            result.push('false');
-        } else {
-            $("#cellNoti").html("");
-            result.push('true');
-        }
+        // if ($("#cellNumber2").val().length < 8 || isNaN($("#cellNumber2").val())) {
+        //     $("#cellNoti").html("휴대전화 번호를 올바르게 입력해주세요.");
+        //     result.push('false');
+        // } else {
+        //     $("#cellNoti").html("");
+        //     result.push('true');
+        // }
 
         if ($("#agree2").prop("checked") == false && $("#agree3").prop("checked") == false) {
             alert("필수 이용약관 및 개인정보 수집/이용 동의를 확인해주세요.");
