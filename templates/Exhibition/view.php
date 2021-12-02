@@ -1,3 +1,26 @@
+<style>
+    .apply-sect1-cont .photos{
+        background-color: transparent;
+    }
+    .photos {
+        position: relative;
+    }
+    .photos img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 4em;
+    }
+    @media  screen and (max-width: 768px) {
+        .photos img {
+            border-radius: 3em;
+        }
+    }
+</style>
+
 <div id="container" class="sub">
     <div class="sub-menu">
         <div class="sub-menu-inner">
@@ -17,7 +40,7 @@
                 <div class="apply-sect1-cont">
                     <div class="photos" style="border-radius: 2em;">
                     <?php if ($exhibition->image_path != '') : ?>
-                        <img src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>" style="width:577.69px; height:369px;">
+                        <img src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>">
                     <?php else : ?>
                         <img src="../../images/img-no3.png" alt="이미지없음">
                     <?php endif; ?>
