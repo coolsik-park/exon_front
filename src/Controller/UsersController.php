@@ -45,7 +45,11 @@ class UsersController extends AppController
             $user->email = $this->request->getData('email');
             $user->password = password_hash($this->request->getData('password'), PASSWORD_DEFAULT);
             $user->name = $this->request->getData('name');
+            if ($this->request->getData('hp') != '010') :
             $user->hp = $this->request->getData('hp');
+            else : 
+                $user->hp = '';
+            endif;
             $user->ip = $this->request->ClientIp();    
             if ($result = $this->Users->save($user)) {
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'id' => $result->id]));
@@ -555,7 +559,7 @@ class UsersController extends AppController
 
                 if ($this->request->getData('code') == $commonConfirmation[0]->confirmation_code) {
 
-                    if($connection->update('users', ['hp_cert' => '1'], ['id' => $this->request->getData('user_id')])) {
+                    if($connection->update('users', ['hp_cert' => '1', 'hp' => $this->request->getData('hp')], ['id' => $this->request->getData('user_id')])) {
                         $connection->commit();
                         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
                         return $response;

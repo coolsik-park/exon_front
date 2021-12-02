@@ -289,6 +289,7 @@
             data: {
                 code: $("#smsCode").val(),
                 user_id: user_id,
+                hp: $("#sms").val()
             }
         }).done(function(data) {
             if (data.status == 'success') {

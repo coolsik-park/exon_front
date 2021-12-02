@@ -293,6 +293,29 @@
     <?php $i = 0; ?>
     <?php if ($exhibition->cost == 'charged') : ?>
     <?php foreach ($exhibitionGroups as $exhibitionGroup) : ?>
+        <?php if ($i == 0) : ?>
+        var html = '';  
+        html += '<div id=group_' + groupIndex + '>';
+        html += '   <br>';
+        html += '   <div class="ln-group">';
+        html += '       <input name="group_id[]" type="hidden" class="ipt" value="<?=$exhibitionGroup->id?>">';
+        html += '       <input name="group_name[]" type="text" class="ipt" value="<?=$exhibitionGroup->name?>" placeholder="그룹명">';
+        html += '       <div class="ln-group-wp">';
+        html += '           <input name="group_amount[]" type="text" class="ipt" value="'+comma("<?=$exhibitionGroup->amount?>")+'" placeholder="그룹별 금액" style="margin-right:20px;">';
+        html += '           <select id="select' + groupIndex + '" name="group_people[]" class="select">';
+        html += '               <option value="0">인원수</option>';
+        html += '               <option value="50">50</option>';
+        html += '               <option value="100">100</option>';
+        html += '               <option value="200">200</option>';
+        html += '               <option value="300">300</option>';
+        html += '               <option value="400">400</option>';
+        html += '               <option value="500">500</option>';
+        html += '           </select>';
+        html += '       </div>';
+        html += '   </div>';
+        html += '   <p class="p-noti">그룹명 미 설정 시 그룹명은 ‘참가자’가 됩니다.</p>';
+        html += '</div>';
+        <?php else : ?>
         var html = '';  
         html += '<div id=group_' + groupIndex + '>';
         html += '   <br>';
@@ -315,13 +338,37 @@
         html += '   </div>';
         html += '   <p class="p-noti">그룹명 미 설정 시 그룹명은 ‘참가자’가 됩니다.</p>';
         html += '</div>';
+        <?php endif; ?>
         groupIndex += 1;
         $("#group").append(html);
         $("#select<?=$i?>").val("<?=$exhibitionGroup->people?>").prop("selected", true);
         <?php $i++; ?>
     <?php endforeach; ?>
     <?php else : ?>
-        <?php foreach ($exhibitionGroups as $exhibitionGroup) : ?>
+    <?php foreach ($exhibitionGroups as $exhibitionGroup) : ?>
+        <?php if ($i == 0) : ?>
+        var html = '';  
+        html += '<div id=group_' + groupIndex + '>';
+        html += '   <br>';
+        html += '   <div class="ln-group">';
+        html += '       <input name="group_id[]" type="hidden" class="ipt" value="<?=$exhibitionGroup->id?>">';
+        html += '       <input name="group_name[]" type="text" class="ipt" value="<?=$exhibitionGroup->name?>" placeholder="그룹명">';
+        html += '       <div class="ln-group-wp">';
+        html += '           <input name="group_amount[]" type="hidden" class="ipt" value="'+comma("<?=$exhibitionGroup->amount?>")+'" placeholder="그룹별 금액" style="margin-right:20px;">';
+        html += '           <select id="select' + groupIndex + '" name="group_people[]" class="select">';
+        html += '               <option value="0">인원수</option>';
+        html += '               <option value="50">50</option>';
+        html += '               <option value="100">100</option>';
+        html += '               <option value="200">200</option>';
+        html += '               <option value="300">300</option>';
+        html += '               <option value="400">400</option>';
+        html += '               <option value="500">500</option>';
+        html += '           </select>';
+        html += '       </div>';
+        html += '   </div>';
+        html += '   <p class="p-noti">그룹명 미 설정 시 그룹명은 ‘참가자’가 됩니다.</p>';
+        html += '</div>';
+        <?php else : ?>
         var html = '';  
         html += '<div id=group_' + groupIndex + '>';
         html += '   <br>';
@@ -344,6 +391,7 @@
         html += '   </div>';
         html += '   <p class="p-noti">그룹명 미 설정 시 그룹명은 ‘참가자’가 됩니다.</p>';
         html += '</div>';
+        <?php endif; ?>
         groupIndex += 1;
         $("#group").append(html);
         $("#select<?=$i?>").val("<?=$exhibitionGroup->people?>").prop("selected", true);
@@ -380,14 +428,14 @@
     });
 
     //필수정보
-    $("#require_tel").click(function() {
-        if ($(this).prop("checked") == true) {
-            $("#require_email").attr("onclick", "");
-        } else {
-            $("#require_email").prop("checked", true);
-            $("#require_email").attr("onclick", "return false");
-        }
-    });
+    // $("#require_tel").click(function() {
+    //     if ($(this).prop("checked") == true) {
+    //         $("#require_email").attr("onclick", "");
+    //     } else {
+    //         $("#require_email").prop("checked", true);
+    //         $("#require_email").attr("onclick", "return false");
+    //     }
+    // });
 
     //유무료 전환
     $(document).on("click", "input[name='cost']", function () {
