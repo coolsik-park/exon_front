@@ -14,10 +14,8 @@
         object-fit: cover;
         border-radius: 4em;
     }
-    @media  screen and (max-width: 768px) {
-        .photos img {
-            border-radius: 3em;
-        }
+    .apply-sect3-cont p{
+        word-wrap:break-word;
     }
 </style>
 
