@@ -1815,7 +1815,7 @@
 .apply-sect1-cont .photos {
   width: 53%;
   background: #dedede;
-  border-radius: 10px;
+  /* border-radius: 10px; */
 }
 .apply-sect1-cont .photos img {
   width: 100%;
