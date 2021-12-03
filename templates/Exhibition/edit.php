@@ -1171,18 +1171,18 @@
     });
 
     //is_required 제어
-    $(document).on("change", "input:checkbox[name='is_required[]']", function() {
-        var id = $(this).attr("id").substr($(this).attr("id"));
-        id = id.split("_")[1]
+    // $(document).on("change", "input:checkbox[name='is_required[]']", function() {
+    //     var id = $(this).attr("id").substr($(this).attr("id"));
+    //     id = id.split("_")[1]
         
         
-        if (document.getElementById("req_" + id).checked) {
-            document.getElementById("req_hidden_" + id).disabled = true;
+    //     if (document.getElementById("req_" + id).checked) {
+    //         document.getElementById("req_hidden_" + id).disabled = true;
         
-        } else {
-            document.getElementById("req_hidden_" + id).disabled = false;
-        }  
-    });
+    //     } else {
+    //         document.getElementById("req_hidden_" + id).disabled = false;
+    //     }  
+    // });
 
     $("select[name='survey_type[]']").each(function () {
         if ($(this).val() == 'N') {
