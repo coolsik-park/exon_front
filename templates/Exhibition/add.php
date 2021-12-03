@@ -323,6 +323,42 @@
             }
         });
     });
+    
+    //유무료 전환
+    $(document).on("click", "input[name='cost']", function () {
+        if ($("input[name='cost']:checked").val() == "free") {
+            $("input[name='group_amount[]']").each(function () {
+                $(this).attr("type", "hidden");
+                $(this).val(0);
+            });
+        } else {
+            $("input[name='group_amount[]']").each(function () {
+                $(this).attr("type", "text");
+                $(this).val('');
+            });
+        }
+    });
+
+    //커서 맨 앞으로
+    $(document).on("click", "input[name='group_amount[]']", function () {
+        $(this).val(",000");
+        $(this).selectRange(0,0);
+    });
+
+    $.fn.selectRange = function(start, end) {
+        return this.each(function() {
+            if(this.setSelectionRange) {
+                this.focus();
+                this.setSelectionRange(start, end);
+            } else if(this.createTextRange) {
+                var range = this.createTextRange();
+                range.collapse(true);
+                range.moveEnd('character', end);
+                range.moveStart('character', start);
+                range.select();
+            }
+        });
+    }; 
 
     //필수정보
     // $("#require_tel").click(function() {
