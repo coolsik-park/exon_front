@@ -6,6 +6,10 @@
  */
 ?>
 <style>
+    .date-sett label {
+        padding-bottom:10px;
+    }
+
     em {
         color:#e4342d;
         font-weight:700;
@@ -31,11 +35,11 @@
             <div class="section1">
                 <div class="sect-tit">
                     <h3 class="s-hty1">기본설정</h3>
-                    <div class="btn-wp">
+                    <!-- <div class="btn-wp">
                         <button type="button" name="cancel" class="btn-ty4 red">취소</button>
                         <button type="button" name="save" class="btn-ty4">개설</button>
                         <button type="button" name="temp" class="btn-ty4">임시저장</button>
-                    </div>
+                    </div> -->
                 </div>
                 
                 <div class="sect1">
@@ -66,22 +70,54 @@
                     <h4 class="s-hty2"><em class="st">*</em>모집 일시</h4>
                     <div class="date-sett-wp">
                         <div class="date-sett">
-                            <?php echo $this->Form->control('apply_sdate', ['step' => null, 'id' => 'apply_sdate', 'label' => '시작 일시', 'class' => 'date-date', 'style' => 'width:370px; height:48.52px']); ?>
+                            <div class="input-group date" id="apply_sdate" data-target-input="nearest">
+                                <label for="date_apply_sdate">시작 일시</label> 
+                                <div class="input-group date">
+                                    <input type="text" value="<?=$exhibition->apply_sdate?>" id="data_apply_sdate" class="form-control datetimepicker-input" data-target="#apply_sdate"/>
+                                    <div class="input-group-append" data-target="#apply_sdate" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="date-sett">
-                            <?php echo $this->Form->control('apply_edate', ['step' => null, 'id' => 'apply_edate', 'label' => '마감 일시', 'class' => 'date-date', 'style' => 'width:370px; height:48.52px']); ?>
-                        </div>               
+                            <div class="input-group date" id="apply_edate" data-target-input="nearest">
+                                <label for="date_apply_edate">종료 일시</label>
+                                <div class="input-group date">
+                                    <input type="text" value="<?=$exhibition->apply_edate?>" id="data_apply_edate" class="form-control datetimepicker-input" data-target="#apply_edate"/>
+                                    <div class="input-group-append" data-target="#apply_edate" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>            
                     </div>
                 </div>
                 <div class="sect2">
                     <h4 class="s-hty2"><em class="st">*</em>행사 일시</h4>
                     <div class="date-sett-wp">
                         <div class="date-sett">
-                            <?php echo $this->Form->control('sdate', ['step' => null, 'id' => 'sdate', 'label' => '시작 일시', 'class' => 'date-date', 'style' => 'width:370px; height:48.52px']); ?>
+                            <div class="input-group date" id="sdate" data-target-input="nearest">
+                                <label for="date_sdate">시작 일시</label>
+                                <div class="input-group date">
+                                    <input type="text" value="<?=$exhibition->sdate?>" id="data_sdate" class="form-control datetimepicker-input" data-target="#sdate"/>
+                                    <div class="input-group-append" data-target="#sdate" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="date-sett">
-                            <?php echo $this->Form->control('edate', ['step' => null, 'id' => 'edate', 'label' => '종료 일시', 'class' => 'date-date', 'style' => 'width:370px; height:48.52px']); ?>
-                        </div>                
+                            <div class="input-group date" id="edate" data-target-input="nearest">
+                                <label for="date_apply_edate">종료 일시</label>
+                                <div class="input-group date">
+                                    <input type="text" value="<?=$exhibition->edate?>" id="data_edate" class="form-control datetimepicker-input" data-target="edate"/>
+                                    <div class="input-group-append" data-target="#edate" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>              
                     </div>
                 </div>
                 <div class="sect3">
@@ -259,6 +295,11 @@
 <?= $this->Form->end() ?>
 
 <script src="/js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script> 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" />
+
 <script>
     //메인 이미지 삽입 
     $("#image").change(function() {
@@ -328,6 +369,26 @@
     //         $("#require_email").attr("onclick", "return false");
     //     }
     // });
+
+    //datetimepicker
+    $(function () {
+        $('#apply_sdate').datetimepicker({
+            stepping : 30,
+            useCurrent : false
+        });
+        $('#apply_edate').datetimepicker({
+            stepping : 30,
+            useCurrent : false
+        });
+        $('#sdate').datetimepicker({
+            stepping : 30,
+            useCurrent : false
+        });
+        $('#edate').datetimepicker({
+            stepping : 30,
+            useCurrent : false
+        });
+    });
     
     //유무료 전환
     $(document).on("click", "input[name='cost']", function () {
@@ -452,26 +513,26 @@
             $("#title").focus();
             return false;
         }
-
-        if ($("#apply_sdate").val().length == 0) {
+        
+        if ($("#data_apply_sdate").val().length == 0) {
             alert("모집 시작일시를 입력해주세요.");
             $("#apply_sdate").focus();
             return false;
         }
 
-        if ($("#apply_edate").val().length == 0) {
+        if ($("#data_apply_edate").val().length == 0) {
             alert("모집 종료일시를 입력해주세요.");
             $("#apply_edate").focus();
             return false;
         }
 
-        if ($("#sdate").val().length == 0) {
+        if ($("#data_sdate").val().length == 0) {
             alert("행사 시작일시를 입력해주세요.");
             $("#sdate").focus();
             return false;
         }
 
-        if ($("#edate").val().length == 0) {
+        if ($("#data_edate").val().length == 0) {
             alert("행사 종료일시를 입력해주세요.");
             $("#edate").focus();
             return false;
@@ -533,6 +594,22 @@
         formData = formData + '&status=1';
         formData = formData + '&action=add';
         formData = formData + '&detail=' + CKEDITOR.instances.detail_html.getData();
+
+        var apply_sdate = new Date($("#data_apply_sdate").val());
+        apply_sdate.setHours(apply_sdate.getHours()+9);
+        formData = formData + '&apply_sdate=' + apply_sdate.toISOString();
+
+        var apply_edate = new Date($("#data_apply_edate").val());
+        apply_edate.setHours(apply_edate.getHours()+9);
+        formData = formData + '&apply_edate=' + apply_edate.toISOString();
+
+        var sdate = new Date($("#data_sdate").val());
+        sdate.setHours(sdate.getHours()+9);
+        formData = formData + '&sdate=' + sdate.toISOString();
+
+        var edate = new Date($("#data_edate").val());
+        edate.setHours(edate.getHours()+9);
+        formData = formData + '&edate=' + edate.toISOString();
 
         jQuery.ajax({
             url: "/exhibition/add/",
@@ -618,6 +695,22 @@
         formData = formData + '&status=4';
         formData = formData + '&action=add';
         formData = formData + '&detail=' + CKEDITOR.instances.detail_html.getData();
+
+        var apply_sdate = new Date($("#data_apply_sdate").val());
+        apply_sdate.setHours(apply_sdate.getHours()+9);
+        formData = formData + '&apply_sdate=' + apply_sdate.toISOString();
+
+        var apply_edate = new Date($("#data_apply_edate").val());
+        apply_edate.setHours(apply_edate.getHours()+9);
+        formData = formData + '&apply_edate=' + apply_edate.toISOString();
+
+        var sdate = new Date($("#data_sdate").val());
+        sdate.setHours(sdate.getHours()+9);
+        formData = formData + '&sdate=' + sdate.toISOString();
+
+        var edate = new Date($("#data_edate").val());
+        edate.setHours(edate.getHours()+9);
+        formData = formData + '&edate=' + edate.toISOString();
 
         jQuery.ajax({
             url: "/exhibition/add/",
