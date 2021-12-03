@@ -161,12 +161,12 @@
                                     <option value="400">400</option>
                                     <option value="500">500</option>
                                 </select>
-                                <a id="addGroup" class="btn-ty3 md" style="cursor:pointer">그룹추가</a>
                             </div>
                         </div>
                     <p class="p-noti">그룹명 미 설정 시 그룹명은 ‘참가자’가 됩니다.</p>
                     </div>
                 </div>
+                <a id="addGroup" class="btn-ty3 md" style="margin-top:10px; cursor:pointer">그룹추가</a>
                 <div class="sect4 mgtS1">
                     <h4 class="s-hty2">참가자 승인 방법</h4>
                     <div class="ln-rdo">
