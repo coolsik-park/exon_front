@@ -361,14 +361,14 @@
     }; 
 
     //필수정보
-    // $("#require_tel").click(function() {
-    //     if ($(this).prop("checked") == true) {
-    //         $("#require_email").attr("onclick", "");
-    //     } else {
-    //         $("#require_email").prop("checked", true);
-    //         $("#require_email").attr("onclick", "return false");
-    //     }
-    // });
+    $("#require_tel").click(function() {
+        if ($(this).prop("checked") == true) {
+            $("#require_email").attr("onclick", "");
+        } else {
+            $("#require_email").prop("checked", true);
+            $("#require_email").attr("onclick", "return false");
+        }
+    });
 
     //datetimepicker
     $(function () {
