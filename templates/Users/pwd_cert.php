@@ -31,7 +31,7 @@
                                     <p>이메일로 전송된 인증번호를 입력해주세요.</p>
                                     <div class="cert-sect2">
                                         <div class="label-wp">
-                                            <label for="emailCode">인증번호</label><input type="text" id="emailCode" placeholder="인증번호">
+                                            <label for="emailCode">인증번호</label><input type="text" id="emailCode" placeholder="인증번호" autocomplete="off">
                                         </div> 
                                         <button id="emailResend" type="button" class="btn-ty2 gray">재발송</button>
                                     </div>
@@ -56,7 +56,7 @@
                                     <p>문자로 전송된 인증번호를 입력해주세요.</p>
                                     <div class="cert-sect2">
                                         <div class="label-wp">
-                                            <label for="smsCode">인증번호</label><input type="text" id="smsCode" placeholder="인증번호">
+                                            <label for="smsCode">인증번호</label><input type="text" id="smsCode" placeholder="인증번호" autocomplete="off">
                                         </div> 
                                         <button id="smsResend" type="button" class="btn-ty2 gray">재발송</button>
                                     </div>
