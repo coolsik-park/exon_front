@@ -111,7 +111,7 @@
                             <div class="input-group date" id="edate" data-target-input="nearest">
                                 <label for="date_apply_edate">종료 일시</label>
                                 <div class="input-group date">
-                                    <input type="text" value="<?=$exhibition->edate?>" id="data_edate" class="form-control datetimepicker-input" data-target="edate"/>
+                                    <input type="text" value="<?=$exhibition->edate?>" id="data_edate" class="form-control datetimepicker-input" data-target="#edate"/>
                                     <div class="input-group-append" data-target="#edate" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
@@ -374,19 +374,23 @@
     $(function () {
         $('#apply_sdate').datetimepicker({
             stepping : 30,
-            useCurrent : false
+            useCurrent : false,
+            sideBySide : true
         });
         $('#apply_edate').datetimepicker({
             stepping : 30,
-            useCurrent : false
+            useCurrent : false,
+            sideBySide : true
         });
         $('#sdate').datetimepicker({
             stepping : 30,
-            useCurrent : false
+            useCurrent : false,
+            sideBySide : true
         });
         $('#edate').datetimepicker({
             stepping : 30,
-            useCurrent : false
+            useCurrent : false,
+            sideBySide : true
         });
     });
     
