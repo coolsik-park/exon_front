@@ -562,25 +562,22 @@ class UsersController extends AppController
                     if($connection->update('users', ['hp_cert' => '1', 'hp' => $this->request->getData('hp')], ['id' => $this->request->getData('user_id')])) {
                         $connection->commit();
                         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
-                        return $response;
                     
                     } else {
                         $connection->rollback();
                         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
-                        return $response;
                     }
 
                 } else {
                     $connection->rollback();
                     $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
-                    return $response;
                 }
             } else {
                 $connection->rollback();
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'timeover']));
-                return $response;
             }
         }
+        return $response;
     }
 
     public function sendEmailCertification () {

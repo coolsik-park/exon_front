@@ -258,6 +258,10 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
         $("#smsCodeNoti").html("");
     });
 
+    var hp1 = $("#cellNumber").val();
+    var hp2 = $("#cellNumber2").val();
+    $("#sms").attr('value', hp1+hp2);
+
     $("#smsSend").click(function () {
         if ($("#sms").val() == "") {
             $("#smsNoti").html("전화번호를 입력해 주세요.");
@@ -306,7 +310,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
             }
         }).done(function(data) {
             if (data.status == 'success') {
-                alert("인증번호를 발송하였습니다.");
+                alert("인증번호를 재발송하였습니다.");
                 last_id = data.id;
 
                 $("#smsSend").html("<span id='timer'></span>");
@@ -327,7 +331,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
         var user_id = '<?=$user->id?>';
 
         if ($("#smsCode").val() == "") {
-            $("#smsNoti").html("인증번호를 입력해 주세요.");
+            $("#smsCodeNoti").html("인증번호를 입력해 주세요.");
             $("#smsCode").focus();
             return false;
         }
@@ -339,6 +343,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
             data: {
                 code: $("#smsCode").val(),
                 user_id: user_id,
+                hp: hp1+hp2,
             }
         }).done(function(data) {
             if (data.status == 'success') {
