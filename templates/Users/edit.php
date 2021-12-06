@@ -262,7 +262,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
     var hp2 = $("#cellNumber2").val();
     $("#sms").attr('value', hp1+hp2);
 
-    $("#smsSend").click(function () {
+    $("#smsSend").on('click', function () {
         if ($("#sms").val() == "") {
             $("#smsNoti").html("전화번호를 입력해 주세요.");
             $("#sms").focus();
@@ -349,6 +349,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
             if (data.status == 'success') {
                 alert("인증이 완료되었습니다.");
                 $('#smsModal').modal('hide');
+                functionThatEndsUpDestroyingTheDOM();
                 $('#hp-row').load(location.href+" #hp-row");
             } else if (data.status == 'fail') {
                 alert("인증번호를 다시 확인해주세요.");
