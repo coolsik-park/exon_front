@@ -75,7 +75,7 @@ class ExhibitionUsersController extends AppController
             $exhibitionUser->status = 4;
             endif;
 
-            if (!empty($this->ExhibitionUsers->find('all')->where(['users_email' => $answerData['users_email']])->toArray())) {
+            if (!empty($this->ExhibitionUsers->find('all')->where(['users_email' => $answerData['users_email'], 'exhibition_id' => $id])->toArray())) {
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'exist']));
                 return $response;
             }

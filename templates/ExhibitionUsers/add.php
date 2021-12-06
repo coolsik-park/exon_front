@@ -265,7 +265,7 @@
             }
         }
 
-        if ($("#agree2").prop("checked") == false && $("#agree3").prop("checked") == false) {
+        if ($("#agree2").prop("checked") == false || $("#agree3").prop("checked") == false) {
             alert("필수 이용약관 및 개인정보 수집/이용 동의를 확인해주세요.");
             return false;
         }
