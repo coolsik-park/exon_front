@@ -112,7 +112,7 @@
             $multiple_parents = [];
             ?>
             <h3 class="s-hty1">사전 설문 데이터</h3>
-            <?php if (!empty($exhibitionSurveys)) : ?>
+            <?php if (!empty($exhibitionSurveys->toArray())) : ?>
                 <?php $i = 0; ?>
                 <?php foreach ($exhibitionSurveys as $exhibitionSurvey) : ?>  
                     <?php if ($exhibitionSurvey->is_multiple == 'N') : ?>
@@ -159,6 +159,8 @@
                     <?php endif; ?>
                     <br><br>
                 <?php endforeach; ?>
+            <?php else: ?>
+            <p>등록된 사전 설문이 없습니다.</p>
             <?php endif; ?>
         </div>
     </div>        

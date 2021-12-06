@@ -43,13 +43,14 @@
         }   
         .section1 .sect-tit .btn-ty4 {
             width: 25%;
+            background-color: rgba(255,255,255,1);
         }
         .btnMove {
             position: fixed;
             z-index: 1;
             top: 50px;
             padding-top: 0;
-            right: -157px;
+            right: -170px;
             width: 100%;
             display: block;
         }
