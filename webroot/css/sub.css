@@ -3207,9 +3207,9 @@
   .section1 .sect-tit .btn-wp {
     padding-top: 0;
     width: 100%;
-    display: flex;
+    /* display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; */
   }
   .section1 .sect-tit .btn-ty4 {
     margin: 0;

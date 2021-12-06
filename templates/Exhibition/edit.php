@@ -6,10 +6,6 @@
 ?>
 
 <style>
-    .date-sett label {
-        padding-bottom:10px;
-    }
-
     em {
         color:#e4342d;
         font-weight:700;
@@ -18,18 +14,57 @@
         left:-6px;
     }
 
-    .col-th { 
-        vertical-align: top;
+    .date-sett label {
+        padding-bottom:10px;
+    }
+    .selectDiv {
+        display: flex;
+        flex-direction: column;
+    }
+    .sect1 .photo {
         position: relative;
-    } 
-
-    .s-hty2 { 
-        position: relative;
-    } 
+    }
+    .sect1 .photo img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .btnMove {
+        position: fixed;
+        z-index: 1;
+        right: 0px;
+        top: -30px;
+    }
+    @media  screen and (max-width: 768px) {
+        .sect1 .photo {
+            height: 214px;
+        }   
+        .section1 .sect-tit .btn-ty4 {
+            width: 25%;
+            background-color: rgba(255,255,255,1);
+        }
+        .btnMove {
+            position: fixed;
+            z-index: 1;
+            top: 50px;
+            padding-top: 0;
+            right: -170px;
+            width: 100%;
+            display: block;
+        }
+    }
+    @media  screen and (min-width: 768px) {
+        .selectDiv {
+            display: flex;
+            flex-direction: row;
+        }
+    }
 </style>
 
 <?= $this->Form->create($exhibition, ['id' => 'editForm', 'enctype' => 'multipart/form-data'])?>
-    <div id="container">    
+<div id="container">    
         <div class="sub-menu">
             <div class="sub-menu-inner">
                 <ul class="tab">
@@ -42,7 +77,7 @@
             </div>
         </div>        
         <div class="contents static">
-            <h2 class="sr-only">행사 개설</h2>
+            <h2 class="sr-only" >행사 개설</h2>
             <div class="section1">
                 <div class="sect-tit">
                     <h3 class="s-hty1">기본설정</h3>
@@ -57,22 +92,21 @@
                         <?php endif; ?>
                     </div>
                 </div>
-                
                 <div class="sect1">
                     <div class="sect1-col1">
                         <div class="photo">
                             <?php if ($exhibition->image_path != '') : ?>
-                            <label for="image"><img img id="mainImg" src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>" style="width:380px; height:214px"></p>
+                            <label for="image"><img img id="mainImg" src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>" style="width:380px height:214px"></p>
                             <?php else : ?>
-                            <label for="image"><img id="mainImg" src="../../images/img-no3.png" alt="이미지없음" style="width:380px; height:214px"></p>
+                            <label for="image"><img id="mainImg" src="../../images/img-no3.png" alt="이미지없음" style=" height:214px"></p>
                             <?php endif; ?>
-                            <p class="p-noti">클릭하여 이미지를 변경하세요.</p>
                         </div> 
+                        <p class="p-noti">클릭하여 이미지를 변경하세요.</p>
                         <input type="file" id="image" name="image" style="display:none">
                     </div>
                     <div class="sect1-col2">
                         <div class="row2 fir">
-                            <div class="col-th"><em class="st">*</em>행사이름</div>
+                            <div class="col-th">행사이름</div>
                             <div class="col-td"><input type="text" id="title" name="title" class="ipt"></div>
                         </div>
                         <div class="row2">
@@ -81,9 +115,11 @@
                         </div>
                         <div class="row2">
                             <div class="col-th">행사 분야 및 유형</div>
-                            <div class="col-td sel-bx">
-                                <?php echo $this->Form->control('category', ['empty' => false, 'label' => false, 'class' => 'select', 'style' => 'width:274.36px; height:48.52px']); ?>
-                                <?php echo $this->Form->control('type', ['empty' => false, 'label' => false, 'class' => 'select', 'style' => 'width:274.36px; height:48.52px']); ?>
+                                <div class="col-td sel-bx">
+                                <div class="selectDiv">
+                                    <?php echo $this->Form->control('category', ['empty' => false, 'label' => false, 'class' => 'select', 'style' => 'width:274.36px; height:48.52px']); ?>
+                                    <?php echo $this->Form->control('type', ['empty' => false, 'label' => false, 'class' => 'select', 'style' => 'width:274.36px; height:48.52px']); ?>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1207,6 +1243,18 @@
             $("#req_hidden_"+id).attr("disabled", false);
         } else {
             $("#req_span_"+id).show();
+        }
+    });
+
+    //기본 설정 button scroll시 이동 
+    const btn_wp = document.querySelector('.btn-wp');
+    const subMenu = document.querySelector('.sub-menu');
+    const subMenuHeight = subMenu.getBoundingClientRect().height;
+    document.addEventListener('scroll', ()=>{
+        if(window.scrollY >  subMenuHeight+100) {
+            btn_wp.classList.add('btnMove');
+        } else {
+            btn_wp.classList.remove('btnMove');
         }
     });
 </script>

@@ -28,9 +28,10 @@
                                     <button id="close" type="button" class="popup-close close" data-dismiss="modal" aria-label="Close">팝업닫기</button>
                                 </div>
                                 <div class="popup-body"> 
+                                    <p>이메일로 전송된 인증번호를 입력해주세요.</p>
                                     <div class="cert-sect2">
                                         <div class="label-wp">
-                                            <label for="emailCode">인증번호</label><input type="text" id="emailCode" placeholder="인증번호">
+                                            <label for="emailCode">인증번호</label><input type="text" id="emailCode" placeholder="인증번호" autocomplete="off">
                                         </div> 
                                         <button id="emailResend" type="button" class="btn-ty2 gray">재발송</button>
                                     </div>
@@ -52,9 +53,10 @@
                                     <button id="close" type="button" class="popup-close close" data-dismiss="modal" aria-label="Close">팝업닫기</button>
                                 </div>
                                 <div class="popup-body"> 
+                                    <p>문자로 전송된 인증번호를 입력해주세요.</p>
                                     <div class="cert-sect2">
                                         <div class="label-wp">
-                                            <label for="smsCode">인증번호</label><input type="text" id="smsCode" placeholder="인증번호">
+                                            <label for="smsCode">인증번호</label><input type="text" id="smsCode" placeholder="인증번호" autocomplete="off">
                                         </div> 
                                         <button id="smsResend" type="button" class="btn-ty2 gray">재발송</button>
                                     </div>
@@ -110,7 +112,7 @@
                     alert("오류가 발생하였습니다. 다시 시도해 주세요.");
                 }
             });
-        } else {
+        } else if($(this).attr("data-target") == "#smsModal") {
             jQuery.ajax({
                 url: "/users/pwd-sms-certification/<?=$users_id?>", 
                 method: 'POST',

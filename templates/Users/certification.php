@@ -5,6 +5,7 @@
         <div class="join-ok-sect1">
             <h3>회원가입이 완료되었습니다</h3>
             <p class="tx1">축하드립니다, 이제부터 EXON 서비스를 자유롭게 즐기실 수 있습니다.</p>
+            <p class="tx1">(단, 이메일 또는 휴대폰 인증이 완료되지 않은 경우 비밀번호 찾기 등 일부 서비스에 제한이 있을 수 있습니다.) </p>
             <a href="/" class="btn-big-cir">가입완료</a>
         </div>
         <div class="join-ok-sect2">
@@ -28,13 +29,13 @@
                                 </div>
                                 <div class="popup-body"> 
                                     <div class="cert-sect1">
-                                        <input id="email" type="text" placeholder="이메일">
+                                        <input id="email" type="text" placeholder="이메일" autocomplete="off">
                                         <button id="emailSend" type="button" class="btn-ty2 btn-m-bor">인증메일 발송</button>
                                     </div>
                                     <p id="emailNoti" class="noti hc1"></p>
                                     <div class="cert-sect2">
                                         <div class="label-wp">
-                                            <label for="emailCode">인증번호</label><input type="text" id="emailCode" placeholder="인증번호">
+                                            <label for="emailCode">인증번호</label><input type="text" id="emailCode" placeholder="인증번호" autocomplete="off">
                                         </div> 
                                         <button id="eamilResend" type="button" class="btn-ty2 gray">재발송</button>
                                     </div>
@@ -60,13 +61,13 @@
                                 </div>
                                 <div class="popup-body"> 
                                     <div class="cert-sect1">
-                                        <input id="sms" type="text" placeholder="전화번호">
+                                        <input id="sms" type="text" placeholder="전화번호" autocomplete="off">
                                         <button id="smsSend" type="button" class="btn-ty2 btn-m-bor">인증문자 발송</button>
                                     </div>        
                                     <p id="smsNoti" class="noti hc1"></p>
                                     <div class="cert-sect2">
                                         <div class="label-wp">
-                                            <label for="smsCode">인증번호</label><input type="text" id="smsCode" placeholder="인증번호">
+                                            <label for="smsCode">인증번호</label><input type="text" id="smsCode" placeholder="인증번호" autocomplete="off">
                                         </div> 
                                         <button id="smsResend" type="button" class="btn-ty2 gray">재발송</button>
                                     </div>
