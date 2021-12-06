@@ -5,6 +5,7 @@
         <div class="join-ok-sect1">
             <h3>회원가입이 완료되었습니다</h3>
             <p class="tx1">축하드립니다, 이제부터 EXON 서비스를 자유롭게 즐기실 수 있습니다.</p>
+            <p class="tx1">(단, 이메일 또는 휴대폰 인증이 완료되지 않은 경우 비밀번호 찾기 등 일부 서비스에 제한이 있을 수 있습니다.) </p>
             <a href="/" class="btn-big-cir">가입완료</a>
         </div>
         <div class="join-ok-sect2">
