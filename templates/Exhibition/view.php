@@ -24,7 +24,7 @@
         <div class="sub-menu-inner">
             <ul class="tab">
                 <li class="active"><a href="#applySect1">신청하기</a></li>
-                <li><a href="#applySect2">개설자 정보</a></li>
+                <!-- <li><a href="#applySect2">개설자 정보</a></li> -->
                 <li><a href="#applySect3">상세정보</a></li>
                 <li><a href="#applySect4">취소 및 환불 안내</a></li>
                 <li><a href="#applySect5">문의</a></li>
@@ -174,7 +174,7 @@
                     </div>
                 </div>
             </div>
-            <div class="apply-section apply-sect2" id="applySect2">
+            <!-- <div class="apply-section apply-sect2" id="applySect2">
                 <h2 class="s-hty1">개설자 정보</h2>
                 <div class="apply-sect2-cont">
                     <div class="photo">
@@ -193,7 +193,7 @@
                         <p><?= substr($user[0]->hp, 0, 3) ?>-<?= substr($user[0]->hp, 3, 4) ?>-<?= substr($user[0]->hp, 7, 4) ?></p>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="apply-section apply-sect3" id="applySect3">
                 <h2 class="s-hty1">상세 정보</h2>
                 <div class="apply-sect3-cont">
