@@ -233,9 +233,6 @@ class UsersController extends AppController
                     $user->name = $responseArr['response']['name'];
                     $user->password = null;
                     $user->social_id = $responseArr['response']['id'];
-                    $user->hp = substr($responseArr['response']['mobile'], 0, 3).
-                        substr($responseArr['response']['mobile'], 4, 4).
-                        substr($responseArr['response']['mobile'], 9, 4);
                     $user->ip = $this->request->ClientIp();
                     $user->refer = 'naver';       
                     
@@ -308,8 +305,6 @@ class UsersController extends AppController
                     $user->name = $responseArr['kakao_account']['profile']['nickname'];
                     $user->password = null;
                     $user->social_id = $responseArr['id'];
-                    $user->hp = '';
-                    // $user->hp = $responseArr['kakao_account']['phone_number'];
                     $user->ip = $this->request->ClientIp();
                     $user->refer = 'kakao';       
                     
