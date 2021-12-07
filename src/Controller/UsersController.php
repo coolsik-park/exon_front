@@ -48,7 +48,7 @@ class UsersController extends AppController
             if ($this->request->getData('hp') != '010') :
             $user->hp = $this->request->getData('hp');
             else : 
-                $user->hp = '';
+                $user->hp = null;
             endif;
             $user->ip = $this->request->ClientIp();    
             if ($result = $this->Users->save($user)) {
