@@ -48,7 +48,7 @@ class UsersController extends AppController
             if ($this->request->getData('hp') != '010') :
             $user->hp = $this->request->getData('hp');
             else : 
-                $user->hp = '';
+                $user->hp = null;
             endif;
             $user->ip = $this->request->ClientIp();    
             if ($result = $this->Users->save($user)) {
@@ -233,9 +233,6 @@ class UsersController extends AppController
                     $user->name = $responseArr['response']['name'];
                     $user->password = null;
                     $user->social_id = $responseArr['response']['id'];
-                    $user->hp = substr($responseArr['response']['mobile'], 0, 3).
-                        substr($responseArr['response']['mobile'], 4, 4).
-                        substr($responseArr['response']['mobile'], 9, 4);
                     $user->ip = $this->request->ClientIp();
                     $user->refer = 'naver';       
                     
@@ -308,8 +305,6 @@ class UsersController extends AppController
                     $user->name = $responseArr['kakao_account']['profile']['nickname'];
                     $user->password = null;
                     $user->social_id = $responseArr['id'];
-                    $user->hp = '';
-                    // $user->hp = $responseArr['kakao_account']['phone_number'];
                     $user->ip = $this->request->ClientIp();
                     $user->refer = 'kakao';       
                     
