@@ -4,7 +4,6 @@
  * @var \App\Model\Entity\Exhibition $exhibition
  */
 ?>
-
 <style>
     em {
         color:#e4342d;
@@ -13,9 +12,11 @@
         top:-8px;
         left:-6px;
     }
-
     .date-sett label {
         padding-bottom:10px;
+    }
+    .s-hty2 {
+        position: relative;
     }
     .selectDiv {
         display: flex;
@@ -34,27 +35,46 @@
     .btnMove {
         position: fixed;
         z-index: 1;
-        right: 0px;
-        top: -30px;
+        right: 170px;
+        top: -25px;
     }
+    .subMenuMove {
+        position: fixed;
+        z-index: 1;
+        right: 0px;
+        top: 0px;
+    }
+    
+    
     @media  screen and (max-width: 768px) {
         .sect1 .photo {
             height: 214px;
         }   
+        .btn-wp {
+            display: flex;
+            justify-content: space-around;
+        }
+    
         .section1 .sect-tit .btn-ty4 {
-            width: 25%;
+            width: 29%;
             background-color: rgba(255,255,255,1);
         }
         .btnMove {
             position: fixed;
             z-index: 1;
-            top: 50px;
+            top: 60px;
             padding-top: 0;
-            right: -170px;
+            right: 0px;
             width: 100%;
-            display: block;
+        }
+        .subMenuMove {
+            position: fixed;
+            z-index: 100;
+            right: 0px;
+            top: 0px;
         }
     }
+    
     @media  screen and (min-width: 768px) {
         .selectDiv {
             display: flex;
@@ -63,8 +83,10 @@
     }
 </style>
 
+
+
 <?= $this->Form->create($exhibition, ['id' => 'editForm', 'enctype' => 'multipart/form-data'])?>
-<div id="container">    
+    <div id="container">    
         <div class="sub-menu">
             <div class="sub-menu-inner">
                 <ul class="tab">
@@ -92,6 +114,7 @@
                         <?php endif; ?>
                     </div>
                 </div>
+                
                 <div class="sect1">
                     <div class="sect1-col1">
                         <div class="photo">
@@ -106,7 +129,7 @@
                     </div>
                     <div class="sect1-col2">
                         <div class="row2 fir">
-                            <div class="col-th"><em class="st">*</em>행사이름</div>
+                            <div class="col-th"> <h4 class="s-hty2"><em class="st">*</em>행사이름</h4></div>
                             <div class="col-td"><input type="text" id="title" name="title" class="ipt"></div>
                         </div>
                         <div class="row2">
@@ -129,7 +152,7 @@
                     <div class="date-sett-wp">
                         <div class="date-sett">
                             <div class="input-group date" id="apply_sdate" data-target-input="nearest">
-                                <label for="data_apply_sdate">시작 일시</label> 
+                                <label for="date_apply_sdate">시작 일시</label> 
                                 <div class="input-group date">
                                     <input type="text" value="<?=$exhibition->apply_sdate?>" id="data_apply_sdate" class="form-control datetimepicker-input" data-target="#apply_sdate"/>
                                     <div class="input-group-append" data-target="#apply_sdate" data-toggle="datetimepicker">
@@ -140,7 +163,7 @@
                         </div>
                         <div class="date-sett">
                             <div class="input-group date" id="apply_edate" data-target-input="nearest">
-                                <label for="data_apply_edate">종료 일시</label>
+                                <label for="date_apply_edate">종료 일시</label>
                                 <div class="input-group date">
                                     <input type="text" value="<?=$exhibition->apply_edate?>" id="data_apply_edate" class="form-control datetimepicker-input" data-target="#apply_edate"/>
                                     <div class="input-group-append" data-target="#apply_edate" data-toggle="datetimepicker">
@@ -156,7 +179,7 @@
                     <div class="date-sett-wp">
                         <div class="date-sett">
                             <div class="input-group date" id="sdate" data-target-input="nearest">
-                                <label for="data_sdate">시작 일시</label>
+                                <label for="date_sdate">시작 일시</label>
                                 <div class="input-group date">
                                     <input type="text" value="<?=$exhibition->sdate?>" id="data_sdate" class="form-control datetimepicker-input" data-target="#sdate"/>
                                     <div class="input-group-append" data-target="#sdate" data-toggle="datetimepicker">
@@ -167,9 +190,9 @@
                         </div>
                         <div class="date-sett">
                             <div class="input-group date" id="edate" data-target-input="nearest">
-                                <label for="data_edate">종료 일시</label>
+                                <label for="date_apply_edate">종료 일시</label>
                                 <div class="input-group date">
-                                    <input type="text" value="<?=$exhibition->edate?>" id="data_edate" class="form-control datetimepicker-input" data-target="#edate"/>
+                                    <input type="text" value="<?=$exhibition->edate?>" id="data_edate" class="form-control datetimepicker-input" data-target="edate"/>
                                     <div class="input-group-append" data-target="#edate" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
@@ -237,7 +260,7 @@
                 </div>
                 <div class="sect6 mgtS1">
                     <div class="sect-tit">
-                        <h4 class="s-hty2"><em class="st">*</em>담당자 정보 입력</h4>
+                        <h4 class="s-hty2">담당자 정보 입력</h4>
                         <span class="chk-dsg"><input type="checkbox" id="getUser"><label for="getUser">개설자 정보로 담당자 정보 입력</label></span>
                     </div>
                     <div>
@@ -257,10 +280,10 @@
                     <h4 class="s-hty2">참가자 정보</h4>
                     <p class="p-noti">필요한 참가자 정보를 선택합니다.</p>
                     <div class="list-chks">
-                        <span class="chk-dsg"><input type="checkbox" id="require_name" name="require_name" value="1" onclick="return false"><label for="require_name">이름</label></span>
-                        <span class="chk-dsg"><input type="checkbox" id="require_email" name="require_email" value="1" onclick="return false"><label for="require_email">이메일</label></span>
+                        <span class="chk-dsg"><input type="checkbox" id="require_name" name="require_name" value="1"><label for="require_name">이름</label></span>
+                        <span class="chk-dsg"><input type="checkbox" id="require_email" name="require_email" value="1"><label for="require_email">이메일</label></span>
                         <span class="chk-dsg"><input type="checkbox" id="require_tel" name="require_tel" value="1"><label for="require_tel">연락처</label></span>
-                        <!-- <span class="chk-dsg"><input type="checkbox" id="require_age" name="require_age" value="1"><label for="require_age">나이</label></span> -->
+                        <span class="chk-dsg"><input type="checkbox" id="require_age" name="require_age" value="1"><label for="require_age">나이</label></span>
                         <span class="chk-dsg"><input type="checkbox" id="require_group" name="require_group" value="1"><label for="require_group">소속</label></span>
                         <span class="chk-dsg"><input type="checkbox" id="require_sex" name="require_sex" value="1"><label for="require_sex">성별</label></span>
                     </div>
@@ -327,38 +350,25 @@
 <?= $this->Form->end() ?>
 
 <script src="/js/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script> 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script> 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
-<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" />
-
 <script>
+
+    
+    //기본 설정 button scroll시 이동 
+    const btn_wp = document.querySelector('.btn-wp');
+    const subMenu = document.querySelector('.sub-menu');
+    const subMenuHeight = subMenu.getBoundingClientRect().height;
+    document.addEventListener('scroll', ()=>{
+        if(window.scrollY >= 72) {
+            btn_wp.classList.add('btnMove');
+            subMenu.classList.add('subMenuMove');
+        } else {
+            btn_wp.classList.remove('btnMove');
+            subMenu.classList.remove('subMenuMove');
+        }
+    });
+    
     //CKEditor 불러오기
     CKEDITOR.replace('detail_html');
-
-    //datetimepicker
-    $(function () {
-        $('#apply_sdate').datetimepicker({
-            stepping : 30,
-            useCurrent : false,
-            sideBySide : true
-        });
-        $('#apply_edate').datetimepicker({
-            stepping : 30,
-            useCurrent : false,
-            sideBySide : true
-        });
-        $('#sdate').datetimepicker({
-            stepping : 30,
-            useCurrent : false,
-            sideBySide : true
-        });
-        $('#edate').datetimepicker({
-            stepping : 30,
-            useCurrent : false,
-            sideBySide : true
-        });
-    });
 
     //DB 데이터 불러오기
     var img = "<?=$exhibition->image_name?>";
@@ -408,29 +418,6 @@
     <?php $i = 0; ?>
     <?php if ($exhibition->cost == 'charged') : ?>
     <?php foreach ($exhibitionGroups as $exhibitionGroup) : ?>
-        <?php if ($i == 0) : ?>
-        var html = '';  
-        html += '<div id=group_' + groupIndex + '>';
-        html += '   <br>';
-        html += '   <div class="ln-group">';
-        html += '       <input name="group_id[]" type="hidden" class="ipt" value="<?=$exhibitionGroup->id?>">';
-        html += '       <input name="group_name[]" type="text" class="ipt" value="<?=$exhibitionGroup->name?>" placeholder="그룹명">';
-        html += '       <div class="ln-group-wp">';
-        html += '           <input name="group_amount[]" type="text" class="ipt" value="'+comma("<?=$exhibitionGroup->amount?>")+'" placeholder="그룹별 금액" style="margin-right:20px;">';
-        html += '           <select id="select' + groupIndex + '" name="group_people[]" class="select">';
-        html += '               <option value="0">인원수</option>';
-        html += '               <option value="50">50</option>';
-        html += '               <option value="100">100</option>';
-        html += '               <option value="200">200</option>';
-        html += '               <option value="300">300</option>';
-        html += '               <option value="400">400</option>';
-        html += '               <option value="500">500</option>';
-        html += '           </select>';
-        html += '       </div>';
-        html += '   </div>';
-        html += '   <p class="p-noti">그룹명 미 설정 시 그룹명은 ‘참가자’가 됩니다.</p>';
-        html += '</div>';
-        <?php else : ?>
         var html = '';  
         html += '<div id=group_' + groupIndex + '>';
         html += '   <br>';
@@ -453,37 +440,13 @@
         html += '   </div>';
         html += '   <p class="p-noti">그룹명 미 설정 시 그룹명은 ‘참가자’가 됩니다.</p>';
         html += '</div>';
-        <?php endif; ?>
         groupIndex += 1;
         $("#group").append(html);
         $("#select<?=$i?>").val("<?=$exhibitionGroup->people?>").prop("selected", true);
         <?php $i++; ?>
     <?php endforeach; ?>
     <?php else : ?>
-    <?php foreach ($exhibitionGroups as $exhibitionGroup) : ?>
-        <?php if ($i == 0) : ?>
-        var html = '';  
-        html += '<div id=group_' + groupIndex + '>';
-        html += '   <br>';
-        html += '   <div class="ln-group">';
-        html += '       <input name="group_id[]" type="hidden" class="ipt" value="<?=$exhibitionGroup->id?>">';
-        html += '       <input name="group_name[]" type="text" class="ipt" value="<?=$exhibitionGroup->name?>" placeholder="그룹명">';
-        html += '       <div class="ln-group-wp">';
-        html += '           <input name="group_amount[]" type="hidden" class="ipt" value="'+comma("<?=$exhibitionGroup->amount?>")+'" placeholder="그룹별 금액" style="margin-right:20px;">';
-        html += '           <select id="select' + groupIndex + '" name="group_people[]" class="select">';
-        html += '               <option value="0">인원수</option>';
-        html += '               <option value="50">50</option>';
-        html += '               <option value="100">100</option>';
-        html += '               <option value="200">200</option>';
-        html += '               <option value="300">300</option>';
-        html += '               <option value="400">400</option>';
-        html += '               <option value="500">500</option>';
-        html += '           </select>';
-        html += '       </div>';
-        html += '   </div>';
-        html += '   <p class="p-noti">그룹명 미 설정 시 그룹명은 ‘참가자’가 됩니다.</p>';
-        html += '</div>';
-        <?php else : ?>
+        <?php foreach ($exhibitionGroups as $exhibitionGroup) : ?>
         var html = '';  
         html += '<div id=group_' + groupIndex + '>';
         html += '   <br>';
@@ -506,7 +469,6 @@
         html += '   </div>';
         html += '   <p class="p-noti">그룹명 미 설정 시 그룹명은 ‘참가자’가 됩니다.</p>';
         html += '</div>';
-        <?php endif; ?>
         groupIndex += 1;
         $("#group").append(html);
         $("#select<?=$i?>").val("<?=$exhibitionGroup->people?>").prop("selected", true);
@@ -540,16 +502,6 @@
                 alert('이미지 등록에 실패하였습니다. 잠시 후 다시 시도해 주세요.');
             }
         });
-    });
-
-    //필수정보
-    $("#require_tel").click(function() {
-        if ($(this).prop("checked") == true) {
-            $("#require_email").attr("onclick", "");
-        } else {
-            $("#require_email").prop("checked", true);
-            $("#require_email").attr("onclick", "return false");
-        }
     });
 
     //유무료 전환
@@ -678,25 +630,25 @@
             return false;
         }
 
-        if ($("#data_apply_sdate").val().length == 0) {
+        if ($("#apply_sdate").val().length == 0) {
             alert("모집 시작일시를 입력해주세요.");
             $("#apply_sdate").focus();
             return false;
         }
 
-        if ($("#data_apply_edate").val().length == 0) {
+        if ($("#apply_edate").val().length == 0) {
             alert("모집 종료일시를 입력해주세요.");
             $("#apply_edate").focus();
             return false;
         }
 
-        if ($("#data_sdate").val().length == 0) {
+        if ($("#sdate").val().length == 0) {
             alert("행사 시작일시를 입력해주세요.");
             $("#sdate").focus();
             return false;
         }
 
-        if ($("#data_edate").val().length == 0) {
+        if ($("#edate").val().length == 0) {
             alert("행사 종료일시를 입력해주세요.");
             $("#edate").focus();
             return false;
@@ -758,22 +710,6 @@
         formData = formData + '&action=add';
         formData = formData + '&detail=' + CKEDITOR.instances.detail_html.getData();
 
-        var apply_sdate = new Date($("#data_apply_sdate").val());
-        apply_sdate.setHours(apply_sdate.getHours()+9);
-        formData = formData + '&apply_sdate=' + apply_sdate.toISOString();
-
-        var apply_edate = new Date($("#data_apply_edate").val());
-        apply_edate.setHours(apply_edate.getHours()+9);
-        formData = formData + '&apply_edate=' + apply_edate.toISOString();
-
-        var sdate = new Date($("#data_sdate").val());
-        sdate.setHours(sdate.getHours()+9);
-        formData = formData + '&sdate=' + sdate.toISOString();
-
-        var edate = new Date($("#data_edate").val());
-        edate.setHours(edate.getHours()+9);
-        formData = formData + '&edate=' + edate.toISOString();
-
         jQuery.ajax({
             url: "/exhibition/edit/<?=$id?>",
             method: 'PUT',
@@ -795,7 +731,7 @@
                 }).done(function (data) {
                     if (data.status == 'success') {
                         alert("저장 되었습니다.");
-                        window.location.replace("/exhibition/index/all");
+                        window.location.reload();
                     } else {
                         alert("오류가 발생하였습니다. 잠시 후 시도해주세요.");
                     }
@@ -861,31 +797,6 @@
         formData = formData + '&status=4';
         formData = formData + '&action=add';
         formData = formData + '&detail=' + CKEDITOR.instances.detail_html.getData();
-
-        if ($("#data_apply_sdate").val() != '') {
-            var apply_sdate = new Date($("#data_apply_sdate").val());
-            apply_sdate.setHours(apply_sdate.getHours()+9);
-            formData = formData + '&apply_sdate=' + apply_sdate.toISOString();
-        }
-
-        if ($("#data_apply_edate").val() != '') {
-            var apply_edate = new Date($("#data_apply_edate").val());
-            apply_edate.setHours(apply_edate.getHours()+9);
-            formData = formData + '&apply_edate=' + apply_edate.toISOString();
-        }
-        
-
-        if ($("#data_sdate").val() != '') {
-            var sdate = new Date($("#data_sdate").val());
-            sdate.setHours(sdate.getHours()+9);
-            formData = formData + '&sdate=' + sdate.toISOString();
-        }
-       
-        if ($("#data_edate").val() != '') {
-            var edate = new Date($("#data_edate").val());
-            edate.setHours(edate.getHours()+9);
-            formData = formData + '&edate=' + edate.toISOString();
-        }
         
         jQuery.ajax({
             url: "/exhibition/edit/<?=$id?>",
@@ -908,7 +819,7 @@
                 }).done(function (data) {
                     if (data.status == 'success') {
                         alert("임시 저장 되었습니다.");
-                        window.location.replace("/exhibition/index/temp");
+                        window.location.reload();
                     } else {
                         alert("오류가 발생하였습니다. 잠시 후 시도해주세요.");
                     }
@@ -1211,18 +1122,18 @@
     });
 
     //is_required 제어
-    // $(document).on("change", "input:checkbox[name='is_required[]']", function() {
-    //     var id = $(this).attr("id").substr($(this).attr("id"));
-    //     id = id.split("_")[1]
+    $(document).on("change", "input:checkbox[name='is_required[]']", function() {
+        var id = $(this).attr("id").substr($(this).attr("id"));
+        id = id.split("_")[1]
         
         
-    //     if (document.getElementById("req_" + id).checked) {
-    //         document.getElementById("req_hidden_" + id).disabled = true;
+        if (document.getElementById("req_" + id).checked) {
+            document.getElementById("req_hidden_" + id).disabled = true;
         
-    //     } else {
-    //         document.getElementById("req_hidden_" + id).disabled = false;
-    //     }  
-    // });
+        } else {
+            document.getElementById("req_hidden_" + id).disabled = false;
+        }  
+    });
 
     $("select[name='survey_type[]']").each(function () {
         if ($(this).val() == 'N') {
@@ -1243,18 +1154,6 @@
             $("#req_hidden_"+id).attr("disabled", false);
         } else {
             $("#req_span_"+id).show();
-        }
-    });
-
-    //기본 설정 button scroll시 이동 
-    const btn_wp = document.querySelector('.btn-wp');
-    const subMenu = document.querySelector('.sub-menu');
-    const subMenuHeight = subMenu.getBoundingClientRect().height;
-    document.addEventListener('scroll', ()=>{
-        if(window.scrollY >  subMenuHeight+100) {
-            btn_wp.classList.add('btnMove');
-        } else {
-            btn_wp.classList.remove('btnMove');
         }
     });
 </script>
