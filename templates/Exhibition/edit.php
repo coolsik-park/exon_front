@@ -106,7 +106,7 @@
                     </div>
                     <div class="sect1-col2">
                         <div class="row2 fir">
-                            <div class="col-th"><em class="st">*</em>행사이름</div>
+                            <div class="col-th">행사이름</div>
                             <div class="col-td"><input type="text" id="title" name="title" class="ipt"></div>
                         </div>
                         <div class="row2">
