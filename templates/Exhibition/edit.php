@@ -44,8 +44,11 @@
         right: 0px;
         top: 0px;
     }
-    
-    
+    .tabMenu {
+        display: flex;
+    }
+    .btn_wpBg {       
+    }
     @media  screen and (max-width: 768px) {
         .sect1 .photo {
             height: 214px;
@@ -54,27 +57,30 @@
             display: flex;
             justify-content: space-around;
         }
-    
         .section1 .sect-tit .btn-ty4 {
             width: 29%;
+            height: 40px;
             background-color: rgba(255,255,255,1);
+            margin: 6px 0px 5px 0px;
         }
         .btnMove {
             position: fixed;
             z-index: 1;
-            top: 60px;
+            top: 46px;
             padding-top: 0;
             right: 0px;
             width: 100%;
         }
-        .subMenuMove {
-            position: fixed;
-            z-index: 100;
-            right: 0px;
-            top: 0px;
+        .tabMenu {
+            display: none;
+        }
+
+        .btn_wpBg {
+            background-color: rgba(255,255,255,1);
+            border-bottom: 1px solid #dbdbdb;
+            height: 50px;
         }
     }
-    
     @media  screen and (min-width: 768px) {
         .selectDiv {
             display: flex;
@@ -89,7 +95,7 @@
     <div id="container">    
         <div class="sub-menu">
             <div class="sub-menu-inner">
-                <ul class="tab">
+                <ul class="tab" >
                     <li class ="active"><a href="">행사 설정 수정</a></li>
                     <li><a href="/exhibition/survey-data/<?= $id ?>">설문 데이터</a></li>
                     <li><a href="/exhibition/manager-person/<?= $id ?>">참가자 관리</a></li>
@@ -360,10 +366,14 @@
     document.addEventListener('scroll', ()=>{
         if(window.scrollY >= 72) {
             btn_wp.classList.add('btnMove');
+            btn_wp.classList.add('btn_wpBg');
             subMenu.classList.add('subMenuMove');
+            subMenu.classList.add('tabMenu');
         } else {
             btn_wp.classList.remove('btnMove');
+            btn_wp.classList.remove('btn_wpBg');
             subMenu.classList.remove('subMenuMove');
+            subMenu.classList.remove('tabMenu');
         }
     });
     
