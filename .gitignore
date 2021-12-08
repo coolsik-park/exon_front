@@ -4,3 +4,4 @@
 /tmp
 /webroot/upload
 /webroot/download
+/config/paths.php

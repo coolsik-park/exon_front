@@ -18,7 +18,16 @@ class ExhibitionStreamController extends AppController
         $this->loadComponent('Auth');
 
         $this->Auth->allow();
-        // $this->Auth->deny(['index']);
+        $this->Auth->deny(['setExhibitionStream']);
+        $this->Auth->deny(['editExhibitionStream']);
+    }
+
+    public function isAuthorized() {
+        if(!empty($this->Auth->user('id'))) {
+            return true;
+        }
+        // Default deny
+        return parent::isAuthorized($user);
     }
     
     public function index()

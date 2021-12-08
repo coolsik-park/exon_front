@@ -23,7 +23,20 @@ class ExhibitionController extends AppController
         $this->loadComponent('Auth');
 
         $this->Auth->allow();
+        $this->Auth->deny(['index']);
         $this->Auth->deny(['add']);
+        $this->Auth->deny(['edit']);
+        $this->Auth->deny(['managerPerson']);
+        $this->Auth->deny(['surveyData']);
+        $this->Auth->deny(['sendSmsToParticipant']);
+        $this->Auth->deny(['sendEmailToParticipant']);
+        $this->Auth->deny(['exhibitionStatisticsApply']);
+        $this->Auth->deny(['exhibitionStatisticsParticipant']);
+        $this->Auth->deny(['exhibitionStatisticsParticipantByGroup']);
+        $this->Auth->deny(['exhibitionStatisticsStream']);
+        $this->Auth->deny(['exhibitionStatisticsStreamByGroup']);
+        $this->Auth->deny(['exhibitionStatisticsExtra']);
+        $this->Auth->deny(['exhibitionStatisticsExtraByGroup']);
     }   
 
     public function isAuthorized() {
@@ -44,10 +57,6 @@ class ExhibitionController extends AppController
     {
         date_default_timezone_set('Asia/Seoul');
         $today = date("m/d/Y, H:i a", time());
-
-        if (empty($this->Auth->user())) {
-            return $this->redirect(['controller' => 'users', 'action' => 'login']);
-        }
 
         $this->paginate = ['limit' => 10];
 
