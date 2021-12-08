@@ -158,7 +158,7 @@
                     <div class="date-sett-wp">
                         <div class="date-sett">
                             <div class="input-group date" id="apply_sdate" data-target-input="nearest">
-                                <label for="date_apply_sdate">시작 일시</label> 
+                                <label for="data_apply_sdate">시작 일시</label> 
                                 <div class="input-group date">
                                     <input type="text" value="<?=$exhibition->apply_sdate?>" id="data_apply_sdate" class="form-control datetimepicker-input" data-target="#apply_sdate"/>
                                     <div class="input-group-append" data-target="#apply_sdate" data-toggle="datetimepicker">
@@ -169,7 +169,7 @@
                         </div>
                         <div class="date-sett">
                             <div class="input-group date" id="apply_edate" data-target-input="nearest">
-                                <label for="date_apply_edate">종료 일시</label>
+                                <label for="data_apply_edate">종료 일시</label>
                                 <div class="input-group date">
                                     <input type="text" value="<?=$exhibition->apply_edate?>" id="data_apply_edate" class="form-control datetimepicker-input" data-target="#apply_edate"/>
                                     <div class="input-group-append" data-target="#apply_edate" data-toggle="datetimepicker">
@@ -185,7 +185,7 @@
                     <div class="date-sett-wp">
                         <div class="date-sett">
                             <div class="input-group date" id="sdate" data-target-input="nearest">
-                                <label for="date_sdate">시작 일시</label>
+                                <label for="data_sdate">시작 일시</label>
                                 <div class="input-group date">
                                     <input type="text" value="<?=$exhibition->sdate?>" id="data_sdate" class="form-control datetimepicker-input" data-target="#sdate"/>
                                     <div class="input-group-append" data-target="#sdate" data-toggle="datetimepicker">
@@ -196,9 +196,9 @@
                         </div>
                         <div class="date-sett">
                             <div class="input-group date" id="edate" data-target-input="nearest">
-                                <label for="date_apply_edate">종료 일시</label>
+                                <label for="data_apply_edate">종료 일시</label>
                                 <div class="input-group date">
-                                    <input type="text" value="<?=$exhibition->edate?>" id="data_edate" class="form-control datetimepicker-input" data-target="edate"/>
+                                    <input type="text" value="<?=$exhibition->edate?>" id="data_edate" class="form-control datetimepicker-input" data-target="#edate"/>
                                     <div class="input-group-append" data-target="#edate" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
@@ -356,9 +356,12 @@
 <?= $this->Form->end() ?>
 
 <script src="/js/ckeditor/ckeditor.js"></script>
-<script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script> 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" />
 
-    
+<script>    
     //기본 설정 button scroll시 이동 
     const btn_wp = document.querySelector('.btn-wp');
     const subMenu = document.querySelector('.sub-menu');
@@ -375,6 +378,30 @@
             subMenu.classList.remove('subMenuMove');
             subMenu.classList.remove('tabMenu');
         }
+    });
+
+    //datetimepicker
+    $(function () {
+        $('#apply_sdate').datetimepicker({
+            stepping : 30,
+            useCurrent : false,
+            sideBySide : true
+        });
+        $('#apply_edate').datetimepicker({
+            stepping : 30,
+            useCurrent : false,
+            sideBySide : true
+        });
+        $('#sdate').datetimepicker({
+            stepping : 30,
+            useCurrent : false,
+            sideBySide : true
+        });
+        $('#edate').datetimepicker({
+            stepping : 30,
+            useCurrent : false,
+            sideBySide : true
+        });
     });
     
     //CKEditor 불러오기
@@ -640,25 +667,25 @@
             return false;
         }
 
-        if ($("#apply_sdate").val().length == 0) {
+        if ($("#data_apply_sdate").val().length == 0) {
             alert("모집 시작일시를 입력해주세요.");
             $("#apply_sdate").focus();
             return false;
         }
 
-        if ($("#apply_edate").val().length == 0) {
+        if ($("#data_apply_edate").val().length == 0) {
             alert("모집 종료일시를 입력해주세요.");
             $("#apply_edate").focus();
             return false;
         }
 
-        if ($("#sdate").val().length == 0) {
+        if ($("#data_sdate").val().length == 0) {
             alert("행사 시작일시를 입력해주세요.");
             $("#sdate").focus();
             return false;
         }
 
-        if ($("#edate").val().length == 0) {
+        if ($("#data_edate").val().length == 0) {
             alert("행사 종료일시를 입력해주세요.");
             $("#edate").focus();
             return false;
@@ -720,6 +747,22 @@
         formData = formData + '&action=add';
         formData = formData + '&detail=' + CKEDITOR.instances.detail_html.getData();
 
+        var apply_sdate = new Date($("#data_apply_sdate").val());
+        apply_sdate.setHours(apply_sdate.getHours()+9);
+        formData = formData + '&apply_sdate=' + apply_sdate.toISOString();
+
+        var apply_edate = new Date($("#data_apply_edate").val());
+        apply_edate.setHours(apply_edate.getHours()+9);
+        formData = formData + '&apply_edate=' + apply_edate.toISOString();
+
+        var sdate = new Date($("#data_sdate").val());
+        sdate.setHours(sdate.getHours()+9);
+        formData = formData + '&sdate=' + sdate.toISOString();
+
+        var edate = new Date($("#data_edate").val());
+        edate.setHours(edate.getHours()+9);
+        formData = formData + '&edate=' + edate.toISOString();
+
         jQuery.ajax({
             url: "/exhibition/edit/<?=$id?>",
             method: 'PUT',
@@ -741,7 +784,7 @@
                 }).done(function (data) {
                     if (data.status == 'success') {
                         alert("저장 되었습니다.");
-                        window.location.reload();
+                        window.location.replace("/exhibition/index/all");
                     } else {
                         alert("오류가 발생하였습니다. 잠시 후 시도해주세요.");
                     }
@@ -807,6 +850,22 @@
         formData = formData + '&status=4';
         formData = formData + '&action=add';
         formData = formData + '&detail=' + CKEDITOR.instances.detail_html.getData();
+
+        var apply_sdate = new Date($("#data_apply_sdate").val());
+        apply_sdate.setHours(apply_sdate.getHours()+9);
+        formData = formData + '&apply_sdate=' + apply_sdate.toISOString();
+
+        var apply_edate = new Date($("#data_apply_edate").val());
+        apply_edate.setHours(apply_edate.getHours()+9);
+        formData = formData + '&apply_edate=' + apply_edate.toISOString();
+
+        var sdate = new Date($("#data_sdate").val());
+        sdate.setHours(sdate.getHours()+9);
+        formData = formData + '&sdate=' + sdate.toISOString();
+
+        var edate = new Date($("#data_edate").val());
+        edate.setHours(edate.getHours()+9);
+        formData = formData + '&edate=' + edate.toISOString();
         
         jQuery.ajax({
             url: "/exhibition/edit/<?=$id?>",
@@ -829,7 +888,7 @@
                 }).done(function (data) {
                     if (data.status == 'success') {
                         alert("임시 저장 되었습니다.");
-                        window.location.reload();
+                        window.location.replace("/exhibition/index/temp");
                     } else {
                         alert("오류가 발생하였습니다. 잠시 후 시도해주세요.");
                     }
