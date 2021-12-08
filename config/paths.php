@@ -78,7 +78,7 @@ define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'vendor' . DS . 'cakephp' . DS . 'c
  */
 define('CORE_PATH', CAKE_CORE_INCLUDE_PATH . DS);
 define('CAKE', CORE_PATH . 'src' . DS);
-define('FRONT_URL', 'http://121.126.223.225:3000');
+define('FRONT_URL', 'http://121.126.223.225:8765');
 define('NAVER_JOIN_URL', FRONT_URL . '/users/naverJoin');
 define('KAKAO_JOIN_URL', FRONT_URL . '/users/kakaoJoin');
 define('NAVER_LOGIN_URL', FRONT_URL . '/users/naverLogin');
