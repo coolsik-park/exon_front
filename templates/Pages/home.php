@@ -23,7 +23,7 @@
                     <div><a href="/exhibition/add" class="arr-link1"><span>행사개설</span></a></div>
                 </div>
                 <div class="main-sect2">
-                    <h2 class="h-ty1"><span class="t1">Top 10</span><span class="t2">지금 핫한 전시 10</span></h2>
+                    <h2 class="h-ty1"><span class="t1">Top 10</span><span class="t2">지금 핫한 행사 10</span></h2>
                     <div class="main-sect2-hot-item">
                         <a href="exhibition/view/<?php echo $hot[0]['exhibition_id']; ?>" class="main-sd-item">
                             <div class="imgs">
