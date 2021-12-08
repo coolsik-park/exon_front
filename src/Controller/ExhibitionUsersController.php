@@ -19,7 +19,6 @@ class ExhibitionUsersController extends AppController
         $this->loadComponent('Auth');
 
         $this->Auth->allow();
-        $this->Auth->deny(['signUp']);
     }
 
     public function isAuthorized() {
