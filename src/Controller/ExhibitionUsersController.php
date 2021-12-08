@@ -7,6 +7,7 @@ use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
 use Cake\Datasource\ConnectionManager;
 use Cake\I18n\FrozenTime;
+use Cake\Event\EventInterface;
 use Iamport;
 
 class ExhibitionUsersController extends AppController
@@ -18,7 +19,15 @@ class ExhibitionUsersController extends AppController
         $this->loadComponent('Auth');
 
         $this->Auth->allow();
-        // $this->Auth->deny(['test']);
+        $this->Auth->deny(['signUp']);
+    }
+
+    public function isAuthorized() {
+        if(!empty($this->Auth->user('id'))) {
+            return true;
+        }
+        // Default deny
+        return parent::isAuthorized($user);
     }
     
     public function index()
