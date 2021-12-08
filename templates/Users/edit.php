@@ -15,6 +15,12 @@ $kakao_redirectURI = urlencode(KAKAO_CONNECT_URL);
 $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=".$kakao_client_id."&redirect_uri=".$kakao_redirectURI
 ?>
 
+<style>
+    .col-dd {
+        pointer-events : none;
+    }
+</style>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <div id="container">
@@ -51,10 +57,8 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                   </div>
                 </div>    
                 <div class="item-row" id="hp-row">
-                  <?php
-                    if ($user->hp_cert == 0) {
-                  ?>
-                        <div class="col-dt"><em>*</em>휴대전화 번호</div>                    
+                    <div class="col-dt">휴대전화 번호</div>    
+                        <?php if ($user->hp_cert == 0): ?>                
                             <div class="col-dd col-cell">
                             <div class="col-cell-wp">
                                 <select id="cellNumber">
@@ -94,23 +98,17 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                  <?php
-                    } else {
-                  ?>
-                        <div class="col-dt"><em>*</em>휴대전화 번호</div>                    
-                          <div class="col-dd col-cell">
-                          <div class="col-cell-wp">
-                              <select id="cellNumber">
-                                  <option value="010">010</option>
-                              </select>
-                              <input type="text" id="cellNumber2" value="<?= substr($user->hp, 3) ?>" placeholder="'-' 없이 입력해 주세요" title="휴대전화 번호">
-                          </div>
-                          <button type="button" class="btn-ty3 bor md" id="hpSaveButton">휴대전화 변경</button>
-                        </div>
-                  <?php
-                    }
-                  ?>
+                        <?php else: ?>                    
+                            <div class="col-dd col-cell">
+                            <div class="col-cell-wp">
+                                <select id="cellNumber">
+                                    <option value="010">010</option>
+                                </select>
+                                <input type="text" id="cellNumber2" value="<?= substr($user->hp, 3) ?>" placeholder="'-' 없이 입력해 주세요" title="휴대전화 번호">
+                            </div>
+                            <button type="button" class="btn-ty3 bor md" id="hpSaveButton">휴대전화 변경</button>
+                        <?php endif; ?>
+                    </div>
                   <p id="hpNoti" class="noti hc1"></p>
                 </div>
             </div>
