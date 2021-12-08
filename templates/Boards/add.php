@@ -3,7 +3,7 @@
         <h2 class="s-hty0">고객센터</h2>            
         <div class="cs-tab">
             <ul class="s-tabs2">
-                <li><a href="/boards/faqs-by-category">자주 하는 질문</a></li>
+                <li><a href="/boards/customer-service">자주 하는 질문</a></li>
                 <li><a href="/boards/notice">공지사항</a></li>
                 <li class="active"><a href="">문의하기</a></li>
             </ul>
