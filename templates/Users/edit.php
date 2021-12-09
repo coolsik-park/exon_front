@@ -19,6 +19,15 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
     .col-dd {
         pointer-events : none;
     }
+    .emailText {
+        width: 870px;
+    }
+    @media  screen and (max-width: 768px) {
+        .emailText {
+            width: 100%;
+            margin-bottom: 3vw;
+        }
+    }
 </style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -30,10 +39,13 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
             <h3 class="s-hty1 fir">기본 정보</h3>
             <div class="mbr-form">
                 <div class="item-row">
-                  <div class="col-dt"><em>*</em>이메일 (아이디)</div>
-                  <div class="col-dd">
-                      <input type="text" readonly="readonly" class="full" value="<?= $user->email ?>" title="이메일 (아이디)">
-                  </div>
+                    <div class="col-dt"><em>*</em>이메일 (아이디)</div>
+                    <div class="col-dd">
+                        <input type="text" readonly="readonly" class="emailText" value="<?= $user->email ?>" title="이메일 (아이디)">
+                    </div>
+                    <button type="button" class="btn-ty3 md" data-toggle="modal" data-target="#smsModal">
+                                    이메일 인증
+                    </button>
                 </div>
                 <div class="item-row">
                     <div class="col-dt"><em>*</em>비밀번호</div>                      
