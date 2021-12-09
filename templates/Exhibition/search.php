@@ -195,6 +195,7 @@
         } else {
             category[0] = $("#category").val();
         }
+        console.log(category)
 
         if ($("#type").val() == 'all') {
             var i = 0;

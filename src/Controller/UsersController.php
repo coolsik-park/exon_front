@@ -235,6 +235,10 @@ class UsersController extends AppController
                     $naver_apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=" . $client_id . "&redirect_uri=" . $naver_redirectURI . "&state=" . $state;
                     return $this->redirect($naver_apiURL);
                 } else {
+                    if ($responseArr['response']['email'] == '') :
+                        $session->write('msg', '네이버 계정에 이메일 주소가 등록되지 않았습니다. 네이버 계정을 확인해주세요.');
+                        return $this->redirect(['action' => 'login']);
+                    endif;
                     $Users = $this->getTableLocator()->get('Users');
                     $user = $Users->newEmptyEntity(); 
                     $user->email = $responseArr['response']['email'];
@@ -722,9 +726,6 @@ class UsersController extends AppController
                     $Users = $this->getTableLocator()->get('Users');
                     $user = $Users->get($query[0]->id);
                     $user->social_id = $responseArr['response']['id'];
-                    $user->hp = substr($responseArr['response']['mobile'], 0, 3).
-                        substr($responseArr['response']['mobile'], 4, 4).
-                        substr($responseArr['response']['mobile'], 9, 4);
                     $user->refer = 'naver';
 
                     if(!$Users->save($user)) {
