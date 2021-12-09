@@ -26,6 +26,33 @@
     .s-hty2 { 
         position: relative;
     } 
+
+    .selectDiv {
+        display: flex;
+        flex-direction: column;
+    }
+    .sect1 .photo {
+        position: relative;
+    }
+    .sect1 .photo img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    @media  screen and (max-width: 768px) {
+        .sect1 .photo {
+            height: 214px;
+        }  
+    }
+
+    @media  screen and (min-width: 768px) {
+        .selectDiv {
+            display: flex;
+            flex-direction: row;
+        }
+    }
 </style>
 
 <?= $this->Form->create($exhibition, ['id' => 'createForm', 'enctype' => 'multipart/form-data'])?>
@@ -44,7 +71,7 @@
                 
                 <div class="sect1">
                     <div class="sect1-col1">
-                        <div class="photo"><label for="image"><img id="mainImg" src="../images/img-no3.png" alt="이미지없음" style="width:380px; height:214px"></div> 
+                        <div class="photo"><label for="image"><img id="mainImg" src="../images/img-no3.png" alt="이미지없음" style="height:214px"></div> 
                         <input type="file" id="image" name="image" style="display:none">
                         <p class="p-noti">클릭하여 이미지를 등록하세요.</p>
                     </div>
@@ -60,8 +87,10 @@
                         <div class="row2">
                             <div class="col-th">행사 분야 및 유형</div>
                             <div class="col-td sel-bx">
-                                <?php echo $this->Form->control('category', ['empty' => false, 'label' => false, 'class' => 'select', 'style' => 'width:274.36px; height:48.52px']); ?>
-                                <?php echo $this->Form->control('type', ['empty' => false, 'label' => false, 'class' => 'select', 'style' => 'width:274.36px; height:48.52px']); ?>
+                                <div class="selectDiv">
+                                    <?php echo $this->Form->control('category', ['empty' => false, 'label' => false, 'class' => 'select', 'style' => 'width:274.36px; height:48.52px']); ?>
+                                    <?php echo $this->Form->control('type', ['empty' => false, 'label' => false, 'class' => 'select', 'style' => 'width:274.36px; height:48.52px']); ?>
+                                </div>
                             </div>
                         </div>
                     </div>

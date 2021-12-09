@@ -18,6 +18,7 @@
     $loguser = $this->getRequest()->getSession()->read('Auth.User');
 
 ?>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -200,6 +201,9 @@
 
         $('#my-page').mouseover(function(){
             $('#sub-menu').slideDown();
+            $('#my-page').css("position","relative");
+            $('#sub-menu').css({"position":"absolute","left":"10px","top":"20px","z-index":"1","background-color":"rgba(255,255,255,1)","border":"1px solid #dbdbdb",
+            "width":"110px","text-align":"center"});
         });
         
         $('#my-page').mouseleave(function(){
