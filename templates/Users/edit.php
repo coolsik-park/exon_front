@@ -573,7 +573,8 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                 }
             }).done(function (data) {
                 if (data.status == 'success') {
-                    window.location.reload();
+                    alert("저장되었습니다.");
+                    location.replace('https://exon.live/');
                 } else {
                     alert("성공되지 않았습니다.");
                 }
