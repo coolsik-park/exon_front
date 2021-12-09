@@ -32,9 +32,9 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                         <div class="col-dt"><em class="st">*</em>이메일 (아이디)</div>
                         <div class="col-dd">
                             <div class="col-email-wp">
-                                <input type="text" id="email" placeholder="이메일" title="이메일 (아이디)"><span
+                                <input type="text" id="email" placeholder="이메일" title="이메일 (아이디)" autocomplete="off"><span
                                     class="sp">@</span>
-                                <input type="text" id="emailTail" list="list">
+                                <input type="text" id="emailTail" list="list" autocomplete="off">
                                 <datalist id="list">
                                     <option value="naver.com">
                                     <option value="gmail.com">
@@ -62,7 +62,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                     <div class="item-row">
                         <div class="col-dt"><em class="st">*</em>이름</div>
                         <div class="col-dd">
-                            <input type="text" id="name" placeholder="최소 2자 이상" class="full" title="이름">
+                            <input type="text" id="name" placeholder="최소 2자 이상" class="full" title="이름" autocomplete="off">
                             <p id="nameNoti" class="noti hc1"></p>
                         </div>
                     </div>
@@ -73,7 +73,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                                 <select id="cellNumber">
                                     <option value="010">010</option>
                                 </select>
-                                <input type="text" id="cellNumber2" placeholder="'-' 없이 입력해 주세요" title="휴대전화 번호">
+                                <input type="text" id="cellNumber2" placeholder="'-' 없이 입력해 주세요" title="휴대전화 번호" autocomplete="off">
                             </div>
                             <p id="cellNoti" class="noti hc1"></p>
                         </div>
