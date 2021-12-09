@@ -71,7 +71,11 @@ class ExhibitionUsersController extends AppController
             endif;
             $exhibitionUser->users_email = $answerData['users_email'];
             $exhibitionUser->users_name = $answerData['users_name'];
-            $exhibitionUser->users_hp = $answerData['users_hp'];
+            if ($answerData['users_hp'] != '010') :
+                $exhibitionUser->users_hp = $answerData['users_hp'];
+            else : 
+                $exhibitionUser->users_hp = null;
+            endif;
             $exhibitionUser->users_sex = $answerData['users_sex'];
             if ($answerData['pay_amount'] != 0) :
             $exhibitionUser->pay_id = $answerData['pay_id'];
