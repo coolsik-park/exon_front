@@ -42,7 +42,7 @@
             </ul>
             <div class="table-type table-type2" id="table-type table-type2">  
                 <?php foreach ($exhibitions as $key => $exhibition): ?>                  
-                    <div class="tr-row">
+                    <div class="tr-row" onclick="location.href='https://exon.live/exhibition/view/<?= $exhibition->id ?>';">
                         <div class="td-col col1">
                             <?php if ($exhibition->image_path != '') : ?>
                             <p class="photo"><img src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>"></p>
