@@ -804,7 +804,7 @@ class ExhibitionController extends AppController
                 $Pay = $this->getTableLocator()->get('Pay');
                 $pay = $Pay->get($pay_id);
                 
-                require_once(ROOT . "/solapi-php/lib/message.php");
+                require_once(ROOT . "/iamport-rest-client-php/src/iamport.php");
                 
                 $iamport = new Iamport(getEnv('IAMPORT_API_KEY'), getEnv('IAMPORT_API_SECRET'));
     
