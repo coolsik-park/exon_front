@@ -514,8 +514,9 @@ class UsersController extends AppController
     public function certification($users_id)
     {
         $id = $users_id;
+        $users = $this->Users->get($id);
 
-        $this->set(compact('id'));
+        $this->set(compact('id', 'users'));
     }
 
     public function sendSmsCertification()
