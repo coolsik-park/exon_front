@@ -143,8 +143,8 @@
                         </p>
                     </div>
                     <div class="td-col col5">
-                        <p><?=$commonCategory[$exhibition["category"]]["title"]?></p>
-                        <p><?=$commonCategory[$exhibition["type"]]["title"]?></p>
+                        <p><?=$commonCategory[$exhibition["category"]-1]["title"]?></p>
+                        <p><?=$commonCategory[$exhibition["type"]-1]["title"]?></p>
                         <?php if ($exhibition["cost"] == "free") : ?>
                         <p>무료</p>
                         <?php else : ?>
