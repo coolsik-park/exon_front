@@ -355,7 +355,7 @@
                 id: id,
                 exhibition_id: exhibition_id,
                 users_name: users_name,
-                email: users_email,
+                users_email: users_email,
                 pay_id: pay_id
             }
         }).done(function(data) {
