@@ -16,7 +16,7 @@
             <div class="js2">
                 <!--<a id="emailButton" class="btn-md" style="cursor:pointer;">이메일 인증</a>
                 <a id="hpButton" class="btn-md" style="cursor:pointer;">휴대폰 인증</a>--> 
-                <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#emailModal" data-backdrop="static" data-keyboard="false">
+                <button id="emailButton" type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#emailModal" data-backdrop="static" data-keyboard="false">
                      이메일 인증
                 </button>
                 <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -48,7 +48,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#smsModal" data-backdrop="static" data-keyboard="false">
+                <button id="smsButton" type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#smsModal" data-backdrop="static" data-keyboard="false">
                      휴대폰 인증
                 </button>
                 <div class="modal fade" id="smsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -93,6 +93,11 @@
     
     //이메일
     var last_id = 0;
+
+    $(document).on("click", "#emailButton", function () {
+        $("#email").val("<?=$users->email?>");
+        $("#email").attr("readonly", true);
+    })
 
     $(document).on("change", "#email", function () {
         $("#emailNoti").html("");
