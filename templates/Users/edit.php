@@ -17,7 +17,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
 
 <style>
 .col-dd {
-    pointer-events : none;
+    /* pointer-events : none; */
 }
 .blueBtn {
     display: inline-block;
@@ -95,7 +95,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                             <div class="col-cell-wp">
                                 <input type="text" id="emailText" readonly="readonly" class="full" value="<?= $user->email ?>" title="이메일 (아이디)">
                             </div>
-                            <button type="button" class="blueBtn md emailBtn" data-toggle="modal">인증 완료</button>
+                            <button type="button" class="blueBtn md emailBtn" data-toggle="modal" style='cursor:default;'>인증 완료</button>
                         </div>
                     <?php endif; ?>
                 </div>
