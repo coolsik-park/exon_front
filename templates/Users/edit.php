@@ -16,49 +16,32 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
 ?>
 
 <style>
-    .col-dd {
-        pointer-events : none;
-    }
-<<<<<<< HEAD
-    
-    .blueBtn {
-        display: inline-block;
-        padding: 8px 22px;
-        border-radius: 3px;
-        border: solid 1px #0071BC;
-        background-color: #ffffff;
-        font-size: 1rem;
-        font-weight: 500;
-        line-height: 1.5;
-        color: #0071BC;
-        text-align: center;
-    }
-
-    #emailText {
+.col-dd {
+    pointer-events : none;
+}
+.blueBtn {
+    display: inline-block;
+    padding: 8px 22px;
+    border-radius: 3px;
+    border: solid 1px #0071BC;
+    background-color: #FFFFFF;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #0071BC;
+    text-align: center;
+}
+#emailText {
+    width: 100%;
+}
+.emailBtn {
+    width: 135px;
+}
+@media  screen and (max-width: 768px) {
+    .emailBtn {
         width: 100%;
     }
-
-    .emailBtn {
-        width: 135px;
-    }
-
-    @media  screen and (max-width: 768px) {
-        .emailBtn {
-            width: 100%;
-        }
-    }
-
-=======
-    .emailText {
-        width: 870px;
-    }
-    @media  screen and (max-width: 768px) {
-        .emailText {
-            width: 100%;
-            margin-bottom: 3vw;
-        }
-    }
->>>>>>> bomi
+}
 </style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -71,21 +54,12 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
             <div class="mbr-form">
                 <div class="item-row">
                     <div class="col-dt"><em>*</em>이메일 (아이디)</div>
-<<<<<<< HEAD
                     <div class="col-dd col-cell">
                         <div class="col-cell-wp">
                             <input type="text" id="emailText" readonly="readonly" class="full" value="<?= $user->email ?>" title="이메일 (아이디)">
                         </div>
-                        <button type="button" class="btn-ty3 md emailBtn" data-toggle="modal" data-target="#smsModal">
-                                       이메일 인증 
-                        </button>
-=======
-                    <div class="col-dd">
-                        <input type="text" readonly="readonly" class="emailText" value="<?= $user->email ?>" title="이메일 (아이디)">
+                        <button type="button" class="btn-ty3 md emailBtn" data-toggle="modal" data-target="#smsModal">이메일 인증</button>
                     </div>
-                    <button type="button" class="btn-ty3 md" data-toggle="modal" data-target="#emailModal">
-                                    이메일 인증
-                    </button>
                     <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content" style="background-color:transparent; border:none;">
@@ -114,7 +88,6 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                                 </div>
                             </div>
                         </div>
->>>>>>> bomi
                     </div>
                 </div>
                 <div class="item-row">
