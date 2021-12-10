@@ -4,13 +4,13 @@
         <p>"<?php if ($key == null) : echo("전체"); else : echo($key); endif;?>" 검색결과 <?=$count?>개</p>
     </div>
     <?php if ($count == 0) : ?>
-    <div class="textdiv">
-        <p>"<?=$key?>"에 대한 검색결과가 없습니다.</p>
-        <br>
-        <p>모든 단어의 철자가 맞는지 확인해 보세요.</p>
-        <p>검색도구를 다르게 설정해 보세요.</p>
-        <p>검색어를 변경해 보세요.</p>
-    </div>
+        <div class="textdiv">
+            <p>"<?php if ($key == null) : echo("전체"); else : echo($key); endif;?>"에 대한 검색결과가 없습니다.</p>
+            <br>
+            <p>모든 단어의 철자가 맞는지 확인해 보세요.</p>
+            <p>검색도구를 다르게 설정해 보세요.</p>
+            <p>검색어를 변경해 보세요.</p>
+        </div>
     <?php else : ?>
     <ul class="clickTab">
         <li class="clickTab__item"><a class="order" id="new" style="color:#007bff;">최신순</a></li>
