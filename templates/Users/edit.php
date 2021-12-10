@@ -54,41 +54,50 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
             <div class="mbr-form">
                 <div class="item-row">
                     <div class="col-dt"><em>*</em>이메일 (아이디)</div>
-                    <div class="col-dd col-cell">
-                        <div class="col-cell-wp">
-                            <input type="text" id="emailText" readonly="readonly" class="full" value="<?= $user->email ?>" title="이메일 (아이디)">
+                    <?php if ($user->email_cert != 1): ?>
+                        <div class="col-dd col-cell">
+                            <div class="col-cell-wp">
+                                <input type="text" id="emailText" readonly="readonly" class="full" value="<?= $user->email ?>" title="이메일 (아이디)">
+                            </div>
+                            <button type="button" class="btn-ty3 md emailBtn" data-toggle="modal" data-target="#emailModal">이메일 인증</button>
                         </div>
-                        <button type="button" class="btn-ty3 md emailBtn" data-toggle="modal" data-target="#smsModal">이메일 인증</button>
-                    </div>
-                    <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content" style="background-color:transparent; border:none;">
-                                <div class="popup-wrap">
-                                    <div class="popup-head">
-                                        <h4>이메일 인증</h4>
-                                        <button id="close" type="button" class="popup-close close" data-dismiss="modal" aria-label="Close">팝업닫기</button>
-                                    </div>
-                                    <div class="popup-body">
-                                        <div class="cert-sect1">
-                                            <input id="email" type="text" placeholder="이메일" autocomplete="off" value="<?= $user->email ?>">
-                                            <button id="emailSend" type="button" class="btn-ty2 btn-m-bor">인증메일 발송</button>
+                        <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content" style="background-color:transparent; border:none;">
+                                    <div class="popup-wrap">
+                                        <div class="popup-head">
+                                            <h4>이메일 인증</h4>
+                                            <button id="close" type="button" class="popup-close close" data-dismiss="modal" aria-label="Close">팝업닫기</button>
                                         </div>
-                                        <p id="emailNoti" class="noti hc1"></p>
-                                        <div class="cert-sect2">
-                                            <div class="label-wp">
-                                                <label for="emailCode">인증번호</label><input type="text" id="emailCode" placeholder="인증번호" autocomplete="off">
-                                            </div> 
-                                            <button id="eamilResend" type="button" class="btn-ty2 gray">재발송</button>
-                                        </div>
-                                        <p id="emailCodeNoti" class="noti hc1"></p>
-                                        <div class="popup-btm alone">
-                                            <button id="emailConfirm" type="button" class="btn-ty2">확인</button>
+                                        <div class="popup-body">
+                                            <div class="cert-sect1">
+                                                <input id="email" type="text" placeholder="이메일" autocomplete="off" value="<?= $user->email ?>">
+                                                <button id="emailSend" type="button" class="btn-ty2 btn-m-bor">인증메일 발송</button>
+                                            </div>
+                                            <p id="emailNoti" class="noti hc1"></p>
+                                            <div class="cert-sect2">
+                                                <div class="label-wp">
+                                                    <label for="emailCode">인증번호</label><input type="text" id="emailCode" placeholder="인증번호" autocomplete="off">
+                                                </div> 
+                                                <button id="eamilResend" type="button" class="btn-ty2 gray">재발송</button>
+                                            </div>
+                                            <p id="emailCodeNoti" class="noti hc1"></p>
+                                            <div class="popup-btm alone">
+                                                <button id="emailConfirm" type="button" class="btn-ty2">확인</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    <?php else: ?>
+                        <div class="col-dd col-cell">
+                            <div class="col-cell-wp">
+                                <input type="text" id="emailText" readonly="readonly" class="full" value="<?= $user->email ?>" title="이메일 (아이디)">
+                            </div>
+                            <button type="button" class="blueBtn md emailBtn" data-toggle="modal">인증 완료</button>
+                        </div>
+                    <?php endif; ?>
                 </div>
                 <div class="item-row">
                     <div class="col-dt"><em>*</em>비밀번호</div>                      
