@@ -19,6 +19,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
     .col-dd {
         pointer-events : none;
     }
+<<<<<<< HEAD
     
     .blueBtn {
         display: inline-block;
@@ -47,6 +48,17 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
         }
     }
 
+=======
+    .emailText {
+        width: 870px;
+    }
+    @media  screen and (max-width: 768px) {
+        .emailText {
+            width: 100%;
+            margin-bottom: 3vw;
+        }
+    }
+>>>>>>> bomi
 </style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -59,6 +71,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
             <div class="mbr-form">
                 <div class="item-row">
                     <div class="col-dt"><em>*</em>이메일 (아이디)</div>
+<<<<<<< HEAD
                     <div class="col-dd col-cell">
                         <div class="col-cell-wp">
                             <input type="text" id="emailText" readonly="readonly" class="full" value="<?= $user->email ?>" title="이메일 (아이디)">
@@ -66,6 +79,42 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                         <button type="button" class="btn-ty3 md emailBtn" data-toggle="modal" data-target="#smsModal">
                                        이메일 인증 
                         </button>
+=======
+                    <div class="col-dd">
+                        <input type="text" readonly="readonly" class="emailText" value="<?= $user->email ?>" title="이메일 (아이디)">
+                    </div>
+                    <button type="button" class="btn-ty3 md" data-toggle="modal" data-target="#emailModal">
+                                    이메일 인증
+                    </button>
+                    <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content" style="background-color:transparent; border:none;">
+                                <div class="popup-wrap">
+                                    <div class="popup-head">
+                                        <h4>이메일 인증</h4>
+                                        <button id="close" type="button" class="popup-close close" data-dismiss="modal" aria-label="Close">팝업닫기</button>
+                                    </div>
+                                    <div class="popup-body">
+                                        <div class="cert-sect1">
+                                            <input id="email" type="text" placeholder="이메일" autocomplete="off" value="<?= $user->email ?>">
+                                            <button id="emailSend" type="button" class="btn-ty2 btn-m-bor">인증메일 발송</button>
+                                        </div>
+                                        <p id="emailNoti" class="noti hc1"></p>
+                                        <div class="cert-sect2">
+                                            <div class="label-wp">
+                                                <label for="emailCode">인증번호</label><input type="text" id="emailCode" placeholder="인증번호" autocomplete="off">
+                                            </div> 
+                                            <button id="eamilResend" type="button" class="btn-ty2 gray">재발송</button>
+                                        </div>
+                                        <p id="emailCodeNoti" class="noti hc1"></p>
+                                        <div class="popup-btm alone">
+                                            <button id="emailConfirm" type="button" class="btn-ty2">확인</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+>>>>>>> bomi
                     </div>
                 </div>
                 <div class="item-row">
@@ -239,6 +288,111 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
 <footer id="footer"></footer>
 
 <script>
+    $(document).on("change", "#email", function () {
+        $("#emailNoti").html("");
+    });
+
+    $(document).on("change", "#emailCode", function () {
+        $("#emailCodeNoti").html("");
+    });
+    
+    $("#emailSend").click(function () {
+        console.log("aaaaa");
+        if ($("#email").val() == "") {
+            $("#emailNoti").html("이메일을 입력해 주세요.");
+            $("#email").focus();
+            return false;
+        }
+
+        jQuery.ajax({
+            url: "/users/send-email-certification", 
+            method: 'POST',
+            type: 'json',
+            data: {
+                email: $("#email").val(),
+            }
+        }).done(function(data) {
+            if (data.status == 'success') {
+                alert("인증번호를 발송하였습니다.");
+                last_id = data.id;
+                $("#emailSend").html("<span id='timer'></span>");
+                $("#emailSend").attr("disabled", "disabled");
+
+                var AuthTimer = new $ComTimer()
+                AuthTimer.comSecond = 180;
+                AuthTimer.fnCallback = function(){alert("다시인증을 시도해주세요.")}
+                AuthTimer.timer =  setInterval(function(){AuthTimer.fnTimer()},1000);
+                AuthTimer.domId = document.getElementById("timer");
+            } else {
+                alert("오류가 발생하였습니다. 다시 시도해 주세요.");
+            }
+        });
+    });
+
+    $("#emailResend").click(function () {
+        if ($("#email").val() == "") {
+            $("#emailNoti").html("이메일을 입력해 주세요.");
+            $("#email").focus();
+            return false;
+        }
+        
+        jQuery.ajax({
+            url: "/users/send-email-certification", 
+            method: 'POST',
+            type: 'json',
+            data: {
+                email: $("#email").val(),
+            }
+        }).done(function(data) {
+            if (data.status == 'success') {
+                alert("인증번호를 발송하였습니다.");
+                last_id = data.id;
+
+                $("#emailSend").html("<span id='timer'></span>");
+                $("#emailSend").attr("disabled", "disabled");
+
+                var AuthTimer = new $ComTimer()
+                AuthTimer.comSecond = 180;
+                AuthTimer.fnCallback = function(){alert("다시인증을 시도해주세요.")}
+                AuthTimer.timer =  setInterval(function(){AuthTimer.fnTimer()},1000);
+                AuthTimer.domId = document.getElementById("timer");
+            } else {
+                alert("오류가 발생하였습니다. 다시 시도해 주세요.");
+            }
+        });
+    });
+
+    $("#emailConfirm").click(function () {
+        var user_id = '<?=$user->id?>';
+
+        if ($("#emailCode").val() == "") {
+            $("#emailCodeNoti").html("인증번호를 입력해 주세요.");
+            $("#emailCode").focus();
+            return false;
+        }
+        
+        jQuery.ajax({
+            url: "/users/confirm-email/" + last_id, 
+            method: 'POST',
+            type: 'json',
+            data: {
+                code: $("#emailCode").val(),
+                user_id: user_id,
+            }
+        }).done(function(data) {
+            if (data.status == 'success') {
+                alert("인증이 완료되었습니다.");
+                window.location.replace("/");
+            } else if (data.status == 'fail') {
+                alert("인증번호를 다시 확인해주세요.");
+                $("#emailCode").val("");
+            } else {
+                alert("시간이 초과되었습니다. 재발송 해주세요.");
+                $("#emailCode").val("");
+            }
+        });
+    });
+
     $('#hpSaveButton').on('click', function() {
         var getHp = RegExp(/^[0-9]*$/);
         var result = [];
