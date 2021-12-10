@@ -55,20 +55,20 @@
         }   
         .btn-wp {
             display: flex;
-            justify-content: space-around;
+            justify-content: flex-end;
         }
         .section1 .sect-tit .btn-ty4 {
             width: 29%;
             height: 40px;
             background-color: rgba(255,255,255,1);
-            margin: 6px 0px 5px 0px;
+            margin: 6px 5px 5px 13px;
         }
         .btnMove {
             position: fixed;
             z-index: 1;
             top: 46px;
             padding-top: 0;
-            right: 0px;
+            right: 10px;
             width: 100%;
         }
         .tabMenu {
