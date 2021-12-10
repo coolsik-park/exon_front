@@ -994,6 +994,7 @@
             html += '            <option value="B">사전설문</option>';
             html += '        </select>';
             html += '    </div>';
+            html += '    <p id="type_noti_'+i+'" class="p-noti"></p>';
             html += '    <div id="rows_'+i+'" class="survey-bx-sect3">';
             // html += '        <div class="btns">';
             // html += '            <button type="button" onclick="addRow('+i+')">보기 추가</button>';
@@ -1024,6 +1025,13 @@
                 document.getElementById("req_hidden_" + i).disabled = false;
             <?php endif; ?>
             $("#survey_type_" + i).val("<?=$exhibitionSurvey->survey_type?>").prop("selected", true);
+            <?php if ($exhibitionSurvey->survey_type == 'N') : ?>
+                $("#type_noti_" + i).html("일반설문으로 설정하시면 행사 진행 중에 참가자분들이 설문에 참여할 수 있습니다.");
+            <?php else : ?>
+                $("#type_noti_" + i).html("사전설문으로 설정하시면 행사 신청 때 참가자분들이 설문에 참여할 수 있습니다.");
+            <?php endif; ?>
+
+
         
         <?php else : ?>
             var html = '';
@@ -1045,13 +1053,14 @@
             html += '</div>';
             html += '<div class="survey-bx-sect2">';
             html += '    <input name="text[]" type="text" class="ipt" placeholder="질문" value="<?=$exhibitionSurvey->text?>">';
-            html += '    <input name="survey_id[]" type="hidden" value="<?=$exhibitionSurvey->id?>">'
+            html += '    <input name="survey_id[]" type="hidden" value="<?=$exhibitionSurvey->id?>">';
             html += '    <input type="checkbox" name="is_duplicate[]" id="dup_hidden_'+i+'" value="N" checked="checked" style="display:none">';
             html += '    <select id="survey_type_'+i+'" name="survey_type[]">';
             html += '        <option value="N">일반설문</option>';
             html += '        <option value="B">사전설문</option>';
             html += '    </select>';
             html += '</div>';
+            html += '<p id="type_noti_'+i+'" class="p-noti"></p>';
             html += '</div>';
             $("#survey").append(html);
             <?php if ($exhibitionSurvey->is_required == 'Y') : ?>
@@ -1062,6 +1071,11 @@
                 document.getElementById("req_hidden_" + i).disabled = false;
             <?php endif; ?>
             $("#survey_type_" + i).val("<?=$exhibitionSurvey->survey_type?>").prop("selected", true);
+            <?php if ($exhibitionSurvey->survey_type == 'N') : ?>
+                $("#type_noti_" + i).html("일반설문으로 설정하시면 행사 진행 중에 참가자분들이 설문에 참여할 수 있습니다.");
+            <?php else : ?>
+                $("#type_noti_" + i).html("사전설문으로 설정하시면 행사 신청 때 참가자분들이 설문에 참여할 수 있습니다.");
+            <?php endif; ?>
         <?php endif; ?>
         i++;
     <?php endforeach; ?>
@@ -1089,12 +1103,13 @@
         html += '    </div>';
         html += '    <div class="survey-bx-sect2">';
         html += '        <input name="text[]" type="text" class="ipt" placeholder="질문">';
-        html += '        <input name="survey_id[]" type="hidden" value="0">'
+        html += '        <input name="survey_id[]" type="hidden" value="0">';
         html += '        <select id="survey_type_'+i+'" name="survey_type[]">';
         html += '            <option value="N">일반설문</option>';
         html += '            <option value="B">사전설문</option>';
         html += '        </select>';
         html += '    </div>';
+        html += '    <p id="type_noti_'+i+'" class="p-noti">일반설문으로 설정하시면 행사 진행 중에 참가자분들이 설문에 참여할 수 있습니다.</p>';
         html += '    <div id="rows_'+i+'" class="survey-bx-sect3">';
         html += '        <div class="btns">';
         html += '            <button type="button" onclick="addRow('+i+')">보기 추가</button>';
@@ -1176,13 +1191,14 @@
             html += '</div>';
             html += '<div class="survey-bx-sect2">';
             html += '    <input name="text[]" type="text" class="ipt" placeholder="질문">';
-            html += '    <input name="survey_id[]" type="hidden" value="0">'
+            html += '    <input name="survey_id[]" type="hidden" value="0">';
             html += '    <input type="checkbox" name="is_duplicate[]" id="dup_hidden_'+index+'" value="N" checked="checked" style="display:none">';
             html += '    <select id="survey_type_'+index+'" name="survey_type[]">';
             html += '        <option value="N">일반설문</option>';
             html += '        <option value="B">사전설문</option>';
             html += '    </select>';
             html += '</div>';
+            html += '<p id="type_noti_'+index+'" class="p-noti">일반설문으로 설정하시면 행사 진행 중에 참가자분들이 설문에 참여할 수 있습니다.</p>';
             
             $("#survey_" + index).children().remove();
             $("#survey_" + index).append(html);
@@ -1211,12 +1227,13 @@
             html += '    </div>';
             html += '    <div class="survey-bx-sect2">';
             html += '        <input name="text[]" type="text" class="ipt" placeholder="질문">';
-            html += '        <input name="survey_id[]" type="hidden" value="0">'
+            html += '        <input name="survey_id[]" type="hidden" value="0">';
             html += '        <select id="survey_type_'+index+'" name="survey_type[]">';
             html += '            <option value="N">일반설문</option>';
             html += '            <option value="B">사전설문</option>';
             html += '        </select>';
             html += '    </div>';
+            html += '    <p id="type_noti_'+index+'" class="p-noti">일반설문으로 설정하시면 행사 진행 중에 참가자분들이 설문에 참여할 수 있습니다.</p>';
             html += '    <div id="rows_'+index+'" class="survey-bx-sect3">';
             html += '        <div class="btns">';
             html += '            <button type="button" onclick="addRow('+index+')">보기 추가</button>';
@@ -1279,8 +1296,10 @@
             $("#req_span_"+id).hide();
             $("#req_"+id).prop("checked", false);
             $("#req_hidden_"+id).attr("disabled", false);
+            $("#type_noti_"+id).html("일반설문으로 설정하시면 행사 진행 중에 참가자분들이 설문에 참여할 수 있습니다.");
         } else {
             $("#req_span_"+id).show();
+            $("#type_noti_"+id).html("사전설문으로 설정하시면 행사 신청 때 참가자분들이 설문에 참여할 수 있습니다.");
         }
     });
 </script>
