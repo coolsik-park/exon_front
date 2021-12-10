@@ -6,7 +6,7 @@
             <h3>회원가입이 완료되었습니다</h3>
             <p class="tx1">축하드립니다, 이제부터 EXON 서비스를 자유롭게 즐기실 수 있습니다.</p>
             <p class="tx1">(단, 이메일 또는 휴대폰 인증이 완료되지 않은 경우 비밀번호 찾기 등 일부 서비스에 제한이 있을 수 있습니다.) </p>
-            <a href="/" class="btn-big-cir">가입완료</a>
+            <a href = "/users/complete-join/<?=$id?>" class="btn-big-cir">가입완료</a>
         </div>
         <div class="join-ok-sect2">
             <div class="js1">
@@ -86,6 +86,18 @@
 </div>
 
 <script>
+    //인증정보 불러오기
+    var email_cert = "<?=$users->email_cert?>";
+    var hp_cert = "<?=$users->hp_cert?>";
+    if (email_cert == 1) {
+        $("#emailButton").attr("background-color", "#007bff");
+        $("#emailButton").attr("disabled", true);
+    }
+    if (hp_cert == 1) {
+        $("#smsButton").css("background-color", "#007bff");
+        $("#smsButton").attr("disabled", true);
+    }
+
     //모달 팝업 창 닫기 시
     $("#close").click(function () {
         window.location.reload();
@@ -192,7 +204,7 @@
         }).done(function(data) {
             if (data.status == 'success') {
                 alert("인증이 완료되었습니다.");
-                window.location.replace("/");
+                window.location.reload();
             } else if (data.status == 'fail') {
                 alert("인증번호를 다시 확인해주세요.");
                 $("#emailCode").val("");
@@ -300,7 +312,7 @@
         }).done(function(data) {
             if (data.status == 'success') {
                 alert("인증이 완료되었습니다.");
-                window.location.replace("/");
+                window.location.reload();
             } else if (data.status == 'fail') {
                 alert("인증번호를 다시 확인해주세요.");
                 $("#smsCode").val("");

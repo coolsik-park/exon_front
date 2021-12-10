@@ -980,4 +980,16 @@ class UsersController extends AppController
         } 
         $this->set(compact('users_id'));
     }
+
+    public function completeJoin ($users_id = null)
+    {
+        $user = $this->Users->get($users_id);
+        if ($user->ip == $this->request->ClientIp()) {
+            $this->Auth->setUser($user);
+            $target = $this->Auth->redirectUrl() ?? '/home';
+            return $this->redirect($target);
+        } else {
+            return $this->redirect("/");
+        }
+    }
 }
