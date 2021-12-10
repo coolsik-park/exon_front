@@ -790,7 +790,7 @@ class ExhibitionController extends AppController
     {
         $id = $this->request->getData('id');
         $exhibition_id = $this->request->getData('exhibition_id');
-        $to = $this->request->getData('email');
+        $to = $this->request->getData('users_email');
         $pay_id = $this->request->getData('pay_id');
 
         $connection = ConnectionManager::get('default');
@@ -804,7 +804,7 @@ class ExhibitionController extends AppController
                 $Pay = $this->getTableLocator()->get('Pay');
                 $pay = $Pay->get($pay_id);
                 
-                require_once("iamport-rest-client-php/src/iamport.php");
+                require_once(ROOT . "/solapi-php/lib/message.php");
                 
                 $iamport = new Iamport(getEnv('IAMPORT_API_KEY'), getEnv('IAMPORT_API_SECRET'));
     
@@ -830,7 +830,7 @@ class ExhibitionController extends AppController
                         $mailer = new Mailer();
                         $mailer->setTransport('mailjet');
     
-                        $exhibition = $this->Exhibition->get($id);
+                        $exhibition = $this->Exhibition->get($exhibition_id);
                         $user_name = $this->request->getData('user_name');
                         
                         $mailer->setEmailFormat('html')
@@ -865,8 +865,8 @@ class ExhibitionController extends AppController
                 $mailer = new Mailer();
                 $mailer->setTransport('mailjet');
 
-                $exhibition = $this->Exhibition->get($id);
-                $user_name = $this->request->getData('user_name');   
+                $exhibition = $this->Exhibition->get($exhibition_id);
+                $user_name = $this->request->getData('users_name');  
                 
                 $mailer->setEmailFormat('html')
                             ->setTo($to)
