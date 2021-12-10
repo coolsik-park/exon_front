@@ -429,8 +429,7 @@ class UsersController extends AppController
                     ->first();
 
                     $this->Auth->setUser($user);
-                    $target = $this->Auth->redirectUrl() ?? '/home';
-                    return $this->redirect($target);
+                    return $this->redirect("/");
                 } else {
                     $session->write('msg', '네이버 연동이 필요합니다. 회원가입 또는 EXON 계정이 존재하는 경우 로그인 후 마이페이지에서 연동을 진행해 주세요.');
                     return $this->redirect(['action' => 'login']);
@@ -495,8 +494,9 @@ class UsersController extends AppController
                     ->first();
 
                     $this->Auth->setUser($user);
-                    $target = $this->Auth->redirectUrl() ?? '/home';
-                    return $this->redirect($target);
+                    // $target = $this->Auth->redirectUrl() ?? '/home';
+                    // return $this->redirect($target);
+                    return $this->redirect("/");
                 } else {
                     $session->write('msg', '카카오 연동이 필요합니다. 회원가입 또는 EXON 계정이 존재하는 경우 로그인 후 마이페이지에서 연동을 진행해 주세요.');
                     return $this->redirect(['action' => 'login']);
@@ -986,8 +986,7 @@ class UsersController extends AppController
         $user = $this->Users->get($users_id);
         if ($user->ip == $this->request->ClientIp()) {
             $this->Auth->setUser($user);
-            $target = $this->Auth->redirectUrl() ?? '/home';
-            return $this->redirect($target);
+            return $this->redirect("/");
         } else {
             return $this->redirect("/");
         }
