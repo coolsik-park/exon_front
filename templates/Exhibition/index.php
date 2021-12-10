@@ -184,7 +184,7 @@
                                 <p><a href="/exhibition/edit/<?= $exhibition->id ?>" class="btn-ty3 bor" id="exhibitionEdit">행사 관리</a></p>
                                 <div class="tg-btns">
                                     <button type="button" class="btn-ty3 bor" id="menu">메뉴</button>
-                                    <ul>
+                                    <ul class="menu-ul">
                                         <?php if ($exhibition->status==4 || ($exhibition->apply_edate>$today && $exhibition_user[$key] == 0)): ?>
                                                 <li><button type="button" id="delete<?=$exhibition->id?>" name="deleteExhibition" class="btn-ty3 bor">행사 삭제</button></li>
                                         <?php endif; ?>
@@ -264,5 +264,12 @@
         document.body.removeChild(textArea);
         
         alert('복사되었습니다.');
+    });
+
+    //메뉴 숨기기
+    $('html').click(function(e) { 
+        if(!$(e.target).hasClass("menu-ul") && !$(e.target).hasClass("btn-ty3 bor")) {
+            $('.tg-btns').removeClass('open');
+        } 
     });
 </script>
