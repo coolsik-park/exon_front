@@ -41,7 +41,12 @@
                 <?php } ?>
             </ul>
             <div class="table-type table-type2" id="table-type table-type2">  
-                <?php foreach ($exhibitions as $key => $exhibition): ?>                  
+                <?php 
+                    foreach ($exhibitions as $key => $exhibition): 
+                        $today = strtotime(date('Y-m-d', time()));
+                        $sdate = strtotime($exhibition->sdate);
+                        $edate = strtotime($exhibition->edate);
+                ?>                  
                     <div class="tr-row" onclick="">
                         <div class="clickDiv">
                             <div class="td-col col1">
@@ -65,11 +70,11 @@
                                                 if ($exhibition->status == 4) {
                                                     echo '임시저장';
                                                 } else {
-                                                    if ($exhibition->sdate <= $today && $exhibition->edate >= $today) {
+                                                    if ($sdate <= $today && $edate >= $today) {
                                                         echo '진행중';
-                                                    } else if($exhibition->edate <= $today) {
+                                                    } else if($edate <= $today) {
                                                         echo '종료';
-                                                    } else if($exhibition->sdate >= $today) {
+                                                    } else if($sdate >= $today) {
                                                         echo '행사 시작 전';
                                                     }
                                                 }
@@ -178,7 +183,7 @@
                         </div>                            
                         <div class="td-col col5">                           
                             <div class="con">
-                                <?php if ($exhibition->status != 4 && $exhibition->edate > $today) : ?>
+                                <?php if ($exhibition->status != 4 && $edate > $today) : ?>
                                     <p><button type="button" id="urlCopy<?=$exhibition->id?>" name="urlCopy" class="btn-ty3 bor">URL 복사</button></p>
                                 <?php else : ?>
                                 <p class="btn-ty3 gray">URL 복사</p>
@@ -263,10 +268,10 @@
     //url 복사
     $(document).on("click", "button[name='urlCopy']", function () {
         var id = $(this).attr("id").substr(7, $(this).attr("id").length - 7);
-        var url = "<?=$front_url?>/exhibition/view/" + id
+        var url = "<?= $front_url ?>/exhibition/view/" + id
         const textArea = document.createElement('textarea');
         document.body.appendChild(textArea); 
-        textArea.value = "<?=$front_url?>/exhibition/view/" + id;
+        textArea.value = "<?= $front_url ?>/exhibition/view/" + id;
         
         textArea.select();
         document.execCommand("copy");
