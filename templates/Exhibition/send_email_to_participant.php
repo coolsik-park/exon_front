@@ -250,7 +250,7 @@
     });
 
     //리스트 전체선택
-    $("#all").click(function () {
+    $(document).on("click", "#all", function () {
         if ($("#all").prop("checked")) {
             $("input[name=list]").prop("checked",true);
         } else {
