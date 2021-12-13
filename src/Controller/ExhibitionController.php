@@ -56,7 +56,7 @@ class ExhibitionController extends AppController
     public function index($type = null)
     {
         date_default_timezone_set('Asia/Seoul');
-        $today = date("m/d/Y, H:i a", time());
+        $today = date("Y-m-d, H:i:s", time());
 
         $this->paginate = ['limit' => 10];
 
@@ -67,7 +67,7 @@ class ExhibitionController extends AppController
         } elseif ($type == 'temp') {
             $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.status' => 4]))->toArray();
         } elseif ($type == 'ended') {            
-            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.edate <' => $today]))->toArray();
+            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.edate <=' => $today]))->toArray();
         }
 
         $front_url = FRONT_URL;
@@ -87,7 +87,7 @@ class ExhibitionController extends AppController
             }
         }
 
-        $this->set(compact('exhibitions', 'today', 'front_url', 'exhibition_user'));
+        $this->set(compact('exhibitions', 'front_url', 'exhibition_user'));
     }
     
     public function view($id = null)
