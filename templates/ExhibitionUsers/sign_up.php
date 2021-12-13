@@ -139,14 +139,14 @@
                         <div class="td-col col5">
                             <div class="con">
                                 <?php
-                                    if ($exhibition_user->attend == 1) {
+                                    if ($exhibition_user->status == 1) {
                                         echo '신청 전';
-                                    } elseif ($exhibition_user->attend == 2) {
+                                    } elseif ($exhibition_user->status == 2) {
                                         echo '신청완료<br>(참가대기)';
-                                    } elseif ($exhibition_user->attend == 4) {
+                                    } elseif ($exhibition_user->status == 4) {
                                         echo '참가확정';
-                                    } elseif ($exhibition_user->attend == 8) {
-                                        echo '취소(환불)';
+                                    } elseif ($exhibition_user->status == 8) {
+                                        echo '취소<br>(환불)';
                                     }
                                 ?>
                             </div>
