@@ -82,7 +82,7 @@ class ExhibitionStreamChatLogController extends AppController
         $username = $this->getRequest()->getSession()->read('Chat.UserName');
         $text = $this->getRequest()->getData('text');
 
-        if(isset($username) && isset($text)){         
+        if(isset($username) && isset($text) && $text != ''){         
             
             $ChatLogs = $this->getTableLocator()->get('ExhibitionStreamChatLog');
             $chat = $ChatLogs->newEmptyEntity();
