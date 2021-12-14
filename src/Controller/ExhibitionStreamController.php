@@ -106,7 +106,7 @@ class ExhibitionStreamController extends AppController
 
     public function watchExhibitionStream($id = null, $exhibition_users_id = null) 
     {   
-        if ($exhibition_users_id == null) {
+        if (empty($this->Auth->user()) && $exhibition_users_id == null) {
             $this->redirect(['action' => 'certification', $id]);
         }
         $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $id])->toArray();
