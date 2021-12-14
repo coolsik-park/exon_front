@@ -32,7 +32,18 @@
                         </a>
                         <div class="desc">
                             <div class="info">
-                                <span class="state"><?php if($hot[0]['playing']) echo "진행중"; else echo "진행전"; ?></span>
+                                <span class="state">
+                                <?php 
+                                    if($hot[0]['playing']) : echo "진행중"; 
+                                    else : 
+                                        if(date('m. d. H:m') < $hot[0]['sdate']) : 
+                                            echo "진행전"; 
+                                        else :
+                                            echo "종료";
+                                        endif;
+                                    endif;
+                                ?>
+                                </span>
                                 <span class="date"><?php echo $hot[0]['sdate'] . " ~ " . $hot[0]['edate']; ?></span>
                             </div>
                             <h3 class="h-ty2"><?php echo $hot[0]['title']; ?></h3>
@@ -50,7 +61,18 @@
                                             <div class="imgs"><img style="width:280px; height:155px;" src="<?php echo DS . $list['img_path'] .DS. $list['img_name'];?>" alt=""></div>
                                             <div class="desc">
                                                 <div class="info">
-                                                    <span class="state"><?php if($list['playing']) echo "진행중"; else echo "진행전"; ?></span>
+                                                    <span class="state">
+                                                        <?php 
+                                                            if($list['playing']) : echo "진행중"; 
+                                                            else : 
+                                                                if(date('m. d. H:m') < $list['sdate']) : 
+                                                                    echo "진행전"; 
+                                                                else :
+                                                                    echo "종료";
+                                                                endif;
+                                                            endif;
+                                                        ?>
+                                                    </span>
                                                     <span class="date"><?php echo $list['sdate'] . " ~ " . $list['edate']; ?></span>
                                                 </div>
                                                 <h3 class="h-ty3"><?php echo $list['title']; ?></h3>
@@ -96,7 +118,18 @@
                                             <div class="imgs"><img style="width:280px; height:155px;" src="<?php echo DS . $list['img_path'] .DS. $list['img_name'];?>" alt=""></div>
                                             <div class="desc">
                                                 <div class="info">
-                                                    <span class="state"><?php if($list['playing']) echo "진행중"; else echo "진행전"; ?></span>
+                                                    <span class="state">
+                                                    <?php 
+                                                        if($list['playing']) : echo "진행중"; 
+                                                        else : 
+                                                            if(date('m. d. H:m') < $list['sdate']) : 
+                                                                echo "진행전"; 
+                                                            else :
+                                                                echo "종료";
+                                                            endif;
+                                                        endif;
+                                                    ?>
+                                                    </span>
                                                     <span class="date"><?php echo $list['sdate'] . " ~ " . $list['edate']; ?></span>
                                                 </div>
                                                 <h3 class="h-ty3"><?php echo $list['title']; ?></h3>
@@ -129,7 +162,18 @@
                                             <div class="imgs"><img style="width:280px; height:155px;" src="<?php echo DS . $list['img_path'] .DS. $list['img_name'];?>" alt=""></div>
                                             <div class="desc">
                                                 <div class="info">
-                                                    <span class="state"><?php if($list['playing']) echo "진행중"; else echo "진행전"; ?></span>
+                                                    <span class="state">
+                                                    <?php 
+                                                        if($list['playing']) : echo "진행중"; 
+                                                        else : 
+                                                            if(date('m. d. H:m') < $list['sdate']) : 
+                                                                echo "진행전"; 
+                                                            else :
+                                                                echo "종료";
+                                                            endif;
+                                                        endif;
+                                                    ?>
+                                                    </span>
                                                     <span class="date"><?php echo $list['sdate'] . " ~ " . $list['edate']; ?></span>
                                                 </div>
                                                 <h3 class="h-ty3"><?php echo $list['title']; ?></h3>
