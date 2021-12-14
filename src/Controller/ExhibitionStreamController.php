@@ -106,10 +106,20 @@ class ExhibitionStreamController extends AppController
 
     public function watchExhibitionStream($id = null, $exhibition_users_id = null) 
     {   
+        $prevPage = $_SERVER['HTTP_REFERER']; 
+        if($prevPage != FRONT_URL . '/exhibition/view/' . $id || $prevPage != FRONT_URL . '/exhibition-users/sign-up/application' || $prevPage != FRONT_URL . '/exhibition-stream/certification/' . $id) { 
+            echo "<script>alert('허용되지 않는 잘못된 접근입니다.');</script>";
+            echo "<script>history.go(-1);</script>";
+        }
+
         if (empty($this->Auth->user()) && $exhibition_users_id == null) {
             $this->redirect(['action' => 'certification', $id]);
         }
         $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $id])->toArray();
+
+        if ($exhibitionStream[0]['live_started'] == null) {
+            $this->redirect(['action' => 'stream_not_exist']);
+        }
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
         $this->set(compact('exhibitionStream', 'tabs', 'exhibition_users_id'));
     }

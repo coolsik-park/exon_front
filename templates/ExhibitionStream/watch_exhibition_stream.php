@@ -20,7 +20,7 @@
 </head>
 
 <div id="container">       
-    <div class="contents">            
+    <div class="contents">      
         <div class="section-webinar4">
             <div class="webinar-cont">
                 <div class="wb-cont1">
@@ -60,28 +60,30 @@
                     </div>
                 </div>   
                 <!-- // top -->
+                <?= $this->Form->create() ?>   
                 <div class="webinar-tab-body">  
 
                 </div>
+                <?php $this->Form->end(); ?>    
                 <!-- // body-->
             </div>
             <!-- //webinar-tab -->
         </div>
-    </div>        
+    </div>    
 </div>
 
 <script>
     var chatInterval
-    //방송 중 체크
-    $(document).ready(function () {
-        $.ajax({
-            url: "http://121.126.223.225:80/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8",
-            type: 'HEAD',
-            error: function () {
-                window.location.replace("/exhibition-stream/stream-not-exist");
-            }
-        });
-    });
+    // 방송 중 체크
+    // $(document).ready(function () {
+    //     $.ajax({
+    //         url: "http://121.126.223.225:80/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8",
+    //         type: 'HEAD',
+    //         error: function () {
+    //             window.location.replace("/exhibition-stream/stream-not-exist");
+    //         }
+    //     });
+    // });
 
     $(document).ready(function () {
         //시청자수 카운트
