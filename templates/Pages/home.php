@@ -25,7 +25,7 @@
                 <div class="main-sect2">
                     <h2 class="h-ty1"><span class="t1">Top 10</span><span class="t2">지금 핫한 행사 10</span></h2>
                     <div class="main-sect2-hot-item">
-                        <a href="exhibition/view/<?php echo $hot[0]['exhibition_id']; ?>" class="main-sd-item">
+                        <a href="/exhibition/view/<?php echo $hot[0]['exhibition_id']; ?>" class="main-sd-item">
                             <div class="imgs">
                                 <img style="width:580px; height:292px;" src="<?php echo DS . $hot[0]['img_path'] .DS. $hot[0]['img_name'];?>" alt="">
                             </div>
@@ -46,7 +46,7 @@
                             <?php foreach($hot as $index => $list): ?>
                                 <?php if($index): ?>
                                     <div class="swiper-slide">
-                                        <a href="exhibition/view/<?php echo $list['exhibition_id']; ?>" class="main-sd-item">
+                                        <a href="/exhibition/view/<?php echo $list['exhibition_id']; ?>" class="main-sd-item">
                                             <div class="imgs"><img style="width:280px; height:155px;" src="<?php echo DS . $list['img_path'] .DS. $list['img_name'];?>" alt=""></div>
                                             <div class="desc">
                                                 <div class="info">
@@ -92,7 +92,7 @@
                                 <div class="swiper-slide">
                                     <div class="swiper-slide">
                                         <div class="main-sd-item">
-                                            <a href="exhibition/view/<?php echo $list['exhibition_id']; ?>">
+                                            <a href="/exhibition/view/<?php echo $list['exhibition_id']; ?>">
                                             <div class="imgs"><img style="width:280px; height:155px;" src="<?php echo DS . $list['img_path'] .DS. $list['img_name'];?>" alt=""></div>
                                             <div class="desc">
                                                 <div class="info">
@@ -125,7 +125,7 @@
                                 <div class="swiper-slide">
                                     <div class="swiper-slide">
                                         <div class="main-sd-item">
-                                            <a href="exhibition/view/<?php echo $list['exhibition_id']; ?>">
+                                            <a href="/exhibition/view/<?php echo $list['exhibition_id']; ?>">
                                             <div class="imgs"><img style="width:280px; height:155px;" src="<?php echo DS . $list['img_path'] .DS. $list['img_name'];?>" alt=""></div>
                                             <div class="desc">
                                                 <div class="info">

@@ -53,6 +53,11 @@ class ExhibitionStreamController extends AppController
      //웨비나 송출  설정
     public function setExhibitionStream($exhibition_id = null)
     {
+        $users_id = $this->getTableLocator()->get('Exhibition')->get($exhibition_id)->users_id;
+        if ($this->Auth->user('id') != $users_id) {
+            $this->redirect(['controller' => 'pages', 'action' => 'home']);
+        }
+
         $is_exist = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $exhibition_id])->toArray();
         if (count($is_exist) == 0) {
             $exhibitionStream = $this->ExhibitionStream->newEmptyEntity();
@@ -741,6 +746,11 @@ class ExhibitionStreamController extends AppController
      */
     public function editExhibitionStream($exhibition_id = null)
     {
+        $users_id = $this->getTableLocator()->get('Exhibition')->get($exhibition_id)->users_id;
+        if ($this->Auth->user('id') != $users_id) {
+            $this->redirect(['controller' => 'pages', 'action' => 'home']);
+        }
+
         $stream_id = $this->ExhibitionStream->find()->select(['id'])->where(['exhibition_id' => $exhibition_id])->toArray()[0]->id;
         $exhibitionStream = $this->ExhibitionStream->get($stream_id);
 
@@ -870,7 +880,7 @@ class ExhibitionStreamController extends AppController
     public function issueStreamKey() 
     {
         $stream_key = Text::uuid();
-        $stream_url = "rtmp://121.126.223.225:1935/exon/" . $stream_key; 
+        $stream_url = "rtmp://121.126.223.225:1935/exon/"; 
 
         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'stream_key' => $stream_key, 'stream_url' => $stream_url]));
         return $response;
