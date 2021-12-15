@@ -173,13 +173,7 @@
                         <div class="td-col col7">
                             <div class="con">
                                 <p>그룹명</p>
-                                <p>
-                                    <?php
-                                        if ($exhibition_user->exhibition_group != null) {
-                                            echo number_format(intval($exhibition_user->exhibition_group['name']));
-                                        }
-                                    ?>
-                                </p>
+                                <p><?= $exhibition_user->exhibition_group['name']; ?></p>
                             </div>
                         </div>
                         <div class="td-col col8">
