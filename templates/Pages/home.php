@@ -25,14 +25,25 @@
                 <div class="main-sect2">
                     <h2 class="h-ty1"><span class="t1">Top 10</span><span class="t2">지금 핫한 행사 10</span></h2>
                     <div class="main-sect2-hot-item">
-                        <a href="exhibition/view/<?php echo $hot[0]['exhibition_id']; ?>" class="main-sd-item">
+                        <a href="/exhibition/view/<?php echo $hot[0]['exhibition_id']; ?>" class="main-sd-item">
                             <div class="imgs">
                                 <img style="width:580px; height:292px;" src="<?php echo DS . $hot[0]['img_path'] .DS. $hot[0]['img_name'];?>" alt="">
                             </div>
                         </a>
                         <div class="desc">
                             <div class="info">
-                                <span class="state"><?php if($hot[0]['playing']) echo "진행중"; else echo "진행전"; ?></span>
+                                <span class="state">
+                                <?php 
+                                    if($hot[0]['playing']) : echo "진행중"; 
+                                    else : 
+                                        if(date('m. d. H:m') < $hot[0]['sdate']) : 
+                                            echo "진행전"; 
+                                        else :
+                                            echo "종료";
+                                        endif;
+                                    endif;
+                                ?>
+                                </span>
                                 <span class="date"><?php echo $hot[0]['sdate'] . " ~ " . $hot[0]['edate']; ?></span>
                             </div>
                             <h3 class="h-ty2"><?php echo $hot[0]['title']; ?></h3>
@@ -46,11 +57,22 @@
                             <?php foreach($hot as $index => $list): ?>
                                 <?php if($index): ?>
                                     <div class="swiper-slide">
-                                        <a href="exhibition/view/<?php echo $list['exhibition_id']; ?>" class="main-sd-item">
+                                        <a href="/exhibition/view/<?php echo $list['exhibition_id']; ?>" class="main-sd-item">
                                             <div class="imgs"><img style="width:280px; height:155px;" src="<?php echo DS . $list['img_path'] .DS. $list['img_name'];?>" alt=""></div>
                                             <div class="desc">
                                                 <div class="info">
-                                                    <span class="state"><?php if($list['playing']) echo "진행중"; else echo "진행전"; ?></span>
+                                                    <span class="state">
+                                                        <?php 
+                                                            if($list['playing']) : echo "진행중"; 
+                                                            else : 
+                                                                if(date('m. d. H:m') < $list['sdate']) : 
+                                                                    echo "진행전"; 
+                                                                else :
+                                                                    echo "종료";
+                                                                endif;
+                                                            endif;
+                                                        ?>
+                                                    </span>
                                                     <span class="date"><?php echo $list['sdate'] . " ~ " . $list['edate']; ?></span>
                                                 </div>
                                                 <h3 class="h-ty3"><?php echo $list['title']; ?></h3>
@@ -92,11 +114,22 @@
                                 <div class="swiper-slide">
                                     <div class="swiper-slide">
                                         <div class="main-sd-item">
-                                            <a href="exhibition/view/<?php echo $list['exhibition_id']; ?>">
+                                            <a href="/exhibition/view/<?php echo $list['exhibition_id']; ?>">
                                             <div class="imgs"><img style="width:280px; height:155px;" src="<?php echo DS . $list['img_path'] .DS. $list['img_name'];?>" alt=""></div>
                                             <div class="desc">
                                                 <div class="info">
-                                                    <span class="state"><?php if($list['playing']) echo "진행중"; else echo "진행전"; ?></span>
+                                                    <span class="state">
+                                                    <?php 
+                                                        if($list['playing']) : echo "진행중"; 
+                                                        else : 
+                                                            if(date('m. d. H:m') < $list['sdate']) : 
+                                                                echo "진행전"; 
+                                                            else :
+                                                                echo "종료";
+                                                            endif;
+                                                        endif;
+                                                    ?>
+                                                    </span>
                                                     <span class="date"><?php echo $list['sdate'] . " ~ " . $list['edate']; ?></span>
                                                 </div>
                                                 <h3 class="h-ty3"><?php echo $list['title']; ?></h3>
@@ -125,11 +158,22 @@
                                 <div class="swiper-slide">
                                     <div class="swiper-slide">
                                         <div class="main-sd-item">
-                                            <a href="exhibition/view/<?php echo $list['exhibition_id']; ?>">
+                                            <a href="/exhibition/view/<?php echo $list['exhibition_id']; ?>">
                                             <div class="imgs"><img style="width:280px; height:155px;" src="<?php echo DS . $list['img_path'] .DS. $list['img_name'];?>" alt=""></div>
                                             <div class="desc">
                                                 <div class="info">
-                                                    <span class="state"><?php if($list['playing']) echo "진행중"; else echo "진행전"; ?></span>
+                                                    <span class="state">
+                                                    <?php 
+                                                        if($list['playing']) : echo "진행중"; 
+                                                        else : 
+                                                            if(date('m. d. H:m') < $list['sdate']) : 
+                                                                echo "진행전"; 
+                                                            else :
+                                                                echo "종료";
+                                                            endif;
+                                                        endif;
+                                                    ?>
+                                                    </span>
                                                     <span class="date"><?php echo $list['sdate'] . " ~ " . $list['edate']; ?></span>
                                                 </div>
                                                 <h3 class="h-ty3"><?php echo $list['title']; ?></h3>
