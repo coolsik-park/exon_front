@@ -77,7 +77,7 @@ class ExhibitionController extends AppController
         } else {
             $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
             foreach($exhibitions as $key => $exhibition) {
-                $exhibition_users = $exhibition_users_table->find()->select(['count' => 'ExhibitionUsers.id'])->where(['ExhibitionUsers.exhibition_id' => $exhibition->id])->toArray();
+                $exhibition_users = $exhibition_users_table->find()->select(['count' => 'count(ExhibitionUsers.id)'])->where(['ExhibitionUsers.exhibition_id' => $exhibition->id, 'ExhibitionUsers.status' => '4'])->toArray();
                 
                 if ($exhibition_users == null) {
                     $exhibition_user[$key] = null;
@@ -86,7 +86,6 @@ class ExhibitionController extends AppController
                 }
             }
         }
-
         $this->set(compact('exhibitions', 'front_url', 'exhibition_user'));
     }
     
