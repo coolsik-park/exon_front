@@ -151,21 +151,17 @@
                                 <div class="td-col col3">
                                     <div class="con">
                                         <p>
-                                            <?php
-                                                if ($exhibition_user->exhibition_group != null) {
-                                                    echo number_format(intval($exhibition_user->exhibition_group['name']));
-                                                }
-                                            ?>
+                                            <?= $exhibition_user->exhibition_group['name'] ?>
                                         </p>
                                     </div>
                                 </div>
                                 <div class="td-col col4">
                                     <div class="con">
                                         <?php
-                                            if ($exhibition_user->exhibition_group != null) {
-                                                echo number_format(intval($exhibition_user->exhibition_group['amount'])) . "원";
+                                            if ($exhibition_user->exhibition_group['amount'] != 0) {
+                                                echo number_format($exhibition_user->exhibition_group['amount']) . "원";
                                             } else {
-                                                echo '-';
+                                                echo "무료";
                                             }
                                         ?>
                                     </div>
