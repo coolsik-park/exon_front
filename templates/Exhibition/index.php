@@ -11,6 +11,8 @@
     .pagination li {
         display: inline;
     }
+
+    
 </style>
 
 <div id="container">        
@@ -278,7 +280,26 @@
     //메뉴 숨기기
     $('html').click(function(e) { 
         if(!$(e.target).hasClass("menu-ul") && !$(e.target).hasClass("btn-ty3 bor")) {
+            if($('html').hasclass("menu-ul")){
+                $('.tg-btns').removeClass('open');
+            }
             $('.tg-btns').removeClass('open');
         } 
     });
+
+    //다른 메뉴 클릭 시 열린 메뉴 숨기기 
+    $(document).on("click", "#menu", function(){
+        if($('.tg-btns').hasClass('open') == true){
+            $('.tg-btns').removeClass('open');
+            $(this).parent().addClass('open');
+        }
+    });
+    
+    //메뉴 버튼 제외하고 영역 클릭시 열린 메뉴 숨기기 
+    $('#container').click(function(e){
+        if(!$('.section-my').has(e.target).length){
+            $('.tg-btns').removeClass('open');
+        }
+    });
+
 </script>
