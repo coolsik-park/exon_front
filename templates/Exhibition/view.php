@@ -155,7 +155,7 @@
                                         else:
                                             if ($exhibitionUsers[0]->status == 4):
                             ?>
-                                                <a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition->id ?>" class="btn-join" id="btn-join">웨비나 접속</a>
+                                                <a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition->id ?>/<?=$users_id?>" class="btn-join" id="btn-join">웨비나 접속</a>
                             <?php
                                             else:
                             ?>

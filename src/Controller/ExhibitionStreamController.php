@@ -106,11 +106,11 @@ class ExhibitionStreamController extends AppController
 
     public function watchExhibitionStream($id = null, $exhibition_users_id = null) 
     {   
-        $prevPage = $_SERVER['HTTP_REFERER']; 
-        if($prevPage != FRONT_URL . '/exhibition/view/' . $id || $prevPage != FRONT_URL . '/exhibition-users/sign-up/application' || $prevPage != FRONT_URL . '/exhibition-stream/certification/' . $id) { 
-            echo "<script>alert('허용되지 않는 잘못된 접근입니다.');</script>";
-            echo "<script>history.go(-1);</script>";
-        }
+        // $prevPage = $_SERVER['HTTP_REFERER'];
+        // if($prevPage != FRONT_URL . '/exhibition/view/' . $id || $prevPage != FRONT_URL . '/exhibition-users/sign-up/application' || $prevPage != FRONT_URL . '/exhibition-stream/certification/' . $id) { 
+        //     echo "<script>alert('허용되지 않는 잘못된 접근입니다.');</script>";
+        //     echo "<script>history.go(-1);</script>";
+        // }
 
         if (empty($this->Auth->user()) && $exhibition_users_id == null) {
             $this->redirect(['action' => 'certification', $id]);

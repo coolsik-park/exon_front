@@ -107,7 +107,15 @@ class ExhibitionController extends AppController
         $users = $this->getTableLocator()->get('Users');
         $user = $users->find()->where(['id' => $exhibition->users_id])->toList();
         
-        $this->set(compact('exhibition', 'exhibitionUsers', 'groups', 'user'));
+        $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
+        if (!empty($this->Auth->user())) :
+            $exhibitionUser = $ExhibitionUsers->find('all')->where(['users_id' => $this->Auth->user('id'), 'exhibition_id' => $id])->toArray();
+            $users_id = $exhibitionUser[0]['id'];
+        else :
+            $users_id = null;
+        endif;
+        
+        $this->set(compact('exhibition', 'exhibitionUsers', 'groups', 'user', 'users_id'));
     }
 
     public function groupPeopleCount()
