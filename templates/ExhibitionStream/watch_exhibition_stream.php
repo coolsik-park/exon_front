@@ -84,12 +84,21 @@
     //         }
     //     });
     // });
+    
+    //잘못된 접근 차단
+    var ref = document.referrer;
+    var pass = 0;
+    if (ref != '<?=$front_url?>/exhibition/view/<?=$exhibitionStream[0]['exhibition_id']?>' && ref != '<?=$front_url?>/exhibition-users/sign-up/application' && ref != '<?=$front_url?>/exhibition-stream/certification/<?=$exhibitionStream[0]['exhibition_id']?>') {
+        alert('허용되지 않는 잘못된 접근입니다.');
+        history.go(-1);
+    }
 
     $(document).ready(function () {
         //시청자수 카운트
         setInterval("updateLastViewTime()" , 1000);
-        setInterval("countViewer()" , 1000);
+        setInterval("countViewer()" , 3000);
         setInterval("updateLiveDurationTime()" , 1000);
+        setInterval("liveEndCheck()", 3000);
         
         //video.js 컨트롤
         var address = "http://121.126.223.225:80/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8"
@@ -303,6 +312,18 @@
         }).done(function(data) {
             var time = new Date(data.time * 1000).toISOString().substr(11, 8);
             $("#live_duration_time").html(time);
+        });
+    }
+
+    function liveEndCheck () {
+        jQuery.ajax({
+            url: "/exhibition-stream/live-end-check/" + <?= $exhibitionStream[0]['id'] ?>, 
+            method: 'POST',
+            type: 'json',
+        }).done(function(data) {
+            if (data.end == 1) {
+                window.location.replace("/exhibition-stream/stream-not-exist");
+            }
         });
     }
     
