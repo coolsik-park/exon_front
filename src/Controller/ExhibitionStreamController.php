@@ -121,7 +121,8 @@ class ExhibitionStreamController extends AppController
             $this->redirect(['action' => 'stream_not_exist']);
         }
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
-        $this->set(compact('exhibitionStream', 'tabs', 'exhibition_users_id'));
+        $front_url = FRONT_URL;
+        $this->set(compact('exhibitionStream', 'tabs', 'exhibition_users_id', 'front_url'));
     }
 
     public function questionMenu ($id = null) 
