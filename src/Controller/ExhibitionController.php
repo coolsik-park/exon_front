@@ -653,12 +653,7 @@ class ExhibitionController extends AppController
                     $connection->commit();
                     $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'id' => $id]));
                     return $response;
-                    
-                } else {
-                    $connection->rollback(); 
-                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
-                    return $response;
-                }
+                } 
             }
         }
         $commonCategory = $this->getTableLocator()->get('CommonCategory');
