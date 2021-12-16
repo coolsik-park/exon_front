@@ -284,8 +284,8 @@
     var player = videojs(document.querySelector('#vid1'));
 
     $(document).on("click", "#start", function () {
-        var remain_time = "<?=(int)$exhibitionStream->time?>";
-        var live_duration = "<?=(int)$exhibitionStream->duration?>";
+        var remain_time = "<?=$exhibitionStream->time?>";
+        var live_duration = "<?=$exhibitionStream->live_duration?>";
         if (remain_time <= live_duration) {
             alert("방송시간을 모두 소진하였습니다.");
             return false;
