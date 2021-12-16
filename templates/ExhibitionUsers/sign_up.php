@@ -45,7 +45,12 @@
                     <div class="th-col col7">신청 그룹</div>
                     <div class="th-col col8"></div>
                 </div>
-                <?php foreach ($exhibition_users as $key => $exhibition_user): ?>
+                <?php 
+                    foreach ($exhibition_users as $key => $exhibition_user): 
+                        $d_today = strtotime(date('Y-m-d H:i:s', time()));
+                        $sdate = strtotime($exhibition_user->exhibition['sdate']);
+                        $edate = strtotime($exhibition_user->exhibition['edate']);
+                ?>
                     <div class="tr-row">
                         <div class="td-col col1">
                             <div class="con">
@@ -64,7 +69,7 @@
                                             echo "오전 " . sprintf("%02d", $hour) . ":" . sprintf("%02d", $min);
                                         }
 
-                                        if ($today > $exhibition_user->exhibition['edate']) {
+                                        if ($d_today > $edate) {
                                             if ($exhibition_user->status == 8) {
                                     ?>
                                                 <div class="state">환불 완료</div>
@@ -157,7 +162,7 @@
                                     $today = new DateTime();
 
                                     if ($exhibition_user->attend == 1) {
-                                        if ($today > $exhibition_user->exhibition['edate']) {
+                                        if ($d_today > $edate) {
                                             echo '불참';
                                         } else {
                                             echo '-';
@@ -180,15 +185,10 @@
                             <?php if ($exhibition_user->status != 8){ ?>
                                 <div class="con">
                                     <p><a href="/exhibition-users/download-pdf/<?= $exhibition_user->exhibition['id'] ?>/<?= $exhibition_user->id ?>" class="btn-ty3 bor">증빙</a></p>
-                                    <?php
-                                    date_default_timezone_set('Asia/Seoul');
-                                    $today = date("m/d/Y, H:i a", time());
-                                    $sdate = date("m/d/Y, H:i a", strtotime($exhibition_user->exhibition['sdate']));
-                                    $edate = date("m/d/Y, H:i a", strtotime($exhibition_user->exhibition['edate']));
-                                    
-                                    if ($today > $edate):
+                                    <?php                                    
+                                    if ($d_today > $edate):
                                     else:
-                                        if ($today >= $sdate):
+                                        if ($d_today >= $sdate):
                                             echo '진행중인 행사입니다.';
                                             if ($exhibition_user->status == 4):
                                     ?>
