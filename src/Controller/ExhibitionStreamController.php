@@ -106,12 +106,6 @@ class ExhibitionStreamController extends AppController
 
     public function watchExhibitionStream($id = null, $exhibition_users_id = null) 
     {   
-        // $prevPage = $_SERVER['HTTP_REFERER'];
-        // if($prevPage != FRONT_URL . '/exhibition/view/' . $id || $prevPage != FRONT_URL . '/exhibition-users/sign-up/application' || $prevPage != FRONT_URL . '/exhibition-stream/certification/' . $id) { 
-        //     echo "<script>alert('허용되지 않는 잘못된 접근입니다.');</script>";
-        //     echo "<script>history.go(-1);</script>";
-        // }
-
         if (empty($this->Auth->user()) && $exhibition_users_id == null) {
             $this->redirect(['action' => 'certification', $id]);
         }
@@ -512,57 +506,88 @@ class ExhibitionStreamController extends AppController
         $ExhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey');
         $exhibitionSurveys = $ExhibitionSurvey->find('all', ['contain' => 'ChildExhibitionSurvey'])->where(['exhibition_id' => $id, 'parent_id IS' => null, 'is_display' => 'Y'])->toArray();
         $ExhibitionSurveyUsersAnswer = $this->getTableLocator()->get('ExhibitionSurveyUsersAnswer');
+        $currentSurveys = $ExhibitionSurvey->find('all')->where(['exhibition_id' => $id, 'is_display' => 'Y'])->toArray();
 
-        if ($this->request->is('post')) {
-            $connection = ConnectionManager::get('default');
-            $connection->begin();
-
-            $exhibitionSurveys = $ExhibitionSurvey->find('all')->where(['exhibition_id' => $id, 'is_display' => 'Y'])->toArray();
-            $answerData = $this->request->getData();
-            $i = 0;
-            $parentId = 0;
-            $whereId = 0;
-            $users_id = null;
-            if (!empty($this->Auth->user())) {
-                $users_id = $this->Auth->user('id');
-            }
-
-            foreach ($exhibitionSurveys as $exhibitionSurvey) {
-
-                if (!$result = $connection->insert('exhibition_survey_users_answer', [
-                    'exhibition_survey_id' => $exhibitionSurvey['id'],
-                    'users_id' => $users_id,
-                    'text' => $answerData['exhibition_survey_users_answer_'. $i .'_text'],
-                    'is_multiple' => $exhibitionSurvey['is_multiple']
-                ])) {
-                    $this->Flash->error(__('The survey answer could not be saved. Please, try again.'));
-                    $connection->rollback();
-                }
-                
-                if ($exhibitionSurvey['parent_id'] == null && $exhibitionSurvey['is_multiple'] == "Y") {
-                    $parentId = $result->lastInsertId();
-                    
-                } else {
-                    
-                    if ($exhibitionSurvey['is_multiple'] == "Y") {
-                        $whereId = $result->lastInsertId();
-
-                        if ($connection->update('exhibition_survey_users_answer', ['parent_id' => $parentId], ['id' => $whereId])) {
-                            
-                        } else {
-                            $this->Flash->error(__('The survey answer could not be saved. Please, try again.'));
-                            $connection->rollback();
-                        }
-                    } 
-                }
-                $i++;
-            }
-            $connection->commit();
-            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
-            return $response;
+        for ($i = 0; $i < count($currentSurveys); $i++) {
+            $c_surveys[$i] = $currentSurveys[$i]['id'];
         }
 
-        $this->set(compact('exhibitionSurveys', 'id'));
+        if (!empty($this->Auth->user())) {
+            $u_id = $this->Auth->user('id');
+            $exhibitionSurveyUsersAnswer = $ExhibitionSurveyUsersAnswer->find('all')->where(['exhibition_survey_id IN' => $c_surveys, 'users_id' => $u_id])->toArray();
+        } else {
+            $exhibitionSurveyUsersAnswer = [];
+        }
+        $update = 0;
+        if ($exhibitionSurveyUsersAnswer == []) {
+            $update = 0;
+        } else {
+            $update = 1;
+        }
+
+        if ($this->request->is('post')) {
+
+            if ($update == 1) {
+                $answerData = $this->request->getData();
+                $i = 0;
+                foreach ($exhibitionSurveyUsersAnswer as $answer) {
+                    $data = $ExhibitionSurveyUsersAnswer->get($answer['id']);
+                    $data->text = $answerData['exhibition_survey_users_answer_'. $i .'_text'];
+                    $ExhibitionSurveyUsersAnswer->save($data);
+                    $i++;
+                }
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                return $response;
+            } else {
+                $connection = ConnectionManager::get('default');
+                $connection->begin();
+
+                $exhibitionSurveys = $ExhibitionSurvey->find('all')->where(['exhibition_id' => $id, 'is_display' => 'Y'])->toArray();
+                $answerData = $this->request->getData();
+                $i = 0;
+                $parentId = 0;
+                $whereId = 0;
+                $users_id = null;
+                if (!empty($this->Auth->user())) {
+                    $users_id = $this->Auth->user('id');
+                }
+
+                foreach ($exhibitionSurveys as $exhibitionSurvey) {
+
+                    if (!$result = $connection->insert('exhibition_survey_users_answer', [
+                        'exhibition_survey_id' => $exhibitionSurvey['id'],
+                        'users_id' => $users_id,
+                        'text' => $answerData['exhibition_survey_users_answer_'. $i .'_text'],
+                        'is_multiple' => $exhibitionSurvey['is_multiple']
+                    ])) {
+                        $this->Flash->error(__('The survey answer could not be saved. Please, try again.'));
+                        $connection->rollback();
+                    }
+                    
+                    if ($exhibitionSurvey['parent_id'] == null && $exhibitionSurvey['is_multiple'] == "Y") {
+                        $parentId = $result->lastInsertId();
+                        
+                    } else {
+                        
+                        if ($exhibitionSurvey['is_multiple'] == "Y") {
+                            $whereId = $result->lastInsertId();
+
+                            if ($connection->update('exhibition_survey_users_answer', ['parent_id' => $parentId], ['id' => $whereId])) {
+                                
+                            } else {
+                                $connection->rollback();
+                            }
+                        } 
+                    }
+                    $i++;
+                }
+                $connection->commit();
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                return $response;
+            }
+        }
+
+        $this->set(compact('exhibitionSurveys', 'exhibitionSurveyUsersAnswer', 'id', 'update'));
     }
 
     public function notice($id = null) {
