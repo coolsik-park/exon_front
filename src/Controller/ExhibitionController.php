@@ -110,7 +110,11 @@ class ExhibitionController extends AppController
         $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
         if (!empty($this->Auth->user())) :
             $exhibitionUser = $ExhibitionUsers->find('all')->where(['users_id' => $this->Auth->user('id'), 'exhibition_id' => $id])->toArray();
-            $users_id = $exhibitionUser[0]['id'];
+            if (!empty($exhibitionUser)) :
+                $users_id = $exhibitionUser[0]['id'];
+            else :
+                $users_id = null;
+            endif;
         else :
             $users_id = null;
         endif;
