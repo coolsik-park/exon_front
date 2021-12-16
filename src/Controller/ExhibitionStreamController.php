@@ -1252,4 +1252,17 @@ class ExhibitionStreamController extends AppController
         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'time' => (int)$exhibitionStream->time, 'live_duration' => (int)$exhibitionStream->live_duration]));
         return $response;
     }
+
+    public function liveEndCheck($exhibition_stream_id = null)
+    {
+        $exhibitionStream = $this->ExhibitionStream->get($exhibition_stream_id);
+        
+        if ($exhibitionStream->live_started == null) {
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'end' => 1]));
+            return $response;
+        } else {
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'end' => 0]));
+            return $response;
+        }
+    }
 }

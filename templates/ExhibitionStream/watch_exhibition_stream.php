@@ -88,8 +88,9 @@
     $(document).ready(function () {
         //시청자수 카운트
         setInterval("updateLastViewTime()" , 1000);
-        setInterval("countViewer()" , 1000);
+        setInterval("countViewer()" , 3000);
         setInterval("updateLiveDurationTime()" , 1000);
+        setInterval("liveEndCheck()", 3000);
         
         //video.js 컨트롤
         var address = "http://121.126.223.225:80/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8"
@@ -303,6 +304,18 @@
         }).done(function(data) {
             var time = new Date(data.time * 1000).toISOString().substr(11, 8);
             $("#live_duration_time").html(time);
+        });
+    }
+
+    function liveEndCheck () {
+        jQuery.ajax({
+            url: "/exhibition-stream/live-end-check/" + <?= $exhibitionStream[0]['id'] ?>, 
+            method: 'POST',
+            type: 'json',
+        }).done(function(data) {
+            if (data.end == 1) {
+                window.location.replace("/exhibition-stream/stream-not-exist");
+            }
         });
     }
     
