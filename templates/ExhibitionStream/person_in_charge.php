@@ -4,7 +4,7 @@
         <div class="manager-info">
             <h4 class="s-hty3"><?php echo $exhibition[0]['name'] ?></h4>
             <div class="ment">
-                <!-- <p>오르카티비 PD입니다</p> -->
+                <p><?php echo $user['company']?> <?php echo $user['title']?></p>
             </div>
             <div class="info">
                 <p>이메일 : <?php echo $exhibition[0]['email'] ?></p>
