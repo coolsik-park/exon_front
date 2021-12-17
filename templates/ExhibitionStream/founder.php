@@ -9,7 +9,7 @@
                 <div class="desc">
                     <h4 class="s-hty3"><?php echo $user['name'] ?></h4>
                     <div class="ment">
-                        <p>오르카티비 PD입니다 </p>
+                        <!-- <p>오르카티비 PD입니다 </p> -->
                     </div>
                 </div>
             </div>
