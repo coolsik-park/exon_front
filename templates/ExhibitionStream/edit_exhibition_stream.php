@@ -134,7 +134,7 @@
                         <div class="col-td">
                             <span class="chk-dsg"><input type="checkbox" id="is_download" name="is_download" value="1"><label for="is_download"></label></span>
                         </div>
-                        <a id="download_vod" href="http://121.126.223.225/videos/<?=$exhibitionStream->stream_key?>/source.mp4" style="display:none"></a>
+                        <a id="download_vod" href="https://121.126.223.225/videos/<?=$exhibitionStream->stream_key?>/source.mp4" style="display:none"></a>
                     </div>
                 </div>
             </div>
@@ -217,7 +217,7 @@
     $(document).ready(function () {
         var player = videojs(document.querySelector('#vid1'));
         $.ajax({
-            url: "http://121.126.223.225:80/live/<?=$exhibitionStream->stream_key?>/index.m3u8",
+            url: "https://121.126.223.225:80/live/<?=$exhibitionStream->stream_key?>/index.m3u8",
             type: 'HEAD',
             success: function () {
                 player.src({src: video_uri, type: 'application/x-mpegURL' });
@@ -279,7 +279,7 @@
     }
 
     //방송 컨트롤
-    var video_uri = "http://121.126.223.225:80/live/<?=$exhibitionStream->stream_key?>/index.m3u8"
+    var video_uri = "https://121.126.223.225:80/live/<?=$exhibitionStream->stream_key?>/index.m3u8"
     var stream_key = "<?=$exhibitionStream->stream_key?>"
     var player = videojs(document.querySelector('#vid1'));
 
@@ -335,7 +335,7 @@
             type: 'HEAD',
             success: function () {
                 jQuery.ajax({
-                    url: "http://121.126.223.225:9920/live", 
+                    url: "https://121.126.223.225:9920/live", 
                     method: 'DELETE',
                     type: 'json',
                     data: jsonData,
