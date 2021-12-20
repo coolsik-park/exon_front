@@ -88,7 +88,7 @@
     //잘못된 접근 차단
     var ref = document.referrer;
     var pass = 0;
-    if (ref != '<?=$front_url?>/exhibition/view/<?=$exhibitionStream[0]['exhibition_id']?>' && ref != '<?=$front_url?>/exhibition-users/sign-up/application' && ref != '<?=$front_url?>/exhibition-stream/certification/<?=$exhibitionStream[0]['exhibition_id']?>') {
+    if (ref != '<?=$front_url?>/exhibition/view/<?=$exhibitionStream[0]['exhibition_id']?>' && ref != '<?=$front_url?>/exhibition-users/sign-up/application' && ref != '<?=$front_url?>/exhibition-stream/certification/<?=$exhibitionStream[0]['exhibition_id']?>' && ref != document.location.href) {
         alert('허용되지 않는 잘못된 접근입니다.');
         history.go(-1);
     }
@@ -101,7 +101,7 @@
         setInterval("liveEndCheck()", 3000);
         
         //video.js 컨트롤
-        var address = "http://121.126.223.225:80/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8"
+        var address = "http://121.126.233.225:80/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8"
         window.onload = function () {
             var player = videojs(document.querySelector('#vid1'));
             player.src({

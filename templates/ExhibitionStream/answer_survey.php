@@ -28,7 +28,7 @@
                                 <div class="poll-item">
                                     <p class="poll-q"><?=$exhibitionSurvey->text?></p>
                                     <div class="poll-a">
-                                        <textarea name="exhibition_survey_users_answer.<?=$i?>.text" cols="30" rows="5"></textarea>
+                                        <textarea name="exhibition_survey_users_answer.<?=$i?>.text" id="<?=$exhibitionSurvey->id?>" cols="30" rows="5"></textarea>
                                         <?php $i++; ?>
                                     </div>
                                 </div>
@@ -65,14 +65,53 @@
         </form>
         <div class="webinar-cont-ty1-btm">
             <div class="poll-submit">                                        
-                <button id="send" class="btn-ty4 redbg">확인</button>
+                <button id="send" type="button" class="btn-ty4 redbg">확인</button>
             </div>
         </div>
     </div>                            
 </div>
 
-
 <script>
+    var update = "<?=$update?>";
+    if (update == 1) {
+        $(":input:radio").each(function () {
+        <?php foreach ($exhibitionSurveyUsersAnswer as $data) : ?>
+            if ($(this).attr("id") == "<?=$data['exhibition_survey_id']?>") {
+                var text = "<?=$data['text']?>";
+                if (text == 'Y') {
+                    $(this).prop("checked", true);
+                    var id = $(this).attr("id");
+                    var name = $(this).attr("name");
+                    $(":input:hidden[id=" + id + "]").val("Y"); 
+                }
+            }
+        <?php endforeach; ?>
+        });
+
+        $(":input:checkbox").each(function () {
+        <?php foreach ($exhibitionSurveyUsersAnswer as $data) : ?>
+            if ($(this).attr("id") == "<?=$data['exhibition_survey_id']?>") {
+                var text = "<?=$data['text']?>";
+                if (text == 'Y') {
+                    $(this).prop("checked", true);
+                    var id = $(this).attr("id");
+                    var name = $(this).attr("name");
+                    $(":input:hidden[id=" + id + "]").val("Y"); 
+                }
+            }
+        <?php endforeach; ?>
+        });
+
+        $("textarea").each(function () {
+        <?php foreach ($exhibitionSurveyUsersAnswer as $data) : ?>
+            if ($(this).attr("id") == "<?=$data['exhibition_survey_id']?>") {
+                var text = "<?=$data['text']?>";
+                $(this).val(text);
+            }
+        <?php endforeach; ?>
+        });
+    }
+
     $(":input:radio").change(function () {
         var id = $(this).attr("id");
         var name = $(this).attr("name")
@@ -98,12 +137,12 @@
             type: 'json',
             data: formData,
         }).done(function(data) {
-            if (data.status == 'success') {
+            // if (data.status == 'success') {
                 alert("전송되었습니다.");
                 $(".webinar-tab-body").load("/exhibition-stream/answer-survey/" + <?= $id ?>);
-            } else {
-                alert("전송에 실패하였습니다. 잠시후 다시 시도해주세요.");
-            }
+            // } else {
+                // alert("전송에 실패하였습니다. 잠시후 다시 시도해주세요.");
+            // }
         });
     });
 </script>

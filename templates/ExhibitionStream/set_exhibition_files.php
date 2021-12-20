@@ -49,7 +49,7 @@ var fileList = new Array();
 // 파일 사이즈 리스트
 var fileSizeList = new Array();
 // 등록 가능한 파일 사이즈 MB
-var uploadSize = 50;
+var uploadSize = 50000;
 // 등록 가능한 총 파일 사이즈 MB
 var maxUploadSize = 500;
 
