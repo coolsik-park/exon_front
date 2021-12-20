@@ -827,32 +827,37 @@
             type: 'json',
             data: formData
         }).done(function (data) {
-            if (data.status == 'success') {
-                var imageData = new FormData();
-                var image = document.getElementById("image").files;
-                imageData.append('image', image[0]);
-                
-                jQuery.ajax({
-                    url: '/exhibition/save-img/' + data.id,
-                    processData: false,
-                    contentType: false,
-                    cache: false,
-                    data: imageData,
-                    type: 'POST',
-                }).done(function (data) {
-                    if (data.status == 'success') {
-                        alert("저장 되었습니다.");
-                        window.location.replace("/exhibition/index/all");
-                    } else {
-                        alert("오류가 발생하였습니다. 잠시 후 시도해주세요.");
-                    }
-                });
-            } else if (data.status == 'exist') {
+            if (data.status == 'exist') {
                 alert("삭제하려는 그룹에 참가자가 존재하여 삭제 할 수 없습니다. 참가자를 확인해주세요.");
                 window.location.reload();
-            } else {
-                alert("오류가 발생하였습니다. 잠시 후 시도해주세요.");
+                return false;
             }
+            // if (data.status == 'success') {
+            var imageData = new FormData();
+            var image = document.getElementById("image").files;
+            imageData.append('image', image[0]);
+            
+            jQuery.ajax({
+                url: '/exhibition/save-img/' + data.id,
+                processData: false,
+                contentType: false,
+                cache: false,
+                data: imageData,
+                type: 'POST',
+            }).done(function (data) {
+                if (data.status == 'success') {
+                    alert("저장 되었습니다.");
+                    window.location.replace("/exhibition/index/all");
+                } else {
+                    alert("오류가 발생하였습니다. 잠시 후 시도해주세요.");
+                }
+            });
+            // } else if (data.status == 'exist') {
+                // alert("삭제하려는 그룹에 참가자가 존재하여 삭제 할 수 없습니다. 참가자를 확인해주세요.");
+                // window.location.reload();
+            // } else {
+                // alert("오류가 발생하였습니다. 잠시 후 시도해주세요.");
+            // }
         });
     });
 
