@@ -508,6 +508,7 @@ class ExhibitionStreamController extends AppController
         $ExhibitionSurveyUsersAnswer = $this->getTableLocator()->get('ExhibitionSurveyUsersAnswer');
         $currentSurveys = $ExhibitionSurvey->find('all')->where(['exhibition_id' => $id, 'is_display' => 'Y'])->toArray();
 
+        $c_surveys[] = '';
         for ($i = 0; $i < count($currentSurveys); $i++) {
             $c_surveys[$i] = $currentSurveys[$i]['id'];
         }
