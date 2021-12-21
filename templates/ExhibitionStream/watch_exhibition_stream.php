@@ -5,6 +5,7 @@
     <link rel="shortcut icon" href="#" > <!-- 음량 올릴시 오류 해결 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.1/video-js.min.css" rel="stylesheet"> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.1/video.min.js"></script>
+    <script src="/js/videojs-http-streaming.min.js"></script>
 
     <style>
         .video-js .vjs-time-control{display:block;}
