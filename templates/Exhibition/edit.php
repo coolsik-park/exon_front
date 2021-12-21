@@ -1145,7 +1145,7 @@
         var html = '';
         html += '<div id="row_'+j+'" class="wrt-after">';
         html += '   <input name="child_text_'+index+'[]" type="text" class="ipt" placeholder="보기">';
-        html += '   <input name="child_survey_id[]" type="hidden" value="0">'
+        html += '   <input name="child_survey_id_'+i+'[]" type="hidden" value="0">'
         html += '   <button type="button" class="btn-del" onclick="deleteRow('+j+', 0)">보기 삭제</button>';
         html += '</div>';
         $("#rows_" + index).append(html);
@@ -1154,9 +1154,9 @@
 
     //보기 삭제
     function deleteRow(index, id) {
-        var html = '';
-        html += '<input name="child_survey_del[]" type="hidden" value="' + id + '">';
-        $("#survey").append(html);
+        // var html = '';
+        // html += '<input name="child_survey_del[]" type="hidden" value="' + id + '">';
+        // $("#survey").append(html);
         $("#row_" + index).remove();
         j--;
     };
