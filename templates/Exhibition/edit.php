@@ -1137,7 +1137,7 @@
         html += '<input name="survey_del[]" type="hidden" value="' + id + '">';
         $("#survey").append(html);
         $("#survey_" + index).remove();
-        // i--;
+        i--;
     };
 
     //보기 추가
