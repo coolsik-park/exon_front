@@ -916,7 +916,7 @@ class ExhibitionStreamController extends AppController
     public function issueStreamKey() 
     {
         $stream_key = Text::uuid();
-        $stream_url = "rtmp://121.126.223.225:1935/exon/"; 
+        $stream_url = "rtmp://orcaexon.co.kr:1935/exon/"; 
 
         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'stream_key' => $stream_key, 'stream_url' => $stream_url]));
         return $response;

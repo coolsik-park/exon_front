@@ -635,21 +635,21 @@ class ExhibitionController extends AppController
                         }
                     }
 
-                    if (!empty($data['child_survey_del'])) {
-                        $count = count($data['child_survey_del']);
+                    // if (!empty($data['child_survey_del'])) {
+                    //     $count = count($data['child_survey_del']);
 
-                        for ($i = 0; $i < $count; $i ++) {
+                    //     for ($i = 0; $i < $count; $i ++) {
 
-                            if ($data['child_survey_del'][$i] != 0) {
-                                $exhibitionSurvey = $ExhibitionSurvey->get($data['child_survey_del'][$i]);
+                    //         if ($data['child_survey_del'][$i] != 0) {
+                    //             $exhibitionSurvey = $ExhibitionSurvey->get($data['child_survey_del'][$i]);
 
-                                if (!$ExhibitionSurvey->delete($exhibitionSurvey)) {
-                                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
-                                    return $response;
-                                }
-                            }
-                        }
-                    }
+                    //             if (!$ExhibitionSurvey->delete($exhibitionSurvey)) {
+                    //                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                    //                 return $response;
+                    //             }
+                    //         }
+                    //     }
+                    // }
                     $connection->commit();
                     $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'id' => $id]));
                     return $response;
