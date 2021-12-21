@@ -125,4 +125,9 @@ class ExhibitionStreamChatLogController extends AppController
         echo json_encode(array("error"=>false , 'contents' =>$contents, 'last_id'=> ($chat->last()['id'])?$chat->last()['id']:$last_id));
         exit;
     }
+
+    public function chatNotExist()
+    {
+        
+    }
 }
