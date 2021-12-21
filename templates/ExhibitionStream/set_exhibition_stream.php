@@ -663,7 +663,7 @@
                 $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-            $(".webinar-tab-body").load("/exhibition-stream-chat-log/chat/" + <?= $exhibition_id ?>);
+            $(".webinar-tab-body").load("/exhibition-stream-chat-log/chat-not-exist/" + <?= $exhibition_id ?>);
         }
     });
 
