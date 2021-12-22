@@ -35,7 +35,7 @@ class ExhibitionStreamChatLogController extends AppController
         
     }
 
-    public function chat($exhibition_id = null)
+    public function chat($exhibition_id = null, $now = null)
     {
 
         // if(!$this->getRequest()->getData('name')){
@@ -70,7 +70,7 @@ class ExhibitionStreamChatLogController extends AppController
         $exhibitionStream = $ExhibitionStream->find('all')->where(['exhibition_id' => $exhibition_id])->toArray();
         if (count($exhibitionStream) != 0) {
             $stream_id = $exhibitionStream[0]['id'];
-            $this->set(compact('stream_id'));
+            $this->set(compact('stream_id', 'now'));
         }
     }
 

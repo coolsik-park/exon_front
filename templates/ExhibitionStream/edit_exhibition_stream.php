@@ -848,6 +848,8 @@
         }
     });
 
+    var now = new Date();
+    now = now.toISOString();
     $("#btn_tab9").click(function () {
         if ($("#setting_btn").attr("name") == "btn_on") {
             if ($("#li9").attr("class") == "") {
@@ -860,7 +862,7 @@
                 $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
-            $(".webinar-tab-body").load("/exhibition-stream-chat-log/chat/" + <?= $exhibition_id ?>);
+            $(".webinar-tab-body").load("/exhibition-stream-chat-log/chat/" + <?= $exhibition_id ?> + "/" + now);
         }
     });
 

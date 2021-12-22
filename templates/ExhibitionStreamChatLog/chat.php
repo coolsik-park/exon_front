@@ -206,23 +206,12 @@ $(document).ready(function(){
         loadLog()
         return false;
     });
-
-    var now = new Date();
-    // var year = now.getFullYear();
-    // var month = now.getMonth();
-    // var day = now.getDate();
-    // var hour = now.getHours();
-    // var minute = now.getMinutes();
-    // var second = now.getSeconds();
-
-    // now = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
-    now = now.toISOString();
     
     function loadLog(){     
         var oldscrollHeight = $("#chatbox")[0].scrollHeight - 20; //Scroll height before the request
         
         $.ajax({
-            url: "/ExhibitionStreamChatLog/getChatLog/"+$("#last_id").val() + "/<?=$stream_id?>/" + now,
+            url: "/ExhibitionStreamChatLog/getChatLog/"+$("#last_id").val() + "/<?=$stream_id?>/<?=$now?>",
             cache: false,
             dataType: 'json',
             success: function(data){     

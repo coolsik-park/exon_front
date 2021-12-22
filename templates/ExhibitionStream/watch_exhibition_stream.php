@@ -127,8 +127,10 @@
             }
         }
 
+        var now = new Date();
+        now = now.toISOString();
         if (bin.substring(9,10) == 1) {
-            $(".webinar-tab-body").load("/exhibition-stream-chat-log/chat/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
+            $(".webinar-tab-body").load("/exhibition-stream-chat-log/chat/" + <?= $exhibitionStream[0]['exhibition_id'] ?> + "/" + now);
             $("#li0").attr("class", "");
             $("#li1").attr("class", "");
             $("#li2").attr("class", "");
@@ -284,7 +286,7 @@
         });
 
         $("#li9").click(function () {
-            $(".webinar-tab-body").load("/exhibition-stream-chat-log/chat/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
+            $(".webinar-tab-body").load("/exhibition-stream-chat-log/chat/" + <?= $exhibitionStream[0]['exhibition_id'] ?> + "/" + now);
             $("#li0").attr("class", "");
             $("#li1").attr("class", "");
             $("#li2").attr("class", "");
