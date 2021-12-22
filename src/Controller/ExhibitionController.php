@@ -669,7 +669,9 @@ class ExhibitionController extends AppController
         $types = $commonCategory->find('list')->select('title')->where(['tables' => 'exhibition', 'types' => 'type']);
         $exhibitionGroups = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
         $exhibitionSurveys = $this->getTableLocator()->get('ExhibitionSurvey')->find('all', ['contain' => 'ChildExhibitionSurvey'])->where(['exhibition_id' => $id, 'parent_id IS' => null])->toArray();
-        $this->set(compact('id', 'exhibition', 'users', 'categories', 'types', 'exhibitionGroups', 'exhibitionSurveys'));
+        $exhibitionStream = $this->getTableLocator()->get('ExhibitionStream')->find('all')->where(['exhibition_id' => $id])->toArray();
+        $live_duration = $exhibitionStream[0]['live_duration'];
+        $this->set(compact('id', 'exhibition', 'users', 'categories', 'types', 'exhibitionGroups', 'exhibitionSurveys', 'live_duration'));
     }
 
     public function copy($id = null) {
