@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\Datasource\ConnectionManager;
+use Cake\I18n\FrozenTime;
 
 /**
  * ExhibitionStreamChatLog Controller
@@ -54,17 +55,23 @@ class ExhibitionStreamChatLogController extends AppController
         
         $this->getRequest()->getSession()->write('Chat.UserName', $users_name);
 
-        $ExhibitionStream = $this->getTableLocator()->get('ExhibitionStream');
-        $exhibitionStream = $ExhibitionStream->find()->select(['id'])->where(['exhibition_id' => $exhibition_id])->toArray();
-        if (count($exhibitionStream) != 0) {
-            $exhibition_stream_id = $exhibitionStream[0]['id'];
-            $this->getRequest()->getSession()->write('Chat.StreamId', $exhibition_stream_id);
-        } else {
-            echo "스트리밍 개설 전입니다.";
-        }
+        // $ExhibitionStream = $this->getTableLocator()->get('ExhibitionStream');
+        // $exhibitionStream = $ExhibitionStream->find()->select(['id'])->where(['exhibition_id' => $exhibition_id])->toArray();
+        // if (count($exhibitionStream) != 0) {
+        //     $exhibition_stream_id = $exhibitionStream[0]['id'];
+        //     $this->getRequest()->getSession()->write('Chat.StreamId', $exhibition_stream_id);
+        // } else {
+        //     echo "스트리밍 개설 전입니다.";
+        // }
         
             
         // }
+        $ExhibitionStream = $this->getTableLocator()->get('ExhibitionStream');
+        $exhibitionStream = $ExhibitionStream->find('all')->where(['exhibition_id' => $exhibition_id])->toArray();
+        if (count($exhibitionStream) != 0) {
+            $stream_id = $exhibitionStream[0]['id'];
+            $this->set(compact('stream_id'));
+        }
     }
 
     public function chatOut()
@@ -87,7 +94,9 @@ class ExhibitionStreamChatLogController extends AppController
             $ChatLogs = $this->getTableLocator()->get('ExhibitionStreamChatLog');
             $chat = $ChatLogs->newEmptyEntity();
     
-            $chat->exhibition_stream_id = $this->getRequest()->getSession()->read('Chat.StreamId');
+            // $chat->exhibition_stream_id = $this->getRequest()->getSession()->read('Chat.StreamId');
+            $chat->exhibition_stream_id = $stream_id;
+
             if (!empty($this->Auth->user())) {
                 $chat->users_id = $this->Auth->user('id');   
             }
@@ -107,13 +116,13 @@ class ExhibitionStreamChatLogController extends AppController
         exit;
     }
 
-    public function getChatLog($last_id = null)
+    public function getChatLog($last_id = null, $stream_id = null, $now = null)
     {
         $this->loadModel('ExhibitionStreamChatLog');
 
         $chat = $this->ExhibitionStreamChatLog->find('all')
                         ->select(['id', 'user_name', 'message','created'])
-                        ->where(['exhibition_stream_id'=>$this->getRequest()->getSession()->read('Chat.StreamId'), 'id >'=>$last_id])
+                        ->where(['exhibition_stream_id'=>$stream_id, 'id >'=>$last_id, 'created >' => strtotime($now)])
                         ->enableHydration(false)
                         ;
 

@@ -201,17 +201,28 @@ $(document).ready(function(){
     //If user submits the form
     $("#submitmsg").click(function () {
         var clientmsg = $("#usermsg").val();
-        $.post("/ExhibitionStreamChatLog/chatLog", { text: clientmsg });
+        $.post("/ExhibitionStreamChatLog/chatLog/<?=$stream_id?>", { text: clientmsg });
         $("#usermsg").val("");
         loadLog()
         return false;
     });
 
+    var now = new Date();
+    // var year = now.getFullYear();
+    // var month = now.getMonth();
+    // var day = now.getDate();
+    // var hour = now.getHours();
+    // var minute = now.getMinutes();
+    // var second = now.getSeconds();
+
+    // now = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+    now = now.toISOString();
+    
     function loadLog(){     
         var oldscrollHeight = $("#chatbox")[0].scrollHeight - 20; //Scroll height before the request
         
         $.ajax({
-            url: "/ExhibitionStreamChatLog/getChatLog/"+$("#last_id").val(),
+            url: "/ExhibitionStreamChatLog/getChatLog/"+$("#last_id").val() + "/<?=$stream_id?>/" + now,
             cache: false,
             dataType: 'json',
             success: function(data){     
