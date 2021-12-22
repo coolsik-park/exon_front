@@ -68,7 +68,7 @@
         <div class="webinar-cont-ty1-btm">
             <div class="poll-submit">
                 <input type="text" id="question" style="width:70%">                                        
-                <button id="add" class="btn-ty4 redbg">제출</button>
+                <button id="add" type="button" class="btn-ty4 redbg">제출</button>
                 <input type="hidden" id="target">
             </div>
         </div>
@@ -82,6 +82,10 @@
     });
 
     $("button#add").click(function () {
+        if ($("#target").val() == '') {
+            alert("질문 대상을 선택해주세요.");
+            return false;
+        }
         jQuery.ajax({
             url: "/exhibition-stream/set-question/" + <?= $id ?>, 
             method: 'POST',
