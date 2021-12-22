@@ -730,21 +730,30 @@
         formData = formData + '&detail=' + CKEDITOR.instances.detail_html.getData();
 
         var apply_sdate = new Date($("#data_apply_sdate").val());
-        apply_sdate.setHours(apply_sdate.getHours()+9);
-        formData = formData + '&apply_sdate=' + apply_sdate.toISOString();
+        if (apply_sdate != 'Invalid Date') {
+            apply_sdate.setHours(apply_sdate.getHours()+9);
+            formData = formData + '&apply_sdate=' + apply_sdate.toISOString();
+        }
 
         var apply_edate = new Date($("#data_apply_edate").val());
-        apply_edate.setHours(apply_edate.getHours()+9);
-        formData = formData + '&apply_edate=' + apply_edate.toISOString();
+        if (apply_edate != 'Invalid Date') {
+            apply_edate.setHours(apply_edate.getHours()+9);
+            formData = formData + '&apply_edate=' + apply_edate.toISOString();
+        }
+        
 
         var sdate = new Date($("#data_sdate").val());
-        sdate.setHours(sdate.getHours()+9);
-        formData = formData + '&sdate=' + sdate.toISOString();
-
+        if (sdate != 'Invalid Date') {
+            sdate.setHours(sdate.getHours()+9);
+            formData = formData + '&sdate=' + sdate.toISOString();
+        }
+        
         var edate = new Date($("#data_edate").val());
-        edate.setHours(edate.getHours()+9);
-        formData = formData + '&edate=' + edate.toISOString();
-
+        if (edate != 'Invalid Date') {
+            edate.setHours(edate.getHours()+9);
+            formData = formData + '&edate=' + edate.toISOString();
+        }
+        
         jQuery.ajax({
             url: "/exhibition/add/",
             method: 'POST',
@@ -833,7 +842,7 @@
     //설문 삭제
     function deleteSurvey(index) {
         $("#survey_" + index).remove();
-        i--;
+        // i--;
     };
 
     //보기 추가
