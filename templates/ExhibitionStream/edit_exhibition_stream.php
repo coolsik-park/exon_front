@@ -43,6 +43,12 @@
             <div id="videoWrap" class="wb-cont1" >
                 <video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup='{"fluid": true}' muted="muted" autoplay="autoplay"></video-js>
             </div>
+            <div class="wb-cont2">
+                <div class="w-desc">
+                    <p class="wd1"><span class="w-dt">스트리밍 시간 : </span><span id="live_duration_time" class="w-dd">00:00:00</span></p>
+                    <p class="wd2"><span class="w-dt">시청자 : </span><span id="viewer" class="w-dd">0명</span></p>
+                </div>
+            </div>   
             <div id="liveButtons" class="wb-cont2">
                 <?php if ($exhibitionStream->live_started == '') : ?>
                 <button id="start" type="button" class="btn-ty4 black">방송시작</button>
@@ -177,6 +183,30 @@
 
 <script>
     //페이지 로드시
+    setInterval("countViewer()" , 3000);
+    setInterval("updateLiveDurationTime()" , 1000);
+    
+    function countViewer () {
+        jQuery.ajax({
+            url: "/exhibition-stream/count-viewer/" + <?= $exhibitionStream->exhibition_id ?>, 
+            method: 'POST',
+            type: 'json',
+        }).done(function(data) {
+            $("#viewer").html(data.count + "명");
+        });
+    }
+
+    function updateLiveDurationTime () {
+        jQuery.ajax({
+            url: "/exhibition-stream/get-live-duration-time/" + <?= $exhibitionStream->id ?>, 
+            method: 'POST',
+            type: 'json',
+        }).done(function(data) {
+            var time = new Date(data.time * 1000).toISOString().substr(11, 8);
+            $("#live_duration_time").html(time);
+        });
+    }
+
     $("#title").val("<?=$exhibitionStream->title?>");
     $("#description").val("<?=$exhibitionStream->description?>");
     $("#time").val("<?=$exhibitionStream->time?>").prop("selected", true);
