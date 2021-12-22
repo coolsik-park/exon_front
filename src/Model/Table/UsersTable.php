@@ -51,6 +51,8 @@ class UsersTable extends Table
             'foreignKey' => 'user_id',
             'targetForeignKey' => 'exhibition_id',
             'joinTable' => 'exhibition_users',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
     }
 

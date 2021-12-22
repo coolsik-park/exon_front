@@ -174,12 +174,11 @@ class UsersController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'));
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
         } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
         }
-
-        return $this->redirect(['action' => 'index']);
+        return $response;
     }
 
     public function naverJoin()

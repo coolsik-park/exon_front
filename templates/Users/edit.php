@@ -259,6 +259,9 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                         </div>                   
                     </div>
                 </div>
+                <div class="item-row">
+                    <button type="button" class="btn-ty3 bor md" id="delete">회원 탈퇴</button>
+                </div>
             </div>
         </div>
         <div class="section-btm2 mgtS1">
@@ -270,6 +273,23 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
 <footer id="footer"></footer>
 
 <script>
+    //회원탈퇴
+    $(document).on("click", "#delete", function () {
+        if (confirm("회원 탈퇴시 행사참여 정보 및 결제 정보는 모두 삭제됩니다. 탈퇴하시겠습니까?")) {
+            jQuery.ajax({
+                url: "/users/delete/<?=$user->id?>", 
+                method: 'DELETE',
+            }).done(function(data) {
+                if (data.status == 'success') {
+                    alert("회원탈퇴가 완료되었습니다.");
+                    window.location.href("/");
+                } else {
+                    alert("오류가 발생하였습니다. 다시 시도해 주세요.");
+                }
+            });
+        }
+    });
+
     $(document).on("change", "#email", function () {
         $("#emailNoti").html("");
     });

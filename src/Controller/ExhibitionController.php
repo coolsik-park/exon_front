@@ -670,7 +670,10 @@ class ExhibitionController extends AppController
         $exhibitionGroups = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
         $exhibitionSurveys = $this->getTableLocator()->get('ExhibitionSurvey')->find('all', ['contain' => 'ChildExhibitionSurvey'])->where(['exhibition_id' => $id, 'parent_id IS' => null])->toArray();
         $exhibitionStream = $this->getTableLocator()->get('ExhibitionStream')->find('all')->where(['exhibition_id' => $id])->toArray();
-        $live_duration = $exhibitionStream[0]['live_duration'];
+        $live_duration = 0;
+        if (!empty($exhibitionStream)) {
+            $live_duration = $exhibitionStream[0]['live_duration'];
+        }
         $this->set(compact('id', 'exhibition', 'users', 'categories', 'types', 'exhibitionGroups', 'exhibitionSurveys', 'live_duration'));
     }
 
