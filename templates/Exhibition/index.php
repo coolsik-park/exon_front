@@ -20,17 +20,17 @@
         <div class="section-my">
             <h3 class="s-hty1">개설 행사 관리</h3>
             <ul class="s-tabs">
-                <?php if ($_SERVER['REQUEST_URI'] == '/exhibition/index/all') { ?>
+                <?php if (explode('?', $_SERVER['REQUEST_URI'])[0] == '/exhibition/index/all') { ?>
                     <li class="active"><a href="">개설행사</a></li>
                     <li><a href="/exhibition/index/ongoing">진행중 행사</a></li>
                     <li><a href="/exhibition/index/temp">임시저장 행사</a></li>
                     <li><a href="/exhibition/index/ended">종료 행사</a></li>
-                <?php } elseif ($_SERVER['REQUEST_URI'] == '/exhibition/index/ongoing') { ?>
+                <?php } elseif (explode('?', $_SERVER['REQUEST_URI'])[0] == '/exhibition/index/ongoing') { ?>
                     <li><a href="/exhibition/index/all">개설행사</a></li>
                     <li class="active"><a href="">진행중 행사</a></li>
                     <li><a href="/exhibition/index/temp">임시저장 행사</a></li>
                     <li><a href="/exhibition/index/ended">종료 행사</a></li>
-                <?php } elseif ($_SERVER['REQUEST_URI'] == '/exhibition/index/temp') { ?>
+                <?php } elseif (explode('?', $_SERVER['REQUEST_URI'])[0] == '/exhibition/index/temp') { ?>
                     <li><a href="/exhibition/index/all">개설행사</a></li>
                     <li><a href="/exhibition/index/ongoing">진행중 행사</a></li>
                     <li class="active"><a href="">임시저장 행사</a></li>
@@ -232,9 +232,9 @@
         if (confirm('행사를 삭제하시겠습니까?') == true) {
             $.ajax({
                 url: '/exhibition/delete/' + id,
-                method: 'POST',
-                type: 'json',
-                data: {}
+                method: 'DELETE',
+                // type: 'json',
+                // data: {}
             }).done(function(data) {
                 if (data.status == 'success') {
                     window.location.reload();
