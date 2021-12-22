@@ -25,7 +25,7 @@
             <div class="webinar-cont">
                 <div class="wb-cont1">
                     <!-- autoplay="autoplay" muted="muted" -->
-                    <video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup='{"fluid": true}' muted="muted" autoplay="autoplay"><source src="https://orcaexon.co.kr/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8" type="application/x-mpegURL"></video-js>
+                    <video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls playsinline data-setup='{"fluid": true}' muted="muted" autoplay="autoplay"><source src="https://orcaexon.co.kr/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8" type="application/x-mpegURL"></video-js>
                 </div>
                 <div class="wb-cont2">
                     <h3 class="w-tit"><?= $exhibitionStream[0]['title'] ?></h3>
