@@ -127,6 +127,20 @@
             }
         }
 
+        if (bin.substring(9,10) == 1) {
+            $(".webinar-tab-body").load("/exhibition-stream-chat-log/chat/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
+            $("#li0").attr("class", "");
+            $("#li1").attr("class", "");
+            $("#li2").attr("class", "");
+            $("#li3").attr("class", "");
+            $("#li4").attr("class", "");
+            $("#li5").attr("class", "");
+            $("#li6").attr("class", "");
+            $("#li7").attr("class", "");
+            $("#li8").attr("class", "");
+            $("#li9").attr("class", "active");        
+        }
+
         $("#li0").click(function () {
             clearInterval(chatInterval);
             $(".webinar-tab-body").load("/exhibition-stream/exhibition-files/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
