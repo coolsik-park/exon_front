@@ -22,6 +22,10 @@
             top:0%;
             width:100%;
         }
+        
+        .wb-stream-sect {
+            margin-bottom: 70px;
+        }
     </style>
 </head>
 
