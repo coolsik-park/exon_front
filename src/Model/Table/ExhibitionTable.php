@@ -15,6 +15,7 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\BannerTable&\Cake\ORM\Association\HasMany $Banner
  * @property \App\Model\Table\ExhibitionFileTable&\Cake\ORM\Association\HasMany $ExhibitionFile
  * @property \App\Model\Table\ExhibitionGroupTable&\Cake\ORM\Association\HasMany $ExhibitionGroup
+ * @property \App\Model\Table\ExhibitionSpeakerTable&\Cake\ORM\Association\HasMany $ExhibitionSpeaker
  * @property \App\Model\Table\ExhibitionStreamTable&\Cake\ORM\Association\HasMany $ExhibitionStream
  * @property \App\Model\Table\ExhibitionSurveyTable&\Cake\ORM\Association\HasMany $ExhibitionSurvey
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsToMany $Users
@@ -58,43 +59,26 @@ class ExhibitionTable extends Table
         ]);
         $this->hasMany('Banner', [
             'foreignKey' => 'exhibition_id',
-            'dependent' => true,
-            'cascadeCallbacks' => true,
         ]);
         $this->hasMany('ExhibitionFile', [
             'foreignKey' => 'exhibition_id',
-            'dependent' => true,
-            'cascadeCallbacks' => true,
         ]);
         $this->hasMany('ExhibitionGroup', [
             'foreignKey' => 'exhibition_id',
-            'dependent' => true,
-            'cascadeCallbacks' => true,
-        ]);
-        $this->hasMany('ExhibitionStream', [
-            'foreignKey' => 'exhibition_id',
-            'dependent' => true,
-            'cascadeCallbacks' => true,
-        ]);
-        $this->hasMany('ExhibitionSurvey', [
-            'foreignKey' => 'exhibition_id',
-            'dependent' => true,
-            'cascadeCallbacks' => true,
         ]);
         $this->hasMany('ExhibitionSpeaker', [
             'foreignKey' => 'exhibition_id',
-            'dependent' => true,
-            'cascadeCallbacks' => true,
         ]);
-        $this->belongsTo('CommonCategory', [
-            'foreignKey' => 'common_category_id'
+        $this->hasMany('ExhibitionStream', [
+            'foreignKey' => 'exhibition_id',
+        ]);
+        $this->hasMany('ExhibitionSurvey', [
+            'foreignKey' => 'exhibition_id',
         ]);
         $this->belongsToMany('Users', [
             'foreignKey' => 'exhibition_id',
             'targetForeignKey' => 'users_id',
             'joinTable' => 'exhibition_users',
-            'dependent' => true,
-            'cascadeCallbacks' => true,
         ]);
     }
 
@@ -130,7 +114,8 @@ class ExhibitionTable extends Table
         $validator
             ->scalar('type')
             ->maxLength('type', 64)
-            ->allowEmptyString('type');
+            ->requirePresence('type', 'create')
+            ->notEmptyString('type');
 
         $validator
             ->scalar('detail_html')
@@ -173,19 +158,16 @@ class ExhibitionTable extends Table
         $validator
             ->scalar('name')
             ->maxLength('name', 45)
-            ->requirePresence('name', 'create')
-            ->notEmptyString('name');
+            ->allowEmptyString('name');
 
         $validator
             ->scalar('tel')
             ->maxLength('tel', 16)
-            ->requirePresence('tel', 'create')
-            ->notEmptyString('tel');
+            ->allowEmptyString('tel');
 
         $validator
             ->email('email')
-            ->requirePresence('email', 'create')
-            ->notEmptyString('email');
+            ->allowEmptyString('email');
 
         $validator
             ->integer('require_name')
@@ -226,6 +208,19 @@ class ExhibitionTable extends Table
         $validator
             ->integer('status')
             ->notEmptyString('status');
+
+        $validator
+            ->scalar('notice')
+            ->allowEmptyString('notice');
+
+        $validator
+            ->scalar('program')
+            ->allowEmptyString('program');
+
+        $validator
+            ->scalar('cost')
+            ->maxLength('cost', 16)
+            ->notEmptyString('cost');
 
         return $validator;
     }

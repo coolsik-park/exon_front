@@ -80,8 +80,8 @@ class CouponTable extends Table
             ->notEmptyString('code');
 
         $validator
-            ->integer('amount')
-            ->notEmptyString('amount');
+            ->integer('discount_rate')
+            ->notEmptyString('discount_rate');
 
         $validator
             ->scalar('sdate')

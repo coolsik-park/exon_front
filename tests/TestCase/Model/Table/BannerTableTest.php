@@ -56,6 +56,7 @@ class BannerTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
+     * @uses \App\Model\Table\BannerTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -66,6 +67,7 @@ class BannerTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
+     * @uses \App\Model\Table\BannerTable::buildRules()
      */
     public function testBuildRules(): void
     {

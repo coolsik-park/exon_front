@@ -282,7 +282,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
             }).done(function(data) {
                 if (data.status == 'success') {
                     alert("회원탈퇴가 완료되었습니다.");
-                    window.location.href("/");
+                    window.location.replace("/users/logout");
                 } else {
                     alert("오류가 발생하였습니다. 다시 시도해 주세요.");
                 }

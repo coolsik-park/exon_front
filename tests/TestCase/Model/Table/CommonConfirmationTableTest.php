@@ -55,6 +55,7 @@ class CommonConfirmationTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
+     * @uses \App\Model\Table\CommonConfirmationTable::validationDefault()
      */
     public function testValidationDefault(): void
     {

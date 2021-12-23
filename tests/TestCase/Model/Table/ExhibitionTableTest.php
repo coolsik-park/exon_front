@@ -31,6 +31,8 @@ class ExhibitionTableTest extends TestCase
         'app.ExhibitionGroup',
         'app.ExhibitionStream',
         'app.ExhibitionSurvey',
+        'app.ExhibitionSpeaker',
+        'app.CommonCategory',
     ];
 
     /**
@@ -61,6 +63,7 @@ class ExhibitionTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
+     * @uses \App\Model\Table\ExhibitionTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -71,6 +74,7 @@ class ExhibitionTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
+     * @uses \App\Model\Table\ExhibitionTable::buildRules()
      */
     public function testBuildRules(): void
     {

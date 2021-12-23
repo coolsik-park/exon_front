@@ -12,7 +12,7 @@ use Cake\ORM\Entity;
  * @property int|null $users_id
  * @property string $product_type
  * @property string $code
- * @property int $amount
+ * @property int $discount_rate
  * @property string $sdate
  * @property string $edate
  * @property int $status
@@ -37,7 +37,7 @@ class Coupon extends Entity
         'users_id' => true,
         'product_type' => true,
         'code' => true,
-        'amount' => true,
+        'discount_rate' => true,
         'sdate' => true,
         'edate' => true,
         'status' => true,

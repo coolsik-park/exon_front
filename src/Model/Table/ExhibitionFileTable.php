@@ -68,20 +68,17 @@ class ExhibitionFileTable extends Table
         $validator
             ->scalar('name')
             ->maxLength('name', 255)
-            ->requirePresence('name', 'create')
-            ->notEmptyString('name');
+            ->allowEmptyString('name');
 
         $validator
             ->scalar('file_path')
             ->maxLength('file_path', 1024)
-            ->requirePresence('file_path', 'create')
-            ->notEmptyFile('file_path');
+            ->allowEmptyFile('file_path');
 
         $validator
             ->scalar('file_name')
             ->maxLength('file_name', 255)
-            ->requirePresence('file_name', 'create')
-            ->notEmptyFile('file_name');
+            ->allowEmptyFile('file_name');
 
         $validator
             ->integer('status')

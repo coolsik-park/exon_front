@@ -59,27 +59,25 @@ class CommonCategoryTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->scalar('table')
-            ->maxLength('table', 45)
-            ->requirePresence('table', 'create')
-            ->notEmptyString('table');
+            ->scalar('tables')
+            ->maxLength('tables', 45)
+            ->requirePresence('tables', 'create')
+            ->notEmptyString('tables');
 
         $validator
-            ->scalar('type')
-            ->maxLength('type', 45)
-            ->requirePresence('type', 'create')
-            ->notEmptyString('type');
+            ->scalar('types')
+            ->maxLength('types', 45)
+            ->requirePresence('types', 'create')
+            ->notEmptyString('types');
 
         $validator
             ->scalar('title')
             ->maxLength('title', 128)
             ->requirePresence('title', 'create')
             ->notEmptyString('title');
-        
+
         $validator
             ->integer('code')
-            ->maxLength('code', 11)
-            ->requirePresence('code', 'create')
             ->notEmptyString('code');
 
         $validator

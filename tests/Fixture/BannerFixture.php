@@ -34,13 +34,13 @@ class BannerFixture extends TestFixture
         'status' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => '0', 'comment' => '상태
 0: 비활성
 1: 활성', 'precision' => null, 'autoIncrement' => null],
-        'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'current_timestamp()', 'comment' => ''],
+        'created' => ['type' => 'timestamp', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'current_timestamp()', 'comment' => ''],
         '_indexes' => [
             'fk_banner_exhibition1_idx' => ['type' => 'index', 'columns' => ['exhibition_id'], 'length' => []],
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'fk_banner_exhibition1' => ['type' => 'foreign', 'columns' => ['exhibition_id'], 'references' => ['exhibition', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
+            'fk_banner_exhibition1' => ['type' => 'foreign', 'columns' => ['exhibition_id'], 'references' => ['exhibition', 'id'], 'update' => 'cascade', 'delete' => 'cascade', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -66,7 +66,7 @@ class BannerFixture extends TestFixture
                 'img_name' => 'Lorem ipsum dolor sit amet',
                 'sort' => 1,
                 'status' => 1,
-                'created' => '2021-07-16 13:52:11',
+                'created' => 1640220848,
             ],
         ];
         parent::init();

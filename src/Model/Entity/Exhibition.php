@@ -13,7 +13,7 @@ use Cake\ORM\Entity;
  * @property string $title
  * @property string|null $description
  * @property string $category
- * @property string|null $type
+ * @property string $type
  * @property string|null $detail_html
  * @property \Cake\I18n\FrozenTime|null $apply_sdate
  * @property \Cake\I18n\FrozenTime|null $apply_edate
@@ -23,9 +23,9 @@ use Cake\ORM\Entity;
  * @property string|null $image_name
  * @property int $private
  * @property int $auto_approval
- * @property string $name
- * @property string $tel
- * @property string $email
+ * @property string|null $name
+ * @property string|null $tel
+ * @property string|null $email
  * @property int $require_name
  * @property int $require_email
  * @property int $require_tel
@@ -38,6 +38,9 @@ use Cake\ORM\Entity;
  * @property int $status
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
+ * @property string|null $notice
+ * @property string|null $program
+ * @property string $cost
  *
  * @property \App\Model\Entity\User[] $users
  * @property \App\Model\Entity\Banner[] $banner
@@ -45,6 +48,8 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\ExhibitionGroup[] $exhibition_group
  * @property \App\Model\Entity\ExhibitionStream[] $exhibition_stream
  * @property \App\Model\Entity\ExhibitionSurvey[] $exhibition_survey
+ * @property \App\Model\Entity\ExhibitionSpeaker[] $exhibition_speaker
+ * @property \App\Model\Entity\CommonCategory $common_category
  */
 class Exhibition extends Entity
 {
@@ -87,11 +92,16 @@ class Exhibition extends Entity
         'status' => true,
         'created' => true,
         'modified' => true,
+        'notice' => true,
+        'program' => true,
+        'cost' => true,
         'users' => true,
         'banner' => true,
         'exhibition_file' => true,
         'exhibition_group' => true,
         'exhibition_stream' => true,
         'exhibition_survey' => true,
+        'exhibition_speaker' => true,
+        'common_category' => true,
     ];
 }

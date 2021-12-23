@@ -10,9 +10,9 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property int $exhibition_id
- * @property string $name
- * @property string $file_path
- * @property string $file_name
+ * @property string|null $name
+ * @property string|null $file_path
+ * @property string|null $file_name
  * @property int $status
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified

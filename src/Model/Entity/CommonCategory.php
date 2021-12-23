@@ -9,9 +9,10 @@ use Cake\ORM\Entity;
  * CommonCategory Entity
  *
  * @property int $id
- * @property string $table
- * @property string $type
+ * @property string $tables
+ * @property string $types
  * @property string $title
+ * @property int $code
  * @property int $status
  * @property \Cake\I18n\FrozenTime $created
  */
@@ -27,8 +28,8 @@ class CommonCategory extends Entity
      * @var array
      */
     protected $_accessible = [
-        'table' => true,
-        'type' => true,
+        'tables' => true,
+        'types' => true,
         'title' => true,
         'code' => true,
         'status' => true,

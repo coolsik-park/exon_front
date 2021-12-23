@@ -56,6 +56,7 @@ class ExhibitionFileTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
+     * @uses \App\Model\Table\ExhibitionFileTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -66,6 +67,7 @@ class ExhibitionFileTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
+     * @uses \App\Model\Table\ExhibitionFileTable::buildRules()
      */
     public function testBuildRules(): void
     {
