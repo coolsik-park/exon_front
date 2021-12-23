@@ -356,6 +356,9 @@
         // clearInterval(setDuration);
         clearInterval(timeCheck);
         liveEnd();
+        if ($("#is_download").prop("checked") == true) {
+            $("#download_vod").get(0).click();
+        }
     });
 
     function liveEnd () {
@@ -394,9 +397,6 @@
                 });
             }
         });
-        if ($("#is_download").prop("checked") == true) {
-            $("#download_vod").get(0).click();
-        }
     }
 
     //저장
