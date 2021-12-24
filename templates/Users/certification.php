@@ -6,7 +6,7 @@
             <h3>회원가입이 완료되었습니다</h3>
             <p class="tx1">축하드립니다, 이제부터 EXON 서비스를 자유롭게 즐기실 수 있습니다.</p>
             <p class="tx1">(단, 이메일 또는 휴대폰 인증이 완료되지 않은 경우 비밀번호 찾기 등 일부 서비스에 제한이 있을 수 있습니다.) </p>
-            <a href = "/users/complete-join/<?=$id?>" class="btn-big-cir">가입완료</a>
+            <button type="button" id="complete" class="btn-big-cir">가입완료</a>
         </div>
         <div class="join-ok-sect2">
             <div class="js1">
@@ -97,6 +97,17 @@
         $("#smsButton").css("background-color", "#007bff");
         $("#smsButton").attr("disabled", true);
     }
+
+    //가입완료
+    $("#complete").click(function () {
+        if (email_cert != 1 && hp_cert != 1) {
+            if (confirm("이메일 또는 휴대폰 인증이 완료되지 않은 경우 비밀번호 찾기 등 일부 서비스에 제한이 있을 수 있습니다. 계속하시겠습니까?")) {
+                window.location.replace("/users/complete-join/<?=$id?>");
+            }
+        } else {
+            window.location.replace("/users/complete-join/<?=$id?>");
+        }
+    });
 
     //모달 팝업 창 닫기 시
     $("#close").click(function () {

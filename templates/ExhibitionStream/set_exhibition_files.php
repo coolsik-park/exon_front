@@ -132,7 +132,7 @@ function selectFile(files){
                 break;
             }else if(fileSize > uploadSize){
                 // 파일 사이즈 체크
-                alert("용량 초과\n업로드 가능 용량 : " + uploadSize + " MB");
+                alert("용량 초과\n업로드 가능 용량 : " + uploadSize / 1000 + " MB");
                 break;
             }else{
                 // 전체 파일 사이즈
@@ -212,7 +212,7 @@ function uploadFile(){
     // 용량을 500MB를 넘을 경우 업로드 불가
     if(totalFileSize > maxUploadSize){
         // 파일 사이즈 초과 경고창
-        alert("총 용량 초과\n총 업로드 가능 용량 : " + maxUploadSize + " KB");
+        alert("총 용량 초과\n총 업로드 가능 용량 : " + maxUploadSize / 1000 + " MB");
         return;
     }
         
