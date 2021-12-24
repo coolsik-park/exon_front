@@ -37,7 +37,7 @@
             </div>
 
             <!-- webinar-tab -->
-            <div class="webinar-tab">
+            <div id="webinar-tab" class="webinar-tab">
                 <div class="webinar-tab-top">
                     <div class="webinar-toggle">
                         <button type="button" class="webinar-tab-tg">토글버튼</button>                           
@@ -72,7 +72,7 @@
     </div>    
 </div>
 
-<script>
+<script> 
     var chatInterval
     // 방송 중 체크
     // $(document).ready(function () {

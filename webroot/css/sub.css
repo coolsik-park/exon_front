@@ -2699,7 +2699,7 @@
     display: none;
   }
   .section-webinar4 .wb-cont2 {
-    display: none;
+    display: block;
   }
   .section-webinar4 .wb-cont2.open {
     display: block;
@@ -2709,7 +2709,7 @@
   }
   .section-webinar4 .webinar-cont,
   .section-webinar4 .webinar-tab {
-    flex-basis: auto;
+    flex-basis: 1;
   }
   .w-tab-wrap {
     padding: 2vw 0;
