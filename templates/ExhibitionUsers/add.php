@@ -78,12 +78,13 @@
             <h3 class="s-hty1">선택 그룹</h3>
             <div class="group-join">
                 <div class="ipt-form">
-                    <select name="exhibition_group_id" id="exhibition_group_id">
                     <?php if ($exhibitionGroup == '') : ?>
-                        <option value="">그룹 미선택</option>
+                        <input type="text" value="그룹 미선택" readonly>
+                        <input type="hidden" value="" name="exhibition_group_id" id="exhibition_group_id">
                     <?php else : ?>
                         <?php foreach ($exhibitionGroup as $group) : ?>
-                            <option value="<?= $group->id ?>"><?= $group->name ?></option>
+                            <input type="text" value="<?= $group->name ?>" readonly>
+                            <input type="hidden" value="<?= $group->id ?>" name="exhibition_group_id" id="exhibition_group_id">
                         <?php endforeach; ?>
                     <?php endif; ?>  
                     </select>                      
