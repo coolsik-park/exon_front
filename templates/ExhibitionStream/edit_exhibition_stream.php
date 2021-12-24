@@ -356,6 +356,13 @@
         // clearInterval(setDuration);
         clearInterval(timeCheck);
         liveEnd();
+        if ($("#is_download").prop("checked") == true) {
+            if (confirm("확인 버튼을 클릭하면 1분 후 자동으로 다운로드가 시작됩니다. 창을 이동하거나 닫지 말아주세요.")) {
+                setTimeout(function () {
+                    $("#download_vod").get(0).click();
+                }, 60000);
+            }
+        }
     });
 
     function liveEnd () {
@@ -392,9 +399,6 @@
                         alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
                     }
                 });
-                if ($("#is_download").prop("checked") == true) {
-                    $("#download_vod").get(0).click();
-                }
             }
         });
     }

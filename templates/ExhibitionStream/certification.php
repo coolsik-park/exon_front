@@ -79,19 +79,19 @@
 
 <script>
     //방송 중 체크
-    $(document).ready(function () {
-        $.ajax({
-            url: "http://121.126.223.225:80/live/<?=$stream_key?>/index.m3u8",
-            type: 'HEAD',
-            error: function () {
-                window.location.replace("/exhibition-stream/stream-not-exist");
-            }
-        });
-    });
+    // $(document).ready(function () {
+    //     $.ajax({
+    //         url: "http://121.126.223.225:80/live/<?=$stream_key?>/index.m3u8",
+    //         type: 'HEAD',
+    //         error: function () {
+    //             window.location.replace("/exhibition-stream/stream-not-exist");
+    //         }
+    //     });
+    // });
 
     //모달 팝업 창 닫기 시
     $("#close").click(function () {
-        window.location.replace('/exhibition-stream/certification');
+        window.location.replace('/exhibition-stream/certification/<?=$id?>');
     });
 
     $(document).on("click", "#certify", function () {
@@ -219,7 +219,7 @@
         }).done(function(data) {
             if (data.status == 'success') {
                 alert("인증이 완료되었습니다.");
-                window.location.replace("/exhibition-stream/watch-exhibition-stream/<?=$id?>/" + data.exhibition_users_id);
+                window.location.replace("/exhibition-stream/watch-exhibition-stream/<?=$id?>/" + data.exhibition_users_id + "/1");
             } else if (data.status == 'fail') {
                 alert("인증번호를 다시 확인해주세요.");
                 $("#emailCode").val("");
@@ -232,8 +232,8 @@
                 $("#email").val("");
             } else if (data.status == 'hp_not_exist') {
                 alert("참가신청 되어 있지 않은 휴대폰 번호입니다. 신청서에 작성하신 휴대전화 번호를 확인해주세요.");
-                $("#emailCode").val("");
-                $("#email").val("");
+                $("#smsCode").val("");
+                $("#sms").val("");
             } else {
                 alert("참가신청 되어 있지 않은 행사입니다. 마이페이지에서 신청 행사를 확인해주세요.");
                 window.location.replace("/exhibition-users/sign-up/application");
@@ -284,7 +284,7 @@
         });
     });
 
-    $("#smsReSend").click(function () {
+    $("#smsResend").click(function () {
         if ($("#sms").val() == "") {
             $("#smsNoti").html("전화번호를 입력해 주세요.");
             $("#sms").focus();
@@ -338,17 +338,24 @@
         }).done(function(data) {
             if (data.status == 'success') {
                 alert("인증이 완료되었습니다.");
-                window.location.replace("/exhibition-stream/watch-exhibition-stream/<?=$id?>/" + data.exhibition_users_id);
+                window.location.replace("/exhibition-stream/watch-exhibition-stream/<?=$id?>/" + data.exhibition_users_id + "/1");
             } else if (data.status == 'fail') {
                 alert("인증번호를 다시 확인해주세요.");
                 $("#smsCode").val("");
             } else if (data.status == 'timeover') {
                 alert("시간이 초과되었습니다. 재발송 해주세요.");
                 $("#smsCode").val("");
-            } else {
-                alert("참가신청 되어 있지 않은 이메일 주소입니다. 이메일 주소를 확인해주세요");
+            } else if (data.status == 'email_not_exist') {
+                alert("참가신청 되어 있지 않은 이메일 주소입니다. 신청서에 작성하신 이메일 주소를 확인해주세요.");
+                $("#emailCode").val("");
+                $("#email").val("");
+            } else if (data.status == 'hp_not_exist') {
+                alert("참가신청 되어 있지 않은 휴대폰 번호입니다. 신청서에 작성하신 휴대전화 번호를 확인해주세요.");
                 $("#smsCode").val("");
                 $("#sms").val("");
+            } else {
+                alert("참가신청 되어 있지 않은 행사입니다. 마이페이지에서 신청 행사를 확인해주세요.");
+                window.location.replace("/exhibition-users/sign-up/application");
             }
         });
     });

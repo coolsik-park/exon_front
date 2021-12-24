@@ -104,9 +104,14 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs', 'exhibition_id', 'prices'));
     }
 
-    public function watchExhibitionStream($id = null, $exhibition_users_id = null) 
+    public function watchExhibitionStream($id = null, $exhibition_users_id = null, $cert = null) 
     {   
         if (empty($this->Auth->user()) && $exhibition_users_id == null) {
+            $this->redirect(['action' => 'certification', $id]);
+        }
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $exhibition = $Exhibition->get($id);
+        if ($exhibition->require_cert == 1 && $cert != 1) {
             $this->redirect(['action' => 'certification', $id]);
         }
         $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $id])->toArray();
@@ -934,23 +939,24 @@ class ExhibitionStreamController extends AppController
         if (!empty($this->Auth->user())) {
             $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
             $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id, 'users_id' => $this->Auth->user()->id])->toArray();
+            $auth_id = $this->Auth->user()->id;
 
             if (empty($exhibitionUser)) {
                 return $this->redirect(['controller' => 'exhibitionUsers', 'action' => 'signUp', 'application']);
             }
 
-            if ($exhibition->require_cert == 1) {
-                $auth_id = $this->Auth->user()->id;
-                $Users = $this->getTableLocator()->get('Users');
-                $user = $Users->get($auth_id);
+            // if ($exhibition->require_cert == 1) {
+            //     $auth_id = $this->Auth->user()->id;
+            //     $Users = $this->getTableLocator()->get('Users');
+            //     $user = $Users->get($auth_id);
 
-                if ($user->hp_cert == 1 || $user->email_cert == 1) {
-                    return $this->redirect(['action' => 'watchExhibitionStream', $id, $exhibitionUser[0]['id']]);
-                }
+            //     if ($user->hp_cert == 1 || $user->email_cert == 1) {
+            //         return $this->redirect(['action' => 'watchExhibitionStream', $id, $exhibitionUser[0]['id']]);
+            //     }
             
-            } else {
-                return $this->redirect(['action' => 'watchExhibitionStream', $id, $exhibitionUser[0]['id']]);
-            }
+            // } else {
+            //     return $this->redirect(['action' => 'watchExhibitionStream', $id, $exhibitionUser[0]['id']]);
+            // }
             
         } else {
             $auth_id = 0;
@@ -993,67 +999,58 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('user_id'));
     }
 
-    public function confirmSms($id = null) 
+    public function confirmSms($id = null, $exhibition_id = null) 
     {
         $connection = ConnectionManager::get('default');
         $connection->begin();
-
-        $commonConfirmation_table = $this->getTableLocator()->get('CommonConfirmation');
-        $commonConfirmation = $commonConfirmations->find('all')->where(['id' => $id])->toArray();
+        $CommonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
+        $commonConfirmation = $CommonConfirmations->find('all')->where(['id' => $id])->toArray();
         $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
 
         if ($this->request->is('post')) {
-
+            
             if (FrozenTime::now() < $commonConfirmation[0]->expired) {
 
-                if ($this->request->getData('code') == $commonConfirmation[0]->confirmation_code) {
+                $user_id = $this->request->getData('user_id');
+                if ($user_id == 0) {
+                    $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id, 'users_hp' => $this->request->getData('hp')])->toArray();
                     
-                    $user_id = $this->request->getData('user_id');
-                    if ($user_id == 0) {
-                        $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id, 'users_hp' => $this->request->getData('hp')])->toArray();
+                    if (empty($exhibitionUser)) {
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'hp_not_exist']));
+                        return $response;
+                    }
+                    $this->getRequest()->getSession()->write('exhibition_users_name', $exhibitionUser[0]['users_name']);
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
+                    return $response;
+                
+                } else {
+                    
+                    if($connection->update('users', ['hp_cert' => '1'], ['id' => $user_id])) {
+                        $connection->commit();
+                        $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id, 'users_id' => $user_id])->toArray();
                         
                         if (empty($exhibitionUser)) {
-                            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'hp_not_exist']));
+                            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'id_not_exist']));
                             return $response;
                         }
-                        $this->getRequest()->getSession()->write('exhibition_users_name', $exhibitionUser[0]['users_name']);
                         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
                         return $response;
                     
                     } else {
-                        
-                        if($connection->update('users', ['hp_cert' => '1'], ['id' => $user_id])) {
-                            $connection->commit();
-                            $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id, 'users_id' => $user_id])->toArray();
-
-                            if (empty($exhibitionUser)) {
-                                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'id_not_exist']));
-                                return $response;
-                            }
-                            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
-                            return $response;
-                        
-                        } else {
-                            $connection->rollback();
-                            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
-                            return $response;
-                        }
+                        $connection->rollback();
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                        return $response;
                     }
-
-                } else {
-                    $connection->rollback();
-                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
-                    return $response;
                 }
+                
             } else {
-                $connection->rollback();
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'timeover']));
                 return $response;
             }
         }
     }
 
-    public function sendEmailCertification ($user_id = null) 
+    public function sendEmailCertification () 
     {    
         if ($this->request->is('post')) {
             $mailer = new Mailer();
