@@ -104,9 +104,14 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs', 'exhibition_id', 'prices'));
     }
 
-    public function watchExhibitionStream($id = null, $exhibition_users_id = null) 
+    public function watchExhibitionStream($id = null, $exhibition_users_id = null, $cert = null) 
     {   
         if (empty($this->Auth->user()) && $exhibition_users_id == null) {
+            $this->redirect(['action' => 'certification', $id]);
+        }
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $exhibition = $Exhibition->get($id);
+        if ($exhibition->require_cert == 1 && $cert != 1) {
             $this->redirect(['action' => 'certification', $id]);
         }
         $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $id])->toArray();
@@ -934,23 +939,24 @@ class ExhibitionStreamController extends AppController
         if (!empty($this->Auth->user())) {
             $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
             $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id, 'users_id' => $this->Auth->user()->id])->toArray();
+            $auth_id = $this->Auth->user()->id;
 
             if (empty($exhibitionUser)) {
                 return $this->redirect(['controller' => 'exhibitionUsers', 'action' => 'signUp', 'application']);
             }
 
-            if ($exhibition->require_cert == 1) {
-                $auth_id = $this->Auth->user()->id;
-                $Users = $this->getTableLocator()->get('Users');
-                $user = $Users->get($auth_id);
+            // if ($exhibition->require_cert == 1) {
+            //     $auth_id = $this->Auth->user()->id;
+            //     $Users = $this->getTableLocator()->get('Users');
+            //     $user = $Users->get($auth_id);
 
-                if ($user->hp_cert == 1 || $user->email_cert == 1) {
-                    return $this->redirect(['action' => 'watchExhibitionStream', $id, $exhibitionUser[0]['id']]);
-                }
+            //     if ($user->hp_cert == 1 || $user->email_cert == 1) {
+            //         return $this->redirect(['action' => 'watchExhibitionStream', $id, $exhibitionUser[0]['id']]);
+            //     }
             
-            } else {
-                return $this->redirect(['action' => 'watchExhibitionStream', $id, $exhibitionUser[0]['id']]);
-            }
+            // } else {
+            //     return $this->redirect(['action' => 'watchExhibitionStream', $id, $exhibitionUser[0]['id']]);
+            // }
             
         } else {
             $auth_id = 0;

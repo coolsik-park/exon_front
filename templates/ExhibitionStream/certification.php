@@ -79,19 +79,19 @@
 
 <script>
     //방송 중 체크
-    $(document).ready(function () {
-        $.ajax({
-            url: "http://121.126.223.225:80/live/<?=$stream_key?>/index.m3u8",
-            type: 'HEAD',
-            error: function () {
-                window.location.replace("/exhibition-stream/stream-not-exist");
-            }
-        });
-    });
+    // $(document).ready(function () {
+    //     $.ajax({
+    //         url: "http://121.126.223.225:80/live/<?=$stream_key?>/index.m3u8",
+    //         type: 'HEAD',
+    //         error: function () {
+    //             window.location.replace("/exhibition-stream/stream-not-exist");
+    //         }
+    //     });
+    // });
 
     //모달 팝업 창 닫기 시
     $("#close").click(function () {
-        window.location.replace('/exhibition-stream/certification');
+        window.location.replace('/exhibition-stream/certification/<?=$id?>');
     });
 
     $(document).on("click", "#certify", function () {
@@ -219,7 +219,7 @@
         }).done(function(data) {
             if (data.status == 'success') {
                 alert("인증이 완료되었습니다.");
-                window.location.replace("/exhibition-stream/watch-exhibition-stream/<?=$id?>/" + data.exhibition_users_id);
+                window.location.replace("/exhibition-stream/watch-exhibition-stream/<?=$id?>/" + data.exhibition_users_id + "/1");
             } else if (data.status == 'fail') {
                 alert("인증번호를 다시 확인해주세요.");
                 $("#emailCode").val("");
@@ -338,7 +338,7 @@
         }).done(function(data) {
             if (data.status == 'success') {
                 alert("인증이 완료되었습니다.");
-                window.location.replace("/exhibition-stream/watch-exhibition-stream/<?=$id?>/" + data.exhibition_users_id);
+                window.location.replace("/exhibition-stream/watch-exhibition-stream/<?=$id?>/" + data.exhibition_users_id + "/1");
             } else if (data.status == 'fail') {
                 alert("인증번호를 다시 확인해주세요.");
                 $("#smsCode").val("");

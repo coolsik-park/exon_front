@@ -357,7 +357,11 @@
         clearInterval(timeCheck);
         liveEnd();
         if ($("#is_download").prop("checked") == true) {
-            $("#download_vod").get(0).click();
+            if (confirm("확인 버튼을 클릭하면 1분 후 자동으로 다운로드가 시작됩니다. 창을 이동하거나 닫지 말아주세요.")) {
+                setTimeout(function () {
+                    $("#download_vod").get(0).click();
+                }, 60000);
+            }
         }
     });
 
