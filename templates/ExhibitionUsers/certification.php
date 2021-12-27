@@ -30,13 +30,13 @@
                                 </div>
                                 <div class="popup-body"> 
                                     <div class="cert-sect1">
-                                        <input id="email" type="text" placeholder="이메일" autocomplete="off">
+                                        <input id="email" type="text" placeholder="이메일" autocomplete="off" readonly onclick="$(this).attr('readonly', false)" onblur="$(this).attr('readonly', true)">
                                         <button id="emailSend" type="button" class="btn-ty2 btn-m-bor">인증메일 발송</button>
                                     </div>
                                     <p id="emailNoti" class="noti hc1"></p>
                                     <div class="cert-sect2">
                                         <div class="label-wp">
-                                            <label for="emailCode">인증번호</label><input type="text" id="emailCode" placeholder="인증번호" autocomplete="off">
+                                            <label for="emailCode">인증번호</label><input type="text" id="emailCode" placeholder="인증번호" autocomplete="off" readonly onclick="$(this).attr('readonly', false)" onblur="$(this).attr('readonly', true)">
                                         </div> 
                                         <button id="emailResend" type="button" class="btn-ty2 gray">재발송</button>
                                     </div>
@@ -59,13 +59,13 @@
                                 </div>
                                 <div class="popup-body"> 
                                     <div class="cert-sect1">
-                                        <input id="sms" type="text" placeholder="전화번호" autocomplete="off">
+                                        <input id="sms" type="text" placeholder="전화번호" autocomplete="off" readonly onclick="$(this).attr('readonly', false)" onblur="$(this).attr('readonly', true)">
                                         <button id="smsSend" type="button" class="btn-ty2 btn-m-bor">인증문자 발송</button>
                                     </div>        
                                     <p id="smsNoti" class="noti hc1"></p>
                                     <div class="cert-sect2">
                                         <div class="label-wp">
-                                            <label for="smsCode">인증번호</label><input type="text" id="smsCode" placeholder="인증번호" autocomplete="off">
+                                            <label for="smsCode">인증번호</label><input type="text" id="smsCode" placeholder="인증번호" autocomplete="off" readonly onclick="$(this).attr('readonly', false)" onblur="$(this).attr('readonly', true)">
                                         </div> 
                                         <button id="smsResend" type="button" class="btn-ty2 gray">재발송</button>
                                     </div>

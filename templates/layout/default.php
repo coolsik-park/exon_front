@@ -49,6 +49,7 @@
         <!-- pc -->
         <div class="static">
             <h1 class="h-logo"><a href="/">EXON</a></h1>
+            <a href="/exhibition/search">개설된 행사보기 <img src="../images/ico-arr1.png" style="width:30px; height:30px;"></a>
             <div class="header-search">               
                 <!-- <form action="#"> -->
                     <fieldset>
@@ -176,7 +177,7 @@
                 </div>
             </div>                           
             <div class="footer-info">                    
-                <p class="f-tx1">(주)오르카티비 대표 박기영 | 사업자등록번호 563-87-00725 | 통신판매업 신고번호 제xxxxxxxxxxxxx<br>
+                <p class="f-tx1">(주)오르카티비 대표 박기영 | 사업자등록번호 563-87-00725 | 통신판매업 신고번호 제 2021-성남수정-1324<br>
                     개인정보책임자 최찬경 | 경기도 성남시 수정구 대왕판교로 815, 메타버스 허브 419호 | Tel. 031-778-6252</p>
                 <p class="f-tx2">엑스온은 통신판매중개자이며 행사에 대한 당사자 및 주최자가 아닙니다. 따라서 엑스온은 등록된 행사에 대하여 책임을 지지 않습니다.</p>   
                 <p class="f-copy">copyright ⓒ exon.live, ALL Right Reserved.</p> 

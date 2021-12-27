@@ -111,7 +111,7 @@
                         </div>
                     </div>
                     <div class="row2" style="height:48px; padding-top:5px;">
-                        <div class="col-th">VOD 저장</div>
+                        <!-- <div class="col-th">VOD 저장</div> -->
                         <div class="col-td">
                             <span class="chk-dsg"><input type="checkbox" id="is_download" name="is_download" value="1"><label for="is_download"></label></span>
                         </div>
