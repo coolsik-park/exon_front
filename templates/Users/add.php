@@ -34,11 +34,11 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                             <div class="col-email-wp">
                                 <input type="text" id="email" placeholder="이메일" title="이메일 (아이디)" autocomplete="off"><span
                                     class="sp">@</span>
-                                <input type="text" id="emailTail" list="list" autocomplete="off">
-                                <datalist id="list">
-                                    <option value="naver.com">
-                                    <option value="gmail.com">
-                                    <option value="daum.net">
+                                <input type="text" id="emailTail" list="list" autocomplete="off" onmousedown="value = '';" />
+                                <datalist id="list" autocomplete="off">
+                                    <option value="naver.com" label="네이버">
+                                    <option value="gmail.com" label="구글">
+                                    <option value="daum.net" label="다음">
                                 </datalist>
                             </div>
                             <p id="emailNoti" class="noti hc1"></p>
