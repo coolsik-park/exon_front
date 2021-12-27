@@ -37,6 +37,16 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
 .emailBtn {
     width: 135px;
 }
+@media  screen and (min-width: 768px) {
+    #delete {
+        position: absolute;
+        top: 100px;
+        right: 10px;
+    }
+    .contents.static {
+        position: relative;
+    }
+}
 @media  screen and (max-width: 768px) {
     .emailBtn {
         width: 100%;
