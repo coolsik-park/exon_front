@@ -140,11 +140,11 @@
                         </div>
                     </div>
                     <div class="row2" style="height:48px; padding-top:5px;">
-                        <div class="col-th">VOD 저장</div>
+                        <!-- <div class="col-th">VOD 저장</div> -->
                         <div class="col-td">
                             <span class="chk-dsg"><input type="checkbox" id="is_download" name="is_download" value="1"><label for="is_download"></label></span>
                         </div>
-                        <a id="download_vod" href="https://orcaexon.co.kr/videos/<?=$exhibitionStream->stream_key?>/source.mp4" style="display:none">다운로드</a>
+                        <!-- <a id="download_vod" href="https://orcaexon.co.kr/videos/<?=$exhibitionStream->stream_key?>/source.mp4" style="display:none">다운로드</a> -->
                     </div>
                 </div>
             </div>
@@ -356,13 +356,13 @@
         // clearInterval(setDuration);
         clearInterval(timeCheck);
         liveEnd();
-        if ($("#is_download").prop("checked") == true) {
-            if (confirm("확인 버튼을 클릭하면 1분 후 자동으로 다운로드가 시작됩니다. 창을 이동하거나 닫지 말아주세요.")) {
-                setTimeout(function () {
-                    $("#download_vod").get(0).click();
-                }, 60000);
-            }
-        }
+        // if ($("#is_download").prop("checked") == true) {
+        //     if (confirm("확인 버튼을 클릭하면 1분 후 자동으로 다운로드가 시작됩니다. 창을 이동하거나 닫지 말아주세요.")) {
+        //         setTimeout(function () {
+        //             $("#download_vod").get(0).click();
+        //         }, 60000);
+        //     }
+        // }
     });
 
     function liveEnd () {
