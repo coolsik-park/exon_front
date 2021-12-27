@@ -7,7 +7,7 @@
 <style>
     .chk-dsg input + label:before {
         left: 8px;
-    } */
+    } 
     .survey-b input {
     position: absolute;
     margin: 19px 5px 0px 13px;
@@ -28,6 +28,11 @@
     .section7 .group-join .ipt-form .tx {
             padding-right: 2.5rem;
         }
+    }
+    @media  screen and (max-width: 768px) {
+    .chk-dsg input + label:before {
+        top: 14px;
+    }
     }
 </style>
 
