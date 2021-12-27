@@ -15,14 +15,12 @@
     .survey-b input + label {
     display: block;
     padding: 12px 20px 12px 35px;
-    background: #f8f8f8;
     font-size: 1rem;
     font-weight: 500;
     line-height: 1.5;
-    border: 1px solid #f8f8f8;
     }
-    input[type=text] {
-        cursor: default; 
+    #groupTx{
+        cursor: default;
     }
     @media  screen and (min-width: 768px) {
     .section7 .group-join .ipt-form .tx {
@@ -32,6 +30,12 @@
     @media  screen and (max-width: 768px) {
     .chk-dsg input + label:before {
         top: 14px;
+    }
+    .chk-dsg input + label {
+        padding-top: 3vW;
+    }
+    .agree-wp .btn-ss {
+        margin-top: 10px;
     }
     }
 </style>
@@ -110,12 +114,12 @@
             <div class="group-join">
                 <div class="ipt-form">
                     <?php if ($exhibitionGroup == '') : ?>
-                        <input type="text" value="그룹 미선택" readonly>
-                        <input type="hidden" value="" name="exhibition_group_id" id="exhibition_group_id">
+                        <input type="text" id="groupTx" value="그룹 미선택" readonly>
+                        <input type="hidden" id="groupTx" value="" name="exhibition_group_id" id="exhibition_group_id">
                     <?php else : ?>
                         <?php foreach ($exhibitionGroup as $group) : ?>
-                            <input type="text" value="<?= $group->name ?>" readonly>
-                            <input type="hidden" value="<?= $group->id ?>" name="exhibition_group_id" id="exhibition_group_id">
+                            <input type="text" id="groupTx" value="<?= $group->name ?>" readonly>
+                            <input type="hidden" id="groupTx" value="<?= $group->id ?>" name="exhibition_group_id" id="exhibition_group_id">
                         <?php endforeach; ?>
                     <?php endif; ?>  
                     </select>                      
