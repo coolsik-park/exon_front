@@ -139,13 +139,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row2" style="height:48px; padding-top:5px;">
-                        <!-- <div class="col-th">VOD 저장</div> -->
+                    <!-- <div class="row2" style="height:48px; padding-top:5px;">
+                        <div class="col-th">VOD 저장</div>
                         <div class="col-td">
                             <span class="chk-dsg"><input type="checkbox" id="is_download" name="is_download" value="1"><label for="is_download"></label></span>
                         </div>
-                        <!-- <a id="download_vod" href="https://orcaexon.co.kr/videos/<?=$exhibitionStream->stream_key?>/source.mp4" style="display:none">다운로드</a> -->
-                    </div>
+                        <a id="download_vod" href="https://orcaexon.co.kr/videos/<?=$exhibitionStream->stream_key?>/source.mp4" style="display:none">다운로드</a>
+                    </div> -->
                 </div>
             </div>
         </div>
