@@ -41,16 +41,41 @@
         width: 100%;
         height: 100%;
     }
+    .p-noti {
+        font-size: 0.9rem;
+        color: black;
+    }
+    .survey-bx {
+        position: relative;
+    }
     @media  screen and (max-width: 768px) {
         .sect1 .photo {
             height: 214px;
         }  
     }
 
-    @media  screen and (min-width: 768px) {
+    @media  screen and (min-width: 1024px) {
         .selectDiv {
             display: flex;
             flex-direction: row;
+        }
+        .essential{
+            position: absolute;
+            left: 400px;
+        }
+        .survey-bx-sect2 select {
+            position: absolute;
+            left: 575px;
+            bottom: 274px;
+        }
+        .survey-bx-sect2 .ipt {
+            width: 100%;
+            margin-top: 15px;
+        }
+        .p-noti_1 {
+            position: absolute;
+            margin-left: 544px;
+            bottom: 246px;
         }
     }
 </style>
@@ -806,7 +831,7 @@
         html += '            <div class="chk-dsg-wp">';
         html += '                <span class="chk-dsg"><input type="checkbox" name="is_duplicate[]" id="dup_'+i+'" value="Y"><label for="dup_'+i+'">보기 중복 선택 가능</label></span>';
         html += '                <input type="checkbox" name="is_duplicate[]" id="dup_hidden_'+i+'" value="N" checked="checked" style="display:none">';
-        html += '                <span class="chk-dsg" id="req_span_'+i+'" style="display:none;"><input type="checkbox" name="is_required[]" id="req_'+i+'" value="Y"><label for="req_'+i+'">필수</label></span>';
+        html += '                <span class="chk-dsg" id="req_span_'+i+'" style="display:none;"><input type="checkbox" name="is_required[]" id="req_'+i+'" value="Y"><label for="req_'+i+'" class="essential">필수</label></span>';
         html += '                <input type="checkbox" name="is_required[]" id="req_hidden_'+i+'" value="N" checked="checked" style="display:none">';
         html += '            </div>';                                
         html += '        </div>';
@@ -815,14 +840,14 @@
         html += '        </div>';
         html += '    </div>';
         html += '    <div class="survey-bx-sect2">';
-        html += '        <input name="text[]" type="text" class="ipt" placeholder="질문">';
+        html += '        <input name="text[]" type="text" class="ipt" placeholder="질문을 입력하세요">';
         html += '        <input name="survey_id[]" type="hidden" value="0">';
         html += '        <select id="survey_type_'+i+'" name="survey_type[]">';
         html += '            <option value="N">일반설문</option>';
         html += '            <option value="B">사전설문</option>';
         html += '        </select>';
         html += '    </div>';
-        html += '    <p id="type_noti_'+i+'" class="p-noti">일반설문으로 설정하시면 행사 진행 중에 참가자분들이 설문에 참여할 수 있습니다.</p>';
+        html += '    <p id="type_noti_'+i+'" class="p-noti_1">일반설문으로 설정하시면 행사 진행 중에 참가자분들이 설문에 참여할 수 있습니다.</p>';
         html += '    <div id="rows_'+i+'" class="survey-bx-sect3">';
         html += '        <div class="btns">';
         html += '            <button type="button" onclick="addRow('+i+')">보기 추가</button>';
