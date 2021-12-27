@@ -41,7 +41,7 @@
                 </ul>
             </div>
             <div>
-                <div class="btn-wp" style="margin-top: 1.875rem;"><a href="<?=$front_url?>/exhibition-uesrs/certification" style="width: 220px;margin-right: 10px;display: inline-block;padding: 12px 20px;font-size: 0.938rem;line-height: 1.47;background-color: #000;color: #fff;border-radius: 3px;border: 1px solid #000;text-align: center;text-decoration: none;">EXON 홈페이지 이동</a></div>
+                <div class="btn-wp" style="margin-top: 1.875rem;"><a href="<?=$front_url?>/exhibition-users/certification" style="width: 220px;margin-right: 10px;display: inline-block;padding: 12px 20px;font-size: 0.938rem;line-height: 1.47;background-color: #000;color: #fff;border-radius: 3px;border: 1px solid #000;text-align: center;text-decoration: none;">EXON 홈페이지 이동</a></div>
                 <p style="margin-top: 1.875rem;font-size: 0.875rem;color: #afafaf;line-height: 1.45;">웨비나가 진행되지 않았을 경우 접속이 불가능합니다. 행사 일정 확인하시고 접속해주세요.<br>
                     그 외 행사와 관련된 문의는 담당자에게 문의해주세요.</p>
             </div>
