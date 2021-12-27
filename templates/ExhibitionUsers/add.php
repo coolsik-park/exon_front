@@ -4,6 +4,36 @@
  * @var \App\Model\Entity\ExhibitionUser $exhibitionUser
  */
 ?>
+<style>
+    .survey-b input {
+    position: absolute;
+    margin: 19px 5px 0px 13px;
+    }
+    .survey-b input + label {
+    display: block;
+    padding: 12px 20px 12px 35px;
+    background: #f8f8f8;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    border: 1px solid #f8f8f8;
+    }
+    button, 
+    input[type=text], 
+    input[type=file], 
+    input[type=image], 
+    input[type=reset], 
+    input[type=button], 
+    input[type=password], 
+    input[type=submit] {
+        border: none; background: none; border-radius: 0; cursor: default; -webkit-appearance: none;-moz-appearance: none; appearance: none;
+    }
+    @media  screen and (min-width: 768px) {
+    .section7 .group-join .ipt-form .tx {
+            padding-right: 2.5rem;
+        }
+    }
+</style>
 
 <div id="container"> 
     <?= $this->Form->create($exhibitionUser, ['id' => 'apply', 'enctype' => 'multipart/form-data']) ?>
@@ -150,7 +180,7 @@
                                 <?php endforeach; ?>
                             <?php else : ?>
                                 <?php foreach ($exhibitionSurvey->child_exhibition_survey as $child) : ?>
-                                    <li><span class="survey-a"><input type="checkbox" id="<?=$child->id?>" name="<?=$child->parent_id?>" value="<?=$child->text?>"><label for="<?=$child->id?>"><?=$child->text?></label></span></li>
+                                    <li><span class="survey-b"><input type="checkbox" id="<?=$child->id?>" name="<?=$child->parent_id?>" value="<?=$child->text?>"><label for="<?=$child->id?>"><?=$child->text?></label></span></li>
                                     <input type="hidden" id="<?=$child->id?>" name="exhibition_survey_users_answer.<?=$i?>.text" class="<?=$child->parent_id?>" value="">
                                     <?php $i++; ?>
                                 <?php endforeach; ?>
