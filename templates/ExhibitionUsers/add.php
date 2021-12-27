@@ -5,6 +5,9 @@
  */
 ?>
 <style>
+    .chk-dsg input + label:before {
+        left: 8px;
+    } */
     .survey-b input {
     position: absolute;
     margin: 19px 5px 0px 13px;
@@ -18,15 +21,8 @@
     line-height: 1.5;
     border: 1px solid #f8f8f8;
     }
-    button, 
-    input[type=text], 
-    input[type=file], 
-    input[type=image], 
-    input[type=reset], 
-    input[type=button], 
-    input[type=password], 
-    input[type=submit] {
-        border: none; background: none; border-radius: 0; cursor: default; -webkit-appearance: none;-moz-appearance: none; appearance: none;
+    input[type=text] {
+        cursor: default; 
     }
     @media  screen and (min-width: 768px) {
     .section7 .group-join .ipt-form .tx {
@@ -174,13 +170,13 @@
                             <ul class="survey-as">
                             <?php if ($exhibitionSurvey->is_duplicate == 'N') : ?>
                                 <?php foreach ($exhibitionSurvey->child_exhibition_survey as $child) : ?>
-                                    <li><span class="survey-a"><input type="radio" id="<?=$child->id?>" name="<?=$child->parent_id?>" value="<?=$child->text?>"><label for="<?=$child->id?>"><?=$child->text?></label></span></li>
+                                    <li><span class="survey-b chk-dsg" style="display: block;"><input type="radio" id="<?=$child->id?>" name="<?=$child->parent_id?>" value="<?=$child->text?>"><label for="<?=$child->id?>"><?=$child->text?></label></span></li>
                                     <input type="hidden" id="<?=$child->id?>" name="exhibition_survey_users_answer.<?=$i?>.text" class="<?=$child->parent_id?>" value="">
                                     <?php $i++; ?>
                                 <?php endforeach; ?>
                             <?php else : ?>
                                 <?php foreach ($exhibitionSurvey->child_exhibition_survey as $child) : ?>
-                                    <li><span class="survey-b"><input type="checkbox" id="<?=$child->id?>" name="<?=$child->parent_id?>" value="<?=$child->text?>"><label for="<?=$child->id?>"><?=$child->text?></label></span></li>
+                                    <li><span class="survey-b chk-dsg" style="display: block;"><input type="checkbox" id="<?=$child->id?>" name="<?=$child->parent_id?>" value="<?=$child->text?>"><label for="<?=$child->id?>"><?=$child->text?></label></span></li>
                                     <input type="hidden" id="<?=$child->id?>" name="exhibition_survey_users_answer.<?=$i?>.text" class="<?=$child->parent_id?>" value="">
                                     <?php $i++; ?>
                                 <?php endforeach; ?>
