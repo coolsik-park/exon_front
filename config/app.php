@@ -417,6 +417,6 @@ return [
      */
     'Session' => [
         'defaults' => 'php',
-        'timeout' => 24*60,
+        'timeout' => 86400,
     ],
 ];

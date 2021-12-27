@@ -548,6 +548,9 @@ class ExhibitionUsersController extends AppController
 
     public function certification($id = null)
     {
+        if (!empty($this->Auth->user())) {
+            $this->redirect(['action' => 'sign-up', 'application']);
+        }
         $this->set(compact('id'));
     }
 
