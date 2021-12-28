@@ -71,7 +71,7 @@
                             </div>
                             <div class="td-col col2">
                                 <div class="creative">
-                                    <p class="tit"><?= $exhibition->title ?></p>
+                                    <p class="tit clickTitle"><?= $exhibition->title ?></p>
                                     <p class="ells3"><?= $exhibition->description ?></p>
                                 </div>                            
                             </div>
@@ -230,7 +230,11 @@
 
 <script>
     // clickDiv 클릭시 페이지 이동 
-    $('.clickDiv').click(function(){
+    $('.photo').click(function(){
+        var Url = "<?= FRONT_URL ?>/exhibition/view/<?= $exhibition->id ?>";
+        window.location.href = Url;
+    });
+    $('.clickTitle').click(function(){
         var Url = "<?= FRONT_URL ?>/exhibition/view/<?= $exhibition->id ?>";
         window.location.href = Url;
     });
