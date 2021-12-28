@@ -107,6 +107,13 @@ class ExhibitionStreamController extends AppController
 
     public function watchExhibitionStream($id = null, $exhibition_users_id = null, $cert = null) 
     {   
+        if (empty($exhibitionStream)) {
+            $this->redirect(['action' => 'stream_not_exist']);
+        } else {
+            if ($exhibitionStream[0]['live_started'] == null) {
+                $this->redirect(['action' => 'stream_not_exist']);
+            }
+        }
         if (empty($this->Auth->user()) && $exhibition_users_id == null) {
             $this->redirect(['action' => 'certification', $id]);
         }
@@ -117,9 +124,6 @@ class ExhibitionStreamController extends AppController
         }
         $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $id])->toArray();
 
-        if ($exhibitionStream[0]['live_started'] == null) {
-            $this->redirect(['action' => 'stream_not_exist']);
-        }
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
         $front_url = FRONT_URL;
         $this->set(compact('exhibitionStream', 'tabs', 'exhibition_users_id', 'front_url'));
