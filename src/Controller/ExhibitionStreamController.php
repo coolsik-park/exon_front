@@ -54,6 +54,7 @@ class ExhibitionStreamController extends AppController
     public function setExhibitionStream($exhibition_id = null)
     {
         $users_id = $this->getTableLocator()->get('Exhibition')->get($exhibition_id)->users_id;
+        $title = $this->getTableLocator()->get('Exhibition')->get($exhibition_id)->title;
         if ($this->Auth->user('id') != $users_id) {
             $this->redirect(['controller' => 'pages', 'action' => 'home']);
         }
@@ -101,7 +102,7 @@ class ExhibitionStreamController extends AppController
         $coupon = $this->ExhibitionStream->Coupon->find('list', ['limit' => 200]);
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
         $prices = $this->getTableLocator()->get('ExhibitionStreamDefaultPrice')->find('all')->toArray();
-        $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs', 'exhibition_id', 'prices'));
+        $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs', 'exhibition_id', 'prices', 'title'));
     }
 
     public function watchExhibitionStream($id = null, $exhibition_users_id = null, $cert = null) 
