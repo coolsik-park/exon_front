@@ -173,7 +173,7 @@
                 <div class="f-logo">[엑스온]</div>
                 <div class="footer-cs">
                     <p><strong>고객센터</strong> <span>평일 10시~17시 1:1 문의하기</span></p>
-                    <p class="link"><a href="mailto:contact@exon.live">contact@exon.live</a></p>
+                    <p class="link"><a href="mailto:exon@orcatv.co.kr">exon@orcatv.co.kr</a></p>
                 </div>
             </div>                           
             <div class="footer-info">                    
