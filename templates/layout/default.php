@@ -49,7 +49,6 @@
         <!-- pc -->
         <div class="static">
             <h1 class="h-logo"><a href="/">EXON</a></h1>
-            <a href="/exhibition/search">개설된 행사보기 <img src="<?=FRONT_URL?>/images/ico-arr1.png" style="width:30px; height:30px;"></a>
             <div class="header-search">               
                 <!-- <form action="#"> -->
                     <fieldset>

@@ -193,7 +193,7 @@
                                     </p>
                                 </div>                           
                             </div>
-                        </div>                            
+                        </div>                      
                         <div class="td-col col5">                           
                             <div class="con">
                                 <?php if ($exhibition->status != 4 && $edate > $today) : ?>
@@ -205,8 +205,10 @@
                                 <div class="tg-btns">
                                     <button type="button" class="btn-ty3 bor" id="menu">메뉴</button>
                                     <ul class="menu-ul">
-                                        <?php if ($exhibition->status == 4 || ($apply_edate>$today && $exhibition_user[$key] == 0)): ?>
+                                        <?php if (strtotime(date('Y-m-d H:i:s', strtotime($exhibition->sdate))) - strtotime(date('Y-m-d H:i:s', time()))-86400 > 0): ?>
                                             <li><button type="button" id="delete<?=$exhibition->id?>" name="deleteExhibition" class="btn-ty3 bor">행사 삭제</button></li>
+                                        <?php else : ?>
+                                            <li><button type="button" class="btn-ty3 gray">행사 삭제</button></li>
                                         <?php endif; ?>
                                         <li><button type="button" id="copy<?=$exhibition->id?>" name="copyExhibition" class="btn-ty3 bor">행사 복사</button></li>
                                     </ul>
@@ -243,7 +245,7 @@
     $(document).on("click", "button[name='deleteExhibition']", function() {
         var id = $(this).attr("id").substr(6, $(this).attr("id").length - 6);
 
-        if (confirm('행사를 삭제하시겠습니까?') == true) {
+        if (confirm('행사를 삭제하시겠습니까? 행사 참여자가 존재하는 경우 자동 취소되며, 취소 메일이 발송됩니다. 메일 발송까지 시간이 소요되니 잠시만 확인 버튼 클릭 후 잠시만 기다려주세요.') == true) {
             $.ajax({
                 url: '/exhibition/delete/' + id,
                 method: 'DELETE',
@@ -251,13 +253,14 @@
                 // data: {}
             }).done(function(data) {
                 if (data.status == 'success') {
+                    alert("행사가 삭제되었습니다.");
                     window.location.reload();
                 } else {
-                    alert("삭제에 실패하였습니다. 잠시 후 다시 시도해주세요.");
+                    alert("오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
                 }
             });   
         } else {
-            alert("취소하였습니다.");
+            alert("삭제를 취소하였습니다.");
         }
     });
 
