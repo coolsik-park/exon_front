@@ -147,6 +147,9 @@
             <!-- // top -->
             <div class="webinar-tab-body">  
                 <p class="wb-alert">사용할 탭을 선택해주세요</p>   
+                <p class="wb-alert">위에 표기된 메뉴를 사용하시기 위해서는 설정( <img src="../../img/ico-sett.png">   )버튼을 클릭해 활성화 시켜주시기 바랍니다.</p>  
+                <p class="wb-alert">탭 설정이 활성화 된 후 참가자에게 공개할 탭(메뉴)을 선택하시면 선택된 탭이 참가자 화면에 표시됩니다.</p>  
+                <p class="wb-alert">방송중에도 탭 설정은 가능합니다. </p>  
             </div>
             <!-- body -->
         </div>
