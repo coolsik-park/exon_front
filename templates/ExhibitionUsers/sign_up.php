@@ -90,12 +90,12 @@
                         </div>
                         <div class="td-col col2">
                             <div class="con ag-ty1">
-                                <p class="tit fir tit-name clickTitle"><?= $exhibition_user->exhibition['title'] ?></p>
+                                <p class="tit fir tit-name clickTitle" onclick="window.location.href = '/exhibition/view/<?=$exhibition_user->exhibition['id']?>'"><?= $exhibition_user->exhibition['title'] ?></p>
                                 <p class="photo">
                                     <?php if ($exhibition_user->exhibition['image_path'] == null) { ?>
-                                        <img src="../../images/img-no3.png">
+                                        <img src="../../images/img-no3.png" onclick="window.location.href = '/exhibition/view/<?=$exhibition_user->exhibition['id']?>'">
                                     <?php } else { ?>
-                                        <img src="<?= DS . $exhibition_user->exhibition['image_path'] . DS . $exhibition_user->exhibition['image_name'] ?>">
+                                        <img src="<?= DS . $exhibition_user->exhibition['image_path'] . DS . $exhibition_user->exhibition['image_name'] ?>" onclick="window.location.href = '/exhibition/view/<?=$exhibition_user->exhibition['id']?>'">
                                     <?php } ?>
                                 </p>
                             </div>
