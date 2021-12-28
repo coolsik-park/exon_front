@@ -88,6 +88,28 @@ class ExhibitionController extends AppController
         }
         $this->set(compact('exhibitions', 'front_url', 'exhibition_user'));
     }
+
+    public function vodDownload()
+    {
+        $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users', 'ExhibitionStream']])->where(['Exhibition.users_id' => $this->Auth->user('id')]))->toArray();
+        $front_url = FRONT_URL;
+
+        if ($exhibitions == null) {
+            $exhibition_user = [];
+        } else {
+            $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
+            foreach($exhibitions as $key => $exhibition) {
+                $exhibition_users = $exhibition_users_table->find()->select(['count' => 'count(ExhibitionUsers.id)'])->where(['ExhibitionUsers.exhibition_id' => $exhibition->id, 'ExhibitionUsers.status' => '4'])->toArray();
+                
+                if ($exhibition_users == null) {
+                    $exhibition_user[$key] = null;
+                } else {
+                    $exhibition_user[$key] = $exhibition_users[0]->count;
+                }
+            }
+        }
+        $this->set(compact('exhibitions', 'front_url', 'exhibition_user'));
+    }
     
     public function view($id = null)
     {

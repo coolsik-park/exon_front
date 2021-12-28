@@ -59,7 +59,8 @@
                         $sdate = strtotime($exhibition->sdate);
                         $edate = strtotime($exhibition->edate);
                         $apply_edate = strtotime($exhibition->apply_edate);
-                ?>                  
+                ?>             
+                <?php if (!empty($exhibition['exhibition_stream']) && $exhibition['exhibition_stream'][0]['live_duration'] != 0) : ?>     
                     <div class="tr-row" onclick="">
                         <div class="clickDiv">
                             <div class="td-col col1">
@@ -196,24 +197,11 @@
                         </div>                            
                         <div class="td-col col5">                           
                             <div class="con">
-                                <?php if ($exhibition->status != 4 && $edate > $today) : ?>
-                                    <p><button type="button" id="urlCopy<?=$exhibition->id?>" name="urlCopy" class="btn-ty3 bor">URL 복사</button></p>
-                                <?php else : ?>
-                                <p class="btn-ty3 gray">URL 복사</p>
-                                <?php endif; ?>    
-                                <p><a href="/exhibition/edit/<?= $exhibition->id ?>" class="btn-ty3 bor" id="exhibitionEdit">행사 관리</a></p>
-                                <div class="tg-btns">
-                                    <button type="button" class="btn-ty3 bor" id="menu">메뉴</button>
-                                    <ul class="menu-ul">
-                                        <?php if ($exhibition->status == 4 || ($apply_edate>$today && $exhibition_user[$key] == 0)): ?>
-                                            <li><button type="button" id="delete<?=$exhibition->id?>" name="deleteExhibition" class="btn-ty3 bor">행사 삭제</button></li>
-                                        <?php endif; ?>
-                                        <li><button type="button" id="copy<?=$exhibition->id?>" name="copyExhibition" class="btn-ty3 bor">행사 복사</button></li>
-                                    </ul>
-                                </div>
+                                <p><a id="download" href="https://orcaexon.co.kr/videos/<?=$exhibition['exhibition_stream'][0]['stream_key']?>/source.mp4" class="btn-ty3 bor">다운로드</a></p>
                             </div>
                         </div>
                     </div>
+                <?php endif ?>
                 <?php endforeach; ?>
             </div>
             <div class="paginator">
@@ -233,6 +221,11 @@
     $('.clickDiv').click(function(){
         var Url = "<?= FRONT_URL ?>/exhibition/view/<?= $exhibition->id ?>";
         window.location.href = Url;
+    });
+
+    //다운로드 클릭 시 알림
+    $(document).on("click", "#download", function () {
+        alert("인코딩이 완료되지 않은 경우 동영상 파일이 재생이 불가하거나 길이가 짧을 수 있습니다. 잠시 후에 다시 다운로드를 시도해 주세요.");
     });
     
 
