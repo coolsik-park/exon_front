@@ -229,7 +229,7 @@
 <footer id="footer"></footer>
 
 <script>
-    // clickDiv 클릭시 페이지 이동 
+    // 사진 제목 클릭시 페이지 이동 
     $('.photo').click(function(){
         var Url = "<?= FRONT_URL ?>/exhibition/view/<?= $exhibition->id ?>";
         window.location.href = Url;
