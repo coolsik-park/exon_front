@@ -11,6 +11,12 @@
     .pagination li {
         display: inline;
     }
+    .photo {
+        cursor: pointer;
+    }
+    .clickTitle {
+        cursor: pointer;
+    }
 
     
 </style>
