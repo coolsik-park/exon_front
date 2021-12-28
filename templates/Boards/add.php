@@ -157,25 +157,25 @@
         var uploadFileList = Object.keys(fileList);
 
         var getHp = RegExp(/^[0-9]*$/);
-        var getEmail = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+        var getEmail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
         var result = [];
         var faqCategoryId = $('#categories option:selected').val();
 
-        if ($('#hp').val().length < 4) {
-            $('#hpNoti').html('전화번호를 제대로 입력해 주세요.');
+        if (!getHp.test($('#hp').val())) {
+            $('#hpNoti').html("전화번호를 제대로 입력해 주세요.");
             $('#hp').focus();
             result.push('false');
         } else {
-            $('#hpNoti').html('');
+            $('#hpNoti').html("");
             result.push('true');
         }
 
-        if (!getHp.test($('#hp').val())) {
-            $('#hpNoti').html('전화번호를 제대로 입력해 주세요.');
+        if ($('#hp').val().length < 11) {
+            $('#hpNoti').html("전화번호를 제대로 입력해 주세요.");
             $('#hp').focus();
             result.push('false');
         } else {
-            $('#hpNoti').html('');
+            $('#hpNoti').html("");
             result.push('true');
         }
 
@@ -191,8 +191,6 @@
         if ($('#rdo3-1').prop('checked') == false) {
             alert("개인정보 수집 및 이용 동의를 확인해주세요.");
             result.push('flase');
-        } else {
-            result.push('true');
         }
 
         if (!result.includes('false')) {
