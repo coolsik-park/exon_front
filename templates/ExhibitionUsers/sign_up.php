@@ -84,7 +84,7 @@
                         </div>
                         <div class="td-col col2">
                             <div class="con ag-ty1">
-                                <p class="tit fir tit-name"><?= $exhibition_user->exhibition['title'] ?></p>
+                                <p class="tit fir tit-name clickTitle"><?= $exhibition_user->exhibition['title'] ?></p>
                                 <p class="photo">
                                     <?php if ($exhibition_user->exhibition['image_path'] == null) { ?>
                                         <img src="../../images/img-no3.png">
@@ -277,4 +277,15 @@
             }
         });
     }
+
+
+    // 사진 제목 클릭시 페이지 이동 
+    $('.photo').click(function(){
+        var Url = "<?= FRONT_URL ?>/exhibition/view/<?= $exhibition_user->exhibition['id'] ?>";
+        window.location.href = Url;
+    });
+    $('.clickTitle').click(function(){
+        var Url = "<?= FRONT_URL ?>/exhibition/view/<?= $exhibition_user->exhibition['id'] ?>";
+        window.location.href = Url;
+    });
 </script>
