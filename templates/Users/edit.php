@@ -293,8 +293,10 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                 if (data.status == 'success') {
                     alert("회원탈퇴가 완료되었습니다.");
                     window.location.replace("/users/logout");
-                } else {
+                } else if(data.status == 'fail') {
                     alert("오류가 발생하였습니다. 다시 시도해 주세요.");
+                } else {
+                    alert("개설한 행사가 있는 경우 회원탈퇴를 할 수 없습니다. 행사 취소 후 다시 시도해주세요.");
                 }
             });
         }

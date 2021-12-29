@@ -173,6 +173,12 @@ class UsersController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $exhibitions = $Exhibition->find('all')->where(['users_id' => $id])->toArray();
+        if (!empty($exhibitions)) {
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'exist']));
+            return $response;
+        }
         if ($this->Users->delete($user)) {
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
         } else {
