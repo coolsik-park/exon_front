@@ -53,8 +53,9 @@
                 </div>
                 <?php 
                     foreach ($exhibition_users as $key => $exhibition_user): 
-                        $d_today = strtotime(date('Y-m-d H:i:s', time()));
+                        $d_today = strtotime(date('Y-m-d H:i:s', time()) . "+9 hours");
                         $sdate = strtotime($exhibition_user->exhibition['sdate']);
+                        $sdate_before = strtotime("-1800 seconds" . $exhibition_user->exhibition['sdate']);
                         $edate = strtotime($exhibition_user->exhibition['edate']);
                 ?>
                     <div class="tr-row">
@@ -196,7 +197,7 @@
                                     else:
                                         if ($d_today >= $sdate):
                                             echo '진행중인 행사입니다.';
-                                            if ($exhibition_user->status == 4):
+                                            if ($exhibition_user->status == 4 && $d_today >= $sdate_before):
                                     ?>
                                                 <p><a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition_user->exhibition_id ?>/<?= $exhibition_user->id ?>" class="btn-ty3 bor" id="exhibitionSee">웨비나 시청</a></p>
                                     <?php
