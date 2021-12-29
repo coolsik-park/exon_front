@@ -347,9 +347,13 @@
             return false;
         }
     });
-
+    
     //쿠폰 검증
     function validateCoupon() {
+        if (coupon_amount != 0) {
+            alert("프로모션이 이미 적용되어있습니다.");
+            return false
+        }
         var coupon_code = $("#coupon_code").val();
         $.ajax({
             url: "/exhibition-stream/validate-coupon/",
@@ -360,14 +364,14 @@
             }
         }).done(function(data) {
             if (data.status == 'success') {
-                alert("쿠폰이 적용되었습니다.");
+                alert("프로모션이 적용되었습니다.");
                 coupon_amount = $("#amount").val() * data.discount_rate / 100;
-                $("#amount").val($("#amount").val() - coupon_amount);
+                $("#amount").val($("#amount").val() - ($("#amount").val() * data.discount_rate / 100));
+                discount_rate = data.discount_rate
                 coupon_id = data.coupon_id;
-                discount_rate = data.discount_rate;
-                   
+    
             } else {
-                alert("쿠폰 번호를 다시 확인해주세요.");
+                alert("프로모션 키를 다시 확인해주세요.");
             }
         });
     }

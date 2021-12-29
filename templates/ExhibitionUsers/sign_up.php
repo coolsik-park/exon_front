@@ -283,15 +283,4 @@
             }
         });
     }
-
-
-    // 사진 제목 클릭시 페이지 이동 
-    $('.photo').click(function(){
-        var Url = "<?= FRONT_URL ?>/exhibition/view/<?= $exhibition_user->exhibition['id'] ?>";
-        window.location.href = Url;
-    });
-    $('.clickTitle').click(function(){
-        var Url = "<?= FRONT_URL ?>/exhibition/view/<?= $exhibition_user->exhibition['id'] ?>";
-        window.location.href = Url;
-    });
 </script>

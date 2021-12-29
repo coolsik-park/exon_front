@@ -868,7 +868,7 @@ class ExhibitionStreamController extends AppController
     public function validateCoupon () 
     {
         if ($this->request->is('post')) {
-            $coupon = $this->getTableLocator()->get('Coupon')->find('all')->where(['users_id' => $this->Auth->user()->id, 'product_type' => 'S', 'status' => 2])->toArray();
+            $coupon = $this->getTableLocator()->get('Coupon')->find('all')->where(['product_type' => 'S', 'status' => 1])->toArray();
             $exist = 0;
             $coupon_id = 0;
             $discount_rate = 0;
@@ -876,10 +876,15 @@ class ExhibitionStreamController extends AppController
             $end_date = 0;
             $date = (int)FrozenTime::now()->format('Ymd');
             $count = Count($coupon);
+            $codes = explode('-', $this->request->getData('coupon_code'));
+            $code = '';
+            for ($i = 0; $i < count($codes); $i++) {
+                $code .= $codes[$i];
+            }
             
             for ($i = 0; $i < $count; $i++) {
                 
-                if ($coupon[$i]['code'] == $this->request->getData('coupon_code')) {
+                if ($coupon[$i]['code'] == $code) {
                     $coupon_id = $coupon[$i]['id'];
                     $discount_rate = $coupon[$i]['discount_rate']; 
                     $exist = 1;
@@ -901,7 +906,7 @@ class ExhibitionStreamController extends AppController
 
     public function changeCouponStatus ()
     {
-        $coupon = $this->getTableLocator()->get('Coupon')->find('all')->where(['users_id' => $this->Auth->user()->id, 'product_type' => 'S', 'status' => 2])->toArray();
+        $coupon = $this->getTableLocator()->get('Coupon')->find('all')->where(['product_type' => 'S', 'status' => 1])->toArray();
         $coupon_id = 0;
         $count = Count($coupon);
         
