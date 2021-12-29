@@ -60,7 +60,7 @@
                         $edate = strtotime($exhibition->edate);
                         $apply_edate = strtotime($exhibition->apply_edate);
                 ?>             
-                <?php if (!empty($exhibition['exhibition_stream']) && $exhibition['exhibition_stream'][0]['live_duration'] != 0) : ?>     
+                <?php if (!empty($exhibition['exhibition_stream']) && $exhibition['exhibition_stream'][0]['live_duration'] != 0 && strtotime($exhibition['exhibition_stream'][0]['live_started']) == 0) : ?>     
                     <div class="tr-row" onclick="">
                         <div class="clickDiv">
                             <div class="td-col col1">
