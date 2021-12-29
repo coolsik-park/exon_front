@@ -351,7 +351,7 @@
     //쿠폰 검증
     function validateCoupon() {
         if (coupon_amount != 0) {
-            alert("프로모션이 이미 적용되어있습니다.");
+            alert("프로모션이 이미 적용되어 있습니다.");
             return false
         }
         var coupon_code = $("#coupon_code").val();
