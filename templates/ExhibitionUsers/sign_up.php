@@ -53,8 +53,8 @@
                 </div>
                 <?php 
                     foreach ($exhibition_users as $key => $exhibition_user): 
-                        $d_today = strtotime(date('Y-m-d H:i:s', time()));
-                        $sdate = strtotime($exhibition_user->exhibition['sdate']);
+                        $d_today = strtotime(date('Y-m-d H:i:s', time()) . "+9 hours");
+                        $sdate = strtotime("-1800 seconds" . $exhibition_user->exhibition['sdate']);
                         $edate = strtotime($exhibition_user->exhibition['edate']);
                 ?>
                     <div class="tr-row">
