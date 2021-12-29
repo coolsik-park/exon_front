@@ -75,15 +75,15 @@
 <script> 
     var chatInterval
     // 방송 중 체크
-    // $(document).ready(function () {
-    //     $.ajax({
-    //         url: "http://121.126.223.225:80/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8",
-    //         type: 'HEAD',
-    //         error: function () {
-    //             window.location.replace("/exhibition-stream/stream-not-exist");
-    //         }
-    //     });
-    // });
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://orcaexon.co.kr/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8",
+            type: 'HEAD',
+            error: function () {
+                window.location.replace("/exhibition-stream/stream-not-exist");
+            }
+        });
+    });
     
     //잘못된 접근 차단
     var ref = document.referrer;
