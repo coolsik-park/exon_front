@@ -11,6 +11,12 @@
     .pagination li {
         display: inline;
     }
+    .photo {
+        cursor: pointer;
+    }
+    .clickTitle {
+        cursor: pointer;
+    }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -84,12 +90,12 @@
                         </div>
                         <div class="td-col col2">
                             <div class="con ag-ty1">
-                                <p class="tit fir tit-name clickTitle"><?= $exhibition_user->exhibition['title'] ?></p>
+                                <p class="tit fir tit-name clickTitle" onclick="window.location.href = '/exhibition/view/<?=$exhibition_user->exhibition['id']?>'"><?= $exhibition_user->exhibition['title'] ?></p>
                                 <p class="photo">
                                     <?php if ($exhibition_user->exhibition['image_path'] == null) { ?>
-                                        <img src="../../images/img-no3.png">
+                                        <img src="../../images/img-no3.png" onclick="window.location.href = '/exhibition/view/<?=$exhibition_user->exhibition['id']?>'">
                                     <?php } else { ?>
-                                        <img src="<?= DS . $exhibition_user->exhibition['image_path'] . DS . $exhibition_user->exhibition['image_name'] ?>">
+                                        <img src="<?= DS . $exhibition_user->exhibition['image_path'] . DS . $exhibition_user->exhibition['image_name'] ?>" onclick="window.location.href = '/exhibition/view/<?=$exhibition_user->exhibition['id']?>'">
                                     <?php } ?>
                                 </p>
                             </div>

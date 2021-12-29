@@ -54,6 +54,7 @@ class ExhibitionStreamController extends AppController
     public function setExhibitionStream($exhibition_id = null)
     {
         $users_id = $this->getTableLocator()->get('Exhibition')->get($exhibition_id)->users_id;
+        $title = $this->getTableLocator()->get('Exhibition')->get($exhibition_id)->title;
         if ($this->Auth->user('id') != $users_id) {
             $this->redirect(['controller' => 'pages', 'action' => 'home']);
         }
@@ -101,11 +102,18 @@ class ExhibitionStreamController extends AppController
         $coupon = $this->ExhibitionStream->Coupon->find('list', ['limit' => 200]);
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
         $prices = $this->getTableLocator()->get('ExhibitionStreamDefaultPrice')->find('all')->toArray();
-        $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs', 'exhibition_id', 'prices'));
+        $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs', 'exhibition_id', 'prices', 'title'));
     }
 
     public function watchExhibitionStream($id = null, $exhibition_users_id = null, $cert = null) 
     {   
+        if (empty($exhibitionStream)) {
+            $this->redirect(['action' => 'stream_not_exist']);
+        } else {
+            if ($exhibitionStream[0]['live_started'] == null) {
+                $this->redirect(['action' => 'stream_not_exist']);
+            }
+        }
         if (empty($this->Auth->user()) && $exhibition_users_id == null) {
             $this->redirect(['action' => 'certification', $id]);
         }
@@ -116,9 +124,6 @@ class ExhibitionStreamController extends AppController
         }
         $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $id])->toArray();
 
-        if ($exhibitionStream[0]['live_started'] == null) {
-            $this->redirect(['action' => 'stream_not_exist']);
-        }
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
         $front_url = FRONT_URL;
         $this->set(compact('exhibitionStream', 'tabs', 'exhibition_users_id', 'front_url'));

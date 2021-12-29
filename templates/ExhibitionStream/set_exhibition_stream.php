@@ -408,6 +408,9 @@
                     if (data.status == 'success') { 
                         $("#is_paid").val(1);
                         $("#pay_id").val(data.pay_id);
+                        if ($("#title").val().length == 0) {
+                            $("#title").val("<?=$title?>");
+                        }
 
                         var msg = '결제가 완료되었습니다.';
                         msg += '\n고유ID : ' + rsp.imp_uid;
@@ -416,6 +419,11 @@
                         msg += '\n카드 승인번호 : ' + rsp.apply_num; 
 
                         alert(msg);
+
+                        $("#issue_stream_key").click();
+                        setTimeout(function () {
+                            $("#save").click();
+                        }, 500);
 
                     } else {
                         alert("결제에 실패하였습니다. 잠시 후 다시 시도해 주세요.")

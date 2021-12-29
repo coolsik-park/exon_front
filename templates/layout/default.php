@@ -41,6 +41,15 @@
     <script src="/js/responsiveImg.js"></script>   
     <script src="/js/common.js"></script>
     <title>EXON</title>
+    
+    <style>
+        #my-page {
+            height: 25px;
+        }
+        #sub-menu > li {
+            padding: 12px 20px;
+        }
+    </style>
 </head>
 <body>
  <p id="accessibility"><a href="#container">본문바로가기</a></p>   
@@ -49,7 +58,6 @@
         <!-- pc -->
         <div class="static">
             <h1 class="h-logo"><a href="/">EXON</a></h1>
-            <a href="/exhibition/search">개설된 행사보기 <img src="<?=FRONT_URL?>/images/ico-arr1.png" style="width:30px; height:30px;"></a>
             <div class="header-search">               
                 <!-- <form action="#"> -->
                     <fieldset>
@@ -203,8 +211,8 @@
         $('#my-page').mouseover(function(){
             $('#sub-menu').slideDown();
             $('#my-page').css("position","relative");
-            $('#sub-menu').css({"position":"absolute","left":"10px","top":"20px","z-index":"1","background-color":"rgba(255,255,255,1)","border":"1px solid #dbdbdb",
-            "width":"110px","text-align":"center"});
+            $('#sub-menu').css({"position":"absolute","right":"0px","top":"25px","z-index":"1","background-color":"rgba(255,255,255,1)","border":"1px solid #dbdbdb",
+            "width":"130px","text-align":"center"});
         });
         
         $('#my-page').mouseleave(function(){
