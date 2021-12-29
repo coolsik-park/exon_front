@@ -600,7 +600,7 @@
             if (data.status == 'success') {
                 $("#mainImg").attr("src", "/" + data.path + "/" + data.imgName);
             } else {
-                alert('이미지 등록에 실패하였습니다. 잠시 후 다시 시도해 주세요.');
+                alert('이미지 등록에 실패하였습니다.\n잠시 후 다시 시도해 주세요.');
             }
         });
     });
@@ -834,7 +834,7 @@
             data: formData
         }).done(function (data) {
             if (data.status == 'exist') {
-                alert("삭제하려는 그룹에 참가자가 존재하여 삭제 할 수 없습니다. 참가자를 확인해주세요.");
+                alert("삭제하려는 그룹에 참가자가 존재하여 삭제 할 수 없습니다.\n참가자를 확인해주세요.");
                 window.location.reload();
                 return false;
             }
@@ -972,7 +972,7 @@
                     }
                 });
             } else if (data.status == 'exist') {
-                alert("삭제하려는 그룹에 참가자가 존재하여 삭제 할 수 없습니다. 참가자를 확인해주세요.");
+                alert("삭제하려는 그룹에 참가자가 존재하여 삭제 할 수 없습니다.\n참가자를 확인해주세요.");
                 window.location.reload();
             } else {
                 alert("오류가 발생하였습니다. 잠시 후 시도해주세요.");

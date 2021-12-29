@@ -227,7 +227,7 @@
             if (users_id == null) {
                 var html = '';
                 $("#surveyPopup").html(html);
-                alert("비회원이라 사전설문 결과를 확인할 수 없습니다.");
+                alert("비회원의 사전설문 결과는 확인할 수 없습니다.");
                 return;
             } else {
                 var beforeChildData = <?= json_encode($beforeChildData) ?>;
