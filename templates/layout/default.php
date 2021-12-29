@@ -45,6 +45,7 @@
     <style>
         #my-page {
             height: 25px;
+            z-index: 100;
         }
         #sub-menu > li {
             padding: 12px 20px;
