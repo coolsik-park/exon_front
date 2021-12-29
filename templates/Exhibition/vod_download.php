@@ -197,7 +197,7 @@
                         </div>                            
                         <div class="td-col col5">                           
                             <div class="con">
-                                <p><a id="download" href="https://orcaexon.co.kr/videos/<?=$exhibition['exhibition_stream'][0]['stream_key']?>/source.mp4" class="btn-ty3 bor">다운로드</a></p>
+                                <p><a id="download" href="https://orcaexon.co.kr/videos/<?=$exhibition['exhibition_stream'][0]['stream_key']?>/<?=$exhibition['exhibition_stream'][0]['title']?>_source.mp4" class="btn-ty3 bor">다운로드</a></p>
                             </div>
                         </div>
                     </div>
