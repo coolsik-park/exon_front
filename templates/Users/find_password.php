@@ -34,7 +34,7 @@
             if (data.status == 'exist') {
                 window.location.replace("/users/pwd-cert/" + data.users_id + "/" + data.cert);
             } else {
-                alert("존재하지 않는 이메일 주소입니다. 이메일 주소를 확인해주세요.");
+                alert("존재하지 않는 이메일 주소입니다.\n이메일 주소를 확인해주세요.");
             }
         });
     });

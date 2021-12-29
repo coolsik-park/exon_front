@@ -101,7 +101,7 @@
     //가입완료
     $("#complete").click(function () {
         if (email_cert != 1 && hp_cert != 1) {
-            if (confirm("이메일 또는 휴대폰 인증이 완료되지 않은 경우 비밀번호 찾기 등 일부 서비스에 제한이 있을 수 있습니다. 계속하시겠습니까?")) {
+            if (confirm("이메일 또는 휴대폰 인증이 완료되지 않은 경우 비밀번호 찾기 등 일부 서비스에 제한이 있을 수 있습니다.\n계속하시겠습니까?")) {
                 window.location.replace("/users/complete-join/<?=$id?>");
             }
         } else {

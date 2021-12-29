@@ -107,22 +107,25 @@ class ExhibitionStreamController extends AppController
 
     public function watchExhibitionStream($id = null, $exhibition_users_id = null, $cert = null) 
     {   
+        $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $id])->toArray();
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $exhibition = $Exhibition->get($id);
+
         if (empty($exhibitionStream)) {
             $this->redirect(['action' => 'stream_not_exist']);
-        } else {
-            if ($exhibitionStream[0]['live_started'] == null) {
-                $this->redirect(['action' => 'stream_not_exist']);
-            }
+        } 
+        
+        if (strtotime($exhibition->sdate->format('Y-m-d H:i:s')) - 1800 - strtotime(date('Y-m-d H:i:s', time()+32400)) > 0) {
+            $this->redirect(['action' => 'stream_not_exist']);
         }
+
         if (empty($this->Auth->user()) && $exhibition_users_id == null) {
             $this->redirect(['action' => 'certification', $id]);
         }
-        $Exhibition = $this->getTableLocator()->get('Exhibition');
-        $exhibition = $Exhibition->get($id);
+
         if ($exhibition->require_cert == 1 && $cert != 1) {
             $this->redirect(['action' => 'certification', $id]);
         }
-        $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $id])->toArray();
 
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
         $front_url = FRONT_URL;
@@ -1286,7 +1289,7 @@ class ExhibitionStreamController extends AppController
     {
         $exhibitionStream = $this->ExhibitionStream->get($exhibition_stream_id);
         
-        if ($exhibitionStream->live_started == null) {
+        if ($exhibitionStream->live_started == null && strtotime($exhibition->sdate->format('Y-m-d H:i:s')) < strtotime(date('Y-m-d H:i:s', time()+32400))) {
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'end' => 1]));
             return $response;
         } else {

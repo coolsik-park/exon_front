@@ -51,7 +51,7 @@
             }
         }).done(function(data) {
             if (data.status == 'success') {
-                alert("비밀번호가 재설정되었습니다. 새로운 비밀번호로 EXON 서비스를 이용해 주세요.");
+                alert("비밀번호가 재설정되었습니다.\n새로운 비밀번호로 EXON 서비스를 이용해 주세요.");
                 window.location.replace("/users/login");
             } else {
                 alert("오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.");

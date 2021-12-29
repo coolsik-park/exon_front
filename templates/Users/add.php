@@ -192,7 +192,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
         }
 
         if ($("#password").val() != $("#confirm").val()) {
-            $("#confirmNoti").html("비밀번호가 다릅니다. 다시 입력해 주세요.");
+            $("#confirmNoti").html("비밀번호가 다릅니다.\n다시 입력해 주세요.");
             result.push('false');
         } else {
             $("#confirmNoti").html("");
@@ -227,7 +227,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                 if (data.status == 'success') {
                     $(location).attr('href', '/users/certification/' + data.id);
                 } else {
-                    $("#emailNoti").html("이미 회원 가입된 이메일입니다. 다시 입력해 주세요.");
+                    $("#emailNoti").html("이미 회원 가입된 이메일입니다.\n다시 입력해 주세요.");
                     $("#email").focus();
                 }
             });
