@@ -11,6 +11,12 @@
     .pagination li {
         display: inline;
     }
+    .photo {
+        cursor: pointer;
+    }
+    .clickTitle {
+        cursor: pointer;
+    }
 
     
 </style>
@@ -65,14 +71,14 @@
                         <div class="clickDiv">
                             <div class="td-col col1">
                                 <?php if ($exhibition->image_path != '') : ?>
-                                <p class="photo"><img src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>"></p>
+                                <p class="photo"><img src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>" onclick="window.location.href = '/exhibition/view/<?=$exhibition['id']?>'"></p>
                                 <?php else : ?>
-                                <p class="photo"><img src="../../images/img-no3.png" alt="이미지없음"></p>
+                                <p class="photo"><img src="../../images/img-no3.png" alt="이미지없음" onclick="window.location.href = '/exhibition/view/<?=$exhibition['id']?>'"></p>
                                 <?php endif; ?>
                             </div>
                             <div class="td-col col2">
                                 <div class="creative">
-                                    <p class="tit"><?= $exhibition->title ?></p>
+                                    <p class="tit clickTitle" onclick="window.location.href = '/exhibition/view/<?=$exhibition['id']?>'"><?= $exhibition['title'] ?></p>
                                     <p class="ells3"><?= $exhibition->description ?></p>
                                 </div>                            
                             </div>
@@ -217,12 +223,6 @@
 <footer id="footer"></footer>
 
 <script>
-    // clickDiv 클릭시 페이지 이동 
-    $('.clickDiv').click(function(){
-        var Url = "<?= FRONT_URL ?>/exhibition/view/<?= $exhibition->id ?>";
-        window.location.href = Url;
-    });
-
     //다운로드 클릭 시 알림
     $(document).on("click", "#download", function () {
         alert("다운로드 후 동영상 파일이 재생이 불가하거나 길이가 짧은 경우 잠시 후에 다시 다운로드를 시도해 주세요.");
