@@ -119,7 +119,7 @@ class ExhibitionController extends AppController
         
         if ($this->Auth->user('id') != null) {
             $exhibitionUsers_table = TableRegistry::get('ExhibitionUsers');
-            $exhibitionUsers = $exhibitionUsers_table->find('all')->where(['exhibition_id' => $id, 'users_id' => $this->Auth->user('id')])->toArray();
+            $exhibitionUsers = $exhibitionUsers_table->find('all')->where(['exhibition_id' => $id, 'status IS NOT' => 8, 'users_id' => $this->Auth->user('id')])->toArray();
         } else {
             $exhibitionUsers = null;
         }
