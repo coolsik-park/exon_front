@@ -61,13 +61,13 @@ class ExhibitionController extends AppController
         $this->paginate = ['limit' => 10];
 
         if ($type == 'all') {
-            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id')]))->toArray();
+            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id')])->order(['Exhibition.created' => 'DESC']))->toArray();
         } elseif ($type == 'ongoing') {
-            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.status !=' => 4, 'Exhibition.sdate <=' => $today, 'Exhibition.edate >=' => $today]))->toArray();
+            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.status !=' => 4, 'Exhibition.sdate <=' => $today, 'Exhibition.edate >=' => $today])->order(['Exhibition.created' => 'DESC']))->toArray();
         } elseif ($type == 'temp') {
-            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.status' => 4]))->toArray();
+            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.status' => 4])->order(['Exhibition.created' => 'DESC']))->toArray();
         } elseif ($type == 'ended') {            
-            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.edate <=' => $today]))->toArray();
+            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.edate <=' => $today])->order(['Exhibition.created' => 'DESC']))->toArray();
         }
 
         $front_url = FRONT_URL;
@@ -91,24 +91,10 @@ class ExhibitionController extends AppController
 
     public function vodDownload()
     {
-        $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users', 'ExhibitionStream']])->where(['Exhibition.users_id' => $this->Auth->user('id')]))->toArray();
+        $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users', 'ExhibitionStream']])->where(['Exhibition.users_id' => $this->Auth->user('id')])->order(['Exhibition.created' => 'DESC']))->toArray();
         $front_url = FRONT_URL;
 
-        if ($exhibitions == null) {
-            $exhibition_user = [];
-        } else {
-            $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
-            foreach($exhibitions as $key => $exhibition) {
-                $exhibition_users = $exhibition_users_table->find()->select(['count' => 'count(ExhibitionUsers.id)'])->where(['ExhibitionUsers.exhibition_id' => $exhibition->id, 'ExhibitionUsers.status' => '4'])->toArray();
-                
-                if ($exhibition_users == null) {
-                    $exhibition_user[$key] = null;
-                } else {
-                    $exhibition_user[$key] = $exhibition_users[0]->count;
-                }
-            }
-        }
-        $this->set(compact('exhibitions', 'front_url', 'exhibition_user'));
+        $this->set(compact('exhibitions', 'front_url'));
     }
     
     public function view($id = null)
