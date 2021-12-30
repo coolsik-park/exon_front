@@ -206,9 +206,9 @@
                                 <div class="tg-btns">
                                     <button type="button" class="btn-ty3 bor" id="menu">다운로드</button>
                                     <ul class="menu-ul">
-                                        <li><button type="button" class="btn-ty3 bor">파일  1</button></li>
-                                        <li><button type="button" class="btn-ty3 bor">파일  2</button></li>
-                                        <li><button type="button" class="btn-ty3 bor">파일  3</button></li>
+                                    <?php for ($i = 1; $i <= $exhibition['exhibition_stream'][0]['vod_index']; $i ++) { ?>
+                                        <li><a id="download" href="https://orcaexon.co.kr/videos/<?=$exhibition['exhibition_stream'][0]['stream_key']?>/<?=$exhibition['exhibition_stream'][0]['title']?>_<?=$i?>_source.mp4" class="btn-ty3 bor">파일  <?=$i?></a></li>
+                                        <?php } ?>
                                     </ul>
                                 </div>
                             </div>
@@ -233,63 +233,6 @@
     //다운로드 클릭 시 알림
     $(document).on("click", "#download", function () {
         alert("다운로드 후 동영상 파일이 재생이 불가하거나 길이가 짧은 경우 잠시 후에 다시 다운로드를 시도해 주세요.");
-    });
-
-    $(document).on("click", "button[name='deleteExhibition']", function() {
-        var id = $(this).attr("id").substr(6, $(this).attr("id").length - 6);
-
-        if (confirm('행사를 삭제하시겠습니까?') == true) {
-            $.ajax({
-                url: '/exhibition/delete/' + id,
-                method: 'DELETE',
-                // type: 'json',
-                // data: {}
-            }).done(function(data) {
-                if (data.status == 'success') {
-                    window.location.reload();
-                } else {
-                    alert("오류가 발생하였습니다.. 잠시 후 다시 시도해주세요.");
-                }
-            });   
-        } else {
-            alert("취소하였습니다.");
-        }
-    });
-
-    $(document).on("click", "button[name='copyExhibition']", function () {
-        var id = $(this).attr("id").substr(4, $(this).attr("id").length - 4);
-        
-        if (confirm('행사를 복사하시겠습니까?')) {
-            $.ajax({
-                url: '/exhibition/copy/' + id,
-                method: 'POST',
-                type: 'json',
-            }).done(function(data) {
-                if (data.status == 'success') {
-                    alert("복사되었습니다.");
-                    window.location.replace("/exhibition/index/temp");
-                } else {
-                    alert("오류가 발생하였습니다.. 잠시 후 다시 시도해주세요.");
-                }
-            });   
-        } else {
-            alert("취소하였습니다.");
-        }
-    });
-
-    //url 복사
-    $(document).on("click", "button[name='urlCopy']", function () {
-        var id = $(this).attr("id").substr(7, $(this).attr("id").length - 7);
-        var url = "<?= $front_url ?>/exhibition/view/" + id
-        const textArea = document.createElement('textarea');
-        document.body.appendChild(textArea); 
-        textArea.value = "<?= $front_url ?>/exhibition/view/" + id;
-        
-        textArea.select();
-        document.execCommand("copy");
-        document.body.removeChild(textArea);
-        
-        alert('복사되었습니다.');
     });
 
     //다른 메뉴 클릭 시 열린 메뉴 숨기기 
