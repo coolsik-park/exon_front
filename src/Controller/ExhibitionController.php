@@ -747,6 +747,7 @@ class ExhibitionController extends AppController
         $this->request->allowMethod('delete');
         $exhibition = $this->Exhibition->get($id);
         $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id])->toArray();
+        $exhibitionStream = $this->getTableLocator()->get('ExhibitionStream')->find('all')->where(['exhibition_id' => $id])->toArray();
 
         require_once(ROOT . "/iamport-rest-client-php/src/iamport.php");            
         $iamport = new Iamport(getEnv('IAMPORT_API_KEY'), getEnv('IAMPORT_API_SECRET'));
@@ -830,6 +831,33 @@ class ExhibitionController extends AppController
                     $mailer->setViewVars(['now' => FrozenTime::now()]);
                     
                     $mailer->deliver();
+                }
+            }
+        }
+
+        if (!empty($exhibitionStream)) {
+            
+            if ($exhibitionStream[0]['pay_id'] != '') {
+                $Pay = $this->getTableLocator()->get('Pay');
+                $pay = $Pay->get($exhibitionStream[0]['pay_id']);
+                
+                $result = $iamport->cancel(array(
+                    'imp_uid'		=> $pay->imp_uid, 		
+                    'merchant_uid'	=> $pay->merchant_uid, 	
+                    'amount' 		=> 0,				
+                    'reason'		=> '행사 취소',			
+                ));
+
+                if ($result->success) {
+            
+                    $payment_data = $result->data;
+                    $now = FrozenTime::now();
+    
+                    $pay->cancel_reason = '행사 취소';
+                    $pay->cancel_amount = $payment_data->cancel_amount;
+                    $pay->cancel_date = $now->i18nFormat('yyyy-MM-dd HH:mm:ss');
+                    
+                    $Pay->save($pay);
                 }
             }
         }

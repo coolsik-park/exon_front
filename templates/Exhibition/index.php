@@ -240,7 +240,7 @@
     $(document).on("click", "button[name='deleteExhibition']", function() {
         var id = $(this).attr("id").substr(6, $(this).attr("id").length - 6);
 
-        if (confirm('행사를 삭제하시겠습니까? 행사 참여자가 존재하는 경우 자동 취소되며, 취소 메일이 발송됩니다. 메일 발송까지 시간이 소요되니 잠시만 확인 버튼 클릭 후 잠시만 기다려주세요.') == true) {
+        if (confirm('행사를 삭제하시겠습니까? 결제금액은 모두 환불되며, 행사 참여자가 존재하는 경우 자동 취소되고, 취소 메일이 발송됩니다. 메일 발송까지 시간이 소요되니 잠시만 확인 버튼 클릭 후 잠시만 기다려주세요.') == true) {
             $.ajax({
                 url: '/exhibition/delete/' + id,
                 method: 'DELETE',
