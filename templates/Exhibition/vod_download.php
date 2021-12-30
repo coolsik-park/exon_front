@@ -203,7 +203,7 @@
                         </div>                            
                         <div class="td-col col5">                           
                             <div class="con">
-                                <p><a id="download" href="https://orcaexon.co.kr/videos/<?=$exhibition['exhibition_stream'][0]['stream_key']?>/<?=$exhibition['exhibition_stream'][0]['title']?>_source.mp4" class="btn-ty3 bor">다운로드</a></p>
+                            <p><a id="download" class="btn-ty3 bor">다운로드</a></p>
                             </div>
                         </div>
                     </div>
@@ -227,7 +227,6 @@
     $(document).on("click", "#download", function () {
         alert("다운로드 후 동영상 파일이 재생이 불가하거나 길이가 짧은 경우 잠시 후에 다시 다운로드를 시도해 주세요.");
     });
-    
 
     $(document).on("click", "button[name='deleteExhibition']", function() {
         var id = $(this).attr("id").substr(6, $(this).attr("id").length - 6);
