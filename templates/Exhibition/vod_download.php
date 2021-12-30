@@ -203,7 +203,14 @@
                         </div>                            
                         <div class="td-col col5">                           
                             <div class="con">
-                                <p><a id="download" href="https://orcaexon.co.kr/videos/<?=$exhibition['exhibition_stream'][0]['stream_key']?>/<?=$exhibition['exhibition_stream'][0]['title']?>_source.mp4" class="btn-ty3 bor">다운로드</a></p>
+                                <div class="tg-btns">
+                                    <button type="button" class="btn-ty3 bor" id="menu">다운로드</button>
+                                    <ul class="menu-ul">
+                                        <li><button type="button" class="btn-ty3 bor">파일  1</button></li>
+                                        <li><button type="button" class="btn-ty3 bor">파일  2</button></li>
+                                        <li><button type="button" class="btn-ty3 bor">파일  3</button></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -285,16 +292,6 @@
         
         alert('복사되었습니다.');
     });
-
-    //메뉴 숨기기
-    // $('html').click(function(e) { 
-    //     if(!$(e.target).hasClass("menu-ul") && !$(e.target).hasClass("btn-ty3 bor")) {
-    //         if($('html').hasclass("menu-ul")){
-    //             $('.tg-btns').removeClass('open');
-    //         }
-    //         $('.tg-btns').removeClass('open');
-    //     } 
-    // });
 
     //다른 메뉴 클릭 시 열린 메뉴 숨기기 
     $(document).on("click", "#menu", function(){
