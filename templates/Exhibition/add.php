@@ -669,6 +669,18 @@
         edate.setHours(edate.getHours()+9);
         formData = formData + '&edate=' + edate.toISOString();
 
+        if (apply_sdate >= apply_edate) {
+            alert('시작 일시 이전으로 종료 일시를 설정 할 수 없습니다.\n다시 확인해주세요.');
+            $("#data_apply_edate").focus();
+            return false
+        }
+
+        if (sdate >= edate) {
+            alert('시작 일시 이전으로 종료 일시를 설정 할 수 없습니다.\n다시 확인해주세요.');
+            $("#data_edate").focus();
+            return false
+        }
+
         jQuery.ajax({
             url: "/exhibition/add/",
             method: 'POST',
@@ -777,6 +789,22 @@
         if (edate != 'Invalid Date') {
             edate.setHours(edate.getHours()+9);
             formData = formData + '&edate=' + edate.toISOString();
+        }
+
+        if (apply_sdate != 'Invalid Date') {
+            if (apply_sdate >= apply_edate) {
+                alert('시작 일시 이전으로 종료 일시를 설정 할 수 없습니다.\n다시 확인해주세요.');
+                $("#data_apply_edate").focus();
+                return false
+            }
+        }
+
+        if (sdate != 'Invalid Date') {
+            if (sdate >= edate) {
+                alert('시작 일시 이전으로 종료 일시를 설정 할 수 없습니다.\n다시 확인해주세요.');
+                $("#data_edate").focus();
+                return false
+            }
         }
         
         jQuery.ajax({
