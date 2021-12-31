@@ -914,9 +914,15 @@ class ExhibitionStreamController extends AppController
             return $response;
         }
 
+        $codes = explode('-', $this->request->getData('coupon_code'));
+        $code = '';
+        for ($i = 0; $i < count($codes); $i++) {
+            $code .= $codes[$i];
+        }
+
         for ($i = 0; $i < $count; $i++) {
             
-            if ($coupon[$i]['code'] == $this->request->getData('coupon_code')) {
+            if ($coupon[$i]['code'] == $code) {
                 $coupon_id = $coupon[$i]['id'];
             }
         }

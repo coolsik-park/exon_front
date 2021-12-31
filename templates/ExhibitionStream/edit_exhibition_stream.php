@@ -508,6 +508,7 @@
         }).done(function(data) {
             if (data.status == 'success') {
                 alert("프로모션이 적용되었습니다.");
+                $("#coupon_code").attr("readonly", true);
                 coupon_amount = $("#amount").val() * data.discount_rate / 100;
                 $("#amount").val($("#amount").val() - ($("#amount").val() * data.discount_rate / 100));
                 discount_rate = data.discount_rate
@@ -563,7 +564,9 @@
                         msg += '\n카드 승인번호 : ' + rsp.apply_num; 
 
                         alert(msg);
-                        $("#save").click();
+                        setTimeout(function () {
+                            $("#save").click();
+                        }, 500);
 
                     } else {
                         alert("결제에 실패하였습니다. 잠시 후 다시 시도해 주세요.")

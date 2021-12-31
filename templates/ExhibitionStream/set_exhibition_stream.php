@@ -365,6 +365,7 @@
         }).done(function(data) {
             if (data.status == 'success') {
                 alert("프로모션이 적용되었습니다.");
+                $("#coupon_code").attr("readonly", true);
                 coupon_amount = $("#amount").val() * data.discount_rate / 100;
                 $("#amount").val($("#amount").val() - ($("#amount").val() * data.discount_rate / 100));
                 discount_rate = data.discount_rate
