@@ -545,7 +545,7 @@ class ExhibitionController extends AppController
                         $count = count($data['group_del']);
 
                         for ($i = 0; $i < $count; $i ++) {
-                            $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_group_id' => $data['group_del'][$i]])->toArray();
+                            $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_group_id' => $data['group_del'][$i], 'status IS NOT' => 8])->toArray();
                             
                             if (!empty($exhibitionUsers)) {
                                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'exist']));

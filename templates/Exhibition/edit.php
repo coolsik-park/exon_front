@@ -648,6 +648,7 @@
             html += '<div id=group_' + groupIndex + '>';
             html += '   <br>';
             html += '   <div class="ln-group">';
+            html += '       <input name="group_id[]" type="hidden" class="ipt" value=0>';
             html += '       <input name="group_name[]" type="text" class="ipt" placeholder="그룹명">';
             html += '       <div class="ln-group-wp">';
             html += '           <input name="group_amount[]" type="hidden" class="ipt" placeholder="그룹별 금액" value="0" style="margin-right:20px;">';
@@ -670,6 +671,7 @@
             html += '<div id=group_' + groupIndex + '>';
             html += '   <br>';
             html += '   <div class="ln-group">';
+            html += '       <input name="group_id[]" type="hidden" class="ipt" value=0>';
             html += '       <input name="group_name[]" type="text" class="ipt" placeholder="그룹명">';
             html += '       <div class="ln-group-wp">';
             html += '           <input name="group_amount[]" type="text" class="ipt" placeholder="그룹별 금액" style="margin-right:20px;">';
