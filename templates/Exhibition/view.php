@@ -12,7 +12,6 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        border-radius: 4em;
     }
     .apply-sect3-cont p{
         word-wrap:break-word;
@@ -36,7 +35,7 @@
             <div class="apply-section apply-sect1" id="applySect1">
                 <h2 class="s-hty1">신청하기</h2>
                 <div class="apply-sect1-cont">
-                    <div class="photos" style="border-radius: 2em;">
+                    <div class="photos">
                     <?php if ($exhibition->image_path != '') : ?>
                         <img src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>">
                     <?php else : ?>
