@@ -366,6 +366,10 @@
     var live_duration = "<?=$live_duration?>";
     if (live_duration != 0) {
         $("#title").attr("readonly", true);
+        $("#data_apply_sdate").attr("readonly", true);
+        $("#data_apply_edate").attr("readonly", true);
+        $("#data_sdate").attr("readonly", true);
+        $("#data_edate").attr("readonly", true);
     }
 
     //기본 설정 button scroll시 이동 
