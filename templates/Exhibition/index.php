@@ -14,6 +14,9 @@
     .photo {
         cursor: pointer;
     }
+    .table-type .td-col .photo {
+        border-radius: 0;
+    }
     .clickTitle {
         cursor: pointer;
     }

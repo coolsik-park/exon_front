@@ -494,7 +494,7 @@
   width: 200px;
   height: 113px;
   background: #f8f8f8;
-  border-radius: 15px;
+  /* border-radius: 15px; */
 }
 .table-type .td-col .photo img {
   width: 100%;
@@ -1699,7 +1699,7 @@
 .manager-profile .photo {
   width: 92px;
   height: 90px;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   background-color: #dedede;
 }
 .manager-profile .desc {
@@ -1893,7 +1893,7 @@
   width: 130px;
   height: 130px;
   background: #f9f9f9;
-  border-radius: 100%;
+  /* border-radius: 100%; */
 }
 .apply-sect2-cont .info1 {
   margin-left: 40px;
