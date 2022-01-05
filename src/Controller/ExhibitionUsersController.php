@@ -282,6 +282,17 @@ class ExhibitionUsersController extends AppController
         $this->set(compact('exhibitionUser', 'exhibition', 'exhibitionGroup', 'pay', 'exhibitionSurveys', 'id', 'user', 'amount'));
     }
 
+    public function existCheck($exhibition_id = null, $users_email = null) 
+    {
+        if (!empty($this->ExhibitionUsers->find('all')->where(['users_email' => $users_email, 'exhibition_id' => $exhibition_id, 'status IS NOT' => 8])->toArray())) {
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'exist']));
+            return $response;
+        } else {
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+            return $response;
+        }
+    }
+
     public function edit($id = null)
     {
         $exhibitionUser = $this->ExhibitionUsers->get($id, [
@@ -319,8 +330,8 @@ class ExhibitionUsersController extends AppController
     {
         if (empty($this->Auth->user())) {
             $session = $this->request->getSession();
-            $email = $session->consume('email');
-            $hp = $session->consume('hp');
+            $email = $session->read('email');
+            $hp = $session->read('hp');
             
             if (!empty($email)) {
                 $this->paginate = ['limit' => 10];
