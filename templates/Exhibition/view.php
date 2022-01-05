@@ -7,15 +7,45 @@
     }
     .photos img {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+        visibility: hidden;
     }
     .apply-sect3-cont p{
         word-wrap:break-word;
+    } 
+    .cutImgY {
+        width: auto; 
+        height: 100%; 
+        margin-left: 0px;
     }
+    .cutImgX {
+        width: 100%; 
+        height: auto; 
+        margin-left: 0px;
+    }
+    @media  screen and (max-width: 768px) {
+        .photos img {
+            position: absolute;
+            margin-left: 0px;
+            width: 100%;
+            height: auto;
+        }  
+        .apply-sect1-cont .photos {
+
+        }
+    }
+    @media  screen and (min-width: 768px) {
+        .photos img {
+            
+        }
+        .photos {
+            margin-left: 115px;
+            margin-top: 20px;
+        }
+        .apply-sect1-cont .photos{
+            width: 38%;
+        }
+    }
+
 </style>
 
 <div id="container" class="sub">
@@ -35,11 +65,11 @@
             <div class="apply-section apply-sect1" id="applySect1">
                 <h2 class="s-hty1">신청하기</h2>
                 <div class="apply-sect1-cont">
-                    <div class="photos">
+                    <div id="photos" class="photos" style="overflow: hidden">
                     <?php if ($exhibition->image_path != '') : ?>
-                        <img src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>">
+                        <img src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>" id="photosImg">
                     <?php else : ?>
-                        <img src="../../images/img-no3.png" alt="이미지없음">
+                        <img src="../../images/img-no3.png" alt="이미지없음" style="visibility: visible;">
                     <?php endif; ?>
                     </div>
                     <div class="conts">
@@ -320,4 +350,26 @@
     $('#group').on('change', function() {
         group();
     });
+
+    var div = document.getElementById('photos');
+    var img = document.getElementById('photosImg');
+    var divAspect = 395 / 320;
+    var imgAspect = img.height / img.width;
+
+    if (imgAspect <= divAspect) {
+        // 이미지가 div보다 납작한 경우 세로를 div에 맞추고 가로는 잘라낸다
+        var imgWidthActual = div.offsetHeight / imgAspect;
+        var imgWidthToBe = div.offsetHeight / divAspect;
+        var marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2);
+        $('#photosImg').addClass('cutImgX');
+        img.style.cssText = 'visibility: visible;';
+    } else {
+        // 이미지가 div보다 길쭉한 경우 가로를 div에 맞추고 세로를 잘라낸다
+        var imgWidthActual = div.offsetHeight / imgAspect;
+        var imgWidthToBe = div.offsetHeight / divAspect;
+        var marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2);
+        $('#photosImg').addClass('cutImgY');
+        img.style.cssText = 'visibility: visible;'
+    }   
+
 </script>

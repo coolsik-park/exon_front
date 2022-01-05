@@ -1817,10 +1817,10 @@
   background: #dedede;
   /* border-radius: 10px; */
 }
-.apply-sect1-cont .photos img {
-  width: 100%;
-  height: 100%;
-}
+/* .apply-sect1-cont .photos img {
+  /* width: 100%;
+  height: 100%; 
+} */
 .apply-sect1-cont .conts {
   width: 47%;
   padding-left: 35px;

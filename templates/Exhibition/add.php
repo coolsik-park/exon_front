@@ -64,18 +64,18 @@
             left: 400px;
         }
         .survey-bx-sect2 select {
-            position: absolute;
-            left: 575px;
-            bottom: 274px;
+            position: relative;
+            right: 555px;
+            bottom: 85px;
         }
         .survey-bx-sect2 .ipt {
             width: 100%;
             margin-top: 15px;
         }
         .p-noti_1 {
-            position: absolute;
-            margin-left: 544px;
-            bottom: 246px;
+            position: relative;
+            margin-left: 414px;
+            bottom: 90px;
         }
     }
 </style>
@@ -928,7 +928,7 @@
             html += '            <option selected="selected" value="N">주관식</option>';
             html += '        </select>';
             html += '        <div class="chk-dsg-wp">';
-            html += '                <span class="chk-dsg" id="req_span_'+index+'" style="display:none;"><input type="checkbox" name="is_required[]" id="req_'+index+'" value="Y"><label for="req_'+index+'">필수</label></span>';
+            html += '                <span class="chk-dsg" id="req_span_'+index+'" style="display:none;"><input type="checkbox" name="is_required[]" id="req_'+index+'" value="Y"><label for="req_'+index+'" class="essential">필수</label></span>';
             html += '                <input type="checkbox" name="is_required[]" id="req_hidden_'+index+'" value="N" checked="checked" style="display:none">';
             html += '        </div>';                           
             html += '    </div>';
@@ -937,7 +937,7 @@
             html += '    </div>';
             html += '</div>';
             html += '<div class="survey-bx-sect2">';
-            html += '    <input name="text[]" type="text" class="ipt" placeholder="질문">';
+            html += '    <input name="text[]" type="text" class="ipt" placeholder="질문을 입력하세요">';
             html += '    <input name="survey_id[]" type="hidden" value="0">';
             html += '    <input type="checkbox" name="is_duplicate[]" id="dup_hidden_'+index+'" value="N" checked="checked" style="display:none">';
             html += '    <select id="survey_type_'+index+'" name="survey_type[]">';
@@ -945,7 +945,7 @@
             html += '        <option value="B">사전설문</option>';
             html += '    </select>';
             html += '</div>';
-            html += '<p id="type_noti_'+index+'" class="p-noti">일반설문으로 설정하시면 행사 진행 중에 참가자분들이 설문에 참여할 수 있습니다.</p>';
+            html += '<p id="type_noti_'+index+'" class="p-noti_1">일반설문으로 설정하시면 행사 진행 중에 참가자분들이 설문에 참여할 수 있습니다.</p>';
             
             $("#survey_" + index).children().remove();
             $("#survey_" + index).append(html);
@@ -963,7 +963,7 @@
             html += '            <div class="chk-dsg-wp">';
             html += '                <span class="chk-dsg"><input type="checkbox" name="is_duplicate[]" id="dup_'+index+'" value="Y"><label for="dup_'+index+'">보기 중복 선택 가능</label></span>';
             html += '                <input type="checkbox" name="is_duplicate[]" id="dup_hidden_'+index+'" value="N" checked="checked" style="display:none;">';
-            html += '                <span class="chk-dsg" id="req_span_'+index+'" style="display:none;"><input type="checkbox" name="is_required[]" id="req_'+index+'" value="Y"><label for="req_'+index+'">필수</label></span>';
+            html += '                <span class="chk-dsg" id="req_span_'+index+'" style="display:none;"><input type="checkbox" name="is_required[]" id="req_'+index+'" value="Y"><label for="req_'+index+'" class="essential">필수</label></span>';
             html += '                <input type="checkbox" name="is_required[]" id="req_hidden_'+index+'" value="N" checked="checked" style="display:none">';
             html += '            </div>';                                
             html += '        </div>';
@@ -972,14 +972,14 @@
             html += '        </div>';
             html += '    </div>';
             html += '    <div class="survey-bx-sect2">';
-            html += '        <input name="text[]" type="text" class="ipt" placeholder="질문">';
+            html += '        <input name="text[]" type="text" class="ipt" placeholder="질문을 입력하세요">';
             html += '        <input name="survey_id[]" type="hidden" value="0">';
             html += '        <select id="survey_type_'+index+'" name="survey_type[]">';
             html += '            <option value="N">일반설문</option>';
             html += '            <option value="B">사전설문</option>';
             html += '        </select>';
             html += '    </div>';
-            html += '    <p id="type_noti_'+index+'" class="p-noti">일반설문으로 설정하시면 행사 진행 중에 참가자분들이 설문에 참여할 수 있습니다.</p>';
+            html += '    <p id="type_noti_'+index+'" class="p-noti_1">일반설문으로 설정하시면 행사 진행 중에 참가자분들이 설문에 참여할 수 있습니다.</p>';
             html += '    <div id="rows_'+index+'" class="survey-bx-sect3">';
             html += '        <div class="btns">';
             html += '            <button type="button" onclick="addRow('+index+')">보기 추가</button>';
