@@ -147,9 +147,9 @@
             <!-- // top -->
             <div class="webinar-tab-body">  
                 <p class="wb-alert">사용할 탭을 선택해주세요</p>   
-                <p class="wb-alert">위에 표기된 메뉴를 사용하시기 위해서는 설정( <img src="../../img/ico-sett.png">   )버튼을 클릭해 활성화 시켜주시기 바랍니다.</p>  
-                <p class="wb-alert">탭 설정이 활성화 된 후 참가자에게 공개할 탭(메뉴)을 선택하시면 선택된 탭이 참가자 화면에 표시됩니다.</p>  
-                <p class="wb-alert">방송중에도 탭 설정은 가능합니다. </p>  
+                <p class="wb-alert wb-alert2">위에 표기된 메뉴를 사용하시기 위해서는 설정( <img src="../../img/ico-sett.png">   )버튼을 클릭해 활성화 시켜주시기 바랍니다.</p>  
+                <p class="wb-alert wb-alert2">탭 설정이 활성화 된 후 참가자에게 공개할 탭(메뉴)을 선택하시면 선택된 탭이 참가자 화면에 표시됩니다.</p>  
+                <p class="wb-alert wb-alert2">방송중에도 탭 설정은 가능합니다. </p>  
             </div>
             <!-- body -->
         </div>
@@ -534,10 +534,12 @@
             if ($("#li0").attr("class") == "") {
                 $("#li0").attr("class", "active");
                 $("#tab").val(parseInt($("#tab").val()) + 512);
+                $(".wb-alert2").css({"display": "none"});
                 $(".wb-alert").html($(this).attr('name')+' 탭이 활성화되었습니다.');
             } else {
                 $("#li0").attr("class", "");
                 $("#tab").val(parseInt($("#tab").val()) - 512);
+                $(".wb-alert2").css({"display": "none"});
                 $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
@@ -550,10 +552,12 @@
             if ($("#li1").attr("class") == "") {
                 $("#li1").attr("class", "active");
                 $("#tab").val(parseInt($("#tab").val()) + 256);
+                $(".wb-alert2").css({"display": "none"});
                 $(".wb-alert").html($(this).attr('name')+' 탭이 활성화되었습니다.');
             } else {
                 $("#li1").attr("class", "");
                 $("#tab").val(parseInt($("#tab").val()) - 256);
+                $(".wb-alert2").css({"display": "none"});
                 $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
@@ -566,10 +570,12 @@
             if ($("#li2").attr("class") == "") {
                 $("#li2").attr("class", "active");
                 $("#tab").val(parseInt($("#tab").val()) + 128);
+                $(".wb-alert2").css({"display": "none"});
                 $(".wb-alert").html($(this).attr('name')+' 탭이 활성화되었습니다.');
             } else {
                 $("#li2").attr("class", "");
                 $("#tab").val(parseInt($("#tab").val()) - 128);
+                $(".wb-alert2").css({"display": "none"});
                 $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
@@ -582,10 +588,12 @@
             if ($("#li3").attr("class") == "") {
                 $("#li3").attr("class", "active");
                 $("#tab").val(parseInt($("#tab").val()) + 64);
+                $(".wb-alert2").css({"display": "none"});
                 $(".wb-alert").html($(this).attr('name')+' 탭이 활성화되었습니다.');
             } else {
                 $("#li3").attr("class", "");
                 $("#tab").val(parseInt($("#tab").val()) - 64);
+                $(".wb-alert2").css({"display": "none"});
                 $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
@@ -598,10 +606,12 @@
             if ($("#li4").attr("class") == "") {
                 $("#li4").attr("class", "active");
                 $("#tab").val(parseInt($("#tab").val()) + 32);
+                $(".wb-alert2").css({"display": "none"});
                 $(".wb-alert").html($(this).attr('name')+' 탭이 활성화되었습니다.');
             } else {
                 $("#li4").attr("class", "");
                 $("#tab").val(parseInt($("#tab").val()) - 32);
+                $(".wb-alert2").css({"display": "none"});
                 $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
@@ -614,10 +624,12 @@
             if ($("#li5").attr("class") == "") {
                 $("#li5").attr("class", "active");
                 $("#tab").val(parseInt($("#tab").val()) + 16);
+                $(".wb-alert2").css({"display": "none"});
                 $(".wb-alert").html($(this).attr('name')+' 탭이 활성화되었습니다.');
             } else {
                 $("#li5").attr("class", "");
                 $("#tab").val(parseInt($("#tab").val()) - 16);
+                $(".wb-alert2").css({"display": "none"});
                 $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
@@ -630,10 +642,12 @@
             if ($("#li6").attr("class") == "") {
                 $("#li6").attr("class", "active");
                 $("#tab").val(parseInt($("#tab").val()) + 8);
+                $(".wb-alert2").css({"display": "none"});
                 $(".wb-alert").html($(this).attr('name')+' 탭이 활성화되었습니다.');
             } else {
                 $("#li6").attr("class", "");
                 $("#tab").val(parseInt($("#tab").val()) - 8);
+                $(".wb-alert2").css({"display": "none"});
                 $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             } 
         } else {
@@ -646,10 +660,12 @@
             if ($("#li7").attr("class") == "") {
                 $("#li7").attr("class", "active");
                 $("#tab").val(parseInt($("#tab").val()) + 4);
+                $(".wb-alert2").css({"display": "none"});
                 $(".wb-alert").html($(this).attr('name')+' 탭이 활성화되었습니다.');
             } else {
                 $("#li7").attr("class", "");
                 $("#tab").val(parseInt($("#tab").val()) - 4);
+                $(".wb-alert2").css({"display": "none"});
                 $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
@@ -662,10 +678,12 @@
             if ($("#li8").attr("class") == "") {
                 $("#li8").attr("class", "active");
                 $("#tab").val(parseInt($("#tab").val()) + 2);
+                $(".wb-alert2").css({"display": "none"});
                 $(".wb-alert").html($(this).attr('name')+' 탭이 활성화되었습니다.');
             } else {
                 $("#li8").attr("class", "");
                 $("#tab").val(parseInt($("#tab").val()) - 2);
+                $(".wb-alert2").css({"display": "none"});
                 $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
@@ -678,10 +696,12 @@
             if ($("#li9").attr("class") == "") {
                 $("#li9").attr("class", "active");
                 $("#tab").val(parseInt($("#tab").val()) + 1);
+                $(".wb-alert2").css({"display": "none"});
                 $(".wb-alert").html($(this).attr('name')+' 탭이 활성화되었습니다.');
             } else {
                 $("#li9").attr("class", "");
                 $("#tab").val(parseInt($("#tab").val()) - 1);
+                $(".wb-alert2").css({"display": "none"});
                 $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             }
         } else {
