@@ -207,7 +207,7 @@
                                     <button type="button" class="btn-ty3 bor" id="menu">다운로드</button>
                                     <ul class="menu-ul">
                                     <?php for ($i = 1; $i <= $exhibition['exhibition_stream'][0]['vod_index']; $i ++) { ?>
-                                        <li><a id="download" href="https://orcaexon.co.kr/videos/<?=$exhibition['exhibition_stream'][0]['stream_key']?>/<?=$exhibition['exhibition_stream'][0]['title']?>_<?=$i?>_source.mp4" class="btn-ty3 bor">파일  <?=$i?></a></li>
+                                        <li><a id="download" href="https://orcaexon.co.kr/videos/<?=$exhibition['exhibition_stream'][0]['stream_key']?>/<?php echo str_replace(" ", "_", $exhibition['exhibition_stream'][0]['title'])?>_<?=$i?>_source.mp4" class="btn-ty3 bor">파일  <?=$i?></a></li>
                                         <?php } ?>
                                     </ul>
                                 </div>
