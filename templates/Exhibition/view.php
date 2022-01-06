@@ -12,16 +12,6 @@
     .apply-sect3-cont p{
         word-wrap:break-word;
     } 
-    .cutImgY {
-        width: auto; 
-        height: 100%; 
-        margin-left: 0px;
-    }
-    .cutImgX {
-        width: 100%; 
-        height: auto; 
-        margin-left: 0px;
-    }
     @media  screen and (max-width: 768px) {
         .photos img {
             position: absolute;
