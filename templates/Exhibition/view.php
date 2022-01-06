@@ -280,7 +280,7 @@
     window.onload = function(){
         var div = document.getElementById('photos');
         var img = document.getElementById('photosImg');
-        var divAspect = 395 / 320;
+        var divAspect = 320 / 395;
         var imgAspect = img.height / img.width;
 
         if (imgAspect <= divAspect) {
