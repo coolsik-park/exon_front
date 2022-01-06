@@ -368,6 +368,7 @@
         obj.video_uri = stream_key;
         obj.stream_title = "<?=$exhibitionStream->title?>";
         obj.stream_id = <?=$exhibitionStream->id?>;
+        obj.vod_index = <?=$exhibitionStream->vod_index?>;
         var jsonData = JSON.stringify(obj);
         
         $.ajax({

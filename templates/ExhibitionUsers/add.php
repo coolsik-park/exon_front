@@ -374,6 +374,17 @@
                 });
 
             } else {
+                jQuery.ajax({
+                    url: "/exhibition-users/exist-check/<?= $id ?>/" + $("#users_email").val(),
+                }).done(function(data) {
+                    if (data.status == 'success') {
+                        
+                    } else {
+                        alert("해당 이메일 주소로 이미 신청이 완료된 행사입니다.");
+                        window.location.replace("/exhibition/view/<?=$id?>");
+                    }
+                });
+                
                 //결제         
                 var IMP = window.IMP; 
                 IMP.init('imp43823679'); //아임포트 id -> 추후 교체
