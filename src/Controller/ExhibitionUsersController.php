@@ -56,6 +56,10 @@ class ExhibitionUsersController extends AppController
 
         $Exhibition = $this->getTableLocator()->get('Exhibition');
         $exhibition = $Exhibition->get($id);
+
+        $today = strtotime(date('Y-m-d H:i:s', time()+32400));
+        $apply_sdate = strtotime($exhibition->apply_sdate->format('Y-m-d H:i:s'));
+        $apply_edate = strtotime($exhibition->apply_edate->format('Y-m-d H:i:s'));
         
         $exhibitionUser = $this->ExhibitionUsers->newEmptyEntity();
 
@@ -279,7 +283,7 @@ class ExhibitionUsersController extends AppController
         $pay = $this->ExhibitionUsers->Pay->find('list', ['limit' => 200]);
         $exhibitionSurveys = $this->getTableLocator()->get('ExhibitionSurvey')->find('all', ['contain' => 'ChildExhibitionSurvey'])->where(['exhibition_id' => $id, 'survey_type' => 'B', 'parent_id Is' => null]);
         $user = $this->Auth->user();
-        $this->set(compact('exhibitionUser', 'exhibition', 'exhibitionGroup', 'pay', 'exhibitionSurveys', 'id', 'user', 'amount'));
+        $this->set(compact('exhibitionUser', 'exhibition', 'exhibitionGroup', 'pay', 'exhibitionSurveys', 'id', 'user', 'amount', 'today', 'apply_sdate', 'apply_edate'));
     }
 
     public function existCheck($exhibition_id = null, $users_email = null) 
