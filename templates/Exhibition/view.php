@@ -27,10 +27,10 @@
             position: absolute;
             margin-left: 0px;
             width: 100%;
-            height: auto;
+        
         }  
         .apply-sect1-cont .photos {
-
+            max-height: 40%;
         }
     }
     @media  screen and (min-width: 768px) {
@@ -42,7 +42,7 @@
             margin-top: 20px;
         }
         .apply-sect1-cont .photos{
-            width: 38%;
+            max-width: 38%;
         }
     }
 
@@ -287,12 +287,35 @@
 <footer id="footer"></footer>
 
 <script>
-     ui.slider.photoSlider();
+    window.onload = function(){
+        var div = document.getElementById('photos');
+        var img = document.getElementById('photosImg');
+        var divAspect = 395 / 320;
+        var imgAspect = img.height / img.width;
 
-     var tabArea = $('.tab');
-     var navBtn = $('.tab li a');
-     var tabOffset = $('.tab').offset();
-     var tabHeight = $('.tab').outerHeight();
+        if (imgAspect <= divAspect) {
+            // 이미지가 div보다 납작한 경우 세로를 div에 맞추고 가로는 잘라낸다
+            var imgWidthActual = div.offsetHeight / imgAspect;
+            var imgWidthToBe = div.offsetHeight / divAspect;
+            var marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2);
+            // $('#photosImg').addClass('cutImgX');
+            img.style.cssText = ' width: 100%; height: auto; margin-left: 0px;visibility: visible;';
+        } else {
+            // 이미지가 div보다 길쭉한 경우 가로를 div에 맞추고 세로를 잘라낸다
+            var imgWidthActual = div.offsetHeight / imgAspect;
+            var imgWidthToBe = div.offsetHeight / divAspect;
+            var marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2);
+            // $('#photosImg').addClass('cutImgY');
+            img.style.cssText = ' width: auto; height: 100%; margin-left: 0px;visibility: visible;'
+        }
+    }
+
+    ui.slider.photoSlider();
+
+    var tabArea = $('.tab');
+    var navBtn = $('.tab li a');
+    var tabOffset = $('.tab').offset();
+    var tabHeight = $('.tab').outerHeight();
 
     navBtn.on('click',function(event){
         event.preventDefault();
@@ -350,26 +373,4 @@
     $('#group').on('change', function() {
         group();
     });
-
-    var div = document.getElementById('photos');
-    var img = document.getElementById('photosImg');
-    var divAspect = 395 / 320;
-    var imgAspect = img.height / img.width;
-
-    if (imgAspect <= divAspect) {
-        // 이미지가 div보다 납작한 경우 세로를 div에 맞추고 가로는 잘라낸다
-        var imgWidthActual = div.offsetHeight / imgAspect;
-        var imgWidthToBe = div.offsetHeight / divAspect;
-        var marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2);
-        $('#photosImg').addClass('cutImgX');
-        img.style.cssText = 'visibility: visible;';
-    } else {
-        // 이미지가 div보다 길쭉한 경우 가로를 div에 맞추고 세로를 잘라낸다
-        var imgWidthActual = div.offsetHeight / imgAspect;
-        var imgWidthToBe = div.offsetHeight / divAspect;
-        var marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2);
-        $('#photosImg').addClass('cutImgY');
-        img.style.cssText = 'visibility: visible;'
-    }   
-
 </script>
