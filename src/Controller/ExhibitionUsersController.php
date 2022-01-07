@@ -57,9 +57,9 @@ class ExhibitionUsersController extends AppController
         $Exhibition = $this->getTableLocator()->get('Exhibition');
         $exhibition = $Exhibition->get($id);
 
-        // $today = strtotime(date('Y-m-d H:i:s', time()+32400));
-        // $apply_sdate = strtotime($exhibition->apply_sdate->format('Y-m-d H:i:s'));
-        // $apply_edate = strtotime($exhibition->apply_edate->format('Y-m-d H:i:s'));
+        $today = strtotime(date('Y-m-d H:i:s', time()+32400));
+        $apply_sdate = strtotime($exhibition->apply_sdate->format('Y-m-d H:i:s'));
+        $apply_edate = strtotime($exhibition->apply_edate->format('Y-m-d H:i:s'));
         
         $exhibitionUser = $this->ExhibitionUsers->newEmptyEntity();
 

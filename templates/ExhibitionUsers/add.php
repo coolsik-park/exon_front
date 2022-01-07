@@ -206,14 +206,17 @@
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
     //apply_date validate
-    // let today = <?=$today?>;
-    // let apply_sdate = <?=$apply_sdate?>;
-    // let apply_edate = <?=$apply_edate?>;
+    let today = <?=$today?>;
+    let apply_sdate = <?=$apply_sdate?>;
+    let apply_edate = <?=$apply_edate?>;
+    let additional = <?=$exhibition->additional?>;
     
-    // if (apply_sdate >= today || today >= apply_edate) {
-    //     alert("참가자 모집 중인 행사가 아닙니다.\n모집일시를 다시 확인해주세요.");
-    //     history.back();
-    // }
+    if (apply_sdate >= today || today >= apply_edate) {
+        if (additional != 1) {
+            alert("참가자 모집 중인 행사가 아닙니다.\n모집일시를 다시 확인해주세요.");
+            history.back();
+        }
+    }
 
     //유저 정보 불러오기
     <?php if (!empty($user)) : ?>
