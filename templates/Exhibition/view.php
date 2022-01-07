@@ -160,8 +160,8 @@
                         </ul>
                         <div class="btns" id="btns">
                             <?php 
-                                $today = date("Y-m-d H:i:s");
-                                if ($today > $exhibition->apply_edate):
+                                $today = date('Y-m-d H:i:s', time()+32400);
+                                if (date('Y-m-d H:i:s', strtotime($exhibition->apply_sdate)) <= $today && $today <= date('Y-m-d H:i:s', strtotime($exhibition->apply_edate))):
                                     if ($exhibition->additional == 1):
                                         if ($exhibitionUsers == null): 
                             ?>
