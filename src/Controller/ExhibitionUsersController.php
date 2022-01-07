@@ -57,9 +57,9 @@ class ExhibitionUsersController extends AppController
         $Exhibition = $this->getTableLocator()->get('Exhibition');
         $exhibition = $Exhibition->get($id);
 
-        $today = strtotime(date('Y-m-d H:i:s', time()+32400));
-        $apply_sdate = strtotime($exhibition->apply_sdate->format('Y-m-d H:i:s'));
-        $apply_edate = strtotime($exhibition->apply_edate->format('Y-m-d H:i:s'));
+        // $today = strtotime(date('Y-m-d H:i:s', time()+32400));
+        // $apply_sdate = strtotime($exhibition->apply_sdate->format('Y-m-d H:i:s'));
+        // $apply_edate = strtotime($exhibition->apply_edate->format('Y-m-d H:i:s'));
         
         $exhibitionUser = $this->ExhibitionUsers->newEmptyEntity();
 
@@ -85,7 +85,7 @@ class ExhibitionUsersController extends AppController
             $exhibitionUser->pay_id = $answerData['pay_id'];
             $exhibitionUser->pay_amount = $answerData['pay_amount'];
             endif;
-            if ($exhibition->auto_approval == 0 || $exhibition->apply_edate < FrozenTime::now()) :
+            if ($exhibition->auto_approval == 0 || $exhibition->apply_edate < date('Y-m-d H:i:s', time()+32400)) :
             $exhibitionUser->status = 2;
             else :
             $exhibitionUser->status = 4;
