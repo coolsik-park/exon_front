@@ -160,8 +160,8 @@
                         </ul>
                         <div class="btns" id="btns">
                             <?php 
-                                $today = date('Y-m-d H:i:s', time()+32400);
-                                if (date('Y-m-d H:i:s', strtotime($exhibition->apply_sdate)) <= $today && $today <= date('Y-m-d H:i:s', strtotime($exhibition->apply_edate))):
+                                // $today = date('Y-m-d H:i:s', time()+32322);
+                                // if (date('Y-m-d H:i:s', strtotime($exhibition->apply_sdate)) <= $today && $today <= date('Y-m-d H:i:s', strtotime($exhibition->apply_edate))):
                                     if ($exhibitionUsers == null): 
                             ?>
                                         <div class="group" id="group">
@@ -185,17 +185,17 @@
                             <?php
                                         endif;
                                     endif;
-                                else :
-                                    if ($exhibition->additional == 1):
+                                // else :
+                                    // if ($exhibition->additional == 1):
                             ?>
-                                        <div class="group" id="group">
+                                        <!-- <div class="group" id="group">
                                             <?= $this->Form->select('', $groups, ['id' => 'group']) ?>
                                             <span class="tx" id="spanGroup"></span>
                                         </div>
-                                        <a id="apply_button" href="" class="btn-join" id="btn-join">참가 신청</a>
+                                        <a id="apply_button" href="" class="btn-join" id="btn-join">참가 신청</a> -->
                             <?php 
-                                    endif;
-                                endif;
+                                //     endif;
+                                // endif;
                             ?>
                         </div>
                     </div>
