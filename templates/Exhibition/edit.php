@@ -109,7 +109,7 @@
 
 
 
-<?= $this->Form->create($exhibition, ['id' => 'editForm', 'enctype' => 'multipart/form-data'])?>
+<?= $this->Form->create($exhibition, ['id' => 'editForm', 'enctype' => 'multipart/form-data', 'autocomplete' => 'autocomplete_off_randString'])?>
     <div id="container">    
         <div class="sub-menu">
             <div class="sub-menu-inner">
@@ -178,7 +178,7 @@
                             <div class="input-group date" id="apply_sdate" data-target-input="nearest">
                                 <label for="data_apply_sdate">시작 일시</label> 
                                 <div class="input-group date">
-                                    <input type="text" value="<?=$exhibition->apply_sdate?>" id="data_apply_sdate" class="form-control datetimepicker-input" data-target="#apply_sdate"/>
+                                    <input type="text" value="<?=$exhibition->apply_sdate?>" id="data_apply_sdate" class="form-control datetimepicker-input" data-target="#apply_sdate" autocomplete="autocomplete_off_randString"/>
                                     <div class="input-group-append" data-target="#apply_sdate" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
@@ -189,7 +189,7 @@
                             <div class="input-group date" id="apply_edate" data-target-input="nearest">
                                 <label for="data_apply_edate">종료 일시</label>
                                 <div class="input-group date">
-                                    <input type="text" value="<?=$exhibition->apply_edate?>" id="data_apply_edate" class="form-control datetimepicker-input" data-target="#apply_edate"/>
+                                    <input type="text" value="<?=$exhibition->apply_edate?>" id="data_apply_edate" class="form-control datetimepicker-input" data-target="#apply_edate" autocomplete="autocomplete_off_randString"/>
                                     <div class="input-group-append" data-target="#apply_edate" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
@@ -205,7 +205,7 @@
                             <div class="input-group date" id="sdate" data-target-input="nearest">
                                 <label for="data_sdate">시작 일시</label>
                                 <div class="input-group date">
-                                    <input type="text" value="<?=$exhibition->sdate?>" id="data_sdate" class="form-control datetimepicker-input" data-target="#sdate"/>
+                                    <input type="text" value="<?=$exhibition->sdate?>" id="data_sdate" class="form-control datetimepicker-input" data-target="#sdate" autocomplete="autocomplete_off_randString"/>
                                     <div class="input-group-append" data-target="#sdate" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
@@ -216,7 +216,7 @@
                             <div class="input-group date" id="edate" data-target-input="nearest">
                                 <label for="data_edate">종료 일시</label>
                                 <div class="input-group date">
-                                    <input type="text" value="<?=$exhibition->edate?>" id="data_edate" class="form-control datetimepicker-input" data-target="#edate"/>
+                                    <input type="text" value="<?=$exhibition->edate?>" id="data_edate" class="form-control datetimepicker-input" data-target="#edate" autocomplete="autocomplete_off_randString"/>
                                     <div class="input-group-append" data-target="#edate" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
