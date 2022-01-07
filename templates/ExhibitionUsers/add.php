@@ -376,7 +376,11 @@
                     type: 'POST',
                 }).done(function(data) {
                     if (data.status == 'success') {
-                        alert("신청이 완료되었습니다.");
+                        if (additional == 1) {
+                            alert("모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.");
+                        } else {
+                            alert("신청이 완료되었습니다.");
+                        }
                         window.location.replace("/exhibition/view/<?=$id?>");
                     } else if (data.status == 'exist') {
                         alert("해당 이메일 주소로 이미 신청이 완료된 행사입니다.");
@@ -452,7 +456,11 @@
                                     type: 'POST',
                                 }).done(function(data) {
                                     if (data.status == 'success') {
-                                        alert("신청이 완료되었습니다.");
+                                        if (additional == 1) {
+                                            alert("모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.");
+                                        } else {
+                                            alert("신청이 완료되었습니다.");
+                                        }
                                         window.location.replace("/exhibition/view/<?=$id?>");
                                     }
                                 });
