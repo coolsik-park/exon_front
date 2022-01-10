@@ -484,7 +484,7 @@ class ExhibitionUsersController extends AppController
                 $mailer->setViewVars(['tel' => $exhibition->tel]);
                 $mailer->setViewVars(['email' => $exhibition->email]);
                 $mailer->setViewVars(['refund' => '0']);
-                $mailer->setViewVars(['now' => Fdate('Y-m-d H:i:s', time()+32400)]);
+                $mailer->setViewVars(['now' => date('Y-m-d H:i:s', time()+32400)]);
                 
                 $mailer->deliver();
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));

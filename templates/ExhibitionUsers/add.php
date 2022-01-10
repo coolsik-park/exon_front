@@ -211,11 +211,16 @@
     let apply_edate = <?=$apply_edate?>;
     let additional = <?=$exhibition->additional?>;
     
-    if (apply_sdate >= today || today >= apply_edate) {
+    if (today >= apply_edate) {
         if (additional != 1) {
             alert("참가자 모집 중인 행사가 아닙니다.\n모집일시를 다시 확인해주세요.");
             history.back();
         }
+    }
+
+    if (apply_sdate >= today) {
+        alert("참가자 모집 중인 행사가 아닙니다.\n모집일시를 다시 확인해주세요.");
+        history.back();
     }
 
     //유저 정보 불러오기
