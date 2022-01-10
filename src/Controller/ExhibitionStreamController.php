@@ -102,7 +102,8 @@ class ExhibitionStreamController extends AppController
         $coupon = $this->ExhibitionStream->Coupon->find('list', ['limit' => 200]);
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
         $prices = $this->getTableLocator()->get('ExhibitionStreamDefaultPrice')->find('all')->toArray();
-        $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs', 'exhibition_id', 'prices', 'title'));
+        $user = $this->Auth->user();
+        $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs', 'exhibition_id', 'prices', 'title', 'user'));
     }
 
     public function watchExhibitionStream($id = null, $exhibition_users_id = null, $cert = null) 
@@ -842,7 +843,8 @@ class ExhibitionStreamController extends AppController
         $pay = $this->ExhibitionStream->Pay->find('list', ['limit' => 200]);
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray(); 
         $prices = $this->getTableLocator()->get('ExhibitionStreamDefaultPrice')->find('all')->toArray();
-        $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs', 'exhibition_id', 'prices'));
+        $user = $this->Auth->user();
+        $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs', 'exhibition_id', 'prices', 'user'));
     }
 
     /**
