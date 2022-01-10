@@ -102,7 +102,8 @@ class ExhibitionStreamController extends AppController
         $coupon = $this->ExhibitionStream->Coupon->find('list', ['limit' => 200]);
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
         $prices = $this->getTableLocator()->get('ExhibitionStreamDefaultPrice')->find('all')->toArray();
-        $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs', 'exhibition_id', 'prices', 'title'));
+        $user = $this->Auth->user();
+        $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs', 'exhibition_id', 'prices', 'title', 'user'));
     }
 
     public function watchExhibitionStream($id = null, $exhibition_users_id = null, $cert = null) 
@@ -842,7 +843,8 @@ class ExhibitionStreamController extends AppController
         $pay = $this->ExhibitionStream->Pay->find('list', ['limit' => 200]);
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray(); 
         $prices = $this->getTableLocator()->get('ExhibitionStreamDefaultPrice')->find('all')->toArray();
-        $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs', 'exhibition_id', 'prices'));
+        $user = $this->Auth->user();
+        $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs', 'exhibition_id', 'prices', 'user'));
     }
 
     /**
@@ -865,44 +867,44 @@ class ExhibitionStreamController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function validateCoupon () 
-    {
-        if ($this->request->is('post')) {
-            $coupon = $this->getTableLocator()->get('Coupon')->find('all')->where(['product_type' => 'S', 'status' => 1])->toArray();
-            $exist = 0;
-            $coupon_id = 0;
-            $discount_rate = 0;
-            $start_date = 0;
-            $end_date = 0;
-            $date = (int)FrozenTime::now()->format('Ymd');
-            $count = Count($coupon);
-            $codes = explode('-', $this->request->getData('coupon_code'));
-            $code = '';
-            for ($i = 0; $i < count($codes); $i++) {
-                $code .= $codes[$i];
-            }
+    // public function validateCoupon () 
+    // {
+    //     if ($this->request->is('post')) {
+    //         $coupon = $this->getTableLocator()->get('Coupon')->find('all')->where(['product_type' => 'S', 'status' => 1])->toArray();
+    //         $exist = 0;
+    //         $coupon_id = 0;
+    //         $discount_rate = 0;
+    //         $start_date = 0;
+    //         $end_date = 0;
+    //         $date = (int)FrozenTime::now()->format('Ymd');
+    //         $count = Count($coupon);
+    //         $codes = explode('-', $this->request->getData('coupon_code'));
+    //         $code = '';
+    //         for ($i = 0; $i < count($codes); $i++) {
+    //             $code .= $codes[$i];
+    //         }
             
-            for ($i = 0; $i < $count; $i++) {
+    //         for ($i = 0; $i < $count; $i++) {
                 
-                if ($coupon[$i]['code'] == $code) {
-                    $coupon_id = $coupon[$i]['id'];
-                    $discount_rate = $coupon[$i]['discount_rate']; 
-                    $exist = 1;
-                    $start_date = (int)$coupon[$i]['sdate'];
-                    $end_date = (int)$coupon[$i]['edate'];
-                }
-            }
+    //             if ($coupon[$i]['code'] == $code) {
+    //                 $coupon_id = $coupon[$i]['id'];
+    //                 $discount_rate = $coupon[$i]['discount_rate']; 
+    //                 $exist = 1;
+    //                 $start_date = (int)$coupon[$i]['sdate'];
+    //                 $end_date = (int)$coupon[$i]['edate'];
+    //             }
+    //         }
 
-            if ($exist == 1 && $start_date <= $date && $date <= $end_date) {
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'coupon_id' => $coupon_id, 'discount_rate' => $discount_rate]));
-                return $response;
+    //         if ($exist == 1 && $start_date <= $date && $date <= $end_date) {
+    //             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'coupon_id' => $coupon_id, 'discount_rate' => $discount_rate]));
+    //             return $response;
                 
-            } else {
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
-                return $response;
-            }
-        }
-    }
+    //         } else {
+    //             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+    //             return $response;
+    //         }
+    //     }
+    // }
 
     public function changeCouponStatus ()
     {

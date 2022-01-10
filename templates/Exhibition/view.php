@@ -166,34 +166,42 @@
                         </ul>
                         <div class="btns" id="btns">
                             <?php 
-                                $today = date("Y-m-d H:i:s");
-                                if ($today > $exhibition->apply_edate):
-                                    if ($exhibition->additional == 1):
-                                        if ($exhibitionUsers == null): 
+                                // $today = date('Y-m-d H:i:s', time()+32322);
+                                // if (date('Y-m-d H:i:s', strtotime($exhibition->apply_sdate)) <= $today && $today <= date('Y-m-d H:i:s', strtotime($exhibition->apply_edate))):
+                                    if ($exhibitionUsers == null): 
+                            ?>
+                                        <div class="group" id="group">
+                                            <?= $this->Form->select('', $groups, ['id' => 'group']) ?>                                   
+                                            <span class="tx" id="spanGroup"></span>
+                                        </div>
+                                        <a id="apply_button" href="" class="btn-join" id="btn-join">참가 신청</a>
+                            <?php 
+                                    else:
+                                        if ($exhibitionUsers[0]->status == 4):
+                            ?>
+                                            <a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition->id ?>/<?=$users_id?>" class="btn-join" id="btn-join">웨비나 접속</a>
+                            <?php
+                                        else:
                             ?>
                                             <div class="group" id="group">
-                                                <?= $this->Form->select('', $groups, ['id' => 'group']) ?>                                   
+                                                <?= $this->Form->select('', $groups, ['id' => 'group']) ?>
                                                 <span class="tx" id="spanGroup"></span>
                                             </div>
                                             <a id="apply_button" href="" class="btn-join" id="btn-join">참가 신청</a>
-                            <?php 
-                                        else:
-                                            if ($exhibitionUsers[0]->status == 4):
-                            ?>
-                                                <a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition->id ?>/<?=$users_id?>" class="btn-join" id="btn-join">웨비나 접속</a>
                             <?php
-                                            else:
-                            ?>
-                                                <div class="group" id="group">
-                                                    <?= $this->Form->select('', $groups, ['id' => 'group']) ?>
-                                                    <span class="tx" id="spanGroup"></span>
-                                                </div>
-                                                <a id="apply_button" href="" class="btn-join" id="btn-join">참가 신청</a>
-                            <?php
-                                            endif;
                                         endif;
                                     endif;
-                                endif;
+                                // else :
+                                    // if ($exhibition->additional == 1):
+                            ?>
+                                        <!-- <div class="group" id="group">
+                                            <?= $this->Form->select('', $groups, ['id' => 'group']) ?>
+                                            <span class="tx" id="spanGroup"></span>
+                                        </div>
+                                        <a id="apply_button" href="" class="btn-join" id="btn-join">참가 신청</a> -->
+                            <?php 
+                                //     endif;
+                                // endif;
                             ?>
                         </div>
                     </div>
