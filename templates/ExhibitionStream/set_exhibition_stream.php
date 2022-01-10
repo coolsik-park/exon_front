@@ -392,7 +392,7 @@
         var IMP = window.IMP; 
         IMP.init('imp55727904'); //아임포트 id -> 추후 교체
         IMP.request_pay({
-            pg : 'danal',
+            pg : 'danal_tpay',
             pay_method : 'card',
             merchant_uid : 'merchant_' + new Date().getTime(),
             name : '스트리밍 서비스',
@@ -459,7 +459,7 @@
         var IMP = window.IMP; 
         IMP.init('imp55727904'); //아임포트 id -> 추후 교체
         IMP.request_pay({
-            pg : 'danal',
+            pg : 'danal_tpay',
             pay_method : 'trans',
             merchant_uid : 'merchant_' + new Date().getTime(),
             name : '스트리밍 서비스',
