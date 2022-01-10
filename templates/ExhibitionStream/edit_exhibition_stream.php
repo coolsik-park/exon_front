@@ -568,9 +568,6 @@
                     if (data.status == 'success') { 
                         $("#is_paid").val(1);
                         $("#pay_id").val(data.pay_id);
-                        if ($("#title").val().length == 0) {
-                            $("#title").val("<?=$title?>");
-                        }
 
                         var msg = '결제가 완료되었습니다.';
                         msg += '\n고유ID : ' + rsp.imp_uid;
@@ -635,9 +632,6 @@
                     if (data.status == 'success') { 
                         $("#is_paid").val(1);
                         $("#pay_id").val(data.pay_id);
-                        if ($("#title").val().length == 0) {
-                            $("#title").val("<?=$title?>");
-                        }
 
                         var msg = '결제가 완료되었습니다.';
                         msg += '\n고유ID : ' + rsp.imp_uid;
