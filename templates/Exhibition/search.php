@@ -34,9 +34,6 @@
         padding: 20px 0px;
         cursor: pointer;
     }
-    .photo img{
-        width: 220px;
-    }
     .tit-name {
         font-size: 30px;
     }
@@ -56,6 +53,48 @@
     .textdiv {
         padding-top:100px;
         text-align:center;
+    }
+    .apply-sect1-cont .photos{
+        background-color: transparent;
+    }
+    .photos {
+        position: relative;
+    }
+    .photos img {
+        position: absolute;
+        visibility: hidden;
+    }
+    .apply-sect3-cont p{
+        word-wrap:break-word;
+    }
+    .height {
+        height: 300px;
+    }
+    .conts {
+        text-align: center;
+    }
+    @media  screen and (max-width: 768px) {
+        .photos img {
+            position: absolute;
+            margin-left: 0px;
+            width: 100%;
+        
+        }  
+        .apply-sect1-cont .photos {
+            max-height: 40%;
+        }
+    }
+    @media  screen and (min-width: 768px) {
+        .photos img {
+            
+        }
+        .photos {
+            margin-left: 115px;
+            margin-top: 20px;
+        }
+        #photos{
+            max-width: 38%;
+        }
     }
 </style>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -117,14 +156,12 @@
             <br>
             <?php foreach ($exhibitions as $exhibition) : ?>
             <div class="searchBox" id="<?=$exhibition["id"]?>">
-                <div class="photo">
-                    <p>
+                <div id="photos" class="conts height photo" style="overflow: hidden; height:220px; width:320px; ">
                         <?php if ($exhibition["image_path"] == null) : ?>
-                        <img src="../../images/img-no.png">
+                        <img src="../../images/img-no.png"style="visibility: visible; height:220px; width:220px;" >
                         <?php else : ?>
-                        <img src="/<?=$exhibition["image_path"]?>/<?=$exhibition["image_name"]?>" style="height:220px; width:220px;">
+                        <img id="photosImg" src="/<?=$exhibition["image_path"]?>/<?=$exhibition["image_name"]?>"   >
                         <?php endif; ?>
-                    </p>
                 </div>
                 <div class="tr-row">
                     <div class="td-col col1">
@@ -167,6 +204,27 @@
 </div>
 
 <script>
+    var div = document.getElementById('photos');
+        var img = document.getElementById('photosImg');
+        var divAspect = 220 / 320;
+        var imgAspect = img.height / img.width;
+
+        if (imgAspect <= divAspect) {
+            // 이미지가 div보다 납작한 경우 세로를 div에 맞추고 가로는 잘라낸다
+            var imgWidthActual = div.offsetHeight / imgAspect;
+            var imgWidthToBe = div.offsetHeight / divAspect;
+            var marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2);
+            // $('#photosImg').addClass('cutImgX');
+            img.style.cssText = ' width: 100%; height: auto; margin-left: 0px;visibility: visible;';
+        } else {
+            // 이미지가 div보다 길쭉한 경우 가로를 div에 맞추고 세로를 잘라낸다
+            var imgWidthActual = div.offsetHeight / imgAspect;
+            var imgWidthToBe = div.offsetHeight / divAspect;
+            var marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2);
+            // $('#photosImg').addClass('cutImgY');
+            img.style.cssText = ' width: auto; height: 100%; margin-left: 0px;visibility: visible;'
+        }
+        
     $(document).on("click", ".searchBox", function () {
         var id = $(this).attr("id");
         window.location.href = "/exhibition/view/" + id;

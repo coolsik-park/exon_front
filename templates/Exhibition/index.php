@@ -2,12 +2,10 @@
     .paginator {
         text-align: center;
     }
-
     .pagination {
         display: inline-block;
         width: 100%;
     }
-
     .pagination li {
         display: inline;
     }
@@ -20,8 +18,48 @@
     .clickTitle {
         cursor: pointer;
     }
-
-    
+    .table-type .td-col .photo{
+        background-color: transparent;
+    }
+    .photos {
+        position: relative;
+    }
+    .photos img {
+        position: absolute;
+        visibility: hidden;
+    }
+    .apply-sect3-cont p{
+        word-wrap:break-word;
+    }
+    .height {
+        height: 300px;
+    }
+    .conts {
+        text-align: center;
+    }
+    @media  screen and (max-width: 768px) {
+        .photos img {
+            position: absolute;
+            margin-left: 0px;
+            width: 100%;
+        
+        }  
+        .apply-sect1-cont .photos {
+            max-height: 40%;
+        }
+    }
+    @media  screen and (min-width: 768px) {
+        .photos img {
+            
+        }
+        .photos {
+            margin-left: 115px;
+            margin-top: 20px;
+        }
+        .apply-sect1-cont .photos{
+            max-width: 38%;
+        }
+    }
 </style>
 
 <div id="container">        
@@ -71,11 +109,11 @@
                 ?>                  
                     <div class="tr-row" onclick="">
                         <div class="clickDiv">
-                            <div class="td-col col1">
+                            <div id="photos" class="td-col col1 conts" style="overflow: hidden">
                                 <?php if ($exhibition->image_path != '') : ?>
                                 <p id=""class="photo"><img id="photosImg"src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>" onclick="window.location.href = '/exhibition/view/<?=$exhibition->id?>'"></p>
                                 <?php else : ?>
-                                <p class="photo"><img src="../../images/img-no3.png" alt="이미지없음" onclick="window.location.href = '/exhibition/view/<?=$exhibition->id?>'"></p>
+                                <p class="photo"><img src="../../images/img-no3.png" alt="이미지없음" onclick="window.location.href = '/exhibition/view/<?=$exhibition->id?>'" style="visibility: visible;"></p>
                                 <?php endif; ?>
                             </div>
                             <div class="td-col col2">
@@ -312,21 +350,24 @@
             $('.tg-btns').removeClass('open');
         }
     });
-    
     var div = document.getElementById('photos');
-    var img = document.getElementById('photosImg');
-    var divAspect = 550 / 340;
-    var imgAspect = img.height / img.width;
+        var img = document.getElementById('photosImg');
+        var divAspect = 340 / 1035;
+        var imgAspect = img.height / img.width;
 
-    if (imgAspect <= divAspect) {
-        // 이미지가 div보다 납작한 경우 세로를 div에 맞추고 가로는 잘라낸다
-        var imgWidthActual = div.offsetHeight / imgAspect;
-        var imgWidthToBe = div.offsetHeight / divAspect;
-        var marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2);
-        img.style.cssText = 'width: auto; height: 100%; margin-left: '
-                        + marginLeft + 'px;';
-    } else {
-        // 이미지가 div보다 길쭉한 경우 가로를 div에 맞추고 세로를 잘라낸다
-        img.style.cssText = 'width: 100%; height: auto; margin-left: 0;';
-    }
+        if (imgAspect <= divAspect) {
+            // 이미지가 div보다 납작한 경우 세로를 div에 맞추고 가로는 잘라낸다
+            var imgWidthActual = div.offsetHeight / imgAspect;
+            var imgWidthToBe = div.offsetHeight / divAspect;
+            var marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2);
+            // $('#photosImg').addClass('cutImgX');
+            img.style.cssText = ' width: 100%; height: auto; margin-left: 0px;visibility: visible;';
+        } else {
+            // 이미지가 div보다 길쭉한 경우 가로를 div에 맞추고 세로를 잘라낸다
+            var imgWidthActual = div.offsetHeight / imgAspect;
+            var imgWidthToBe = div.offsetHeight / divAspect;
+            var marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2);
+            // $('#photosImg').addClass('cutImgY');
+            img.style.cssText = ' width: auto; height: 100%; margin-left: 0px;visibility: visible;'
+        }
 </script>

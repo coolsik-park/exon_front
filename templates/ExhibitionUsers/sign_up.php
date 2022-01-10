@@ -20,6 +20,48 @@
     .clickTitle {
         cursor: pointer;
     }
+    .table-type .td-col .photo{
+        background-color: transparent;
+    }
+    .photos {
+        position: relative;
+    }
+    .photos img {
+        position: absolute;
+        visibility: hidden;
+    }
+    .apply-sect3-cont p{
+        word-wrap:break-word;
+    }
+    .height {
+        height: 300px;
+    }
+    .conts {
+        text-align: center;
+    }
+    @media  screen and (max-width: 768px) {
+        .photos img {
+            position: absolute;
+            margin-left: 0px;
+            width: 100%;
+        
+        }  
+        .apply-sect1-cont .photos {
+            max-height: 40%;
+        }
+    }
+    @media  screen and (min-width: 768px) {
+        .photos img {
+            
+        }
+        .photos {
+            margin-left: 115px;
+            margin-top: 20px;
+        }
+        .apply-sect1-cont .photos{
+            max-width: 38%;
+        }
+    }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -95,11 +137,11 @@
                         <div class="td-col col2">
                             <div class="con ag-ty1">
                                 <p class="tit fir tit-name clickTitle" onclick="window.location.href = '/exhibition/view/<?=$exhibition_user->exhibition['id']?>'"><?= $exhibition_user->exhibition['title'] ?></p>
-                                <p class="photo">
+                                <p id="photos" class="conts height photo" style="overflow: hidden">
                                     <?php if ($exhibition_user->exhibition['image_path'] == null) { ?>
-                                        <img src="../../images/img-no3.png" onclick="window.location.href = '/exhibition/view/<?=$exhibition_user->exhibition['id']?>'">
+                                        <img src="../../images/img-no3.png" onclick="window.location.href = '/exhibition/view/<?=$exhibition_user->exhibition['id']?>'"  id="photosImg">
                                     <?php } else { ?>
-                                        <img src="<?= DS . $exhibition_user->exhibition['image_path'] . DS . $exhibition_user->exhibition['image_name'] ?>" onclick="window.location.href = '/exhibition/view/<?=$exhibition_user->exhibition['id']?>'">
+                                        <img src="<?= DS . $exhibition_user->exhibition['image_path'] . DS . $exhibition_user->exhibition['image_name'] ?>" onclick="window.location.href = '/exhibition/view/<?=$exhibition_user->exhibition['id']?>'" style="visibility: visible;">
                                     <?php } ?>
                                 </p>
                             </div>
@@ -287,4 +329,25 @@
             }
         });
     }
+
+    var div = document.getElementById('photos');
+        var img = document.getElementById('photosImg');
+        var divAspect = 113 / 200;
+        var imgAspect = img.height / img.width;
+
+        if (imgAspect <= divAspect) {
+            // 이미지가 div보다 납작한 경우 세로를 div에 맞추고 가로는 잘라낸다
+            var imgWidthActual = div.offsetHeight / imgAspect;
+            var imgWidthToBe = div.offsetHeight / divAspect;
+            var marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2);
+            // $('#photosImg').addClass('cutImgX');
+            img.style.cssText = ' width: 100%; height: auto; margin-left: 0px;visibility: visible;';
+        } else {
+            // 이미지가 div보다 길쭉한 경우 가로를 div에 맞추고 세로를 잘라낸다
+            var imgWidthActual = div.offsetHeight / imgAspect;
+            var imgWidthToBe = div.offsetHeight / divAspect;
+            var marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2);
+            // $('#photosImg').addClass('cutImgY');
+            img.style.cssText = ' width: auto; height: 100%; margin-left: 0px;visibility: visible;'
+        }
 </script>

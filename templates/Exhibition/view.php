@@ -11,7 +11,13 @@
     }
     .apply-sect3-cont p{
         word-wrap:break-word;
-    } 
+    }
+    .height {
+        height: 300px;
+    }
+    .conts {
+        text-align: center;
+    }
     @media  screen and (max-width: 768px) {
         .photos img {
             position: absolute;
@@ -55,7 +61,7 @@
             <div class="apply-section apply-sect1" id="applySect1">
                 <h2 class="s-hty1">신청하기</h2>
                 <div class="apply-sect1-cont">
-                    <div id="photos" class="photos" style="overflow: hidden">
+                    <div id="photos" class="conts height" style="overflow: hidden">
                     <?php if ($exhibition->image_path != '') : ?>
                         <img src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>" id="photosImg">
                     <?php else : ?>
@@ -277,10 +283,9 @@
 <footer id="footer"></footer>
 
 <script>
-    window.onload = function(){
         var div = document.getElementById('photos');
         var img = document.getElementById('photosImg');
-        var divAspect = 320 / 395;
+        var divAspect = 340 / 1035;
         var imgAspect = img.height / img.width;
 
         if (imgAspect <= divAspect) {
@@ -298,7 +303,6 @@
             // $('#photosImg').addClass('cutImgY');
             img.style.cssText = ' width: auto; height: 100%; margin-left: 0px;visibility: visible;'
         }
-    }
 
     ui.slider.photoSlider();
 
