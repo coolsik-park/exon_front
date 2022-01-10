@@ -770,7 +770,7 @@ class ExhibitionController extends AppController
                     if ($result->success) {
                 
                         $payment_data = $result->data;
-                        $now = date('Y-m-d H:i:s', time()+32322);
+                        $now = date('Y-m-d H:i:s', time()+32400);
         
                         $pay->cancel_reason = '행사 관리자 취소';
                         $pay->cancel_amount = $payment_data->cancel_amount;
@@ -800,7 +800,7 @@ class ExhibitionController extends AppController
                             $mailer->setViewVars(['tel' => $exhibition->tel]);
                             $mailer->setViewVars(['email' => $exhibition->email]);
                             $mailer->setViewVars(['refund' => $payment_data->cancel_amount]);
-                            $mailer->setViewVars(['now' => date('Y-m-d H:i:s', time()+32322)]);
+                            $mailer->setViewVars(['now' => date('Y-m-d H:i:s', time()+32400)]);
                             
                             $mailer->deliver();
                         } 
@@ -828,7 +828,7 @@ class ExhibitionController extends AppController
                     $mailer->setViewVars(['tel' => $exhibition->tel]);
                     $mailer->setViewVars(['email' => $exhibition->email]);
                     $mailer->setViewVars(['refund' => 0]);
-                    $mailer->setViewVars(['now' => date('Y-m-d H:i:s', time()+32322)]);
+                    $mailer->setViewVars(['now' => date('Y-m-d H:i:s', time()+32400)]);
                     
                     $mailer->deliver();
                 }
@@ -851,7 +851,7 @@ class ExhibitionController extends AppController
                 if ($result->success) {
             
                     $payment_data = $result->data;
-                    $now = date('Y-m-d H:i:s', time()+32322);
+                    $now = date('Y-m-d H:i:s', time()+32400);
     
                     $pay->cancel_reason = '행사 취소';
                     $pay->cancel_amount = $payment_data->cancel_amount;
@@ -958,7 +958,7 @@ class ExhibitionController extends AppController
                 if ($result->success) {
                 
                     $payment_data = $result->data;
-                    $now = date('Y-m-d H:i:s', time()+32322);
+                    $now = date('Y-m-d H:i:s', time()+32400);
                     
     
                     $pay->cancel_reason = '행사 관리자 취소';
@@ -992,7 +992,7 @@ class ExhibitionController extends AppController
                         $mailer->setViewVars(['tel' => $exhibition->tel]);
                         $mailer->setViewVars(['email' => $exhibition->email]);
                         $mailer->setViewVars(['refund' => $payment_data->cancel_amount]);
-                        $mailer->setViewVars(['now' => date('Y-m-d H:i:s', time()+32322)]);
+                        $mailer->setViewVars(['now' => date('Y-m-d H:i:s', time()+32400)]);
                         
                         $mailer->deliver();
                         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
@@ -1027,7 +1027,7 @@ class ExhibitionController extends AppController
                 $mailer->setViewVars(['tel' => $exhibition->tel]);
                 $mailer->setViewVars(['email' => $exhibition->email]);
                 $mailer->setViewVars(['refund' => 0]);
-                $mailer->setViewVars(['now' => date('Y-m-d H:i:s', time()+32322)]);
+                $mailer->setViewVars(['now' => date('Y-m-d H:i:s', time()+32400)]);
                 
                 $mailer->deliver();
             }
@@ -1099,7 +1099,7 @@ class ExhibitionController extends AppController
             } else {
                 $mailer->setViewVars(['group' => '선택한 그룹이 없습니다.']);
             }
-            $mailer->setViewVars(['now' => date('Y-m-d H:i:s', time()+32322)]);
+            $mailer->setViewVars(['now' => date('Y-m-d H:i:s', time()+32400)]);
             $mailer->deliver();
 
             $response = $this->response->withType('json')->withStringBody(json_encode(['test' => 'success']));

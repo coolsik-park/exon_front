@@ -115,7 +115,7 @@ class ExhibitionStreamController extends AppController
             $this->redirect(['action' => 'stream_not_exist']);
         } 
         
-        if (strtotime($exhibition->sdate->format('Y-m-d H:i:s')) - 1800 - strtotime(date('Y-m-d H:i:s', time()+32322)) > 0) {
+        if (strtotime($exhibition->sdate->format('Y-m-d H:i:s')) - 1800 - strtotime(date('Y-m-d H:i:s', time()+32400)) > 0) {
             $this->redirect(['action' => 'stream_not_exist']);
         }
 
@@ -1300,7 +1300,7 @@ class ExhibitionStreamController extends AppController
     {
         $exhibitionStream = $this->ExhibitionStream->get($exhibition_stream_id);
         
-        if ($exhibitionStream->live_started == null && strtotime($exhibition->sdate->format('Y-m-d H:i:s')) < strtotime(date('Y-m-d H:i:s', time()+32322))) {
+        if ($exhibitionStream->live_started == null && strtotime($exhibition->sdate->format('Y-m-d H:i:s')) < strtotime(date('Y-m-d H:i:s', time()+32400))) {
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'end' => 1]));
             return $response;
         } else {

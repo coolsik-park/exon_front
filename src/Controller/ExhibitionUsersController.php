@@ -57,7 +57,7 @@ class ExhibitionUsersController extends AppController
         $Exhibition = $this->getTableLocator()->get('Exhibition');
         $exhibition = $Exhibition->get($id);
         
-        $today = strtotime(date('Y-m-d H:i:s', time()+32322));
+        $today = strtotime(date('Y-m-d H:i:s', time()+32400));
         $apply_sdate = strtotime($exhibition->apply_sdate->format('Y-m-d H:i:s'));
         $apply_edate = strtotime($exhibition->apply_edate->format('Y-m-d H:i:s'));
         
@@ -85,7 +85,7 @@ class ExhibitionUsersController extends AppController
             $exhibitionUser->pay_id = $answerData['pay_id'];
             $exhibitionUser->pay_amount = $answerData['pay_amount'];
             endif;
-            if ($exhibition->auto_approval == 0 || $exhibition->apply_edate->format('Y-m-d H:i:s') < date('Y-m-d H:i:s', time()+32322)) :
+            if ($exhibition->auto_approval == 0 || $exhibition->apply_edate->format('Y-m-d H:i:s') < date('Y-m-d H:i:s', time()+32400)) :
             $exhibitionUser->status = 2;
             else :
             $exhibitionUser->status = 4;
@@ -164,7 +164,7 @@ class ExhibitionUsersController extends AppController
                     $group = $Group->get($group_id);
                     $user_name = $this->request->getData('user_name');
                     
-                    if ($exhibition->auto_approval == 0 || $exhibition->apply_edate->format('Y-m-d H:i:s') < date('Y-m-d H:i:s', time()+32322)) :
+                    if ($exhibition->auto_approval == 0 || $exhibition->apply_edate->format('Y-m-d H:i:s') < date('Y-m-d H:i:s', time()+32400)) :
                         $mailer->setEmailFormat('html')
                                     ->setTo($to)
                                     ->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'EXON'])
@@ -183,7 +183,7 @@ class ExhibitionUsersController extends AppController
                         $mailer->setViewVars(['tel' => $exhibition->tel]);
                         $mailer->setViewVars(['email' => $exhibition->email]);
                         $mailer->setViewVars(['group' => $group->name]);
-                        $mailer->setViewVars(['now' => date('Y-m-d H:i:s', time()+32322)]);
+                        $mailer->setViewVars(['now' => date('Y-m-d H:i:s', time()+32400)]);
                         
                         $mailer->deliver();
 
@@ -206,7 +206,7 @@ class ExhibitionUsersController extends AppController
                         $mailer->setViewVars(['tel' => $exhibition->tel]);
                         $mailer->setViewVars(['email' => $exhibition->email]);
                         $mailer->setViewVars(['group' => $group->name]);
-                        $mailer->setViewVars(['now' => date('Y-m-d H:i:s', time()+32322)]);
+                        $mailer->setViewVars(['now' => date('Y-m-d H:i:s', time()+32400)]);
                         
                         $mailer->deliver();
                     endif;
@@ -215,7 +215,7 @@ class ExhibitionUsersController extends AppController
                     $to = $this->request->getData('users_email');
                     $user_name = $this->request->getData('user_name');
                     
-                    if ($exhibition->auto_approval == 0 || $exhibition->apply_edate->format('Y-m-d H:i:s') < date('Y-m-d H:i:s', time()+32322)) :
+                    if ($exhibition->auto_approval == 0 || $exhibition->apply_edate->format('Y-m-d H:i:s') < date('Y-m-d H:i:s', time()+32400)) :
                         $mailer->setEmailFormat('html')
                                     ->setTo($to)
                                     ->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'EXON'])
@@ -234,7 +234,7 @@ class ExhibitionUsersController extends AppController
                         $mailer->setViewVars(['tel' => $exhibition->tel]);
                         $mailer->setViewVars(['email' => $exhibition->email]);
                         $mailer->setViewVars(['group' => '']);
-                        $mailer->setViewVars(['now' => date('Y-m-d H:i:s', time()+32322)]);
+                        $mailer->setViewVars(['now' => date('Y-m-d H:i:s', time()+32400)]);
                         
                         $mailer->deliver();
                     
@@ -257,7 +257,7 @@ class ExhibitionUsersController extends AppController
                         $mailer->setViewVars(['tel' => $exhibition->tel]);
                         $mailer->setViewVars(['email' => $exhibition->email]);
                         $mailer->setViewVars(['group' => '']);
-                        $mailer->setViewVars(['now' => date('Y-m-d H:i:s', time()+32322)]);
+                        $mailer->setViewVars(['now' => date('Y-m-d H:i:s', time()+32400)]);
                         
                         $mailer->deliver();
                     endif;
@@ -339,7 +339,7 @@ class ExhibitionUsersController extends AppController
             
             if (!empty($email)) {
                 $this->paginate = ['limit' => 10];
-                $today = date('Y-m-d H:i:s', time()+32322);
+                $today = date('Y-m-d H:i:s', time()+32400);
 
                 if ($type == 'application') {
                     $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_email' => $email, 'ExhibitionUsers.status !=' => 8])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
@@ -351,7 +351,7 @@ class ExhibitionUsersController extends AppController
 
             } else if (!empty($hp)) {
                 $this->paginate = ['limit' => 10];
-                $today = date('Y-m-d H:i:s', time()+32322);
+                $today = date('Y-m-d H:i:s', time()+32400);
 
                 if ($type == 'application') {
                     $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_hp' => $hp, 'ExhibitionUsers.status !=' => 8])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
@@ -367,7 +367,7 @@ class ExhibitionUsersController extends AppController
         
         } else {
             $this->paginate = ['limit' => 10];
-            $today = date('Y-m-d H:i:s', time()+32322);
+            $today = date('Y-m-d H:i:s', time()+32400);
             
             if ($type == 'application') {
                 $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $this->Auth->user('id'), 'ExhibitionUsers.status !=' => 8])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
@@ -415,7 +415,7 @@ class ExhibitionUsersController extends AppController
                 if ($result->success) {
                 
                     $payment_data = $result->data;
-                    $now = date('Y-m-d H:i:s', time()+32322);
+                    $now = date('Y-m-d H:i:s', time()+32400);
                     
                     $pay->cancel_reason = '행사 이용자 취소';
                     $pay->cancel_date = $now->i18nFormat('yyyy-MM-dd HH:mm:ss');
@@ -448,7 +448,7 @@ class ExhibitionUsersController extends AppController
                         $mailer->setViewVars(['tel' => $exhibition->tel]);
                         $mailer->setViewVars(['email' => $exhibition->email]);
                         $mailer->setViewVars(['refund' => $payment_data->cancel_amount]);
-                        $mailer->setViewVars(['now' => date('Y-m-d H:i:s', time()+32322)]);
+                        $mailer->setViewVars(['now' => date('Y-m-d H:i:s', time()+32400)]);
                         
                         $mailer->deliver();
                         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
@@ -484,7 +484,7 @@ class ExhibitionUsersController extends AppController
                 $mailer->setViewVars(['tel' => $exhibition->tel]);
                 $mailer->setViewVars(['email' => $exhibition->email]);
                 $mailer->setViewVars(['refund' => '0']);
-                $mailer->setViewVars(['now' => Fdate('Y-m-d H:i:s', time()+32322)]);
+                $mailer->setViewVars(['now' => Fdate('Y-m-d H:i:s', time()+32400)]);
                 
                 $mailer->deliver();
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
