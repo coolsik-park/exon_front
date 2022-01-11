@@ -577,7 +577,7 @@
 
                         alert(msg);
 
-                        $("#issue_stream_key").click();
+                        // $("#issue_stream_key").click();
                         setTimeout(function () {
                             $("#save").click();
                         }, 500);
