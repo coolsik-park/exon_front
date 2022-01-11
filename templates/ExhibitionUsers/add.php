@@ -445,14 +445,6 @@
                             }
                         }).done(function(data) {
                             if (data.status == 'success') { 
-                                var msg = '결제가 완료되었습니다.';
-                                msg += '\n고유ID : ' + rsp.imp_uid;
-                                msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-                                msg += '\n결제 금액 : ' + rsp.paid_amount;
-                                msg += '\n카드 승인번호 : ' + rsp.apply_num; 
-
-                                alert(msg);
-
                                 var formData = new FormData($('#apply')[0]);
                                 formData.append('pay_id', data.pay_id);
                                 formData.append('pay_amount', rsp.paid_amount);
@@ -467,9 +459,15 @@
                                 }).done(function(data) {
                                     if (data.status == 'success') {
                                         if (today > apply_edate) {
-                                            alert("모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.");
+                                            var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount;
+                                            msg += '\n모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.';
+
+                                            alert(msg);
                                         } else {
-                                            alert("신청이 완료되었습니다.");
+                                            var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount;
+                                            msg += '\n신청이 완료되었습니다.';
+
+                                            alert(msg);
                                         }
                                         window.location.replace("/exhibition/view/<?=$id?>");
                                     }
@@ -665,14 +663,6 @@
                             }
                         }).done(function(data) {
                             if (data.status == 'success') { 
-                                var msg = '결제가 완료되었습니다.';
-                                msg += '\n고유ID : ' + rsp.imp_uid;
-                                msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-                                msg += '\n결제 금액 : ' + rsp.paid_amount;
-                                msg += '\n카드 승인번호 : ' + rsp.apply_num; 
-
-                                alert(msg);
-
                                 var formData = new FormData($('#apply')[0]);
                                 formData.append('pay_id', data.pay_id);
                                 formData.append('pay_amount', rsp.paid_amount);
@@ -687,11 +677,16 @@
                                 }).done(function(data) {
                                     if (data.status == 'success') {
                                         if (today > apply_edate) {
-                                            alert("모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.");
+                                            var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount;
+                                            msg += '\n모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.';
+
+                                            alert(msg);
                                         } else {
-                                            alert("신청이 완료되었습니다.");
+                                            var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount;
+                                            msg += '\n신청이 완료되었습니다.';
+
+                                            alert(msg);
                                         }
-                                        window.location.replace("/exhibition/view/<?=$id?>");
                                     }
                                 });
                             } 
@@ -885,14 +880,6 @@
                             }
                         }).done(function(data) {
                             if (data.status == 'success') { 
-                                var msg = '결제가 완료되었습니다.';
-                                msg += '\n고유ID : ' + rsp.imp_uid;
-                                msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-                                msg += '\n결제 금액 : ' + rsp.paid_amount;
-                                msg += '\n카드 승인번호 : ' + rsp.apply_num; 
-
-                                alert(msg);
-
                                 var formData = new FormData($('#apply')[0]);
                                 formData.append('pay_id', data.pay_id);
                                 formData.append('pay_amount', rsp.paid_amount);
@@ -907,9 +894,15 @@
                                 }).done(function(data) {
                                     if (data.status == 'success') {
                                         if (today > apply_edate) {
-                                            alert("모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.");
+                                            var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount;
+                                            msg += '\n모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.';
+
+                                            alert(msg);
                                         } else {
-                                            alert("신청이 완료되었습니다.");
+                                            var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount;
+                                            msg += '\n신청이 완료되었습니다.';
+
+                                            alert(msg);
                                         }
                                         window.location.replace("/exhibition/view/<?=$id?>");
                                     }
