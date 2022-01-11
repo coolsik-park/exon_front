@@ -435,8 +435,8 @@
 
                         $("#issue_stream_key").click();
                         setTimeout(function () {
+                            $("#save").click();
                         }, 500);
-                        $("#save").click();
 
                     } else {
                         alert("결제에 실패하였습니다. 잠시 후 다시 시도해 주세요.")
@@ -499,8 +499,8 @@
 
                         $("#issue_stream_key").click();
                         setTimeout(function () {
+                            $("#save").click();
                         }, 500);
-                        $("#save").click();
 
                     } else {
                         alert("결제에 실패하였습니다. 잠시 후 다시 시도해 주세요.")

@@ -438,26 +438,8 @@
             data: formData
         }).done(function(data) {
             if (data.status == 'success') {
-                var coupon_code = $("#coupon_code").val();
-                        
-                if (coupon_code != '') {
-                    jQuery.ajax({
-                        url: "/exhibition-stream/change-coupon-status", 
-                        method: 'POST',
-                        type: 'json',
-                        data: {
-                            coupon_code: coupon_code,
-                        }
-                    }). done(function () {
-                        alert("저장되었습니다.");
-                        location.reload();
-                    });
-                
-                } else {
-                    alert("저장되었습니다.");
-                    location.reload();
-                }
-
+                alert("저장되었습니다.");
+                location.reload();
             } else {
                 alert("오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
             }
@@ -575,8 +557,8 @@
                         alert(msg);
 
                         setTimeout(function () {
+                            $("#save").click();
                         }, 500);
-                        $("#save").click();
 
                     } else {
                         alert("결제에 실패하였습니다. 잠시 후 다시 시도해 주세요.")
@@ -636,8 +618,8 @@
 
                         $("#issue_stream_key").click();
                         setTimeout(function () {
+                            $("#save").click();
                         }, 500);
-                        $("#save").click();
 
                     } else {
                         alert("결제에 실패하였습니다. 잠시 후 다시 시도해 주세요.")
