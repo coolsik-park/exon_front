@@ -774,7 +774,7 @@ class ExhibitionController extends AppController
         
                         $pay->cancel_reason = '행사 관리자 취소';
                         $pay->cancel_amount = $payment_data->cancel_amount;
-                        $pay->cancel_date = $now->i18nFormat('yyyy-MM-dd HH:mm:ss');
+                        $pay->cancel_date = $now;
                         
                         if ($Pay->save($pay)) {
                             
@@ -855,7 +855,7 @@ class ExhibitionController extends AppController
     
                     $pay->cancel_reason = '행사 취소';
                     $pay->cancel_amount = $payment_data->cancel_amount;
-                    $pay->cancel_date = $now->i18nFormat('yyyy-MM-dd HH:mm:ss');
+                    $pay->cancel_date = $now;
                     
                     $Pay->save($pay);
                 }
