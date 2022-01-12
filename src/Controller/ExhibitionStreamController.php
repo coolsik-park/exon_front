@@ -1032,19 +1032,21 @@ class ExhibitionStreamController extends AppController
             
             if (FrozenTime::now() < $commonConfirmation[0]->expired) {
 
-                $user_id = $this->request->getData('user_id');
-                if ($user_id == 0) {
-                    $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id, 'users_hp' => $this->request->getData('hp')])->toArray();
-                    
-                    if (empty($exhibitionUser)) {
-                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'hp_not_exist']));
+                if ($this->request->getData('code') == $commonConfirmation[0]->confirmation_code) {
+
+                    $user_id = $this->request->getData('user_id');
+                    if ($user_id == 0) {
+                        $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id, 'users_hp' => $this->request->getData('hp')])->toArray();
+                        
+                        if (empty($exhibitionUser)) {
+                            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'hp_not_exist']));
+                            return $response;
+                        }
+                        $this->getRequest()->getSession()->write('exhibition_users_name', $exhibitionUser[0]['users_name']);
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
                         return $response;
-                    }
-                    $this->getRequest()->getSession()->write('exhibition_users_name', $exhibitionUser[0]['users_name']);
-                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
-                    return $response;
-                
-                } else {
+                    
+                    } else {
                         $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id, 'users_id' => $user_id])->toArray();
                         
                         if (empty($exhibitionUser)) {
@@ -1053,6 +1055,11 @@ class ExhibitionStreamController extends AppController
                         }
                         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
                         return $response;
+                    }
+                
+                } else {
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                    return $response;
                 }
                 
             } else {
@@ -1106,26 +1113,33 @@ class ExhibitionStreamController extends AppController
             
             if (FrozenTime::now() < $commonConfirmation[0]->expired) {
 
-                $user_id = $this->request->getData('user_id');
-                if ($user_id == 0) {
-                    $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id, 'users_email' => $this->request->getData('email')])->toArray();
+                if ($this->request->getData('code') == $commonConfirmation[0]->confirmation_code) {
+
+                    $user_id = $this->request->getData('user_id');
+                    if ($user_id == 0) {
+                        $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id, 'users_email' => $this->request->getData('email')])->toArray();
+                        
+                        if (empty($exhibitionUser)) {
+                            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'email_not_exist']));
+                            return $response;
+                        }
+                        $this->getRequest()->getSession()->write('exhibition_users_name', $exhibitionUser[0]['users_name']);
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
+                        return $response;
                     
-                    if (empty($exhibitionUser)) {
-                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'email_not_exist']));
+                    } else {
+                        $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id, 'users_id' => $user_id])->toArray();
+                        
+                        if (empty($exhibitionUser)) {
+                            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'id_not_exist']));
+                            return $response;
+                        }
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
                         return $response;
                     }
-                    $this->getRequest()->getSession()->write('exhibition_users_name', $exhibitionUser[0]['users_name']);
-                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
-                    return $response;
                 
                 } else {
-                    $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id, 'users_id' => $user_id])->toArray();
-                    
-                    if (empty($exhibitionUser)) {
-                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'id_not_exist']));
-                        return $response;
-                    }
-                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
                     return $response;
                 }
                 
