@@ -566,6 +566,12 @@
     //개설
     $("button[name='save']").click(function() {
         //Validation
+        if (!$("#image").val()) {
+            alert("행사 이미지를 등록해주세요.");
+            window.scrollTo(0,0);
+            return false;
+        }
+
         if ($("#title").val().length == 0) {
             alert("행사이름을 입력해주세요.");
             $("#title").focus();
