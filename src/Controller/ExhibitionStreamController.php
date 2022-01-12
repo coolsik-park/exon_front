@@ -67,7 +67,9 @@ class ExhibitionStreamController extends AppController
                 $data = $this->request->getData();
                 
                 $exhibitionStream->exhibition_id = $exhibition_id;
-                $exhibitionStream->pay_id = $data['pay_id'];
+                if ($data['pay_id'] != 0) {
+                    $exhibitionStream->pay_id = $data['pay_id'];
+                }
                 if ($data['coupon_id'] != "0") :
                 $exhibitionStream->coupon_id = $data['coupon_id'];
                 endif;
