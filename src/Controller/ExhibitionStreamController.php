@@ -1022,8 +1022,6 @@ class ExhibitionStreamController extends AppController
 
     public function confirmSms($id = null, $exhibition_id = null) 
     {
-        $connection = ConnectionManager::get('default');
-        $connection->begin();
         $CommonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
         $commonConfirmation = $CommonConfirmations->find('all')->where(['id' => $id])->toArray();
         $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
@@ -1045,9 +1043,6 @@ class ExhibitionStreamController extends AppController
                     return $response;
                 
                 } else {
-                    
-                    if($connection->update('users', ['hp_cert' => '1'], ['id' => $user_id])) {
-                        $connection->commit();
                         $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id, 'users_id' => $user_id])->toArray();
                         
                         if (empty($exhibitionUser)) {
@@ -1056,12 +1051,6 @@ class ExhibitionStreamController extends AppController
                         }
                         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
                         return $response;
-                    
-                    } else {
-                        $connection->rollback();
-                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
-                        return $response;
-                    }
                 }
                 
             } else {
@@ -1107,8 +1096,6 @@ class ExhibitionStreamController extends AppController
 
     public function confirmEmail($id = null, $exhibition_id = null)
     {
-        $connection = ConnectionManager::get('default');
-        $connection->begin();
         $CommonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
         $commonConfirmation = $CommonConfirmations->find('all')->where(['id' => $id])->toArray();
         $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
@@ -1130,23 +1117,14 @@ class ExhibitionStreamController extends AppController
                     return $response;
                 
                 } else {
+                    $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id, 'users_id' => $user_id])->toArray();
                     
-                    if($connection->update('users', ['email_cert' => '1'], ['id' => $user_id])) {
-                        $connection->commit();
-                        $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id, 'users_id' => $user_id])->toArray();
-                        
-                        if (empty($exhibitionUser)) {
-                            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'id_not_exist']));
-                            return $response;
-                        }
-                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
-                        return $response;
-                    
-                    } else {
-                        $connection->rollback();
-                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                    if (empty($exhibitionUser)) {
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'id_not_exist']));
                         return $response;
                     }
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
+                    return $response;
                 }
                 
             } else {
