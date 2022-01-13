@@ -364,6 +364,8 @@
     });
 
     $(document).on("click", "#end", function () {
+        clearInterval(timeCheck);
+        clearInterval(timeCheckBeforeTen); 
         liveEnd();
         alert("저장된 VOD는 인코딩이 완료된 후 마이페이지>개설행사관리 페이지에서 다운로드 받으실 수 있습니다.");
     });
