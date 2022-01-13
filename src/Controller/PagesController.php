@@ -105,6 +105,8 @@ class PagesController extends AppController
         $query .= "  and edate AS playing ";
         $query .= "FROM ";
         $query .= "  exhibition  ";
+        $query .= "WHERE ";
+        $query .= "  private = 0  ";
         $query .= "ORDER BY ";
         $query .= "  id desc ";
         $query .= "LIMIT ";
