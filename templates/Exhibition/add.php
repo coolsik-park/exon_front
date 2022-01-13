@@ -83,28 +83,6 @@
     .conts {
         text-align: center;
     }
-    .product-title {
-        text-align:center;
-        display:table;
-        width: 380px;
-        height:214px;
-    }
-    .product-img-div {
-        display:table-cell;
-        vertical-align:middle;
-    }
-    .product-img {
-        max-width:380px;
-        max-height:214px;
-    }
-    @media  screen and (max-width: 768px) {
-        .product-title {
-            text-align:center;
-            display:table;
-            width:100%;
-            height:214px;
-        }
-    }
     @media  screen and (min-width: 768px) {
         .apply-sect1-cont .photos{
             max-width: 38%;
@@ -130,7 +108,7 @@
                     <div class="sect1-col1">
                         <div class="product-title">
                             <div class="product-img-div photo" style="overflow: hidden;">
-                                <label class="conts" style="overflow: hidden;"for="image"><img class="product-img mainImg" src="../images/img-no3.png" alt="이미지없음" >
+                                <label class="conts"style="width: 100%; height: 100%; visibility: visible;"for="image"><img class="product-img mainImg" src="../images/img-no3.png" alt="이미지없음" >
                                 <input type="file" id="image" name="image" style="display:none">
                             </div>
                         </div>

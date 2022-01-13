@@ -80,6 +80,9 @@
         max-width:320px;
         max-height:240px;
     }
+    .searchBox {
+            border-bottom: 1px solid #cecece;
+        }
     @media  screen and (max-width: 768px) {
         .photos img {
             position: absolute;
@@ -107,7 +110,7 @@
         }
         .searchBox {
             display: block;
-            border: 1px solid #cecece;
+            border-bottom: 1px solid #cecece;
         }
     }
     @media  screen and (min-width: 768px) {
@@ -187,9 +190,9 @@
                 
             <div class="searchBox" id="<?=$exhibition["id"]?>">
             <div class="product-title">
-                <div class="product-img-div photo" style="overflow: hidden;">
+                <div class="product-img-div photo">
                         <?php if ($exhibition["image_path"] != '') : ?>
-                        <img class="product-img" src="/<?=$exhibition["image_path"]?>/<?=$exhibition["image_name"]?>">
+                        <img  style="width: 100%; height: 100%; visibility: visible;" class="product-img" src="/<?=$exhibition["image_path"]?>/<?=$exhibition["image_name"]?>">
                         <?php else : ?>
                         <img class="noImg"src="../../images/img-no.png"style="visibility: visible; height:100%; width:100%;" >
                         <?php endif; ?>

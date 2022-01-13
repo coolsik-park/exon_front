@@ -63,7 +63,7 @@
                 <div class="apply-sect1-cont">
                     <div id="photos" class="conts height" style="overflow: hidden">
                     <?php if ($exhibition->image_path != '') : ?>
-                        <img src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>" id="photosImg">
+                        <img style="width: 100%; height: 100%; visibility: visible;" src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>" id="photosImg">
                     <?php else : ?>
                         <img src="../../images/img-no3.png" alt="이미지없음" style="visibility: visible;">
                     <?php endif; ?>
@@ -291,27 +291,6 @@
 <footer id="footer"></footer>
 
 <script>
-        var div = document.getElementById('photos');
-        var img = document.getElementById('photosImg');
-        var divAspect = 340 / 1035;
-        var imgAspect = img.height / img.width;
-
-        if (imgAspect <= divAspect) {
-            // 이미지가 div보다 납작한 경우 세로를 div에 맞추고 가로는 잘라낸다
-            var imgWidthActual = div.offsetHeight / imgAspect;
-            var imgWidthToBe = div.offsetHeight / divAspect;
-            var marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2);
-            // $('#photosImg').addClass('cutImgX');
-            img.style.cssText = ' width: 100%; height: auto; margin-left: 0px;visibility: visible;';
-        } else {
-            // 이미지가 div보다 길쭉한 경우 가로를 div에 맞추고 세로를 잘라낸다
-            var imgWidthActual = div.offsetHeight / imgAspect;
-            var imgWidthToBe = div.offsetHeight / divAspect;
-            var marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2);
-            // $('#photosImg').addClass('cutImgY');
-            img.style.cssText = ' width: auto; height: 100%; margin-left: 0px;visibility: visible;'
-        }
-
     ui.slider.photoSlider();
 
     var tabArea = $('.tab');

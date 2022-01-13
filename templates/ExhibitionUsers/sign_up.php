@@ -141,7 +141,7 @@
                                     <?php if ($exhibition_user->exhibition['image_path'] == null) { ?>
                                         <img src="../../images/img-no3.png" onclick="window.location.href = '/exhibition/view/<?=$exhibition_user->exhibition['id']?>'"  id="photosImg">
                                     <?php } else { ?>
-                                        <img src="<?= DS . $exhibition_user->exhibition['image_path'] . DS . $exhibition_user->exhibition['image_name'] ?>" onclick="window.location.href = '/exhibition/view/<?=$exhibition_user->exhibition['id']?>'" style="visibility: visible;">
+                                        <img style="width: 100%; height: 100%; visibility: visible;" src="<?= DS . $exhibition_user->exhibition['image_path'] . DS . $exhibition_user->exhibition['image_name'] ?>" onclick="window.location.href = '/exhibition/view/<?=$exhibition_user->exhibition['id']?>'" style="visibility: visible;">
                                     <?php } ?>
                                 </p>
                             </div>
@@ -329,25 +329,4 @@
             }
         });
     }
-
-    var div = document.getElementById('photos');
-        var img = document.getElementById('photosImg');
-        var divAspect = 113 / 200;
-        var imgAspect = img.height / img.width;
-
-        if (imgAspect <= divAspect) {
-            // 이미지가 div보다 납작한 경우 세로를 div에 맞추고 가로는 잘라낸다
-            var imgWidthActual = div.offsetHeight / imgAspect;
-            var imgWidthToBe = div.offsetHeight / divAspect;
-            var marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2);
-            // $('#photosImg').addClass('cutImgX');
-            img.style.cssText = ' width: 100%; height: auto; margin-left: 0px;visibility: visible;';
-        } else {
-            // 이미지가 div보다 길쭉한 경우 가로를 div에 맞추고 세로를 잘라낸다
-            var imgWidthActual = div.offsetHeight / imgAspect;
-            var imgWidthToBe = div.offsetHeight / divAspect;
-            var marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2);
-            // $('#photosImg').addClass('cutImgY');
-            img.style.cssText = ' width: auto; height: 100%; margin-left: 0px;visibility: visible;'
-        }
 </script>

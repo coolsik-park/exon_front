@@ -110,28 +110,6 @@
     .conts {
         text-align: center;
     }
-    .product-title {
-        text-align:center;
-        display:table;
-        width: 380px;
-        height:214px;
-    }
-    .product-img-div {
-    display:table-cell;
-    vertical-align:middle;
-    }
-    .product-img {
-        max-width:380px;
-        max-height:214px;
-    }
-    @media  screen and (max-width: 768px) {
-        .product-title {
-        text-align:center;
-        display:table;
-        width:100%;
-        height:214px;
-        }
-    }
 </style>
 
 
@@ -171,7 +149,7 @@
                     <div class="product-title">
                         <div class="product-img-div photo" style="overflow: hidden;">
                             <?php if ($exhibition->image_path != '') : ?>
-                            <label id="photos" class="conts" for="image"><img class="product-img mainImg" src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>"></p>
+                            <label id="photos" style="width: 100%; height: 100%; visibility: visible;" class="conts" for="image"><img class="product-img mainImg" src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>"></p>
                             <?php else : ?>
                             <label id="photos" class="conts" style="overflow: hidden;"for="image"><img class="noImg" src="../../images/img-no3.png" alt="이미지없음" style="visibility: visible; height: 100%; width: 100%;"></p>
                             <?php endif; ?>
