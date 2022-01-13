@@ -776,6 +776,12 @@
     //저장
     $(document).on("click", "button[name='save']", function() {
         //Validation
+        if ($("#mainImg").attr("src") == "../../images/img-no3.png") {
+            alert("행사 이미지를 등록해주세요.");
+            window.scrollTo(0,0);
+            return false;
+        }
+
         if ($("#title").val().length == 0) {
             alert("행사이름을 입력해주세요.");
             $("#title").focus();

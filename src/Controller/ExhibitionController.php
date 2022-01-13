@@ -774,7 +774,7 @@ class ExhibitionController extends AppController
         
                         $pay->cancel_reason = '행사 관리자 취소';
                         $pay->cancel_amount = $payment_data->cancel_amount;
-                        $pay->cancel_date = $now->i18nFormat('yyyy-MM-dd HH:mm:ss');
+                        $pay->cancel_date = $now;
                         
                         if ($Pay->save($pay)) {
                             
@@ -855,7 +855,7 @@ class ExhibitionController extends AppController
     
                     $pay->cancel_reason = '행사 취소';
                     $pay->cancel_amount = $payment_data->cancel_amount;
-                    $pay->cancel_date = $now->i18nFormat('yyyy-MM-dd HH:mm:ss');
+                    $pay->cancel_date = $now;
                     
                     $Pay->save($pay);
                 }
@@ -1950,8 +1950,8 @@ class ExhibitionController extends AppController
     {
         $this->paginate = ['limit' => 20];
 
-        $exhibitions = $this->paginate($this->Exhibition->find('all')->where(['status' => 1, 'title LIKE' => '%'.$key.'%'])->order(['created' => 'DESC']))->toArray();
-        $count = count($this->Exhibition->find('all')->where(['status' => 1, 'title LIKE' => '%'.$key.'%'])->toArray());
+        $exhibitions = $this->paginate($this->Exhibition->find('all')->where(['status' => 1, 'title LIKE' => '%'.$key.'%', 'private' => 0])->order(['created' => 'DESC']))->toArray();
+        $count = count($this->Exhibition->find('all')->where(['status' => 1, 'title LIKE' => '%'.$key.'%', 'private' => 0])->toArray());
 
         $CommonCategory = $this->getTableLocator()->get('CommonCategory');
         $commonCategory = $CommonCategory->find('all')->toArray();
@@ -1973,7 +1973,8 @@ class ExhibitionController extends AppController
                         'title LIKE' => '%'.$key.'%', 
                         'category IN' => $category,
                         'type IN' => $type,
-                        'cost IN' => $cost
+                        'cost IN' => $cost,
+                        'private' => 0
                     ])
                     ->order(['created' => 'DESC']))->toArray();
                 $count = count($this->Exhibition->find('all')->where([
@@ -1981,7 +1982,8 @@ class ExhibitionController extends AppController
                     'title LIKE' => '%'.$key.'%', 
                     'category IN' => $category,
                     'type IN' => $type,
-                    'cost IN' => $cost
+                    'cost IN' => $cost,
+                    'private' => 0
                 ])->toArray());
 
                 $CommonCategory = $this->getTableLocator()->get('CommonCategory');
@@ -2006,7 +2008,8 @@ class ExhibitionController extends AppController
                         'title LIKE' => '%'.$key.'%', 
                         'category IN' => $category,
                         'type IN' => $type,
-                        'cost IN' => $cost
+                        'cost IN' => $cost,
+                        'private' => 0
                     ])
                     ->order('(CASE WHEN title LIKE "'.$key.'" then 1 when title LIKE "'.$key.'%" then 2 when title LIKE "%'.$key.'" then 3 when title LIKE "%'.$key.'%" then 4 else 5 END)'))->toArray();
                 
@@ -2017,7 +2020,8 @@ class ExhibitionController extends AppController
                         'title LIKE' => '%'.$key.'%', 
                         'category IN' => $category,
                         'type IN' => $type,
-                        'cost IN' => $cost
+                        'cost IN' => $cost,
+                        'private' => 0
                     ])
                     ->order(['created' => 'DESC']))->toArray();
                 endif;
@@ -2027,7 +2031,8 @@ class ExhibitionController extends AppController
                     'title LIKE' => '%'.$key.'%', 
                     'category IN' => $category,
                     'type IN' => $type,
-                    'cost IN' => $cost
+                    'cost IN' => $cost,
+                    'private' => 0
                 ])->toArray());
 
                 $CommonCategory = $this->getTableLocator()->get('CommonCategory');

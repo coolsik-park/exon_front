@@ -385,7 +385,7 @@
                     type: 'POST',
                 }).done(function(data) {
                     if (data.status == 'success') {
-                        if (additional == 1) {
+                        if (today > apply_edate) {
                             alert("모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.");
                         } else {
                             alert("신청이 완료되었습니다.");
@@ -415,7 +415,7 @@
                 var IMP = window.IMP; 
                 IMP.init('imp55727904'); //아임포트 id -> 추후 교체
                 IMP.request_pay({
-                    pg : 'danal',
+                    pg : 'danal_tpay',
                     pay_method : 'card',
                     merchant_uid : 'merchant_' + new Date().getTime(),
                     name : '웨비나 신청',
@@ -445,14 +445,6 @@
                             }
                         }).done(function(data) {
                             if (data.status == 'success') { 
-                                var msg = '결제가 완료되었습니다.';
-                                msg += '\n고유ID : ' + rsp.imp_uid;
-                                msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-                                msg += '\n결제 금액 : ' + rsp.paid_amount;
-                                msg += '\n카드 승인번호 : ' + rsp.apply_num; 
-
-                                alert(msg);
-
                                 var formData = new FormData($('#apply')[0]);
                                 formData.append('pay_id', data.pay_id);
                                 formData.append('pay_amount', rsp.paid_amount);
@@ -466,10 +458,16 @@
                                     type: 'POST',
                                 }).done(function(data) {
                                     if (data.status == 'success') {
-                                        if (additional == 1) {
-                                            alert("모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.");
+                                        if (today > apply_edate) {
+                                            var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount;
+                                            msg += '\n모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.';
+
+                                            alert(msg);
                                         } else {
-                                            alert("신청이 완료되었습니다.");
+                                            var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount;
+                                            msg += '\n신청이 완료되었습니다.';
+
+                                            alert(msg);
                                         }
                                         window.location.replace("/exhibition/view/<?=$id?>");
                                     }
@@ -605,7 +603,7 @@
                     type: 'POST',
                 }).done(function(data) {
                     if (data.status == 'success') {
-                        if (additional == 1) {
+                        if (today > apply_edate) {
                             alert("모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.");
                         } else {
                             alert("신청이 완료되었습니다.");
@@ -635,7 +633,7 @@
                 var IMP = window.IMP; 
                 IMP.init('imp55727904'); //아임포트 id -> 추후 교체
                 IMP.request_pay({
-                    pg : 'danal',
+                    pg : 'danal_tpay',
                     pay_method : 'card',
                     merchant_uid : 'merchant_' + new Date().getTime(),
                     name : '웨비나 신청',
@@ -665,14 +663,6 @@
                             }
                         }).done(function(data) {
                             if (data.status == 'success') { 
-                                var msg = '결제가 완료되었습니다.';
-                                msg += '\n고유ID : ' + rsp.imp_uid;
-                                msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-                                msg += '\n결제 금액 : ' + rsp.paid_amount;
-                                msg += '\n카드 승인번호 : ' + rsp.apply_num; 
-
-                                alert(msg);
-
                                 var formData = new FormData($('#apply')[0]);
                                 formData.append('pay_id', data.pay_id);
                                 formData.append('pay_amount', rsp.paid_amount);
@@ -686,12 +676,17 @@
                                     type: 'POST',
                                 }).done(function(data) {
                                     if (data.status == 'success') {
-                                        if (additional == 1) {
-                                            alert("모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.");
+                                        if (today > apply_edate) {
+                                            var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount;
+                                            msg += '\n모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.';
+
+                                            alert(msg);
                                         } else {
-                                            alert("신청이 완료되었습니다.");
+                                            var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount;
+                                            msg += '\n신청이 완료되었습니다.';
+
+                                            alert(msg);
                                         }
-                                        window.location.replace("/exhibition/view/<?=$id?>");
                                     }
                                 });
                             } 
@@ -825,7 +820,7 @@
                     type: 'POST',
                 }).done(function(data) {
                     if (data.status == 'success') {
-                        if (additional == 1) {
+                        if (today > apply_edate) {
                             alert("모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.");
                         } else {
                             alert("신청이 완료되었습니다.");
@@ -855,7 +850,7 @@
                 var IMP = window.IMP; 
                 IMP.init('imp55727904'); //아임포트 id -> 추후 교체
                 IMP.request_pay({
-                    pg : 'danal',
+                    pg : 'danal_tpay',
                     pay_method : 'trans',
                     merchant_uid : 'merchant_' + new Date().getTime(),
                     name : '웨비나 신청',
@@ -885,14 +880,6 @@
                             }
                         }).done(function(data) {
                             if (data.status == 'success') { 
-                                var msg = '결제가 완료되었습니다.';
-                                msg += '\n고유ID : ' + rsp.imp_uid;
-                                msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-                                msg += '\n결제 금액 : ' + rsp.paid_amount;
-                                msg += '\n카드 승인번호 : ' + rsp.apply_num; 
-
-                                alert(msg);
-
                                 var formData = new FormData($('#apply')[0]);
                                 formData.append('pay_id', data.pay_id);
                                 formData.append('pay_amount', rsp.paid_amount);
@@ -906,10 +893,16 @@
                                     type: 'POST',
                                 }).done(function(data) {
                                     if (data.status == 'success') {
-                                        if (additional == 1) {
-                                            alert("모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.");
+                                        if (today > apply_edate) {
+                                            var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount;
+                                            msg += '\n모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.';
+
+                                            alert(msg);
                                         } else {
-                                            alert("신청이 완료되었습니다.");
+                                            var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount;
+                                            msg += '\n신청이 완료되었습니다.';
+
+                                            alert(msg);
                                         }
                                         window.location.replace("/exhibition/view/<?=$id?>");
                                     }

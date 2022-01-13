@@ -374,12 +374,28 @@
             }
         }).done(function(data) {
             if (data.status == 'success') {
-                alert("프로모션이 적용되었습니다.");
-                $("#coupon_code").attr("readonly", true);
-                coupon_amount = $("#amount").val() * data.discount_rate / 100;
-                $("#amount").val($("#amount").val() - ($("#amount").val() * data.discount_rate / 100));
-                discount_rate = data.discount_rate
-                coupon_id = data.coupon_id;
+                
+                if (data.discount_rate != 100) {
+                    alert("프로모션이 적용되었습니다.");
+                    $("#coupon_code").attr("readonly", true);
+                    coupon_amount = $("#amount").val() * data.discount_rate / 100;
+                    $("#amount").val($("#amount").val() - ($("#amount").val() * data.discount_rate / 100));
+                    discount_rate = data.discount_rate
+                    coupon_id = data.coupon_id;
+                
+                } else {
+                    if (confirm("프로모션 적용으로 무료로 진행되는 행사입니다.\n결제 과정 없이 현재 지정된 시간과 인원수로 스트림 키가 발급되오니 다시한번 확인해주시기 바랍니다.\n사용된 프로모션 키는 재사용이 불가합니다.")) {
+                        $("#is_paid").val(1);
+                        $("#pay_id").val(0);
+                        if ($("#title").val().length == 0) {
+                            $("#title").val("<?=$title?>");
+                        }
+                        $("#issue_stream_key").click();
+                        setTimeout(function () {
+                            $("#save").click();
+                        }, 500);
+                    }
+                }
     
             } else {
                 alert("이미 사용되거나 잘못된 프로모션 키 입니다.\n프로모션 키 번호를 다시 확인해주세요.");
@@ -392,7 +408,7 @@
         var IMP = window.IMP; 
         IMP.init('imp55727904'); //아임포트 id -> 추후 교체
         IMP.request_pay({
-            pg : 'danal',
+            pg : 'danal_tpay',
             pay_method : 'card',
             merchant_uid : 'merchant_' + new Date().getTime(),
             name : '스트리밍 서비스',
@@ -429,10 +445,7 @@
                         }
 
                         var msg = '결제가 완료되었습니다.';
-                        msg += '\n고유ID : ' + rsp.imp_uid;
-                        msg += '\n상점 거래ID : ' + rsp.merchant_uid;
                         msg += '\n결제 금액 : ' + rsp.paid_amount;
-                        msg += '\n카드 승인번호 : ' + rsp.apply_num; 
 
                         alert(msg);
 
@@ -459,7 +472,7 @@
         var IMP = window.IMP; 
         IMP.init('imp55727904'); //아임포트 id -> 추후 교체
         IMP.request_pay({
-            pg : 'danal',
+            pg : 'danal_tpay',
             pay_method : 'trans',
             merchant_uid : 'merchant_' + new Date().getTime(),
             name : '스트리밍 서비스',
@@ -496,10 +509,7 @@
                         }
 
                         var msg = '결제가 완료되었습니다.';
-                        msg += '\n고유ID : ' + rsp.imp_uid;
-                        msg += '\n상점 거래ID : ' + rsp.merchant_uid;
                         msg += '\n결제 금액 : ' + rsp.paid_amount;
-                        msg += '\n카드 승인번호 : ' + rsp.apply_num; 
 
                         alert(msg);
 

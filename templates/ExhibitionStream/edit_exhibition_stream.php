@@ -299,19 +299,19 @@
                     var before = new Date();
                     
                     if (confirm("결제하신 방송 서비스 시간이 10분 남았습니다.\n10분 후 방송이 자동 종료되며, VOD 저장을 체크하지 않을 경우 스트리밍이 저장되지 않습니다.\n추가 결제가 필요하신 경우 결제를 클릭해주세요.")) {
-                        var after = new Date();
-                        var count = (after - before);
-                        var seconds = (after.getTime() - before.getTime()) / 1000;
-                        seconds = Math.round(seconds);
+                        // var after = new Date();
+                        // var count = (after - before);
+                        // var seconds = (after.getTime() - before.getTime()) / 1000;
+                        // seconds = Math.round(seconds);
 
-                        jQuery.ajax({
-                            url: "/exhibition-stream/add-live-duration/" + exhibition_stream_id, 
-                            method: 'POST',
-                            type: 'json',
-                            data: {
-                                time_count: seconds
-                            }
-                        });
+                        // jQuery.ajax({
+                        //     url: "/exhibition-stream/add-live-duration/" + exhibition_stream_id, 
+                        //     method: 'POST',
+                        //     type: 'json',
+                        //     data: {
+                        //         time_count: seconds
+                        //     }
+                        // });
                     }
                 }
 
@@ -438,26 +438,8 @@
             data: formData
         }).done(function(data) {
             if (data.status == 'success') {
-                var coupon_code = $("#coupon_code").val();
-                        
-                if (coupon_code != '') {
-                    jQuery.ajax({
-                        url: "/exhibition-stream/change-coupon-status", 
-                        method: 'POST',
-                        type: 'json',
-                        data: {
-                            coupon_code: coupon_code,
-                        }
-                    }). done(function () {
-                        alert("저장되었습니다.");
-                        location.reload();
-                    });
-                
-                } else {
-                    alert("저장되었습니다.");
-                    location.reload();
-                }
-
+                alert("저장되었습니다.");
+                location.reload();
             } else {
                 alert("오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
             }
@@ -518,12 +500,25 @@
             }
         }).done(function(data) {
             if (data.status == 'success') {
-                alert("프로모션이 적용되었습니다.");
-                $("#coupon_code").attr("readonly", true);
-                coupon_amount = $("#amount").val() * data.discount_rate / 100;
-                $("#amount").val($("#amount").val() - ($("#amount").val() * data.discount_rate / 100));
-                discount_rate = data.discount_rate
-                coupon_id = data.coupon_id;
+                
+                if (data.discount_rate != 100) {
+                    alert("프로모션이 적용되었습니다.");
+                    $("#coupon_code").attr("readonly", true);
+                    coupon_amount = $("#amount").val() * data.discount_rate / 100;
+                    $("#amount").val($("#amount").val() - ($("#amount").val() * data.discount_rate / 100));
+                    discount_rate = data.discount_rate;
+                    coupon_id = data.coupon_id;
+                
+                } else {
+                    if (confirm("프로모션이 적용되어 결제 과정 없이 현재 지정된 시간과 인원수로 설정이 변경되오니 다시한번 확인해주시기 바랍니다.\n사용된 프로모션 키는 재사용이 불가합니다.")) {
+                        $("#is_paid").val(1);
+                        $("#pay_id").val(0);
+                        
+                        setTimeout(function () {
+                            $("#save").click();
+                        }, 500);
+                    }
+                }
     
             } else {
                 alert("이미 사용되거나 잘못된 프로모션 키 입니다.\n프로모션 키 번호를 다시 확인해주세요.");
@@ -536,7 +531,7 @@
         var IMP = window.IMP; 
         IMP.init('imp55727904'); //아임포트 id -> 추후 교체
         IMP.request_pay({
-            pg : 'danal',
+            pg : 'danal_tpay',
             pay_method : 'card',
             merchant_uid : 'merchant_' + new Date().getTime(),
             name : '스트리밍 서비스',
@@ -570,14 +565,10 @@
                         $("#pay_id").val(data.pay_id);
 
                         var msg = '결제가 완료되었습니다.';
-                        msg += '\n고유ID : ' + rsp.imp_uid;
-                        msg += '\n상점 거래ID : ' + rsp.merchant_uid;
                         msg += '\n결제 금액 : ' + rsp.paid_amount;
-                        msg += '\n카드 승인번호 : ' + rsp.apply_num; 
 
                         alert(msg);
 
-                        $("#issue_stream_key").click();
                         setTimeout(function () {
                             $("#save").click();
                         }, 500);
@@ -600,7 +591,7 @@
         var IMP = window.IMP; 
         IMP.init('imp55727904'); //아임포트 id -> 추후 교체
         IMP.request_pay({
-            pg : 'danal',
+            pg : 'danal_tpay',
             pay_method : 'trans',
             merchant_uid : 'merchant_' + new Date().getTime(),
             name : '스트리밍 서비스',
@@ -634,10 +625,7 @@
                         $("#pay_id").val(data.pay_id);
 
                         var msg = '결제가 완료되었습니다.';
-                        msg += '\n고유ID : ' + rsp.imp_uid;
-                        msg += '\n상점 거래ID : ' + rsp.merchant_uid;
                         msg += '\n결제 금액 : ' + rsp.paid_amount;
-                        msg += '\n카드 승인번호 : ' + rsp.apply_num; 
 
                         alert(msg);
 

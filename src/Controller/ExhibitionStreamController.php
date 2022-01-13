@@ -67,7 +67,9 @@ class ExhibitionStreamController extends AppController
                 $data = $this->request->getData();
                 
                 $exhibitionStream->exhibition_id = $exhibition_id;
-                $exhibitionStream->pay_id = $data['pay_id'];
+                if ($data['pay_id'] != 0) {
+                    $exhibitionStream->pay_id = $data['pay_id'];
+                }
                 if ($data['coupon_id'] != "0") :
                 $exhibitionStream->coupon_id = $data['coupon_id'];
                 endif;
@@ -867,44 +869,44 @@ class ExhibitionStreamController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    // public function validateCoupon () 
-    // {
-    //     if ($this->request->is('post')) {
-    //         $coupon = $this->getTableLocator()->get('Coupon')->find('all')->where(['product_type' => 'S', 'status' => 1])->toArray();
-    //         $exist = 0;
-    //         $coupon_id = 0;
-    //         $discount_rate = 0;
-    //         $start_date = 0;
-    //         $end_date = 0;
-    //         $date = (int)FrozenTime::now()->format('Ymd');
-    //         $count = Count($coupon);
-    //         $codes = explode('-', $this->request->getData('coupon_code'));
-    //         $code = '';
-    //         for ($i = 0; $i < count($codes); $i++) {
-    //             $code .= $codes[$i];
-    //         }
+    public function validateCoupon () 
+    {
+        if ($this->request->is('post')) {
+            $coupon = $this->getTableLocator()->get('Coupon')->find('all')->where(['product_type' => 'S', 'status' => 1])->toArray();
+            $exist = 0;
+            $coupon_id = 0;
+            $discount_rate = 0;
+            $start_date = 0;
+            $end_date = 0;
+            $date = (int)FrozenTime::now()->format('Ymd');
+            $count = Count($coupon);
+            $codes = explode('-', $this->request->getData('coupon_code'));
+            $code = '';
+            for ($i = 0; $i < count($codes); $i++) {
+                $code .= $codes[$i];
+            }
             
-    //         for ($i = 0; $i < $count; $i++) {
+            for ($i = 0; $i < $count; $i++) {
                 
-    //             if ($coupon[$i]['code'] == $code) {
-    //                 $coupon_id = $coupon[$i]['id'];
-    //                 $discount_rate = $coupon[$i]['discount_rate']; 
-    //                 $exist = 1;
-    //                 $start_date = (int)$coupon[$i]['sdate'];
-    //                 $end_date = (int)$coupon[$i]['edate'];
-    //             }
-    //         }
+                if ($coupon[$i]['code'] == $code) {
+                    $coupon_id = $coupon[$i]['id'];
+                    $discount_rate = $coupon[$i]['discount_rate']; 
+                    $exist = 1;
+                    $start_date = (int)$coupon[$i]['sdate'];
+                    $end_date = (int)$coupon[$i]['edate'];
+                }
+            }
 
-    //         if ($exist == 1 && $start_date <= $date && $date <= $end_date) {
-    //             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'coupon_id' => $coupon_id, 'discount_rate' => $discount_rate]));
-    //             return $response;
+            if ($exist == 1 && $start_date <= $date && $date <= $end_date) {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'coupon_id' => $coupon_id, 'discount_rate' => $discount_rate]));
+                return $response;
                 
-    //         } else {
-    //             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
-    //             return $response;
-    //         }
-    //     }
-    // }
+            } else {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                return $response;
+            }
+        }
+    }
 
     public function changeCouponStatus ()
     {
@@ -1022,8 +1024,6 @@ class ExhibitionStreamController extends AppController
 
     public function confirmSms($id = null, $exhibition_id = null) 
     {
-        $connection = ConnectionManager::get('default');
-        $connection->begin();
         $CommonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
         $commonConfirmation = $CommonConfirmations->find('all')->where(['id' => $id])->toArray();
         $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
@@ -1032,22 +1032,21 @@ class ExhibitionStreamController extends AppController
             
             if (FrozenTime::now() < $commonConfirmation[0]->expired) {
 
-                $user_id = $this->request->getData('user_id');
-                if ($user_id == 0) {
-                    $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id, 'users_hp' => $this->request->getData('hp')])->toArray();
-                    
-                    if (empty($exhibitionUser)) {
-                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'hp_not_exist']));
+                if ($this->request->getData('code') == $commonConfirmation[0]->confirmation_code) {
+
+                    $user_id = $this->request->getData('user_id');
+                    if ($user_id == 0) {
+                        $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id, 'users_hp' => $this->request->getData('hp')])->toArray();
+                        
+                        if (empty($exhibitionUser)) {
+                            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'hp_not_exist']));
+                            return $response;
+                        }
+                        $this->getRequest()->getSession()->write('exhibition_users_name', $exhibitionUser[0]['users_name']);
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
                         return $response;
-                    }
-                    $this->getRequest()->getSession()->write('exhibition_users_name', $exhibitionUser[0]['users_name']);
-                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
-                    return $response;
-                
-                } else {
                     
-                    if($connection->update('users', ['hp_cert' => '1'], ['id' => $user_id])) {
-                        $connection->commit();
+                    } else {
                         $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id, 'users_id' => $user_id])->toArray();
                         
                         if (empty($exhibitionUser)) {
@@ -1056,12 +1055,11 @@ class ExhibitionStreamController extends AppController
                         }
                         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
                         return $response;
-                    
-                    } else {
-                        $connection->rollback();
-                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
-                        return $response;
                     }
+                
+                } else {
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                    return $response;
                 }
                 
             } else {
@@ -1107,8 +1105,6 @@ class ExhibitionStreamController extends AppController
 
     public function confirmEmail($id = null, $exhibition_id = null)
     {
-        $connection = ConnectionManager::get('default');
-        $connection->begin();
         $CommonConfirmations = $this->getTableLocator()->get('CommonConfirmation');
         $commonConfirmation = $CommonConfirmations->find('all')->where(['id' => $id])->toArray();
         $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
@@ -1117,22 +1113,21 @@ class ExhibitionStreamController extends AppController
             
             if (FrozenTime::now() < $commonConfirmation[0]->expired) {
 
-                $user_id = $this->request->getData('user_id');
-                if ($user_id == 0) {
-                    $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id, 'users_email' => $this->request->getData('email')])->toArray();
-                    
-                    if (empty($exhibitionUser)) {
-                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'email_not_exist']));
+                if ($this->request->getData('code') == $commonConfirmation[0]->confirmation_code) {
+
+                    $user_id = $this->request->getData('user_id');
+                    if ($user_id == 0) {
+                        $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id, 'users_email' => $this->request->getData('email')])->toArray();
+                        
+                        if (empty($exhibitionUser)) {
+                            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'email_not_exist']));
+                            return $response;
+                        }
+                        $this->getRequest()->getSession()->write('exhibition_users_name', $exhibitionUser[0]['users_name']);
+                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
                         return $response;
-                    }
-                    $this->getRequest()->getSession()->write('exhibition_users_name', $exhibitionUser[0]['users_name']);
-                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
-                    return $response;
-                
-                } else {
                     
-                    if($connection->update('users', ['email_cert' => '1'], ['id' => $user_id])) {
-                        $connection->commit();
+                    } else {
                         $exhibitionUser = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id, 'users_id' => $user_id])->toArray();
                         
                         if (empty($exhibitionUser)) {
@@ -1141,12 +1136,11 @@ class ExhibitionStreamController extends AppController
                         }
                         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_users_id' => $exhibitionUser[0]['id']]));
                         return $response;
-                    
-                    } else {
-                        $connection->rollback();
-                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
-                        return $response;
                     }
+                
+                } else {
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                    return $response;
                 }
                 
             } else {

@@ -74,6 +74,10 @@
                var total = $('.main-visual').find('.swiper-slide').length;    
                 var mySwiper = new Swiper(".main-visual .swiper-container", {
                     slidesPerView: "auto",
+                    autoplay: {
+                        delay: 5000,
+                        disableOnInteraction: false,
+                    },
                     spaceBetween: 40,
                     loop:true,
                     centeredSlides: true,
