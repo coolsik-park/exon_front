@@ -26,7 +26,6 @@
         position: relative;
     }
     .sect1 .photo img {
-        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
@@ -105,6 +104,34 @@
             bottom: 90px;
         }
     }
+    .apply-sect3-cont p{
+        word-wrap:break-word;
+    }
+    .conts {
+        text-align: center;
+    }
+    .product-title {
+        text-align:center;
+        display:table;
+        width: 380px;
+        height:214px;
+    }
+    .product-img-div {
+    display:table-cell;
+    vertical-align:middle;
+    }
+    .product-img {
+        max-width:380px;
+        max-height:214px;
+    }
+    @media  screen and (max-width: 768px) {
+        .product-title {
+        text-align:center;
+        display:table;
+        width:100%;
+        height:214px;
+        }
+    }
 </style>
 
 
@@ -141,13 +168,15 @@
                 
                 <div class="sect1">
                     <div class="sect1-col1">
-                        <div class="photo">
+                    <div class="product-title">
+                        <div class="product-img-div photo" style="overflow: hidden;">
                             <?php if ($exhibition->image_path != '') : ?>
-                            <label for="image"><img img id="mainImg" src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>" style="width:380px height:214px"></p>
+                            <label id="photos" class="conts" for="image"><img class="product-img mainImg" src="<?= DS . $exhibition->image_path . DS . $exhibition->image_name ?>"></p>
                             <?php else : ?>
-                            <label for="image"><img id="mainImg" src="../../images/img-no3.png" alt="이미지없음" style=" height:214px"></p>
+                            <label id="photos" class="conts" style="overflow: hidden;"for="image"><img class="noImg" src="../../images/img-no3.png" alt="이미지없음" style="visibility: visible; height: 100%; width: 100%;"></p>
                             <?php endif; ?>
-                        </div> 
+                        </div>
+                        </div>
                         <p class="p-noti">클릭하여 이미지를 변경하세요.</p>
                         <input type="file" id="image" name="image" style="display:none">
                     </div>
@@ -378,7 +407,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" />
 
-<script>   
+<script>
     //방송 송출 시작 이후 행사명 변경 불가 처리
     var live_duration = "<?=$live_duration?>";
     if (live_duration != 0) {
@@ -602,14 +631,13 @@
         str = String(str);
         return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
     }
-    
+
     //메인 이미지 삽입 
     $("#image").change(function() {
         var formData = new FormData();
         var image = document.getElementById("image").files;
         formData.append('image', image[0]);
         formData.append('action', 'image');
-        
         jQuery.ajax({
             url: '/exhibition/add/',
             processData: false,
@@ -619,7 +647,7 @@
             type: 'POST',
         }).done(function (data) {
             if (data.status == 'success') {
-                $("#mainImg").attr("src", "/" + data.path + "/" + data.imgName);
+                $(".mainImg").attr("src", "/" + data.path + "/" + data.imgName);
             } else {
                 alert('이미지 등록에 실패하였습니다.\n잠시 후 다시 시도해 주세요.');
             }

@@ -62,26 +62,52 @@
     }
     .photos img {
         position: absolute;
-        visibility: hidden;
     }
     .apply-sect3-cont p{
         word-wrap:break-word;
     }
-    .height {
-        height: 300px;
+    .product-title {
+        text-align:center;
+        display:table;
+        width:320px;
+        height:240px;
     }
-    .conts {
-        text-align: center;
+    .product-img-div {
+    display:table-cell;
+    vertical-align:middle;
+    }
+    .product-img {
+        max-width:320px;
+        max-height:240px;
     }
     @media  screen and (max-width: 768px) {
         .photos img {
             position: absolute;
             margin-left: 0px;
             width: 100%;
-        
         }  
         .apply-sect1-cont .photos {
             max-height: 40%;
+        }
+        .product-title {
+            text-align:center;
+            display:table;
+            width:180px;
+            height:180px;
+        }
+        .product-img {
+            max-width:180px;
+            max-height:180px;
+            margin-left: 12px;
+        }
+        .noImg {
+            max-width:180px;
+            max-height:180px;
+            margin-left: 12px;
+        }
+        .searchBox {
+            display: block;
+            border: 1px solid #cecece;
         }
     }
     @media  screen and (min-width: 768px) {
@@ -94,6 +120,9 @@
         }
         #photos{
             max-width: 38%;
+        }
+        .tr-row {
+            margin-left: 20px;
         }
     }
 </style>
@@ -155,13 +184,16 @@
             </ul>
             <br>
             <?php foreach ($exhibitions as $exhibition) : ?>
+                
             <div class="searchBox" id="<?=$exhibition["id"]?>">
-                <div id="photos" class="conts height photo" style="overflow: hidden; height:220px; width:320px; ">
-                        <?php if ($exhibition["image_path"] == null) : ?>
-                        <img src="../../images/img-no.png"style="visibility: visible; height:220px; width:220px;" >
+            <div class="product-title">
+                <div class="product-img-div photo" style="overflow: hidden;">
+                        <?php if ($exhibition["image_path"] != '') : ?>
+                        <img class="product-img" src="/<?=$exhibition["image_path"]?>/<?=$exhibition["image_name"]?>">
                         <?php else : ?>
-                        <img id="photosImg" src="/<?=$exhibition["image_path"]?>/<?=$exhibition["image_name"]?>"   >
+                        <img class="noImg"src="../../images/img-no.png"style="visibility: visible; height:100%; width:100%;" >
                         <?php endif; ?>
+                </div>
                 </div>
                 <div class="tr-row">
                     <div class="td-col col1">
@@ -190,6 +222,8 @@
                     </div>
                 </div>
             </div>
+
+            
             <?php endforeach; ?>
             <div class="paginator">
                 <ul class="pagination">
@@ -204,26 +238,6 @@
 </div>
 
 <script>
-    var div = document.getElementById('photos');
-        var img = document.getElementById('photosImg');
-        var divAspect = 220 / 320;
-        var imgAspect = img.height / img.width;
-
-        if (imgAspect <= divAspect) {
-            // 이미지가 div보다 납작한 경우 세로를 div에 맞추고 가로는 잘라낸다
-            var imgWidthActual = div.offsetHeight / imgAspect;
-            var imgWidthToBe = div.offsetHeight / divAspect;
-            var marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2);
-            // $('#photosImg').addClass('cutImgX');
-            img.style.cssText = ' width: 100%; height: auto; margin-left: 0px;visibility: visible;';
-        } else {
-            // 이미지가 div보다 길쭉한 경우 가로를 div에 맞추고 세로를 잘라낸다
-            var imgWidthActual = div.offsetHeight / imgAspect;
-            var imgWidthToBe = div.offsetHeight / divAspect;
-            var marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2);
-            // $('#photosImg').addClass('cutImgY');
-            img.style.cssText = ' width: auto; height: 100%; margin-left: 0px;visibility: visible;'
-        }
         
     $(document).on("click", ".searchBox", function () {
         var id = $(this).attr("id");

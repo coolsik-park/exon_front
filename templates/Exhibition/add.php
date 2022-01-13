@@ -35,7 +35,6 @@
         position: relative;
     }
     .sect1 .photo img {
-        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
@@ -78,6 +77,39 @@
             bottom: 90px;
         }
     }
+    .apply-sect3-cont p{
+        word-wrap:break-word;
+    }
+    .conts {
+        text-align: center;
+    }
+    .product-title {
+        text-align:center;
+        display:table;
+        width: 380px;
+        height:214px;
+    }
+    .product-img-div {
+        display:table-cell;
+        vertical-align:middle;
+    }
+    .product-img {
+        max-width:380px;
+        max-height:214px;
+    }
+    @media  screen and (max-width: 768px) {
+        .product-title {
+            text-align:center;
+            display:table;
+            width:100%;
+            height:214px;
+        }
+    }
+    @media  screen and (min-width: 768px) {
+        .apply-sect1-cont .photos{
+            max-width: 38%;
+        }
+    }
 </style>
 
 <?= $this->Form->create($exhibition, ['id' => 'createForm', 'enctype' => 'multipart/form-data', 'autocomplete' => 'autocomplete_off_randString'])?>
@@ -96,8 +128,12 @@
                 
                 <div class="sect1">
                     <div class="sect1-col1">
-                        <div class="photo"><label for="image"><img id="mainImg" src="../images/img-no3.png" alt="이미지없음" style="height:214px"></div> 
-                        <input type="file" id="image" name="image" style="display:none">
+                        <div class="product-title">
+                            <div class="product-img-div photo" style="overflow: hidden;">
+                                <label class="conts" style="overflow: hidden;"for="image"><img class="product-img mainImg" src="../images/img-no3.png" alt="이미지없음" >
+                                <input type="file" id="image" name="image" style="display:none">
+                            </div>
+                        </div>
                         <p class="p-noti">클릭하여 이미지를 등록하세요.</p>
                     </div>
                     <div class="sect1-col2">
@@ -371,7 +407,7 @@
             type: 'POST',
         }).done(function (data) {
             if (data.status == 'success') {
-                $("#mainImg").attr("src", "/" + data.path + "/" + data.imgName);
+                $(".mainImg").attr("src", "/" + data.path + "/" + data.imgName);
             } else {
                 alert('이미지 등록에 실패하였습니다. 잠시 후 다시 시도해 주세요.');
             }
@@ -1038,5 +1074,4 @@
             $("#type_noti_"+id).html("사전설문으로 설정하시면 행사 신청 때 참가자분들이 설문에 참여할 수 있습니다.");
         }
     });
-
 </script>  

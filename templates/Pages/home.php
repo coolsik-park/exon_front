@@ -1,3 +1,29 @@
+<style>
+    .product-title {
+        text-align:center;
+        display:table;
+        width:280px;
+        height:155px;
+    }
+    .product-img-div {
+        display:table-cell;
+        vertical-align:middle;
+    }
+    .product-img {
+        max-width:280px;
+        max-height:155px;
+    }
+    .product-title2 {
+        text-align:center;
+        display:table;
+        width:580px;
+        height:292px;
+    }
+    .product-img2 {
+        max-width:580px;
+        max-height:292px;
+    }
+</style>
 
 <div id="container">
         <div class="main">
@@ -26,8 +52,10 @@
                     <h2 class="h-ty1"><span class="t1">Top 10</span><span class="t2">지금 핫한 행사 10</span></h2>
                     <div class="main-sect2-hot-item">
                         <a href="/exhibition/view/<?php echo $hot[0]['exhibition_id']; ?>" class="main-sd-item">
-                            <div class="imgs">
-                                <img style="width:580px; height:292px;" src="<?php echo DS . $hot[0]['img_path'] .DS. $hot[0]['img_name'];?>" alt="">
+                        <div class="product-title2">
+                            <div class="product-img-div" style="overflow: hidden;">
+                        <img class="product-img2" style="width:580px; height:292px;" src="<?php echo DS . $hot[0]['img_path'] .DS. $hot[0]['img_name'];?>" alt="">
+                            </div>
                             </div>
                         </a>
                         <div class="desc">
@@ -58,7 +86,7 @@
                                 <?php if($index): ?>
                                     <div class="swiper-slide">
                                         <a href="/exhibition/view/<?php echo $list['exhibition_id']; ?>" class="main-sd-item">
-                                            <div class="imgs"><img style="width:280px; height:155px;" src="<?php echo DS . $list['img_path'] .DS. $list['img_name'];?>" alt=""></div>
+                                            <div class="product-title"><div class="product-img-div" style="overflow: hidden;"><img class="product-img" src="<?php echo DS . $list['img_path'] .DS. $list['img_name'];?>" alt=""></div></div>
                                             <div class="desc">
                                                 <div class="info">
                                                     <span class="state">
@@ -115,7 +143,11 @@
                                     <div class="swiper-slide">
                                         <div class="main-sd-item">
                                             <a href="/exhibition/view/<?php echo $list['exhibition_id']; ?>">
-                                            <div class="imgs"><img style="width:280px; height:155px;" src="<?php echo DS . $list['img_path'] .DS. $list['img_name'];?>" alt=""></div>
+                                            <div class="product-title">
+                                                <div class="product-img-div" style="overflow: hidden;">
+                                                    <img class="product-img" src="<?php echo DS . $list['img_path'] .DS. $list['img_name'];?>" alt="">
+                                                </div>
+                                            </div>
                                             <div class="desc">
                                                 <div class="info">
                                                     <span class="state">
@@ -159,7 +191,11 @@
                                     <div class="swiper-slide">
                                         <div class="main-sd-item">
                                             <a href="/exhibition/view/<?php echo $list['exhibition_id']; ?>">
-                                            <div class="imgs"><img style="width:280px; height:155px;" src="<?php echo DS . $list['img_path'] .DS. $list['img_name'];?>" alt=""></div>
+                                            <div class="product-title">
+                                                <div class="product-img-div" style="overflow: hidden;">
+                                                    <img class="product-img" src="<?php echo DS . $list['img_path'] .DS. $list['img_name'];?>" alt="">
+                                                </div>
+                                            </div>
                                             <div class="desc">
                                                 <div class="info">
                                                     <span class="state">
