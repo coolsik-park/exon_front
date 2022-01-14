@@ -64,7 +64,7 @@
             <div class="table-type table-type2" id="table-type table-type2">  
                 <?php 
                     foreach ($exhibitions as $key => $exhibition): 
-                        $today = strtotime(date('Y-m-d H:i:s', time()));
+                        $today = strtotime(date('Y-m-d H:i:s', time() + 32400));
                         $sdate = strtotime($exhibition->sdate);
                         $edate = strtotime($exhibition->edate);
                         $apply_edate = strtotime($exhibition->apply_edate);
