@@ -49,6 +49,9 @@
             .btn-ty2.bor {
                 margin: 16px 0px 0px 0px;
             }
+            .stream-sect .row2-wp .row2 + .row2 .col-th {
+                margin-bottom: 155px;
+            }
         }
     </style>
 </head>
