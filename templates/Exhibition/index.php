@@ -243,10 +243,10 @@
                         </div>                      
                         <div class="td-col col5">                           
                             <div class="con">
-                                <?php if ($exhibition->status != 4 && $edate > $today) : ?>
+                                <?php if ($exhibition->status != 4) : ?>
                                     <p><button type="button" id="urlCopy<?=$exhibition->id?>" name="urlCopy" class="btn-ty3 bor">URL 복사</button></p>
                                 <?php else : ?>
-                                <p class="btn-ty3 gray">URL 복사</p>
+                                    <p class="btn-ty3 gray">URL 복사</p>
                                 <?php endif; ?>    
                                 <p><a href="/exhibition/edit/<?= $exhibition->id ?>" class="btn-ty3 bor" id="exhibitionEdit">행사 관리</a></p>
                                 <div class="tg-btns">
