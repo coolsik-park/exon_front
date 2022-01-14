@@ -270,10 +270,12 @@
     });
 
     var timeCheck;
-    var timeCheckBeforeTen
+    var timeCheckBeforeTen;
 
     timeCheck = setInterval("liveTimeCheck()", 1000);
     timeCheckBeforeTen = setInterval("liveTimeCheckBeforeTen()", 1000);
+    var is_timeCheck = 1;
+    var is_timeCheckBeforeTen = 1;
 
     //OBS방송 중 체크
     $(document).ready(function () {
@@ -294,15 +296,6 @@
     });
 
     //방송 종료시간 컨트롤
-    function setLiveDuration () {
-        var exhibition_stream_id = "<?=$exhibitionStream->id?>";
-        jQuery.ajax({
-            url: "/exhibition-stream/set-live-duration/" + exhibition_stream_id, 
-            method: 'POST',
-            type: 'json',
-        });
-    }
-
     function liveTimeCheck () {
         var exhibition_stream_id = "<?=$exhibitionStream->id?>";
         jQuery.ajax({
@@ -311,8 +304,10 @@
             type: 'json',
             success: function (data) {
                 if (data.time <= data.live_duration) {
-                    // clearInterval(setDuration);
                     clearInterval(timeCheck);
+                    clearInterval(timeCheckBeforeTen);
+                    is_timeCheck = 0;
+                    is_timeCheckBeforeTen = 0; 
                     liveEnd();
                     alert("서비스 시간 만료로 방송이 종료되었습니다.");
                 }
@@ -328,7 +323,8 @@
             type: 'json',
             success: function (data) {
                 if (data.time - data.live_duration == 600) {
-                clearInterval(timeCheckBeforeTen);    
+                clearInterval(timeCheckBeforeTen);
+                is_timeCheckBeforeTen = 0;     
                 confirm("결제하신 방송 서비스 시간이 10분 남았습니다.\n10분 후 방송이 자동 종료됩니다. \n추가 결제가 필요하신 경우 결제를 클릭해주세요.");
                 }
             }
@@ -361,9 +357,13 @@
                         player.load();
                         player.play();
 
-                        timeCheck = setInterval("liveTimeCheck()", 1000);
-                        timeCheckBeforeTen = setInterval("liveTimeCheckBeforeTen()", 1000);
+                        if (is_timeCheck == 0) {
+                            timeCheck = setInterval("liveTimeCheck()", 1000);
+                        }
+                        if (is_timeCheckBeforeTen == 0) {
+                            timeCheckBeforeTen = setInterval("liveTimeCheckBeforeTen()", 1000);
 
+                        }
                         $("#liveButtons").children().remove();
                         $("#liveButtons").append('<button id="end" type="button" class="btn-ty4 gray">방송종료</button>');
                     
@@ -379,6 +379,8 @@
     });
 
     $(document).on("click", "#end", function () {
+        clearInterval(timeCheck);
+        clearInterval(timeCheckBeforeTen); 
         liveEnd();
         alert("저장된 VOD는 인코딩이 완료된 후 마이페이지>개설행사관리 페이지에서 다운로드 받으실 수 있습니다.");
     });
@@ -386,6 +388,8 @@
     function liveEnd () {
         clearInterval(timeCheck);
         clearInterval(timeCheckBeforeTen); 
+        is_timeCheck = 0;
+        is_timeCheckBeforeTen = 0; 
 
         var obj = new Object();
         obj.stream_key = stream_key;
