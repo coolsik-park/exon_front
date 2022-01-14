@@ -29,7 +29,7 @@
         }
         @media  screen and (max-width: 768px) {
             .stream-sect .row2-wp .row2 {
-                width: 100%;
+                width: 99%;
             }
             .pay {
                 width: 100%;
@@ -124,8 +124,8 @@
                                     <input type="text" id="amount" name="amount" value="0" readonly>
                                     <input type="hidden" id="is_paid"> 
                                     <input type="hidden" id="pay_id" name="pay_id">
-                                    <button type="button" id="payment-card" class="btn-ty2 bor pay" style="width: 272px;">결제(카드 결제)</button>
-                                    <button type="button" id="payment-trans" class="btn-ty2 bor pay" style="width: 272px;">결제(계좌 이체)</button>
+                                    <button type="button" id="payment-card" class="btn-ty2 bor pay" style="width: 100%;">결제(카드 결제)</button>
+                                    <button type="button" id="payment-trans" class="btn-ty2 bor pay" style="width: 100%;">결제(계좌 이체)</button>
                                 </div>                    
                             </div>
                         </div>

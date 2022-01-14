@@ -38,7 +38,7 @@
         }
         @media  screen and (max-width: 768px) {
             .stream-sect .row2-wp .row2 {
-                width: 100%;
+                width: 99%;
             }
             .payDiv {
                 width: 100%;
@@ -53,6 +53,10 @@
                 margin-bottom: 155px;
             }
             .stream-ipt1 {
+                align-items: flex-end;
+            }
+            .stream-ipt3 {
+                flex-direction: column;
                 align-items: flex-end;
             }
         }
@@ -146,8 +150,8 @@
                                 <div class="stream-ipt1">
                                     <input type="text" id="amount" name="amount" value="0" readonly>
                                     <input type="hidden" id="is_paid" value="1">
-                                    <button type="button" id="payment-card" class="btn-ty2 bor pay" style="width: 272px;">결제(카드 결제)</button>
-                                    <button type="button" id="payment-trans" class="btn-ty2 bor pay" style="width: 272px;">결제(계좌 이체)</button>
+                                    <button type="button" id="payment-card" class="btn-ty2 bor pay" style="width: 100%;">결제(카드 결제)</button>
+                                    <button type="button" id="payment-trans" class="btn-ty2 bor pay" style="width: 100%;">결제(계좌 이체)</button>
                                 </div>                    
                             </div>
                         </div>
