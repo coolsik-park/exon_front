@@ -46,6 +46,9 @@
             .stream-sect .row2-wp .row2 + .row2 .col-th {
                 margin-bottom: 155px;
             }
+            .btnDiv {
+                align-items: flex-end;
+            }
         }
     </style>
 
@@ -117,12 +120,12 @@
                         <div class="row2 payDiv">
                             <div class="col-th">금액</div>
                             <div class="col-td">
-                                <div class="stream-ipt1">
+                                <div class="stream-ipt1 btnDiv">
                                     <input type="text" id="amount" name="amount" value="0" readonly>
                                     <input type="hidden" id="is_paid"> 
                                     <input type="hidden" id="pay_id" name="pay_id">
-                                    <button type="button" id="payment-card" class="btn-ty2 bor pay" style="width: 255px;">결제(카드 결제)</button>
-                                    <button type="button" id="payment-trans" class="btn-ty2 bor pay" style="width: 255px;">결제(계좌 이체)</button>
+                                    <button type="button" id="payment-card" class="btn-ty2 bor pay" style="width: 272px;">결제(카드 결제)</button>
+                                    <button type="button" id="payment-trans" class="btn-ty2 bor pay" style="width: 272px;">결제(계좌 이체)</button>
                                 </div>                    
                             </div>
                         </div>
