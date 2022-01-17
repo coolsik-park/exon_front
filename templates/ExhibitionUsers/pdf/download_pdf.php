@@ -35,7 +35,7 @@
         </div>
         <div style="padding: 0 1.875rem 1.875rem;color: #000;">
             <div style="font-size: 1.250rem;line-height: 0.85;">
-                <h1 style="margin:0;padding:0;margin-bottom: 8px; font-size: 24px; font-weight: 300; line-height: 0.5;">증빙 영수증</h1>               
+                <h1 style="margin:0;padding:0;margin-bottom: 8px; font-size: 24px; font-weight: 400; line-height: 0.5;">증빙 영수증</h1>               
                 <p style="font-size: 12px;line-height: 1;color: #afafaf; margin-top: 20px;"><?=$category?></p>
                 <p style=" font-size: 20px;line-height: 0.2; margin-top: 0px; margin-bottom: 12px;"><?=$title?></p>                
                 <ul style="margin:0;padding:0;list-style: none;margin-top: 20px;">
