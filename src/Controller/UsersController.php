@@ -176,8 +176,12 @@ class UsersController extends AppController
         $Exhibition = $this->getTableLocator()->get('Exhibition');
         $exhibitions = $Exhibition->find('all')->where(['users_id' => $id])->toArray();
         if (!empty($exhibitions)) {
-            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'exist']));
-            return $response;
+            for ($i = 0; $i < count($exhibitions); $i++) {
+                if (strtotime($exhibitions[$i]['edate']->format('Y-m-d H:i:s')) > strtotime(date('Y-m-d H:i:s', time()+32400))) {
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'exist']));
+                    return $response;
+                }
+            }
         }
         if ($this->Users->delete($user)) {
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
