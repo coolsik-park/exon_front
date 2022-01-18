@@ -159,9 +159,9 @@ class UsersController extends AppController
             $connection->commit();
             $path = WWW_ROOT . $user->image_path;
             unlink($path . DS . $user->image_name);
-            if (file_exists($path)) {
-                rmdir($path);
-            }
+            // if (file_exists($path)) {
+            //     rmdir($path);
+            // }
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
         } else {
             $connection->rollback();
