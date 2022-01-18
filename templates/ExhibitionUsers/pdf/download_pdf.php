@@ -45,11 +45,11 @@
                     </li>
                     <li style="margin-bottom: 8px;">
                         <p style="margin:0;padding:0;font-size: 12px;line-height: 1.45;color: #afafaf;">신청일</p>
-                        <p style="margin:0;padding:0; font-size: 16px;"><?=$apply_date?></p>
+                        <p style="margin:0;padding:0; font-size: 16px;"><?=date('Y-m-d H:i:s A', strtotime($apply_date)+32400)?></p>
                     </li>
                     <li style="margin-bottom: 8px;">
                         <p style="margin:0;padding:0;font-size: 12px;line-height: 1.45;color: #afafaf;">행사 기간</p>
-                        <p style="margin:0;padding:0; font-size: 16px;"><?=$sdate?> ~ <?=$edate?></p>
+                        <p style="margin:0;padding:0; font-size: 16px;"><?=date('Y-m-d H:i:s A', strtotime($sdate)+32400)?> ~ <?=date('Y-m-d H:i:s A', strtotime($edate)+32400)?></p>
                     </li>
                 </ul>
                 <ul style="margin:0;padding:0;list-style: none;border-top: 1px solid #afafaf;">
