@@ -1,4 +1,27 @@
-
+<style>
+    .subBanner {
+        width:1180px; 
+        height:239.78px;
+    }
+    .main-sect2-hot-item .desc .h-ty2{
+        word-wrap:break-word;
+    }
+    .main-sd-item .h-ty3 {
+        word-wrap:break-word;
+    }
+    .swiper-button-next {
+        display: none;
+    }
+    .swiper-button-prev {
+        display: none;
+    }
+    @media  screen and (max-width: 768px) {
+        .subBanner {
+            width:375px; 
+            height:239.78px;
+        }
+    }
+</style>
 <div id="container">
         <div class="main">
             <div class="main-visual">                
@@ -92,11 +115,11 @@
                     <div class="main-slider3">
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide"><img style="width:1180px; height:239.78px;" src="/upload/exhibition/@bnr1.jpg" class="responsiveImg" data-media-web="/upload/exhibition/@bnr1.jpg" data-media-mobile="/upload/exhibition/@bnr1-mo.jpg" alt=""></div>
-                                <div class="swiper-slide"><img style="width:1180px; height:239.78px;" src="/upload/exhibition/@bnr1.jpg" class="responsiveImg" data-media-web="/upload/exhibition/@bnr1.jpg" data-media-mobile="/upload/exhibition/@bnr1-mo.jpg" alt=""></div>
-                                <div class="swiper-slide"><img style="width:1180px; height:239.78px;" src="/upload/exhibition/@bnr1.jpg" class="responsiveImg" data-media-web="/upload/exhibition/@bnr1.jpg" data-media-mobile="/upload/exhibition/@bnr1-mo.jpg" alt=""></div>
-                                <div class="swiper-slide"><img style="width:1180px; height:239.78px;" src="/upload/exhibition/@bnr1.jpg" class="responsiveImg" data-media-web="/upload/exhibition/@bnr1.jpg" data-media-mobile="/upload/exhibition/@bnr1-mo.jpg" alt=""></div>
-                                <div class="swiper-slide"><img style="width:1180px; height:239.78px;" src="/upload/exhibition/@bnr1.jpg" class="responsiveImg" data-media-web="/upload/exhibition/@bnr1.jpg" data-media-mobile="/upload/exhibition/@bnr1-mo.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="/upload/exhibition/@bnr1.jpg" class="responsiveImg subBanner" data-media-web="/upload/exhibition/@bnr1.jpg" data-media-mobile="/upload/exhibition/@bnr1-mo.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="/upload/exhibition/@bnr1.jpg" class="responsiveImg subBanner" data-media-web="/upload/exhibition/@bnr1.jpg" data-media-mobile="/upload/exhibition/@bnr1-mo.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="/upload/exhibition/@bnr1.jpg" class="responsiveImg subBanner" data-media-web="/upload/exhibition/@bnr1.jpg" data-media-mobile="/upload/exhibition/@bnr1-mo.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="/upload/exhibition/@bnr1.jpg" class="responsiveImg subBanner" data-media-web="/upload/exhibition/@bnr1.jpg" data-media-mobile="/upload/exhibition/@bnr1-mo.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="/upload/exhibition/@bnr1.jpg" class="responsiveImg subBanner" data-media-web="/upload/exhibition/@bnr1.jpg" data-media-mobile="/upload/exhibition/@bnr1-mo.jpg" alt=""></div>
                             </div>
                             <div class="swiper-pagination"></div>
                         </div>
@@ -116,7 +139,7 @@
                                         <div class="main-sd-item">
                                             <a href="/exhibition/view/<?php echo $list['exhibition_id']; ?>">
                                             <div class="imgs"><img style="width:280px; height:155px;" src="<?php echo DS . $list['img_path'] .DS. $list['img_name'];?>" alt=""></div>
-                                            <div class="desc">
+                                            <div class="desc" style="width: 271px;">
                                                 <div class="info">
                                                     <span class="state">
                                                     <?php 
@@ -160,7 +183,7 @@
                                         <div class="main-sd-item">
                                             <a href="/exhibition/view/<?php echo $list['exhibition_id']; ?>">
                                             <div class="imgs"><img style="width:280px; height:155px;" src="<?php echo DS . $list['img_path'] .DS. $list['img_name'];?>" alt=""></div>
-                                            <div class="desc">
+                                            <div class="desc" style="width: 271px;">
                                                 <div class="info">
                                                     <span class="state">
                                                     <?php 
@@ -193,3 +216,10 @@
             </div>       
         </div>
     </div>
+
+    <script>
+        $('.swiper-container').hover(function(){
+            $('.swiper-button-next').css("display","block");
+            $('.swiper-button-prev').css("display","block");
+        });
+    </script>

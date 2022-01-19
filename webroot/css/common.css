@@ -444,7 +444,7 @@ html,body{width:100%; height:100% }
  .main-slider2 .swiper-wrapper { margin-right:4vw; } 
  .main-slider2 .swiper-slide,
  .main-slider4 .swiper-slide,
- .main-slider5 .swiper-slide { width:37.33vw } 
+ .main-slider5 .swiper-slide { max-width: 285px; } 
  .main-sd-item .info .state { padding:0 2vw 0; font-size:0.75rem; border-radius: 1.6vw; } 
  .main-sd-item .info .date { margin-left: 0.93vw; } 
  .main-sect1 { margin-top:6.83vw } 
