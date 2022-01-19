@@ -23,7 +23,7 @@
             width:375px; 
             height:239.78px;
         }
-        ..main-slider3 .swiper-slide img {
+        .main-slider3 .swiper-slide img {
             height: auto;
         }
     }
@@ -232,5 +232,5 @@
         $('.swiper-container').mouseleave(function(){
             $('.swiper-button-next').removeClass('visible');
             $('.swiper-button-prev').removeClass('visible');
-        ]);
+        });
     </script>
