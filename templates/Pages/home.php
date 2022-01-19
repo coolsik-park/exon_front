@@ -115,20 +115,12 @@
                     <div class="main-slider3">
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
-<<<<<<< HEAD
-                                <div class="swiper-slide"><img src="/upload/exhibition/@bnr1.jpg" class="responsiveImg subBanner" data-media-web="/upload/exhibition/@bnr1.jpg" data-media-mobile="/upload/exhibition/@bnr1-mo.jpg" alt=""></div>
-                                <div class="swiper-slide"><img src="/upload/exhibition/@bnr1.jpg" class="responsiveImg subBanner" data-media-web="/upload/exhibition/@bnr1.jpg" data-media-mobile="/upload/exhibition/@bnr1-mo.jpg" alt=""></div>
-                                <div class="swiper-slide"><img src="/upload/exhibition/@bnr1.jpg" class="responsiveImg subBanner" data-media-web="/upload/exhibition/@bnr1.jpg" data-media-mobile="/upload/exhibition/@bnr1-mo.jpg" alt=""></div>
-                                <div class="swiper-slide"><img src="/upload/exhibition/@bnr1.jpg" class="responsiveImg subBanner" data-media-web="/upload/exhibition/@bnr1.jpg" data-media-mobile="/upload/exhibition/@bnr1-mo.jpg" alt=""></div>
-                                <div class="swiper-slide"><img src="/upload/exhibition/@bnr1.jpg" class="responsiveImg subBanner" data-media-web="/upload/exhibition/@bnr1.jpg" data-media-mobile="/upload/exhibition/@bnr1-mo.jpg" alt=""></div>
-=======
-                            <div class="swiper-slide"><img style="width:1180px; height:239.78px;" src="/upload/exhibition/1.jpg" class="responsiveImg" data-media-web="/upload/exhibition/1.jpg" data-media-mobile="/upload/exhibition/1.jpg" alt=""></div>
-                                <div class="swiper-slide"><img style="width:1180px; height:239.78px;" src="/upload/exhibition/2.jpg" class="responsiveImg" data-media-web="/upload/exhibition/2.jpg" data-media-mobile="/upload/exhibition/2.jpg" alt=""></div>
-                                <div class="swiper-slide"><img style="width:1180px; height:239.78px;" src="/upload/exhibition/3.jpg" class="responsiveImg" data-media-web="/upload/exhibition/3.jpg" data-media-mobile="/upload/exhibition/3.jpg" alt=""></div>
-                                <div class="swiper-slide"><img style="width:1180px; height:239.78px;" src="/upload/exhibition/4.jpg" class="responsiveImg" data-media-web="/upload/exhibition/4.jpg" data-media-mobile="/upload/exhibition/4.jpg" alt=""></div>
-                                <div class="swiper-slide"><img style="width:1180px; height:239.78px;" src="/upload/exhibition/5.jpg" class="responsiveImg" data-media-web="/upload/exhibition/5.jpg" data-media-mobile="/upload/exhibition/5.jpg" alt=""></div>
-                                <div class="swiper-slide"><img style="width:1180px; height:239.78px;" src="/upload/exhibition/6.jpg" class="responsiveImg" data-media-web="/upload/exhibition/6.jpg" data-media-mobile="/upload/exhibition/6.jpg" alt=""></div>
->>>>>>> d4293d19b0e1072a986eb5dab1114406cbd8d3a2
+                                <div class="swiper-slide"><img src="/upload/exhibition/1.jpg" class="responsiveImg subBanner" data-media-web="/upload/exhibition/1.jpg" data-media-mobile="/upload/exhibition/1.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="/upload/exhibition/2.jpg" class="responsiveImg subBanner" data-media-web="/upload/exhibition/2.jpg" data-media-mobile="/upload/exhibition/2.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="/upload/exhibition/3.jpg" class="responsiveImg subBanner" data-media-web="/upload/exhibition/3.jpg" data-media-mobile="/upload/exhibition/3.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="/upload/exhibition/4.jpg" class="responsiveImg subBanner" data-media-web="/upload/exhibition/4.jpg" data-media-mobile="/upload/exhibition/4.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="/upload/exhibition/5.jpg" class="responsiveImg subBanner" data-media-web="/upload/exhibition/5.jpg" data-media-mobile="/upload/exhibition/5.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="/upload/exhibition/6.jpg" class="responsiveImg subBanner" data-media-web="/upload/exhibition/6.jpg" data-media-mobile="/upload/exhibition/6.jpg" alt=""></div>
                             </div>
                             <div class="swiper-pagination"></div>
                         </div>
