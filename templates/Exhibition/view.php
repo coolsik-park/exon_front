@@ -262,7 +262,7 @@
                         <li>행사의 신청, 취소, 변경, 환불은 참여신청 기간 내에만 가능합니다.</li>
                         <li>신청한 행사의 신청, 취소, 변경, 환불은 신청내역에서 할 수 있습니다.</li>
                         <li>결제 완료된 행사는 환불 시 결제 수단과 환불 시점에 따라 수수료가 부과될 수 있습니다.</li>
-                        <li>신청 마감 이후의 신청 정보 취소, 변경, 환불은 행사 개설자에게 문의 부탁드립니다.</li>
+                        <li>신청 마감 이후의 신청 정보 취소, 변경, 환불은 행사 개설자에게 문의 부탁드립니다.</li>
                         <li>행사 그룹 설정, 정원 초과 여부에 따라 대기자로 선정될 수 있습니다.</li>
                         <li>EXON은 통신판매 중개자이며, 해당 행사의 개설자가 아닙니다. 행사 내용에 관한 사항은 개설자에게 문의 바랍니다.</li>
                     </ul>
@@ -307,7 +307,7 @@
         var scltop = $(window).scrollTop();	
         navBtn.each(function(){
             var btn = $(this);
-            if(scltop >= $(this.hash).offset().top - tabHeight - 26){
+            if(scltop >= $(this.hash).offset().top - tabHeight - 100){
                 btn.parent().addClass('active').siblings().removeClass('active');					
             }
         });
