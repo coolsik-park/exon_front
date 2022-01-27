@@ -32,9 +32,9 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                         <div class="col-dt"><em class="st">*</em>이메일 (아이디)</div>
                         <div class="col-dd">
                             <div class="col-email-wp">
-                                <input type="text" id="email" placeholder="이메일" title="이메일 (아이디)" autocomplete="off" readonly onclick="$(this).attr('readonly', false)" onblur="$(this).attr('readonly', true)">
+                                <input type="text" id="email" placeholder="이메일" title="이메일 (아이디)" autocomplete="off" readonly onclick="$(this).attr('readonly', false)" onfocus="$(this).attr('readonly', false)" onblur="$(this).attr('readonly', true)">
                                 <span class="sp">@</span>
-                                <input type="text" id="emailTail" list="list" onmousedown="value = '';" autocomplete="off" readonly onclick="$(this).attr('readonly', false)" onblur="$(this).attr('readonly', true)">
+                                <input type="text" id="emailTail" list="list" onmousedown="value = '';" autocomplete="off" readonly onclick="$(this).attr('readonly', false)" onfocus="$(this).attr('readonly', false)" onblur="$(this).attr('readonly', true)">
                                 <datalist id="list">
                                     <option value="naver.com" label="네이버">
                                     <option value="gmail.com" label="구글">
@@ -47,21 +47,21 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                     <div class="item-row">
                         <div class="col-dt"><em class="st">*</em>비밀번호</div>
                         <div class="col-dd">
-                            <input type="password" id="password" placeholder="최소 8자 이상" class="full" title="비밀번호" autocomplete="off" readonly onclick="$(this).attr('readonly', false)" onblur="$(this).attr('readonly', true)">
+                            <input type="password" id="password" placeholder="최소 8자 이상" class="full" title="비밀번호" autocomplete="off" readonly onclick="$(this).attr('readonly', false)" onfocus="$(this).attr('readonly', false)" onblur="$(this).attr('readonly', true)">
                             <p id="lengthNoti" class="noti hc1"></p>
                         </div>
                     </div>
                     <div class="item-row">
                         <div class="col-dt"><em class="st">*</em>비밀번호 확인</div>
                         <div class="col-dd">
-                            <input type="password" id="confirm" placeholder="최소 8자 이상" class="full" title="비밀번호 확인" autocomplete="off" readonly onclick="$(this).attr('readonly', false)" onblur="$(this).attr('readonly', true)">
+                            <input type="password" id="confirm" placeholder="최소 8자 이상" class="full" title="비밀번호 확인" autocomplete="off" readonly onclick="$(this).attr('readonly', false)" onfocus="$(this).attr('readonly', false)" onblur="$(this).attr('readonly', true)">
                             <p id="confirmNoti" class="noti hc1"></p>
                         </div>
                     </div>
                     <div class="item-row">
                         <div class="col-dt"><em class="st">*</em>이름</div>
                         <div class="col-dd">
-                            <input type="text" id="name" placeholder="최소 2자 이상" class="full" title="이름" autocomplete="off">
+                            <input type="text" id="name" placeholder="최소 2자 이상" class="full" title="이름" autocomplete="off" readonly onclick="$(this).attr('readonly', false)" onfocus="$(this).attr('readonly', false)" onblur="$(this).attr('readonly', true)">
                             <p id="nameNoti" class="noti hc1"></p>
                         </div>
                     </div>
@@ -72,7 +72,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                                 <select id="cellNumber">
                                     <option value="010">010</option>
                                 </select>
-                                <input type="text" id="cellNumber2" placeholder="'-' 없이 입력해 주세요" title="휴대전화 번호" autocomplete="off">
+                                <input type="text" id="cellNumber2" placeholder="'-' 없이 입력해 주세요" title="휴대전화 번호" autocomplete="off" readonly onclick="$(this).attr('readonly', false)" onfocus="$(this).attr('readonly', false)" onblur="$(this).attr('readonly', true)">
                             </div>
                             <p id="cellNoti" class="noti hc1"></p>
                         </div>
