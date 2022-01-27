@@ -1371,7 +1371,7 @@ class ExhibitionController extends AppController
                 }
 
                 $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
-                $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id, 'users_id IS NOT' => null])->toArray();
+                $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id, 'users_id IS NOT' => null, 'status IS NOT' => 8])->toArray();
                 $rowCount = count($exhibitionUsers);
 
                 $ExhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey');
