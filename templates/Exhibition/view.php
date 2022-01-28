@@ -9,7 +9,7 @@
         position: absolute;
         visibility: hidden;
     }
-    .apply-sect3-cont p{
+    .apply-sect1-cont .conts h3{
         word-wrap:break-word;
     }
     .height {

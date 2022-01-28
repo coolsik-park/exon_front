@@ -67,7 +67,7 @@
         }
     })(ui);
    
-        
+    
     ui.slider = (function(_){
         return {
             mainVisual :function(){                
@@ -78,7 +78,7 @@
                         delay: 5000,
                         disableOnInteraction: false,
                     },
-                    spaceBetween: 40,
+                    spaceBetween: 150,
                     loop:true,
                     centeredSlides: true,
                     navigation: {
