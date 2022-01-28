@@ -940,6 +940,13 @@ class ExhibitionController extends AppController
         $exhibition_user = $exhibition_users_table->get($id);
 
         if($connection->update('exhibition_users', ['status' => '8'], ['id' => $id])) {
+
+            if (!$connection->delete('exhibition_survey_users_answer', ['users_id' => $id])) {
+                $connection->rollback();
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                return $response;
+            }
+            
             if ($pay_id != '') {
                 $Pay = $this->getTableLocator()->get('Pay');
                 $pay = $Pay->get($pay_id);

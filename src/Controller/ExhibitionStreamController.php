@@ -517,7 +517,7 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('groupedSurveys', 'id'));
     }
 
-    public function answerSurvey($id = null)
+    public function answerSurvey($id = null, $exhibition_users_id)
     {
         $ExhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey');
         $exhibitionSurveys = $ExhibitionSurvey->find('all', ['contain' => 'ChildExhibitionSurvey'])->where(['exhibition_id' => $id, 'parent_id IS' => null, 'is_display' => 'Y'])->toArray();
@@ -564,16 +564,16 @@ class ExhibitionStreamController extends AppController
                 $i = 0;
                 $parentId = 0;
                 $whereId = 0;
-                $users_id = null;
-                if (!empty($this->Auth->user())) {
-                    $users_id = $this->Auth->user('id');
-                }
+                // $users_id = null;
+                // if (!empty($this->Auth->user())) {
+                //     $users_id = $this->Auth->user('id');
+                // }
 
                 foreach ($exhibitionSurveys as $exhibitionSurvey) {
 
                     if (!$result = $connection->insert('exhibition_survey_users_answer', [
                         'exhibition_survey_id' => $exhibitionSurvey['id'],
-                        'users_id' => $users_id,
+                        'users_id' => $exhibition_users_id,
                         'text' => $answerData['exhibition_survey_users_answer_'. $i .'_text'],
                         'is_multiple' => $exhibitionSurvey['is_multiple']
                     ])) {
