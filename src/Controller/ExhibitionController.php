@@ -1378,7 +1378,7 @@ class ExhibitionController extends AppController
                 }
 
                 $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
-                $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id, 'users_id IS NOT' => null, 'status IS NOT' => 8])->toArray();
+                $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id, 'status IS NOT' => 8])->toArray();
                 $rowCount = count($exhibitionUsers);
 
                 $ExhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey');
@@ -1410,7 +1410,7 @@ class ExhibitionController extends AppController
                                 'text IS NOT' => ''
                             ]
                         ]
-                    ])->where(['users_id' => $exhibitionUsers[$i]['users_id']])->toArray();
+                    ])->where(['users_id' => $exhibitionUsers[$i]['id']])->toArray();
                     
                     $answerCount = count($exhibitionSurveyUsersAnswer);
                     
@@ -1453,7 +1453,7 @@ class ExhibitionController extends AppController
                     }
                     
                     $answerData[$i] = [ 
-                        'users_id' => $exhibitionUsers[$i]['users_id'],
+                        'users_id' => $exhibitionUsers[$i]['id'],
                         'answered' => $answered 
                     ];
                 }
