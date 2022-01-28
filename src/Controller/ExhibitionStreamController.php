@@ -529,12 +529,7 @@ class ExhibitionStreamController extends AppController
             $c_surveys[$i] = $currentSurveys[$i]['id'];
         }
 
-        if (!empty($this->Auth->user())) {
-            $u_id = $this->Auth->user('id');
-            $exhibitionSurveyUsersAnswer = $ExhibitionSurveyUsersAnswer->find('all')->where(['exhibition_survey_id IN' => $c_surveys, 'users_id' => $u_id])->toArray();
-        } else {
-            $exhibitionSurveyUsersAnswer = [];
-        }
+        $exhibitionSurveyUsersAnswer = $ExhibitionSurveyUsersAnswer->find('all')->where(['exhibition_survey_id IN' => $c_surveys, 'users_id' => $exhibition_users_id])->toArray();
         $update = 0;
         if ($exhibitionSurveyUsersAnswer == []) {
             $update = 0;
@@ -604,7 +599,7 @@ class ExhibitionStreamController extends AppController
             }
         }
 
-        $this->set(compact('exhibitionSurveys', 'exhibitionSurveyUsersAnswer', 'id', 'update'));
+        $this->set(compact('exhibitionSurveys', 'exhibitionSurveyUsersAnswer', 'id', 'update', 'exhibition_users_id'));
     }
 
     public function notice($id = null) {
