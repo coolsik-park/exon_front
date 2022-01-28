@@ -56,12 +56,12 @@ class ExhibitionController extends AppController
     public function index($type = null)
     {
         date_default_timezone_set('Asia/Seoul');
-        $today = date("Y-m-d, H:i:s", time());
+        $today = date('Y-m-d H:i:s', time());
 
         $this->paginate = ['limit' => 10];
 
         if ($type == 'all') {
-            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id')])->order(['Exhibition.created' => 'DESC']))->toArray();
+            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.edate >=' => $today])->order(['Exhibition.created' => 'DESC']))->toArray();
         } elseif ($type == 'ongoing') {
             $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.status !=' => 4, 'Exhibition.sdate <=' => $today, 'Exhibition.edate >=' => $today])->order(['Exhibition.created' => 'DESC']))->toArray();
         } elseif ($type == 'temp') {
@@ -1371,7 +1371,7 @@ class ExhibitionController extends AppController
                 }
 
                 $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
-                $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id, 'users_id IS NOT' => null])->toArray();
+                $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id, 'users_id IS NOT' => null, 'status IS NOT' => 8])->toArray();
                 $rowCount = count($exhibitionUsers);
 
                 $ExhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey');
