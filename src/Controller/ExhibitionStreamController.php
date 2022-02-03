@@ -798,6 +798,10 @@ class ExhibitionStreamController extends AppController
         if ($this->Auth->user('id') != $users_id) {
             $this->redirect(['controller' => 'pages', 'action' => 'home']);
         }
+        $edate = $this->getTableLocator()->get('Exhibition')->find('all')->where(['id' => $exhibition_id])->toArray()[0]['edate'];
+        if (strtotime($edate->format('Y-m-d H:i:s')) < strtotime(date('Y-m-d H:i:s', time()+32400))) {
+            echo "<script>alert('종료된 행사입니다.');history.go(-1);</script>";
+        }
 
         $stream_id = $this->ExhibitionStream->find()->select(['id'])->where(['exhibition_id' => $exhibition_id])->toArray()[0]->id;
         $exhibitionStream = $this->ExhibitionStream->get($stream_id);
