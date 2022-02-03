@@ -129,7 +129,7 @@
                                 if ($amount == 0) {
                                     echo "무료";
                                 } else {
-                                    echo $amount;
+                                    echo number_format($amount);
                                 }
                             else :
                                 echo '무료';
@@ -677,16 +677,17 @@
                                 }).done(function(data) {
                                     if (data.status == 'success') {
                                         if (today > apply_edate) {
-                                            var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount;
+                                            var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount.toLocaleString();
                                             msg += '\n모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.';
 
                                             alert(msg);
                                         } else {
-                                            var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount;
+                                            var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount.toLocaleString();
                                             msg += '\n신청이 완료되었습니다.';
 
                                             alert(msg);
                                         }
+                                        window.location.replace("/exhibition/view/<?=$id?>");
                                     }
                                 });
                             } 
