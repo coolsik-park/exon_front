@@ -750,14 +750,14 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
             result.push('true');
         }
         
-        if (!getName.test($("#name").val())) {
-            $('#nameNoti').html('이름을 올바르게 입력해 주세요.');
-            $('#name').focus();
-            result.push('false');
-        } else {
-            $('#nameNoti').html('');
-            result.push('true');
-        }
+        // if (!getName.test($("#name").val())) {
+        //     $('#nameNoti').html('이름을 올바르게 입력해 주세요.');
+        //     $('#name').focus();
+        //     result.push('false');
+        // } else {
+        //     $('#nameNoti').html('');
+        //     result.push('true');
+        // }
 
         if (!result.includes('false')) {
             $.ajax({

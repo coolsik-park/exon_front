@@ -96,7 +96,7 @@ class ExhibitionUsersController extends AppController
                 return $response;
             }
             
-            if ($this->ExhibitionUsers->save($exhibitionUser)) {
+            if ($exhibition_user = $this->ExhibitionUsers->save($exhibitionUser)) {
                 //회사 직함 저장
                 if ($this->Auth->user() != null) {
                     
@@ -114,17 +114,17 @@ class ExhibitionUsersController extends AppController
                 $parentId = 0;
                 $whereId = 0;
                 
-                if ($this->Auth->user() != null) {
-                    $user_id = $this->Auth->user('id');
-                } else {
-                    $user_id = null;
-                }
+                // if ($this->Auth->user() != null) {
+                //     $user_id = $this->Auth->user('id');
+                // } else {
+                //     $user_id = null;
+                // }
                 
                 foreach ($exhibitionSurveys as $exhibitionSurvey) {
                         
                     if (!$result = $connection->insert('exhibition_survey_users_answer', [
                         'exhibition_survey_id' => $exhibitionSurvey['id'],
-                        'users_id' => $user_id,
+                        'users_id' => $exhibition_user->id,
                         'text' => $answerData['exhibition_survey_users_answer_'. $i .'_text'],
                         'is_multiple' => $exhibitionSurvey['is_multiple']
                     ])) {
@@ -396,6 +396,12 @@ class ExhibitionUsersController extends AppController
         $exhibition_user = $this->ExhibitionUsers->get($id);
 
         if($connection->update('exhibition_users', ['status' => '8'], ['id' => $id])) {
+
+            if (!$connection->delete('exhibition_survey_users_answer', ['users_id' => $id])) {
+                $connection->rollback();
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                return $response;
+            }
 
             if ($pay_id != '') {
 

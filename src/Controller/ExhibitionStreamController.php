@@ -517,7 +517,7 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('groupedSurveys', 'id'));
     }
 
-    public function answerSurvey($id = null)
+    public function answerSurvey($id = null, $exhibition_users_id)
     {
         $ExhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey');
         $exhibitionSurveys = $ExhibitionSurvey->find('all', ['contain' => 'ChildExhibitionSurvey'])->where(['exhibition_id' => $id, 'parent_id IS' => null, 'is_display' => 'Y'])->toArray();
@@ -529,12 +529,7 @@ class ExhibitionStreamController extends AppController
             $c_surveys[$i] = $currentSurveys[$i]['id'];
         }
 
-        if (!empty($this->Auth->user())) {
-            $u_id = $this->Auth->user('id');
-            $exhibitionSurveyUsersAnswer = $ExhibitionSurveyUsersAnswer->find('all')->where(['exhibition_survey_id IN' => $c_surveys, 'users_id' => $u_id])->toArray();
-        } else {
-            $exhibitionSurveyUsersAnswer = [];
-        }
+        $exhibitionSurveyUsersAnswer = $ExhibitionSurveyUsersAnswer->find('all')->where(['exhibition_survey_id IN' => $c_surveys, 'users_id' => $exhibition_users_id])->toArray();
         $update = 0;
         if ($exhibitionSurveyUsersAnswer == []) {
             $update = 0;
@@ -564,16 +559,16 @@ class ExhibitionStreamController extends AppController
                 $i = 0;
                 $parentId = 0;
                 $whereId = 0;
-                $users_id = null;
-                if (!empty($this->Auth->user())) {
-                    $users_id = $this->Auth->user('id');
-                }
+                // $users_id = null;
+                // if (!empty($this->Auth->user())) {
+                //     $users_id = $this->Auth->user('id');
+                // }
 
                 foreach ($exhibitionSurveys as $exhibitionSurvey) {
 
                     if (!$result = $connection->insert('exhibition_survey_users_answer', [
                         'exhibition_survey_id' => $exhibitionSurvey['id'],
-                        'users_id' => $users_id,
+                        'users_id' => $exhibition_users_id,
                         'text' => $answerData['exhibition_survey_users_answer_'. $i .'_text'],
                         'is_multiple' => $exhibitionSurvey['is_multiple']
                     ])) {
@@ -604,7 +599,7 @@ class ExhibitionStreamController extends AppController
             }
         }
 
-        $this->set(compact('exhibitionSurveys', 'exhibitionSurveyUsersAnswer', 'id', 'update'));
+        $this->set(compact('exhibitionSurveys', 'exhibitionSurveyUsersAnswer', 'id', 'update', 'exhibition_users_id'));
     }
 
     public function notice($id = null) {
@@ -802,6 +797,10 @@ class ExhibitionStreamController extends AppController
         $users_id = $this->getTableLocator()->get('Exhibition')->get($exhibition_id)->users_id;
         if ($this->Auth->user('id') != $users_id) {
             $this->redirect(['controller' => 'pages', 'action' => 'home']);
+        }
+        $edate = $this->getTableLocator()->get('Exhibition')->find('all')->where(['id' => $exhibition_id])->toArray()[0]['edate'];
+        if (strtotime($edate->format('Y-m-d H:i:s')) < strtotime(date('Y-m-d H:i:s', time()+32400))) {
+            echo "<script>alert('종료된 행사입니다.');history.go(-1);</script>";
         }
 
         $stream_id = $this->ExhibitionStream->find()->select(['id'])->where(['exhibition_id' => $exhibition_id])->toArray()[0]->id;

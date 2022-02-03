@@ -271,7 +271,7 @@
 
         $("#li8").click(function () {
             clearInterval(chatInterval);
-            $(".webinar-tab-body").load("/exhibition-stream/answer-survey/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
+            $(".webinar-tab-body").load("/exhibition-stream/answer-survey/<?= $exhibitionStream[0]['exhibition_id'] ?>/<?= $exhibition_users_id ?>");
             $("#li0").attr("class", "");
             $("#li1").attr("class", "");
             $("#li2").attr("class", "");

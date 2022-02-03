@@ -132,14 +132,14 @@
         $(":input:radio").removeAttr("name");
         var formData = $("#surveyForm").serialize();
         jQuery.ajax({
-            url: "/exhibition-stream/answer-survey/" + <?= $id ?>, 
+            url: "/exhibition-stream/answer-survey/<?= $id ?>/<?= $exhibition_users_id ?>",
             method: 'POST',
             type: 'json',
             data: formData,
         }).done(function(data) {
             // if (data.status == 'success') {
                 alert("전송되었습니다.");
-                $(".webinar-tab-body").load("/exhibition-stream/answer-survey/" + <?= $id ?>);
+                $(".webinar-tab-body").load("/exhibition-stream/answer-survey/<?= $id ?>/<?= $exhibition_users_id ?>");
             // } else {
                 // alert("전송에 실패하였습니다. 잠시후 다시 시도해주세요.");
             // }

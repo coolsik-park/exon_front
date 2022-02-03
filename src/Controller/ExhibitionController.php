@@ -876,7 +876,7 @@ class ExhibitionController extends AppController
         $this->paginate = ['limit' => 10];
 
         $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
-        $exhibition_users = $this->paginate($exhibition_users_table->find('all', array('contain' => array('Exhibition', 'ExhibitionGroup', 'Pay')))->where(['ExhibitionUsers.exhibition_id' => $id]))->toArray();
+        $exhibition_users = $this->paginate($exhibition_users_table->find('all', array('contain' => array('Exhibition', 'ExhibitionGroup', 'Pay')))->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.status IS NOT' => 8]))->toArray();
 
         $users_table = TableRegistry::get('Users');
         $users = [];
@@ -940,6 +940,13 @@ class ExhibitionController extends AppController
         $exhibition_user = $exhibition_users_table->get($id);
 
         if($connection->update('exhibition_users', ['status' => '8'], ['id' => $id])) {
+
+            if (!$connection->delete('exhibition_survey_users_answer', ['users_id' => $id])) {
+                $connection->rollback();
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                return $response;
+            }
+            
             if ($pay_id != '') {
                 $Pay = $this->getTableLocator()->get('Pay');
                 $pay = $Pay->get($pay_id);
@@ -1371,7 +1378,7 @@ class ExhibitionController extends AppController
                 }
 
                 $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
-                $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id, 'users_id IS NOT' => null, 'status IS NOT' => 8])->toArray();
+                $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id, 'status IS NOT' => 8])->toArray();
                 $rowCount = count($exhibitionUsers);
 
                 $ExhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey');
@@ -1403,7 +1410,7 @@ class ExhibitionController extends AppController
                                 'text IS NOT' => ''
                             ]
                         ]
-                    ])->where(['users_id' => $exhibitionUsers[$i]['users_id']])->toArray();
+                    ])->where(['users_id' => $exhibitionUsers[$i]['id']])->toArray();
                     
                     $answerCount = count($exhibitionSurveyUsersAnswer);
                     
@@ -1446,7 +1453,7 @@ class ExhibitionController extends AppController
                     }
                     
                     $answerData[$i] = [ 
-                        'users_id' => $exhibitionUsers[$i]['users_id'],
+                        'users_id' => $exhibitionUsers[$i]['id'],
                         'answered' => $answered 
                     ];
                 }
