@@ -1,5 +1,8 @@
 <style>
-     h1 {
+    #accessibility {
+        margin: 0px;
+    }
+    h1 {
         font-size: 25px;
         margin: 26px 0px;
         font-weight: bold;
@@ -39,6 +42,16 @@
         }
         h4 {
             font-size: 16px;
+        }
+        h1{
+            margin: 0px;
+            line-height: 2;
+        }
+    }
+    @media  screen and (min-width: 768px) {
+        #header .static {
+            padding-top: 0px;
+            padding-bottom: 0px;
         }
     }
 </style>
