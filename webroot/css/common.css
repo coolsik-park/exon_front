@@ -105,7 +105,7 @@ html,body{width:100%; height:100% }
 .main-visual .swiper-pagination-bullet{opacity: 0.5;background:#fff}
 .main-visual .swiper-pagination-bullet.swiper-pagination-bullet-active{opacity: 1;}
 .main-visual .swiper-pagination.pagination-num .swiper-pagination-bullet-active { display:block; width:auto } 
-.main-visual .swiper-slide { max-width:1640px } 
+.main-visual .swiper-slide { max-width:100%;} 
 .main-visual .imgs img { width:100% } 
 .main-sect1 { display: table; width:100%; margin-top:75px; } 
 .main-sect1>div { display:table-cell; width:50%; height:130px; text-align: center; vertical-align: middle; border-left:1px solid #afafaf; } 
@@ -377,7 +377,6 @@ html,body{width:100%; height:100% }
 .pop-poll-item li{margin-top: 10px;}
 
 @media (max-width: 1640px){
- .main-visual { padding:0 2.43vw } 
  .main-visual .swiper-pagination.pagination-num { right:5%; margin-right: 0; } 
  .main-visual .swiper-button-prev { left:5%; margin-left: 0; } 
  .main-visual .swiper-button-next { right:5%; margin-right: 0; } 
