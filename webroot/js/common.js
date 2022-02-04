@@ -78,7 +78,7 @@
                         delay: 5000,
                         disableOnInteraction: false,
                     },
-                    spaceBetween: 150,
+                    spaceBetween: 0,
                     loop:true,
                     centeredSlides: true,
                     navigation: {
