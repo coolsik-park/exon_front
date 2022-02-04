@@ -562,7 +562,7 @@ class ExhibitionUsersController extends AppController
                 'isHtml5ParserEnabled' => true, 
                 'isRemoteEnabled' => true,
                 'download' => true, // This can be omitted if "filename" is specified.
-                'filename' => $exhibition_id . '_Report.pdf', //// This can be omitted if you want file name based on URL.
+                'filename' => $exhibition->title . '_Report.pdf', //// This can be omitted if you want file name based on URL.
             ]
         ); 
     }
