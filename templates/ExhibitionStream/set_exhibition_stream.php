@@ -590,7 +590,8 @@
             }
         }
         coupon_amount = amount * discount_rate / 100;
-        $("#amount").val(amount - coupon_amount);
+        var price = amount - coupon_amount;
+        $("#amount").val(price.toLocaleString());
     });
 
     $(document).on("change", "#time", function () {
@@ -626,7 +627,8 @@
             }
         }
         coupon_amount = amount * discount_rate / 100;
-        $("#amount").val(amount - coupon_amount);
+        var price = amount - coupon_amount;
+        $("#amount").val(price.toLocaleString());
     });
 
     //탭 컨트롤    

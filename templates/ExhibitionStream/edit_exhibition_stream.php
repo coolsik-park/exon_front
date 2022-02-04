@@ -406,7 +406,6 @@
         obj.video_uri = stream_key;
         obj.stream_title = "<?=$exhibitionStream->title?>";
         obj.stream_id = <?=$exhibitionStream->id?>;
-        obj.vod_index = <?=$exhibitionStream->vod_index?>;
         var jsonData = JSON.stringify(obj);
         
         $.ajax({
@@ -722,8 +721,8 @@
         }
         var cal = amount - <?=$exhibitionStream->coupon_amount?> - <?=$exhibitionStream->amount?>;
         coupon_amount = cal * discount_rate / 100;
-
-        $("#amount").val(cal - coupon_amount);
+        var price = cal - coupon_amount;
+        $("#amount").val(price.toLocaleString());
         if ($("#amount").val() == 0) {
             $("#is_paid").val(1);
         } else {
@@ -765,8 +764,8 @@
         }
         var cal = amount - <?=$exhibitionStream->coupon_amount?> - <?=$exhibitionStream->amount?>;
         coupon_amount = cal * discount_rate / 100;
-
-        $("#amount").val(cal - coupon_amount);
+        var price = cal - coupon_amount;
+        $("#amount").val(price);
         if ($("#amount").val() == 0) {
             $("#is_paid").val(1);
         } else {
