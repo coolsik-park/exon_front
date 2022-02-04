@@ -790,14 +790,16 @@
             $("#li" + i).attr("class", "active");
         }
     }
-
+  
     $(document).on("click", "#setting_btn", function () {
         
         if ($(this).attr("name") == "btn_off") {
             $(this).attr("name", "btn_on");
+            $(this).css("background", "url(../../images/ico-sett2.png)");
             alert("탭 설정이 활성화 되었습니다.");
         } else {
             $(this).attr("name", "btn_off");
+            $(this).css("background", "url(../../images/ico-sett.png)");
             alert("탭 설정이 비활성화 되었습니다.");
         }
     });
