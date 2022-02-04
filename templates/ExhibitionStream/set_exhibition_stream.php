@@ -240,7 +240,7 @@
         }
     }
 
-    $("#amount").val(amount);
+    $("#amount").val(amount.toLocaleString());
 
     //방송 버튼 클릭시
     $("#vid1").click(function () {
