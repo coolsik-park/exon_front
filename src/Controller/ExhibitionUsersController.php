@@ -80,7 +80,11 @@ class ExhibitionUsersController extends AppController
             else : 
                 $exhibitionUser->users_hp = null;
             endif;
-            $exhibitionUser->users_sex = $answerData['users_sex'];
+            if ($answerData['users_sex'] == '') :
+                $exhibitionUser->users_sex = null;
+            else :
+                $exhibitionUser->users_sex = $answerData['users_sex'];
+            endif;
             if ($answerData['pay_amount'] != 0) :
             $exhibitionUser->pay_id = $answerData['pay_id'];
             $exhibitionUser->pay_amount = $answerData['pay_amount'];
