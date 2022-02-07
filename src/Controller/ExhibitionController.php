@@ -1758,12 +1758,12 @@ class ExhibitionController extends AppController
     public function exhibitionStatisticsExtra($id = null) 
     {
         //설문 별 응답률
-        $exhibition = $this->Exhibition->find('all', ['contain' => 'Users'])->where(['id' => $id])->toArray();
-        $count = count($exhibition[0]->users);
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id])->toArray();
+        $count = count($exhibitionUsers);
         $ids[] = '';
         for ($i = 0; $i < $count; $i++) {
-            if ($exhibition[0]->users[$i]->_joinData->status == 2 || $exhibition[0]->users[$i]->_joinData->status == 4) {
-                $ids[$i] = $exhibition[0]->users[$i]->id;
+            if ($exhibitionUsers[$i]->status == 2 || $exhibitionUsers[$i]->status == 4) {
+                $ids[$i] = $exhibitionUsers[$i]->id;
             }
         }
 
@@ -1829,13 +1829,15 @@ class ExhibitionController extends AppController
         } 
         
         //참가자 수
-        $totalParticipant = 0;
-        $count = count($currentExhibition[0]->users);
-        for ($i = 0; $i < $count; $i++) {
-            if ($currentExhibition[0]->users[$i]->_joinData->status == 4)  {
-                $totalParticipant++;
-            }
-        }
+        // $totalParticipant = 0;
+        // $count = count($currentExhibition[0]->users);
+        // for ($i = 0; $i < $count; $i++) {
+        //     if ($currentExhibition[0]->users[$i]->_joinData->status == 4)  {
+        //         $totalParticipant++;
+        //     }
+        // }
+
+        $totalParticipant = count($this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id, 'status' => 4])->toArray());
         
         $participatedData = [
             'total' => $totalParticipant,
@@ -1848,12 +1850,12 @@ class ExhibitionController extends AppController
 
     public function exhibitionStatisticsExtraByGroup ($id = null, $group = null) {
         //설문 별 응답률
-        $exhibition = $this->Exhibition->find('all', ['contain' => 'Users'])->where(['Exhibition.id' => $id])->toArray();
-        $count = count($exhibition[0]->users);
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id])->toArray();
+        $count = count($exhibitionUsers);
         $ids[] = '';
         for ($i = 0; $i < $count; $i++) {
-            if ($exhibition[0]->users[$i]->_joinData->status == 2 || $exhibition[0]->users[$i]->_joinData->status == 4 && $exhibition[0]->users[$i]->_joinData->exhibition_group_id == $group) {
-                $ids[$i] = $exhibition[0]->users[$i]->id;
+            if ($exhibitionUsers[$i]->status == 2 || $exhibitionUsers[$i]->status == 4 && $exhibitionUsers[$i]->exhibition_group_id == $group) {
+                $ids[$i] = $exhibitionUsers[$i]->id;
             }
         }
 
@@ -1865,7 +1867,7 @@ class ExhibitionController extends AppController
             ->group('ExhibitionSurvey.id')
             ->toArray();
         
-        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id, 'users_id IN' => $ids]);
+        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id, 'exhibition_group_id' => $group]);
         $applyRates = $exhibitionUsers->select(['count' => $exhibitionUsers->func()->count('status')])->where(['status IN' => [2, 4]])->toArray();
 
         //첫방문 or 재방문
@@ -1919,13 +1921,15 @@ class ExhibitionController extends AppController
         } 
         
         //참가자 수
-        $totalParticipant = 0;
-        $count = count($currentExhibition[0]->users);
-        for ($i = 0; $i < $count; $i++) {
-            if ($currentExhibition[0]->users[$i]->_joinData->status == 4 && $currentExhibition[0]->users[$i]->_joinData->exhibition_group_id == $group)  {
-                $totalParticipant++;
-            }
-        }
+        // $totalParticipant = 0;
+        // $count = count($currentExhibition[0]->users);
+        // for ($i = 0; $i < $count; $i++) {
+        //     if ($currentExhibition[0]->users[$i]->_joinData->status == 4 && $currentExhibition[0]->users[$i]->_joinData->exhibition_group_id == $group)  {
+        //         $totalParticipant++;
+        //     }
+        // }
+
+        $totalParticipant = count($this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id, 'status' => 4, 'exhibition_group_id' => $group])->toArray());
         
         $participatedData = [
             'total' => $totalParticipant,
