@@ -1771,6 +1771,7 @@ class ExhibitionController extends AppController
             ->where(['exhibition_id' => $id, 'ExhibitionSurveyUsersAnswer.parent_id IS' => null, 'ExhibitionSurveyUsersAnswer.users_id IN' => $ids]);
         $answerRates = $exhibitionSurvey
             ->select(['ExhibitionSurvey.id', 'ExhibitionSurvey.text', 'count' => $exhibitionSurvey->func()->count('ExhibitionSurveyUsersAnswer.id')])
+            ->where(['ExhibitionSurveyUsersAnswer.text IS NOT' => ''])
             ->leftJoinWith('ExhibitionSurveyUsersAnswer')
             ->group('ExhibitionSurvey.id')
             ->toArray();

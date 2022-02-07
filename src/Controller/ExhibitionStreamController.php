@@ -593,6 +593,28 @@ class ExhibitionStreamController extends AppController
                     }
                     $i++;
                 }
+
+                $ExhibitionSurveyUsersAnswer = $this->getTableLocator()->get('ExhibitionSurveyUsersAnswer');
+                $exhibitionSurveyUsersAnswers = $ExhibitionSurveyUsersAnswer->find('all', ['contain' => 'ChildExhibitionSurveyUsersAnswer'])->where(['is_multiple' => 'Y', 'text' => 'question'])->toArray();
+                
+                foreach ($exhibitionSurveyUsersAnswers as $data) :
+                    $answered = 0;
+                    for ($i = 0; $i < count($data['child_exhibition_survey_users_answer']); $i++) {
+                        if ($data['child_exhibition_survey_users_answer'][$i]['text'] == 'Y') {
+                            $answered = 1;
+                        } 
+                    }
+                    if ($answered == 0) {
+                        $connection->delete('exhibition_survey_users_answer', ['id' => $data['id']]);
+                        $connection->delete('exhibition_survey_users_answer', ['parent_id' => $data['id']]);
+                    }
+                endforeach;
+
+                $exhibitionSurveyUsersAnswers = $ExhibitionSurveyUsersAnswer->find('all')->where(['is_multiple' => 'N', 'text IS' => ''])->toArray();
+                foreach ($exhibitionSurveyUsersAnswers as $data) :
+                    $connection->delete('exhibition_survey_users_answer', ['id' => $data['id']]);
+                endforeach;
+                
                 $connection->commit();
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
                 return $response;
