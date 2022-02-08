@@ -101,7 +101,7 @@
                                 </div>
                                 <div class="td-col col2">
                                     <div class="con">
-                                        <button type="button" class="btn-ty3 bor" style="cursor:pointer;" data-toggle="modal" data-target="#surveyCheckModal" data-backdrop="static" data-keyboard="false" onClick="surveyCheck(<?= $exhibition_user->id ?>, <?= $key ?>, <?= count($users) ?>)">
+                                        <button type="button" class="btn-ty3 bor" style="cursor:pointer;" data-toggle="modal" data-target="#surveyCheckModal" data-backdrop="static" data-keyboard="false" onClick="surveyCheck(<?= $exhibition_user->id ?>, <?= count($users) ?>)">
                                             설문확인
                                         </button>
                                     </div>
@@ -219,8 +219,10 @@
 <footer id="footer"></footer>
 
 <script>
-    function surveyCheck(users_id, list_num, users_length) {
+    function surveyCheck(users_id, users_length) {
         var beforeParentData = <?= json_encode($beforeParentData) ?>;
+        var exhibition_survey_users_answer = [];
+
         if (beforeParentData == '') {
             alert("설문이 없습니다.");
         } else {
@@ -236,26 +238,39 @@
             html += '               </div>';
             html += '               <div class="popup-body">';
             html += '                   <div class="pop-poll-items-wrap">';
-            for (var i =0; i<beforeParentData.length; i++) {
+            for (var i=0; i<beforeParentData.length; i++) {
                 html += '                    <div class="pop-poll-item">';
                 html += '                       <p class="tit">' + beforeParentData[i]['text'] +'</p>';
                 if (beforeParentData[i]['is_multiple'] == 'Y') {
                     html += '                   <ul>';
                     for (var y=0; y<beforeChildData[beforeParentData[i]['id']].length; y++) {
                         if (beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'].length == 0) {
-                            html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '-' + y+1 + '" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
+                            html += '               <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '-' + y+1 + '" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
                         } else {
-                            for (var z=0; z<beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'].length; z++) {
-                                if (beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'][z]['users_id'] == users_id) {
-                                    if (beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'][z]['text'] == 'Y') {
-                                        html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '-' + y+1 + '" checked="checked" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
-                                    } else {
-                                        html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '-' + y+1 + '" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
+                            if (beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'].length == users_length) {
+                                for (var z=0; z<beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'].length; z++) {
+                                    if (beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'][z]['users_id'] == users_id) {
+                                        if (beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'][z]['text'] == 'Y') {
+                                            html += '<li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '-' + y+1 + '" checked="checked" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
+                                        } else {
+                                            html += '<li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '-' + y+1 + '" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
+                                        }
                                     }
                                 }
-                            }
-                            if (list_num+1 >= users_length) {
-                                html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '-' + y+1 + '" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
+                            } else {
+                                for (var z=0; z<beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'].length; z++) {
+                                    exhibition_survey_users_answer.push(beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'][z]['users_id']);
+                                }
+
+                                if (exhibition_survey_users_answer.includes(users_id)) {
+                                    if (beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'][exhibition_survey_users_answer.indexOf(users_id)]['text'] == 'Y') {
+                                        html += '   <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '-' + y+1 + '" checked="checked" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
+                                    } else {
+                                        html += '   <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '-' + y+1 + '" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
+                                    }
+                                } else {
+                                    html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '-' + y+1 + '" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
+                                }
                             }
                         }
                     }
