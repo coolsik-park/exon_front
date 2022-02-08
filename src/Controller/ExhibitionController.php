@@ -902,7 +902,7 @@ class ExhibitionController extends AppController
                 return $q->where(['ExhibitionSurveyUsersAnswer.text' => 'Y']);
             })
             ->group('ExhibitionSurvey.id')
-            ->where(['exhibition_id' => $id, 'survey_type' => 'B'])
+            ->where(['exhibition_id' => $id])
             ->toArray();
         $parent_id = 0;
         $i = 0;

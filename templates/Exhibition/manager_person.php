@@ -222,7 +222,7 @@
     function surveyCheck(users_id, list_num, users_length) {
         var beforeParentData = <?= json_encode($beforeParentData) ?>;
         if (beforeParentData == '') {
-            alert("사전설문이 없습니다.");
+            alert("설문이 없습니다.");
         } else {
             var beforeChildData = <?= json_encode($beforeChildData) ?>;
             var html = '';
@@ -242,17 +242,21 @@
                 if (beforeParentData[i]['is_multiple'] == 'Y') {
                     html += '                   <ul>';
                     for (var y=0; y<beforeChildData[beforeParentData[i]['id']].length; y++) {
-                        for (var z=0; z<beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'].length; z++) {
-                            if (beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'][z]['users_id'] == users_id) {
-                                if (beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'][z]['text'] == 'Y') {
-                                    html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '-' + y+1 + '" checked="checked" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
-                                } else {
-                                    html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '-' + y+1 + '" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
+                        if (beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'].length == 0) {
+                            html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '-' + y+1 + '" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
+                        } else {
+                            for (var z=0; z<beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'].length; z++) {
+                                if (beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'][z]['users_id'] == users_id) {
+                                    if (beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'][z]['text'] == 'Y') {
+                                        html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '-' + y+1 + '" checked="checked" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
+                                    } else {
+                                        html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '-' + y+1 + '" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
+                                    }
                                 }
                             }
-                        }
-                        if (list_num+1 >= users_length) {
-                            html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '-' + y+1 + '" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
+                            if (list_num+1 >= users_length) {
+                                html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '-' + y+1 + '" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
+                            }
                         }
                     }
                     html += '                   </ul>';
