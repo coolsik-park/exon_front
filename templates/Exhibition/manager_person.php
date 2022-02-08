@@ -101,7 +101,7 @@
                                 </div>
                                 <div class="td-col col2">
                                     <div class="con">
-                                        <button type="button" class="btn-ty3 bor" style="cursor:pointer;" data-toggle="modal" data-target="#surveyCheckModal" data-backdrop="static" data-keyboard="false" onClick="surveyCheck(<?= $exhibition_user->id ?>)">
+                                        <button type="button" class="btn-ty3 bor" style="cursor:pointer;" data-toggle="modal" data-target="#surveyCheckModal" data-backdrop="static" data-keyboard="false" onClick="surveyCheck(<?= $exhibition_user->id ?>, <?= $key ?>, <?= count($users) ?>)">
                                             설문확인
                                         </button>
                                     </div>
@@ -219,7 +219,7 @@
 <footer id="footer"></footer>
 
 <script>
-    function surveyCheck(users_id) {
+    function surveyCheck(users_id, list_num, users_length) {
         var beforeParentData = <?= json_encode($beforeParentData) ?>;
         if (beforeParentData == '') {
             alert("사전설문이 없습니다.");
@@ -249,10 +249,10 @@
                                 } else {
                                     html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '-' + y+1 + '" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
                                 }
-                            } else {
-                                html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '-' + y+1 + '" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
-                                break;
                             }
+                        }
+                        if (list_num+1 >= users_length) {
+                            html += '      <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '-' + y+1 + '" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
                         }
                     }
                     html += '                   </ul>';

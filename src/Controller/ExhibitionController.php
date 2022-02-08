@@ -922,6 +922,9 @@ class ExhibitionController extends AppController
                 }
             }
         }
+        // debug($exhibitionSurveys);
+        // debug($beforeChildData);
+        // debug($users);
 
         $this->set(compact('id', 'exhibition_users', 'users', 'beforeParentData', 'beforeChildData'));
     }
