@@ -78,7 +78,7 @@ class ExhibitionStreamController extends AppController
                 $exhibitionStream->stream_key = $data['stream_key'];
                 $exhibitionStream->time = $data['time'];
                 $exhibitionStream->people = $data['people'];
-                $exhibitionStream->amount = $data['amount'];
+                $exhibitionStream->amount = (int)str_replace(",", "", $data['amount']);
                 $exhibitionStream->coupon_amount = $data['coupon_amount'];
                 $exhibitionStream->url = $data['url'];
                 $exhibitionStream->ip = $this->Auth->user('ip');
@@ -844,7 +844,7 @@ class ExhibitionStreamController extends AppController
             $exhibitionStream->description = $data['description'];
             $exhibitionStream->time = $data['time'];
             $exhibitionStream->people = $data['people'];
-            $exhibitionStream->amount = ($exhibitionStream->amount + $data['amount']);
+            $exhibitionStream->amount = $exhibitionStream->amount + (int)str_replace(",", "", $data['amount']);
             if ($data['coupon_amount'] != "0") : 
             $exhibitionStream->coupon_amount = $data['coupon_amount'];
             endif;
@@ -893,7 +893,8 @@ class ExhibitionStreamController extends AppController
     public function validateCoupon () 
     {
         if ($this->request->is('post')) {
-            $coupon = $this->getTableLocator()->get('Coupon')->find('all')->where(['product_type' => 'S', 'status' => 1])->toArray();
+            $Coupon = $this->getTableLocator()->get('Coupon');
+            $coupon = $Coupon->find('all')->where(['product_type' => 'S', 'status' => 1])->toArray();
             $exist = 0;
             $coupon_id = 0;
             $discount_rate = 0;
@@ -919,6 +920,10 @@ class ExhibitionStreamController extends AppController
             }
 
             if ($exist == 1 && $start_date <= $date && $date <= $end_date) {
+                $update_coupon = $Coupon->get($coupon_id);
+                $update_coupon->status = 4;
+                $Coupon->save($update_coupon);
+
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'coupon_id' => $coupon_id, 'discount_rate' => $discount_rate]));
                 return $response;
                 

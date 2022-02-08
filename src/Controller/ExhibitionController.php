@@ -1375,6 +1375,13 @@ class ExhibitionController extends AppController
                     ->setCellValue('B1', '이름')
                     ->setCellValue('C1', '이메일')
                     ->setCellValue('D1', '질문' . ($i+1));
+
+                    $spreadsheet->getActiveSheet($i)->getColumnDimension('A')->setAutoSize(true);
+                    $spreadsheet->getActiveSheet($i)->getColumnDimension('C')->setAutoSize(true);
+                    $spreadsheet->getActiveSheet($i)->getColumnDimension('D')->setAutoSize(true);
+
+                    $spreadsheet->getActiveSheet($i)->getStyle('D')->getAlignment()->setWrapText(true);
+                    $spreadsheet->getActiveSheet($i)->getStyle('A:D')->getAlignment()->setHorizontal('left');
                 }
 
                 $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
@@ -1508,7 +1515,8 @@ class ExhibitionController extends AppController
                     umask($oldMask);
                 }
 
-                $fileName = $id . "_survey_data." . "xlsx";
+                $exhibition = $this->Exhibition->get($id);
+                $fileName = $exhibition->title . "_survey_data." . "xlsx";
                 $destination = WWW_ROOT . $path . DS . $fileName;
 
                 $writer = IOFactory::createWriter($spreadsheet, "Xlsx"); //Xls is also possible
