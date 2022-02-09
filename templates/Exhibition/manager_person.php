@@ -221,7 +221,6 @@
 <script>
     function surveyCheck(users_id, users_length) {
         var beforeParentData = <?= json_encode($beforeParentData) ?>;
-        // var exhibition_survey_users_answer = [];
 
         if (beforeParentData == '') {
             alert("설문이 없습니다.");
