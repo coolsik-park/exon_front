@@ -221,7 +221,6 @@
 <script>
     function surveyCheck(users_id, users_length) {
         var beforeParentData = <?= json_encode($beforeParentData) ?>;
-        var exhibition_survey_users_answer = [];
 
         if (beforeParentData == '') {
             alert("설문이 없습니다.");
@@ -258,10 +257,10 @@
                                     }
                                 }
                             } else {
+                                var exhibition_survey_users_answer = [];
                                 for (var z=0; z<beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'].length; z++) {
                                     exhibition_survey_users_answer.push(beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'][z]['users_id']);
                                 }
-
                                 if (exhibition_survey_users_answer.includes(users_id)) {
                                     if (beforeChildData[beforeParentData[i]['id']][y]['exhibition_survey_users_answer'][exhibition_survey_users_answer.indexOf(users_id)]['text'] == 'Y') {
                                         html += '   <li><span class="chk-dsg"><input type="radio" id="pp' + i+1 + '-' + y+1 + '" name="pp' + i+1 + '-' + y+1 + '" checked="checked" disabled="disabled"><label for="pp' + i+1 + '-' + y+1 + '">' + beforeChildData[beforeParentData[i]['id']][y]['text'] + '</label></span></li>';
