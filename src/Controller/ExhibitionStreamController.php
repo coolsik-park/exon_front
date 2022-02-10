@@ -1178,7 +1178,7 @@ class ExhibitionStreamController extends AppController
 
     public function generateCode()
     {
-        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
+        $characters = '123456789';
         $code = '';
         for ($i = 0; $i < 6; $i++) {
             $code .= substr($characters, rand(0, strlen($characters)-1), 1);
