@@ -1336,6 +1336,9 @@ class ExhibitionStreamController extends AppController
         $exhibitionStream = $this->ExhibitionStream->get($exhibition_stream_id);
 
         $time = $exhibitionStream->time - $exhibitionStream->live_duration;
+        if ($time < 0) {
+            $time = 0;
+        }
         
         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'time' => $time]));
         return $response;
