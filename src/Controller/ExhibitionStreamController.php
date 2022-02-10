@@ -1330,4 +1330,14 @@ class ExhibitionStreamController extends AppController
             return $response;
         }
     }
+
+    public function getRemainLiveDuration($exhibition_stream_id = null)
+    {
+        $exhibitionStream = $this->ExhibitionStream->get($exhibition_stream_id);
+
+        $time = $exhibitionStream->time - $exhibitionStream->live_duration;
+        
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'time' => $time]));
+        return $response;
+    }
 }
