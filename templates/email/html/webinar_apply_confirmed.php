@@ -37,7 +37,6 @@
                 <ul style="margin:0;padding:0;list-style: none;padding: 1.25rem 0;font-size: 0.875rem;line-height: 1.43;">
                     <li style="display:flex;"><span style="display:inline-block;width:20%;padding: 0.313rem 0;font-weight: 700;">신청그룹</span><span style="display: inline-block;padding: 0.313rem 0;width: 80%;font-weight: 500;"><?=$group?></span></li>
                     <li style="display:flex;"><span style="display:inline-block;width:20%;padding: 0.313rem 0;font-weight: 700;">신청일시</span><span style="display: inline-block;padding: 0.313rem 0;width: 80%;font-weight: 500;"><?=$now?></span></li>
-                    <li style="display:flex;"><span style="display:inline-block;width:20%;padding: 0.313rem 0;font-weight: 700;">참가대기 사유</span><span style="display: inline-block;padding: 0.313rem 0;width: 80%;font-weight: 500;">개설자의 참가 확정 승인 대기 중</span></li>
                 </ul>
             </div>
             <div>

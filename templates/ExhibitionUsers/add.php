@@ -46,7 +46,7 @@
         <h2 class="s-hty0">웨비나 신청하기</h2>
         <div class="section5">
             <h3 class="s-hty1">신청자 정보</h3>
-            <div class="mbr-form">
+            <!-- <div class="mbr-form"> -->
                 <div class="item-row">
                 <div class="col-dt"><em class="st">*</em>이메일</div>
                 <div class="col-dd">
@@ -96,7 +96,7 @@
                         <p class="p-noti">웨비나 접속 시 인증에 필요할 수 있습니다. 정확히 입력해 주세요.</p>              
                     </div>
                 </div>
-            </div>
+            <!-- </div> -->
         </div>
         <div class="section6">
             <h3 class="s-hty1">이용약관 / 개인정보 수집 및 이용 동의</h3>
@@ -107,41 +107,6 @@
                 <div>
                     <span class="chk-dsg"><input type="checkbox" id="agree3"><label for="agree3">(필수) 개인정보 수집 및 이용 동의</label></span><a href="/pages/personal-info-agreement" target="_blank" class="btn-ss">약관보기</a>
                 </div>   
-            </div>
-        </div>
-        <div class="section7 fixed">
-            <h3 class="s-hty1">선택 그룹</h3>
-            <div class="group-join">
-                <div class="ipt-form">
-                    <?php if ($exhibitionGroup == '') : ?>
-                        <input type="text" id="groupTx" value="그룹 미선택" readonly>
-                        <input type="hidden" id="groupTx" value="" name="exhibition_group_id" id="exhibition_group_id">
-                    <?php else : ?>
-                        <?php foreach ($exhibitionGroup as $group) : ?>
-                            <input type="text" id="groupTx" value="<?= $group->name ?>" readonly>
-                            <input type="hidden" id="groupTx" value="<?= $group->id ?>" name="exhibition_group_id" id="exhibition_group_id">
-                        <?php endforeach; ?>
-                    <?php endif; ?>  
-                    </select>                      
-                    <span id="amount" class="tx">
-                        <?php
-                            if ($exhibition->cost == 'charged'): 
-                                if ($amount == 0) {
-                                    echo "무료";
-                                } else {
-                                    echo number_format($amount);
-                                }
-                            else :
-                                echo '무료';
-                            endif;
-                        ?>
-                    </span>
-                </div>
-                <?php if ($amount == 0) : ?>
-                <button type="button" id="submit" class="btn-join">참가 신청</button>
-                <?php else : ?>
-                <button type="button" id="submit-card" class="btn-join">참가 신청(카드 결제)</button><button type="button" id="submit-trans" class="btn-join">참가 신청(계좌 이체)</button> 
-                <?php endif; ?>
             </div>
         </div>
         <div class="select8">
@@ -202,6 +167,41 @@
             <?php else: ?>
             <p>등록된 사전 설문이 없습니다.</p>
             <?php endif; ?>
+        </div>
+        <div class="section7 fixed">
+            <h3 class="s-hty1">선택 그룹</h3>
+            <div class="group-join">
+                <div class="ipt-form">
+                    <?php if ($exhibitionGroup == '') : ?>
+                        <input type="text" id="groupTx" value="그룹 미선택" readonly>
+                        <input type="hidden" id="groupTx" value="" name="exhibition_group_id" id="exhibition_group_id">
+                    <?php else : ?>
+                        <?php foreach ($exhibitionGroup as $group) : ?>
+                            <input type="text" id="groupTx" value="<?= $group->name ?>" readonly>
+                            <input type="hidden" id="groupTx" value="<?= $group->id ?>" name="exhibition_group_id" id="exhibition_group_id">
+                        <?php endforeach; ?>
+                    <?php endif; ?>  
+                    </select>                      
+                    <span id="amount" class="tx">
+                        <?php
+                            if ($exhibition->cost == 'charged'): 
+                                if ($amount == 0) {
+                                    echo "무료";
+                                } else {
+                                    echo number_format($amount);
+                                }
+                            else :
+                                echo '무료';
+                            endif;
+                        ?>
+                    </span>
+                </div>
+                <?php if ($amount == 0) : ?>
+                <button type="button" id="submit" class="btn-join">참가 신청</button>
+                <?php else : ?>
+                <button type="button" id="submit-card" class="btn-join">참가 신청(카드 결제)</button><button type="button" id="submit-trans" class="btn-join">참가 신청(계좌 이체)</button> 
+                <?php endif; ?>
+            </div>
         </div>
     </div>        
     <?= $this->Form->end() ?>

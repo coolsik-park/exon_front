@@ -86,6 +86,9 @@
                     <p class="wd1"><span class="w-dt">스트리밍 시간 : </span><span id="live_duration_time" class="w-dd">00:00:00</span></p>
                     <p class="wd2"><span class="w-dt">시청자 : </span><span id="viewer" class="w-dd">0명</span></p>
                 </div>
+                <div class="w-desc">
+                    <p class="wd1"><span class="w-dt">남은 스트리밍 시간 : </span><span id="remain_duration_time" class="w-dd">00:00:00</span></p>
+                </div>
             </div>   
             <div id="liveButtons" class="wb-cont2">
                 <?php if ($exhibitionStream->live_started == '') : ?>
@@ -227,6 +230,18 @@
     //페이지 로드시
     setInterval("countViewer()" , 3000);
     setInterval("updateLiveDurationTime()" , 1000);
+    setInterval("getRemainLiveDuration()" , 1000);
+
+    function getRemainLiveDuration() {
+        jQuery.ajax({
+            url: "/exhibition-stream/get-remain-live-duration/" + <?= $exhibitionStream->id ?>, 
+            method: 'POST',
+            type: 'json',
+        }).done(function(data) {
+            var time = new Date(data.time * 1000).toISOString().substr(11, 8);
+            $("#remain_duration_time").html(time);
+        });
+    }
     
     function countViewer () {
         jQuery.ajax({
@@ -319,6 +334,14 @@
                     is_timeCheck = 0;
                     is_timeCheckBeforeTen = 0; 
                     liveEnd();
+                    // player.dispose();
+                    // var html = '<video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup=\'{"fluid": true}\'></video-js>';
+                    // $("#videoWrap").append(html);
+                    // var newPlayer = videojs(document.querySelector('#vid1'));
+                    // newPlayer.load();
+                    // $("#liveButtons").children().remove();
+                    // $("#liveButtons").append('<button id="start" type="button" class="btn-ty4 black">방송시작</button>');
+
                     alert("서비스 시간 만료로 방송이 종료되었습니다.");
                 }
             }

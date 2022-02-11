@@ -1178,7 +1178,7 @@ class ExhibitionStreamController extends AppController
 
     public function generateCode()
     {
-        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
+        $characters = '123456789';
         $code = '';
         for ($i = 0; $i < 6; $i++) {
             $code .= substr($characters, rand(0, strlen($characters)-1), 1);
@@ -1329,5 +1329,18 @@ class ExhibitionStreamController extends AppController
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'end' => 0]));
             return $response;
         }
+    }
+
+    public function getRemainLiveDuration($exhibition_stream_id = null)
+    {
+        $exhibitionStream = $this->ExhibitionStream->get($exhibition_stream_id);
+
+        $time = $exhibitionStream->time - $exhibitionStream->live_duration;
+        if ($time < 0) {
+            $time = 0;
+        }
+        
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'time' => $time]));
+        return $response;
     }
 }
