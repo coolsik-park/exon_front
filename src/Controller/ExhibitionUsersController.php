@@ -368,7 +368,7 @@ class ExhibitionUsersController extends AppController
                 $today = date('Y-m-d H:i:s', time()+32400);
 
                 if ($type == 'application') {
-                    $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_email' => $email, 'ExhibitionUsers.status !=' => 8])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
+                    $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_email' => $email, 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate >' => $today])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
                 } elseif ($type == 'close'){
                     $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_email' => $email, 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate <' => $today])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
                 } elseif ($type == 'cancel') {
@@ -380,7 +380,7 @@ class ExhibitionUsersController extends AppController
                 $today = date('Y-m-d H:i:s', time()+32400);
 
                 if ($type == 'application') {
-                    $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_hp' => $hp, 'ExhibitionUsers.status !=' => 8])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
+                    $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_hp' => $hp, 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate >' => $today])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
                 } elseif ($type == 'close'){
                     $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_hp' => $hp, 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate <' => $today])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
                 } elseif ($type == 'cancel') {
@@ -396,7 +396,7 @@ class ExhibitionUsersController extends AppController
             $today = date('Y-m-d H:i:s', time()+32400);
             
             if ($type == 'application') {
-                $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $this->Auth->user('id'), 'ExhibitionUsers.status !=' => 8])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
+                $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $this->Auth->user('id'), 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate >' => $today])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
             
             } elseif ($type == 'close'){
                 $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $this->Auth->user('id'), 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate <' => $today])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
