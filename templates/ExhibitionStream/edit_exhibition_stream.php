@@ -340,9 +340,9 @@
                     // var newPlayer = videojs(document.querySelector('#vid1'));
                     // newPlayer.load();
 
-                    // $("#liveButtons").children().remove();
-                    // $("#liveButtons").append('<button id="start" type="button" class="btn-ty4 black">방송시작</button>');
-                    // alert("서비스 시간 만료로 방송이 종료되었습니다.");
+                    $("#liveButtons").children().remove();
+                    $("#liveButtons").append('<button id="start" type="button" class="btn-ty4 black">방송시작</button>');
+                    alert("서비스 시간 만료로 방송이 종료되었습니다.");
                 }
             }
         });
