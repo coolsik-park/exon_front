@@ -18,6 +18,30 @@
     .visible {
         display: block;
     }
+    .slider2Div {
+        width: 100%;
+        height: 260px;
+        background: inherit;
+        position: absolute;
+        left: 0;
+        top: 1380px;
+    }
+    .slider4Div {
+        width: 100%;
+        height: 260px;
+        background: inherit;
+        position: absolute;
+        left: 0;
+        top: 2120px;
+    }
+    .slider5Div {
+        width: 100%;
+        height: 260px;
+        background: inherit;
+        position: absolute;
+        left: 0;
+        top: 2480px;
+    }
     @media  screen and (max-width: 768px) {
         .subBanner {
             width:375px; 
@@ -117,6 +141,8 @@
                         <div class="swiper-button-prev"></div>      
                     </div>                
                 </div>
+                <div class="slider2Div">
+                </div>
                 <div class="main-sect3">
                     <div class="main-slider3">
                         <div class="swiper-container">
@@ -175,7 +201,9 @@
                         <div class="swiper-button-next"></div> 
                         <div class="swiper-button-prev"></div>   
                     </div>                    
-                </div>  
+                </div>
+                <div class="slider4Div">
+                </div>
                 <div class="main-sect5">
                     <div class="h-ty1-wp">
                         <h2 class="h-ty1"><span class="t1">Top 10</span><span class="t2">일반 전시</span></h2>
@@ -219,12 +247,15 @@
                         <div class="swiper-button-next"></div> 
                         <div class="swiper-button-prev"></div>   
                     </div>                    
-                </div>                 
+                </div>
+                <div class="slider5Div">
+                </div>              
             </div>       
         </div>
     </div>
 
     <script>
+        //메인 배너 화살표 
         $('.swiper-container').mouseover(function(){
             $('.swiper-button-next').addClass('visible');
             $('.swiper-button-prev').addClass('visible');
@@ -233,4 +264,77 @@
             $('.swiper-button-next').removeClass('visible');
             $('.swiper-button-prev').removeClass('visible');
         });
+
+        //slider2 화살표 / 영역 hover 시 
+        $('.slider2Div').mouseover(function(){
+            $('.main-slider2 .swiper-button-next').addClass('visible');
+            $('.main-slider2 .swiper-button-prev').addClass('visible');
+        });
+        $('.slider2Div').mouseleave(function(){
+            $('.main-slider2 .swiper-button-next').removeClass('visible');
+            $('.main-slider2 .swiper-button-prev').removeClass('visible');
+        });
+
+        //slider2 화살표 / 화살표 영역 hover 시 
+        $('.main-slider2 .swiper-button-prev').mouseover(function(){
+            $('.main-slider2 .swiper-button-prev').addClass('visible');
+        });
+        $('.main-slider2 .swiper-button-prev').mouseleave(function(){
+            $('.main-slider2 .swiper-button-prev').removeClass('visible');
+        });
+        $('.main-slider2 .swiper-button-next').mouseover(function(){
+            $('.main-slider2 .swiper-button-next').addClass('visible');
+        });
+        $('.main-slider2 .swiper-button-next').mouseleave(function(){
+            $('.main-slider2 .swiper-button-next').removeClass('visible');
+        });
+
+        //slider4 화살표 / 영역 hover 시 
+        $('.slider4Div').mouseover(function(){
+            $('.main-slider4 .swiper-button-next').addClass('visible');
+            $('.main-slider4 .swiper-button-prev').addClass('visible');
+        });
+        $('.slider4Div').mouseleave(function(){
+            $('.main-slider4 .swiper-button-next').removeClass('visible');
+            $('.main-slider4 .swiper-button-prev').removeClass('visible');
+        });
+
+        //slider4 화살표 / 화살표 영역 hover 시 
+        $('.main-slider4 .swiper-button-prev').mouseover(function(){
+            $('.main-slider4 .swiper-button-prev').addClass('visible');
+        });
+        $('.main-slider4 .swiper-button-prev').mouseleave(function(){
+            $('.main-slider4 .swiper-button-prev').removeClass('visible');
+        });
+        $('.main-slider4 .swiper-button-next').mouseover(function(){
+            $('.main-slider4 .swiper-button-next').addClass('visible');
+        });
+        $('.main-slider4 .swiper-button-next').mouseleave(function(){
+            $('.main-slider4 .swiper-button-next').removeClass('visible');
+        });
+
+         //slider5 화살표 / 영역 hover 시 
+         $('.slider5Div').mouseover(function(){
+            $('.main-slider5 .swiper-button-next').addClass('visible');
+            $('.main-slider5 .swiper-button-prev').addClass('visible');
+        });
+        $('.slider5Div').mouseleave(function(){
+            $('.main-slider5 .swiper-button-next').removeClass('visible');
+            $('.main-slider5 .swiper-button-prev').removeClass('visible');
+        });
+
+        //slider5 화살표 / 화살표 영역 hover 시 
+        $('.main-slider5 .swiper-button-prev').mouseover(function(){
+            $('.main-slider5 .swiper-button-prev').addClass('visible');
+        });
+        $('.main-slider5 .swiper-button-prev').mouseleave(function(){
+            $('.main-slider5 .swiper-button-prev').removeClass('visible');
+        });
+        $('.main-slider5 .swiper-button-next').mouseover(function(){
+            $('.main-slider5 .swiper-button-next').addClass('visible');
+        });
+        $('.main-slider5 .swiper-button-next').mouseleave(function(){
+            $('.main-slider5 .swiper-button-next').removeClass('visible');
+        });
+
     </script>

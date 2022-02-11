@@ -369,7 +369,7 @@ html,body{width:100%; height:100% }
 .receipt-s1-c2 li:first-child{width:25%}
 .receipt-s1-c2 li:last-child{width:28%}
 .receipt-s1-c2 .t1{margin-bottom: 10px;}
-.pop-poll-items-wrap{overflow:hidden;overflow-y: auto;height:600px}
+.pop-poll-items-wrap{overflow:hidden;overflow-y: auto;height:480px}
 .pop-poll-items-wrap + .popup-btm{margin-top: 0;}
 .pop-poll-item:first-child{border-top:0}
 .pop-poll-item{padding:20px 0;border-top:1px solid #dbdbdb}
@@ -380,8 +380,8 @@ html,body{width:100%; height:100% }
  .main-visual .swiper-pagination.pagination-num { right:5%; margin-right: 0; } 
  .main-visual .swiper-button-prev { left:5%; margin-left: 0; } 
  .main-visual .swiper-button-next { right:5%; margin-right: 0; } 
- .main-slider2 .swiper-button-prev { left:0 } 
- .main-slider2 .swiper-button-next { right:0 } 
+ .main-slider2 .swiper-button-prev { left: -60px; } 
+ .main-slider2 .swiper-button-next { right: -60px; } 
  .main-slider4 { position: relative; padding-right:4% } 
  .main-slider4 .swiper-button-prev { left:-4% } 
  .main-slider4 .swiper-button-next { right:-4% } 
@@ -466,7 +466,7 @@ html,body{width:100%; height:100% }
  .main-slider5 .swiper-button-next { display: none; } 
  .main-slider4,
  .main-slider5 { padding-right:0 } 
-.popup-wrap{width:90%}
+.popup-wrap{width:100%}
 .popup-head{padding:5vw 4vw 0}
 .popup-body{padding:4vw}
 .popup-body .popup-btm.alone .btn-ty2{width:100%;margin:0}

@@ -14,10 +14,10 @@
 
     .board-sh {
         margin: 0 auto;
-    }
-    @media  screen and (max-width: 1600px) {
+    } 
+    @media  screen and (min-width: 1100px) {
         .modal-dialog {
-            margin: 6px auto;
+            margin: 25px auto;
         }
     }
 </style>
@@ -233,8 +233,8 @@
             var beforeChildData = <?= json_encode($beforeChildData) ?>;
             var html = '';
             html += '<div class="modal fade" id="surveyCheckModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
-            html += '   <div class="modal-dialog" role="document">';
-            html += '       <div class="modal-content" style="background-color:transparent; border:none;">';
+            html += '   <div class="modal-dialog modal-fullsize" role="document">';
+            html += '       <div class="modal-content modal-fullsize" style="background-color:transparent; border:none;">';
             html += '           <div class="popup-wrap">';
             html += '               <div class="popup-head">';
             html += '                   <h1>설문 결과</h1>';
