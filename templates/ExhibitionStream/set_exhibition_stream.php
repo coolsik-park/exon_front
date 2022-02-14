@@ -381,6 +381,12 @@
             return false;
         }
     });
+
+    //remove comma
+    function removeComma(obj) {
+        var amount = obj.replace(",","");
+        return amount
+    }
     
     //쿠폰 검증
     function validateCoupon() {
@@ -402,8 +408,9 @@
                 if (data.discount_rate != 100) {
                     alert("프로모션이 적용되었습니다.");
                     $("#coupon_code").attr("readonly", true);
-                    coupon_amount = $("#amount").val() * data.discount_rate / 100;
-                    $("#amount").val($("#amount").val() - ($("#amount").val() * data.discount_rate / 100));
+                    coupon_amount = removeComma($('input#amount').val()) * data.discount_rate / 100;
+                    var cal = removeComma($('input#amount').val()) - (removeComma($('input#amount').val()) * data.discount_rate / 100);
+                    $("#amount").val(cal.toLocaleString());
                     discount_rate = data.discount_rate
                     coupon_id = data.coupon_id;
                 
@@ -442,7 +449,7 @@
             buyer_tel : '<?=$user->hp?>',
         }, function(rsp) {
             if ( rsp.success ) {
-                if ($('input#amount').val() != rsp.paid_amount) {
+                if (removeComma($('input#amount').val()) != rsp.paid_amount) {
                     alert("결제요청된 금액과 실제 결제된 금액이 상이합니다. 고객센터로 문의해주세요.");
                     return false;
                 }
@@ -506,7 +513,7 @@
             buyer_tel : '<?=$user->hp?>',
         }, function(rsp) {
             if ( rsp.success ) {
-                if ($('input#amount').val() != rsp.paid_amount) {
+                if (removeComma($('input#amount').val()) != rsp.paid_amount) {
                     alert("결제요청된 금액과 실제 결제된 금액이 상이합니다. 고객센터로 문의해주세요.");
                     return false;
                 }
