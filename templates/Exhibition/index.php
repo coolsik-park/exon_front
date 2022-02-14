@@ -254,9 +254,9 @@
                                     <ul class="menu-ul">
                                         <?php //if (strtotime(date('Y-m-d H:i:s', strtotime($exhibition->sdate))) - strtotime(date('Y-m-d H:i:s', time()))-86400 > 0 || strtotime($exhibition->sdate) == 0): ?>
                                         <?php if (strtotime(date('Y-m-d H:i:s', strtotime($exhibition->sdate))) - strtotime(date('Y-m-d H:i:s', time()))-32400 > 0 || strtotime($exhibition->sdate) == 0): ?>    
-                                            <li><button type="button" id="delete<?=$exhibition->id?>" name="deleteExhibition" class="btn-ty3 bor">행사 삭제</button></li>
+                                            <li><button type="button" id="delete<?=$exhibition->id?>" name="deleteExhibition" class="btn-ty3 bor">행사 취소</button></li>
                                         <?php else : ?>
-                                            <li><button type="button" class="btn-ty3 gray">행사 삭제</button></li>
+                                            <li><button type="button" class="btn-ty3 gray">행사 취소</button></li>
                                         <?php endif; ?>
                                         <li><button type="button" id="copy<?=$exhibition->id?>" name="copyExhibition" class="btn-ty3 bor">행사 복사</button></li>
                                     </ul>
