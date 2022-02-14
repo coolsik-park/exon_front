@@ -8,13 +8,13 @@
                     <div class="item-row">
                         <div class="col-dt">비밀번호</div>
                         <div class="col-dd">
-                            <input type="password" id="pwd" name="pwd" class="full" label="" title="비밀번호" placeholder="최소 8자 이상">
+                            <input type="password" id="pwd" name="pwd" class="full" label="" title="비밀번호" placeholder="최소 8자 이상" autocomplete="off" readonly onclick="$(this).attr('readonly', false)" onblur="$(this).attr('readonly', true)">
                         </div>
                     </div>
                     <div class="item-row">
                         <div class="col-dt">비밀번호 확인</div>
                         <div class="col-dd">
-                            <input type="password" id="pwd_confirm" name="pwd_confirm" class="full" label="" title="비밀번호 확인" placeholder="최소 8자 이상">
+                            <input type="password" id="pwd_confirm" name="pwd_confirm" class="full" label="" title="비밀번호 확인" placeholder="최소 8자 이상" autocomplete="off" readonly onclick="$(this).attr('readonly', false)" onblur="$(this).attr('readonly', true)">
                         </div>
                     </div>
                 </div>
