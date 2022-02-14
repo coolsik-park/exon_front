@@ -66,7 +66,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                         </div>
                     </div>
                     <div class="item-row">
-                        <div class="col-dt">휴대전화 번호</div>
+                        <div class="col-dt"><em class="st">*</em>휴대전화 번호</div>
                         <div class="col-dd">
                             <div class="col-cell-wp">
                                 <select id="cellNumber">
@@ -149,88 +149,85 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
         var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
         var getCheck = RegExp(/^[a-zA-Z0-9]{4,12}$/);
         var getName = RegExp(/^[가-힣]+$/);
-        var result = [];
 
         if ($("#email").val() == "") {
             $("#emailNoti").html("이메일 주소를 입력해 주세요.");
-            result.push('false');
+            $("#email").focus();
+            return false;
         } else {
             $("#emailNoti").html("");
-            result.push('true');
         }
 
         if (!getMail.test($("#email").val() + "@" + $("#emailTail").val())) {
             $("#emailNoti").html("올바른 이메일 형식을 입력해 주세요.");
-            result.push('false');
+            $("#email").focus();
+            return false;
         } else {
             $("#emailNoti").html("");
-            result.push('true');
         }
 
         if ($("#name").val() == "") {
             $("#nameNoti").html("이름을 입력해 주세요.");
-            result.push('false');
+            $("#name").focus();
+            return false;
         } else {
             $("#nameNoti").html("");
-            result.push('true');
         }
 
-        // if (!getName.test($("#name").val())) {
-        //     $("#nameNoti").html("이름을 올바르게 입력해 주세요.");
-        //     result.push('false');
-        // } else {
-        //     $("#nameNoti").html("");
-        //     result.push('true');
-        // }
+        if ($("#cellNumber2").val() == "") {
+            $("#cellNoti").html("전화번호를 입력해주세요.");
+            $("#cellNumber2").focus();
+            return false;
+        } else {
+            $("#cellNoti").html("");
+        }
+
+        if ($("#cellNumber2").val().length != 8 || isNaN($("#cellNumber2").val())) {
+            $("#cellNoti").html("전화번호 11자리를 정확하게 입력해주세요.");
+            $("#cellNumber2").focus();
+            return false;
+        } else {
+            $("#cellNoti").html("");
+        }
 
         if ($("#password").val().length < 8) {
             $("#lengthNoti").html("비밀번호는 8자 이상으로 입력해 주세요.");
-            result.push('false');
+            $("#password").focus();
+            return false;
         } else {
             $("#lengthNoti").html("");
-            result.push('true');
         }
 
         if ($("#password").val() != $("#confirm").val()) {
             $("#confirmNoti").html("비밀번호가 다릅니다.\n다시 입력해 주세요.");
-            result.push('false');
+            $("#confirm").focus();
+            return false;
         } else {
             $("#confirmNoti").html("");
-            result.push('true');
         }
-
-        // if ($("#cellNumber2").val().length < 8 || isNaN($("#cellNumber2").val())) {
-        //     $("#cellNoti").html("휴대전화 번호를 올바르게 입력해주세요.");
-        //     result.push('false');
-        // } else {
-        //     $("#cellNoti").html("");
-        //     result.push('true');
-        // }
 
         if ($("#agree2").prop("checked") == false || $("#agree3").prop("checked") == false) {
             alert("필수 이용약관 및 개인정보 수집/이용 동의를 확인해주세요.");
-            result.push('false');
+            return false;
         }
 
-        if (!result.includes('false')) {
-            jQuery.ajax({
-                url: "/users/add",
-                method: 'POST',
-                type: 'json',
-                data: {
-                    email: $("#email").val() + "@" + $("#emailTail").val(),
-                    password: $("#password").val(),
-                    name: $("#name").val(),
-                    hp: $("#cellNumber").val() + $("#cellNumber2").val()
-                }
-            }).done(function (data) {
-                if (data.status == 'success') {
-                    $(location).attr('href', '/users/certification/' + data.id);
-                } else {
-                    $("#emailNoti").html("이미 회원 가입된 이메일입니다.\n다시 입력해 주세요.");
-                    $("#email").focus();
-                }
-            });
-        }
+        jQuery.ajax({
+            url: "/users/add",
+            method: 'POST',
+            type: 'json',
+            data: {
+                email: $("#email").val() + "@" + $("#emailTail").val(),
+                password: $("#password").val(),
+                name: $("#name").val(),
+                hp: $("#cellNumber").val() + $("#cellNumber2").val()
+            }
+        }).done(function (data) {
+            if (data.status == 'success') {
+                $(location).attr('href', '/users/certification/' + data.id);
+            } else {
+                $("#emailNoti").html("이미 회원 가입된 이메일입니다.\n다시 입력해 주세요.");
+                $("#email").focus();
+            }
+        });
     });
 </script>
