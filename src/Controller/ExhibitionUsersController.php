@@ -449,10 +449,10 @@ class ExhibitionUsersController extends AppController
                     $payment_data = $result->data;
                     $now = date('Y-m-d H:i:s', time()+32400);
                     
-                    $pay->cancel_reason = '행사 이용자 취소';
-                    $pay->cancel_date = $now->i18nFormat('yyyy-MM-dd HH:mm:ss');
+                    // $pay->cancel_reason = '행사 이용자 취소';
+                    // $pay->cancel_date = $now->i18nFormat('yyyy-MM-dd HH:mm:ss');
                     
-                    if ($Pay->save($pay)) {
+                    if ($connection->update('pay', ['cancel_reason' => '행사 이용자 취소', 'cancel_date' => $now], ['id' => $pay_id])) {
                         $connection->commit();
     
                         $mailer = new Mailer();
