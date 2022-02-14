@@ -851,14 +851,10 @@ class UsersController extends AppController
 
         if ($users_id != null) :
             $data = $this->Users->get($users_id);
-            if ($data->email_cert == 0 && $data->hp_cert == 0) {
+            if ($data->hp_cert == 0) {
                 $cert = 0;
-            } else if ($data->email_cert == 1 && $data->hp_cert == 0) {
+            } else {
                 $cert = 1;
-            } else if ($data->email_cert == 0 && $data->hp_cert == 1) {
-                $cert = 2;
-            } else if ($data->email_cert == 1 && $data->hp_cert == 1) {
-                $cert = 4;
             }
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'exist', 'users_id' => $users_id, 'cert' => $cert]));
             return $response;
@@ -870,9 +866,6 @@ class UsersController extends AppController
 
     public function pwdCert ($users_id = null, $cert = null)
     {
-        if ($cert == 0) :
-            $this->redirect(['action' => 'notCertified']);
-        endif; 
         $this->set(compact('users_id', 'cert'));
     }
 

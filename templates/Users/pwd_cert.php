@@ -83,12 +83,9 @@
 
     //라디오 버튼 컨트롤
     var cert = "<?=$cert?>";
-    if (cert == 1) {
+    if (cert == 0) {
         $("#authCell").attr("disabled", true);
         $("#authCellLabel").css("color", "gray");
-    } else if (cert == 2) {
-        $("#authEmail").attr("disabled", true);
-        $("#authEmailLabel").css("color", "gray");
     }
     $(document).on("change", "input[name='auth']", function () {
         if ($(this).attr("id") == 'authEmail') {
