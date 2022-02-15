@@ -188,7 +188,7 @@ class ExhibitionUsersController extends AppController
                     $Group = $this->getTableLocator()->get('ExhibitionGroup');
                     $group_id = $this->request->getData('exhibition_group_id');
                     $group = $Group->get($group_id);
-                    $user_name = $this->request->getData('user_name');
+                    $user_name = $this->request->getData('users_name');
                     
                     if ($exhibition->auto_approval == 0 || $exhibition->apply_edate->format('Y-m-d H:i:s') < date('Y-m-d H:i:s', time()+32400)) :
                         $mailer->setEmailFormat('html')
@@ -239,7 +239,7 @@ class ExhibitionUsersController extends AppController
                 
                 } else {
                     $to = $this->request->getData('users_email');
-                    $user_name = $this->request->getData('user_name');
+                    $user_name = $this->request->getData('users_name');
                     
                     if ($exhibition->auto_approval == 0 || $exhibition->apply_edate->format('Y-m-d H:i:s') < date('Y-m-d H:i:s', time()+32400)) :
                         $mailer->setEmailFormat('html')
