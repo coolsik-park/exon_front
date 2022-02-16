@@ -333,14 +333,15 @@
                     clearInterval(timeCheckBeforeTen);
                     is_timeCheck = 0;
                     is_timeCheckBeforeTen = 0; 
-                    liveEnd();
-                    // player.dispose();
-                    // var html = '<video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup=\'{"fluid": true}\'></video-js>';
-                    // $("#videoWrap").append(html);
-                    // var newPlayer = videojs(document.querySelector('#vid1'));
-                    // newPlayer.load();
-                    // $("#liveButtons").children().remove();
-                    // $("#liveButtons").append('<button id="start" type="button" class="btn-ty4 black">방송시작</button>');
+                    
+                    player.dispose();
+                    var html = '<video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup=\'{"fluid": true}\'></video-js>';
+                    $("#videoWrap").append(html);
+                    var newPlayer = videojs(document.querySelector('#vid1'));
+                    newPlayer.load();
+                    $("#liveButtons").children().remove();
+                    $("#liveButtons").append('<button id="start" type="button" class="btn-ty4 black">방송시작</button>');
+
                     alert("서비스 시간 만료로 방송이 종료되었습니다.");
                 }
             }
