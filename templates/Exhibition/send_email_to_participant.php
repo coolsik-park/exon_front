@@ -8,6 +8,9 @@
     height: 80vh;
     overflow-y: auto;
 }
+.pr3-section3 .msg-post .btns .modalBtn {
+    width: 20%;
+}
 </style>
 <body onkeydown="enterkey()">
     <div id="container">
@@ -151,8 +154,8 @@
                                             </form>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" id="close" class="btn-ty2 bor" data-dismiss="modal">취소</button>
-                                            <button type="button" id="confirm" class="btn-ty2">확인</button>
+                                            <button type="button" id="close" class="btn-ty2 bor modalBtn" data-dismiss="modal">취소</button>
+                                            <button type="button" id="confirm" class="btn-ty2 modalBtn">확인</button>
                                         </div>
                                     </div>
                                 </div>
