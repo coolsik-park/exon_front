@@ -920,9 +920,9 @@ class ExhibitionStreamController extends AppController
             }
 
             if ($exist == 1 && $start_date <= $date && $date <= $end_date) {
-                $update_coupon = $Coupon->get($coupon_id);
-                $update_coupon->status = 4;
-                $Coupon->save($update_coupon);
+                // $update_coupon = $Coupon->get($coupon_id);
+                // $update_coupon->status = 4;
+                // $Coupon->save($update_coupon);
 
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'coupon_id' => $coupon_id, 'discount_rate' => $discount_rate]));
                 return $response;

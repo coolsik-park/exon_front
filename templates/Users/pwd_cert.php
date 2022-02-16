@@ -28,7 +28,8 @@
                                     <button id="close" type="button" class="popup-close close" data-dismiss="modal" aria-label="Close">팝업닫기</button>
                                 </div>
                                 <div class="popup-body"> 
-                                    <p>이메일로 전송된 인증번호를 입력해주세요.</p>
+                                    <p>이메일로 전송된 인증번호를 입력해주세요.</p><br>
+                                    <span id='timer'></span>
                                     <div class="cert-sect2">
                                         <div class="label-wp">
                                             <label for="emailCode">인증번호</label><input type="text" id="emailCode" placeholder="인증번호" autocomplete="off">
@@ -53,7 +54,8 @@
                                     <button id="close" type="button" class="popup-close close" data-dismiss="modal" aria-label="Close">팝업닫기</button>
                                 </div>
                                 <div class="popup-body"> 
-                                    <p>문자로 전송된 인증번호를 입력해주세요.</p>
+                                    <p>문자로 전송된 인증번호를 입력해주세요.</p><br>
+                                    <span id='timer'></span>
                                     <div class="cert-sect2">
                                         <div class="label-wp">
                                             <label for="smsCode">인증번호</label><input type="text" id="smsCode" placeholder="인증번호" autocomplete="off">
@@ -83,12 +85,9 @@
 
     //라디오 버튼 컨트롤
     var cert = "<?=$cert?>";
-    if (cert == 1) {
+    if (cert == 0) {
         $("#authCell").attr("disabled", true);
         $("#authCellLabel").css("color", "gray");
-    } else if (cert == 2) {
-        $("#authEmail").attr("disabled", true);
-        $("#authEmailLabel").css("color", "gray");
     }
     $(document).on("change", "input[name='auth']", function () {
         if ($(this).attr("id") == 'authEmail') {
@@ -108,6 +107,12 @@
                 if (data.status == 'success') {
                     alert("인증번호를 발송하였습니다.");
                     last_id = data.id;
+
+                    var AuthTimer = new $ComTimer()
+                    AuthTimer.comSecond = 180;
+                    AuthTimer.fnCallback = function(){alert("다시인증을 시도해주세요.")}
+                    AuthTimer.timer =  setInterval(function(){AuthTimer.fnTimer()},1000);
+                    AuthTimer.domId = document.getElementById("timer");
                 } else {
                     alert("오류가 발생하였습니다. 다시 시도해 주세요.");
                 }
@@ -227,4 +232,28 @@
             }
         });
     });
+
+    function $ComTimer(){
+    //prototype extend
+    }
+
+    $ComTimer.prototype = {
+        comSecond : ""
+        , fnCallback : function(){}
+        , timer : ""
+        , domId : ""
+        , fnTimer : function(){
+            var m = Math.floor(this.comSecond / 60) + "분 " + (this.comSecond % 60) + "초";	// 남은 시간 계산
+            this.comSecond--;					// 1초씩 감소
+            console.log(m);
+            this.domId.innerText = m;
+            if (this.comSecond < 0) {			// 시간이 종료 되었으면..
+                clearInterval(this.timer);		// 타이머 해제
+                alert("인증시간이 초과되었습니다.\n다시 인증해주시기 바랍니다.")
+            }
+        }
+        ,fnStop : function(){
+            clearInterval(this.timer);
+        }
+    }
 </script>
