@@ -9,7 +9,19 @@
     overflow-y: auto;
 }
 .pr3-section3 .msg-post .btns .modalBtn {
-    width: 20%;
+    width: 15.5%;
+    font-weight: 500;
+    margin-right: 16px;
+}
+@media  screen and (max-width: 768px) {
+    .pr3-section3 .msg-post .btns .modalBtn {
+        width: 50%;
+        margin-right: 0px;
+    }
+    .pr3-section3 .msg-post .btns .check {
+        width: 74%;
+        margin-right: 0px;
+    }
 }
 </style>
 <body onkeydown="enterkey()">
@@ -155,7 +167,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" id="close" class="btn-ty2 bor modalBtn" data-dismiss="modal">취소</button>
-                                            <button type="button" id="confirm" class="btn-ty2 modalBtn">확인</button>
+                                            <button type="button" id="confirm" class="btn-ty2 modalBtn check">확인</button>
                                         </div>
                                     </div>
                                 </div>
