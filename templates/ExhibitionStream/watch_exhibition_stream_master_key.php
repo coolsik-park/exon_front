@@ -46,10 +46,10 @@
                         <div class="w-tab-wrap-inner">
                             <ul class="w-tab">
                                 <li id="li9" class="" style="display:none;"><button type="button" id="tab9" name="실시간 채팅">실시간 채팅</button></li>
-                                <li id="li8" class="" style="display:none;"><button type="button" id="tab8" name="설문">설문</button></li>
+                                <!-- <li id="li8" class="" style="display:none;"><button type="button" id="tab8" name="설문">설문</button></li> -->
                                 <li id="li7" class="" style="display:none;"><button type="button" id="tab7" name="공지사항">공지사항</button></li>
-                                <li id="li6" class="" style="display:none;"><button type="button" id="tab6" name="질의 응답">질의 응답</button></li>
-                                <li id="li5" class="" style="display:none;"><button type="button" id="tab5" name="출석체크">출석체크</button></li>
+                                <!-- <li id="li6" class="" style="display:none;"><button type="button" id="tab6" name="질의 응답">질의 응답</button></li> -->
+                                <!-- <li id="li5" class="" style="display:none;"><button type="button" id="tab5" name="출석체크">출석체크</button></li> -->
                                 <li id="li4" class="" style="display:none;"><button type="button" id="tab4" name="프로그램">프로그램</button></li>
                                 <li id="li3" class="" style="display:none;"><button type="button" id="tab3" name="담당자 정보">담당자 정보</button></li>
                                 <li id="li2" class="" style="display:none;"><button type="button" id="tab2" name="개설자 정보">개설자 정보</button></li>
@@ -84,18 +84,9 @@
             }
         });
     });
-    
-    //잘못된 접근 차단
-    var ref = document.referrer;
-    var pass = 0;
-    if (ref != '<?=$front_url?>/exhibition/view/<?=$exhibitionStream[0]['exhibition_id']?>' && ref != '<?=$front_url?>/exhibition-users/sign-up/application' && ref != '<?=$front_url?>/exhibition-stream/certification/<?=$exhibitionStream[0]['exhibition_id']?>' && ref != document.location.href) {
-        alert('허용되지 않는 잘못된 접근입니다.');
-        history.go(-1);
-    }
 
     $(document).ready(function () {
         //시청자수 카운트
-        setInterval("updateLastViewTime()" , 1000);
         setInterval("countViewer()" , 3000);
         setInterval("updateLiveDurationTime()" , 1000);
         setInterval("liveEndCheck()", 3000);
@@ -221,22 +212,6 @@
             
         });
 
-        $("#li5").click(function () {
-            clearInterval(chatInterval);
-            $(".webinar-tab-body").load('/exhibition-stream/set-attendance/' + <?= $exhibitionStream[0]['exhibition_id'] ?>);
-            $("#li0").attr("class", "");
-            $("#li1").attr("class", "");
-            $("#li2").attr("class", "");
-            $("#li3").attr("class", "");
-            $("#li4").attr("class", "");
-            $("#li5").attr("class", "active");
-            $("#li6").attr("class", "");
-            $("#li7").attr("class", "");
-            $("#li8").attr("class", "");
-            $("#li9").attr("class", "");
-            
-        });
-
         $("#li6").click(function () {
             clearInterval(chatInterval);
             $(".webinar-tab-body").load("/exhibition-stream/set-question/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
@@ -269,22 +244,6 @@
             
         });
 
-        $("#li8").click(function () {
-            clearInterval(chatInterval);
-            $(".webinar-tab-body").load("/exhibition-stream/answer-survey/<?= $exhibitionStream[0]['exhibition_id'] ?>/<?= $exhibition_users_id ?>");
-            $("#li0").attr("class", "");
-            $("#li1").attr("class", "");
-            $("#li2").attr("class", "");
-            $("#li3").attr("class", "");
-            $("#li4").attr("class", "");
-            $("#li5").attr("class", "");
-            $("#li6").attr("class", "");
-            $("#li7").attr("class", "");
-            $("#li8").attr("class", "active");
-            $("#li9").attr("class", "");
-            
-        });
-
         $("#li9").click(function () {
             $(".webinar-tab-body").load("/exhibition-stream-chat-log/chat/" + <?= $exhibitionStream[0]['exhibition_id'] ?> + "/" + now);
             $("#li0").attr("class", "");
@@ -300,15 +259,6 @@
             
         });
     });
-
-    function updateLastViewTime() {
-        var exhibition_users_id = "<?=$exhibition_users_id?>";
-        jQuery.ajax({
-            url: "/exhibition-stream/update-last-view-time/" + exhibition_users_id, 
-            method: 'POST',
-            type: 'json',
-        });
-    }
     
     function countViewer () {
         jQuery.ajax({
