@@ -227,7 +227,7 @@ $(document).ready(function(){
         });
     }
 
-    chatInterval = setInterval(loadLog, 2500);
+    chatInterval = setInterval(loadLog, 1000);
 });
 
 </script>
