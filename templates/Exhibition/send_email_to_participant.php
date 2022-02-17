@@ -8,19 +8,18 @@
     height: 80vh;
     overflow-y: auto;
 }
-.pr3-section3 .msg-post .btns .modalBtn {
-    width: 15.5%;
+.pr3-section3 .msg-post .btns .btn-ty2 {
     font-weight: 500;
-    margin-right: 16px;
+    width: 230px;
+    margin-right: 15px;
 }
 @media  screen and (max-width: 768px) {
-    .pr3-section3 .msg-post .btns .modalBtn {
-        width: 50%;
-        margin-right: 0px;
+    .pr3-section3 .msg-post .btns .bor{
+        width: 48%;
+        margin: 0;
     }
-    .pr3-section3 .msg-post .btns .check {
-        width: 74%;
-        margin-right: 0px;
+    .table-type4 .col1 {
+        width: 98%;
     }
 }
 </style>
@@ -166,8 +165,8 @@
                                             </form>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" id="close" class="btn-ty2 bor modalBtn" data-dismiss="modal">취소</button>
-                                            <button type="button" id="confirm" class="btn-ty2 modalBtn check">확인</button>
+                                            <button type="button" id="close" class="btn-ty2 bor" data-dismiss="modal">취소</button>
+                                            <button type="button" id="confirm" class="btn-ty2">확인</button>
                                         </div>
                                     </div>
                                 </div>

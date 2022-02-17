@@ -8,6 +8,11 @@
     height: 80vh;
     overflow-y: auto;
 }
+@media  screen and (max-width: 768px) {
+    .table-type4 .col1 {
+        width: 98%;
+    }
+}
 </style>
 <body onkeydown="enterkey()">
     <div id="container">
