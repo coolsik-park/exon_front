@@ -126,7 +126,7 @@
                         <li>
                             <button type="button">마이페이지</button>
                             <ul>
-                                <li><a href="#">회원 정보 수정</a></li>
+                                <li><a href="/users/edit">회원 정보 수정</a></li>
                                 <li>
                                     <a href="#">신청 내역 관리</a>
                                     <ul class="lst-depth">
