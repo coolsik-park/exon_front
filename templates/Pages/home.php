@@ -81,9 +81,14 @@
         }
         .main-sect2-hot-item .desc a {
             margin-top: 0.625rem;
+            padding: 0.688rem 1rem;
+            font-size: 0.8rem;
         }
         .main-slider3 .swiper-slide {
-            height: 90px;
+            height: 70px;
+        }
+        .hotImg {
+            height: 190px;
         }
     }
 </style>
