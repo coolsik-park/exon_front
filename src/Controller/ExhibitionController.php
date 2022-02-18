@@ -891,7 +891,7 @@ class ExhibitionController extends AppController
                 }
                 $users[$i]['company'] = $users_data[0]->company;
             } else {
-                $users[$i] = 0;
+                $users[$i]['id'] = 0;
             }
         }
         
