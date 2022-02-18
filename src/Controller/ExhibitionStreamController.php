@@ -1233,7 +1233,7 @@ class ExhibitionStreamController extends AppController
                 $from_time = date('Y-m-d H:i:s', strtotime($exhibitionUser['last_view_time']->format('Y-m-d H:i:s'))+32400);
 
                 if ($to_time <= $from_time) {
-                    $count++;
+                    $count = $count + 1;
                 }
             }
         }
