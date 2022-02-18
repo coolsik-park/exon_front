@@ -42,6 +42,9 @@
         left: 0;
         top: 2480px;
     }
+    .hotImg {
+        width: 580px; height: 292px;
+    }
     @media  screen and (max-width: 768px) {
         .subBanner {
             width:375px; 
@@ -49,6 +52,38 @@
         }
         .main-slider3 .swiper-slide img {
             height: auto;
+        }
+        .slider2Div {
+            display: none;
+        }
+        .slider4Div {
+            display: none;
+        }
+        .slider5Div {
+            display: none;
+        }
+        .main-sect2-hot-item {
+            flex-direction: column;
+        }
+        .main-sect2 {
+            padding-right: 4vw;
+        }
+        .main-sect2-hot-item .imgs {
+            width: 100%;
+        }
+        .main-sect2-hot-item .desc {
+            padding-left: 0px;
+            padding-top: 12px;
+            width: 100%;
+        }
+        .main-sect2-hot-item .desc .h-ty2 {
+            margin-top: 1.625rem;
+        }
+        .main-sect2-hot-item .desc a {
+            margin-top: 0.625rem;
+        }
+        .main-slider3 .swiper-slide {
+            height: 90px;
         }
     }
 </style>
@@ -80,7 +115,7 @@
                     <div class="main-sect2-hot-item">
                         <a href="/exhibition/view/<?php echo $hot[0]['exhibition_id']; ?>" class="main-sd-item">
                         <div class="imgs">
-                                <img style="width:580px; height:292px;" src="<?php echo DS . $hot[0]['img_path'] .DS. $hot[0]['img_name'];?>" alt="">
+                                <img class="hotImg" src="<?php echo DS . $hot[0]['img_path'] .DS. $hot[0]['img_name'];?>" alt="">
                             </div>
                         </a>
                         <div class="desc">
