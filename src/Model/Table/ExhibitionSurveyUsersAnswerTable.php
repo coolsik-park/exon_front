@@ -54,7 +54,7 @@ class ExhibitionSurveyUsersAnswerTable extends Table
             'foreignKey' => 'exhibition_survey_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('Users', [
+        $this->belongsTo('ExhibitionUsers', [
             'foreignKey' => 'users_id',
             'joinType' => 'INNER',
         ]);
