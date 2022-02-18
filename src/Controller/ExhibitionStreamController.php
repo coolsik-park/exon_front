@@ -135,6 +135,19 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('exhibitionStream', 'tabs', 'exhibition_users_id', 'front_url'));
     }
 
+    public function watchExhibitionStreamMasterKey($id = null)
+    {
+        $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $id])->toArray();
+
+        if (empty($exhibitionStream)) {
+            $this->redirect(['action' => 'stream_not_exist']);
+        } 
+        
+        $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
+        $front_url = FRONT_URL;
+        $this->set(compact('exhibitionStream', 'tabs', 'front_url'));
+    }
+
     public function questionMenu ($id = null) 
     {
         $this->set(compact('id'));
@@ -1210,17 +1223,16 @@ class ExhibitionStreamController extends AppController
         $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
         $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id])->toArray();
 
-        $now = date("Y-m-d H:i:s");
+        $now = date('Y-m-d H:i:s', time()+32370);
         $count = 0;
         
         foreach($exhibitionUsers as $exhibitionUser) {
 
             if ($exhibitionUser['last_view_time'] != null) {
-                $to_time = strtotime($now);
-                $from_time = strtotime($exhibitionUser['last_view_time']->format('Y-m-d H:i:s'));
-                $minutes = round(abs($to_time - $from_time) / 60,2);
+                $to_time = $now;
+                $from_time = date('Y-m-d H:i:s', strtotime($exhibitionUser['last_view_time']->format('Y-m-d H:i:s'))+32400);
 
-                if ($minutes < 0.5) {
+                if ($to_time <= $from_time) {
                     $count++;
                 }
             }
@@ -1322,7 +1334,7 @@ class ExhibitionStreamController extends AppController
     {
         $exhibitionStream = $this->ExhibitionStream->get($exhibition_stream_id);
         
-        if ($exhibitionStream->live_started == null && strtotime($exhibition->sdate->format('Y-m-d H:i:s')) < strtotime(date('Y-m-d H:i:s', time()+32400))) {
+        if ($exhibitionStream->live_started == null) {
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'end' => 1]));
             return $response;
         } else {
