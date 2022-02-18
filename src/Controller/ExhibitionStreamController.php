@@ -1223,17 +1223,16 @@ class ExhibitionStreamController extends AppController
         $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
         $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $exhibition_id])->toArray();
 
-        $now = date("Y-m-d H:i:s");
+        $now = date('Y-m-d H:i:s', time()+32370);
         $count = 0;
         
         foreach($exhibitionUsers as $exhibitionUser) {
 
             if ($exhibitionUser['last_view_time'] != null) {
-                $to_time = strtotime($now);
-                $from_time = strtotime($exhibitionUser['last_view_time']->format('Y-m-d H:i:s'));
-                $minutes = round(abs($to_time - $from_time) / 60,2);
+                $to_time = $now;
+                $from_time = date('Y-m-d H:i:s', strtotime($exhibitionUser['last_view_time']->format('Y-m-d H:i:s'))+32400);
 
-                if ($minutes < 0.5) {
+                if ($to_time <= $from_time) {
                     $count++;
                 }
             }
