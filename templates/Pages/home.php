@@ -24,7 +24,7 @@
         background: inherit;
         position: absolute;
         left: 0;
-        top: 1380px;
+        top: 1297px;
     }
     .slider4Div {
         width: 100%;
@@ -32,7 +32,7 @@
         background: inherit;
         position: absolute;
         left: 0;
-        top: 2120px;
+        top: 2038px;
     }
     .slider5Div {
         width: 100%;
@@ -40,7 +40,7 @@
         background: inherit;
         position: absolute;
         left: 0;
-        top: 2480px;
+        top: 2400px;
     }
     .hotImg {
         width: 580px; height: 292px;
@@ -85,7 +85,7 @@
             font-size: 0.8rem;
         }
         .main-slider3 .swiper-slide {
-            height: 70px;
+            height: 68.5px;
         }
         .hotImg {
             height: 190px;
