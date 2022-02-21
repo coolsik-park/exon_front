@@ -102,15 +102,6 @@
                 </div>
             </div>
             <!-- // -->                
-            <div class="pr-graph1 mgtS3">
-                <div class="graph-bx">
-                    <h3 class="s-hty2">시간대 별 시청자 수</h3>
-                    <div>
-                        그래프영역
-                    </div>
-                </div>
-            </div>
-            <!-- // -->
         </div>
     </div>        
 </div>
