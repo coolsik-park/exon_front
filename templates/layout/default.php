@@ -27,7 +27,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <meta property="og:type" content="website"/>
 	<meta property="og:title" content="exon"/>
-	<meta property="og:description" content="exon"/>
+	<meta property="og:description" content="웨비나 개설, 진행 및 실시간 방송 서비스, 온라인 세미나, 컨벤션, 언택트 행사 개최, 진행 및 온라인 방송진행, 행사 홍보"/>
 	<meta property="og:image" content="http://www.exon.co.kr"/>
     <meta name="keywords" content="">
     <meta name="description" content="">
@@ -43,7 +43,7 @@
     <script src="/js/mobile-detect.min.js"></script>
     <script src="/js/responsiveImg.js"></script>   
     <script src="/js/common.js"></script>
-    <title>EXON</title>
+    <title>EXON 엑스온</title>
     
     <style>
         #my-page {
