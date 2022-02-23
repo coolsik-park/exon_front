@@ -26,11 +26,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">    
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <meta property="og:type" content="website"/>
-	<meta property="og:title" content="exon"/>
+	<meta property="og:title" content="EXON 엑스온"/>
 	<meta property="og:description" content="웨비나 개설, 진행 및 실시간 방송 서비스, 온라인 세미나, 컨벤션, 언택트 행사 개최, 진행 및 온라인 방송진행, 행사 홍보"/>
 	<meta property="og:image" content="http://www.exon.co.kr"/>
     <meta name="keywords" content="">
-    <meta name="description" content="">
+    <meta name="description" content="웨비나 개설, 진행 및 실시간 방송 서비스, 온라인 세미나, 컨벤션, 언택트 행사 개최, 진행 및 온라인 방송진행, 행사 홍보">
     <meta name="author" content="">
     <meta name="google-site-verification" content="-8KzMCcsPArgJ4XXXHvmwhqKVYm4kL5X0CTekqr8NqY" />
     <meta name="naver-site-verification" content="2f106c2883a67935638fedcf2fc68912931a27a1" />
