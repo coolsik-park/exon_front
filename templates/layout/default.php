@@ -34,6 +34,7 @@
     <meta name="author" content="">
     <meta name="google-site-verification" content="-8KzMCcsPArgJ4XXXHvmwhqKVYm4kL5X0CTekqr8NqY" />
     <meta name="naver-site-verification" content="2f106c2883a67935638fedcf2fc68912931a27a1" />
+    <meta name="naver-site-verification" content="691220371d52b4ab2727e6f7cb48a6f25b810fa9" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/jquery-3.2.1.min.js"></script>
