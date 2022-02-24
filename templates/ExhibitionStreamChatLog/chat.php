@@ -172,7 +172,7 @@
               <!-- <div class="chatting-msg-box"> -->
                   <div id="chatbox">
                     <?php if ($exhibition->notice != null) : ?>
-                    <div class="wb-alert" style="word-wrap:break-word;"><?= $this->Text->autoParagraph($exhibition->notice) ?><br><input type="button" id="close" value="공지사항 닫기"></div>
+                    <div style="margin-bottom:20px;word-wrap:break-word;"><?= $this->Text->autoParagraph($exhibition->notice) ?><br><hr style="border:1px solid #a5a5a5"></div>
                     <?php endif; ?>
                   </div>
               <!-- </div>   -->
@@ -198,10 +198,6 @@
 
 
 <script>
-$(document).on("click", "#close", function () {
-  $("#chatbox").empty();
-});
-
 $(document).ready(function(){ 
     //If user wants to end session
     $("#exit").click(function(){
