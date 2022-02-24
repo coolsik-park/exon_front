@@ -13,6 +13,8 @@
         .video-js .vjs-progress-holder {
             height:4px;
             width:100%;
+            margin:0px;
+            top:0%;
         }
     </style>
 </head>
