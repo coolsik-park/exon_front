@@ -68,9 +68,11 @@ class ExhibitionStreamChatLogController extends AppController
         // }
         $ExhibitionStream = $this->getTableLocator()->get('ExhibitionStream');
         $exhibitionStream = $ExhibitionStream->find('all')->where(['exhibition_id' => $exhibition_id])->toArray();
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $exhibition = $Exhibition->get($exhibition_id);
         if (count($exhibitionStream) != 0) {
             $stream_id = $exhibitionStream[0]['id'];
-            $this->set(compact('stream_id', 'now'));
+            $this->set(compact('stream_id', 'now', 'exhibition'));
         }
     }
 

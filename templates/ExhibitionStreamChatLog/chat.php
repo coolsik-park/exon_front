@@ -141,6 +141,11 @@
   .msgln b.user-name-left {
     background: orangered;
   }
+
+  .wb-alert {
+    margin-top: 0px;
+    margin-bottom: 20px;
+  }
 </style>
 
 <!-- <div id="wrapper">
@@ -165,7 +170,11 @@
               <!-- <p class="wb-alert">사용할 탭을 선택해주세요</p>                                   
               <p class="wb-alert">실시간 채팅 탭이 활성화되었습니다</p>                                    -->
               <!-- <div class="chatting-msg-box"> -->
-                  <div id="chatbox"></div>
+                  <div id="chatbox">
+                    <?php if ($exhibition->notice != null) : ?>
+                    <div class="wb-alert" style="word-wrap:break-word;"><?= $this->Text->autoParagraph($exhibition->notice) ?><br><input type="button" id="close" value="공지사항 닫기"></div>
+                    <?php endif; ?>
+                  </div>
               <!-- </div>   -->
         </div>
         <div class="webinar-cont-ty1-btm">
@@ -189,9 +198,11 @@
 
 
 <script>
+$(document).on("click", "#close", function () {
+  $("#chatbox").empty();
+});
 
-$(document).ready(function(){
- 
+$(document).ready(function(){ 
     //If user wants to end session
     $("#exit").click(function(){
         var exit = confirm("Are you sure you want to end the session?");
