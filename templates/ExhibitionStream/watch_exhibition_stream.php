@@ -14,8 +14,8 @@
             height:4px;
             width:100%;
             /* position:absolute; */
-            margin:0px;
-            top:0%;
+            /* margin:0px;
+            top:0%; */
         }
     </style>
 </head>
@@ -63,7 +63,7 @@
                 <!-- // top -->
                 <?= $this->Form->create() ?>   
                 <div class="webinar-tab-body">  
-
+                       
                 </div>
                 <?php $this->Form->end(); ?>    
                 <!-- // body-->
