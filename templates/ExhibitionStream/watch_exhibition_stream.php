@@ -34,7 +34,10 @@
                         <p class="wd1"><span class="w-dt">스트리밍 시간 : </span><span id="live_duration_time" class="w-dd">00:00:00</span></p>
                         <p class="wd2"><span class="w-dt">시청자 : </span><span id="viewer" class="w-dd">0명</span></p>
                     </div>
-                </div>                   
+                </div>   
+                <div class="wb-cont2">
+                    <a href="<?=$front_url?>" class="btn-ty4 black">나가기</a>
+                </div>                
             </div>
 
             <!-- webinar-tab -->
