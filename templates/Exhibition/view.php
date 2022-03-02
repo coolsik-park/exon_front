@@ -18,6 +18,9 @@
     .conts {
         text-align: center;
     }
+    .apply-sect3-cont {
+        word-break:break-all;
+    }
     @media  screen and (max-width: 768px) {
         .photos img {
             position: absolute;
