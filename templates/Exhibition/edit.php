@@ -379,13 +379,26 @@
     </div>
 <?= $this->Form->end() ?>
 
-<script src="/js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script> 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" />
 
 <script>
+    //naver editor
+    var oEditors = [];
+    var detail = $("#hidden_detail").val();
+    nhn.husky.EZCreator.createInIFrame({
+        oAppRef: oEditors,
+        elPlaceHolder: "detail_html",
+        sSkinURI: "/se2/SmartEditor2Skin.html",
+        fOnAppLoad : function(){
+          oEditors.getById["detail_html"].exec("PASTE_HTML", [detail]);
+        },
+        fCreator: "createSEditor2"
+    });
+
     //방송 송출 시작 이후 행사명 변경 불가 처리
     var live_duration = "<?=$live_duration?>";
     if (live_duration != 0) {
@@ -447,9 +460,6 @@
     //         $("#require_email").attr("onclick", "return false");
     //     }
     // });
-    
-    //CKEditor 불러오기
-    CKEDITOR.replace('detail_html');
 
     //DB 데이터 불러오기
     var img = "<?=$exhibition->image_name?>";
@@ -457,10 +467,6 @@
         $("#mainImg").attr("src", "/<?=$exhibition->image_path?>/<?=$exhibition->image_name?>");
     } else {
         $("#mainImg").attr("src", "../../images/img-no3.png");
-    }
-    var detail = $("#hidden_detail").val();
-    if (detail != '') {
-        CKEDITOR.instances.detail_html.setData(detail);
     }
 
     $("#title").val("<?=$exhibition->title?>");
@@ -844,7 +850,8 @@
         var formData = $("#editForm").serialize();
         formData = formData + '&status=1';
         formData = formData + '&action=add';
-        formData = formData + '&detail=' + CKEDITOR.instances.detail_html.getData();
+        oEditors.getById["detail_html"].exec("UPDATE_CONTENTS_FIELD", []);
+        formData = formData + '&detail=' + $("#detail_html").val();
 
         var apply_sdate = new Date($("#data_apply_sdate").val());
         apply_sdate.setHours(apply_sdate.getHours()+9);
@@ -965,7 +972,8 @@
         var formData = $("#editForm").serialize();
         formData = formData + '&status=4';
         formData = formData + '&action=add';
-        formData = formData + '&detail=' + CKEDITOR.instances.detail_html.getData();
+        oEditors.getById["detail_html"].exec("UPDATE_CONTENTS_FIELD", []);
+        formData = formData + '&detail=' + $("#detail_html").val();
 
         var apply_sdate = new Date($("#data_apply_sdate").val());
         if (apply_sdate != 'Invalid Date') {
