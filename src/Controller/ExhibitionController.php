@@ -236,8 +236,8 @@ class ExhibitionController extends AppController
                 if (!empty($data['require_cert'])) :
                 $exhibition->require_cert = $data['require_cert'];
                 endif;
-                if (!empty($data['detail'])) :
-                $exhibition->detail_html = $data['detail'];
+                if (!empty($data['detail_html'])) :
+                $exhibition->detail_html = $data['detail_html'];
                 endif;
                 if (!empty($data['email_notice'])) :
                 $exhibition->email_notice = $data['email_notice'];
@@ -489,8 +489,8 @@ class ExhibitionController extends AppController
                     $exhibition->require_sex = 0;
                 endif;
                 $exhibition->require_cert = $data['require_cert'];
-                if (!empty($data['detail'])) :
-                $exhibition->detail_html = $data['detail'];
+                if (!empty($data['detail_html'])) :
+                $exhibition->detail_html = $data['detail_html'];
                 endif;
                 // $exhibition->email_notice = $data['email_notice'];
                 $exhibition->additional = $data['additional'];

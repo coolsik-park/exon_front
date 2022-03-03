@@ -677,11 +677,10 @@
             return false
         }
 
+        oEditors.getById["detail_html"].exec("UPDATE_CONTENTS_FIELD", []);
         var formData = $("#createForm").serialize();
         formData = formData + '&status=1';
         formData = formData + '&action=add';
-        oEditors.getById["detail_html"].exec("UPDATE_CONTENTS_FIELD", []);
-        formData = formData + '&detail=' + $("#detail_html").val();
 
         var apply_sdate = new Date($("#data_apply_sdate").val());
         apply_sdate.setHours(apply_sdate.getHours()+9);
@@ -791,11 +790,10 @@
             return false
         }
 
+        oEditors.getById["detail_html"].exec("UPDATE_CONTENTS_FIELD", []);
         var formData = $("#createForm").serialize();
         formData = formData + '&status=4';
         formData = formData + '&action=add';
-        oEditors.getById["detail_html"].exec("UPDATE_CONTENTS_FIELD", []);
-        formData = formData + '&detail=' + $("#detail_html").val();
 
         var apply_sdate = new Date($("#data_apply_sdate").val());
         if (apply_sdate != 'Invalid Date') {
