@@ -236,7 +236,7 @@
             <div class="apply-section apply-sect3" id="applySect3">
                 <h2 class="s-hty1">상세 정보</h2>
                 <div class="apply-sect3-cont">
-                    <?= $this->Text->autoParagraph($exhibition->detail_html) ?>
+                    <?= $exhibition->detail_html ?>
                 </div>
                 <!-- <div class="apply-sect3-photos">
                     <div class="swiper-container">
