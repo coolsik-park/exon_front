@@ -17,10 +17,16 @@
             /* margin:0px;
             top:0%; */
         }
+        /* .wb-cont2 {
+            margin-bottom: 70px;
+        }
+        .webinar-tab-body {
+            height: 800px;
+        } */
     </style>
 </head>
 
-<div id="container">       
+     
     <div class="contents">      
         <div class="section-webinar4">
             <div class="webinar-cont">
@@ -72,10 +78,7 @@
                 <!-- // body-->
             </div>
             <!-- //webinar-tab -->
-        </div>
-    </div>    
-</div>
-
+    </div>
 <script> 
     var chatInterval
     // 방송 중 체크
