@@ -11,10 +11,11 @@
         .video-js .vjs-time-control{display:block;}
         .video-js .vjs-remaining-time{display: none;}
         .video-js .vjs-progress-holder {
-            position:absolute;
+            height:4px;
+            width:100%;
+            /* position:absolute; */
             margin:0px;
             top:0%;
-            width:100%;
         }
     </style>
 </head>

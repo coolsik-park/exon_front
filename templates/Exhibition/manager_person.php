@@ -67,7 +67,7 @@
                                         <p class="tit fir">
                                             <?php 
                                                 if ($exhibition_user->users_id != null):
-                                                    for ($i=0; $i<count($users)+1; $i++) {
+                                                    for ($i=0; $i<count($users); $i++) {
                                                         if ($exhibition_user->users_id == $users[$i]['id']) {
                                                             echo $users[$i]['company'];
                                                             break;
@@ -85,7 +85,7 @@
                                                     } else if ($exhibition_user->users_sex == 'F') {
                                                         echo '여자 / ';
                                                     } else {
-                                                        echo '/ ';
+                                                        echo '성별 미상 / ';
                                                     }
                                                 ?>
                                                 <?php 

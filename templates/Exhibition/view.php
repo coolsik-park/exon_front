@@ -18,6 +18,10 @@
     .conts {
         text-align: center;
     }
+    .apply-sect3-cont {
+        word-break:break-all;
+        white-space: pre;
+    }
     @media  screen and (max-width: 768px) {
         .photos img {
             position: absolute;
@@ -232,7 +236,7 @@
             <div class="apply-section apply-sect3" id="applySect3">
                 <h2 class="s-hty1">상세 정보</h2>
                 <div class="apply-sect3-cont">
-                    <p><?= $exhibition->detail_html ?></p>  
+                    <?= $exhibition->detail_html ?>
                 </div>
                 <!-- <div class="apply-sect3-photos">
                     <div class="swiper-container">
@@ -344,7 +348,7 @@
                     $('#apply_button').replaceWith('<a id="apply_button" href="/exhibition-users/add/<?= $exhibition->id ?>/'+group_id+'" class="btn-join" id="btn-join">참가 신청</a>');
                 }
             } else {
-                alert("실패하였습니다.");
+                alert("오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
             }
         });
     }
