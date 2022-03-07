@@ -55,6 +55,7 @@
         }
         .footer__info--img {
             width: 40px;
+            margin-left: 10px; 
         }
         .footer__info--imgDiv {
             float: right;
