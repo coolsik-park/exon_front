@@ -210,7 +210,7 @@
                 <p class="f-tx2">엑스온은 통신판매중개자이며 행사에 대한 당사자 및 주최자가 아닙니다. 따라서 엑스온은 등록된 행사에 대하여 책임을 지지 않습니다.</p>   
                 <p class="f-copy">copyright ⓒ exon.live, ALL Right Reserved.</p> 
                 <div class="footer__info--imgDiv">
-                    <a href="https://blog.naver.com/exonlive/222663872660" target="_blank"><img src="/img/blog.png" class="footer__info--img"></a> 
+                    <a href="https://blog.naver.com/exonlive" target="_blank"><img src="/img/blog.png" class="footer__info--img"></a> 
                     <a href="https://pf.kakao.com/_HxkNJb" target="_blank"><img src="/img/kakao.png" class="footer__info--img"></a> 
                     <a href="https://www.instagram.com/exon.live/" target="_blank"><img src="/img/inst.png" class="footer__info--img"></a> 
                     <a href="https://www.facebook.com/exonlive.world" target="_blank"><img src="/img/fb.png" class="footer__info--img"></a> 
