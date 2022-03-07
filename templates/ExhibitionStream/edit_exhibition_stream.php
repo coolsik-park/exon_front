@@ -80,7 +80,7 @@
     <div class="section-webinar3">
         <div class="webinar-cont">
             <div id="videoWrap" class="wb-cont1" >
-                <video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup='{"fluid": true, "liveui": true}' muted="muted" autoplay="autoplay" liveTracker="trackingThreshold: 0"></video-js>
+                <video class="video-js vjs-default-skin vjs-big-play-centered" id="vid1"></video>
             </div>
             <div class="wb-cont2">
                 <div class="w-desc">
@@ -228,8 +228,20 @@
 </div>        
 
 <script>
+    //video.js
+    var player = videojs('vid1', {
+        controls: true,
+        autoplay: true,
+        preload: 'auto',
+        muted: true,
+        liveui: true,
+        fluid: true,
+        liveTracker: {
+            trackingThreshold: 0
+        }
+    });
+
     //페이지 로드시
-    var player = videojs(document.querySelector('#vid1'));
     setInterval("countViewer()" , 3000);
     setInterval("updateLiveDurationTime()" , 1000);
     setInterval("getRemainLiveDuration()" , 1000);
@@ -306,7 +318,6 @@
 
     //OBS방송 중 체크
     $(document).ready(function () {
-        // player = videojs(document.querySelector('#vid1'));
         $.ajax({
             url: "https://orcaexon.co.kr/live/<?=$exhibitionStream->stream_key?>/index.m3u8",
             type: 'HEAD',
@@ -339,10 +350,20 @@
                     // liveEnd();
                     
                     player.dispose();
-                    var html = '<video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup=\'{"fluid": true, "liveui": true}\' muted="muted" autoplay="autoplay"></video-js>';
+                    var html = '<video class="video-js vjs-default-skin vjs-big-play-centered" id="vid1"></video>';
                     $("#videoWrap").append(html);
-                    var newPlayer = videojs(document.querySelector('#vid1'));
-                    newPlayer.load();
+                    player = videojs('vid1', {
+                        controls: true,
+                        autoplay: true,
+                        preload: 'auto',
+                        muted: true,
+                        liveui: true,
+                        fluid: true,
+                        liveTracker: {
+                            trackingThreshold: 0
+                        }
+                    });
+                    player.load();
                     $("#liveButtons").children().remove();
                     $("#liveButtons").append('<button id="start" type="button" class="btn-ty4 black">방송시작</button>');
 
@@ -379,7 +400,7 @@
         //     alert("방송시간을 모두 소진하였습니다.");
         //     return false;
         // }
-        var player = videojs(document.querySelector('#vid1'));
+
         $.ajax({
             url: video_uri,
             type: 'HEAD',
@@ -445,10 +466,20 @@
                     data: jsonData,
                     success: function () {
                         player.dispose();
-                        var html = '<video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup=\'{"fluid": true, "liveui": true}\' muted="muted" autoplay="autoplay"></video-js>';
+                        var html = '<video class="video-js vjs-default-skin vjs-big-play-centered" id="vid1"></video>';
                         $("#videoWrap").append(html);
-                        var newPlayer = videojs(document.querySelector('#vid1'));
-                        newPlayer.load();
+                        player = videojs('vid1', {
+                            controls: true,
+                            autoplay: true,
+                            preload: 'auto',
+                            muted: true,
+                            liveui: true,
+                            fluid: true,
+                            liveTracker: {
+                                trackingThreshold: 0
+                            }
+                        });
+                        player.load();
 
                         $("#liveButtons").children().remove();
                         $("#liveButtons").append('<button id="start" type="button" class="btn-ty4 black">방송시작</button>');
