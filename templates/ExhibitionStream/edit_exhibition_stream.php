@@ -9,18 +9,19 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <link rel="shortcut icon" href="#" > <!-- 음량 올릴시 오류 해결 -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.1/video-js.min.css" rel="stylesheet"> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.8.1/video.min.js"></script>
+    <link href="//vjs.zencdn.net/7.10.2/video-js.min.css" rel="stylesheet">
+    <script src="//vjs.zencdn.net/7.10.2/video.min.js"></script>
     <script src="/js/videojs-http-streaming.min.js"></script>
 
     <style>
         .video-js .vjs-time-control{display:block;}
         .video-js .vjs-remaining-time{display: none;}
         .video-js .vjs-progress-holder {
-            position:absolute;
-            margin:0px;
-            top:0%;
+            height:4px;
             width:100%;
+            /* position:absolute; */
+            /* margin:0px;
+            top:0%; */
         }
         
         .wb-stream-sect {
@@ -79,7 +80,7 @@
     <div class="section-webinar3">
         <div class="webinar-cont">
             <div id="videoWrap" class="wb-cont1" >
-                <video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup='{"fluid": true}' muted="muted" autoplay="autoplay"></video-js>
+                <video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup='{"fluid": true, "liveui": true}' muted="muted" autoplay="autoplay" liveTracker="trackingThreshold: 0"></video-js>
             </div>
             <div class="wb-cont2">
                 <div class="w-desc">
@@ -228,6 +229,7 @@
 
 <script>
     //페이지 로드시
+    var player = videojs(document.querySelector('#vid1'));
     setInterval("countViewer()" , 3000);
     setInterval("updateLiveDurationTime()" , 1000);
     setInterval("getRemainLiveDuration()" , 1000);
@@ -304,12 +306,12 @@
 
     //OBS방송 중 체크
     $(document).ready(function () {
-        var player = videojs(document.querySelector('#vid1'));
+        // player = videojs(document.querySelector('#vid1'));
         $.ajax({
             url: "https://orcaexon.co.kr/live/<?=$exhibitionStream->stream_key?>/index.m3u8",
             type: 'HEAD',
             success: function () {
-                player.src({src: video_uri, type: 'application/x-mpegURL' });
+                player.src({src: video_uri, type: 'application/x-mpegURL'});
                 player.load();
                 player.play();
             },
@@ -333,9 +335,11 @@
                     clearInterval(timeCheckBeforeTen);
                     is_timeCheck = 0;
                     is_timeCheckBeforeTen = 0; 
+
+                    // liveEnd();
                     
                     player.dispose();
-                    var html = '<video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup=\'{"fluid": true}\'></video-js>';
+                    var html = '<video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup=\'{"fluid": true, "liveui": true}\' muted="muted" autoplay="autoplay"></video-js>';
                     $("#videoWrap").append(html);
                     var newPlayer = videojs(document.querySelector('#vid1'));
                     newPlayer.load();
@@ -367,7 +371,6 @@
     //방송 컨트롤
     var video_uri = "https://orcaexon.co.kr/live/<?=$exhibitionStream->stream_key?>/index.m3u8"
     var stream_key = "<?=$exhibitionStream->stream_key?>"
-    var player = videojs(document.querySelector('#vid1'));
 
     $(document).on("click", "#start", function () {
         var remain_time = "<?=$exhibitionStream->time?>";
@@ -376,7 +379,7 @@
         //     alert("방송시간을 모두 소진하였습니다.");
         //     return false;
         // }
-        player = videojs(document.querySelector('#vid1'));
+        var player = videojs(document.querySelector('#vid1'));
         $.ajax({
             url: video_uri,
             type: 'HEAD',
@@ -442,7 +445,7 @@
                     data: jsonData,
                     success: function () {
                         player.dispose();
-                        var html = '<video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup=\'{"fluid": true}\'></video-js>';
+                        var html = '<video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls data-setup=\'{"fluid": true, "liveui": true}\' muted="muted" autoplay="autoplay"></video-js>';
                         $("#videoWrap").append(html);
                         var newPlayer = videojs(document.querySelector('#vid1'));
                         newPlayer.load();
