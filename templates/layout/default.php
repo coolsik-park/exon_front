@@ -53,6 +53,9 @@
         #sub-menu > li {
             padding: 12px 20px;
         }
+        table {
+            table-layout: auto;
+        }
     </style>
 </head>
 <body>
