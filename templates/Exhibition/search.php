@@ -69,8 +69,8 @@
     .product-title {
         text-align:center;
         display:table;
-        width:320px;
-        height:240px;
+        width:280px;
+        height:155px;
     }
     .product-img-div {
     display:table-cell;
@@ -192,9 +192,9 @@
             <div class="product-title">
                 <div class="product-img-div photo">
                         <?php if ($exhibition["image_path"] != '') : ?>
-                        <img  style="width: 100%; height: 100%; visibility: visible;" class="product-img" src="/<?=$exhibition["image_path"]?>/<?=$exhibition["image_name"]?>">
+                        <img  style="width: 100%; height: 155px; visibility: visible;" class="product-img" src="/<?=$exhibition["image_path"]?>/<?=$exhibition["image_name"]?>">
                         <?php else : ?>
-                        <img class="noImg"src="../../images/img-no.png"style="visibility: visible; height:100%; width:100%;" >
+                        <img class="noImg"src="../../images/img-no.png"style="visibility: visible; height:100%; width: 155px;" >
                         <?php endif; ?>
                 </div>
                 </div>
