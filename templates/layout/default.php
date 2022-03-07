@@ -60,6 +60,15 @@
             float: right;
             margin: -30px 0px 20px 0px;
         }
+        @media  screen and (max-width: 768px) {
+        .footer__info--imgDiv {
+            float: left;
+            margin: 20px 0px 20px 0px;
+        }
+        #footer {
+            height: 650px;
+        }
+        }
     </style>
 </head>
 <body>
