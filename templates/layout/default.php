@@ -193,6 +193,11 @@
                     개인정보책임자 최찬경 | 경기도 성남시 수정구 대왕판교로 815, 메타버스 허브 419호 | Tel. 031-778-6252</p>
                 <p class="f-tx2">엑스온은 통신판매중개자이며 행사에 대한 당사자 및 주최자가 아닙니다. 따라서 엑스온은 등록된 행사에 대하여 책임을 지지 않습니다.</p>   
                 <p class="f-copy">copyright ⓒ exon.live, ALL Right Reserved.</p> 
+                <a href="https://blog.naver.com/exonlive/222663872660"><img src="/img/blog.png"></a> 
+                <a href="https://pf.kakao.com/_HxkNJb"><img src="/img/kakao.png"></a> 
+                <a href="https://www.instagram.com/exon.live/"><img src="/img/inst.png"></a> 
+                <a href="https://www.facebook.com/exonlive.world"><img src="/img/fb.png"></a> 
+                <a href="https://www.youtube.com/channel/UC6QVbMRa4r3scRl5tfKXYCQ"><img src="/img/you.png"></a> 
             </div>   
         </div>
     </footer>    
