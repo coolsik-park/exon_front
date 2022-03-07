@@ -22,6 +22,9 @@
         word-break:break-all;
         white-space: pre;
     }
+    table {
+            table-layout: auto;
+    }
     @media  screen and (max-width: 768px) {
         .photos img {
             position: absolute;
