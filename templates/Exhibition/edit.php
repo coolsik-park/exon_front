@@ -328,8 +328,8 @@
                 </div>
                 <div class="sect8 mgtS1">
                     <h4 class="s-hty2">행사 설명</h4>
-                    <input type="hidden" id="hidden_detail" value='<?=$exhibition->detail_html?>'>
-                    <textarea id="detail_html" name="detail_html" cols="30" rows="10"></textarea>                    
+                    <input type="hidden" id="hidden_detail" value='<?=htmlspecialchars($exhibition->detail_html)?>'>
+                    <textarea id="detail_html" name="detail_html" cols="30" rows="10"></textarea>               
                 </div>
             </div>
             <div class="section4">

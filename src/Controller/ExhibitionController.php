@@ -489,9 +489,9 @@ class ExhibitionController extends AppController
                     $exhibition->require_sex = 0;
                 endif;
                 $exhibition->require_cert = $data['require_cert'];
-                if (!empty($data['detail_html'])) :
-                $exhibition->detail_html = $data['detail_html'];
-                endif;
+                // if (!empty($data['detail_html'])) :
+                $exhibition->detail_html = htmlspecialchars_decode($data['detail_html']);
+                // endif;
                 // $exhibition->email_notice = $data['email_notice'];
                 $exhibition->additional = $data['additional'];
                 if (!empty($data['status'])) :
