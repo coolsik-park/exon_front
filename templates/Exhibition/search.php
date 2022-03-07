@@ -35,10 +35,10 @@
         cursor: pointer;
     }
     .tit-name {
-        font-size: 30px;
+        font-size: 24px;
     }
     .td-col {
-        padding: 12px 12px;
+        padding: 6px 12px;
     }
     .col5 {
         display: flex;
@@ -82,7 +82,13 @@
     }
     .searchBox {
             border-bottom: 1px solid #cecece;
-        }
+    }
+    .tit-con {
+        font-size: 12px;
+    } 
+    .col2 {
+        color: darkgray;
+    }
     @media  screen and (max-width: 768px) {
         .photos img {
             position: absolute;
@@ -112,8 +118,17 @@
             display: block;
             border-bottom: 1px solid #cecece;
         }
+        .tit-name {
+            font-size: 30px;
+        }
+        .td-col {
+            padding: 12px 12px;
+        }
+        .tit-con {
+            font-size: 16px;
+        } 
     }
-    @media  screen and (min-width: 768px) {
+    @media  screen and (min-width: 1024px) {
         .photos img {
             
         }
@@ -192,9 +207,9 @@
             <div class="product-title">
                 <div class="product-img-div photo">
                         <?php if ($exhibition["image_path"] != '') : ?>
-                        <img  style="width: 100%; height: 155px; visibility: visible;" class="product-img" src="/<?=$exhibition["image_path"]?>/<?=$exhibition["image_name"]?>">
+                        <img  style="width: 100%; height: 155px; visibility: visible; margin-top: 0px;" class="product-img" src="/<?=$exhibition["image_path"]?>/<?=$exhibition["image_name"]?>">
                         <?php else : ?>
-                        <img class="noImg"src="../../images/img-no.png"style="visibility: visible; height:100%; width: 155px;" >
+                        <img class="noImg"src="../../images/img-no.png"style="visibility: visible; height:100%; width: 155px; margin-top: 0px;" >
                         <?php endif; ?>
                 </div>
                 </div>
