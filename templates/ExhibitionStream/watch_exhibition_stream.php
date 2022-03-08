@@ -17,22 +17,15 @@
             /* margin:0px;
             top:0%; */
         }
-        /* .wb-cont2 {
-            margin-bottom: 70px;
-        }
-        .webinar-tab-body {
-            height: 800px;
-        } */
     </style>
 </head>
 
-     
+<div id="container">       
     <div class="contents">      
         <div class="section-webinar4">
             <div class="webinar-cont">
                 <div class="wb-cont1">
-                    <!-- autoplay="autoplay" muted="muted" -->
-                    <video-js id=vid1 class="vjs-default-skin vjs-big-play-centered" controls playsinline data-setup='{"fluid": true, "liveui": true}' muted="muted" autoplay="autoplay"><source src="https://orcaexon.co.kr/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8" type="application/x-mpegURL"></video-js>
+                    <video class="video-js vjs-default-skin vjs-big-play-centered" id="vid1"><source src="https://orcaexon.co.kr/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8" type="application/x-mpegURL"></video>
                 </div>
                 <div class="wb-cont2">
                     <h3 class="w-tit"><?= $exhibitionStream[0]['title'] ?></h3>
@@ -78,9 +71,26 @@
                 <!-- // body-->
             </div>
             <!-- //webinar-tab -->
-    </div>
+        </div>
+    </div>    
+</div>
+
 <script> 
     var chatInterval
+
+    //video.js
+    var player = videojs('vid1', {
+        controls: true,
+        autoplay: true,
+        preload: 'auto',
+        muted: true,
+        liveui: true,
+        fluid: true,
+        liveTracker: {
+            trackingThreshold: 0
+        }
+    });
+    
     // 방송 중 체크
     $(document).ready(function () {
         $.ajax({
