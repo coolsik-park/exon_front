@@ -318,19 +318,25 @@
 
     //OBS방송 중 체크
     $(document).ready(function () {
-        $.ajax({
-            url: "https://orcaexon.co.kr/live/<?=$exhibitionStream->stream_key?>/index.m3u8",
-            type: 'HEAD',
-            success: function () {
-                player.src({src: video_uri, type: 'application/x-mpegURL'});
-                player.load();
-                player.play();
-            },
-            error: function () {
-                player.attr("autoplay", false);
-                player.attr("muted", false);
-            }
-        });
+        // $.ajax({
+        //     url: "https://orcaexon.co.kr/live/<?=$exhibitionStream->stream_key?>/index.m3u8",
+        //     type: 'HEAD',
+        //     success: function () {
+        //         player.src({src: video_uri, type: 'application/x-mpegURL'});
+        //         player.load();
+        //         player.play();
+        //     },
+        //     error: function () {
+        //         player.attr("autoplay", false);
+        //         player.attr("muted", false);
+        //     }
+        // });
+        var live_started = "<?=$exhibitionStream->live_started?>";
+        if (live_started != "") {
+            player.src({src: video_uri, type: 'application/x-mpegURL'});
+            player.load();
+            player.play();
+        }
     });
 
     //방송 종료시간 컨트롤

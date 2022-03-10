@@ -62,14 +62,16 @@
                 <?php } ?>
             </ul>
             <div class="table-type table-type2" id="table-type table-type2">  
+                <p style="color:gray; font-size:15px;">※ VOD 인코딩이 진행중인 행사는 표시되지 않습니다. 잠시 후 새로고침 해주세요.</p>
                 <?php 
                     foreach ($exhibitions as $key => $exhibition): 
+                        $i = 0;
                         $today = strtotime(date('Y-m-d H:i:s', time() + 32400));
                         $sdate = strtotime($exhibition->sdate);
                         $edate = strtotime($exhibition->edate);
                         $apply_edate = strtotime($exhibition->apply_edate);
                 ?>             
-                <?php if (!empty($exhibition['exhibition_stream']) && $exhibition['exhibition_stream'][0]['vod_index'] != 0) : ?>     
+                <?php if (!empty($exhibition['exhibition_stream']) && $exhibition['exhibition_stream'][0]['live_duration'] != 0 && $exhibition['exhibition_stream'][0]['vod_index'] != 0) : ?>     
                     <div class="tr-row" onclick="">
                         <div class="clickDiv">
                             <div class="td-col col1">
@@ -207,12 +209,13 @@
                         <div class="td-col col5">                           
                             <div class="con">
                                 <div class="tg-btns">
-                                    <a id="download" href="https://orcaexon.co.kr/videos/<?=$exhibition['exhibition_stream'][0]['stream_key']?>/VOD.mp4" class="btn-ty3 bor">다운로드</a>
+                                    <a id="download" name="<?=$i?>" href="https://orcaexon.co.kr/videos/<?=$exhibition['exhibition_stream'][0]['stream_key']?>/VOD.mp4" class="btn-ty3 bor">다운로드</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 <?php endif ?>
+                <?php $i++; ?>
                 <?php endforeach; ?>
             </div>
             <div class="paginator">
@@ -228,11 +231,6 @@
 <footer id="footer"></footer>
 
 <script>
-    //다운로드 클릭 시 알림
-    $(document).on("click", "#download", function () {
-        alert("다운로드 후 동영상 파일이 재생이 불가하거나 길이가 짧은 경우 잠시 후에 다시 다운로드를 시도해 주세요.");
-    });
-
     //다른 메뉴 클릭 시 열린 메뉴 숨기기 
     $(document).on("click", "#menu", function(){
         if($('.tg-btns').hasClass('open') == true){
