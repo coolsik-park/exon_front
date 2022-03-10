@@ -77,7 +77,7 @@
         </div>
     </div>
     <?= $this->Form->create($exhibitionStream, ['id' => 'setForm']) ?>    
-    <div class="section-webinar3">
+    <div class="section-webinar4">
         <div class="webinar-cont">
             <div id="videoWrap" class="wb-cont1" >
                 <video class="video-js vjs-default-skin vjs-big-play-centered" id="vid1"></video>
@@ -189,7 +189,7 @@
             </div>
         </div>
         <!-- webinar-tab -->
-        <div class="webinar-tab">
+        <div id="toggle" class="webinar-tab">
             <div class="webinar-tab-top">
                 <div class="webinar-toggle">
                     <button type="button" class="webinar-tab-tg">토글버튼</button>
@@ -241,7 +241,17 @@
         }
     });
 
+    //hide sub-menu
+    $(document).on("click", ".webinar-tab-tg", function () {
+        if ($("#toggle").hasClass("close")) {
+            $(".sub-menu").show();
+        } else {
+            $(".sub-menu").hide();
+        }
+    });
+
     //페이지 로드시
+    $(".sub-menu").hide();
     setInterval("countViewer()" , 3000);
     setInterval("updateLiveDurationTime()" , 1000);
     setInterval("getRemainLiveDuration()" , 1000);
