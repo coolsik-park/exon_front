@@ -205,7 +205,7 @@
 
         var _ = this;
         if(_.isDesktop && (_.winsizeW >= 1024)){     
-            console.log('pc');
+            // console.log('pc');
             $('#container').css('min-height',cHt);
             $('.section-webinar4').css('min-height',cHt);
             $('.section-webinar4 .webinar-tab-body').css('height',cHt - wbHt-10);
