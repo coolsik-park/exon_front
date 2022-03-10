@@ -207,12 +207,7 @@
                         <div class="td-col col5">                           
                             <div class="con">
                                 <div class="tg-btns">
-                                    <button type="button" class="btn-ty3 bor" id="menu">다운로드</button>
-                                    <ul class="menu-ul">
-                                    <?php for ($i = 1; $i <= $exhibition['exhibition_stream'][0]['vod_index']; $i ++) { ?>
-                                        <li><a id="download" href="https://orcaexon.co.kr/videos/<?=$exhibition['exhibition_stream'][0]['stream_key']?>/vod_<?=$i?>.mp4" class="btn-ty3 bor">파일  <?=$i?></a></li>
-                                        <?php } ?>
-                                    </ul>
+                                    <a id="download" href="https://orcaexon.co.kr/videos/<?=$exhibition['exhibition_stream'][0]['stream_key']?>/VOD.mp4" class="btn-ty3 bor">다운로드</a>
                                 </div>
                             </div>
                         </div>
