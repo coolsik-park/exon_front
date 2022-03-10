@@ -62,7 +62,7 @@
                 <?php } ?>
             </ul>
             <div class="table-type table-type2" id="table-type table-type2">  
-                <p style="color:gray; font-size:15px;">※ VOD 인코딩이 진행중인 행사는 표시되지 않습니다. 잠시 후 새로고침 해주세요.</p>
+                <p style="color:red; font-size:15px;">※ VOD 인코딩이 진행중인 행사는 표시되지 않습니다. 잠시 후 새로고침 해주세요.</p>
                 <?php 
                     foreach ($exhibitions as $key => $exhibition): 
                         $i = 0;
@@ -209,7 +209,7 @@
                         <div class="td-col col5">                           
                             <div class="con">
                                 <div class="tg-btns">
-                                    <a id="download" name="<?=$i?>" href="https://orcaexon.co.kr/videos/<?=$exhibition['exhibition_stream'][0]['stream_key']?>/VOD.mp4" class="btn-ty3 bor">다운로드</a>
+                                    <a id="download" name="<?=$i?>" href="https://orcaexon.co.kr/videos/<?=$exhibition['exhibition_stream'][0]['stream_key']?>/EXON_VOD.mp4" class="btn-ty3 bor">다운로드</a>
                                 </div>
                             </div>
                         </div>
