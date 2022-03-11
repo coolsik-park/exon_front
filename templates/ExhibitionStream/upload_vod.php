@@ -190,20 +190,19 @@ function uploadFile(){
         // 등록할 파일 리스트를 formData로 데이터 입력
         var formData = new FormData();
         for(var i = 0; i < uploadFileList.length; i++){
-            formData.append('file[]', fileList[uploadFileList[i]]);
+            formData.append('file', fileList[uploadFileList[i]]);
         }
         
         jQuery.ajax({
-            url: 'https://orcaexon.co.kr/upload/videos',
+            url: 'https://orcaexon.co.kr/vod',
             processData: false,
             contentType: false,
             cache: false,
             data: formData,
-            type: 'POST',
+            method: 'POST',
         }).done(function (data) {
             if (data.status == 'success') {
                 alert('저장되었습니다.');
-            
             } else {
                 alert('error');
             }
