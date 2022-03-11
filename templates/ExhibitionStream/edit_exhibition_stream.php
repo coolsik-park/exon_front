@@ -421,29 +421,33 @@
             url: video_uri,
             type: 'HEAD',
             success: function () {
-                $.ajax({
-                    url: "/exhibition-stream/set-started-time/<?=$exhibitionStream->id?>", 
-                    type: 'POST',
-                }).done(function (data) {
-                    if (data.status == 'success') {
-                        player.src({src: video_uri, type: 'application/x-mpegURL' });
-                        player.load();
-                        player.play();
+                if (confirm("방송 종료후 영상vod를 제공하고 있습니다.\n영상의 품질은 사용PC환경과 방송프로그램 설정에 따라\n달라질 수 있으니 송출 프로그램 자체녹화를 권장합니다.\n방송을 시작하시겠습니까?")) {
+                    $.ajax({
+                        url: "/exhibition-stream/set-started-time/<?=$exhibitionStream->id?>", 
+                        type: 'POST',
+                    }).done(function (data) {
+                        if (data.status == 'success') {
+                            player.src({src: video_uri, type: 'application/x-mpegURL' });
+                            player.load();
+                            player.play();
 
-                        if (is_timeCheck == 0) {
-                            timeCheck = setInterval("liveTimeCheck()", 1000);
-                        }
-                        if (is_timeCheckBeforeTen == 0) {
-                            timeCheckBeforeTen = setInterval("liveTimeCheckBeforeTen()", 1000);
+                            if (is_timeCheck == 0) {
+                                timeCheck = setInterval("liveTimeCheck()", 1000);
+                            }
+                            if (is_timeCheckBeforeTen == 0) {
+                                timeCheckBeforeTen = setInterval("liveTimeCheckBeforeTen()", 1000);
 
+                            }
+                            $("#liveButtons").children().remove();
+                            $("#liveButtons").append('<button id="end" type="button" class="btn-ty4 gray">방송종료</button>');
+                        
+                        } else {
+                            alert("오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
                         }
-                        $("#liveButtons").children().remove();
-                        $("#liveButtons").append('<button id="end" type="button" class="btn-ty4 gray">방송종료</button>');
-                    
-                    } else {
-                        alert("오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
-                    }
-                });
+                    });
+                } else {
+                    return false;
+                }
             },
             error: function () {
                 alert("송출 프로그램에서 송출을 시작해주세요.\n(송출 시작 후 약 10초 정도의 지연시간이 존재합니다.)");
