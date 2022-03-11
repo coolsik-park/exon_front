@@ -8,11 +8,8 @@
         <div class="section-webinar4">
             <div class="webinar-cont">
                 <div class="wb-cont1">
-                    <video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" poster="https://orcaexon.co.kr/videos/abcd/orcatv.png" data-setup="{}">
-                        <source src="https://orcaexon.co.kr/videos/abcd/EXON_VOD.mp4" type="video/mp4" />
-                        <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to aweb browser that
-                            <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-                        </p>
+                    <video id="vid1" class="video-js vjs-big-play-centered" poster="https://orcaexon.co.kr/videos/EXON_VOD/thumbnail.png">
+                        <source src="https://orcaexon.co.kr/videos/EXON_VOD/source.mp4" type="video/mp4" />
                     </video>
                 </div>                
             </div>
@@ -51,3 +48,12 @@
         </div>
     </div>    
 </div>
+
+<script>
+    //video.js
+    var player = videojs('vid1', {
+        controls: true,
+        preload: 'auto',
+        fluid: true,
+    });
+</script>

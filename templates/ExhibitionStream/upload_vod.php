@@ -110,9 +110,9 @@ function selectFile(files){
             // 파일 사이즈(단위 :MB)
             var fileSize = files[i].size / 1024;
             
-            if($.inArray(ext, ['exe', 'bat', 'sh', 'java', 'jsp', 'html', 'js', 'css', 'xml']) >= 0){
+            if($.inArray(ext, ['mp4']) < 0){
                 // 확장자 체크
-                alert("등록 불가 확장자");
+                alert("mp4 확장자 외 파일은 업로드가 불가능합니다.");
                 break;
             }else if(fileSize > uploadSize){
                 // 파일 사이즈 체크
@@ -190,7 +190,7 @@ function uploadFile(){
         // 등록할 파일 리스트를 formData로 데이터 입력
         var formData = new FormData();
         for(var i = 0; i < uploadFileList.length; i++){
-            formData.append('file', fileList[uploadFileList[i]]);
+            formData.append('file[]', fileList[uploadFileList[i]]);
         }
         
         jQuery.ajax({
@@ -200,12 +200,12 @@ function uploadFile(){
             cache: false,
             data: formData,
             method: 'POST',
-        }).done(function (data) {
-            if (data.status == 'success') {
-                alert('저장되었습니다.');
-            } else {
-                alert('error');
-            }
+            success: function () {
+                alert("저장되었습니다.");
+            },
+            error: function () {
+                alert("오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
+            }  
         });
     }
 }
