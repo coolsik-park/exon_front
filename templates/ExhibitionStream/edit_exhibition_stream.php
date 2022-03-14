@@ -650,7 +650,7 @@
             return false;
         }
         var IMP = window.IMP; 
-        IMP.init('imp55727904'); //아임포트 id -> 추후 교체
+        IMP.init('imp55727904');
         IMP.request_pay({
             pg : 'danal_tpay',
             pay_method : 'card',
@@ -714,7 +714,7 @@
             return false;
         }
         var IMP = window.IMP; 
-        IMP.init('imp55727904'); //아임포트 id -> 추후 교체
+        IMP.init('imp55727904');
         IMP.request_pay({
             pg : 'danal_tpay',
             pay_method : 'trans',
