@@ -436,6 +436,10 @@
 
     //결제
     $("#payment-card").click(function () {
+        if ($('input#amount').val() == 0) {
+            alert("결제할 금액이 없습니다. 시간과 인원수를 확인해주세요.");
+            return false;
+        }
         var IMP = window.IMP; 
         IMP.init('imp55727904'); //아임포트 id -> 추후 교체
         IMP.request_pay({
@@ -492,7 +496,7 @@
                 
             } else {
                 var msg = '결제에 실패하였습니다.';
-                msg += '에러내용 : ' + rsp.error_msg;
+                msg += '내용 : ' + rsp.error_msg;
 
                 alert(msg);
             }
@@ -500,6 +504,10 @@
     });
 
     $("#payment-trans").click(function () {
+        if ($('input#amount').val() == 0) {
+            alert("결제할 금액이 존재하지 않습니다.\n시간과 인원수를 확인해주세요.");
+            return false;
+        }
         var IMP = window.IMP; 
         IMP.init('imp55727904'); //아임포트 id -> 추후 교체
         IMP.request_pay({
@@ -556,7 +564,7 @@
                 
             } else {
                 var msg = '결제에 실패하였습니다.';
-                msg += '에러내용 : ' + rsp.error_msg;
+                msg += '내용 : ' + rsp.error_msg;
 
                 alert(msg);
             }
