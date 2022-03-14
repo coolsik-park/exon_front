@@ -694,7 +694,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
         var dt = new Date();
         var com_year = dt.getFullYear();
 
-        for (var y=(com_year-50); y<=(com_year+5); y++) {
+        for (var y=(com_year-100); y<=(com_year); y++) {
             if (y == <?= date("Y", strtotime($user->birthday)) ?>) {
                 $('#yy').append('<option value='+y+' selected="selected">'+y+'</option>');
             } else {
