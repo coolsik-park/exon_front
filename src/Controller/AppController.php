@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\ORM\Locator\LocatorAwareTrait;
 
 /**
  * Application Controller
@@ -73,15 +74,14 @@ class AppController extends Controller
 
     public function beforeFilter(\Cake\Event\EventInterface $event)
     {
-        // $uri = substr($_SERVER['REQUEST_URI'], 0, 40);
-        // if ($uri != '/exhibition-stream/set-exhibition-stream') {
-        //     $this->request->getSession()->delete('coupon_data');
-        //     $this->request->getSession()->delete('stream_data');
-        // }
-
-        // $uri = substr($_SERVER['REQUEST_URI'], 0, 16);
-        // if ($uri != '/exhibition/send') {
-        //     $this->request->getSession()->delete('result');
-        // }
+        $this->loadComponent('Auth');
+        if (!empty($this->Auth->user())) {
+            $User = $this->getTableLocator()->get('Users');
+            $user = $User->get($this->Auth->user('id'));
+            $session = $this->request->getSession();
+            if ($user->is_logged != $session->read('Auth.User.is_logged')) {
+                return $this->redirect($this->Auth->logout());
+            }
+        }
     }
 }

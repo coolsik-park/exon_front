@@ -346,6 +346,16 @@ class UsersController extends AppController
         }
     }
 
+    public function generateCode()
+    {
+        $characters = '123456789';
+        $code = '';
+        for ($i = 0; $i < 6; $i++) {
+            $code .= substr($characters, rand(0, strlen($characters)-1), 1);
+        }
+        return $code;
+    }
+
     public function login(){
         $session = $this->request->getSession();
         $msg = $session->consume('msg');
@@ -357,21 +367,14 @@ class UsersController extends AppController
             $hashPswdObj = new DefaultPasswordHasher; //비밀번호 암호화        
             $password = $hashPswdObj->hash($this->request->getData('password')); 
             
-    
             $user = $this->Users->find('all')                            
                             ->where(['email'=>$this->request->getData('email'), 'status'=>1])
                             ->first();
-
-            if ($user->is_logged == 1) {
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'logged']));
-                return $response;
-            }
-       
             
             if($user && $hashPswdObj->check($this->request->getData('password'),$user->password)){
-                $this->Auth->setUser($user);
-                $user->is_logged = 1;
+                $user->is_logged = $this->generateCode();
                 $this->Users->save($user);
+                $this->Auth->setUser($user);
                 
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
                 return $response;
@@ -384,9 +387,6 @@ class UsersController extends AppController
     }
 
     public function logout(){
-        $user = $this->Users->get($this->Auth->user('id'));
-        $user->is_logged = 0;
-        $this->Users->save($user);
         return $this->redirect($this->Auth->logout());
     }
 
@@ -674,16 +674,6 @@ class UsersController extends AppController
                 return $response;
             }
         }
-    }
-
-    public function generateCode()
-    {
-        $characters = '123456789';
-        $code = '';
-        for ($i = 0; $i < 6; $i++) {
-            $code .= substr($characters, rand(0, strlen($characters)-1), 1);
-        }
-        return $code;
     }
 
     public function naverConnect()

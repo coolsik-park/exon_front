@@ -37,6 +37,26 @@
         .payDiv {
             width: 60%;
         }
+        .sett-btn {
+            display: block;
+            position: absolute;
+            top: -5px;
+            right: 1px;
+            padding: 8px;
+            border-radius: 10px;
+            border: 1px solid lightgray;
+            color: black;
+        }
+        .save-btn {
+            display: inline-block;
+            position: absolute;
+            top: -5px;
+            right: 1px;
+            padding: 8px;
+            border-radius: 10px;
+            border: 1px solid black;
+            color: black;
+        }
         @media  screen and (max-width: 768px) {
             .stream-sect .row2-wp .row2 {
                 width: 99%;
@@ -193,7 +213,7 @@
             <div class="webinar-tab-top">
                 <div class="webinar-toggle">
                     <button type="button" class="webinar-tab-tg">토글버튼</button>
-                    <button type="button" id="setting_btn" name="btn_off" class="ico-sett">설정</button>
+                    <button type="button" id="setting_btn" name="btn_off" class="sett-btn">메뉴설정</button>
                     <input type="hidden" id="tab" name="tab" value="0">
                 </div>                        
                 <div class="w-tab-wrap">
@@ -216,8 +236,8 @@
             <!-- // top -->
             <div class="webinar-tab-body">  
                 <p class="wb-alert">사용할 탭을 선택해주세요</p>   
-                <p class="wb-alert wb-alert2">위에 표기된 메뉴를 사용하시기 위해서는 설정( <img src="../../img/ico-sett.png">   )버튼을 클릭해 활성화 시켜주시기 바랍니다.</p>  
-                <p class="wb-alert wb-alert2">탭 설정이 활성화 된 후 참가자에게 공개할 탭(메뉴)을 선택하시면 선택된 탭이 참가자 화면에 표시됩니다.</p>  
+                <p class="wb-alert wb-alert2">위에 표기된 메뉴를 사용하시기 위해서는 메뉴설정 버튼을 클릭해 활성화 시켜주시기 바랍니다.</p>  
+                <p class="wb-alert wb-alert2">탭 설정이 활성화 된 후 참가자에게 공개할 탭(메뉴)을 선택한 뒤 저장 버튼을 누르면 선택된 탭이 참가자 화면에 표시됩니다.</p>  
                 <p class="wb-alert wb-alert2">방송중에도 탭 설정은 가능합니다. </p>  
             </div>
             <!-- body -->
@@ -240,9 +260,6 @@
             trackingThreshold: 0
         }
     });
-    function test() {
-        console.log(player.liveTracker.seekableEnd());
-    }
 
     //hide sub-menu
     $(document).on("click", ".webinar-tab-tg", function () {
@@ -258,7 +275,6 @@
     setInterval("countViewer()" , 3000);
     setInterval("updateLiveDurationTime()" , 1000);
     setInterval("getRemainLiveDuration()" , 1000);
-    setInterval("test()", 1000);
 
     function getRemainLiveDuration() {
         jQuery.ajax({
@@ -899,12 +915,16 @@
         
         if ($(this).attr("name") == "btn_off") {
             $(this).attr("name", "btn_on");
-            $(this).css("background", "url(../../images/ico-sett2.png)");
+            $(this).removeClass("sett-btn");
+            $(this).addClass("save-btn");
+            $(this).html("저장");
             alert("탭 설정이 활성화 되었습니다.");
         } else {
             $(this).attr("name", "btn_off");
-            $(this).css("background", "url(../../images/ico-sett.png)");
-            alert("탭 설정이 비활성화 되었습니다.");
+            $(this).removeClass("save-btn");
+            $(this).addClass("sett-btn");
+            $(this).html("메뉴설정");
+            $("#save").click();
         }
     });
 

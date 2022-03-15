@@ -12,11 +12,12 @@ use Cake\ORM\Entity;
  * @property string $email
  * @property string|null $password
  * @property string $name
- * @property string $hp
+ * @property string|null $hp
  * @property int $hp_cert
  * @property \Cake\I18n\FrozenDate|null $birthday
- * @property string $image_path
+ * @property string|null $image_path
  * @property string|null $image_name
+ * @property int $email_cert
  * @property string|null $sex
  * @property string|null $company
  * @property string|null $title
@@ -25,6 +26,8 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
  * @property string|null $ip
+ * @property string|null $social_id
+ * @property int|null $is_logged
  *
  * @property \App\Model\Entity\Exhibition[] $exhibition
  */
@@ -48,6 +51,7 @@ class User extends Entity
         'birthday' => true,
         'image_path' => true,
         'image_name' => true,
+        'email_cert' => true,
         'sex' => true,
         'company' => true,
         'title' => true,
@@ -56,6 +60,8 @@ class User extends Entity
         'created' => true,
         'modified' => true,
         'ip' => true,
+        'social_id' => true,
+        'is_logged' => true,
         'exhibition' => true,
     ];
 
