@@ -71,6 +71,8 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
         }).done(function(data) {
             if (data.status == 'success') {
                 $(location).attr('href', '/');
+            } else if (data.status == 'logged') {
+                alert("이미 로그인 되어있는 사용자입니다.\n다른 브라우저에서 로그아웃 후 로그인 해주세요.");
             } else {
                 $("#noti").html("로그인 정보를 다시 확인해주세요.");
             }

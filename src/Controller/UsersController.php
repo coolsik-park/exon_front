@@ -361,10 +361,17 @@ class UsersController extends AppController
             $user = $this->Users->find('all')                            
                             ->where(['email'=>$this->request->getData('email'), 'status'=>1])
                             ->first();
+
+            if ($user->is_logged == 1) {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'logged']));
+                return $response;
+            }
        
             
             if($user && $hashPswdObj->check($this->request->getData('password'),$user->password)){
                 $this->Auth->setUser($user);
+                $user->is_logged = 1;
+                $this->Users->save($user);
                 
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
                 return $response;
@@ -377,7 +384,9 @@ class UsersController extends AppController
     }
 
     public function logout(){
-
+        $user = $this->Users->get($this->Auth->user('id'));
+        $user->is_logged = 0;
+        $this->Users->save($user);
         return $this->redirect($this->Auth->logout());
     }
 
