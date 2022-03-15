@@ -51,8 +51,6 @@ class UsersTable extends Table
             'foreignKey' => 'users_id',
             'targetForeignKey' => 'exhibition_id',
             'joinTable' => 'exhibition_users',
-            'dependent' => true,
-            'cascadeCallbacks' => true,
         ]);
     }
 
@@ -87,8 +85,7 @@ class UsersTable extends Table
         $validator
             ->scalar('hp')
             ->maxLength('hp', 16)
-            ->requirePresence('hp', 'create')
-            ->notEmptyString('hp');
+            ->allowEmptyString('hp');
 
         $validator
             ->integer('hp_cert')
@@ -101,13 +98,16 @@ class UsersTable extends Table
         $validator
             ->scalar('image_path')
             ->maxLength('image_path', 2048)
-            ->requirePresence('image_path', 'create')
-            ->notEmptyFile('image_path');
+            ->allowEmptyFile('image_path');
 
         $validator
             ->scalar('image_name')
             ->maxLength('image_name', 255)
             ->allowEmptyFile('image_name');
+
+        $validator
+            ->integer('email_cert')
+            ->notEmptyString('email_cert');
 
         $validator
             ->scalar('sex')
@@ -137,6 +137,10 @@ class UsersTable extends Table
             ->scalar('ip')
             ->maxLength('ip', 16)
             ->allowEmptyString('ip');
+
+        $validator
+            ->integer('is_logged')
+            ->allowEmptyString('is_logged');
 
         return $validator;
     }
