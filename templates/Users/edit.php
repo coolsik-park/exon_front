@@ -634,7 +634,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
         });
     });
 
-    $('#imgSaveButton').on('change', function() {
+    $(document).on('change', '#imgSaveButton', function() {
         var existence = '<?= $user->image_name ?>';
 
         if (existence != null) {
@@ -670,7 +670,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
         }
     });
 
-    $('#imgDeleteButton').on('click', function() {
+    $(document).on('click', '#imgDeleteButton', function() {
         var id = <?= $user->id ?>;
         
         if (confirm("사진을 삭제하시겠습니까?")) {
