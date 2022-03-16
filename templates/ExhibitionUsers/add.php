@@ -281,209 +281,228 @@
             alert("이메일 형식을 확인해주세요.");
             $("#users_email").focus();
             return false;
-        }
+        }       
         
-        if ($("#users_name").val().length == 0) {
-            alert("이름을 입력해주세요.");
-            $("#users_name").focus();
-            return false;
-        }
-
-        // var getName = RegExp(/^[가-힣]+$/);
-        // if (!getName.test($("#users_name").val())) {
-        //     alert("이름을 올바르게 입력해 주세요.");
-        //     $("#users_name").focus();
-        //     return false;
-        // }
-
-        if (require_tel == 1) {
-            if ($("#users_hp").val().length == 0) {
-                alert("전화번호를 입력해주세요.");
-                $("#users_hp").focus();
-                return false;
+        jQuery.ajax({
+            url: "/exhibition-users/user-check",
+            method: 'POST',
+            type: 'json',
+            data: {
+                user_email: $("#users_email").val(),
+                apply_url: window.location.href
             }
-        }
-
-        if (require_sex == 1) {
-            if ($("#users_sex").val() == '') {
-                alert("성별을 입력해주세요.");
-                $("#users_sex").focus();
-                return false;
-            }
-        }
-
-        if (require_group == 1) {
-            if ($("#company").val() == '') {
-                alert("소속을 입력해주세요.");
-                $("#company").focus();
-                return false
-            }
-            if ($("#title").val() == '') {
-                alert("직함을 입력해주세요.");
-                $("#title").focus();
-                return false
-            }
-        }
-
-        if ($("#agree2").prop("checked") == false || $("#agree3").prop("checked") == false) {
-            alert("필수 이용약관 및 개인정보 수집/이용 동의를 확인해주세요.");
-            return false;
-        }
-        
-        var subjective_parents = [];
-        var multiple_parents = [];    
-        var s = 0;
-        var m = 0;
-        <?php if ($subjective_parents != '') : ?> 
-        <?php foreach ($subjective_parents as $subjective_parent) : ?>
-            subjective_parents[s] = "<?=$subjective_parent?>"
-            s++;
-        <?php endforeach; ?>
-        <?php endif ?>
-        <?php if ($multiple_parents != '') : ?>
-        <?php foreach ($multiple_parents as $multiple_parent) : ?>
-            multiple_parents[m] = "<?=$multiple_parent?>"
-            m++;
-        <?php endforeach; ?>
-        <?php endif; ?>
-
-        for (var i=0; i<subjective_parents.length; i++) {
-            if ($("#"+subjective_parents[i]).val() == '') {
-                alert("응답되지 않은 필수 사전설문이 있습니다.");
-                return false;
-                $("#"+subjective_parents[i]).focus();
-            }
-        }
-
-        for (var i=0; i<multiple_parents.length; i++) {
-            if ($("input[name='"+multiple_parents[i]+"']:checked").length == 0) {
-                alert("응답되지 않은 필수 사전설문이 있습니다.");
-                return false;
-                $("input[name='"+multiple_parents[i]+"']").focus();
-            }
-        }
-        var html = "";
-        html += "이메일 : " + $("#users_email").val() + "\n";
-        html += "이름 : " + $("#users_name").val() + "\n";
-        html += "전화번호 : " + $("#users_hp").val() + "\n";
-        html += "웨비나 접속 시 인증이 필요할 수 있습니다.\n위 내용으로 신청하시겠습니까?";
-        if (confirm(html)) {
-            var amount = "<?=$amount?>";     
-            var cost = "<?=$exhibition->cost?>";
-            //무료
-            if (cost == 'free' || amount == 0) {
-                var formData = new FormData($('#apply')[0]);
-                formData.append('pay_id', 0);
-                formData.append('pay_amount', 0);
-
-                jQuery.ajax({
-                    url: "/exhibition-users/add/" + <?= $id ?>,
-                    processData: false,
-                    contentType: false,
-                    cache: false,
-                    data: formData,
-                    type: 'POST',
-                }).done(function(data) {
-                    if (data.status == 'success') {
-                        if (today > apply_edate) {
-                            alert("모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.");
-                        } else {
-                            alert("신청이 완료되었습니다.");
-                        }
-                        window.location.replace("/exhibition/view/<?=$id?>");
-                    } else if (data.status == 'exist') {
-                        alert("해당 이메일 주소로 이미 신청이 완료된 행사입니다.");
-                        window.location.replace("/exhibition/view/<?=$id?>");
-                    } else {
-                        alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
-                    }
-                });
-
+        }).done(function(data) {
+            if (data.is_user == 1) {
+                if (confirm("회원 정보에 존재하는 이메일 주소입니다.\n로그인 페이지로 이동합니다.\n로그인하시면 가입시 입력한 정보가 자동으로 입력됩니다.")) {
+                    window.location.href ="/users/login";
+                } else {
+                    return false;
+                }
             } else {
-                jQuery.ajax({
-                    url: "/exhibition-users/exist-check/<?= $id ?>/" + $("#users_email").val(),
-                }).done(function(data) {
-                    if (data.status == 'success') {
-                        
-                    } else {
-                        alert("해당 이메일 주소로 이미 신청이 완료된 행사입니다.");
-                        window.location.replace("/exhibition/view/<?=$id?>");
-                    }
-                });
-                
-                //결제         
-                var IMP = window.IMP; 
-                IMP.init('imp55727904'); //아임포트 id -> 추후 교체
-                IMP.request_pay({
-                    pg : 'danal_tpay',
-                    pay_method : 'card',
-                    merchant_uid : 'merchant_' + new Date().getTime(),
-                    name : '웨비나 신청',
-                    amount : amount,
-                    buyer_email : $("#users_email").val(),
-                    buyer_name : $("#users_name").val(),
-                    buyer_tel : $("#users_hp").val(),
-                }, function(rsp) {
-                    if ( rsp.success ) {
-                        if (amount != rsp.paid_amount) {
-                            alert("결제요청된 금액과 실제 결제된 금액이 상이합니다. 고객센터로 문의해주세요.");
-                            return false;
-                        }
-                        jQuery.ajax({
-                            url: "/pay/import-pay", 
-                            method: 'POST',
-                            type: 'json',
-                            data: {
-                                imp_uid: rsp.imp_uid,
-                                merchant_uid: rsp.merchant_uid,
-                                pay_method: rsp.pay_method,
-                                paid_amount: rsp.paid_amount,
-                                coupon_amount: 0,
-                                receipt_url: rsp.receipt_url,
-                                paid_at: rsp.paid_at,
-                                pg_tid: rsp.pg_tid
-                            }
-                        }).done(function(data) {
-                            if (data.status == 'success') { 
-                                var formData = new FormData($('#apply')[0]);
-                                formData.append('pay_id', data.pay_id);
-                                formData.append('pay_amount', rsp.paid_amount);
 
-                                jQuery.ajax({
-                                    url: "/exhibition-users/add/" + <?= $id ?>,
-                                    processData: false,
-                                    contentType: false,
-                                    cache: false,
-                                    data: formData,
-                                    type: 'POST',
-                                }).done(function(data) {
-                                    if (data.status == 'success') {
-                                        if (today > apply_edate) {
-                                            var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount;
-                                            msg += '\n모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.';
-
-                                            alert(msg);
-                                        } else {
-                                            var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount;
-                                            msg += '\n신청이 완료되었습니다.';
-
-                                            alert(msg);
-                                        }
-                                        window.location.replace("/exhibition/view/<?=$id?>");
-                                    }
-                                });
-                            } 
-                        });
-                        
-                    } else {
-                        var msg = '결제에 실패하였습니다.';
-                        msg += '에러내용 : ' + rsp.error_msg;
-
-                        alert(msg);
-                    }
-                });
+                if ($("#users_name").val().length == 0) {
+                alert("이름을 입력해주세요.");
+                $("#users_name").focus();
+                return false;
             }
-        }
+
+            // var getName = RegExp(/^[가-힣]+$/);
+            // if (!getName.test($("#users_name").val())) {
+            //     alert("이름을 올바르게 입력해 주세요.");
+            //     $("#users_name").focus();
+            //     return false;
+            // }
+
+            if (require_tel == 1) {
+                if ($("#users_hp").val().length == 0) {
+                    alert("전화번호를 입력해주세요.");
+                    $("#users_hp").focus();
+                    return false;
+                }
+            }
+
+            if (require_sex == 1) {
+                if ($("#users_sex").val() == '') {
+                    alert("성별을 입력해주세요.");
+                    $("#users_sex").focus();
+                    return false;
+                }
+            }
+
+            if (require_group == 1) {
+                if ($("#company").val() == '') {
+                    alert("소속을 입력해주세요.");
+                    $("#company").focus();
+                    return false
+                }
+                if ($("#title").val() == '') {
+                    alert("직함을 입력해주세요.");
+                    $("#title").focus();
+                    return false
+                }
+            }
+
+            if ($("#agree2").prop("checked") == false || $("#agree3").prop("checked") == false) {
+                alert("필수 이용약관 및 개인정보 수집/이용 동의를 확인해주세요.");
+                return false;
+            }
+            
+            var subjective_parents = [];
+            var multiple_parents = [];    
+            var s = 0;
+            var m = 0;
+            <?php if ($subjective_parents != '') : ?> 
+            <?php foreach ($subjective_parents as $subjective_parent) : ?>
+                subjective_parents[s] = "<?=$subjective_parent?>"
+                s++;
+            <?php endforeach; ?>
+            <?php endif ?>
+            <?php if ($multiple_parents != '') : ?>
+            <?php foreach ($multiple_parents as $multiple_parent) : ?>
+                multiple_parents[m] = "<?=$multiple_parent?>"
+                m++;
+            <?php endforeach; ?>
+            <?php endif; ?>
+
+            for (var i=0; i<subjective_parents.length; i++) {
+                if ($("#"+subjective_parents[i]).val() == '') {
+                    alert("응답되지 않은 필수 사전설문이 있습니다.");
+                    return false;
+                    $("#"+subjective_parents[i]).focus();
+                }
+            }
+
+            for (var i=0; i<multiple_parents.length; i++) {
+                if ($("input[name='"+multiple_parents[i]+"']:checked").length == 0) {
+                    alert("응답되지 않은 필수 사전설문이 있습니다.");
+                    return false;
+                    $("input[name='"+multiple_parents[i]+"']").focus();
+                }
+            }
+            var html = "";
+            html += "이메일 : " + $("#users_email").val() + "\n";
+            html += "이름 : " + $("#users_name").val() + "\n";
+            html += "전화번호 : " + $("#users_hp").val() + "\n";
+            html += "웨비나 접속 시 인증이 필요할 수 있습니다.\n위 내용으로 신청하시겠습니까?";
+            if (confirm(html)) {
+                var amount = "<?=$amount?>";     
+                var cost = "<?=$exhibition->cost?>";
+                //무료
+                if (cost == 'free' || amount == 0) {
+                    var formData = new FormData($('#apply')[0]);
+                    formData.append('pay_id', 0);
+                    formData.append('pay_amount', 0);
+
+                    jQuery.ajax({
+                        url: "/exhibition-users/add/" + <?= $id ?>,
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        data: formData,
+                        type: 'POST',
+                    }).done(function(data) {
+                        if (data.status == 'success') {
+                            if (today > apply_edate) {
+                                alert("모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.");
+                            } else {
+                                alert("신청이 완료되었습니다.");
+                            }
+                            window.location.replace("/exhibition/view/<?=$id?>");
+                        } else if (data.status == 'exist') {
+                            alert("해당 이메일 주소로 이미 신청이 완료된 행사입니다.");
+                            window.location.replace("/exhibition/view/<?=$id?>");
+                        } else {
+                            alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+                        }
+                    });
+
+                } else {
+                    jQuery.ajax({
+                        url: "/exhibition-users/exist-check/<?= $id ?>/" + $("#users_email").val(),
+                    }).done(function(data) {
+                        if (data.status == 'success') {
+                            
+                        } else {
+                            alert("해당 이메일 주소로 이미 신청이 완료된 행사입니다.");
+                            window.location.replace("/exhibition/view/<?=$id?>");
+                        }
+                    });
+                    
+                    //결제         
+                    var IMP = window.IMP; 
+                    IMP.init('imp55727904'); //아임포트 id -> 추후 교체
+                    IMP.request_pay({
+                        pg : 'danal_tpay',
+                        pay_method : 'card',
+                        merchant_uid : 'merchant_' + new Date().getTime(),
+                        name : '웨비나 신청',
+                        amount : amount,
+                        buyer_email : $("#users_email").val(),
+                        buyer_name : $("#users_name").val(),
+                        buyer_tel : $("#users_hp").val(),
+                    }, function(rsp) {
+                        if ( rsp.success ) {
+                            if (amount != rsp.paid_amount) {
+                                alert("결제요청된 금액과 실제 결제된 금액이 상이합니다. 고객센터로 문의해주세요.");
+                                return false;
+                            }
+                            jQuery.ajax({
+                                url: "/pay/import-pay", 
+                                method: 'POST',
+                                type: 'json',
+                                data: {
+                                    imp_uid: rsp.imp_uid,
+                                    merchant_uid: rsp.merchant_uid,
+                                    pay_method: rsp.pay_method,
+                                    paid_amount: rsp.paid_amount,
+                                    coupon_amount: 0,
+                                    receipt_url: rsp.receipt_url,
+                                    paid_at: rsp.paid_at,
+                                    pg_tid: rsp.pg_tid
+                                }
+                            }).done(function(data) {
+                                if (data.status == 'success') { 
+                                    var formData = new FormData($('#apply')[0]);
+                                    formData.append('pay_id', data.pay_id);
+                                    formData.append('pay_amount', rsp.paid_amount);
+
+                                    jQuery.ajax({
+                                        url: "/exhibition-users/add/" + <?= $id ?>,
+                                        processData: false,
+                                        contentType: false,
+                                        cache: false,
+                                        data: formData,
+                                        type: 'POST',
+                                    }).done(function(data) {
+                                        if (data.status == 'success') {
+                                            if (today > apply_edate) {
+                                                var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount;
+                                                msg += '\n모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.';
+
+                                                alert(msg);
+                                            } else {
+                                                var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount;
+                                                msg += '\n신청이 완료되었습니다.';
+
+                                                alert(msg);
+                                            }
+                                            window.location.replace("/exhibition/view/<?=$id?>");
+                                        }
+                                    });
+                                } 
+                            });
+                            
+                        } else {
+                            var msg = '결제에 실패하였습니다.';
+                            msg += '내용 : ' + rsp.error_msg;
+
+                            alert(msg);
+                        }
+                    });
+                }
+            }
+            }
+        }); 
     });
 
     $("#submit-card").click(function () {
@@ -500,208 +519,226 @@
             $("#users_email").focus();
             return false;
         }
-        
-        if ($("#users_name").val().length == 0) {
-            alert("이름을 입력해주세요.");
-            $("#users_name").focus();
-            return false;
-        }
 
-        // var getName = RegExp(/^[가-힣]+$/);
-        // if (!getName.test($("#users_name").val())) {
-        //     alert("이름을 올바르게 입력해 주세요.");
-        //     $("#users_name").focus();
-        //     return false;
-        // }
-
-        if (require_tel == 1) {
-            if ($("#users_hp").val().length == 0) {
-                alert("전화번호를 입력해주세요.");
-                $("#users_hp").focus();
-                return false;
+        jQuery.ajax({
+            url: "/exhibition-users/user-check",
+            method: 'POST',
+            type: 'json',
+            data: {
+                user_email: $("#users_email").val(),
+                apply_url: window.location.href
             }
-        }
-
-        if (require_sex == 1) {
-            if ($("#users_sex").val() == '') {
-                alert("성별을 입력해주세요.");
-                $("#users_sex").focus();
-                return false;
-            }
-        }
-
-        if (require_group == 1) {
-            if ($("#company").val() == '') {
-                alert("소속을 입력해주세요.");
-                $("#company").focus();
-                return false
-            }
-            if ($("#title").val() == '') {
-                alert("직함을 입력해주세요.");
-                $("#title").focus();
-                return false
-            }
-        }
-
-        if ($("#agree2").prop("checked") == false || $("#agree3").prop("checked") == false) {
-            alert("필수 이용약관 및 개인정보 수집/이용 동의를 확인해주세요.");
-            return false;
-        }
-        
-        var subjective_parents = [];
-        var multiple_parents = [];    
-        var s = 0;
-        var m = 0;
-        <?php if ($subjective_parents != '') : ?> 
-        <?php foreach ($subjective_parents as $subjective_parent) : ?>
-            subjective_parents[s] = "<?=$subjective_parent?>"
-            s++;
-        <?php endforeach; ?>
-        <?php endif ?>
-        <?php if ($multiple_parents != '') : ?>
-        <?php foreach ($multiple_parents as $multiple_parent) : ?>
-            multiple_parents[m] = "<?=$multiple_parent?>"
-            m++;
-        <?php endforeach; ?>
-        <?php endif; ?>
-
-        for (var i=0; i<subjective_parents.length; i++) {
-            if ($("#"+subjective_parents[i]).val() == '') {
-                alert("응답되지 않은 필수 사전설문이 있습니다.");
-                return false;
-                $("#"+subjective_parents[i]).focus();
-            }
-        }
-
-        for (var i=0; i<multiple_parents.length; i++) {
-            if ($("input[name='"+multiple_parents[i]+"']:checked").length == 0) {
-                alert("응답되지 않은 필수 사전설문이 있습니다.");
-                return false;
-                $("input[name='"+multiple_parents[i]+"']").focus();
-            }
-        }
-        var html = "";
-        html += "이메일 : " + $("#users_email").val() + "\n";
-        html += "이름 : " + $("#users_name").val() + "\n";
-        html += "전화번호 : " + $("#users_hp").val() + "\n";
-        html += "웨비나 접속 시 인증이 필요할 수 있습니다.\n위 내용으로 신청하시겠습니까?";
-        if (confirm(html)) {
-            var amount = "<?=$amount?>";     
-            var cost = "<?=$exhibition->cost?>";
-            //무료
-            if (cost == 'free' || amount == 0) {
-                var formData = new FormData($('#apply')[0]);
-                formData.append('pay_id', 0);
-                formData.append('pay_amount', 0);
-
-                jQuery.ajax({
-                    url: "/exhibition-users/add/" + <?= $id ?>,
-                    processData: false,
-                    contentType: false,
-                    cache: false,
-                    data: formData,
-                    type: 'POST',
-                }).done(function(data) {
-                    if (data.status == 'success') {
-                        if (today > apply_edate) {
-                            alert("모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.");
-                        } else {
-                            alert("신청이 완료되었습니다.");
-                        }
-                        window.location.replace("/exhibition/view/<?=$id?>");
-                    } else if (data.status == 'exist') {
-                        alert("해당 이메일 주소로 이미 신청이 완료된 행사입니다.");
-                        window.location.replace("/exhibition/view/<?=$id?>");
-                    } else {
-                        alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
-                    }
-                });
-
+        }).done(function(data) {
+            if (data.is_user == 1) {
+                if (confirm("회원 정보에 존재하는 이메일 주소입니다.\n로그인 페이지로 이동합니다.\n로그인하시면 가입시 입력한 정보가 자동으로 입력됩니다.")) {
+                    window.location.href ="/users/login";
+                } else {
+                    return false;
+                }
             } else {
-                jQuery.ajax({
-                    url: "/exhibition-users/exist-check/<?= $id ?>/" + $("#users_email").val(),
-                }).done(function(data) {
-                    if (data.status == 'success') {
-                        
-                    } else {
-                        alert("해당 이메일 주소로 이미 신청이 완료된 행사입니다.");
-                        window.location.replace("/exhibition/view/<?=$id?>");
-                    }
-                });
-                
-                //결제         
-                var IMP = window.IMP; 
-                IMP.init('imp55727904'); //아임포트 id -> 추후 교체
-                IMP.request_pay({
-                    pg : 'danal_tpay',
-                    pay_method : 'card',
-                    merchant_uid : 'merchant_' + new Date().getTime(),
-                    name : '웨비나 신청',
-                    amount : amount,
-                    buyer_email : $("#users_email").val(),
-                    buyer_name : $("#users_name").val(),
-                    buyer_tel : $("#users_hp").val(),
-                }, function(rsp) {
-                    if ( rsp.success ) {
-                        if (amount != rsp.paid_amount) {
-                            alert("결제요청된 금액과 실제 결제된 금액이 상이합니다. 고객센터로 문의해주세요.");
-                            return false;
-                        }
-                        jQuery.ajax({
-                            url: "/pay/import-pay", 
-                            method: 'POST',
-                            type: 'json',
-                            data: {
-                                imp_uid: rsp.imp_uid,
-                                merchant_uid: rsp.merchant_uid,
-                                pay_method: rsp.pay_method,
-                                paid_amount: rsp.paid_amount,
-                                coupon_amount: 0,
-                                receipt_url: rsp.receipt_url,
-                                paid_at: rsp.paid_at,
-                                pg_tid: rsp.pg_tid
-                            }
-                        }).done(function(data) {
-                            if (data.status == 'success') { 
-                                var formData = new FormData($('#apply')[0]);
-                                formData.append('pay_id', data.pay_id);
-                                formData.append('pay_amount', rsp.paid_amount);
-
-                                jQuery.ajax({
-                                    url: "/exhibition-users/add/" + <?= $id ?>,
-                                    processData: false,
-                                    contentType: false,
-                                    cache: false,
-                                    data: formData,
-                                    type: 'POST',
-                                }).done(function(data) {
-                                    if (data.status == 'success') {
-                                        if (today > apply_edate) {
-                                            var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount.toLocaleString();
-                                            msg += '\n모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.';
-
-                                            alert(msg);
-                                        } else {
-                                            var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount.toLocaleString();
-                                            msg += '\n신청이 완료되었습니다.';
-
-                                            alert(msg);
-                                        }
-                                        window.location.replace("/exhibition/view/<?=$id?>");
-                                    }
-                                });
-                            } 
-                        });
-                        
-                    } else {
-                        var msg = '결제에 실패하였습니다.';
-                        msg += '에러내용 : ' + rsp.error_msg;
-
-                        alert(msg);
-                    }
-                });
+                if ($("#users_name").val().length == 0) {
+                alert("이름을 입력해주세요.");
+                $("#users_name").focus();
+                return false;
             }
-        }
+
+            // var getName = RegExp(/^[가-힣]+$/);
+            // if (!getName.test($("#users_name").val())) {
+            //     alert("이름을 올바르게 입력해 주세요.");
+            //     $("#users_name").focus();
+            //     return false;
+            // }
+
+            if (require_tel == 1) {
+                if ($("#users_hp").val().length == 0) {
+                    alert("전화번호를 입력해주세요.");
+                    $("#users_hp").focus();
+                    return false;
+                }
+            }
+
+            if (require_sex == 1) {
+                if ($("#users_sex").val() == '') {
+                    alert("성별을 입력해주세요.");
+                    $("#users_sex").focus();
+                    return false;
+                }
+            }
+
+            if (require_group == 1) {
+                if ($("#company").val() == '') {
+                    alert("소속을 입력해주세요.");
+                    $("#company").focus();
+                    return false
+                }
+                if ($("#title").val() == '') {
+                    alert("직함을 입력해주세요.");
+                    $("#title").focus();
+                    return false
+                }
+            }
+
+            if ($("#agree2").prop("checked") == false || $("#agree3").prop("checked") == false) {
+                alert("필수 이용약관 및 개인정보 수집/이용 동의를 확인해주세요.");
+                return false;
+            }
+            
+            var subjective_parents = [];
+            var multiple_parents = [];    
+            var s = 0;
+            var m = 0;
+            <?php if ($subjective_parents != '') : ?> 
+            <?php foreach ($subjective_parents as $subjective_parent) : ?>
+                subjective_parents[s] = "<?=$subjective_parent?>"
+                s++;
+            <?php endforeach; ?>
+            <?php endif ?>
+            <?php if ($multiple_parents != '') : ?>
+            <?php foreach ($multiple_parents as $multiple_parent) : ?>
+                multiple_parents[m] = "<?=$multiple_parent?>"
+                m++;
+            <?php endforeach; ?>
+            <?php endif; ?>
+
+            for (var i=0; i<subjective_parents.length; i++) {
+                if ($("#"+subjective_parents[i]).val() == '') {
+                    alert("응답되지 않은 필수 사전설문이 있습니다.");
+                    return false;
+                    $("#"+subjective_parents[i]).focus();
+                }
+            }
+
+            for (var i=0; i<multiple_parents.length; i++) {
+                if ($("input[name='"+multiple_parents[i]+"']:checked").length == 0) {
+                    alert("응답되지 않은 필수 사전설문이 있습니다.");
+                    return false;
+                    $("input[name='"+multiple_parents[i]+"']").focus();
+                }
+            }
+            var html = "";
+            html += "이메일 : " + $("#users_email").val() + "\n";
+            html += "이름 : " + $("#users_name").val() + "\n";
+            html += "전화번호 : " + $("#users_hp").val() + "\n";
+            html += "웨비나 접속 시 인증이 필요할 수 있습니다.\n위 내용으로 신청하시겠습니까?";
+            if (confirm(html)) {
+                var amount = "<?=$amount?>";     
+                var cost = "<?=$exhibition->cost?>";
+                //무료
+                if (cost == 'free' || amount == 0) {
+                    var formData = new FormData($('#apply')[0]);
+                    formData.append('pay_id', 0);
+                    formData.append('pay_amount', 0);
+
+                    jQuery.ajax({
+                        url: "/exhibition-users/add/" + <?= $id ?>,
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        data: formData,
+                        type: 'POST',
+                    }).done(function(data) {
+                        if (data.status == 'success') {
+                            if (today > apply_edate) {
+                                alert("모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.");
+                            } else {
+                                alert("신청이 완료되었습니다.");
+                            }
+                            window.location.replace("/exhibition/view/<?=$id?>");
+                        } else if (data.status == 'exist') {
+                            alert("해당 이메일 주소로 이미 신청이 완료된 행사입니다.");
+                            window.location.replace("/exhibition/view/<?=$id?>");
+                        } else {
+                            alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+                        }
+                    });
+
+                } else {
+                    jQuery.ajax({
+                        url: "/exhibition-users/exist-check/<?= $id ?>/" + $("#users_email").val(),
+                    }).done(function(data) {
+                        if (data.status == 'success') {
+                            
+                        } else {
+                            alert("해당 이메일 주소로 이미 신청이 완료된 행사입니다.");
+                            window.location.replace("/exhibition/view/<?=$id?>");
+                        }
+                    });
+                    
+                    //결제         
+                    var IMP = window.IMP; 
+                    IMP.init('imp55727904'); //아임포트 id -> 추후 교체
+                    IMP.request_pay({
+                        pg : 'danal_tpay',
+                        pay_method : 'card',
+                        merchant_uid : 'merchant_' + new Date().getTime(),
+                        name : '웨비나 신청',
+                        amount : amount,
+                        buyer_email : $("#users_email").val(),
+                        buyer_name : $("#users_name").val(),
+                        buyer_tel : $("#users_hp").val(),
+                    }, function(rsp) {
+                        if ( rsp.success ) {
+                            if (amount != rsp.paid_amount) {
+                                alert("결제요청된 금액과 실제 결제된 금액이 상이합니다. 고객센터로 문의해주세요.");
+                                return false;
+                            }
+                            jQuery.ajax({
+                                url: "/pay/import-pay", 
+                                method: 'POST',
+                                type: 'json',
+                                data: {
+                                    imp_uid: rsp.imp_uid,
+                                    merchant_uid: rsp.merchant_uid,
+                                    pay_method: rsp.pay_method,
+                                    paid_amount: rsp.paid_amount,
+                                    coupon_amount: 0,
+                                    receipt_url: rsp.receipt_url,
+                                    paid_at: rsp.paid_at,
+                                    pg_tid: rsp.pg_tid
+                                }
+                            }).done(function(data) {
+                                if (data.status == 'success') { 
+                                    var formData = new FormData($('#apply')[0]);
+                                    formData.append('pay_id', data.pay_id);
+                                    formData.append('pay_amount', rsp.paid_amount);
+
+                                    jQuery.ajax({
+                                        url: "/exhibition-users/add/" + <?= $id ?>,
+                                        processData: false,
+                                        contentType: false,
+                                        cache: false,
+                                        data: formData,
+                                        type: 'POST',
+                                    }).done(function(data) {
+                                        if (data.status == 'success') {
+                                            if (today > apply_edate) {
+                                                var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount.toLocaleString();
+                                                msg += '\n모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.';
+
+                                                alert(msg);
+                                            } else {
+                                                var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount.toLocaleString();
+                                                msg += '\n신청이 완료되었습니다.';
+
+                                                alert(msg);
+                                            }
+                                            window.location.replace("/exhibition/view/<?=$id?>");
+                                        }
+                                    });
+                                } 
+                            });
+                            
+                        } else {
+                            var msg = '결제에 실패하였습니다.';
+                            msg += '내용 : ' + rsp.error_msg;
+
+                            alert(msg);
+                        }
+                    });
+                }
+            }
+            }
+        }); 
     });
 
     $("#submit-trans").click(function () {
@@ -718,207 +755,226 @@
             $("#users_email").focus();
             return false;
         }
-        
-        if ($("#users_name").val().length == 0) {
-            alert("이름을 입력해주세요.");
-            $("#users_name").focus();
-            return false;
-        }
 
-        // var getName = RegExp(/^[가-힣]+$/);
-        // if (!getName.test($("#users_name").val())) {
-        //     alert("이름을 올바르게 입력해 주세요.");
-        //     $("#users_name").focus();
-        //     return false;
-        // }
-
-        if (require_tel == 1) {
-            if ($("#users_hp").val().length == 0) {
-                alert("전화번호를 입력해주세요.");
-                $("#users_hp").focus();
-                return false;
+        jQuery.ajax({
+            url: "/exhibition-users/user-check",
+            method: 'POST',
+            type: 'json',
+            data: {
+                user_email: $("#users_email").val(),
+                apply_url: window.location.href
             }
-        }
-
-        if (require_sex == 1) {
-            if ($("#users_sex").val() == '') {
-                alert("성별을 입력해주세요.");
-                $("#users_sex").focus();
-                return false;
-            }
-        }
-
-        if (require_group == 1) {
-            if ($("#company").val() == '') {
-                alert("소속을 입력해주세요.");
-                $("#company").focus();
-                return false
-            }
-            if ($("#title").val() == '') {
-                alert("직함을 입력해주세요.");
-                $("#title").focus();
-                return false
-            }
-        }
-
-        if ($("#agree2").prop("checked") == false || $("#agree3").prop("checked") == false) {
-            alert("필수 이용약관 및 개인정보 수집/이용 동의를 확인해주세요.");
-            return false;
-        }
-        
-        var subjective_parents = [];
-        var multiple_parents = [];    
-        var s = 0;
-        var m = 0;
-        <?php if ($subjective_parents != '') : ?> 
-        <?php foreach ($subjective_parents as $subjective_parent) : ?>
-            subjective_parents[s] = "<?=$subjective_parent?>"
-            s++;
-        <?php endforeach; ?>
-        <?php endif ?>
-        <?php if ($multiple_parents != '') : ?>
-        <?php foreach ($multiple_parents as $multiple_parent) : ?>
-            multiple_parents[m] = "<?=$multiple_parent?>"
-            m++;
-        <?php endforeach; ?>
-        <?php endif; ?>
-
-        for (var i=0; i<subjective_parents.length; i++) {
-            if ($("#"+subjective_parents[i]).val() == '') {
-                alert("응답되지 않은 필수 사전설문이 있습니다.");
-                return false;
-                $("#"+subjective_parents[i]).focus();
-            }
-        }
-
-        for (var i=0; i<multiple_parents.length; i++) {
-            if ($("input[name='"+multiple_parents[i]+"']:checked").length == 0) {
-                alert("응답되지 않은 필수 사전설문이 있습니다.");
-                return false;
-                $("input[name='"+multiple_parents[i]+"']").focus();
-            }
-        }
-        var html = "";
-        html += "이메일 : " + $("#users_email").val() + "\n";
-        html += "이름 : " + $("#users_name").val() + "\n";
-        html += "전화번호 : " + $("#users_hp").val() + "\n";
-        html += "웨비나 접속 시 인증이 필요할 수 있습니다.\n위 내용으로 신청하시겠습니까?";
-        if (confirm(html)) {
-            var amount = "<?=$amount?>";     
-            var cost = "<?=$exhibition->cost?>";
-            //무료
-            if (cost == 'free' || amount == 0) {
-                var formData = new FormData($('#apply')[0]);
-                formData.append('pay_id', 0);
-                formData.append('pay_amount', 0);
-
-                jQuery.ajax({
-                    url: "/exhibition-users/add/" + <?= $id ?>,
-                    processData: false,
-                    contentType: false,
-                    cache: false,
-                    data: formData,
-                    type: 'POST',
-                }).done(function(data) {
-                    if (data.status == 'success') {
-                        if (today > apply_edate) {
-                            alert("모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.");
-                        } else {
-                            alert("신청이 완료되었습니다.");
-                        }
-                        window.location.replace("/exhibition/view/<?=$id?>");
-                    } else if (data.status == 'exist') {
-                        alert("해당 이메일 주소로 이미 신청이 완료된 행사입니다.");
-                        window.location.replace("/exhibition/view/<?=$id?>");
-                    } else {
-                        alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
-                    }
-                });
-
+        }).done(function(data) {
+            if (data.is_user == 1) {
+                if (confirm("회원 정보에 존재하는 이메일 주소입니다.\n로그인 페이지로 이동합니다.\n로그인하시면 가입시 입력한 정보가 자동으로 입력됩니다.")) {
+                    window.location.href ="/users/login";
+                } else {
+                    return false;
+                }
             } else {
-                jQuery.ajax({
-                    url: "/exhibition-users/exist-check/<?= $id ?>/" + $("#users_email").val(),
-                }).done(function(data) {
-                    if (data.status == 'success') {
-                        
-                    } else {
-                        alert("해당 이메일 주소로 이미 신청이 완료된 행사입니다.");
-                        window.location.replace("/exhibition/view/<?=$id?>");
-                    }
-                });
                 
-                //결제         
-                var IMP = window.IMP; 
-                IMP.init('imp55727904'); //아임포트 id -> 추후 교체
-                IMP.request_pay({
-                    pg : 'danal_tpay',
-                    pay_method : 'trans',
-                    merchant_uid : 'merchant_' + new Date().getTime(),
-                    name : '웨비나 신청',
-                    amount : amount,
-                    buyer_email : $("#users_email").val(),
-                    buyer_name : $("#users_name").val(),
-                    buyer_tel : $("#users_hp").val(),
-                }, function(rsp) {
-                    if ( rsp.success ) {
-                        if (amount != rsp.paid_amount) {
-                            alert("결제요청된 금액과 실제 결제된 금액이 상이합니다. 고객센터로 문의해주세요.");
-                            return false;
-                        }
-                        jQuery.ajax({
-                            url: "/pay/import-pay", 
-                            method: 'POST',
-                            type: 'json',
-                            data: {
-                                imp_uid: rsp.imp_uid,
-                                merchant_uid: rsp.merchant_uid,
-                                pay_method: rsp.pay_method,
-                                paid_amount: rsp.paid_amount,
-                                coupon_amount: 0,
-                                receipt_url: rsp.receipt_url,
-                                paid_at: rsp.paid_at,
-                                pg_tid: rsp.pg_tid
-                            }
-                        }).done(function(data) {
-                            if (data.status == 'success') { 
-                                var formData = new FormData($('#apply')[0]);
-                                formData.append('pay_id', data.pay_id);
-                                formData.append('pay_amount', rsp.paid_amount);
-
-                                jQuery.ajax({
-                                    url: "/exhibition-users/add/" + <?= $id ?>,
-                                    processData: false,
-                                    contentType: false,
-                                    cache: false,
-                                    data: formData,
-                                    type: 'POST',
-                                }).done(function(data) {
-                                    if (data.status == 'success') {
-                                        if (today > apply_edate) {
-                                            var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount;
-                                            msg += '\n모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.';
-
-                                            alert(msg);
-                                        } else {
-                                            var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount;
-                                            msg += '\n신청이 완료되었습니다.';
-
-                                            alert(msg);
-                                        }
-                                        window.location.replace("/exhibition/view/<?=$id?>");
-                                    }
-                                });
-                            } 
-                        });
-                        
-                    } else {
-                        var msg = '결제에 실패하였습니다.';
-                        msg += '에러내용 : ' + rsp.error_msg;
-
-                        alert(msg);
-                    }
-                });
+                if ($("#users_name").val().length == 0) {
+                alert("이름을 입력해주세요.");
+                $("#users_name").focus();
+                return false;
             }
-        }
+
+            // var getName = RegExp(/^[가-힣]+$/);
+            // if (!getName.test($("#users_name").val())) {
+            //     alert("이름을 올바르게 입력해 주세요.");
+            //     $("#users_name").focus();
+            //     return false;
+            // }
+
+            if (require_tel == 1) {
+                if ($("#users_hp").val().length == 0) {
+                    alert("전화번호를 입력해주세요.");
+                    $("#users_hp").focus();
+                    return false;
+                }
+            }
+
+            if (require_sex == 1) {
+                if ($("#users_sex").val() == '') {
+                    alert("성별을 입력해주세요.");
+                    $("#users_sex").focus();
+                    return false;
+                }
+            }
+
+            if (require_group == 1) {
+                if ($("#company").val() == '') {
+                    alert("소속을 입력해주세요.");
+                    $("#company").focus();
+                    return false
+                }
+                if ($("#title").val() == '') {
+                    alert("직함을 입력해주세요.");
+                    $("#title").focus();
+                    return false
+                }
+            }
+
+            if ($("#agree2").prop("checked") == false || $("#agree3").prop("checked") == false) {
+                alert("필수 이용약관 및 개인정보 수집/이용 동의를 확인해주세요.");
+                return false;
+            }
+            
+            var subjective_parents = [];
+            var multiple_parents = [];    
+            var s = 0;
+            var m = 0;
+            <?php if ($subjective_parents != '') : ?> 
+            <?php foreach ($subjective_parents as $subjective_parent) : ?>
+                subjective_parents[s] = "<?=$subjective_parent?>"
+                s++;
+            <?php endforeach; ?>
+            <?php endif ?>
+            <?php if ($multiple_parents != '') : ?>
+            <?php foreach ($multiple_parents as $multiple_parent) : ?>
+                multiple_parents[m] = "<?=$multiple_parent?>"
+                m++;
+            <?php endforeach; ?>
+            <?php endif; ?>
+
+            for (var i=0; i<subjective_parents.length; i++) {
+                if ($("#"+subjective_parents[i]).val() == '') {
+                    alert("응답되지 않은 필수 사전설문이 있습니다.");
+                    return false;
+                    $("#"+subjective_parents[i]).focus();
+                }
+            }
+
+            for (var i=0; i<multiple_parents.length; i++) {
+                if ($("input[name='"+multiple_parents[i]+"']:checked").length == 0) {
+                    alert("응답되지 않은 필수 사전설문이 있습니다.");
+                    return false;
+                    $("input[name='"+multiple_parents[i]+"']").focus();
+                }
+            }
+            var html = "";
+            html += "이메일 : " + $("#users_email").val() + "\n";
+            html += "이름 : " + $("#users_name").val() + "\n";
+            html += "전화번호 : " + $("#users_hp").val() + "\n";
+            html += "웨비나 접속 시 인증이 필요할 수 있습니다.\n위 내용으로 신청하시겠습니까?";
+            if (confirm(html)) {
+                var amount = "<?=$amount?>";     
+                var cost = "<?=$exhibition->cost?>";
+                //무료
+                if (cost == 'free' || amount == 0) {
+                    var formData = new FormData($('#apply')[0]);
+                    formData.append('pay_id', 0);
+                    formData.append('pay_amount', 0);
+
+                    jQuery.ajax({
+                        url: "/exhibition-users/add/" + <?= $id ?>,
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        data: formData,
+                        type: 'POST',
+                    }).done(function(data) {
+                        if (data.status == 'success') {
+                            if (today > apply_edate) {
+                                alert("모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.");
+                            } else {
+                                alert("신청이 완료되었습니다.");
+                            }
+                            window.location.replace("/exhibition/view/<?=$id?>");
+                        } else if (data.status == 'exist') {
+                            alert("해당 이메일 주소로 이미 신청이 완료된 행사입니다.");
+                            window.location.replace("/exhibition/view/<?=$id?>");
+                        } else {
+                            alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+                        }
+                    });
+
+                } else {
+                    jQuery.ajax({
+                        url: "/exhibition-users/exist-check/<?= $id ?>/" + $("#users_email").val(),
+                    }).done(function(data) {
+                        if (data.status == 'success') {
+                            
+                        } else {
+                            alert("해당 이메일 주소로 이미 신청이 완료된 행사입니다.");
+                            window.location.replace("/exhibition/view/<?=$id?>");
+                        }
+                    });
+                    
+                    //결제         
+                    var IMP = window.IMP; 
+                    IMP.init('imp55727904'); //아임포트 id -> 추후 교체
+                    IMP.request_pay({
+                        pg : 'danal_tpay',
+                        pay_method : 'trans',
+                        merchant_uid : 'merchant_' + new Date().getTime(),
+                        name : '웨비나 신청',
+                        amount : amount,
+                        buyer_email : $("#users_email").val(),
+                        buyer_name : $("#users_name").val(),
+                        buyer_tel : $("#users_hp").val(),
+                    }, function(rsp) {
+                        if ( rsp.success ) {
+                            if (amount != rsp.paid_amount) {
+                                alert("결제요청된 금액과 실제 결제된 금액이 상이합니다. 고객센터로 문의해주세요.");
+                                return false;
+                            }
+                            jQuery.ajax({
+                                url: "/pay/import-pay", 
+                                method: 'POST',
+                                type: 'json',
+                                data: {
+                                    imp_uid: rsp.imp_uid,
+                                    merchant_uid: rsp.merchant_uid,
+                                    pay_method: rsp.pay_method,
+                                    paid_amount: rsp.paid_amount,
+                                    coupon_amount: 0,
+                                    receipt_url: rsp.receipt_url,
+                                    paid_at: rsp.paid_at,
+                                    pg_tid: rsp.pg_tid
+                                }
+                            }).done(function(data) {
+                                if (data.status == 'success') { 
+                                    var formData = new FormData($('#apply')[0]);
+                                    formData.append('pay_id', data.pay_id);
+                                    formData.append('pay_amount', rsp.paid_amount);
+
+                                    jQuery.ajax({
+                                        url: "/exhibition-users/add/" + <?= $id ?>,
+                                        processData: false,
+                                        contentType: false,
+                                        cache: false,
+                                        data: formData,
+                                        type: 'POST',
+                                    }).done(function(data) {
+                                        if (data.status == 'success') {
+                                            if (today > apply_edate) {
+                                                var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount;
+                                                msg += '\n모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.';
+
+                                                alert(msg);
+                                            } else {
+                                                var msg = '결제가 완료되었습니다. 결제 금액 : ' + rsp.paid_amount;
+                                                msg += '\n신청이 완료되었습니다.';
+
+                                                alert(msg);
+                                            }
+                                            window.location.replace("/exhibition/view/<?=$id?>");
+                                        }
+                                    });
+                                } 
+                            });
+                            
+                        } else {
+                            var msg = '결제에 실패하였습니다.';
+                            msg += '내용 : ' + rsp.error_msg;
+
+                            alert(msg);
+                        }
+                    });
+                }
+            }
+            }
+        }); 
     });
 </script>

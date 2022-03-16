@@ -346,6 +346,16 @@ class UsersController extends AppController
         }
     }
 
+    public function generateCode()
+    {
+        $characters = '123456789';
+        $code = '';
+        for ($i = 0; $i < 6; $i++) {
+            $code .= substr($characters, rand(0, strlen($characters)-1), 1);
+        }
+        return $code;
+    }
+
     public function login(){
         $session = $this->request->getSession();
         $msg = $session->consume('msg');
@@ -357,16 +367,16 @@ class UsersController extends AppController
             $hashPswdObj = new DefaultPasswordHasher; //비밀번호 암호화        
             $password = $hashPswdObj->hash($this->request->getData('password')); 
             
-    
             $user = $this->Users->find('all')                            
                             ->where(['email'=>$this->request->getData('email'), 'status'=>1])
                             ->first();
-       
             
             if($user && $hashPswdObj->check($this->request->getData('password'),$user->password)){
+                $user->is_logged = $this->generateCode();
+                $this->Users->save($user);
                 $this->Auth->setUser($user);
                 
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'apply_url' => $session->consume('apply_url')]));
                 return $response;
             } else {
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
@@ -377,7 +387,6 @@ class UsersController extends AppController
     }
 
     public function logout(){
-
         return $this->redirect($this->Auth->logout());
     }
 
@@ -665,16 +674,6 @@ class UsersController extends AppController
                 return $response;
             }
         }
-    }
-
-    public function generateCode()
-    {
-        $characters = '123456789';
-        $code = '';
-        for ($i = 0; $i < 6; $i++) {
-            $code .= substr($characters, rand(0, strlen($characters)-1), 1);
-        }
-        return $code;
     }
 
     public function naverConnect()

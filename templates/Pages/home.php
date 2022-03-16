@@ -45,7 +45,25 @@
     .hotImg {
         width: 580px; height: 292px;
     }
+    .kakao-chat {
+        width:12%;
+        height:auto;
+        position:fixed;
+        right:0;
+        bottom:25%;
+        z-index: 9999;
+    }
     @media  screen and (max-width: 768px) {
+        .kakao-chat {
+            width:45%;
+            bottom:1%
+        }
+        .main-visual {
+            padding: 0px;
+        }
+        .main-visual .imgs img {
+            height: 150px;
+        }
         .subBanner {
             width:375px; 
             height:239.78px;
@@ -117,6 +135,7 @@
             </div>
             
             <div class="static">
+                <a href="https://pf.kakao.com/_HxkNJb/chat" target="_blank"><img class="kakao-chat" src="/images/kakaochat.png"></a>
                 <div class="main-sect1">
                     <div><a href="#" class="arr-link1"><span>EXON 소개</span></a></div>
                     <div><a href="/exhibition/add" class="arr-link1"><span>행사개설</span></a></div>
@@ -384,6 +403,17 @@
             $('.main-slider5 .swiper-button-next').removeClass('visible');
         });
 
+<<<<<<< HEAD
       
+=======
+        //채팅상담 스크롤
+        // $(window).on('scroll', function(){
+        //     if($(".kakao-chat").offset().top + $(".kakao-chat").height() <= $("#footer").offset().top) {
+        //         console.log("1")
+        //     } else {
+        //         console.log("2")
+        //     }
+        // });
+>>>>>>> 322feee25e1c25cc35bcbf0004b659aa3a62f209
 
     </script>

@@ -1355,4 +1355,14 @@ class ExhibitionStreamController extends AppController
         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'time' => $time]));
         return $response;
     }
+
+    public function watchExhibitionVod()
+    {
+        
+    }
+
+    public function uploadVod()
+    {
+    
+    }
 }

@@ -212,7 +212,7 @@
                 <p class="f-copy">copyright ⓒ exon.live, ALL Right Reserved.</p> 
                 <div class="footer__info--imgDiv">
                     <a href="https://blog.naver.com/exonlive" target="_blank"><img src="/img/blog.png" class="footer__info--img"></a> 
-                    <a href="https://pf.kakao.com/_HxkNJb" target="_blank"><img src="/img/kakao.png" class="footer__info--img"></a> 
+                    <a href="https://pf.kakao.com/_HxkNJb/chat" target="_blank"><img src="/img/kakao.png" class="footer__info--img"></a> 
                     <a href="https://www.instagram.com/exon.live/" target="_blank"><img src="/img/inst.png" class="footer__info--img"></a> 
                     <a href="https://www.facebook.com/exonlive.world" target="_blank"><img src="/img/fb.png" class="footer__info--img"></a> 
                     <a href="https://www.youtube.com/channel/UC6QVbMRa4r3scRl5tfKXYCQ" target="_blank"><img src="/img/you.png" class="footer__info--img"></a>

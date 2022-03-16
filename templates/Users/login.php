@@ -70,6 +70,10 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
             }
         }).done(function(data) {
             if (data.status == 'success') {
+                if (data.apply_url != null) {
+                    window.location.href = data.apply_url;
+                    return false;
+                }
                 $(location).attr('href', '/');
             } else {
                 $("#noti").html("로그인 정보를 다시 확인해주세요.");

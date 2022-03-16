@@ -733,4 +733,29 @@ class ExhibitionUsersController extends AppController
         }
         return $code;
     }
+
+    public function userCheck()
+    {
+        $Users = $this->getTableLocator()->get('Users');
+        $users = $Users->find('all')->toArray();
+        $user_email = $this->request->getData('user_email');
+        $is_user = 0;
+        
+        if (empty($this->Auth->user())) {
+            foreach ($users as $user) {
+                if ($user['email'] == $user_email) {
+                    $is_user = 1;
+                } 
+            }
+        }
+        
+        if ($is_user == 1) {
+            $session = $this->request->getSession();
+            $apply_url = $this->request->getData('apply_url');
+            $session->write('apply_url', $apply_url);
+        }
+        
+        $response = $this->response->withType('json')->withStringBody(json_encode(['is_user' => $is_user]));
+        return $response;
+    }
 }

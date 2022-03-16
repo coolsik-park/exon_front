@@ -37,6 +37,26 @@
         .payDiv {
             width: 60%;
         }
+        .sett-btn {
+            display: block;
+            position: absolute;
+            top: -5px;
+            right: 1px;
+            padding: 8px;
+            border-radius: 10px;
+            border: 1px solid lightgray;
+            color: black;
+        }
+        .save-btn {
+            display: inline-block;
+            position: absolute;
+            top: -5px;
+            right: 1px;
+            padding: 8px;
+            border-radius: 10px;
+            border: 1px solid black;
+            color: black;
+        }
         @media  screen and (max-width: 768px) {
             .stream-sect .row2-wp .row2 {
                 width: 99%;
@@ -203,7 +223,7 @@
             <div class="webinar-tab-top">
                 <div class="webinar-toggle">
                     <button type="button" class="webinar-tab-tg">토글버튼</button>
-                    <button type="button" id="setting_btn" name="btn_off" class="ico-sett">설정</button>
+                    <button type="button" id="setting_btn" name="btn_off" class="sett-btn">메뉴설정</button>
                     <input type="hidden" id="tab" name="tab" value="0">
                 </div>                        
                 <div class="w-tab-wrap">
@@ -226,8 +246,8 @@
             <!-- // top -->
             <div class="webinar-tab-body">  
                 <p class="wb-alert">사용할 탭을 선택해주세요</p>   
-                <p class="wb-alert wb-alert2">위에 표기된 메뉴를 사용하시기 위해서는 설정( <img src="../../img/ico-sett.png">   )버튼을 클릭해 활성화 시켜주시기 바랍니다.</p>  
-                <p class="wb-alert wb-alert2">탭 설정이 활성화 된 후 참가자에게 공개할 탭(메뉴)을 선택하시면 선택된 탭이 참가자 화면에 표시됩니다.</p>  
+                <p class="wb-alert wb-alert2">위에 표기된 메뉴를 사용하시기 위해서는 메뉴설정 버튼을 클릭해 활성화 시켜주시기 바랍니다.</p>  
+                <p class="wb-alert wb-alert2">탭 설정이 활성화 된 후 참가자에게 공개할 탭(메뉴)을 선택한 뒤 저장 버튼을 누르면 선택된 탭이 참가자 화면에 표시됩니다.</p>  
                 <p class="wb-alert wb-alert2">방송중에도 탭 설정은 가능합니다. </p>  
             </div>
             <!-- body -->
@@ -431,32 +451,36 @@
             url: video_uri,
             type: 'HEAD',
             success: function () {
-                $.ajax({
-                    url: "/exhibition-stream/set-started-time/<?=$exhibitionStream->id?>", 
-                    type: 'POST',
-                }).done(function (data) {
-                    if (data.status == 'success') {
-                        player.src({src: video_uri, type: 'application/x-mpegURL' });
-                        player.load();
-                        player.play();
+                if (confirm("방송 종료후 영상vod를 제공하고 있습니다.\n영상의 품질은 사용PC환경과 방송프로그램 설정에 따라\n달라질 수 있으니 송출 프로그램 자체녹화를 권장합니다.\n방송을 시작하시겠습니까?")) {
+                    $.ajax({
+                        url: "/exhibition-stream/set-started-time/<?=$exhibitionStream->id?>", 
+                        type: 'POST',
+                    }).done(function (data) {
+                        if (data.status == 'success') {
+                            player.src({src: video_uri, type: 'application/x-mpegURL' });
+                            player.load();
+                            player.play();
 
-                        if (is_timeCheck == 0) {
-                            timeCheck = setInterval("liveTimeCheck()", 1000);
-                        }
-                        if (is_timeCheckBeforeTen == 0) {
-                            timeCheckBeforeTen = setInterval("liveTimeCheckBeforeTen()", 1000);
+                            if (is_timeCheck == 0) {
+                                timeCheck = setInterval("liveTimeCheck()", 1000);
+                            }
+                            if (is_timeCheckBeforeTen == 0) {
+                                timeCheckBeforeTen = setInterval("liveTimeCheckBeforeTen()", 1000);
 
+                            }
+                            $("#liveButtons").children().remove();
+                            $("#liveButtons").append('<button id="end" type="button" class="btn-ty4 gray">방송종료</button>');
+                        
+                        } else {
+                            alert("오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
                         }
-                        $("#liveButtons").children().remove();
-                        $("#liveButtons").append('<button id="end" type="button" class="btn-ty4 gray">방송종료</button>');
-                    
-                    } else {
-                        alert("오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
-                    }
-                });
+                    });
+                } else {
+                    return false;
+                }
             },
             error: function () {
-                alert("OBS에서 방송을 시작해주세요.\n(OBS에서 방송 시작 후 10초 정도의 지연시간이 존재합니다.)");
+                alert("송출 프로그램에서 송출을 시작해주세요.\n(송출 시작 후 약 10초 정도의 지연시간이 존재합니다.)");
             }
         });
     });
@@ -647,8 +671,12 @@
 
     //결제
     $("#payment-card").click(function () {
+        if ($('input#amount').val() == 0) {
+            alert("결제할 금액이 존재하지 않습니다.\n시간과 인원수를 확인해주세요.");
+            return false;
+        }
         var IMP = window.IMP; 
-        IMP.init('imp55727904'); //아임포트 id -> 추후 교체
+        IMP.init('imp55727904');
         IMP.request_pay({
             pg : 'danal_tpay',
             pay_method : 'card',
@@ -699,7 +727,7 @@
                 
             } else {
                 var msg = '결제에 실패하였습니다.';
-                msg += '에러내용 : ' + rsp.error_msg;
+                msg += '내용 : ' + rsp.error_msg;
 
                 alert(msg);
             }
@@ -707,8 +735,12 @@
     });
 
     $("#payment-trans").click(function () {
+        if ($('input#amount').val() == 0) {
+            alert("결제할 금액이 존재하지 않습니다.\n시간과 인원수를 확인해주세요.");
+            return false;
+        }
         var IMP = window.IMP; 
-        IMP.init('imp55727904'); //아임포트 id -> 추후 교체
+        IMP.init('imp55727904');
         IMP.request_pay({
             pg : 'danal_tpay',
             pay_method : 'trans',
@@ -760,7 +792,7 @@
                 
             } else {
                 var msg = '결제에 실패하였습니다.';
-                msg += '에러내용 : ' + rsp.error_msg;
+                msg += '내용 : ' + rsp.error_msg;
 
                 alert(msg);
             }
@@ -893,12 +925,16 @@
         
         if ($(this).attr("name") == "btn_off") {
             $(this).attr("name", "btn_on");
-            $(this).css("background", "url(../../images/ico-sett2.png)");
+            $(this).removeClass("sett-btn");
+            $(this).addClass("save-btn");
+            $(this).html("저장");
             alert("탭 설정이 활성화 되었습니다.");
         } else {
             $(this).attr("name", "btn_off");
-            $(this).css("background", "url(../../images/ico-sett.png)");
-            alert("탭 설정이 비활성화 되었습니다.");
+            $(this).removeClass("save-btn");
+            $(this).addClass("sett-btn");
+            $(this).html("메뉴설정");
+            $("#save").click();
         }
     });
 
