@@ -46,10 +46,10 @@
         width: 580px; height: 292px;
     }
     .kakao-chat {
-        width:15%;
+        width:12%;
         height:auto;
         position:fixed;
-        right:1%;
+        right:0;
         bottom:25%;
         z-index: 9999;
     }
