@@ -52,6 +52,19 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
         width: 100%;
     }
 }
+@media  screen and (min-width: 1024px) {
+    .profile-photo .photo img {
+        width: 200px;
+        height: 200px;
+    }
+    #imgUpload {
+        margin-left: 66px;
+    }
+    .profile-photo .btns .btn-ty3 {
+        width: 200%;
+    }
+    
+}
 </style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

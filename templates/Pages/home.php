@@ -90,6 +90,12 @@
         .hotImg {
             height: 190px;
         }
+        .main-visual .imgs img {
+            height: 190px;
+        }
+        .main-visual {
+            padding: 0px;
+        }
     }
 </style>
 <div id="container">
@@ -295,6 +301,7 @@
     </div>
 
     <script>
+
         //메인 배너 화살표 
         $('.swiper-container').mouseover(function(){
             $('.swiper-button-next').addClass('visible');
@@ -376,5 +383,7 @@
         $('.main-slider5 .swiper-button-next').mouseleave(function(){
             $('.main-slider5 .swiper-button-next').removeClass('visible');
         });
+
+      
 
     </script>

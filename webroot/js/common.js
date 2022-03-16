@@ -92,7 +92,7 @@
                         renderBullet: function (index, className) {
                             return '<span class="' + className + '">' + (index + 1) + '/'+ (total)+ '</span>';
                         },               
-                    },    
+                    },
                 });       
             },    
 
