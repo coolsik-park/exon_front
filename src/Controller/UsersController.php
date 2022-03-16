@@ -376,7 +376,7 @@ class UsersController extends AppController
                 $this->Users->save($user);
                 $this->Auth->setUser($user);
                 
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'apply_url' => $session->consume('apply_url')]));
                 return $response;
             } else {
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
