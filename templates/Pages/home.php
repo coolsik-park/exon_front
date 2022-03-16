@@ -403,9 +403,6 @@
             $('.main-slider5 .swiper-button-next').removeClass('visible');
         });
 
-<<<<<<< HEAD
-      
-=======
         //채팅상담 스크롤
         // $(window).on('scroll', function(){
         //     if($(".kakao-chat").offset().top + $(".kakao-chat").height() <= $("#footer").offset().top) {
@@ -414,6 +411,16 @@
         //         console.log("2")
         //     }
         // });
->>>>>>> 322feee25e1c25cc35bcbf0004b659aa3a62f209
+
+        window.addEventListener('scroll', () => {
+            let scrollLocation = document.documentElement.scrollTop; // 현재 스크롤바 위치
+            let windowHeight = window.innerHeight; // 스크린 창
+            // console.log(scrollLocation);
+            if(scrollLocation > 2332) {
+                $(".kakao-chat").hide();
+            } else {
+                $(".kakao-chat").show();
+            }
+        })
 
     </script>
