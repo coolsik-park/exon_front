@@ -52,7 +52,6 @@
         </div>           
     </div>        
 </div>
-<footer id="footer"></footer>
 
 <script>
     ui.addOnAction('.board-lists>li');

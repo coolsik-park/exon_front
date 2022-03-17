@@ -293,7 +293,6 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
         </div>
     </div>
 </div>
-<footer id="footer"></footer>
 
 <script>
     //회원탈퇴

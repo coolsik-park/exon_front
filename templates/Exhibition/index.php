@@ -276,7 +276,6 @@
         </div>
     </div>        
 </div>
-<footer id="footer"></footer>
 
 <script>
     $(document).on("click", "button[name='deleteExhibition']", function() {
