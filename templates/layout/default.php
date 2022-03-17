@@ -37,6 +37,7 @@
     <meta name="naver-site-verification" content="691220371d52b4ab2727e6f7cb48a6f25b810fa9" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" sizes="16x16">
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/slick.js"></script>
     <script src="/js/swiper.min.js"></script>
