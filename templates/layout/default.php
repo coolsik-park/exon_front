@@ -67,7 +67,7 @@
             margin: 20px 0px 20px 0px;
         }
         #footer {
-            height: 650px;
+            height: 750px;
         }
         }
     </style>

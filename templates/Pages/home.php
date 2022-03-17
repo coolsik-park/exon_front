@@ -108,6 +108,12 @@
         .hotImg {
             height: 190px;
         }
+        .main-visual .imgs img {
+            height: 190px;
+        }
+        .main-visual {
+            padding: 0px;
+        }
     }
 </style>
 <div id="container">
@@ -314,6 +320,7 @@
     </div>
 
     <script>
+
         //메인 배너 화살표 
         $('.swiper-container').mouseover(function(){
             $('.swiper-button-next').addClass('visible');
@@ -404,5 +411,16 @@
         //         console.log("2")
         //     }
         // });
+
+        window.addEventListener('scroll', () => {
+            let scrollLocation = document.documentElement.scrollTop; // 현재 스크롤바 위치
+            let windowHeight = window.innerHeight; // 스크린 창
+            // console.log(scrollLocation);
+            if(scrollLocation > 2332) {
+                $(".kakao-chat").hide();
+            } else {
+                $(".kakao-chat").show();
+            }
+        })
 
     </script>

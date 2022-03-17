@@ -17,6 +17,11 @@
             /* margin:0px;
             top:0%; */
         }
+        @media  screen and (max-width: 768px) {
+            .webinar-tab-body {
+                height: 200px;
+            }
+        }
     </style>
 </head>
 

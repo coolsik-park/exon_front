@@ -69,12 +69,22 @@
                 flex-direction: column;
                 align-items: flex-end;
             }
+            .wb-cont2 .w-desc p {
+                width: 70%;
+            }
+            /* .webinar-tab-top .ico-sett {
+                top: 0px;
+            } */
+            .wb-cont1 {
+                margin: 50px 0px 0px 0px;
+            }
         }
+        
     </style>
 </head>
 
 <div class="contents">
-    <div class="sub-menu">
+    <!-- <div class="sub-menu">
         <div class="sub-menu-inner">
             <ul class="tab">
                 <li><a href="/exhibition/edit/<?= $exhibition_id ?>">행사 설정 수정</a></li>
@@ -84,9 +94,9 @@
                 <li><a href="/exhibition/exhibition-statistics-apply/<?= $exhibition_id ?>">행사 통계</a></li>
             </ul>
         </div>
-    </div>
+    </div> -->
     <?= $this->Form->create($exhibitionStream, ['id' => 'setForm']) ?>    
-    <div class="section-webinar4">
+    <div class="section-webinar3">
         <div class="webinar-cont">
             <div id="videoWrap" class="wb-cont1" >
                 <video class="video-js vjs-default-skin vjs-big-play-centered" id="vid1"></video>
