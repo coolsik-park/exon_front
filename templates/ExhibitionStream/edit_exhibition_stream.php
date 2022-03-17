@@ -107,7 +107,7 @@
         </div>
     </div> -->
     <?= $this->Form->create($exhibitionStream, ['id' => 'setForm']) ?>    
-    <div class="section-webinar3">
+    <div class="section-webinar4">
         <div class="webinar-cont">
             <div id="videoWrap" class="wb-cont1" >
                 <video class="video-js vjs-default-skin vjs-big-play-centered" id="vid1"></video>
