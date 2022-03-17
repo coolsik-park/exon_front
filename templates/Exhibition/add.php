@@ -310,17 +310,6 @@
                     <div class="ln-rdo">
                         <span class="chk-dsg"><input type="radio" name="additional" id="additional2" value="0"><label for="additional2">사용 안함</label></span>
                     </div>
-                    <div class="ln-rdo">
-                       
-                    </div>
-                    <h4 class="s-hty3">공모전 참가</h4>
-                    <p class="p-noti2">공모전 참가자는 반드시 참가를 선택해주세요.</p>
-                    <div class="ln-rdo">
-                        <span class="chk-dsg"><input type="radio" id="is_event1" name="is_event" value="1" checked="checked"><label for="is_event1">참가</label></span>
-                    </div>
-                    <div class="ln-rdo">
-                        <span class="chk-dsg"><input type="radio" id="is_event2" name="is_event" value="0"><label for="is_event2">불참</label></span>
-                    </div>
                 </div>
                 <div class="sect10 mgtS1">
                     <div class="survey-tit">
