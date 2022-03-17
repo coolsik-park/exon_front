@@ -114,6 +114,23 @@ class ExhibitionStreamController extends AppController
         $Exhibition = $this->getTableLocator()->get('Exhibition');
         $exhibition = $Exhibition->get($id);
 
+        // $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
+        // $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id])->toArray();
+
+        // $now = date('Y-m-d H:i:s', time()+32370);
+        
+        // foreach($exhibitionUsers as $exhibitionUser) {
+
+        //     if ($exhibitionUser['last_view_time'] != null) {
+        //         $to_time = $now;
+        //         $from_time = date('Y-m-d H:i:s', strtotime($exhibitionUser['last_view_time']->format('Y-m-d H:i:s'))+32400);
+
+        //         if ($to_time <= $from_time) {
+        //             if ($exhibitionUser->id)
+        //         }
+        //     }
+        // }
+
         if (empty($exhibitionStream)) {
             $this->redirect(['action' => 'stream_not_exist']);
         } 
@@ -1364,5 +1381,86 @@ class ExhibitionStreamController extends AppController
     public function uploadVod()
     {
     
+    }
+
+    public function setEventStream($exhibition_id = null)
+    {
+        $users_id = $this->getTableLocator()->get('Exhibition')->get($exhibition_id)->users_id;
+        $title = $this->getTableLocator()->get('Exhibition')->get($exhibition_id)->title;
+        if ($this->Auth->user('id') != $users_id) {
+            $this->redirect(['controller' => 'pages', 'action' => 'home']);
+        }
+
+        $is_exist = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $exhibition_id])->toArray();
+        if (count($is_exist) == 0) {
+            $exhibitionStream = $this->ExhibitionStream->newEmptyEntity();
+    
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                $data = $this->request->getData();
+                
+                $exhibitionStream->exhibition_id = $exhibition_id;
+                $exhibitionStream->title = $data['title'];
+                $exhibitionStream->description = $data['description'];
+                $exhibitionStream->stream_key = $data['stream_key'];
+                $exhibitionStream->time = 1800;
+                $exhibitionStream->people = 300;
+                $exhibitionStream->url = $data['url'];
+                $exhibitionStream->ip = $this->Auth->user('ip');
+                $exhibitionStream->tab = $data['tab'];
+
+                if (!$this->ExhibitionStream->save($exhibitionStream)) {
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                    return $response; 
+                }
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                return $response;
+            }
+            
+        } else {
+            return $this->redirect(['action' => 'editEventStream', $exhibition_id]);
+        }
+        
+        $exhibition = $this->ExhibitionStream->Exhibition->find('list', ['limit' => 200]);
+        $pay = $this->ExhibitionStream->Pay->find('list', ['limit' => 200]);
+        $coupon = $this->ExhibitionStream->Coupon->find('list', ['limit' => 200]);
+        $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
+        $prices = $this->getTableLocator()->get('ExhibitionStreamDefaultPrice')->find('all')->toArray();
+        $user = $this->Auth->user();
+        $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs', 'exhibition_id', 'prices', 'title', 'user'));
+    }
+
+    public function editEventStream($exhibition_id = null)
+    {
+        $users_id = $this->getTableLocator()->get('Exhibition')->get($exhibition_id)->users_id;
+        if ($this->Auth->user('id') != $users_id) {
+            $this->redirect(['controller' => 'pages', 'action' => 'home']);
+        }
+        $edate = $this->getTableLocator()->get('Exhibition')->find('all')->where(['id' => $exhibition_id])->toArray()[0]['edate'];
+        if (strtotime($edate->format('Y-m-d H:i:s')) < strtotime(date('Y-m-d H:i:s', time()+32400))) {
+            echo "<script>alert('종료된 행사입니다.');history.go(-1);</script>";
+        }
+
+        $stream_id = $this->ExhibitionStream->find()->select(['id'])->where(['exhibition_id' => $exhibition_id])->toArray()[0]->id;
+        $exhibitionStream = $this->ExhibitionStream->get($stream_id);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $data = $this->request->getData();
+            $exhibitionStream->title = $data['title'];
+            $exhibitionStream->description = $data['description'];
+            $exhibitionStream->tab = $data['tab'];
+
+            if (!$this->ExhibitionStream->save($exhibitionStream)) {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                return $response; 
+            }
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+            return $response;
+        }
+        $exhibition = $this->ExhibitionStream->Exhibition->find('list', ['limit' => 200]);
+        $pay = $this->ExhibitionStream->Pay->find('list', ['limit' => 200]);
+        $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray(); 
+        $prices = $this->getTableLocator()->get('ExhibitionStreamDefaultPrice')->find('all')->toArray();
+        $user = $this->Auth->user();
+        $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'tabs', 'exhibition_id', 'prices', 'user'));
     }
 }

@@ -499,6 +499,7 @@
     $("input:radio[name='require_cert']:radio[value='<?=$exhibition->require_cert?>']").prop("checked", true);
     $("input:radio[name='email_notice']:radio[value='<?=$exhibition->email_notice?>']").prop("checked", true);
     $("input:radio[name='additional']:radio[value='<?=$exhibition->additional?>']").prop("checked", true);
+    $("input:radio[name='is_event']:radio[value='<?=$exhibition->is_event?>']").prop("checked", true);
 
     //그룹 데이터 불러오기
     var groupIndex = 0;
