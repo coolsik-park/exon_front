@@ -273,7 +273,6 @@
         </div>
     </div>        
 </div>
-<footer id="footer"></footer>
 
 <script>
     function signUpCancel(key) {
