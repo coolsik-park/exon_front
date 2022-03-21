@@ -199,9 +199,17 @@
                                 </div>
                                 <div class="td-col col7">
                                     <div class="con">
+                                        <?php
+                                            $d_today = strtotime(date('Y-m-d H:i:s', time()) . "+9 hours");
+                                            $apply_edate = strtotime($exhibition_user->exhibition['apply_edate']);
+                                            if ($d_today <= $apply_edate):
+                                        ?>
                                         <button type="button" class="btn-ty3 red" style="cursor:pointer;" data-toggle="modal" data-target="#exhibitionCancelModal" data-backdrop="static" data-keyboard="false" onClick="exhibitionCancel(<?= $key ?>)">
                                             취소
                                         </button>
+                                        <?php
+                                            endif;
+                                        ?>
                                     </div>
                                     <div id="popup"></div>
                                 </div>                        

@@ -1216,9 +1216,45 @@ class ExhibitionController extends AppController
             if (send_messages($messages)) {
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
                 return $response;
+            } 
+        }
+        $listExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])
+            ->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
+        $exhibitionGroups = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
+        $this->set(compact('id', 'exhibitionUsers', 'listExhibitionUsers', 'exhibitionGroups', 'text', 'lists'));
+    }
+
+    public function sendKakaoToParticipant($id = null)
+    {
+        require_once(ROOT . "/solapi-php/lib/message.php");
+
+        $session = $this->request->getSession();
+        $text = $session->consume('text');
+        $lists = $session->consume('data');
+        
+        if (!empty($lists)) {
+            $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['id IN' => $lists])->toArray();
+
+        } else {
+            $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find()->select('exhibition_id')->where(['exhibition_id' => $id])->toArray();
+        }
+        
+        if ($this->request->is('post')) {
             
-            } else {
-                $this->Flash->error(__('The SMS could not be delivered.'));
+            $users_hp = $this->request->getData('users_hp');
+            $to = explode(",", $users_hp);
+
+            $messages = [
+                [
+                'to' => $to,
+                'from' => getEnv('EXON_PHONE_NUMBER'),
+                'text' => $this->request->getData('sms_content')
+                ]
+            ];
+
+            if (send_messages($messages)) {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                return $response;
             }
         }
         $listExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])

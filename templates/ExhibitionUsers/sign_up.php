@@ -102,6 +102,7 @@
                         $sdate = strtotime($exhibition_user->exhibition['sdate']);
                         $sdate_before = strtotime("-1800 seconds" . $exhibition_user->exhibition['sdate']);
                         $edate = strtotime($exhibition_user->exhibition['edate']);
+                        $apply_edate = strtotime($exhibition_user->exhibition['apply_edate']);
                 ?>
                     <div class="tr-row">
                         <div class="td-col col1">
@@ -248,11 +249,13 @@
                                     <?php
                                             endif;
                                         else:
+                                            if ($d_today <= $apply_edate):
                                     ?>
                                             <button type="button" class="btn-ty3 red" style="cursor:pointer;" data-toggle="modal" data-target="#signUpCancelModal" data-backdrop="static" data-keyboard="false" onClick="signUpCancel(<?= $key ?>)">
                                                 취소하기
                                             </button>
                                     <?php 
+                                            endif;
                                         endif;
                                     endif;
                                     ?>
