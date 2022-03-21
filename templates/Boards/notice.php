@@ -11,6 +11,10 @@
     .pagination li {
         display: inline;
     }
+
+    button:focus {
+        outline: none;
+    }
 </style>
 
 <div id="container">        
@@ -28,7 +32,7 @@
                 <h3 class="s-hty1">공지사항</h3>
                 <ul class="board-lists" id="board-lists">
                     <?php foreach ($boards as $board): ?>
-                        <li>
+                        <li id="li">
                             <button type="button" class="b-tit b-noti-tit">
                                 <span class="tit"><?= $board->title ?></span>
                                 <span class="date"><?= date("Y.m.d", strtotime($board->created)); ?></span>
@@ -54,7 +58,14 @@
 </div>
 
 <script>
-    ui.addOnAction('.board-lists>li');
+    // ui.addOnAction('.board-lists>li');
+    $(document).on('click', '.board-lists>li>button', function() {
+        if ($(this).parent().hasClass('on')) {
+            $(this).parent().removeClass('on');
+        } else {
+            $(this).parent().addClass('on');
+        }
+    });
 
     $('#searchButton').on('click', function() {
         var search = $('#search').val();
