@@ -33,7 +33,38 @@
                                 <span class="tit"><?= $board->title ?></span>
                                 <span class="date"><?= date("Y.m.d", strtotime($board->created)); ?></span>
                             </button>
-                            <div class="b-desc"><?= $board->content ?></div>
+                            <div class="b-desc">
+                                <?= $board->content ?><br/>
+                                <?php 
+                                    $file_dir = "/var/www/exon/bomi/webroot/";
+                                    $file_path = $board->file_path;
+                                    if ($file_path != null) {
+                                        if (is_dir($file_dir . $file_path)) {
+                                ?>
+                                            <div class="tg-btns">
+                                                <button type="button" class="btn-ty3 bor" id="file">첨부파일</button>
+                                                <ul class="file-ul">
+                                <?php
+                                                    $file_name = explode(',', $board->file_name);
+                                                    $file_count = count($file_name);
+                                                    if ($file_count > 0) {
+                                                        for ($i=0; $i<$file_count; $i++) {
+                                                            $file = "/" . $file_path . "/" . $file_name[$i];
+                                                            if (is_file($file_dir . $file)) {
+                                ?>
+                                                                <li><button type="button" class="btn-ty3 bor"><a href="<?= $file ?>" download><img src="/img/file-icon.png" width="3%"><?= $file_name[$i] ?></a></button></li>
+                                <?php
+                                                            }
+                                                        }
+                                                    }
+                                ?>
+                                                </ul>
+                                            </div>
+                                <?php
+                                        }
+                                    }
+                                ?>
+                            </div>
                         </li>     
                     <?php endforeach; ?>              
                 </ul>
@@ -55,6 +86,13 @@
 
 <script>
     ui.addOnAction('.board-lists>li');
+
+    $(document).on("click", "#file", function(){
+        if($('.tg-btns').hasClass('open') == true){
+            $('.tg-btns').removeClass('open');
+            $(this).parent().addClass('open');
+        }
+    });
 
     $('#searchButton').on('click', function() {
         var search = $('#search').val();
