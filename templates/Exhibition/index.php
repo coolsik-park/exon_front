@@ -289,7 +289,7 @@
                 // data: {}
             }).done(function(data) {
                 if (data.status == 'success') {
-                    alert("행사가 삭제되었습니다.");
+                    alert("행사 취소가 완료되었습니다.");
                     window.location.reload();
                 } else {
                     alert("오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");

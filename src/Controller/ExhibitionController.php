@@ -754,7 +754,8 @@ class ExhibitionController extends AppController
         $this->request->allowMethod('delete');
         $exhibition = $this->Exhibition->get($id);
         $exhibition->status = 8;
-        $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id])->toArray();
+        $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
+        $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id, 'status IS NOT' => 8])->toArray();
         $exhibitionStream = $this->getTableLocator()->get('ExhibitionStream')->find('all')->where(['exhibition_id' => $id])->toArray();
 
         require_once(ROOT . "/iamport-rest-client-php/src/iamport.php");            
@@ -763,13 +764,16 @@ class ExhibitionController extends AppController
         if (!empty($exhibitionUsers)) {
             
             foreach($exhibitionUsers as $exhibitionUser) {
+                $user = $ExhibitionUsers->get($exhibitionUser['id']);
+                $user->status = 8;
+                $ExhibitionUsers->save($user);
 
                 if ($exhibitionUser['pay_id'] != '') {
                     $Pay = $this->getTableLocator()->get('Pay');
                     $pay = $Pay->get($exhibitionUser['pay_id']);
                     $now_day = date('Y-m-d', time()+32400);
                     
-                    if ($pay->pay_method = 'trans' && date('Y-m-d', strtotime($pay->created)) != $now_day) {
+                    if ($pay->pay_method = 'trans' && date('Y-m-d', strtotime($pay->created->i18nFormat('yyyyMMddHHmmss'))) != $now_day) {
                         $pay->status = 4;
                         if ($Pay->save($pay)) {
                             $user_name = $exhibitionUser['users_name'];
