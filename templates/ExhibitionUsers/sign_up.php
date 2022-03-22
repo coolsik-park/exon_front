@@ -103,12 +103,15 @@
                         $sdate_before = strtotime("-1800 seconds" . $exhibition_user->exhibition['sdate']);
                         $edate = strtotime($exhibition_user->exhibition['edate']);
                         $apply_edate = strtotime($exhibition_user->exhibition['apply_edate']);
-                        $method = $exhibition_user->pay['pay_method'];
-                        $pay_date = date("Ymd", strtotime($exhibition_user->pay['created']));
-                        $now_date = date("Ymd", strtotime(date('Y-m-d H:i:s', time()) . "+9 hours"));
+                        $method = '';
                         $same_day = 0;
-                        if ($pay_date == $now_date) {
-                            $same_day = 1;
+                        if (!empty($exhibition_user->pay)) {
+                            $method = $exhibition_user->pay['pay_method'];
+                            $pay_date = date("Ymd", strtotime($exhibition_user->pay['created']));
+                            $now_date = date("Ymd", strtotime(date('Y-m-d H:i:s', time()) . "+9 hours"));
+                            if ($pay_date == $now_date) {
+                                $same_day = 1;
+                            }
                         }
                 ?>
                     <div class="tr-row">
