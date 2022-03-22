@@ -161,7 +161,7 @@ class PayController extends AppController
                 'receipt_url' => $receipt_url,
                 'pay_date' => $pay_date,
                 'pg_tid' => $pg_tid,
-                'status' => 4
+                'status' => 2
             ];
             $pay = $this->Pay->patchEntity($pay, $data);
             
