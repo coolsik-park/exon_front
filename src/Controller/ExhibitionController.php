@@ -1216,45 +1216,9 @@ class ExhibitionController extends AppController
             if (send_messages($messages)) {
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
                 return $response;
-            } 
-        }
-        $listExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])
-            ->where(['ExhibitionUsers.exhibition_id' => $id])->toArray();
-        $exhibitionGroups = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
-        $this->set(compact('id', 'exhibitionUsers', 'listExhibitionUsers', 'exhibitionGroups', 'text', 'lists'));
-    }
-
-    public function sendKakaoToParticipant($id = null)
-    {
-        require_once(ROOT . "/solapi-php/lib/message.php");
-
-        $session = $this->request->getSession();
-        $text = $session->consume('text');
-        $lists = $session->consume('data');
-        
-        if (!empty($lists)) {
-            $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['id IN' => $lists])->toArray();
-
-        } else {
-            $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find()->select('exhibition_id')->where(['exhibition_id' => $id])->toArray();
-        }
-        
-        if ($this->request->is('post')) {
             
-            $users_hp = $this->request->getData('users_hp');
-            $to = explode(",", $users_hp);
-
-            $messages = [
-                [
-                'to' => $to,
-                'from' => getEnv('EXON_PHONE_NUMBER'),
-                'text' => $this->request->getData('sms_content')
-                ]
-            ];
-
-            if (send_messages($messages)) {
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
-                return $response;
+            } else {
+                $this->Flash->error(__('The SMS could not be delivered.'));
             }
         }
         $listExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all', ['contain' => 'ExhibitionGroup'])
@@ -2102,6 +2066,37 @@ class ExhibitionController extends AppController
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $contents, 'commonCategory' => $commonCategory, 'count' => $count]));
                 return $response;
             }
+        }
+    }
+
+    public function fileDown() {
+        $fileName = "[양식]2022 EXON 서포터즈_참가신청서.hwp";
+        $destination = WWW_ROOT . "upload" . DS . $fileName;
+        
+        $down = $destination;
+        
+        if(file_exists($down)) {
+            header("Content-Type:application/octet-stream");
+            header("Content-Disposition:attachment;filename=$fileName");
+            header("Content-Transfer-Encoding:binary");
+            header("Content-Length:".filesize($down));
+            header("Cache-Control:cache,must-revalidate");
+            header("Pragma:no-cache");
+            header("Expires:0");
+            
+            if(is_file($down)){
+                $fp = fopen($down,"r");
+                
+                while(!feof($fp)){
+                    $buf = fread($fp,8096);
+                    $read = strlen($buf);
+                    print($buf);
+                    flush();
+                }
+            fclose($fp);
+            }
+        } else {
+            
         }
     }
 }
