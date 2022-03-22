@@ -68,7 +68,7 @@
             margin: 20px 0px 20px 0px;
         }
         #footer {
-            height: 750px;
+            height: 650px;
         }
         }
     </style>
@@ -101,7 +101,7 @@
                     <div id="my-page" style="display:inline-block; padding-left:30px;">
                         <a href="#">마이페이지</a>
                         <br>
-                        <ul id="sub-menu" style="display:inline-block;">
+                        <ul id="sub-menu" style="display:inline-block; display:none;">
                             <li><a href="/users/edit">회원 정보 변경</a></li>
                             <li><a href="/exhibition-users/sign-up/application">신청 내역 관리</a></li>
                             <li><a href="/exhibition/index/all">개설 행사 관리</a></li>
@@ -235,8 +235,6 @@
 
 <script>
     $(document).ready(function () {
-        $('#sub-menu').hide();
-
         $('#my-page').mouseover(function(){
             $('#sub-menu').slideDown();
             $('#my-page').css("position","relative");
