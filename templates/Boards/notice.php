@@ -1,8 +1,4 @@
 <style>
-    div.b-desc * {
-        font-weight: revert;
-        font-size: revert;
-    }
     .paginator {
         text-align: center;
     }
@@ -14,10 +10,6 @@
 
     .pagination li {
         display: inline;
-    }
-
-    button:focus {
-        outline: none;
     }
 </style>
 
@@ -36,12 +28,43 @@
                 <h3 class="s-hty1">공지사항</h3>
                 <ul class="board-lists" id="board-lists">
                     <?php foreach ($boards as $board): ?>
-                        <li id="li">
+                        <li>
                             <button type="button" class="b-tit b-noti-tit">
                                 <span class="tit"><?= $board->title ?></span>
                                 <span class="date"><?= date("Y.m.d", strtotime($board->created)); ?></span>
                             </button>
-                            <div class="b-desc"><div style="font-size:20px; color:blue;"><a href="/exhibition/file-down">신청서 다운로드</a></div><br><?= $board->content ?></div>
+                            <div class="b-desc">
+                                <?= $board->content ?><br/>
+                                <?php 
+                                    $file_dir = "/var/www/exon/bomi/webroot/";
+                                    $file_path = $board->file_path;
+                                    if ($file_path != null) {
+                                        if (is_dir($file_dir . $file_path)) {
+                                ?>
+                                            <div class="tg-btns">
+                                                <button type="button" class="btn-ty3 bor" id="file">첨부파일</button>
+                                                <ul class="file-ul">
+                                <?php
+                                                    $file_name = explode(',', $board->file_name);
+                                                    $file_count = count($file_name);
+                                                    if ($file_count > 0) {
+                                                        for ($i=0; $i<$file_count; $i++) {
+                                                            $file = "/" . $file_path . "/" . $file_name[$i];
+                                                            if (is_file($file_dir . $file)) {
+                                ?>
+                                                                <li><button type="button" class="btn-ty3 bor"><a href="<?= $file ?>" download><img src="/img/file-icon.png" width="3%"><?= $file_name[$i] ?></a></button></li>
+                                <?php
+                                                            }
+                                                        }
+                                                    }
+                                ?>
+                                                </ul>
+                                            </div>
+                                <?php
+                                        }
+                                    }
+                                ?>
+                            </div>
                         </li>     
                     <?php endforeach; ?>              
                 </ul>
@@ -62,12 +85,12 @@
 </div>
 
 <script>
-    // ui.addOnAction('.board-lists>li');
-    $(document).on('click', '.board-lists>li>button', function() {
-        if ($(this).parent().hasClass('on')) {
-            $(this).parent().removeClass('on');
-        } else {
-            $(this).parent().addClass('on');
+    ui.addOnAction('.board-lists>li');
+
+    $(document).on("click", "#file", function(){
+        if($('.tg-btns').hasClass('open') == true){
+            $('.tg-btns').removeClass('open');
+            $(this).parent().addClass('open');
         }
     });
 
