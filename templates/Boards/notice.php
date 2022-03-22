@@ -1,4 +1,8 @@
 <style>
+    div.b-desc * {
+        font-weight: revert;
+        font-size: revert;
+    }
     .paginator {
         text-align: center;
     }
@@ -37,7 +41,7 @@
                                 <span class="tit"><?= $board->title ?></span>
                                 <span class="date"><?= date("Y.m.d", strtotime($board->created)); ?></span>
                             </button>
-                            <div class="b-desc"><?= $board->content ?></div>
+                            <div class="b-desc"><div style="font-size:20px; color:blue;"><a href="/exhibition/file-down">신청서 다운로드</a></div><br><?= $board->content ?></div>
                         </li>     
                     <?php endforeach; ?>              
                 </ul>

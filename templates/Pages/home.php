@@ -108,12 +108,6 @@
         .hotImg {
             height: 190px;
         }
-        .main-visual .imgs img {
-            height: 190px;
-        }
-        .main-visual {
-            padding: 0px;
-        }
     }
 </style>
 <div id="container">
@@ -123,7 +117,7 @@
                     <div class="swiper-wrapper">
 						<?php foreach ($banner as $list): ?>
 							<div class="swiper-slide">
-								<a href="/exhibition/view/<?php echo $list->exhibition_id; ?>" class="imgs"><img src="<?php echo $list->img_path . $list->img_name;?>" class="responsiveImg" data-media-web="<?php echo $list->img_path . $list->img_name;?>" data-media-mobile="<?php echo $list->img_path . $list->img_name;?>" alt="" ></a>
+								<a href="/boards/notice" class="imgs"><img src="<?php echo $list->img_path . $list->img_name;?>" class="responsiveImg" data-media-web="<?php echo $list->img_path . $list->img_name;?>" data-media-mobile="<?php echo $list->img_path . $list->img_name;?>" alt="" ></a>
 							</div>
 						<?php endforeach; ?>
                     </div>
@@ -137,7 +131,7 @@
             <div class="static">
                 <a href="https://pf.kakao.com/_HxkNJb/chat" target="_blank"><img class="kakao-chat" src="/images/kakaochat.png"></a>
                 <div class="main-sect1">
-                    <div><a href="#" class="arr-link1"><span>EXON 소개</span></a></div>
+                    <div><a href="/boards/notice" class="arr-link1"><span>공지사항</span></a></div>
                     <div><a href="/exhibition/add" class="arr-link1"><span>행사개설</span></a></div>
                 </div>
                 <div class="main-sect2">
@@ -320,7 +314,6 @@
     </div>
 
     <script>
-
         //메인 배너 화살표 
         $('.swiper-container').mouseover(function(){
             $('.swiper-button-next').addClass('visible');
@@ -411,16 +404,5 @@
         //         console.log("2")
         //     }
         // });
-
-        window.addEventListener('scroll', () => {
-            let scrollLocation = document.documentElement.scrollTop; // 현재 스크롤바 위치
-            let windowHeight = window.innerHeight; // 스크린 창
-            // console.log(scrollLocation);
-            if(scrollLocation > 2332) {
-                $(".kakao-chat").hide();
-            } else {
-                $(".kakao-chat").show();
-            }
-        })
 
     </script>
