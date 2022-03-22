@@ -85,7 +85,23 @@
 </div>
 
 <script>
-    ui.addOnAction('.board-lists>li');
+    // ui.addOnAction('.board-lists>li');
+    $(document).on('click', '.board-lists>li>button', function() {
+        if ($(this).parent().hasClass('on')) {
+            $(this).parent().removeClass('on');
+        } else {
+            $(this).parent().addClass('on');
+        }
+    });
+    $(".file-ul").hide();
+
+    $(document).on("click", ".tg-btns", function () {
+        if ($(this).hasClass('open')) {
+            $(".file-ul").show();
+        } else {
+            $(".file-ul").hide();
+        }
+    });
 
     $(document).on("click", "#file", function(){
         if($('.tg-btns').hasClass('open') == true){
