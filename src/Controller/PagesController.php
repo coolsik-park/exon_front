@@ -106,7 +106,7 @@ class PagesController extends AppController
         $query .= "FROM ";
         $query .= "  exhibition  ";
         $query .= "WHERE ";
-        $query .= "  private = 0  ";
+        $query .= "  private = 0 AND status != 8 ";
         $query .= "ORDER BY ";
         $query .= "  id desc ";
         $query .= "LIMIT ";

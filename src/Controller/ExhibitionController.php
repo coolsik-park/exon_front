@@ -61,13 +61,13 @@ class ExhibitionController extends AppController
         $this->paginate = ['limit' => 10];
 
         if ($type == 'all') {
-            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.edate >=' => $today])->order(['Exhibition.created' => 'DESC']))->toArray();
+            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.edate >=' => $today, 'Exhibition.status !=' => 8])->order(['Exhibition.created' => 'DESC']))->toArray();
         } elseif ($type == 'ongoing') {
-            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.status !=' => 4, 'Exhibition.sdate <=' => $today, 'Exhibition.edate >=' => $today])->order(['Exhibition.created' => 'DESC']))->toArray();
+            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.status !=' => 4, 'Exhibition.status !=' => 8, 'Exhibition.sdate <=' => $today, 'Exhibition.edate >=' => $today])->order(['Exhibition.created' => 'DESC']))->toArray();
         } elseif ($type == 'temp') {
-            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.status' => 4])->order(['Exhibition.created' => 'DESC']))->toArray();
+            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.status' => 4, 'Exhibition.status !=' => 8])->order(['Exhibition.created' => 'DESC']))->toArray();
         } elseif ($type == 'ended') {            
-            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.edate <=' => $today])->order(['Exhibition.created' => 'DESC']))->toArray();
+            $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.edate <=' => $today, 'Exhibition.status !=' => 8])->order(['Exhibition.created' => 'DESC']))->toArray();
         }
 
         $front_url = FRONT_URL;
@@ -91,7 +91,7 @@ class ExhibitionController extends AppController
 
     public function vodDownload()
     {
-        $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users', 'ExhibitionStream']])->where(['Exhibition.users_id' => $this->Auth->user('id')])->order(['Exhibition.created' => 'DESC']))->toArray();
+        $exhibitions = $this->paginate($this->Exhibition->find('all', ['contain' => ['Users', 'ExhibitionStream']])->where(['Exhibition.users_id' => $this->Auth->user('id'), 'Exhibition.status !=' => 8])->order(['Exhibition.created' => 'DESC']))->toArray();
         $front_url = FRONT_URL;
 
         $this->set(compact('exhibitions', 'front_url'));
@@ -102,6 +102,13 @@ class ExhibitionController extends AppController
         $exhibition = $this->Exhibition->get($id, [
             'contain' => ['Banner', 'ExhibitionFile', 'ExhibitionGroup', 'ExhibitionStream', 'ExhibitionSurvey', 'Users'],
         ]);
+
+        if ($exhibition->status == 8) {
+            return $this->redirect([
+                'controller' => 'pages',
+                'action' => 'home'
+            ]);
+        }
         
         if ($this->Auth->user('id') != null) {
             $exhibitionUsers_table = TableRegistry::get('ExhibitionUsers');
@@ -746,6 +753,7 @@ class ExhibitionController extends AppController
     {
         $this->request->allowMethod('delete');
         $exhibition = $this->Exhibition->get($id);
+        $exhibition->status = 8;
         $exhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers')->find('all')->where(['exhibition_id' => $id])->toArray();
         $exhibitionStream = $this->getTableLocator()->get('ExhibitionStream')->find('all')->where(['exhibition_id' => $id])->toArray();
 
@@ -759,27 +767,13 @@ class ExhibitionController extends AppController
                 if ($exhibitionUser['pay_id'] != '') {
                     $Pay = $this->getTableLocator()->get('Pay');
                     $pay = $Pay->get($exhibitionUser['pay_id']);
+                    $now_day = date('Y-m-d', time()+32400);
                     
-                    $result = $iamport->cancel(array(
-                        'imp_uid'		=> $pay->imp_uid, 		
-                        'merchant_uid'	=> $pay->merchant_uid, 	
-                        'amount' 		=> 0,				
-                        'reason'		=> '행사 관리자 취소',			
-                    ));
-
-                    if ($result->success) {
-                
-                        $payment_data = $result->data;
-                        $now = date('Y-m-d H:i:s', time()+32400);
-        
-                        $pay->cancel_reason = '행사 관리자 취소';
-                        $pay->cancel_amount = $payment_data->cancel_amount;
-                        $pay->cancel_date = $now;
-                        
+                    if ($pay->pay_method = 'trans' && date('Y-m-d', strtotime($pay->created)) != $now_day) {
+                        $pay->status = 4;
                         if ($Pay->save($pay)) {
-                            
                             $user_name = $exhibitionUser['users_name'];
-                            
+                                
                             $mailer = new Mailer();
                             $mailer->setTransport('mailjet');
                             $mailer->setEmailFormat('html')
@@ -799,12 +793,61 @@ class ExhibitionController extends AppController
                             $mailer->setViewVars(['name' => $exhibition->name]);
                             $mailer->setViewVars(['tel' => $exhibition->tel]);
                             $mailer->setViewVars(['email' => $exhibition->email]);
-                            $mailer->setViewVars(['refund' => $payment_data->cancel_amount]);
+                            $mailer->setViewVars(['refund' => '결제정보 확인 후 환불 예정입니다.']);
                             $mailer->setViewVars(['now' => date('Y-m-d H:i:s', time()+32400)]);
                             
                             $mailer->deliver();
-                        } 
-                    }
+                        }
+
+                    } else {
+                        $result = $iamport->cancel(array(
+                            'imp_uid'		=> $pay->imp_uid, 		
+                            'merchant_uid'	=> $pay->merchant_uid, 	
+                            'amount' 		=> 0,				
+                            'reason'		=> '행사 관리자 취소',			
+                        ));
+    
+                        if ($result->success) {
+                    
+                            $payment_data = $result->data;
+                            $now = date('Y-m-d H:i:s', time()+32400);
+            
+                            $pay->cancel_reason = '행사 관리자 취소';
+                            $pay->cancel_amount = $payment_data->cancel_amount;
+                            $pay->cancel_date = $now;
+                            $pay->status = 8;
+                            
+                            if ($Pay->save($pay)) {
+                                
+                                $user_name = $exhibitionUser['users_name'];
+                                
+                                $mailer = new Mailer();
+                                $mailer->setTransport('mailjet');
+                                $mailer->setEmailFormat('html')
+                                            ->setTo($exhibitionUser['users_email'])
+                                            ->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'EXON'])
+                                            ->setSubject('Exon - 참가취소 확인 메일입니다.')
+                                            ->viewBuilder()
+                                            ->setTemplate('canceled')
+                                        ;
+                                $mailer->setViewVars(['front_url' => FRONT_URL]);
+                                $mailer->setViewVars(['user_name' => $user_name]);
+                                $mailer->setViewVars(['title' => $exhibition->title]);
+                                $mailer->setViewVars(['apply_sdate' => $exhibition->apply_sdate]);
+                                $mailer->setViewVars(['apply_edate' => $exhibition->apply_edate]);
+                                $mailer->setViewVars(['sdate' => $exhibition->sdate]);
+                                $mailer->setViewVars(['edate' => $exhibition->edate]);
+                                $mailer->setViewVars(['name' => $exhibition->name]);
+                                $mailer->setViewVars(['tel' => $exhibition->tel]);
+                                $mailer->setViewVars(['email' => $exhibition->email]);
+                                $mailer->setViewVars(['refund' => $payment_data->cancel_amount]);
+                                $mailer->setViewVars(['now' => date('Y-m-d H:i:s', time()+32400)]);
+                                
+                                $mailer->deliver();
+                            } 
+                        }
+                    }          
+        
                 } else {
                     $user_name = $exhibitionUser['users_name'];
                     
@@ -862,7 +905,7 @@ class ExhibitionController extends AppController
             }
         }
         
-        if ($this->Exhibition->delete($exhibition)) {
+        if ($this->Exhibition->save($exhibition)) {
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));        
             return $response;    
         } else {
