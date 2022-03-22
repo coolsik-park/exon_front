@@ -11,11 +11,16 @@
     .pagination li {
         display: inline;
     }
+
+    #file-download-button {
+        border:none;
+        text-align: left;
+    }
 </style>
 
-<div id="container">        
+<div id="container">
     <div class="contents static">
-        <h2 class="s-hty0">고객센터</h2>            
+        <h2 class="s-hty0">고객센터</h2>
         <div class="cs-tab">
             <ul class="s-tabs2">
                 <li><a href="/boards/customer-service">자주 하는 질문</a></li>
@@ -35,7 +40,7 @@
                             </button>
                             <div class="b-desc">
                                 <?= $board->content ?><br/>
-                                <?php 
+                                <?php
                                     $file_dir = "/var/www/exon/bomi/webroot/";
                                     $file_path = $board->file_path;
                                     if ($file_path != null) {
@@ -52,7 +57,7 @@
                                                             $file = "/" . $file_path . "/" . $file_name[$i];
                                                             if (is_file($file_dir . $file)) {
                                 ?>
-                                                                <li><button type="button" class="btn-ty3 bor"><a href="<?= $file ?>" download><img src="/img/file-icon.png" width="3%"><?= $file_name[$i] ?></a></button></li>
+                                                                <li><button type="button" class="btn-ty3 bor" id="file-download-button"><a href="<?= $file ?>" download><img src="/img/file-icon.png" width="3%"><?= $file_name[$i] ?></a></button></li>
                                 <?php
                                                             }
                                                         }
@@ -65,8 +70,8 @@
                                     }
                                 ?>
                             </div>
-                        </li>     
-                    <?php endforeach; ?>              
+                        </li>
+                    <?php endforeach; ?>
                 </ul>
                 <div class="paginator">
                     <ul class="pagination">
@@ -79,13 +84,31 @@
             <div class="board-sh">
                 <input type="text" id="search" placeholder="제목">
                 <button type="button" class="ico-sh" id="searchButton">검색</button>
-            </div>               
-        </div>           
-    </div>        
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
-    ui.addOnAction('.board-lists>li');
+    // ui.addOnAction('.board-lists>li');
+
+    $(document).on('click', '.board-lists>li>button', function() {
+        if ($(this).parent().hasClass('on')) {
+            $(this).parent().removeClass('on');
+        } else {
+            $(this).parent().addClass('on');
+        }
+    });
+
+    $(".file-ul").hide();
+
+    $(document).on("click", ".tg-btns", function () {
+        if ($(this).hasClass('open')) {
+            $(".file-ul").show();
+        } else {
+            $(".file-ul").hide();
+        }
+    });
 
     $(document).on("click", "#file", function(){
         if($('.tg-btns').hasClass('open') == true){
@@ -107,11 +130,10 @@
         }).done(function(data) {
             if (data.status == 'success') {
                 var boards = data.data;
-
                 var html = '';
                 html += '<h3 class="s-htyl">공지사항</h3>';
                 html += '<ul class="board-lists">';
-                
+
                 for (var i=0; i<boards.length; i++) {
                     var date = new Date(boards[i]['created']);
                     var year = date.getFullYear();
