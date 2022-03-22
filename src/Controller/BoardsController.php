@@ -157,7 +157,7 @@ class BoardsController extends AppController
         $this->paginate = ['limit' => 10];
         
         $notice_table = TableRegistry::get('Notice');
-        $boards = $this->paginate($notice_table);
+        $boards = $this->paginate($notice_table->find('all')->order(['created' => 'DESC']));
         $this->set(compact('boards'));
     }
 
