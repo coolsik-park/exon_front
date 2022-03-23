@@ -139,7 +139,7 @@ class PagesController extends AppController
         $query .= "FROM ";
         $query .= "  exhibition  ";
         $query .= "WHERE ";
-        $query .= "  private = 0 AND date_ADD(now(), INTERVAL 9 HOUR) < edate AND date_format(sdate, '%m') = date_format(date_ADD(now(), INTERVAL 9 HOUR), '%m') AND date_format(edate, '%m') = date_format(date_ADD(now(), INTERVAL 9 HOUR), '%m') ";
+        $query .= "  private = 0 AND date_ADD(now(), INTERVAL 9 HOUR) < edate AND date_format(sdate, '%m') = date_format(date_ADD(now(), INTERVAL 9 HOUR), '%m') ";
         $query .= "ORDER BY ";
         $query .= "  sdate ";
         $query .= "LIMIT ";
