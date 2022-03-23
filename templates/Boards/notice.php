@@ -1,4 +1,8 @@
 <style>
+    div.b-desc * {
+        font-weight: revert;
+        font-size: revert;
+    }
     .paginator {
         text-align: center;
     }
@@ -12,15 +16,19 @@
         display: inline;
     }
 
+    button:focus {
+        outline: none;
+    }
+    
     #file-download-button {
         border:none;
         text-align: left;
     }
 </style>
 
-<div id="container">
+<div id="container">        
     <div class="contents static">
-        <h2 class="s-hty0">고객센터</h2>
+        <h2 class="s-hty0">고객센터</h2>            
         <div class="cs-tab">
             <ul class="s-tabs2">
                 <li><a href="/boards/customer-service">자주 하는 질문</a></li>
@@ -33,31 +41,31 @@
                 <h3 class="s-hty1">공지사항</h3>
                 <ul class="board-lists" id="board-lists">
                     <?php foreach ($boards as $board): ?>
-                        <li>
+                        <li id="li">
                             <button type="button" class="b-tit b-noti-tit">
                                 <span class="tit"><?= $board->title ?></span>
                                 <span class="date"><?= date("Y.m.d", strtotime($board->created)); ?></span>
                             </button>
                             <div class="b-desc">
-                                <?= $board->content ?><br/>
+                                <?= $board->content ?><br>
                                 <?php
-                                    $file_dir = "/var/www/exon/bomi/webroot/";
+                                    $file_dir = "/home/www/admin/webroot/";
                                     $file_path = $board->file_path;
                                     if ($file_path != null) {
                                         if (is_dir($file_dir . $file_path)) {
                                 ?>
                                             <div class="tg-btns">
                                                 <button type="button" class="btn-ty3 bor" id="file">첨부파일</button>
-                                                <ul class="file-ul">
+                                                <ul class="file-ul" style="display:none">
                                 <?php
                                                     $file_name = explode(',', $board->file_name);
                                                     $file_count = count($file_name);
                                                     if ($file_count > 0) {
                                                         for ($i=0; $i<$file_count; $i++) {
-                                                            $file = "/" . $file_path . "/" . $file_name[$i];
-                                                            if (is_file($file_dir . $file)) {
+                                                            $file = $file_dir . $file_path . "/" . $file_name[$i];
+                                                            if (is_file($file)) {
                                 ?>
-                                                                <li><button type="button" class="btn-ty3 bor" id="file-download-button"><a href="<?= $file ?>" download><img src="/img/file-icon.png" width="3%"><?= $file_name[$i] ?></a></button></li>
+                                                                <li><button type="button" class="btn-ty3 bor" id="file-download-button"><a href="/exhibition/file-down/<?= $board->id ?>"><img src="/img/file-icon.png" width="3%"><?= $file_name[$i] ?></a></button></li>
                                 <?php
                                                             }
                                                         }
@@ -70,8 +78,8 @@
                                     }
                                 ?>
                             </div>
-                        </li>
-                    <?php endforeach; ?>
+                        </li>     
+                    <?php endforeach; ?>              
                 </ul>
                 <div class="paginator">
                     <ul class="pagination">
@@ -84,9 +92,9 @@
             <div class="board-sh">
                 <input type="text" id="search" placeholder="제목">
                 <button type="button" class="ico-sh" id="searchButton">검색</button>
-            </div>
-        </div>
-    </div>
+            </div>               
+        </div>           
+    </div>        
 </div>
 
 <script>
@@ -98,20 +106,12 @@
             $(this).parent().addClass('on');
         }
     });
-    $(".file-ul").hide();
 
     $(document).on("click", ".tg-btns", function () {
         if ($(this).hasClass('open')) {
             $(".file-ul").show();
         } else {
             $(".file-ul").hide();
-        }
-    });
-
-    $(document).on("click", "#file", function(){
-        if($('.tg-btns').hasClass('open') == true){
-            $('.tg-btns').removeClass('open');
-            $(this).parent().addClass('open');
         }
     });
 
@@ -128,10 +128,11 @@
         }).done(function(data) {
             if (data.status == 'success') {
                 var boards = data.data;
+
                 var html = '';
                 html += '<h3 class="s-htyl">공지사항</h3>';
                 html += '<ul class="board-lists">';
-
+                
                 for (var i=0; i<boards.length; i++) {
                     var date = new Date(boards[i]['created']);
                     var year = date.getFullYear();
