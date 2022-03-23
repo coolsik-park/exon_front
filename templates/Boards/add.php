@@ -64,7 +64,7 @@
 
                 </div>
                 <div class="agree-wp">
-                    <span class="chk-dsg"><input type="radio" name="rdo3" id="rdo3-1"><label for="rdo3-1">개인정보 수집 및 이용 동의</label></span>
+                    <span class="chk-dsg"><input type="checkbox" name="rdo3" id="rdo3-1"><label for="rdo3-1">개인정보 수집 및 이용 동의</label></span>
                 </div>
             </div>    
             <div class="section-btm2 mgtS1">                    
@@ -157,87 +157,81 @@
 
         var getHp = RegExp(/^[0-9]*$/);
         var getEmail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
-        var result = [];
         var faqCategoryId = $('#categories option:selected').val();
 
         if (!getHp.test($('#hp').val())) {
             $('#hpNoti').html("전화번호를 제대로 입력해 주세요.");
             $('#hp').focus();
-            result.push('false');
+            return false;
         } else {
             $('#hpNoti').html("");
-            result.push('true');
         }
 
         if ($('#hp').val().length < 11) {
             $('#hpNoti').html("전화번호를 제대로 입력해 주세요.");
             $('#hp').focus();
-            result.push('false');
+            return false;
         } else {
             $('#hpNoti').html("");
-            result.push('true');
         }
 
         if (!getEmail.test($('#email').val())) {
             $('#emailNoti').html('이메일을 제대로 입력해 주세요.');
             $('#email').focus();
-            result.push('false');
+            return false;
         } else {
             $('#emailNoti').html('');
-            result.push('true');
         }
 
         if ($('#rdo3-1').prop('checked') == false) {
             alert("개인정보 수집 및 이용 동의를 확인해주세요.");
-            result.push('flase');
+            return false;
         }
 
-        if (!result.includes('false')) {
-            $.ajax({
-                url: '/boards/add',
-                method: 'POST',
-                type: 'json',
-                data: {
-                    faq_category_id: $('#categories option:selected').val(),
-                    title: $('#title').val(),
-                    users_name: $('#name').val(),
-                    users_hp: $('#hp').val(),
-                    users_email: $('#email').val(),
-                    question: $('#question').val(),
-                }
-            }).done(function (data) {
-                if (data.status == 'success') {
-                    if (uploadFileList.length == 0) {
-                        alert('성공하였습니다.'); 
-                        location.href='/';
-                    } else {
-                        var formData = new FormData();
-
-                        for (var i=0; i<uploadFileList.length; i++) {
-                            formData.append('file[]', fileList[uploadFileList[i]]);
-                        }
-
-                        $.ajax({
-                            url: '/boards/file-upload/' + data.users_question_id,
-                            processData: false,
-                            contentType: false,
-                            cache: false,
-                            data: formData,
-                            type: 'POST',
-                        }).done(function(data) {
-                            if (data.status == 'success') {
-                               alert('파일 저장까지 성공하였습니다.'); 
-                               location.href='/';
-                            } else {
-                                console.log(data.status);
-                                alert('파일 저장은 실패하였습니다.');
-                            }
-                        });
-                    }
+        $.ajax({
+            url: '/boards/add',
+            method: 'POST',
+            type: 'json',
+            data: {
+                faq_category_id: $('#categories option:selected').val(),
+                title: $('#title').val(),
+                users_name: $('#name').val(),
+                users_hp: $('#hp').val(),
+                users_email: $('#email').val(),
+                question: $('#question').val(),
+            }
+        }).done(function (data) {
+            if (data.status == 'success') {
+                if (uploadFileList.length == 0) {
+                    alert('성공하였습니다.'); 
+                    location.href='/';
                 } else {
-                    alert('실패하였습니다.');
+                    var formData = new FormData();
+
+                    for (var i=0; i<uploadFileList.length; i++) {
+                        formData.append('file[]', fileList[uploadFileList[i]]);
+                    }
+
+                    $.ajax({
+                        url: '/boards/file-upload/' + data.users_question_id,
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        data: formData,
+                        type: 'POST',
+                    }).done(function(data) {
+                        if (data.status == 'success') {
+                           alert('파일 저장까지 성공하였습니다.'); 
+                           location.href='/';
+                        } else {
+                            console.log(data.status);
+                            alert('파일 저장은 실패하였습니다.');
+                        }
+                    });
                 }
-            });
-        }
+            } else {
+                alert('실패하였습니다.');
+            }
+        });
     });
  </script>
