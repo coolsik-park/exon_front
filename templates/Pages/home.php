@@ -418,9 +418,9 @@
         var innerWidth = window.innerWidth;
 
         if(innerWidth < "768"){ //모바일 화면시 
-            alert("mobile");
+            
         } else {  //pc 화면시 
-            alert("pc"); 
+            
         }
         }
 
@@ -428,9 +428,9 @@
             var innerWidth = window.innerWidth;
 
             if(innerWidth < "768"){ //모바일 화면시 
-                alert("mobile");
+                
             } else {  //pc 화면시 
-                alert("pc"); 
+                
             }
         }
 
