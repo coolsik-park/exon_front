@@ -189,7 +189,7 @@
         }
 
         $.ajax({
-            url: '/boards/add',
+            url: '/boards/question-add',
             method: 'POST',
             type: 'json',
             data: {
@@ -199,11 +199,10 @@
                 users_hp: $('#hp').val(),
                 users_email: $('#email').val(),
                 question: $('#question').val(),
-            }
-        }).done(function (data) {
-            if (data.status == 'success') {
+            },
+            success : function (data) {
                 if (uploadFileList.length == 0) {
-                    alert('성공하였습니다.'); 
+                    alert('문의하기가 완료되었습니다.'); 
                     location.href='/';
                 } else {
                     var formData = new FormData();
@@ -219,19 +218,20 @@
                         cache: false,
                         data: formData,
                         type: 'POST',
-                    }).done(function(data) {
-                        if (data.status == 'success') {
-                           alert('파일 저장까지 성공하였습니다.'); 
-                           location.href='/';
-                        } else {
+                        success : function (data) {
+                            alert('파일 저장 완료되었습니다.');
+                            location.href='/';
+                        }, 
+                        error : function () {
                             console.log(data.status);
-                            alert('파일 저장은 실패하였습니다.');
+                            alert('파일 저장에 실패하였습니다\n잠시후 다시 시도해주십시오.');
                         }
                     });
                 }
-            } else {
-                alert('실패하였습니다.');
-            }
+            },
+            error : function () {
+                alert("오류가 발생하였습니다.\n잠시후 다시 시도해주십시오.");
+            } 
         });
     });
  </script>
