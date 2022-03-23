@@ -26,8 +26,17 @@ class BoardsController extends AppController
     
     public function add()
     {
-        $connection = ConnectionManager::get('default');
-        $connection->begin();
+        $userquestion_table = TableRegistry::get('UserQuestion');
+        $board = $userquestion_table->newEmptyEntity();
+
+        $faqCategory = $this->getTableLocator()->get('FaqCategory');
+        $categories = $faqCategory->find('list', ['keyField' => 'id', 'valueField' => 'text'])->where(['status' => 1]);
+
+        $this->set(compact('board', 'categories'));
+    }
+    
+    public function questionAdd()
+    {
 
         $userquestion_table = TableRegistry::get('UserQuestion');
         $board = $userquestion_table->newEmptyEntity();
@@ -42,19 +51,13 @@ class BoardsController extends AppController
             $board->question = $this->request->getData('question');
 
             if ($result = $userquestion_table->save($board)) {
-                $connection->commit();
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'users_question_id' => $result->id]));
+                $response = $this->response->withType('json')->withStringBody(json_encode(['users_question_id' => $result->id]));
             } else {
-                $connection->rollback();
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
             }
-            return $response;
         }
 
-        $faqCategory = $this->getTableLocator()->get('FaqCategory');
-        $categories = $faqCategory->find('list', ['keyField' => 'id', 'valueField' => 'text'])->where(['status' => 1]);
-
-        $this->set(compact('board', 'categories'));
+        return $response;
     }
 
     public function fileUpload($question_id = null)
