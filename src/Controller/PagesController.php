@@ -106,9 +106,9 @@ class PagesController extends AppController
         $query .= "FROM ";
         $query .= "  exhibition  ";
         $query .= "WHERE ";
-        $query .= "  private = 0 AND status != 8 ";
+        $query .= "  private = 0 AND date_ADD(now(), INTERVAL 9 HOUR) < edate ";
         $query .= "ORDER BY ";
-        $query .= "  id desc ";
+        $query .= "  sdate ";
         $query .= "LIMIT ";
         $query .= "  10 ";
         
@@ -127,7 +127,26 @@ class PagesController extends AppController
         // ->where(['Banner.status'=>1, 'now() between Banner.sdate AND Banner.edate', 'Banner.type'=>'new'])
         // ->order(['Banner.sort'])
         // ->limit('10')
-        // ->toArray();                        
+        // ->toArray();    
+        $query  = " SELECT ";
+        $query .= "  id AS exhibition_id, ";
+        $query .= "  title AS title, image_path as img_path, image_name as img_name, ";
+        $query .= "  description AS description, ";
+        $query .= "  date_format(sdate, '%m. %d. %H:%s') AS sdate, ";
+        $query .= "  date_format(edate, '%m. %d. %H:%s') AS edate, ";
+        $query .= "  date_ADD(now(), INTERVAL 9 HOUR) between sdate ";
+        $query .= "  and edate AS playing ";
+        $query .= "FROM ";
+        $query .= "  exhibition  ";
+        $query .= "WHERE ";
+        $query .= "  private = 0 AND date_ADD(now(), INTERVAL 9 HOUR) < edate AND date_format(sdate, '%m') = date_format(date_ADD(now(), INTERVAL 9 HOUR), '%m') AND date_format(edate, '%m') = date_format(date_ADD(now(), INTERVAL 9 HOUR), '%m') ";
+        $query .= "ORDER BY ";
+        $query .= "  sdate ";
+        $query .= "LIMIT ";
+        $query .= "  10 ";
+        
+        $stmt = $conn->query($query);
+        $new = $stmt->fetchAll('assoc');                    
 
          //NORMAL 10
         //  $normal = $this->Banner->find('all')
@@ -140,6 +159,25 @@ class PagesController extends AppController
         //  ->order(['Banner.sort'])
         //  ->limit('10')
         //  ->toArray();
+        $query  = " SELECT ";
+        $query .= "  id AS exhibition_id, ";
+        $query .= "  title AS title, image_path as img_path, image_name as img_name, ";
+        $query .= "  description AS description, ";
+        $query .= "  date_format(sdate, '%m. %d. %H:%s') AS sdate, ";
+        $query .= "  date_format(edate, '%m. %d. %H:%s') AS edate, ";
+        $query .= "  date_ADD(now(), INTERVAL 9 HOUR) between sdate ";
+        $query .= "  and edate AS playing ";
+        $query .= "FROM ";
+        $query .= "  exhibition  ";
+        $query .= "WHERE ";
+        $query .= "  private = 0 AND date_ADD(now(), INTERVAL 9 HOUR) < edate ";
+        $query .= "ORDER BY ";
+        $query .= "  id desc ";
+        $query .= "LIMIT ";
+        $query .= "  10 ";
+        
+        $stmt = $conn->query($query);
+        $normal = $stmt->fetchAll('assoc');
 
        /* case 2 : Custom Query */ 
         // $this->conn = ConnectionManager::get('default'); 
@@ -228,7 +266,7 @@ class PagesController extends AppController
         // echo("<pre>");print_r($hot);exit;
 
         try {
-            $this->set(compact('banner', 'hot')); //key-value 연관배열을 쌍으로 적용('banner'=>$banner)
+            $this->set(compact('banner', 'hot', 'new', 'normal')); //key-value 연관배열을 쌍으로 적용('banner'=>$banner)
             return $this->render(implode('/', $path));
         } catch (MissingTemplateException $exception) {
             if (Configure::read('debug')) {
