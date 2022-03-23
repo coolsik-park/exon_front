@@ -32,6 +32,12 @@
     .under {
         margin: 20px;
     }
+    table {
+        text-align:center;
+    }
+    th, td {
+        padding: 30px 10px;
+    }
     @media  screen and (max-width: 768px) {
         h3 {
             margin: 46px 0px;
@@ -138,11 +144,26 @@
                 </p>
             </div>
             <div class="under">
-                <p>▶ &nbsp;아  래</p>
-                <p>PG사(신용카드) 수수료    =   &nbsp;&nbsp;&nbsp;&nbsp;3.2%</p>
-                <p>엑스온 수수료  =    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; 1.8%</p>
-                <hr/>
-                <p>회사 수수료       =&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5.0%</p>
+                <table border="1">
+                    <th></th>
+                    <th>신용카드</th>
+                    <th>계좌이체</th>
+                    <tr>
+                        <td>PG사 수수료</td>
+                        <td>3.2%</td>
+                        <td>1.8%</td>
+                    </tr>
+                    <tr>
+                        <td>EXON 이용료</td>
+                        <td>1.8%</td>
+                        <td>1.7%</td>
+                    </tr>
+                    <tr>
+                        <td>합계</td>
+                        <td>5.0%</td>
+                        <td>3.5%</td>
+                    </tr>
+                </table>
             </div>
             <div class="textBox">
                 <h4>⑤</h4>

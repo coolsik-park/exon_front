@@ -37,6 +37,7 @@
     <meta name="naver-site-verification" content="691220371d52b4ab2727e6f7cb48a6f25b810fa9" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" sizes="16x16">
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/slick.js"></script>
     <script src="/js/swiper.min.js"></script>
@@ -67,7 +68,7 @@
             margin: 20px 0px 20px 0px;
         }
         #footer {
-            height: 750px;
+            height: 650px;
         }
         }
     </style>
@@ -100,7 +101,7 @@
                     <div id="my-page" style="display:inline-block; padding-left:30px;">
                         <a href="#">마이페이지</a>
                         <br>
-                        <ul id="sub-menu" style="display:inline-block;">
+                        <ul id="sub-menu" style="display:inline-block; display:none;">
                             <li><a href="/users/edit">회원 정보 변경</a></li>
                             <li><a href="/exhibition-users/sign-up/application">신청 내역 관리</a></li>
                             <li><a href="/exhibition/index/all">개설 행사 관리</a></li>
@@ -234,8 +235,6 @@
 
 <script>
     $(document).ready(function () {
-        $('#sub-menu').hide();
-
         $('#my-page').mouseover(function(){
             $('#sub-menu').slideDown();
             $('#my-page').css("position","relative");

@@ -405,7 +405,6 @@ class ExhibitionUsersController extends AppController
                 $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $this->Auth->user('id'), 'ExhibitionUsers.status' => 8])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
             }
         }
-        
         $this->set(compact('exhibition_users'));
     }
 
@@ -452,7 +451,7 @@ class ExhibitionUsersController extends AppController
                     // $pay->cancel_reason = '행사 이용자 취소';
                     // $pay->cancel_date = $now->i18nFormat('yyyy-MM-dd HH:mm:ss');
                     
-                    if ($connection->update('pay', ['cancel_reason' => '행사 이용자 취소', 'cancel_date' => $now], ['id' => $pay_id])) {
+                    if ($connection->update('pay', ['cancel_reason' => '행사 이용자 취소', 'cancel_date' => $now, 'status' => 8], ['id' => $pay_id])) {
                         $connection->commit();
     
                         $mailer = new Mailer();
@@ -523,6 +522,72 @@ class ExhibitionUsersController extends AppController
             }
             $connection->commit();
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+        } else {
+            $connection->rollback();
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+        }
+
+        return $response;
+    }
+
+    public function exhibitionUsersStatusTrans()
+    {
+        $id = $this->request->getData('id');
+        $exhibition_id = $this->request->getData('exhibition_id');
+        $to = $this->request->getData('email');
+        $pay_id = $this->request->getData('pay_id');
+
+        $connection = ConnectionManager::get('default');
+        $connection->begin();
+
+        $exhibition_user = $this->ExhibitionUsers->get($id);
+
+        if($connection->update('exhibition_users', ['status' => '8'], ['id' => $id])) {
+
+            if (!$connection->delete('exhibition_survey_users_answer', ['users_id' => $id])) {
+                $connection->rollback();
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                return $response;
+            }
+
+            if ($connection->update('pay', ['status' => 4], ['id' => $pay_id])) {
+                $connection->commit();
+
+                $mailer = new Mailer();
+                $mailer->setTransport('mailjet');
+
+                $exhibition_table = $this->getTableLocator()->get('Exhibition');
+                $exhibition = $exhibition_table->get($exhibition_id);
+                $user_name = $this->request->getData('users_name');           
+                
+                $mailer->setEmailFormat('html')
+                            ->setTo($to)
+                            ->setFrom([getEnv('EXON_EMAIL_ADDRESS') => 'EXON'])
+                            ->setSubject('Exon - 참가취소 확인 메일입니다.')
+                            ->viewBuilder()
+                            ->setTemplate('self_canceled')
+                        ;
+                $mailer->setViewVars(['front_url' => FRONT_URL]);
+                $mailer->setViewVars(['user_name' => $user_name]);
+                $mailer->setViewVars(['title' => $exhibition->title]);
+                $mailer->setViewVars(['apply_sdate' => $exhibition->apply_sdate]);
+                $mailer->setViewVars(['apply_edate' => $exhibition->apply_edate]);
+                $mailer->setViewVars(['sdate' => $exhibition->sdate]);
+                $mailer->setViewVars(['edate' => $exhibition->edate]);
+                $mailer->setViewVars(['name' => $exhibition->name]);
+                $mailer->setViewVars(['tel' => $exhibition->tel]);
+                $mailer->setViewVars(['email' => $exhibition->email]);
+                $mailer->setViewVars(['refund' => '고객센터를 통해 문의해주세요.']);
+                $mailer->setViewVars(['now' => date('Y-m-d H:i:s', time()+32400)]);
+                
+                $mailer->deliver();
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+            
+            } else {
+                $connection->rollback();
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+            }
+            
         } else {
             $connection->rollback();
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));

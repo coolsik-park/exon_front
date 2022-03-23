@@ -42,9 +42,11 @@
             position: absolute;
             top: -3px;
             right: 1px;
-            padding: 5px;
+            padding: 6px;
             color: black;
-            width:30%;
+            width: 17%;
+            background-color: darkgray;
+            border:none;
         }
         @media  screen and (max-width: 768px) {
             .stream-sect .row2-wp .row2 {
@@ -69,17 +71,7 @@
                 flex-direction: column;
                 align-items: flex-end;
             }
-            .wb-cont2 .w-desc p {
-                width: 70%;
-            }
-            /* .webinar-tab-top .ico-sett {
-                top: 0px;
-            } */
-            .wb-cont1 {
-                margin: 50px 0px 0px 0px;
-            }
         }
-        
     </style>
 </head>
 
@@ -212,7 +204,7 @@
             <div class="webinar-tab-top">
                 <div class="webinar-toggle">
                     <button type="button" class="webinar-tab-tg">토글버튼</button>
-                    <button type="button" id="setting_btn" name="btn_off" class="btn-ty4 gray sett-btn">메뉴설정</button>
+                    <button type="button" id="setting_btn" name="btn_off" class="btn-ty4 sett-btn">메뉴설정</button>
                     <input type="hidden" id="tab" name="tab" value="0">
                 </div>                        
                 <div class="w-tab-wrap">
@@ -914,14 +906,12 @@
         
         if ($(this).attr("name") == "btn_off") {
             $(this).attr("name", "btn_on");
-            $(this).removeClass("gray");
             $(this).addClass("black");
             $(this).html("저장");
             alert("탭 설정이 활성화 되었습니다.");
         } else {
             $(this).attr("name", "btn_off");
             $(this).removeClass("black");
-            $(this).addClass("gray");
             $(this).html("메뉴설정");
             $("#save").click();
         }

@@ -102,6 +102,17 @@
                         $sdate = strtotime($exhibition_user->exhibition['sdate']);
                         $sdate_before = strtotime("-1800 seconds" . $exhibition_user->exhibition['sdate']);
                         $edate = strtotime($exhibition_user->exhibition['edate']);
+                        $apply_edate = strtotime($exhibition_user->exhibition['apply_edate']);
+                        $method = '';
+                        $same_day = 0;
+                        if (!empty($exhibition_user->pay)) {
+                            $method = $exhibition_user->pay['pay_method'];
+                            $pay_date = date("Ymd", strtotime($exhibition_user->pay['created']));
+                            $now_date = date("Ymd", strtotime(date('Y-m-d H:i:s', time()) . "+9 hours"));
+                            if ($pay_date == $now_date) {
+                                $same_day = 1;
+                            }
+                        }
                 ?>
                     <div class="tr-row">
                         <div class="td-col col1">
@@ -248,11 +259,13 @@
                                     <?php
                                             endif;
                                         else:
+                                            if ($d_today <= $apply_edate):
                                     ?>
-                                            <button type="button" class="btn-ty3 red" style="cursor:pointer;" data-toggle="modal" data-target="#signUpCancelModal" data-backdrop="static" data-keyboard="false" onClick="signUpCancel(<?= $key ?>)">
+                                            <button type="button" class="btn-ty3 red" style="cursor:pointer;" data-toggle="modal" data-target="#signUpCancelModal" data-backdrop="static" data-keyboard="false" onClick="signUpCancel(<?= $key ?>, '<?=$method?>', <?=$same_day?>)">
                                                 취소하기
                                             </button>
                                     <?php 
+                                            endif;
                                         endif;
                                     endif;
                                     ?>
@@ -273,32 +286,55 @@
         </div>
     </div>        
 </div>
-<footer id="footer"></footer>
 
 <script>
-    function signUpCancel(key) {
+    function signUpCancel(key, method, same_day) {
         var html = '';
-        html += '<div class="modal fade" id="signUpCancelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
-        html += '   <div class="modal-dialog" role="document">';
-        html += '        <div class="modal-content" style="background-color:transparent; border:none;">';
-        html += '            <div class="popup-wrap popup-ty2">';
-        html += '                <div class="popup-head">';
-        html += '                    <h1>참가자 신청 취소</h1>';
-        html += '                    <button id="close" type="button" class="popup-close close" data-dismiss="modal" aria-label="Close">팝업닫기</button>';
-        html += '                </div>';
-        html += '                <div class="popup-body">';
-        html += '                    <div class="cert-sect4">';
-        html += '                        <p>참가자의 신청을 취소할 경우 참가자가 결제한 금액은<br class="br-mo">모두 환불됩니다.<br>참가자 신청을 취소하시겠습니까?</p>';
-        html += '                    </div>';
-        html += '                    <div class="popup-btm">';
-        html += '                        <button type="button" class="btn-ty2 red" data-dismiss="modal" aria-label="Close">취소</button>';
-        html += '                        <button type="button" class="btn-ty2" onClick="signUpCancleOK(' + key + ')">확인</button>';
-        html += '                    </div>';
-        html += '               </div>';
-        html += '           </div>';
-        html += '       </div>';
-        html += '   </div>';
-        html += '</div>';
+        if (method == 'card' || same_day == 1) {
+            html += '<div class="modal fade" id="signUpCancelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
+            html += '   <div class="modal-dialog" role="document">';
+            html += '        <div class="modal-content" style="background-color:transparent; border:none;">';
+            html += '            <div class="popup-wrap popup-ty2">';
+            html += '                <div class="popup-head">';
+            html += '                    <h1>참가자 신청 취소</h1>';
+            html += '                    <button id="close" type="button" class="popup-close close" data-dismiss="modal" aria-label="Close">팝업닫기</button>';
+            html += '                </div>';
+            html += '                <div class="popup-body">';
+            html += '                    <div class="cert-sect4">';
+            html += '                        <p>참가자의 신청을 취소할 경우 참가자가 결제한 금액은<br class="br-mo">모두 환불됩니다.<br>참가자 신청을 취소하시겠습니까?</p>';
+            html += '                    </div>';
+            html += '                    <div class="popup-btm">';
+            html += '                        <button type="button" class="btn-ty2 red" data-dismiss="modal" aria-label="Close">취소</button>';
+            html += '                        <button type="button" class="btn-ty2" onClick="signUpCancleOK(' + key + ')">확인</button>';
+            html += '                    </div>';
+            html += '               </div>';
+            html += '           </div>';
+            html += '       </div>';
+            html += '   </div>';
+            html += '</div>';
+        } else {
+            html += '<div class="modal fade" id="signUpCancelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
+            html += '   <div class="modal-dialog" role="document">';
+            html += '        <div class="modal-content" style="background-color:transparent; border:none;">';
+            html += '            <div class="popup-wrap popup-ty2">';
+            html += '                <div class="popup-head">';
+            html += '                    <h1>참가자 신청 취소</h1>';
+            html += '                    <button id="close" type="button" class="popup-close close" data-dismiss="modal" aria-label="Close">팝업닫기</button>';
+            html += '                </div>';
+            html += '                <div class="popup-body">';
+            html += '                    <div class="cert-sect4">';
+            html += '                        <p>계좌이체를 통해 결제하신 경우,<br>결제일 자정 이후 결제취소는 고객센터 문의하기를 통해<br>신청 가능합니다. (환불계좌번호를 남겨주세요.)<br>확인 버튼을 누르면 문의하기로 이동됩니다.</p>';
+            html += '                    </div>';
+            html += '                    <div class="popup-btm">';
+            html += '                        <button type="button" class="btn-ty2 red" data-dismiss="modal" aria-label="Close">취소</button>';
+            html += '                        <button type="button" class="btn-ty2" onClick="signUpCancleTrans(' + key + ')">확인</button>';
+            html += '                    </div>';
+            html += '               </div>';
+            html += '           </div>';
+            html += '       </div>';
+            html += '   </div>';
+            html += '</div>';
+        }
         $("#popup").html(html);
     }
 
@@ -326,6 +362,34 @@
                 window.location.reload();
             } else {
                 alert('실패하였습니다. 다시 시도해주세요.');
+            }
+        });
+    }
+
+    function signUpCancleTrans(index) {
+        var exhibition_users = <?= json_encode($exhibition_users)  ?>;
+        var id = exhibition_users[index]['id'];
+        var exhibition_id = exhibition_users[index]['exhibition_id'];
+        var users_name = exhibition_users[index]['users_name'];
+        var users_email = exhibition_users[index]['users_email'];
+        var pay_id = exhibition_users[index]['pay_id'];
+
+        $.ajax({
+            url: '/exhibition-users/exhibition-users-status-trans',
+            method: 'POST',
+            type: 'json',
+            data: {
+                id: id,
+                exhibition_id: exhibition_id,
+                users_name: users_name,
+                email: users_email,
+                pay_id: pay_id
+            }
+        }).done(function(data) {
+            if (data.status == 'success') {
+                window.location.replace("/boards/add");
+            } else {
+                alert('오류가 발생하였습니다. 잠시 후 다시 시도해주세요.');
             }
         });
     }

@@ -1,4 +1,8 @@
 <style>
+    div.b-desc * {
+        font-weight: revert;
+        font-size: revert;
+    }
     .paginator {
         text-align: center;
     }
@@ -10,6 +14,19 @@
 
     .pagination li {
         display: inline;
+    }
+
+    button:focus {
+        outline: none;
+    }
+    
+    .file-ul {
+        display: none;
+    }
+    
+    #file-download-button {
+        border:none;
+        text-align: right;
     }
 </style>
 
@@ -28,12 +45,44 @@
                 <h3 class="s-hty1">공지사항</h3>
                 <ul class="board-lists" id="board-lists">
                     <?php foreach ($boards as $board): ?>
-                        <li>
+                        <li id="li">
                             <button type="button" class="b-tit b-noti-tit">
                                 <span class="tit"><?= $board->title ?></span>
                                 <span class="date"><?= date("Y.m.d", strtotime($board->created)); ?></span>
                             </button>
-                            <div class="b-desc"><?= $board->content ?></div>
+                            <div class="b-desc">
+                                <?php
+                                    $file_dir = "/var/www/exon/bomi/webroot";
+                                    $file_path = $board->file_path;
+                                    if ($file_path != null) {
+                                        if (is_dir($file_dir . $file_path)) {
+                                ?>
+                                            <div class="tg-btns" align="right">
+                                                <button type="button" class="btn-ty3 btn-danger" id="file">첨부파일</button>
+                                                <ul class="file-ul">
+                                <?php
+                                                    $file_name = explode(',', $board->file_name);
+                                                    $file_count = count($file_name);
+                                                    if ($file_count > 0) {
+                                                        for ($i=0; $i<$file_count; $i++) {
+                                                            $file = $file_dir . $file_path . "/" . $file_name[$i];
+
+                                                            if (is_file($file)) {
+                                ?>
+                                                                <li><button type="button" class="btn-ty3 bor" id="file-download-button"><a href="/exhibition/file-down/<?= $board->id ?>"><img src="/img/file-icon.png" width="3%"><?= $file_name[$i] ?></a></button></li>
+                                <?php
+                                                            }
+                                                        }
+                                                    }
+                                ?>
+                                                </ul>
+                                            </div>
+                                <?php
+                                        }
+                                    }
+                                ?>
+                                </br><?= $board->content ?>
+                            </div>
                         </li>     
                     <?php endforeach; ?>              
                 </ul>
@@ -52,10 +101,24 @@
         </div>           
     </div>        
 </div>
-<footer id="footer"></footer>
 
 <script>
-    ui.addOnAction('.board-lists>li');
+    // ui.addOnAction('.board-lists>li');
+    $(document).on('click', '.board-lists>li>button', function() {
+        if ($(this).parent().hasClass('on')) {
+            $(this).parent().removeClass('on');
+        } else {
+            $(this).parent().addClass('on');
+        }
+    });
+
+    $(document).on("click", ".tg-btns", function () {
+        if ($(this).hasClass('open')) {
+            $(".file-ul").show();
+        } else {
+            $(".file-ul").hide();
+        }
+    });
 
     $('#searchButton').on('click', function() {
         var search = $('#search').val();

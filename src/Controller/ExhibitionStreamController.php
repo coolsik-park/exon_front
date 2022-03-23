@@ -53,6 +53,15 @@ class ExhibitionStreamController extends AppController
      //웨비나 송출  설정
     public function setExhibitionStream($exhibition_id = null)
     {
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $exhibition = $Exhibition->get($exhibition_id);
+        if ($exhibition->status == 8) {
+            return $this->redirect([
+                'controller' => 'pages',
+                'action' => 'home'
+            ]);
+        }
+
         $users_id = $this->getTableLocator()->get('Exhibition')->get($exhibition_id)->users_id;
         $title = $this->getTableLocator()->get('Exhibition')->get($exhibition_id)->title;
         if ($this->Auth->user('id') != $users_id) {
@@ -113,6 +122,12 @@ class ExhibitionStreamController extends AppController
         $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $id])->toArray();
         $Exhibition = $this->getTableLocator()->get('Exhibition');
         $exhibition = $Exhibition->get($id);
+        if ($exhibition->status == 8) {
+            return $this->redirect([
+                'controller' => 'pages',
+                'action' => 'home'
+            ]);
+        }
 
         // $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
         // $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id])->toArray();
@@ -846,6 +861,15 @@ class ExhibitionStreamController extends AppController
      */
     public function editExhibitionStream($exhibition_id = null)
     {
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $exhibition = $Exhibition->get($exhibition_id);
+        if ($exhibition->status == 8) {
+            return $this->redirect([
+                'controller' => 'pages',
+                'action' => 'home'
+            ]);
+        }
+        
         $users_id = $this->getTableLocator()->get('Exhibition')->get($exhibition_id)->users_id;
         if ($this->Auth->user('id') != $users_id) {
             $this->redirect(['controller' => 'pages', 'action' => 'home']);
