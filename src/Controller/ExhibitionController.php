@@ -2182,17 +2182,16 @@ class ExhibitionController extends AppController
         }
     }
 
-    public function fileDown() {
-        $fileName = "[양식]2022 EXON 서포터즈_참가신청서.hwp";
-        $destination = WWW_ROOT . "upload" . DS . $fileName;
+    public function fileDown($id = null) {
+        $notice = $this->getTableLocator()->get('Notice')->find('all')->where(['id' => $id])->toArray();
+        $fileName = $notice[0]->file_name;
+        $down = "/var/www/exon/bomi/webroot" . $notice[0]->file_path . "/" . $fileName;
         
-        $down = $destination;
-        
-        if(file_exists($down)) {
+        if(is_file($down)) {
             header("Content-Type:application/octet-stream");
-            header("Content-Disposition:attachment;filename=$fileName");
+            header("Content-Disposition:attachment;filename= " . $fileName);
             header("Content-Transfer-Encoding:binary");
-            header("Content-Length:".filesize($down));
+            header("Content-Length:" . filesize($down));
             header("Cache-Control:cache,must-revalidate");
             header("Pragma:no-cache");
             header("Expires:0");
@@ -2209,7 +2208,7 @@ class ExhibitionController extends AppController
             fclose($fp);
             }
         } else {
-            
+            debug("no");
         }
     }
 }
