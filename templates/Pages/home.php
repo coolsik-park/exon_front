@@ -136,6 +136,7 @@
                 </div>
                 <div class="main-sect2">
                     <h2 class="h-ty1"><span class="t1">Top 10</span><span class="t2">지금 핫한 행사 10</span></h2>
+                    <?php if (!empty($hot)) : ?>
                     <div class="main-sect2-hot-item">
                         <a href="/exhibition/view/<?php echo $hot[0]['exhibition_id']; ?>" class="main-sd-item">
                         <div class="imgs">
@@ -163,9 +164,11 @@
                             <a href="exhibition/view/<?php echo $hot[0]['exhibition_id']; ?>" class="btn">자세히 보기</a>
                         </div>
                     </div>
+                    <?php endif; ?>
+                    <?php if (!empty($hot)) : ?>
                     <div class="main-slider2">
                         <div class="swiper-container">
-                                <div class="swiper-wrapper">
+                            <div class="swiper-wrapper">
                             <?php foreach($hot as $index => $list): ?>
                                 <?php if($index): ?>
                                     <div class="swiper-slide">
@@ -189,8 +192,8 @@
                                                 </div>
                                                 <h3 class="h-ty3"><?php echo $list['title']; ?></h3>
                                                 <p class="tx-1"><?php echo $list['description']; ?></p>
-                                            </div>
-                                        </a>                                    
+                                        </div>
+                                    </a>                                    
                                     </div>
                                     <?php endif; ?>
                                 <?php endforeach; ?>
@@ -198,7 +201,8 @@
                         </div> 
                         <div class="swiper-button-next"></div> 
                         <div class="swiper-button-prev"></div>      
-                    </div>                
+                    </div>  
+                    <?php endif; ?>              
                 </div>
                 <div class="slider2Div">
                 </div>
@@ -221,11 +225,12 @@
                     <div class="h-ty1-wp">
                         <h2 class="h-ty1"><span class="t1">Top 10</span><span class="t2">이번 달에 새로<br>열리는 전시</span></h2>
                         <!-- <a href="#">자세히 보기</a> -->
-                    </div>                    
+                    </div>     
+                    <?php if (!empty($new)) : ?>               
                     <div class="main-slider4">
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
-                            <?php foreach($hot as $index => $list): ?>
+                            <?php foreach($new as $index => $list): ?>
                                 <div class="swiper-slide">
                                     <div class="swiper-slide">
                                         <div class="main-sd-item">
@@ -242,7 +247,7 @@
                                                             else :
                                                                 echo "종료";
                                                             endif;
-                                                        endif;
+                                                        endif;    
                                                     ?>
                                                     </span>
                                                     <span class="date"><?php echo $list['sdate'] . " ~ " . $list['edate']; ?></span>
@@ -259,7 +264,8 @@
                         </div>
                         <div class="swiper-button-next"></div> 
                         <div class="swiper-button-prev"></div>   
-                    </div>                    
+                    </div>      
+                    <?php endif; ?>              
                 </div>
                 <div class="slider4Div">
                 </div>
@@ -267,11 +273,12 @@
                     <div class="h-ty1-wp">
                         <h2 class="h-ty1"><span class="t1">Top 10</span><span class="t2">일반 전시</span></h2>
                         <!-- <a href="#">자세히 보기</a> -->
-                    </div>                    
+                    </div>       
+                    <?php if (!empty($normal)) : ?>             
                     <div class="main-slider5">
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
-                            <?php foreach($hot as $index => $list): ?>
+                            <?php foreach($normal as $index => $list): ?>
                                 <div class="swiper-slide">
                                     <div class="swiper-slide">
                                         <div class="main-sd-item">
@@ -305,7 +312,8 @@
                         </div>
                         <div class="swiper-button-next"></div> 
                         <div class="swiper-button-prev"></div>   
-                    </div>                    
+                    </div>   
+                    <?php endif;?>                
                 </div>
                 <div class="slider5Div">
                 </div>              
