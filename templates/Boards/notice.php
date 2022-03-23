@@ -20,9 +20,13 @@
         outline: none;
     }
     
+    .file-ul {
+        display: none;
+    }
+    
     #file-download-button {
         border:none;
-        text-align: left;
+        text-align: right;
     }
 </style>
 
@@ -47,22 +51,22 @@
                                 <span class="date"><?= date("Y.m.d", strtotime($board->created)); ?></span>
                             </button>
                             <div class="b-desc">
-                                <?= $board->content ?><br>
                                 <?php
-                                    $file_dir = "/home/www/admin/webroot/";
+                                    $file_dir = "/var/www/exon/bomi/webroot";
                                     $file_path = $board->file_path;
                                     if ($file_path != null) {
                                         if (is_dir($file_dir . $file_path)) {
                                 ?>
-                                            <div class="tg-btns">
-                                                <button type="button" class="btn-ty3 bor" id="file">첨부파일</button>
-                                                <ul class="file-ul" style="display:none">
+                                            <div class="tg-btns" align="right">
+                                                <button type="button" class="btn-ty3 btn-danger" id="file">첨부파일</button>
+                                                <ul class="file-ul">
                                 <?php
                                                     $file_name = explode(',', $board->file_name);
                                                     $file_count = count($file_name);
                                                     if ($file_count > 0) {
                                                         for ($i=0; $i<$file_count; $i++) {
                                                             $file = $file_dir . $file_path . "/" . $file_name[$i];
+
                                                             if (is_file($file)) {
                                 ?>
                                                                 <li><button type="button" class="btn-ty3 bor" id="file-download-button"><a href="/exhibition/file-down/<?= $board->id ?>"><img src="/img/file-icon.png" width="3%"><?= $file_name[$i] ?></a></button></li>
@@ -77,6 +81,7 @@
                                         }
                                     }
                                 ?>
+                                </br><?= $board->content ?>
                             </div>
                         </li>     
                     <?php endforeach; ?>              
