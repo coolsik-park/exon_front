@@ -108,6 +108,12 @@
         .hotImg {
             height: 190px;
         }
+        .main-visual .imgs img {
+            height: 190px;
+        }
+        .main-visual {
+            padding: 0px;
+        }
     }
 </style>
 <div id="container">
@@ -117,7 +123,7 @@
                     <div class="swiper-wrapper">
 						<?php foreach ($banner as $list): ?>
 							<div class="swiper-slide">
-								<a href="/boards/notice" class="imgs"><img src="<?php echo $list->img_path . $list->img_name;?>" class="responsiveImg" data-media-web="<?php echo $list->img_path . $list->img_name;?>" data-media-mobile="<?php echo $list->img_path . $list->img_name;?>" alt="" ></a>
+								<a href="/exhibition/view/<?php echo $list->exhibition_id; ?>" class="imgs"><img src="<?php echo $list->img_path . $list->img_name;?>" class="responsiveImg" data-media-web="<?php echo $list->img_path . $list->img_name;?>" data-media-mobile="<?php echo $list->img_path . $list->img_name;?>" alt="" ></a>
 							</div>
 						<?php endforeach; ?>
                     </div>
@@ -131,12 +137,11 @@
             <div class="static">
                 <a href="https://pf.kakao.com/_HxkNJb/chat" target="_blank"><img class="kakao-chat" src="/images/kakaochat.png"></a>
                 <div class="main-sect1">
-                    <div><a href="/boards/notice" class="arr-link1"><span>공지사항</span></a></div>
+                    <div><a href="#" class="arr-link1"><span>EXON 소개</span></a></div>
                     <div><a href="/exhibition/add" class="arr-link1"><span>행사개설</span></a></div>
                 </div>
                 <div class="main-sect2">
                     <h2 class="h-ty1"><span class="t1">Top 10</span><span class="t2">지금 핫한 행사 10</span></h2>
-                    <?php if (!empty($hot)) : ?>
                     <div class="main-sect2-hot-item">
                         <a href="/exhibition/view/<?php echo $hot[0]['exhibition_id']; ?>" class="main-sd-item">
                         <div class="imgs">
@@ -164,11 +169,9 @@
                             <a href="exhibition/view/<?php echo $hot[0]['exhibition_id']; ?>" class="btn">자세히 보기</a>
                         </div>
                     </div>
-                    <?php endif; ?>
-                    <?php if (!empty($hot)) : ?>
                     <div class="main-slider2">
                         <div class="swiper-container">
-                            <div class="swiper-wrapper">
+                                <div class="swiper-wrapper">
                             <?php foreach($hot as $index => $list): ?>
                                 <?php if($index): ?>
                                     <div class="swiper-slide">
@@ -192,8 +195,8 @@
                                                 </div>
                                                 <h3 class="h-ty3"><?php echo $list['title']; ?></h3>
                                                 <p class="tx-1"><?php echo $list['description']; ?></p>
-                                        </div>
-                                    </a>                                    
+                                            </div>
+                                        </a>                                    
                                     </div>
                                     <?php endif; ?>
                                 <?php endforeach; ?>
@@ -201,8 +204,7 @@
                         </div> 
                         <div class="swiper-button-next"></div> 
                         <div class="swiper-button-prev"></div>      
-                    </div>  
-                    <?php endif; ?>              
+                    </div>                
                 </div>
                 <div class="slider2Div">
                 </div>
@@ -225,60 +227,11 @@
                     <div class="h-ty1-wp">
                         <h2 class="h-ty1"><span class="t1">Top 10</span><span class="t2">이번 달에 새로<br>열리는 전시</span></h2>
                         <!-- <a href="#">자세히 보기</a> -->
-                    </div>     
-                    <?php if (!empty($new)) : ?>               
+                    </div>                    
                     <div class="main-slider4">
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
-                            <?php foreach($new as $index => $list): ?>
-                                <div class="swiper-slide">
-                                    <div class="swiper-slide">
-                                        <div class="main-sd-item">
-                                            <a href="/exhibition/view/<?php echo $list['exhibition_id']; ?>">
-                                            <div class="imgs"><img style="width:280px; height:155px;" src="<?php echo DS . $list['img_path'] .DS. $list['img_name'];?>" alt=""></div>
-                                            <div class="desc" style="width: 271px;">
-                                                <div class="info">
-                                                    <span class="state">
-                                                    <?php 
-                                                        if($list['playing']) : echo "진행중"; 
-                                                        else : 
-                                                            if(date('m. d. H:m') < $list['sdate']) : 
-                                                                echo "진행전"; 
-                                                            else :
-                                                                echo "종료";
-                                                            endif;
-                                                        endif;    
-                                                    ?>
-                                                    </span>
-                                                    <span class="date"><?php echo $list['sdate'] . " ~ " . $list['edate']; ?></span>
-                                                </div>
-                                                <h3 class="h-ty3"><?php echo $list['title']; ?></h3>
-                                                <p class="tx-1"><?php echo $list['description']; ?></p>
-                                            </div>
-                                            </a>
-                                        </div>                                    
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
-                            </div>
-                        </div>
-                        <div class="swiper-button-next"></div> 
-                        <div class="swiper-button-prev"></div>   
-                    </div>      
-                    <?php endif; ?>              
-                </div>
-                <div class="slider4Div">
-                </div>
-                <div class="main-sect5">
-                    <div class="h-ty1-wp">
-                        <h2 class="h-ty1"><span class="t1">Top 10</span><span class="t2">일반 전시</span></h2>
-                        <!-- <a href="#">자세히 보기</a> -->
-                    </div>       
-                    <?php if (!empty($normal)) : ?>             
-                    <div class="main-slider5">
-                        <div class="swiper-container">
-                            <div class="swiper-wrapper">
-                            <?php foreach($normal as $index => $list): ?>
+                            <?php foreach($hot as $index => $list): ?>
                                 <div class="swiper-slide">
                                     <div class="swiper-slide">
                                         <div class="main-sd-item">
@@ -312,8 +265,53 @@
                         </div>
                         <div class="swiper-button-next"></div> 
                         <div class="swiper-button-prev"></div>   
-                    </div>   
-                    <?php endif;?>                
+                    </div>                    
+                </div>
+                <div class="slider4Div">
+                </div>
+                <div class="main-sect5">
+                    <div class="h-ty1-wp">
+                        <h2 class="h-ty1"><span class="t1">Top 10</span><span class="t2">일반 전시</span></h2>
+                        <!-- <a href="#">자세히 보기</a> -->
+                    </div>                    
+                    <div class="main-slider5">
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                            <?php foreach($hot as $index => $list): ?>
+                                <div class="swiper-slide">
+                                    <div class="swiper-slide">
+                                        <div class="main-sd-item">
+                                            <a href="/exhibition/view/<?php echo $list['exhibition_id']; ?>">
+                                            <div class="imgs"><img style="width:280px; height:155px;" src="<?php echo DS . $list['img_path'] .DS. $list['img_name'];?>" alt=""></div>
+                                            <div class="desc" style="width: 271px;">
+                                                <div class="info">
+                                                    <span class="state">
+                                                    <?php 
+                                                        if($list['playing']) : echo "진행중"; 
+                                                        else : 
+                                                            if(date('m. d. H:m') < $list['sdate']) : 
+                                                                echo "진행전"; 
+                                                            else :
+                                                                echo "종료";
+                                                            endif;
+                                                        endif;
+                                                    ?>
+                                                    </span>
+                                                    <span class="date"><?php echo $list['sdate'] . " ~ " . $list['edate']; ?></span>
+                                                </div>
+                                                <h3 class="h-ty3"><?php echo $list['title']; ?></h3>
+                                                <p class="tx-1"><?php echo $list['description']; ?></p>
+                                            </div>
+                                            </a>
+                                        </div>                                    
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                            </div>
+                        </div>
+                        <div class="swiper-button-next"></div> 
+                        <div class="swiper-button-prev"></div>   
+                    </div>                    
                 </div>
                 <div class="slider5Div">
                 </div>              
@@ -322,6 +320,7 @@
     </div>
 
     <script>
+
         //메인 배너 화살표 
         $('.swiper-container').mouseover(function(){
             $('.swiper-button-next').addClass('visible');
@@ -412,5 +411,31 @@
         //         console.log("2")
         //     }
         // });
+
+        var body = document.getElementsByTagName("body")[0];
+
+        window.onresize = function(event){ //실시간 화면 크기 변화 감지 
+        var innerWidth = window.innerWidth;
+
+        if(innerWidth < "768"){ //모바일 화면시 
+            alert("mobile");
+        } else {  //pc 화면시 
+            alert("pc"); 
+        }
+        }
+
+        window.onload = function(){
+            var innerWidth = window.innerWidth;
+
+            if(innerWidth < "768"){ //모바일 화면시 
+                alert("mobile");
+            } else {  //pc 화면시 
+                alert("pc"); 
+            }
+        }
+
+        
+
+        
 
     </script>
