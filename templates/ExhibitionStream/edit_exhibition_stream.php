@@ -84,7 +84,7 @@
 </head>
 
 <div class="contents">
-    <!-- <div class="sub-menu">
+    <div class="sub-menu">
         <div class="sub-menu-inner">
             <ul class="tab">
                 <li><a href="/exhibition/edit/<?= $exhibition_id ?>">행사 설정 수정</a></li>
@@ -94,7 +94,7 @@
                 <li><a href="/exhibition/exhibition-statistics-apply/<?= $exhibition_id ?>">행사 통계</a></li>
             </ul>
         </div>
-    </div> -->
+    </div>
     <?= $this->Form->create($exhibitionStream, ['id' => 'setForm']) ?>    
     <div class="section-webinar4">
         <div class="webinar-cont">
@@ -261,16 +261,16 @@
     });
 
     //hide sub-menu
-    $(document).on("click", ".webinar-tab-tg", function () {
-        if ($("#toggle").hasClass("close")) {
-            $(".sub-menu").show();
-        } else {
-            $(".sub-menu").hide();
-        }
-    });
+    // $(document).on("click", ".webinar-tab-tg", function () {
+    //     if ($("#toggle").hasClass("close")) {
+    //         $(".sub-menu").show();
+    //     } else {
+    //         $(".sub-menu").hide();
+    //     }
+    // });
 
     //페이지 로드시
-    $(".sub-menu").hide();
+    // $(".sub-menu").hide();
     setInterval("countViewer()" , 3000);
     setInterval("updateLiveDurationTime()" , 1000);
     setInterval("getRemainLiveDuration()" , 1000);
