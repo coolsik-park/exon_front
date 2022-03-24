@@ -81,8 +81,8 @@
     var totalFileSize = 0;
     var fileList = new Array();
     var fileSizeList = new Array();
-    var uploadSize = 50;
-    var maxUploadSize = 500;
+    var uploadSize = 51200;
+    var maxUploadSize = 51200;
 
     $(function() {
         var dropZone = $('#dropZone');
@@ -125,10 +125,22 @@
                 var fileName = files[i].name;
                 var fileNameArr = fileName.split("\.");
                 var ext = fileNameArr[fileNameArr.length - 1];
+                var fileSize = files[i].size / 1024;
 
-                fileList[fileIndex] = files[i];
-                addFileList(fileIndex, fileName);
-                fileIndex++;
+                if (fileSize > uploadSize) {
+                    alert("용량 초과\n업로드 가능 용량 : " + uploadSize/1024 + "MB");
+                    break;
+                } else {
+                    totalFileSize += fileSize;
+                    fileList[fileIndex] = files[i];
+                    fileSizeList[fileIndex] = fileSize;
+                    addFileList(fileIndex, fileName);
+                    fileIndex++;
+                }
+
+                // fileList[fileIndex] = files[i];
+                // addFileList(fileIndex, fileName);
+                // fileIndex++;
             }
         } else {
             alert("ERROR");
@@ -160,7 +172,7 @@
         var faqCategoryId = $('#categories option:selected').val();
 
         if (!getHp.test($('#hp').val())) {
-            $('#hpNoti').html("전화번호를 제대로 입력해 주세요.");
+            $('#hpNoti').html("전화번호를 다시한번 확인해주세요.");
             $('#hp').focus();
             return false;
         } else {
@@ -168,7 +180,7 @@
         }
 
         if ($('#hp').val().length < 11) {
-            $('#hpNoti').html("전화번호를 제대로 입력해 주세요.");
+            $('#hpNoti').html("전화번호를 다시한번 확인해주세요.");
             $('#hp').focus();
             return false;
         } else {
@@ -176,7 +188,7 @@
         }
 
         if (!getEmail.test($('#email').val())) {
-            $('#emailNoti').html('이메일을 제대로 입력해 주세요.');
+            $('#emailNoti').html('이메일을 다시한번 확인해주세요.');
             $('#email').focus();
             return false;
         } else {
@@ -200,11 +212,16 @@
                 users_email: $('#email').val(),
                 question: $('#question').val(),
             },
-            success : function (data) {
+            success : function(data) {
                 if (uploadFileList.length == 0) {
                     alert('문의하기가 완료되었습니다.'); 
                     location.href='/';
                 } else {
+                    if (totalFileSize > maxUploadSize) {
+                        alert("총 용량 초과\n총업로드 가능 용량 : " + maxUploadSize/1024 + "MB");
+                        return;
+                    }
+
                     var formData = new FormData();
 
                     for (var i=0; i<uploadFileList.length; i++) {
@@ -218,18 +235,17 @@
                         cache: false,
                         data: formData,
                         type: 'POST',
-                        success : function (data) {
+                        success: function (data) {
                             alert('파일 저장 완료되었습니다.');
                             location.href='/';
                         }, 
-                        error : function () {
-                            console.log(data.status);
+                        error: function () {
                             alert('파일 저장에 실패하였습니다\n잠시후 다시 시도해주십시오.');
                         }
                     });
                 }
             },
-            error : function () {
+            error: function () {
                 alert("오류가 발생하였습니다.\n잠시후 다시 시도해주십시오.");
             } 
         });
