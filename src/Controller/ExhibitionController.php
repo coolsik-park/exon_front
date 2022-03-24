@@ -2182,14 +2182,13 @@ class ExhibitionController extends AppController
         }
     }
 
-    public function fileDown($id = null) {
+    public function fileDown($id = null, $down_file_name = null) {
         $notice = $this->getTableLocator()->get('Notice')->find('all')->where(['id' => $id])->toArray();
-        $fileName = $notice[0]->file_name;
-        $down = "/var/www/exon/bomi/webroot" . $notice[0]->file_path . "/" . $fileName;
+        $down = "/var/www/exon/bomi/webroot" . $notice[0]->file_path . "/" . $down_file_name;
         
         if(is_file($down)) {
             header("Content-Type:application/octet-stream");
-            header("Content-Disposition:attachment;filename= " . $fileName);
+            header("Content-Disposition:attachment;filename= " . $down_file_name);
             header("Content-Transfer-Encoding:binary");
             header("Content-Length:" . filesize($down));
             header("Cache-Control:cache,must-revalidate");
