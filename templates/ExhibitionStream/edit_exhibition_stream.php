@@ -638,6 +638,7 @@
                         $("#is_paid").val(1);
                         $("#pay_id").val(0);
                         coupon_id = data.coupon_id;
+                        coupon_amount = removeComma($('input#amount').val();
                         setTimeout(function () {
                             $("#save").click();
                         }, 500);
