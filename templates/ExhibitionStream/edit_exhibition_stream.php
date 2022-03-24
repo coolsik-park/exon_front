@@ -253,16 +253,16 @@
     });
 
     //hide sub-menu
-    // $(document).on("click", ".webinar-tab-tg", function () {
-    //     if ($("#toggle").hasClass("close")) {
-    //         $(".sub-menu").show();
-    //     } else {
-    //         $(".sub-menu").hide();
-    //     }
-    // });
+    $(document).on("click", ".webinar-tab-tg", function () {
+        if ($("#toggle").hasClass("close")) {
+            $(".sub-menu").show();
+        } else {
+            $(".sub-menu").hide();
+        }
+    });
 
     //페이지 로드시
-    // $(".sub-menu").hide();
+    $(".sub-menu").hide();
     setInterval("countViewer()" , 3000);
     setInterval("updateLiveDurationTime()" , 1000);
     setInterval("getRemainLiveDuration()" , 1000);
