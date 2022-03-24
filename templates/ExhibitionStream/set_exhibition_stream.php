@@ -439,7 +439,7 @@
                         $("#is_paid").val(1);
                         $("#pay_id").val(0);
                         coupon_id = data.coupon_id;
-                        coupon_amount = removeComma($('input#amount').val();
+                        coupon_amount = removeComma($('input#amount').val());
                         if ($("#title").val().length == 0) {
                             $("#title").val("<?=$title?>");
                         }
