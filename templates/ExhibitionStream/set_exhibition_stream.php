@@ -438,6 +438,7 @@
                     if (confirm("프로모션 적용으로 무료로 진행되는 행사입니다.\n결제 과정 없이 현재 지정된 시간과 인원수로 스트림 키가 발급되오니 다시한번 확인해주시기 바랍니다.\n사용된 프로모션 키는 재사용이 불가합니다.")) {
                         $("#is_paid").val(1);
                         $("#pay_id").val(0);
+                        coupon_id = data.coupon_id;
                         if ($("#title").val().length == 0) {
                             $("#title").val("<?=$title?>");
                         }

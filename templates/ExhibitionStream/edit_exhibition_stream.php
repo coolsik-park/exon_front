@@ -637,7 +637,7 @@
                     if (confirm("프로모션이 적용되어 결제 과정 없이 현재 지정된 시간과 인원수로 설정이 변경되오니 다시한번 확인해주시기 바랍니다.\n사용된 프로모션 키는 재사용이 불가합니다.")) {
                         $("#is_paid").val(1);
                         $("#pay_id").val(0);
-                        
+                        coupon_id = data.coupon_id;
                         setTimeout(function () {
                             $("#save").click();
                         }, 500);
