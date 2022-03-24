@@ -69,7 +69,7 @@
 
                                                             if (is_file($file)) {
                                 ?>
-                                                                <li><button type="button" class="btn-ty3 bor" id="file-download-button"><a href="/exhibition/file-down/<?= $board->id ?>"><img src="/img/file-icon.png" width="3%"><?= $file_name[$i] ?></a></button></li>
+                                                                <li><button type="button" class="btn-ty3 bor" id="file-download-button"><a href="/exhibition/file-down/<?= $board->id ?>/<?= $file_name[$i] ?>"><img src="/img/file-icon.png" width="3%"><?= $file_name[$i] ?></a></button></li>
                                 <?php
                                                             }
                                                         }
