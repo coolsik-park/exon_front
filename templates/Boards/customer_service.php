@@ -1,4 +1,9 @@
 <style>
+    div.b-desc * {
+        font-weight: revert;
+        font-size: revert;
+    }
+
     .paginator {
         text-align: center;
     }
@@ -10,6 +15,19 @@
 
     .pagination li {
         display: inline;
+    }
+    
+    button:focus {
+        outline: none;
+    }
+
+    .board-lists .b-tit {
+        font-size: 1.1rem;
+    }
+
+    .board-lists .b-desc {
+        background-color: #E8E8E8;
+        font-size: 1rem;
     }
 </style>
 
@@ -24,7 +42,7 @@
                 </ul>
             </div>
             <div class="section-cs1">
-                <h3 class="s-hty1">가장 자주하는 질문 10</h3>
+                <h3 class="s-hty1">가장 자주하는 질문</h3>
                 <ul class="board-lists">
                     <?php foreach ($faqs_main as $faq_main): ?>
                         <li>
@@ -117,7 +135,17 @@
 </div>
 
 <script>   
-    ui.addOnAction('.board-lists>li');
+    // ui.addOnAction('.board-lists>li');
+    $(document).on('click', '.board-lists>li>button', function() {
+        if ($(this).parent().hasClass('on')) {
+            $(this).parent().removeClass('on');
+        } else {
+            $('.board-lists>li>button').each(function () {
+                $(this).parent().removeClass('on');
+            });
+            $(this).parent().addClass('on');
+        }
+    });
 
     $('#all').on('click', function() {
         $.ajax({
@@ -143,7 +171,6 @@
                 html += '</div>';
 
                 $('#category-list').html(html);
-                ui.addOnAction('.board-lists>li');
             } else {
                 alert("실패하였습니다.");
             }
@@ -174,7 +201,6 @@
                 html += '</div>';
 
                 $('#category-list').html(html);
-                ui.addOnAction('.board-lists>li');
             } else {
                 alert("실패하였습니다.");
             }
@@ -205,7 +231,6 @@
                 html += '</div>';
 
                 $('#category-list').html(html);
-                ui.addOnAction('.board-lists>li');
             } else {
                 alert("실패하였습니다.");
             }
@@ -236,7 +261,6 @@
                 html += '</div>';
 
                 $('#category-list').html(html);
-                ui.addOnAction('.board-lists>li');
             } else {
                 alert("실패하였습니다.");
             }
@@ -267,7 +291,6 @@
                 html += '</div>';
 
                 $('#category-list').html(html);
-                ui.addOnAction('.board-lists>li');
             } else {
                 alert("실패하였습니다.");
             }
@@ -298,7 +321,6 @@
                 html += '</div>';
 
                 $('#category-list').html(html);
-                ui.addOnAction('.board-lists>li');
             } else {
                 alert("실패하였습니다.");
             }
@@ -329,7 +351,6 @@
                 html += '</div>';
 
                 $('#category-list').html(html);
-                ui.addOnAction('.board-lists>li');
             } else {
                 alert("실패하였습니다.");
             }
@@ -360,7 +381,6 @@
                 html += '</div>';
 
                 $('#category-list').html(html);
-                ui.addOnAction('.board-lists>li');
             } else {
                 alert("실패하였습니다.");
             }
