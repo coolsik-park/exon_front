@@ -62,7 +62,7 @@
             padding: 0px;
         }
         .main-visual .imgs img {
-            height: 150px;
+            height: 22vH;
         }
         .subBanner {
             width:375px; 
@@ -112,13 +112,15 @@
 </style>
 <div id="container">
         <div class="main">
-            <div class="main-visual">                
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
+            <div class="main-visual ">                
+                <div class="swiper-container ">
+                    <div class="swiper-wrapper ">
 						<?php foreach ($banner as $list): ?>
-							<div class="swiper-slide">
-								<a href="/boards/notice" class="imgs"><img src="<?php echo $list->img_path . $list->img_name;?>" class="responsiveImg" data-media-web="<?php echo $list->img_path . $list->img_name;?>" data-media-mobile="<?php echo $list->img_path . $list->img_name;?>" alt="" ></a>
+                            <?php $i = 0; ?>
+							<div class="swiper-slide bannerPC">
+								<a href="/boards/notice" class="imgs "><img name="bannerImg<?=$i?>" src="<?php echo $list->img_path . $list->img_name;?>" class="responsiveImg" data-media-web="<?php echo $list->img_path . $list->img_name;?>" data-media-mobile="<?php echo $list->img_path . $list->img_name;?>" alt="" ></a>
 							</div>
+                            <?php $i++; ?>
 						<?php endforeach; ?>
                     </div>
                     <div class="swiper-button-next"></div> 
@@ -322,6 +324,45 @@
     </div>
 
     <script>
+         var body = document.getElementsByTagName("body")[0];
+
+window.onresize = function(event){ //실시간 화면 크기 변화 감지 
+var innerWidth = window.innerWidth;
+
+if(innerWidth < "768"){ //모바일 화면시 
+    
+    // $('.bannerPCimg').remove();
+    // var html = '<img id="bannerImg" class="responsiveImg bannerPCimg" style="width: 100%;"  src="/images/모바일_상단 배너_01.jpg"/>';
+    // $('.bannerPC').html(html)
+    var imgurl = "/images/모바일_상단 배너_01.jpg";
+    console.log(imgurl);
+    
+    $('img[name=bannerImg0]').attr("src", imgurl);
+
+} else {  //pc 화면시 
+    var banner = <?= json_encode($banner) ?>;
+    var html = '';
+    for(var i = 0; i < banner.length; i++) {
+        // html += '<a href="/exhibition/view/' + banner[i]['exhibition_id'] + '" class="imgs"><img src="' + banner[i]['img_path'] + banner[i]['img_name'] + '" class="responsiveImg" data-media-web="'  + banner[i]['img_path'] + banner[i]['img_name'] + '" data-media-mobile="' + banner[i]['img_path'] + banner[i]['img_name'] + '" alt="" ></a>';
+        var imgurl = banner[i]['img_path'] + banner[i]['img_name'];
+        console.log(imgurl);
+        $('img[name="bannerImg'+i+'"]').attr("src", imgurl);
+    }
+}
+}
+
+$(document).ready(function() {
+    var innerWidth = window.innerWidth;
+
+    if(innerWidth < "768"){ //모바일 화면시 
+        var imgurl = "/images/모바일_상단 배너_01.jpg";
+    console.log(imgurl);
+    
+    $('img[name=bannerImg0]').attr("src", imgurl);
+    } else {  //pc 화면시 
+        
+    }
+})
         //메인 배너 화살표 
         $('.swiper-container').mouseover(function(){
             $('.swiper-button-next').addClass('visible');
