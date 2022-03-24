@@ -236,7 +236,7 @@
                         data: formData,
                         type: 'POST',
                         success: function (data) {
-                            alert('파일 저장 완료되었습니다.');
+                            alert('문의하기가 완료되었습니다.');
                             location.href='/';
                         }, 
                         error: function () {
