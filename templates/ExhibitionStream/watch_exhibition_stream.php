@@ -17,11 +17,6 @@
             /* margin:0px;
             top:0%; */
         }
-        @media  screen and (max-width: 768px) {
-            .webinar-tab-body {
-                height: 200px;
-            }
-        }
     </style>
 </head>
 
@@ -97,15 +92,15 @@
     });
     
     // 방송 중 체크
-    $(document).ready(function () {
-        $.ajax({
-            url: "https://orcaexon.co.kr/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8",
-            type: 'HEAD',
-            error: function () {
-                window.location.replace("/exhibition-stream/stream-not-exist");
-            }
-        });
-    });
+    // $(document).ready(function () {
+    //     $.ajax({
+    //         url: "https://orcaexon.co.kr/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8",
+    //         type: 'HEAD',
+    //         error: function () {
+    //             window.location.replace("/exhibition-stream/stream-not-exist");
+    //         }
+    //     });
+    // });
     
     //잘못된 접근 차단
     var ref = document.referrer;
@@ -119,17 +114,7 @@
         //시청자수 카운트
         setInterval("updateLastViewTime()" , 1000);
         setInterval("countViewer()" , 3000);
-        // setInterval("updateLiveDurationTime()" , 1000);
-        setInterval("liveEndCheck()", 3000);
-        
-        //video.js 컨트롤
-        // var address = "https://orcaexon.co.kr/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8"
-        // window.onload = function () {
-        //     var player = videojs(document.querySelector('#vid1'));
-        //     player.src({
-        //             src: address, type: 'application/x-mpegURL' });
-        //     player.load();
-        // }
+        setInterval("liveEndCheck()", 1000);
 
         //탭 컨트롤 
         var dec = "<?=$exhibitionStream[0]['tab']?>";
