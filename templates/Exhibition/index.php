@@ -158,9 +158,9 @@
                                     <p class="tx-1">
                                         <?php
                                             if ($exhibition->apply_sdate != '') :
-                                                $apply_sdate = date("Y.m.d", strtotime($exhibition->apply_sdate));
-                                                $apply_shour = date("H", strtotime($exhibition->apply_sdate));
-                                                $apply_smin = date("i", strtotime($exhibition->apply_sdate));
+                                                $apply_sdate = date("Y.m.d", strtotime($exhibition->apply_sdate)+32400);
+                                                $apply_shour = date("H", strtotime($exhibition->apply_sdate)+32400);
+                                                $apply_smin = date("i", strtotime($exhibition->apply_sdate)+32400);
                                             else :
                                                 $apply_sdate = '';
                                                 $apply_shour = '';
@@ -168,9 +168,9 @@
                                             endif;
 
                                             if ($exhibition->apply_edate != '') :
-                                                $apply_edate = date("Y.m.d", strtotime($exhibition->apply_edate));
-                                                $apply_ehour = date("H", strtotime($exhibition->apply_edate));
-                                                $apply_emin = date("i", strtotime($exhibition->apply_edate));
+                                                $apply_edate = date("Y.m.d", strtotime($exhibition->apply_edate)+32400);
+                                                $apply_ehour = date("H", strtotime($exhibition->apply_edate)+32400);
+                                                $apply_emin = date("i", strtotime($exhibition->apply_edate)+32400);
                                             else :
                                                 $apply_edate = '';
                                                 $apply_ehour = '';
@@ -200,9 +200,9 @@
                                     <p class="tx-1">
                                         <?php
                                             if ($exhibition->sdate != '') :
-                                                $sdate = date("Y.m.d", strtotime($exhibition->sdate));
-                                                $shour = date("H", strtotime($exhibition->sdate));
-                                                $smin = date("i", strtotime($exhibition->sdate));
+                                                $sdate = date("Y.m.d", strtotime($exhibition->sdate)+32400);
+                                                $shour = date("H", strtotime($exhibition->sdate)+32400);
+                                                $smin = date("i", strtotime($exhibition->sdate)+32400);
                                             else :
                                                 $sdate = '';
                                                 $shour = '';
@@ -210,9 +210,9 @@
                                             endif;
 
                                             if ($exhibition->edate != '') :
-                                                $edate = date("Y.m.d", strtotime($exhibition->edate));
-                                                $ehour = date("H", strtotime($exhibition->edate));
-                                                $emin = date("i", strtotime($exhibition->edate));
+                                                $edate = date("Y.m.d", strtotime($exhibition->edate)+32400);
+                                                $ehour = date("H", strtotime($exhibition->edate)+32400);
+                                                $emin = date("i", strtotime($exhibition->edate)+32400);
                                             else :
                                                 $edate = '';
                                                 $ehour = '';
