@@ -63,38 +63,38 @@
                         </button>
                     </li>
                     <li>
-                        <button type="button" id="user">
-                            <span>회원</span>
+                        <button type="button" id="create">
+                            <span>행사개설</span>
                             <span><?= $count[0] ?></span>
                         </button>
                     </li>
                     <li>
-                        <button type="button" id="refund">
-                            <span>환불</span>
+                        <button type="button" id="apply">
+                            <span>행사신청</span>
                             <span><?= $count[1] ?></span>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" id="user">
+                            <span>회원관련</span>
+                            <span><?= $count[2] ?></span>
                         </button>
                     </li>
                     <li>
                         <button type="button" id="pay">
                             <span>결제</span>
-                            <span><?= $count[2] ?></span>
-                        </button>
-                    </li>
-                    <li>
-                        <button type="button" id="exhibitionParticipation">
-                            <span>행사 참여</span>
                             <span><?= $count[3] ?></span>
                         </button>
                     </li>
                     <li>
-                        <button type="button" id="exhibitionAdd">
-                            <span>행사 개설</span>
+                        <button type="button" id="receipt">
+                            <span>정산</span>
                             <span><?= $count[4] ?></span>
                         </button>
                     </li>
                     <li>
-                        <button type="button" id="webinar">
-                            <span>웨비나</span>
+                        <button type="button" id="refund">
+                            <span>환불</span>
                             <span><?= $count[5] ?></span>
                         </button>
                     </li>
@@ -177,7 +177,7 @@
         });
     });
 
-    $('#user').on('click', function() {
+    $('#create').on('click', function() {
         $.ajax({
             url: '/boards/faqs-by-category/1',
             method: 'POST',
@@ -188,7 +188,7 @@
                 var faqs = data.data;
 
                 var html = '';
-                html += '<h4 class="s-hty3" id="s-hty3">회원</h4>';
+                html += '<h4 class="s-hty3" id="s-hty3">행사개설</h4>';
                 html += '<div>';
                 html += '   <ul class="board-lists">';
                 for (var i=0; i<faqs.length; i++) {
@@ -207,7 +207,7 @@
         });
     });
     
-    $('#refund').on('click', function() {
+    $('#apply').on('click', function() {
         $.ajax({
             url: '/boards/faqs-by-category/2',
             method: 'POST',
@@ -218,7 +218,7 @@
                 var faqs = data.data;
 
                 var html = '';
-                html += '<h4 class="s-hty3" id="s-hty3">환불</h4>';
+                html += '<h4 class="s-hty3" id="s-hty3">행사신청</h4>';
                 html += '<div>';
                 html += '   <ul class="board-lists">';
                 for (var i=0; i<faqs.length; i++) {
@@ -237,9 +237,39 @@
         });
     });
 
-    $('#pay').on('click', function() {
+    $('#user').on('click', function() {
         $.ajax({
             url: '/boards/faqs-by-category/3',
+            method: 'POST',
+            type: 'json',
+            data: {}
+        }).done(function(data) {
+            if (data.status == 'success') {
+                var faqs = data.data;
+
+                var html = '';
+                html += '<h4 class="s-hty3" id="s-hty3">회원관련</h4>';
+                html += '<div>';
+                html += '   <ul class="board-lists">';
+                for (var i=0; i<faqs.length; i++) {
+                    html += '   <li>';
+                    html += '       <button type="button" class="b-tit">' + faqs[i]['title'] + '</button>';
+                    html += '       <div class="b-desc">' + faqs[i]['content'] + '</div>';
+                    html += '   </li>';
+                }
+                html += '   </ul>';
+                html += '</div>';
+
+                $('#category-list').html(html);
+            } else {
+                alert("실패하였습니다.");
+            }
+        });
+    });
+    
+    $('#pay').on('click', function() {
+        $.ajax({
+            url: '/boards/faqs-by-category/4',
             method: 'POST',
             type: 'json',
             data: {}
@@ -266,38 +296,8 @@
             }
         });
     });
-    
-    $('#exhibitionParticipation').on('click', function() {
-        $.ajax({
-            url: '/boards/faqs-by-category/4',
-            method: 'POST',
-            type: 'json',
-            data: {}
-        }).done(function(data) {
-            if (data.status == 'success') {
-                var faqs = data.data;
 
-                var html = '';
-                html += '<h4 class="s-hty3" id="s-hty3">행사 참여</h4>';
-                html += '<div>';
-                html += '   <ul class="board-lists">';
-                for (var i=0; i<faqs.length; i++) {
-                    html += '   <li>';
-                    html += '       <button type="button" class="b-tit">' + faqs[i]['title'] + '</button>';
-                    html += '       <div class="b-desc">' + faqs[i]['content'] + '</div>';
-                    html += '   </li>';
-                }
-                html += '   </ul>';
-                html += '</div>';
-
-                $('#category-list').html(html);
-            } else {
-                alert("실패하였습니다.");
-            }
-        });
-    });
-
-    $('#exhibitionAdd').on('click', function() {
+    $('#receipt').on('click', function() {
         $.ajax({
             url: '/boards/faqs-by-category/5',
             method: 'POST',
@@ -308,7 +308,7 @@
                 var faqs = data.data;
 
                 var html = '';
-                html += '<h4 class="s-hty3" id="s-hty3">행사 개설</h4>';
+                html += '<h4 class="s-hty3" id="s-hty3">정산</h4>';
                 html += '<div>';
                 html += '   <ul class="board-lists">';
                 for (var i=0; i<faqs.length; i++) {
@@ -327,7 +327,7 @@
         });
     });
     
-    $('#webinar').on('click', function() {
+    $('#refund').on('click', function() {
         $.ajax({
             url: '/boards/faqs-by-category/6',
             method: 'POST',
@@ -338,7 +338,7 @@
                 var faqs = data.data;
 
                 var html = '';
-                html += '<h4 class="s-hty3" id="s-hty3">웨비나</h4>';
+                html += '<h4 class="s-hty3" id="s-hty3">환불</h4>';
                 html += '<div>';
                 html += '   <ul class="board-lists">';
                 for (var i=0; i<faqs.length; i++) {
