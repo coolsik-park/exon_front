@@ -37,78 +37,68 @@ class BoardsController extends AppController
     
     public function questionAdd()
     {
-
         $userquestion_table = TableRegistry::get('UserQuestion');
         $board = $userquestion_table->newEmptyEntity();
 
         if ($this->request->is('post')) {
-            $board->faq_category_id = $this->request->getData('faq_category_id');
             $board->users_id = $this->Auth->user('id');
-            $board->title = $this->request->getData('title');
             $board->users_name = $this->request->getData('users_name');
+            $board->title = $this->request->getData('title');
             $board->users_hp = $this->request->getData('users_hp');
             $board->users_email = $this->request->getData('users_email');
             $board->question = $this->request->getData('question');
-
-            if ($result = $userquestion_table->save($board)) {
-                $response = $this->response->withType('json')->withStringBody(json_encode(['users_question_id' => $result->id]));
-            } else {
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
-            }
+            $board->faq_category_id = $this->request->getData('faq_category_id');
         }
 
+        if ($result = $userquestion_table->save($board)) {
+            $response = $this->response->withType('json')->withStringBody(json_encode(['users_question_id' => $result->id]));
+        } else {
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+        }
         return $response;
+
     }
 
     public function fileUpload($question_id = null)
     {
-        $connection = ConnectionManager::get('default');
-        $connection->begin();
-
         $usersquestionfiles_table = TableRegistry::get('UserQuestionFiles');
+        $usersquestionfiles = $usersquestionfiles_table->newEmptyEntity();
 
         if ($this->request->is('post')) {
             $data = $this->request->getData();
             $count = count($data['file']);
+
+            for ($i=0; $i<$count; $i++) {               
+                $file = $data['file'][$i];
+                $fileName = $file->getClientFilename();
+                $index = strpos(strrev($fileName), strrev('.'));
+                $expen = strtolower(substr($fileName, ($index * -1)));
+                $path =  DS . 'upload' . DS . 'user_question_files' . DS . date("Y") . DS . date("m");
     
-            for ($i=0; $i<$count; $i++) {
-                $usersquestionfiles = $usersquestionfiles_table->newEmptyEntity();
-                $usersquestionfiles->user_question_id = $question_id;
-                $usersquestionfiles->file_path = '';
-                $usersquestionfiles->file_name = '';
-                
-                if ($result = $usersquestionfiles_table->save($usersquestionfiles)) {
-                    $file = $data['file'][$i];
-                    $fileName = $file->getClientFilename();
-                    $index = strpos(strrev($fileName), strrev('.'));
-                    $expen = strtolower(substr($fileName, ($index * -1)));
-                    $path = 'upload' . DS . 'user_question_files' . DS . date("Y") . DS . date("m");
-    
-                    if (!file_exists(WWW_ROOT . $path)) {
-                        $oldMask = umask(0);
-                        mkdir(WWW_ROOT . $path, 0777, true);
-                        chmod(WWW_ROOT . $path, 0777);
-                        umask($oldMask);
-                    }
-    
-                    $fileName = $result->id . "_users_question." . $expen;
-                    $destination = WWW_ROOT . $path . DS . $fileName;
-                    $file->moveTo($destination);
-        
-                    if ($connection->update('user_question_files', ['file_path' => $path, 'file_name' => $fileName], ['id' => $result->id])) {
-                        $connection->commit();
-                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
-                    } else {
-                        $connection->rollback();
-                        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'failaaaaaa']));
-                    }
+                if (!file_exists(WWW_ROOT . $path)) {
+                    $oldMask = umask(0);
+                    mkdir(WWW_ROOT . $path, 0777, true);
+                    chmod(WWW_ROOT . $path, 0777);
+                    umask($oldMask);
+                }
+
+                $destination = WWW_ROOT . $path . DS . $fileName;
+                $file->moveTo($destination);
+
+                if ($i == 0) {   
+                    $files = $fileName;
                 } else {
-                    $connection->rollback();
-                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'failbbbbbb']));
+                    $files = $files . "," . $fileName;
                 }
             }
-            $connection->commit();
-            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+
+            $usersquestionfiles->user_question_id = $question_id;
+            $usersquestionfiles->file_path = $path;
+            $usersquestionfiles->file_name = $files;
+
+            if ($usersquestionfiles_table->save($usersquestionfiles)) {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['test' => 'success']));
+            }
             return $response;
         }
     }
