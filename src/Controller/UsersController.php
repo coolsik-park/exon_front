@@ -452,6 +452,9 @@ class UsersController extends AppController
                     ->where(['social_id'=>$responseArr['response']['id'], 'status'=>1])
                     ->first();
 
+                    $user->is_logged = $this->generateCode();
+                    $this->Users->save($user);
+
                     $this->Auth->setUser($user);
                     return $this->redirect("/");
                 } else {
@@ -517,9 +520,10 @@ class UsersController extends AppController
                     ->where(['social_id'=>$responseArr['id'], 'status'=>1])
                     ->first();
 
+                    $user->is_logged = $this->generateCode();
+                    $this->Users->save($user);
+
                     $this->Auth->setUser($user);
-                    // $target = $this->Auth->redirectUrl() ?? '/home';
-                    // return $this->redirect($target);
                     return $this->redirect("/");
                 } else {
                     $session->write('msg', '카카오 연동이 필요합니다. 회원가입 또는 EXON 계정이 존재하는 경우 로그인 후 마이페이지에서 연동을 진행해 주세요.');
