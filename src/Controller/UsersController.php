@@ -75,14 +75,21 @@ class UsersController extends AppController
         $session = $this->request->getSession();
         $msg = $session->consume('connect_msg');
 
+        $hp = $user->hp;
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user->password = password_hash($this->request->getData('password'), PASSWORD_DEFAULT);
             $user->name = $this->request->getData('name');
+            $user->hp = $this->request->getData('hp');
             $user->birthday = date('Y-m-d', strtotime($this->request->getData('birthday')));
             $user->sex = $this->request->getData('sex');
             $user->company = $this->request->getData('company');
             $user->title = $this->request->getData('title');
             $user->ip = $this->request->ClientIp();
+
+            if ($hp != $user->hp) {
+                $user->hp_cert = 0;
+            }
 
             if ($this->Users->save($user)) {
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
@@ -100,7 +107,6 @@ class UsersController extends AppController
         $user = $this->Users->get($id);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $user->hp = $this->request->getData('hp');
             $user->hp_cert = '0';
 
             if ($this->Users->save($user)) {
@@ -446,6 +452,9 @@ class UsersController extends AppController
                     ->where(['social_id'=>$responseArr['response']['id'], 'status'=>1])
                     ->first();
 
+                    $user->is_logged = $this->generateCode();
+                    $this->Users->save($user);
+
                     $this->Auth->setUser($user);
                     return $this->redirect("/");
                 } else {
@@ -511,9 +520,10 @@ class UsersController extends AppController
                     ->where(['social_id'=>$responseArr['id'], 'status'=>1])
                     ->first();
 
+                    $user->is_logged = $this->generateCode();
+                    $this->Users->save($user);
+
                     $this->Auth->setUser($user);
-                    // $target = $this->Auth->redirectUrl() ?? '/home';
-                    // return $this->redirect($target);
                     return $this->redirect("/");
                 } else {
                     $session->write('msg', '카카오 연동이 필요합니다. 회원가입 또는 EXON 계정이 존재하는 경우 로그인 후 마이페이지에서 연동을 진행해 주세요.');
