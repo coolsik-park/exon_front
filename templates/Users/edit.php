@@ -37,6 +37,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
 .emailBtn {
     width: 135px;
 }
+
 @media  screen and (min-width: 768px) {
     #delete {
         position: absolute;
@@ -151,9 +152,9 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                                 <select id="cellNumber">
                                     <option value="010">010</option>
                                 </select>
-                                <input type="text" id="cellNumber2" value="<?= substr($user->hp, 3) ?>" placeholder="'-' 없이 입력해 주세요" title="휴대전화 번호">
+                                <input type="text" id="cellNumber2" value="<?= substr($user->hp, 3) ?>" placeholder="- 없이 입력해 주세요" title="휴대전화 번호">
                             </div>
-                            <button type="button" class="btn-ty3 md" data-toggle="modal" data-target="#smsModal">
+                            <button type="button" class="btn-ty3 md" data-toggle="modal" id="smsButton" data-target="#smsModal">
                                 휴대전화 인증
                             </button>
                             <div class="modal fade" id="smsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -187,13 +188,12 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                             </div>
                         <?php else: ?>                    
                             <div class="col-dd col-cell">
-                            <div class="col-cell-wp">
-                                <select id="cellNumber">
-                                    <option value="010">010</option>
-                                </select>
-                                <input type="text" id="cellNumber2" value="<?= substr($user->hp, 3) ?>" placeholder="'-' 없이 입력해 주세요" title="휴대전화 번호">
-                            </div>
-                            <button type="button" class="btn-ty3 bor md" id="hpSaveButton">휴대전화 변경</button>
+                                <div class="col-cell-wp" style="width: 100%;">
+                                    <select id="cellNumber">
+                                        <option value="010">010</option>
+                                    </select>
+                                    <input type="text" id="cellNumber2" value="<?= substr($user->hp, 3) ?>" placeholder="- 없이 입력해 주세요" title="휴대전화 번호">
+                                </div>
                         <?php endif; ?>
                     </div>
                   <p id="hpNoti" class="noti hc1"></p>
@@ -323,7 +323,6 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
     });
     
     $("#emailSend").click(function () {
-        console.log("aaaaa");
         if ($("#email").val() == "") {
             $("#emailNoti").html("이메일을 입력해 주세요.");
             $("#email").focus();
@@ -419,46 +418,6 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
         });
     });
 
-    $('#hpSaveButton').on('click', function() {
-        var getHp = RegExp(/^[0-9]*$/);
-        var result = [];
-
-        if ($('#cellNumber2').val().length < 4) {
-            $('#hpNoti').html('전화번호를 제대로 입력해 주세요.');
-            $('#celNumber2').focus();
-            result.push('false');
-        } else {
-            $('#hpNoti').html('');
-            result.push('true');
-        }
-
-        if (!getHp.test($('#cellNumber2').val())) {
-            $('#hpNoti').html('전화번호를 제대로 입력해 주세요.');
-            $('#celNumber2').focus();
-            result.push('false');
-        } else {
-            $('#hpNoti').html('');
-            result.push('true');
-        }
-
-        if (!result.includes('false')) {
-            $.ajax({
-                url: '/users/hpUpdate/<?= $user->id ?>',
-                method: 'POST',
-                type: 'json',
-                data: {
-                    hp: $('#cellNumber').val() + $('#cellNumber2').val(),
-                }
-            }).done(function (data) {
-                if (data.status == 'success') {
-                    $('#hp-row').load(location.href+" #hp-row");
-                } else {
-                    alert("성공되지 않았습니다.");
-                }
-            });
-        }
-    });
-
     last_id = 0;
 
     $(document).on("change", "#sms", function() {
@@ -469,11 +428,11 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
         $("#smsCodeNoti").html("");
     });
 
-    var hp1 = $("#cellNumber").val();
-    var hp2 = $("#cellNumber2").val();
-    $("#sms").attr('value', hp1+hp2);
+    $(document).on("click", "#smsButton", function () {
+        $("#sms").attr('value', $("#cellNumber").val()+$("#cellNumber2").val());
+    });
 
-    $("#smsSend").on('click', function () {
+    $(document).on('click', "#smsSend", function () {
         if ($("#sms").val() == "") {
             $("#smsNoti").html("전화번호를 입력해 주세요.");
             $("#sms").focus();
@@ -538,7 +497,9 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
         });
     });
 
-    $("#smsConfirm").click(function () {
+    // $("#smsConfirm").click(function () {
+    $(document).on('click', "#smsConfirm", function () {
+        console.log("aaaaa");
         var user_id = '<?=$user->id?>';
 
         if ($("#smsCode").val() == "") {
@@ -554,14 +515,13 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
             data: {
                 code: $("#smsCode").val(),
                 user_id: user_id,
-                hp: hp1+hp2,
+                hp: $("#cellNumber").val()+$("#cellNumber2").val(),
             }
         }).done(function(data) {
             if (data.status == 'success') {
                 alert("인증이 완료되었습니다.");
+                // $('#hp-row').load(location.href+" #hp-row");
                 $('#smsModal').modal('hide');
-                functionThatEndsUpDestroyingTheDOM();
-                $('#hp-row').load(location.href+" #hp-row");
             } else if (data.status == 'fail') {
                 alert("인증번호를 다시 확인해주세요.");
                 $("#smsCode").val("");
@@ -733,66 +693,77 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
     
     $('#saveButton').on('click', function() {
         var getName = RegExp(/^[가-힣]+$/);
-        var result = [];
+        var getHp = RegExp(/^[0-9]*$/);
 
         if ($('#password').val().length < 8) {
             $('#lengthNoti').html("비밀번호는 8자 이상으로 입력해 주세요.");
             $('#password').focus();
-            result.push('false');
+            return false;
         } else {
             $('#lengthNoti').html('');
-            result.push('true');
         }
         
         if ($('#password').val() != $('#passwordRe').val()) {
-            $('#ReNoti').html('비밀번호가 다릅니다. 다시 입력해 주세요.');
-            $('passwordRe').focus();
-            result.push('false');
+            $('#ReNoti').html('비밀번호가 다릅니다.\n다시 입력해 주세요.');
+            $('#passwordRe').focus();
+            return false;
         } else {
             $('#ReNoti').html('');
-            result.push('true');
         }
 
         if ($('#name').val() == '') {
             $('#nameNoti').html('이름을 입력해 주세요.');
             $('#name').focus();
-            result.push('false');
+            return false;
         } else {
             $('#nameNoti').html('');
-            result.push('true');
+        }
+
+        if ($('#cellNumber2').val().length < 4) {
+            $('#hpNoti').html('전화번호를 다시 한번 확인해 주세요.');
+            $('#cellNumber').focus();
+            return false;
+        } else {
+            $('#hpNoti').html('');
+        }
+
+        if (!getHp.test($('#cellNumber2').val())) {
+            $('#hpNoti').html('전화번호를 다시 한번 확인해 주세요.');
+            $('#cellNumber').focus();
+            return false;
+        } else {
+            $('#hpNoti').html('');
         }
         
-        // if (!getName.test($("#name").val())) {
-        //     $('#nameNoti').html('이름을 올바르게 입력해 주세요.');
-        //     $('#name').focus();
-        //     result.push('false');
-        // } else {
-        //     $('#nameNoti').html('');
-        //     result.push('true');
-        // }
-
-        if (!result.includes('false')) {
-            $.ajax({
-                url: '/users/edit/<?= $user->id ?>',
-                method: 'POST',
-                type: 'json',
-                data: {
-                    password: $('#password').val(),
-                    name: $('#name').val(),
-                    birthday: $('#yy').val() + "-" + $('#mm').val() + "-" + $('#dd').val(),
-                    sex: $('#gender').val(),
-                    company: $('#company').val(),
-                    title: $('#title').val(),
-                }
-            }).done(function (data) {
-                if (data.status == 'success') {
-                    alert("저장되었습니다.");
-                    location.replace('https://exon.live/');
-                } else {
-                    alert("성공되지 않았습니다.");
-                }
-            });
+        if (!getName.test($("#name").val())) {
+            $('#nameNoti').html('이름을 올바르게 입력해 주세요.');
+            $('#name').focus();
+            return false;
+        } else {
+            $('#nameNoti').html('');
         }
+
+        $.ajax({
+            url: '/users/edit/<?= $user->id ?>',
+            method: 'POST',
+            type: 'json',
+            data: {
+                password: $('#password').val(),
+                name: $('#name').val(),
+                hp: $("#cellNumber").val()+$("#cellNumber2").val(),
+                birthday: $('#yy').val() + "-" + $('#mm').val() + "-" + $('#dd').val(),
+                sex: $('#gender').val(),
+                company: $('#company').val(),
+                title: $('#title').val(),
+            }
+        }).done(function (data) {
+            if (data.status == 'success') {
+                alert("저장되었습니다.");
+                location.replace('https://exon.live/');
+            } else {
+                alert("성공되지 않았습니다.");
+            }
+        });
     });
 
     //연동 확인 및 알림
