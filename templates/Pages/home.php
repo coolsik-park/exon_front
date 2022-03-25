@@ -68,6 +68,9 @@
             width:375px; 
             height:239.78px;
         }
+        ..main-slider3 .swiper-slide {
+            height: 72.5px;
+        }
         .main-slider3 .swiper-slide img {
             height: auto;
         }
