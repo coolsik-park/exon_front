@@ -458,7 +458,7 @@ class ExhibitionStreamController extends AppController
 
         if ($this->request->is('post')) {
             $exhibition = $Exhibition->get($id);
-            $program = $this->request->getData('program');
+            $program = htmlspecialchars_decode($this->request->getData('program'));
             $exhibition->program = $program;
 
             if ($Exhibition->save($exhibition)) {
