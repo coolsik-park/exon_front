@@ -115,8 +115,8 @@
             <div class="main-visual ">                
                 <div class="swiper-container ">
                     <div class="swiper-wrapper ">
+                        <?php $i = 0; ?>
 						<?php foreach ($banner as $list): ?>
-                            <?php $i = 0; ?>
 							<div class="swiper-slide bannerPC">
 								<a href="/boards/notice" class="imgs "><img name="bannerImg<?=$i?>" src="<?php echo $list->img_path . $list->img_name;?>" class="responsiveImg" data-media-web="<?php echo $list->img_path . $list->img_name;?>" data-media-mobile="<?php echo $list->img_path . $list->img_name;?>" alt="" ></a>
 							</div>
