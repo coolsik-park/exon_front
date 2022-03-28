@@ -118,16 +118,12 @@
             <div class="main-visual ">                
                 <div class="swiper-container ">
                     <div class="swiper-wrapper ">
-<<<<<<< HEAD
                         <?php $i = 0; ?>
-=======
-                    <?php $i = 0; ?>
->>>>>>> db52b3ed2e5d0f7e560b608c1b44ef6cdf65f237
 						<?php foreach ($banner as $list): ?>
 							<div class="swiper-slide bannerPC">
 								<a href="/boards/notice" class="imgs "><img name="bannerImg<?=$i?>" src="<?php echo $list->img_path . $list->img_name;?>" class="responsiveImg" data-media-web="<?php echo $list->img_path . $list->img_name;?>" data-media-mobile="<?php echo $list->img_path . $list->img_name;?>" alt="" ></a>
 							</div>
-                            <?php $i = $i+1; ?>
+                            <?php $i++;?>
 						<?php endforeach; ?>
                     </div>
                     <div class="swiper-button-next"></div> 
