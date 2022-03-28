@@ -118,12 +118,16 @@
             <div class="main-visual ">                
                 <div class="swiper-container ">
                     <div class="swiper-wrapper ">
+<<<<<<< HEAD
                         <?php $i = 0; ?>
+=======
+                    <?php $i = 0; ?>
+>>>>>>> db52b3ed2e5d0f7e560b608c1b44ef6cdf65f237
 						<?php foreach ($banner as $list): ?>
 							<div class="swiper-slide bannerPC">
 								<a href="/boards/notice" class="imgs "><img name="bannerImg<?=$i?>" src="<?php echo $list->img_path . $list->img_name;?>" class="responsiveImg" data-media-web="<?php echo $list->img_path . $list->img_name;?>" data-media-mobile="<?php echo $list->img_path . $list->img_name;?>" alt="" ></a>
 							</div>
-                            <?php $i++; ?>
+                            <?php $i = $i+1; ?>
 						<?php endforeach; ?>
                     </div>
                     <div class="swiper-button-next"></div> 
@@ -331,24 +335,18 @@
 
 window.onresize = function(event){ //실시간 화면 크기 변화 감지 
 var innerWidth = window.innerWidth;
+console.log(innerWidth);
 
-if(innerWidth < "768"){ //모바일 화면시 
+if(innerWidth < 768){ //모바일 화면시 
+    var imgurlM = "/images/모바일_상단 배너_01.jpg";
     
-    // $('.bannerPCimg').remove();
-    // var html = '<img id="bannerImg" class="responsiveImg bannerPCimg" style="width: 100%;"  src="/images/모바일_상단 배너_01.jpg"/>';
-    // $('.bannerPC').html(html)
-    var imgurl = "/images/모바일_상단 배너_01.jpg";
-    console.log(imgurl);
-    
-    $('img[name=bannerImg0]').attr("src", imgurl);
+    $('img[name=bannerImg0]').attr("src", imgurlM);
 
-} else {  //pc 화면시 
+} else if (innerWidth > 768) {  //pc 화면시 
     var banner = <?= json_encode($banner) ?>;
-    var html = '';
     for(var i = 0; i < banner.length; i++) {
         // html += '<a href="/exhibition/view/' + banner[i]['exhibition_id'] + '" class="imgs"><img src="' + banner[i]['img_path'] + banner[i]['img_name'] + '" class="responsiveImg" data-media-web="'  + banner[i]['img_path'] + banner[i]['img_name'] + '" data-media-mobile="' + banner[i]['img_path'] + banner[i]['img_name'] + '" alt="" ></a>';
         var imgurl = banner[i]['img_path'] + banner[i]['img_name'];
-        console.log(imgurl);
         $('img[name="bannerImg'+i+'"]').attr("src", imgurl);
     }
 }
@@ -358,9 +356,7 @@ $(document).ready(function() {
     var innerWidth = window.innerWidth;
 
     if(innerWidth < "768"){ //모바일 화면시 
-        var imgurl = "/images/모바일_상단 배너_01.jpg";
-    console.log(imgurl);
-    
+        var imgurl = "/images/모바일_상단 배너_01.jpg";    
     $('img[name=bannerImg0]').attr("src", imgurl);
     } else {  //pc 화면시 
         
