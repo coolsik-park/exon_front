@@ -53,6 +53,12 @@
         bottom:25%;
         z-index: 9999;
     }
+    .bannerPC {
+        display: block;
+    }
+    .bannerM {
+        display: none; 
+    }
     @media  screen and (max-width: 768px) {
         .kakao-chat {
             width:45%;
@@ -111,6 +117,12 @@
         .hotImg {
             height: 190px;
         }
+        .bannerPC {
+            display: none;
+        }
+        .bannerM {
+            display: block; 
+        }
     }
 </style>
 <div id="container">
@@ -120,8 +132,9 @@
                     <div class="swiper-wrapper ">
                         <?php $i = 0; ?>
 						<?php foreach ($banner as $list): ?>
-							<div class="swiper-slide bannerPC">
-								<a href="/boards/notice" class="imgs "><img name="bannerImg<?=$i?>" src="<?php echo $list->img_path . $list->img_name;?>" class="responsiveImg" data-media-web="<?php echo $list->img_path . $list->img_name;?>" data-media-mobile="<?php echo $list->img_path . $list->img_name;?>" alt="" ></a>
+							<div class="swiper-slide">
+                                <a href="/boards/notice" class="imgs "><img name="bannerImg<?=$i?>" src="<?php echo $list->img_path . $list->img_name;?>" class="responsiveImg bannerPC" data-media-web="<?php echo $list->img_path . $list->img_name;?>" data-media-mobile="<?php echo $list->img_path . $list->img_name;?>" alt="" ></a>	
+                                <a href="/boards/notice" class="imgs "><img name="bannerImg<?=$i?>" src="/images/모바일_상단 배너_01.jpg" class="responsiveImg bannerM" data-media-web="/images/모바일_상단 배너_01.jpg" data-media-mobile="/images/모바일_상단 배너_01.jpg" alt="" ></a>
 							</div>
                             <?php $i++;?>
 						<?php endforeach; ?>
@@ -318,7 +331,7 @@
                         <div class="swiper-button-next"></div> 
                         <div class="swiper-button-prev"></div>   
                     </div>   
-                    <?php endif;?>                
+                    <?php endif;?> 
                 </div>
                 <div class="slider5Div">
                 </div>              
@@ -327,37 +340,6 @@
     </div>
 
     <script>
-         var body = document.getElementsByTagName("body")[0];
-
-window.onresize = function(event){ //실시간 화면 크기 변화 감지 
-var innerWidth = window.innerWidth;
-console.log(innerWidth);
-
-if(innerWidth < 768){ //모바일 화면시 
-    var imgurlM = "/images/모바일_상단 배너_01.jpg";
-    
-    $('img[name=bannerImg0]').attr("src", imgurlM);
-
-} else if (innerWidth > 768) {  //pc 화면시 
-    var banner = <?= json_encode($banner) ?>;
-    for(var i = 0; i < banner.length; i++) {
-        // html += '<a href="/exhibition/view/' + banner[i]['exhibition_id'] + '" class="imgs"><img src="' + banner[i]['img_path'] + banner[i]['img_name'] + '" class="responsiveImg" data-media-web="'  + banner[i]['img_path'] + banner[i]['img_name'] + '" data-media-mobile="' + banner[i]['img_path'] + banner[i]['img_name'] + '" alt="" ></a>';
-        var imgurl = banner[i]['img_path'] + banner[i]['img_name'];
-        $('img[name="bannerImg'+i+'"]').attr("src", imgurl);
-    }
-}
-}
-
-$(document).ready(function() {
-    var innerWidth = window.innerWidth;
-
-    if(innerWidth < "768"){ //모바일 화면시 
-        var imgurl = "/images/모바일_상단 배너_01.jpg";    
-    $('img[name=bannerImg0]').attr("src", imgurl);
-    } else {  //pc 화면시 
-        
-    }
-})
         //메인 배너 화살표 
         $('.swiper-container').mouseover(function(){
             $('.swiper-button-next').addClass('visible');
