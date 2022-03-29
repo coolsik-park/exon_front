@@ -112,7 +112,7 @@
             font-size: 0.8rem;
         }
         .main-slider3 .swiper-slide {
-            height: 68.5px;
+            height: 69.5px;
         }
         .hotImg {
             height: 190px;
