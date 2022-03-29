@@ -20,6 +20,9 @@
     .menu-ul {
         z-index: 100;
     }
+    .table-type .td-col .photo img {
+        width:100%;
+    }
 
     
 </style>
