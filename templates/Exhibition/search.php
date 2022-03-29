@@ -77,8 +77,8 @@
     vertical-align:middle;
     }
     .product-img {
-        max-width:320px;
-        max-height:240px;
+        /* max-width:320px;
+        max-height:240px; */
     }
     .searchBox {
             border-bottom: 1px solid #cecece;
@@ -101,12 +101,9 @@
         .product-title {
             text-align:center;
             display:table;
-            width:180px;
             height:180px;
         }
         .product-img {
-            max-width:180px;
-            max-height:180px;
             margin-left: 12px;
         }
         .noImg {

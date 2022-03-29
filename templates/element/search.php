@@ -24,7 +24,7 @@
                 <?php if ($exhibition["image_path"] == null) : ?>
                 <img src="../../images/img-no.png">
                 <?php else : ?>
-                <img src="/<?=$exhibition["image_path"]?>/<?=$exhibition["image_name"]?>" style="height:220px; width:220px;">
+                <img src="/<?=$exhibition["image_path"]?>/<?=$exhibition["image_name"]?>" style="height:155px; width:280px;">
                 <?php endif; ?>
             </p>
         </div>
