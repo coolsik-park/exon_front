@@ -484,7 +484,7 @@
 .table-type .td-col .tit {
 	font-weight: 500;
 	margin-top: 25px;
-	word-break: keep-all;
+	word-break: break-all;
 }
 .table-type .td-col .tit.fir {
 	margin-top: 0;
