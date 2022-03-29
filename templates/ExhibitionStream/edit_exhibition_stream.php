@@ -43,9 +43,9 @@
             top: -3px;
             right: 1px;
             padding: 6px;
-            color: black;
+            color: white;
             width: 17%;
-            background-color: darkgray;
+            background-color: black;
             border:none;
         }
         @media  screen and (max-width: 768px) {
