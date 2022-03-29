@@ -215,7 +215,7 @@
             success : function(data) {
                 if (uploadFileList.length == 0) {
                     alert('문의하기가 완료되었습니다.'); 
-                    location.href='/';
+                    location.href='/boards/customer-service';
                 } else {
                     if (totalFileSize > maxUploadSize) {
                         alert("총 용량 초과\n총업로드 가능 용량 : " + maxUploadSize/1024 + "MB");
@@ -237,7 +237,7 @@
                         type: 'POST',
                         success: function (data) {
                             alert('문의하기가 완료되었습니다.');
-                            location.href='/';
+                            location.href='/boards/customer-service';
                         }, 
                         error: function () {
                             alert('파일 저장에 실패하였습니다\n잠시후 다시 시도해주십시오.');
