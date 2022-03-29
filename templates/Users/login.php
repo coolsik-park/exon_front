@@ -74,7 +74,14 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                     window.location.href = data.apply_url;
                     return false;
                 }
-                $(location).attr('href', '/');
+
+                var before_page = document.referrer;
+                if (before_page.includes('exon.live')) {
+                    location.href=before_page;
+                } else {
+                    location.href='/';
+                }
+                
             } else {
                 $("#noti").html("로그인 정보를 다시 확인해주세요.");
             }
