@@ -150,6 +150,14 @@
   .webinar-cont-ty1-btm {
     height: auto;
   }
+
+  textarea {
+    resize: none;
+  }
+
+  #submitmsg {
+    margin-left: 3%;
+  }
 </style>
 
 <!-- <div id="wrapper">
