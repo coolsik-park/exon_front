@@ -146,6 +146,10 @@
     margin-top: 0px;
     margin-bottom: 20px;
   }
+
+  .webinar-cont-ty1-btm {
+    height: auto;
+  }
 </style>
 
 <!-- <div id="wrapper">
@@ -180,7 +184,7 @@
         <div class="webinar-cont-ty1-btm">
             <div class="chatting-submit">
                 <input type="hidden" name="last_id" id="last_id" value="1">
-                <input type="text" id="usermsg" name="usermsg" placeholder="Message...">
+                <textarea id="usermsg" name="usermsg" placeholder="Message..." rows="2" cols="20" wrap="hard" onkeyup="enterkey()"></textarea>
                 <button type="submit" id="submitmsg" name="submitmsg" class="btn-ty4 redbg">전송</button>
             </div>
         </div>
@@ -198,6 +202,16 @@
 
 
 <script>
+function enterkey() {
+  if (!event.shiftKey && window.event.keyCode == 13) {
+    var clientmsg = $("#usermsg").val().replace(/(?:\r\n|\r|\n)/g,'<br/>');
+    $.post("/ExhibitionStreamChatLog/chatLog/<?=$stream_id?>", { text: clientmsg });
+    $("#usermsg").val("");
+    loadLog()
+    return false;
+  }
+}
+
 $(document).ready(function(){ 
     //If user wants to end session
     $("#exit").click(function(){
@@ -207,13 +221,13 @@ $(document).ready(function(){
 
     //If user submits the form
     $("#submitmsg").click(function () {
-        var clientmsg = $("#usermsg").val();
+        var clientmsg = $("#usermsg").val().replace(/(?:\r\n|\r|\n)/g,'<br/>');
         $.post("/ExhibitionStreamChatLog/chatLog/<?=$stream_id?>", { text: clientmsg });
         $("#usermsg").val("");
         loadLog()
         return false;
     });
-    
+
     function loadLog(){     
         var oldscrollHeight = $("#chatbox")[0].scrollHeight - 20; //Scroll height before the request
         
