@@ -37,6 +37,7 @@ class ExhibitionController extends AppController
         $this->Auth->deny(['exhibitionStatisticsStreamByGroup']);
         $this->Auth->deny(['exhibitionStatisticsExtra']);
         $this->Auth->deny(['exhibitionStatisticsExtraByGroup']);
+        $this->Auth->deny(['vodDownload']);
     }   
 
     public function isAuthorized() {
