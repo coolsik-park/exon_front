@@ -469,6 +469,24 @@
     $(document).on("click", "#end", function () {
         clearInterval(timeCheck);
         clearInterval(timeCheckBeforeTen); 
+        player.dispose();
+        var html = '<video class="video-js vjs-default-skin vjs-big-play-centered" id="vid1"></video>';
+        $("#videoWrap").append(html);
+        player = videojs('vid1', {
+            controls: true,
+            autoplay: true,
+            preload: 'auto',
+            muted: true,
+            liveui: true,
+            fluid: true,
+            liveTracker: {
+                trackingThreshold: 0
+            }
+        });
+        player.load();
+
+        $("#liveButtons").children().remove();
+        $("#liveButtons").append('<button id="start" type="button" class="btn-ty4 black">방송시작</button>');
         liveEnd();
         alert("저장된 VOD는 인코딩이 완료된 후 마이페이지>개설행사관리 페이지에서 다운로드 받으실 수 있습니다.");
     });
@@ -493,26 +511,6 @@
                     method: 'DELETE',
                     type: 'json',
                     data: jsonData,
-                    success: function () {
-                        player.dispose();
-                        var html = '<video class="video-js vjs-default-skin vjs-big-play-centered" id="vid1"></video>';
-                        $("#videoWrap").append(html);
-                        player = videojs('vid1', {
-                            controls: true,
-                            autoplay: true,
-                            preload: 'auto',
-                            muted: true,
-                            liveui: true,
-                            fluid: true,
-                            liveTracker: {
-                                trackingThreshold: 0
-                            }
-                        });
-                        player.load();
-
-                        $("#liveButtons").children().remove();
-                        $("#liveButtons").append('<button id="start" type="button" class="btn-ty4 black">방송시작</button>');
-                    },
                     error: function (data) {
                         alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
                     }
