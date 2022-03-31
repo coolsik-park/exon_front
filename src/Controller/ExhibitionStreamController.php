@@ -1013,7 +1013,11 @@ class ExhibitionStreamController extends AppController
 
         $Coupon = $this->getTableLocator()->get('Coupon');
         $coupon = $Coupon->get($coupon_id);
-        $coupon = $Coupon->patchEntity($coupon, ['status' => 4]);
+        
+        //이벤트용
+        if ($coupon->code != 'onporters') {
+            $coupon = $Coupon->patchEntity($coupon, ['status' => 4]);
+        }
         
         if (!$Coupon->save($coupon)) {
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
