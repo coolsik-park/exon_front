@@ -31,12 +31,34 @@
             display: block;
             position: absolute;
             top: -3px;
-            right: 1px;
+            right: 10px;
             padding: 6px;
             color: white;
             width: 17%;
             background-color: black;
-            border:none;
+            border-radius: 6px;
+        }
+        .tab-alert {
+            border: 1px solid red;
+            border-radius: 4px;
+            color: red;
+            font-size: 16px;
+            text-align: center;
+            width: auto;
+            padding: 10px;
+        }
+        .btn-alert {
+            background-color: white;
+            border: 1px solid black;
+            color: black;
+            position: absolute;
+            width: auto;
+            right: 3px;
+            top: -70px;
+            line-height:130%;
+            z-index: 9999;
+            text-align: left;
+            padding: 10px;
         }
         @media  screen and (max-width: 768px) {
             .stream-sect .row2-wp .row2 {
@@ -170,6 +192,11 @@
                 <div class="webinar-toggle">
                     <button type="button" class="webinar-tab-tg">토글버튼</button>
                     <button type="button" id="setting_btn" name="btn_off" class="btn-ty4 sett-btn">메뉴설정</button>
+                    <p class="btn-alert">
+                        사용할 메뉴 선택 후 결제 진행 및 좌측의 저장 버튼을 누르면 설정이 저장됩니다. 
+                        <br>
+                        (방송 중에도 메뉴설정은 가능합니다.) 
+                    <p>
                     <input type="hidden" id="tab" name="tab" value="0">
                 </div>                        
                 <div class="w-tab-wrap">
@@ -191,10 +218,7 @@
             </div>   
             <!-- // top -->
             <div class="webinar-tab-body">  
-                <p class="wb-alert">사용할 탭을 선택해주세요</p>   
-                <p class="wb-alert wb-alert2">위에 표기된 메뉴를 사용하시기 위해서는 메뉴설정 버튼을 클릭해 활성화 시켜주시기 바랍니다.</p>  
-                <p class="wb-alert wb-alert2">탭 설정이 활성화 된 후 참가자에게 공개할 탭(메뉴)을 선택한 뒤 결제를 진행하시면 선택된 탭이 참가자 화면에 표시됩니다.</p>  
-                <p class="wb-alert wb-alert2">방송중에도 탭 설정은 가능합니다. </p>  
+                <p class="tab-alert">'메뉴설정' 버튼을 누른 후 사용할 메뉴를 선택해 주세요.</p>   
             </div>
             <!-- body -->
         </div>
@@ -204,6 +228,15 @@
 </div>        
 
 <script>
+    //button alert  
+    $(".btn-alert").hide();
+    $("#setting_btn").mouseover(function() {
+        $(".btn-alert").show();
+    });
+    $("#setting_btn").mouseleave(function() {
+        $(".btn-alert").hide();
+    });
+
     //hide sub-menu
     $(document).on("click", ".webinar-tab-tg", function () {
         if ($("#toggle").hasClass("close")) {
@@ -674,7 +707,7 @@
         if ($(this).attr("name") == "btn_off") {
             $(this).attr("name", "btn_on");
             $(this).addClass("black");
-            $(this).html("저장");
+            $(this).html("설정완료");
             alert("탭 설정이 활성화 되었습니다.");
         } else {
             $(this).attr("name", "btn_off");
