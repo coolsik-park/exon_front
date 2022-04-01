@@ -321,8 +321,13 @@
         }
 
         //ajax
+        $('input#amount').val(removeComma($('input#amount').val()));
         var formData = $("#setForm").serialize();
-        formData += '&coupon_amount=' + coupon_amount;
+        if (coupon_amount != 0) {
+            formData += '&coupon_amount=' + removeComma(coupon_amount);
+        } else {
+            formData += '&coupon_amount=' + coupon_amount;
+        }
         formData += '&coupon_id=' + coupon_id;
         
         $.ajax({
