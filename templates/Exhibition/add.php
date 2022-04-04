@@ -47,6 +47,9 @@
     .survey-bx {
         position: relative;
     }
+    #detail_html {
+        width: 99%;
+    }
     @media  screen and (max-width: 768px) {
         .sect1 .photo {
             height: 214px;
