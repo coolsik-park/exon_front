@@ -75,7 +75,7 @@
             height:239.78px;
         }
         .main-slider3 .swiper-slide img {
-            height: 95px;
+            height: 86px;
         }
         .slider2Div {
             display: none;
@@ -109,7 +109,7 @@
             font-size: 0.8rem;
         }
         .main-slider3 .swiper-slide {
-            height: 95px;
+            height: 86px;
         }
         .hotImg {
             height: 190px;

@@ -11,8 +11,6 @@
     url('/fonts/NanumBarunGothic.woff') format('woff');}
     .container {
         width: 100%;
-        padding-right: 15px;
-        padding-left: 15px;
         margin-right: auto;
         margin-left: auto;
     }
@@ -137,7 +135,9 @@
        bottom: 0;
     }
     .section2--img {
-        width: 160vh;;
+        width: 155vh;;
+        position: absolute;
+        bottom: 0px;
     }
     .section2--title__txt {
         font-size: 60px;
@@ -239,6 +239,13 @@
                             <div class="section1--title__button"><button class="section1__button" type="button">지금 시작하기</button></div>
                             <div class="section1--title__bottom">Your Imagination Becomes Reality</div>
                         </div>
+                    </div>
+                </li>
+                <li class="swiper-slide">
+                    <div class="section1--video__exon">
+                        <video muted autoplay loop width="100%" class="section1--video">
+                            <source src="/video/오프닝 영상.mp4" type="video/mp4">
+                        </video>
                     </div>
                 </li>
                 <li class="swiper-slide">
