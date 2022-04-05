@@ -131,7 +131,7 @@
 						<?php foreach ($banner as $list): ?>
 							<div class="swiper-slide">
                                 <a href="/boards/notice" class="imgs "><img name="bannerImg<?=$i?>" src="<?php echo $list->img_path . $list->img_name;?>" class="responsiveImg bannerPC" data-media-web="<?php echo $list->img_path . $list->img_name;?>" data-media-mobile="<?php echo $list->img_path . $list->img_name;?>" alt="" ></a>	
-                                <a href="/boards/notice" class="imgs "><img name="bannerImg<?=$i?>" src="/images/모바일_상단 배너_01.jpg" class="responsiveImg bannerM" data-media-web="/images/모바일_상단 배너_01.jpg" data-media-mobile="/images/모바일_상단 배너_01.jpg" alt="" ></a>
+                                <a href="/boards/notice" class="imgs "><img name="bannerImg<?=$i?>" src="/upload/exhibition/m_<?=$i?>.jpg" class="responsiveImg bannerM" data-media-web="/upload/exhibition/m_<?=$i?>.jpg" data-media-mobile="/upload/exhibition/m_<?=$i?>.jpg" alt="" ></a>
 							</div>
                             <?php $i++;?>
 						<?php endforeach; ?>

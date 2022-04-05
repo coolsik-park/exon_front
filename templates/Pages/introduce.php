@@ -229,6 +229,20 @@
         <div id="section1--slide" class="swiper-container">
             <ul class="swiper-wrapper">
                 <li class="swiper-slide">
+                    <div class="section1--video__exon">
+                        <video muted autoplay loop width="100%" id="section1--video1" class="section1--video">
+                            <source src="/video/오프닝 영상.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </li>
+                <li class="swiper-slide">
+                    <div class="section1--video__exon">
+                        <video muted autoplay loop width="100%" class="section1--video">
+                            <source src="/video/EXON 소개 영상.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </li>
+                <li class="swiper-slide">
                     <div class="container">
                         <div class="section1--title h-100 justify-content-center d-flex">
                             <div class="section1--title__div">
@@ -239,20 +253,6 @@
                             <div class="section1--title__button"><button class="section1__button" type="button">지금 시작하기</button></div>
                             <div class="section1--title__bottom">Your Imagination Becomes Reality</div>
                         </div>
-                    </div>
-                </li>
-                <li class="swiper-slide">
-                    <div class="section1--video__exon">
-                        <video muted autoplay loop width="100%" class="section1--video">
-                            <source src="/video/오프닝 영상.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                </li>
-                <li class="swiper-slide">
-                    <div class="section1--video__exon">
-                        <video muted autoplay loop width="100%" class="section1--video">
-                            <source src="/video/EXON 소개 영상.mp4" type="video/mp4">
-                        </video>
                     </div>
                 </li>
             </ul>
@@ -301,7 +301,5 @@
             // Bullet Numbering 설정 
             loop: true, //슬라이드 반복 
                     },
-    })
-    
-    
+    });
 </script>
