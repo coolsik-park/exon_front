@@ -340,7 +340,7 @@
         formData += '&coupon_id=' + coupon_id;
         
         $.ajax({
-            url: "/exhibition-stream/set-exhibition-stream/<?=$exhibition_id?>",
+            url: "/exhibition-stream/set-event-stream/<?=$exhibition_id?>",
             method: 'POST',
             type: 'json',
             data: formData
