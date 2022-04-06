@@ -142,7 +142,7 @@
                         <span class="chk-dsg"><input type="radio" id="is_upload2" name="is_upload" value="0"><label for="is_upload2">VOD 업로드 안함</label></span>
                     </div>
                 </div>    
-                <p class="p-noti">라이브 종료 후 VOD 업로드가 완료되야 공모전 참가가 완료됩니다.</p>
+                <p class="p-noti">라이브 방송 종료 후 VOD 업로드가 끝나면 등록이 완료됩니다.</p>
             </div>
             <div class="wb-cont3">
                 <button id="save" type="button" class="btn-ty4 black">저장</button>

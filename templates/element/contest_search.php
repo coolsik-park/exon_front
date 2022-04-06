@@ -2,7 +2,7 @@
     <div class="header-search">
         <fieldset>
             <legend>행사 검색</legend>
-            <input id="contest-key" type="text" placeholder="콘테스트 출품 행사를 검색해주세요" class="ipt" onkeyup="enterkey()">
+            <input id="contest-key" type="text" placeholder="행사를 검색해주세요" class="ipt" onkeyup="enterkey()">
             <button id="contest-search" type="button" class="ico-sh">검색</button>
         </fieldset>
     </div>

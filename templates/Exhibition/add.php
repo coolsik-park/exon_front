@@ -188,14 +188,14 @@
                     </div>
                 </div>
                 <div class="sect3">
-                    <h4 class="s-hty2">서포터즈 1기</h4>
-                    <p class="p-noti">서포터즈 1기 아이디어 콘테스트 공모전에 참가합니다.</p>
+                    <h4 class="s-hty2">온포터즈 1기</h4>
+                    <p class="p-noti">온포터즈 1기 웨비나 행사로 등록하시겠습니까?</p>
                     <div class="ln-rdo">
-                        <span class="chk-dsg"><input type="radio" name="is_event" id="is_event1" value="0" checked="checked"><label for="is_event1">참가안함</label></span>
+                        <span class="chk-dsg"><input type="radio" name="is_event" id="is_event1" value="0" checked="checked"><label for="is_event1">등록안함</label></span>
                     </div>
                     
                     <div class="ln-rdo">
-                        <span class="chk-dsg"><input type="radio" name="is_event" id="is_event2" value="1"><label for="is_event2">참가</label></span>
+                        <span class="chk-dsg"><input type="radio" name="is_event" id="is_event2" value="1"><label for="is_event2">등록</label></span>
                     </div>
                 </div>
                 <div class="sect3">
