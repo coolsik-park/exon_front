@@ -79,7 +79,7 @@
                     <img id="inst" class="popup-img" src ="/img/inst.png" onclick="instShare()">
                     <img id="fb" class="popup-img" src ="/img/fb.png" onclick="fbShare()">
                     <div class="copy">
-                        <input type="text" id="url" value="https://exon.live/exhibition/view/<?=$exhibition_id?>" readonly><button type="button" id="url-copy" class="btn">복사</button>
+                        <input type="text" id="url" value="https://exon.live/exhibition-stream/watch-event-vod/<?=$exhibition_id?>" readonly><button type="button" id="url-copy" class="btn">복사</button>
                     </div>
                 </div>
                 <div class="popup-btm">

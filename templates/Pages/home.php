@@ -32,7 +32,7 @@
         background: inherit;
         position: absolute;
         left: 0;
-        top: 2038px;
+        top: 240vh;
     }
     .slider5Div {
         width: 100%;
@@ -40,7 +40,7 @@
         background: inherit;
         position: absolute;
         left: 0;
-        top: 2400px;
+        top: 280vh;
     }
     .hotImg {
         width: 580px; height: 292px;
@@ -259,7 +259,7 @@
                 </div>
                 <div class="main-sect4">
                     <div class="h-ty1-wp">
-                        <h2 class="h-ty1"><span class="t2">서포터즈<br>아이디어 콘테스트</span></h2>
+                        <h2 class="h-ty1"><span class="t2">서포터즈 1기<br>아이디어 콘테스트</span></h2>
                         <a href="/exhibition/contest-search">더 보기</a>
                     </div>     
                     <?php if (!empty($contest)) : ?>               

@@ -236,8 +236,8 @@
                     </div>
                 </div>
                 <div class="sect3">
-                    <h4 class="s-hty2">누구나 웨비나!</h4>
-                    <p class="p-noti">누구나 웨비나! 아이디어 콘테스트 공모전에 참가합니다.</p>
+                    <h4 class="s-hty2">서포터즈 1기</h4>
+                    <p class="p-noti">서포터즈 1기 아이디어 콘테스트 공모전에 참가합니다.</p>
                     <div class="ln-rdo">
                         <span class="chk-dsg"><input type="radio" name="is_event" id="is_event1" value="0" checked="checked"><label for="is_event1">참가안함</label></span>
                     </div>
