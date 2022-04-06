@@ -116,7 +116,7 @@ class PagesController extends AppController
         $query .= "FROM ";
         $query .= "  exhibition  ";
         $query .= "WHERE ";
-        $query .= "  private = 0 AND date_ADD(now(), INTERVAL 9 HOUR) < edate ";
+        $query .= "  private = 0 AND status != 8 AND date_ADD(now(), INTERVAL 9 HOUR) < edate ";
         $query .= "ORDER BY ";
         $query .= "  sdate ";
         $query .= "LIMIT ";
@@ -149,7 +149,7 @@ class PagesController extends AppController
         $query .= "FROM ";
         $query .= "  exhibition  ";
         $query .= "WHERE ";
-        $query .= "  private = 0 AND date_ADD(now(), INTERVAL 9 HOUR) < edate AND date_format(sdate, '%m') = date_format(date_ADD(now(), INTERVAL 9 HOUR), '%m') ";
+        $query .= "  private = 0 AND status != 8 AND date_ADD(now(), INTERVAL 9 HOUR) < edate AND date_format(sdate, '%m') = date_format(date_ADD(now(), INTERVAL 9 HOUR), '%m') ";
         $query .= "ORDER BY ";
         $query .= "  sdate ";
         $query .= "LIMIT ";
@@ -180,7 +180,7 @@ class PagesController extends AppController
         $query .= "FROM ";
         $query .= "  exhibition  ";
         $query .= "WHERE ";
-        $query .= "  private = 0 AND date_ADD(now(), INTERVAL 9 HOUR) < edate ";
+        $query .= "  private = 0 AND status != 8 AND date_ADD(now(), INTERVAL 9 HOUR) < edate ";
         $query .= "ORDER BY ";
         $query .= "  id desc ";
         $query .= "LIMIT ";
@@ -199,7 +199,7 @@ class PagesController extends AppController
         $query .= "  exhibition_stream ES ";
         $query .= "LEFT JOIN exhibition E ON ES.exhibition_id = E.id ";
         $query .= "WHERE ";
-        $query .= "  E.private = 0 AND E.is_event = 1 AND (live_started != '0000-00-00 00:00:00' OR vod_index != 0 AND is_upload = 1) ";
+        $query .= "  E.private = 0 AND E.is_event = 1 AND E.status != 8 AND (live_started != '0000-00-00 00:00:00' OR vod_index != 0 AND is_upload = 1) ";
         $query .= "ORDER BY ";
         $query .= "  ES.live_started desc ";
         $query .= "LIMIT ";

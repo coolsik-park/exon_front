@@ -220,8 +220,8 @@
             if (data.status == 'success') {
                 var exhibitions = data.data;
 
-                $(".container").children().remove();
-                $(".container").append(exhibitions);
+                $("#container").children().remove();
+                $("#container").append(exhibitions);
 
                 $(".order").css("color", "");
                 $("#"+id).css("color", "#007bff");

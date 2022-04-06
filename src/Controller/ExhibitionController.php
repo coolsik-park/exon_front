@@ -2187,7 +2187,7 @@ class ExhibitionController extends AppController
                 'Exhibition.status IS NOT' => 8,
                 'Exhibition.private' => 0,
                 'Exhibition.is_event' => 1,
-                'OR' => [['ExhibitionStream.live_started IS NOT' => '0000-00-00 00:00:00'], ['ExhibitionStream.is_upload' => 1]],
+                'OR' => [['ExhibitionStream.live_started IS NOT' => '0000-00-00 00:00:00'], ['ExhibitionStream.is_upload' => 1, 'ExhibitionStream.vod_index' => 1]],
             ])
             ->order(['ExhibitionStream.live_started' => 'DESC', 'Exhibition.created' => 'DESC']))->toArray();
 
@@ -2202,7 +2202,7 @@ class ExhibitionController extends AppController
             'Exhibition.status IS NOT' => 8,
             'Exhibition.private' => 0,
             'Exhibition.is_event' => 1,
-            'OR' => [['ExhibitionStream.live_started IS NOT' => '0000-00-00 00:00:00'], ['ExhibitionStream.is_upload' => 1]],
+            'OR' => [['ExhibitionStream.live_started IS NOT' => '0000-00-00 00:00:00'], ['ExhibitionStream.is_upload' => 1, 'ExhibitionStream.vod_index' => 1]],
         ])->toArray());        
 
         $this->set(compact('exhibitions', 'key', 'count'));
@@ -2225,9 +2225,9 @@ class ExhibitionController extends AppController
                         'Exhibition.status IS NOT' => 8,
                         'Exhibition.private' => 0,
                         'Exhibition.is_event' => 1,
-                        'OR' => [['ExhibitionStream.live_started IS NOT' => '0000-00-00 00:00:00'], ['ExhibitionStream.is_upload' => 1]],
+                        'OR' => [['ExhibitionStream.live_started IS NOT' => '0000-00-00 00:00:00'], ['ExhibitionStream.is_upload' => 1, 'ExhibitionStream.vod_index' => 1]],
                     ])
-                    ->order(['ExhibitionStream.liked' => 'ASC']))->toArray();
+                    ->order(['ExhibitionStream.live_started' => 'DESC', 'ExhibitionStream.liked' => 'DESC']))->toArray();
             
             else :
                 $exhibitions = $this->paginate($this->getTableLocator()->get('ExhibitionStream')->find()
@@ -2241,7 +2241,7 @@ class ExhibitionController extends AppController
                         'Exhibition.status IS NOT' => 8,
                         'Exhibition.private' => 0,
                         'Exhibition.is_event' => 1,
-                        'OR' => [['ExhibitionStream.live_started IS NOT' => '0000-00-00 00:00:00'], ['ExhibitionStream.is_upload' => 1]],
+                        'OR' => [['ExhibitionStream.live_started IS NOT' => '0000-00-00 00:00:00'], ['ExhibitionStream.is_upload' => 1, 'ExhibitionStream.vod_index' => 1]],
                     ])
                     ->order(['ExhibitionStream.live_started' => 'DESC', 'Exhibition.created' => 'DESC']))->toArray();
             endif;
@@ -2257,7 +2257,7 @@ class ExhibitionController extends AppController
                     'Exhibition.status IS NOT' => 8,
                     'Exhibition.private' => 0,
                     'Exhibition.is_event' => 1,
-                    'OR' => [['ExhibitionStream.live_started IS NOT' => '0000-00-00 00:00:00'], ['ExhibitionStream.is_upload' => 1]],
+                    'OR' => [['ExhibitionStream.live_started IS NOT' => '0000-00-00 00:00:00'], ['ExhibitionStream.is_upload' => 1, 'ExhibitionStream.vod_index' => 1]],
                 ])->toArray());   
 
             $view = new \Cake\View\View($this->request, $this->response);                                
