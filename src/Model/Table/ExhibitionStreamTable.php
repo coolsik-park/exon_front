@@ -15,6 +15,7 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\PayTable&\Cake\ORM\Association\BelongsTo $Pay
  * @property \App\Model\Table\CouponTable&\Cake\ORM\Association\BelongsTo $Coupon
  * @property \App\Model\Table\ExhibitionStreamChatLogTable&\Cake\ORM\Association\HasMany $ExhibitionStreamChatLog
+ * @property \App\Model\Table\ExhibitionUsersTable&\Cake\ORM\Association\HasMany $ExhibitionUsers
  *
  * @method \App\Model\Entity\ExhibitionStream newEmptyEntity()
  * @method \App\Model\Entity\ExhibitionStream newEntity(array $data, array $options = [])
@@ -63,6 +64,9 @@ class ExhibitionStreamTable extends Table
         $this->hasMany('ExhibitionStreamChatLog', [
             'foreignKey' => 'exhibition_stream_id',
         ]);
+        $this->hasMany('ExhibitionUsers', [
+            'foreignKey' => 'exhibition_stream_id',
+        ]);
     }
 
     /**
@@ -86,8 +90,7 @@ class ExhibitionStreamTable extends Table
         $validator
             ->scalar('description')
             ->maxLength('description', 200)
-            ->requirePresence('description', 'create')
-            ->notEmptyString('description');
+            ->allowEmptyString('description');
 
         $validator
             ->scalar('stream_key')
@@ -123,9 +126,37 @@ class ExhibitionStreamTable extends Table
 
         $validator
             ->integer('tab')
-            ->maxLength('tab', 11)
             ->notEmptyString('tab');
-            
+
+        $validator
+            ->dateTime('live_started')
+            ->allowEmptyDateTime('live_started');
+
+        $validator
+            ->integer('live_duration')
+            ->allowEmptyString('live_duration');
+
+        $validator
+            ->integer('is_upload')
+            ->requirePresence('is_upload', 'create')
+            ->notEmptyString('is_upload');
+
+        $validator
+            ->integer('vod_index')
+            ->notEmptyString('vod_index');
+
+        $validator
+            ->integer('viewer')
+            ->notEmptyString('viewer');
+
+        $validator
+            ->integer('watched')
+            ->notEmptyString('watched');
+
+        $validator
+            ->integer('liked')
+            ->notEmptyString('liked');
+
         return $validator;
     }
 

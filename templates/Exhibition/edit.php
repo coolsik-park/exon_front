@@ -236,6 +236,17 @@
                     </div>
                 </div>
                 <div class="sect3">
+                    <h4 class="s-hty2">누구나 웨비나!</h4>
+                    <p class="p-noti">누구나 웨비나! 아이디어 콘테스트 공모전에 참가합니다.</p>
+                    <div class="ln-rdo">
+                        <span class="chk-dsg"><input type="radio" name="is_event" id="is_event1" value="0" checked="checked"><label for="is_event1">참가안함</label></span>
+                    </div>
+                    
+                    <div class="ln-rdo">
+                        <span class="chk-dsg"><input type="radio" name="is_event" id="is_event2" value="1"><label for="is_event2">참가</label></span>
+                    </div>
+                </div>
+                <div class="sect3">
                     <div class="row2">
                         <div class="col-th"><h4 class="s-hty2">행사유료화</h4></div>
                         <div class="col-td">

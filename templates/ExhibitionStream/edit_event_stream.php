@@ -40,22 +40,35 @@
         .sett-btn {
             display: block;
             position: absolute;
-            top: -5px;
-            right: 1px;
-            padding: 8px;
-            border-radius: 10px;
-            border: 1px solid lightgray;
-            color: black;
+            top: -3px;
+            right: 10px;
+            padding: 6px;
+            color: white;
+            width: 17%;
+            background-color: black;
+            border-radius: 6px;
         }
-        .save-btn {
-            display: inline-block;
-            position: absolute;
-            top: -5px;
-            right: 1px;
-            padding: 8px;
-            border-radius: 10px;
+        .tab-alert {
+            border: 1px solid red;
+            border-radius: 4px;
+            color: red;
+            font-size: 16px;
+            text-align: center;
+            width: auto;
+            padding: 10px;
+        }
+        .btn-alert {
+            background-color: white;
             border: 1px solid black;
             color: black;
+            position: absolute;
+            width: auto;
+            right: 3px;
+            top: -70px;
+            line-height:130%;
+            z-index: 9999;
+            text-align: left;
+            padding: 10px;
         }
         @media  screen and (max-width: 768px) {
             .stream-sect .row2-wp .row2 {
@@ -122,6 +135,15 @@
                 <input name="title" id="title" type="text" placeholder="(필수) 방송제목">
                 <textarea name="description" id="description" cols="30" rows="3" placeholder="방송 설명을 입력해주세요."></textarea>
             </div>
+            <div class="sect3">
+                <div class="row2">
+                    <div class="col-td">
+                        <span class="chk-dsg"><input type="radio" id="is_upload1" name="is_upload" value="1"><label for="is_upload1">VOD 업로드</label></span>
+                        <span class="chk-dsg"><input type="radio" id="is_upload2" name="is_upload" value="0"><label for="is_upload2">VOD 업로드 안함</label></span>
+                    </div>
+                </div>    
+                <p class="p-noti">라이브 종료 후 VOD 업로드가 완료되야 공모전 참가가 완료됩니다.</p>
+            </div>
             <div class="wb-cont3">
                 <button id="save" type="button" class="btn-ty4 black">저장</button>
                 <button id="exit" type="button" class="btn-ty4 gray">종료</button>
@@ -129,6 +151,57 @@
             <div class="wb-stream-sect" id="stream_key_container">
                 <h2 class="s-hty3">스트림 키</h2>
                 <div class="stream-sect">
+                    <div class="row2">
+                        <div class="col-th">프로모션 키</div>
+                        <div class="col-td">
+                            <div class="stream-ipt1">
+                                <?php if ($coupon != null) : ?>
+                                <input type="text" id="coupon_code" name="coupon_code" value="<?=$coupon[0]->code?>">
+                                <button type="button" id="confirm_coupon" name="confirm_coupon" class="btn-ty2 gray">확인</button>
+                                <?php else : ?>
+                                <input type="text" id="coupon_code" name="coupon_code">
+                                <button type="button" id="confirm_coupon" name="confirm_coupon" onclick="validateCoupon()" class="btn-ty2 bor">확인</button>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row2-wp">
+                        <div class="row2">
+                            <div class="col-th">시간</div>
+                            <div class="col-td">
+                                <div class="stream-itp2">
+                                    <select id="time" name="time">
+                                        <option value="18000">half day</option>
+                                        <option value="36000">all day</option>
+                                    </select>
+                                    <select id="people" name="people">
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                        <option value="150">150</option>
+                                        <option value="200">200</option>
+                                        <option value="250">250</option>
+                                        <option value="300">300</option>
+                                        <option value="350">350</option>
+                                        <option value="400">400</option>
+                                        <option value="450">450</option>
+                                        <option value="500">500</option>
+                                    </select>
+                                    명
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row2 payDiv">
+                            <div class="col-th">금액</div>
+                            <div class="col-td">
+                                <div class="stream-ipt1">
+                                    <input type="text" id="amount" name="amount" value="0" readonly>
+                                    <input type="hidden" id="is_paid" value="1">
+                                    <button type="button" id="payment-card" class="btn-ty2 bor pay" style="width: 100%;">결제(카드 결제)</button>
+                                    <button type="button" id="payment-trans" class="btn-ty2 bor pay" style="width: 100%;">결제(계좌 이체)</button>
+                                </div>                    
+                            </div>
+                        </div>
+                    </div>
                     <div id="stream_key_div">
                         <div class="stream-ipt3">
                             <div class="ipt-eye">
@@ -147,6 +220,13 @@
                             </div>
                         </div>
                     </div>
+                    <!-- <div class="row2" style="height:48px; padding-top:5px;">
+                        <div class="col-th">VOD 저장</div>
+                        <div class="col-td">
+                            <span class="chk-dsg"><input type="checkbox" id="is_download" name="is_download" value="1"><label for="is_download"></label></span>
+                        </div>
+                        <a id="download_vod" href="https://orcaexon.co.kr/videos/<?=$exhibitionStream->stream_key?>/source.mp4" style="display:none">다운로드</a>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -155,7 +235,12 @@
             <div class="webinar-tab-top">
                 <div class="webinar-toggle">
                     <button type="button" class="webinar-tab-tg">토글버튼</button>
-                    <button type="button" id="setting_btn" name="btn_off" class="sett-btn">메뉴설정</button>
+                    <button type="button" id="setting_btn" name="btn_off" class="btn-ty4 sett-btn">메뉴설정</button>
+                    <p class="btn-alert">
+                        사용할 메뉴 선택 후 '저장' 버튼을 누르면 설정이 저장됩니다. 
+                        <br>
+                        (방송 중에도 메뉴설정은 가능합니다.) 
+                    <p>
                     <input type="hidden" id="tab" name="tab" value="0">
                 </div>                        
                 <div class="w-tab-wrap">
@@ -177,10 +262,7 @@
             </div>   
             <!-- // top -->
             <div class="webinar-tab-body">  
-                <p class="wb-alert">사용할 탭을 선택해주세요</p>   
-                <p class="wb-alert wb-alert2">위에 표기된 메뉴를 사용하시기 위해서는 메뉴설정 버튼을 클릭해 활성화 시켜주시기 바랍니다.</p>  
-                <p class="wb-alert wb-alert2">탭 설정이 활성화 된 후 참가자에게 공개할 탭(메뉴)을 선택한 뒤 저장 버튼을 누르면 선택된 탭이 참가자 화면에 표시됩니다.</p>  
-                <p class="wb-alert wb-alert2">방송중에도 탭 설정은 가능합니다. </p>  
+                <p class="tab-alert">※ '메뉴설정' 버튼을 누른 후 사용할 메뉴를 선택해 주세요.</p>   
             </div>
             <!-- body -->
         </div>
@@ -190,6 +272,15 @@
 </div>        
 
 <script>
+    //button alert  
+    $(".btn-alert").hide();
+    $("#setting_btn").mouseover(function() {
+        $(".btn-alert").show();
+    });
+    $("#setting_btn").mouseleave(function() {
+        $(".btn-alert").hide();
+    });
+
     //video.js
     var player = videojs('vid1', {
         controls: true,
@@ -252,9 +343,30 @@
 
     $("#title").val("<?=$exhibitionStream->title?>");
     $("#description").val("<?=$exhibitionStream->description?>");
+    $("#time").val("<?=$exhibitionStream->time?>").prop("selected", true);
+    $("#people").val("<?=$exhibitionStream->people?>").prop("selected", true);
     $("#stream_key").val("<?=$exhibitionStream->stream_key?>");
     $("#url").val("<?=$exhibitionStream->url?>");
     $("#tab").val("<?=$exhibitionStream->tab?>");
+    $("input:radio[name='is_upload']:radio[value='<?=$exhibitionStream->is_upload?>']").prop("checked", true);
+
+    var time = $("#time").val();
+    var people = $("#people").val();
+    var discount_rate = 0;
+    var coupon_id = 0;
+    var coupon_amount = 0;
+
+    $("#time").children().each(function () {
+        if (parseInt($(this).val()) < time) {
+            $(this).remove();
+        }
+    });
+
+    $("#people").children().each(function () {
+        if (parseInt($(this).val()) < people) {
+            $(this).remove();
+        }
+    });
 
     var timeCheck;
     var timeCheckBeforeTen;
@@ -266,6 +378,19 @@
 
     //OBS방송 중 체크
     $(document).ready(function () {
+        // $.ajax({
+        //     url: "https://orcaexon.co.kr/live/<?=$exhibitionStream->stream_key?>/index.m3u8",
+        //     type: 'HEAD',
+        //     success: function () {
+        //         player.src({src: video_uri, type: 'application/x-mpegURL'});
+        //         player.load();
+        //         player.play();
+        //     },
+        //     error: function () {
+        //         player.attr("autoplay", false);
+        //         player.attr("muted", false);
+        //     }
+        // });
         var live_started = "<?=$exhibitionStream->live_started?>";
         if (live_started != "") {
             player.src({src: video_uri, type: 'application/x-mpegURL'});
@@ -337,6 +462,10 @@
     $(document).on("click", "#start", function () {
         var remain_time = "<?=$exhibitionStream->time?>";
         var live_duration = "<?=$exhibitionStream->live_duration?>";
+        // if (!remain_time <= live_duration) {
+        //     alert("방송시간을 모두 소진하였습니다.");
+        //     return false;
+        // }
 
         $.ajax({
             url: video_uri,
@@ -379,6 +508,24 @@
     $(document).on("click", "#end", function () {
         clearInterval(timeCheck);
         clearInterval(timeCheckBeforeTen); 
+        player.dispose();
+        var html = '<video class="video-js vjs-default-skin vjs-big-play-centered" id="vid1"></video>';
+        $("#videoWrap").append(html);
+        player = videojs('vid1', {
+            controls: true,
+            autoplay: true,
+            preload: 'auto',
+            muted: true,
+            liveui: true,
+            fluid: true,
+            liveTracker: {
+                trackingThreshold: 0
+            }
+        });
+        player.load();
+
+        $("#liveButtons").children().remove();
+        $("#liveButtons").append('<button id="start" type="button" class="btn-ty4 black">방송시작</button>');
         liveEnd();
         alert("저장된 VOD는 인코딩이 완료된 후 마이페이지>개설행사관리 페이지에서 다운로드 받으실 수 있습니다.");
     });
@@ -392,8 +539,6 @@
         var obj = new Object();
         obj.stream_key = stream_key;
         obj.video_uri = stream_key;
-        obj.stream_title = "<?=$exhibitionStream->title?>";
-        obj.stream_id = <?=$exhibitionStream->id?>;
         var jsonData = JSON.stringify(obj);
         
         $.ajax({
@@ -404,30 +549,7 @@
                     url: "https://orcaexon.co.kr/end", 
                     method: 'DELETE',
                     type: 'json',
-                    data: jsonData,
-                    success: function () {
-                        player.dispose();
-                        var html = '<video class="video-js vjs-default-skin vjs-big-play-centered" id="vid1"></video>';
-                        $("#videoWrap").append(html);
-                        player = videojs('vid1', {
-                            controls: true,
-                            autoplay: true,
-                            preload: 'auto',
-                            muted: true,
-                            liveui: true,
-                            fluid: true,
-                            liveTracker: {
-                                trackingThreshold: 0
-                            }
-                        });
-                        player.load();
-
-                        $("#liveButtons").children().remove();
-                        $("#liveButtons").append('<button id="start" type="button" class="btn-ty4 black">방송시작</button>');
-                    },
-                    error: function (data) {
-                        alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
-                    }
+                    data: jsonData
                 });
             }
         });
@@ -441,18 +563,46 @@
             $("#title").focus();
             return false;
         }
+        if ($("#is_paid").val() == 0) {
+            alert("결제를 완료해주세요.");
+            return false;
+        }
 
         //ajax
+        $('input#amount').val(removeComma($('input#amount').val()));
         var formData = $("#setForm").serialize();
+        if (coupon_amount != 0) {
+            formData += '&coupon_amount=' + removeComma(coupon_amount);
+        } else {
+            formData += '&coupon_amount=' + coupon_amount;
+        }
+        formData += '&coupon_id=' + coupon_id;
         
         $.ajax({
-            url: "/exhibition-stream/test2/<?=$exhibition_id?>",
+            url: "/exhibition-stream/edit-event-stream/<?=$exhibition_id?>",
             method: 'PUT',
             type: 'json',
             data: formData
         }).done(function(data) {
-            alert("저장되었습니다.");
-            location.reload();
+            var coupon_code = $("#coupon_code").val();
+       
+            if (coupon_code != '') {
+                jQuery.ajax({
+                    url: "/exhibition-stream/change-coupon-status", 
+                    method: 'POST',
+                    type: 'json',
+                    data: {
+                        coupon_code: coupon_code,
+                    }
+                }). done(function () {
+                    alert("저장되었습니다.");
+                    location.reload();
+                });
+            
+            } else {
+                alert("저장되었습니다.");
+                location.reload();
+            }
         });
     });
 
@@ -493,12 +643,284 @@
         document.execCommand("copy");
         alert('복사되었습니다.');
     });
+
+    //쿠폰 검증
+    function validateCoupon() {
+        if (coupon_amount != 0) {
+            alert("프로모션이 이미 적용되어 있습니다.");
+            return false
+        }
+        var coupon_code = $("#coupon_code").val();
+        $.ajax({
+            url: "/exhibition-stream/validate-coupon/",
+            method: 'POST',
+            type: 'json',
+            data: {
+                coupon_code: coupon_code,
+            }
+        }).done(function(data) {
+            if (data.status == 'success') {
+                
+                if (data.discount_rate != 100) {
+                    alert("프로모션이 적용되었습니다.");
+                    $("#coupon_code").attr("readonly", true);
+                    coupon_amount = removeComma($('input#amount').val()) * data.discount_rate / 100;
+                    var cal = removeComma($('input#amount').val()) - (removeComma($('input#amount').val()) * data.discount_rate / 100);
+                    $("#amount").val(cal.toLocaleString());
+                    discount_rate = data.discount_rate;
+                    coupon_id = data.coupon_id;
+                
+                } else {
+                    if (confirm("프로모션이 적용되어 결제 과정 없이 현재 지정된 시간과 인원수로 설정이 변경되오니 다시한번 확인해주시기 바랍니다.\n사용된 프로모션 키는 재사용이 불가합니다.")) {
+                        $("#is_paid").val(1);
+                        $("#pay_id").val(0);
+                        coupon_id = data.coupon_id;
+                        coupon_amount = removeComma($('input#amount').val());
+                        setTimeout(function () {
+                            $("#save").click();
+                        }, 500);
+                    }
+                }
+    
+            } else {
+                alert("이미 사용되거나 잘못된 프로모션 키 입니다.\n프로모션 키 번호를 다시 확인해주세요.");
+            }
+        });
+    }
+
+    //결제
+    $("#payment-card").click(function () {
+        if ($('input#amount').val() == 0) {
+            alert("결제할 금액이 존재하지 않습니다.\n시간과 인원수를 확인해주세요.");
+            return false;
+        }
+        var IMP = window.IMP; 
+        IMP.init('imp55727904');
+        IMP.request_pay({
+            pg : 'danal_tpay',
+            pay_method : 'card',
+            merchant_uid : 'merchant_' + new Date().getTime(),
+            name : '스트리밍 서비스',
+            amount : removeComma($('input#amount').val()),
+            buyer_email : '<?=$user->email?>',
+            buyer_name : '<?=$user->name?>',
+            buyer_tel : '<?=$user->hp?>',
+        }, function(rsp) {
+            if ( rsp.success ) {
+                if (removeComma($('input#amount').val()) != rsp.paid_amount) {
+                    alert("결제요청된 금액과 실제 결제된 금액이 상이합니다. 고객센터로 문의해주세요.");
+                    return false;
+                }
+                jQuery.ajax({
+                    url: "/pay/import-pay", 
+                    method: 'POST',
+                    type: 'json',
+                    data: {
+                        imp_uid: rsp.imp_uid,
+                        merchant_uid: rsp.merchant_uid,
+                        pay_method: rsp.pay_method,
+                        paid_amount: rsp.paid_amount,
+                        coupon_amount: coupon_amount,
+                        receipt_url: rsp.receipt_url,
+                        paid_at: rsp.paid_at,
+                        pg_tid: rsp.pg_tid
+                    }
+                }).done(function(data) {
+                    if (data.status == 'success') { 
+                        $("#is_paid").val(1);
+                        $("#pay_id").val(data.pay_id);
+
+                        var msg = '결제가 완료되었습니다.';
+                        msg += '\n결제 금액 : ' + rsp.paid_amount;
+
+                        alert(msg);
+
+                        setTimeout(function () {
+                            $("#save").click();
+                        }, 500);
+
+                    } else {
+                        alert("결제에 실패하였습니다. 잠시 후 다시 시도해 주세요.")
+                    }
+                });
+                
+            } else {
+                var msg = '결제에 실패하였습니다.';
+                msg += '내용 : ' + rsp.error_msg;
+
+                alert(msg);
+            }
+        });
+    });
+
+    $("#payment-trans").click(function () {
+        if ($('input#amount').val() == 0) {
+            alert("결제할 금액이 존재하지 않습니다.\n시간과 인원수를 확인해주세요.");
+            return false;
+        }
+        var IMP = window.IMP; 
+        IMP.init('imp55727904');
+        IMP.request_pay({
+            pg : 'danal_tpay',
+            pay_method : 'trans',
+            merchant_uid : 'merchant_' + new Date().getTime(),
+            name : '스트리밍 서비스',
+            amount : $('input#amount').val(),
+            buyer_email : '<?=$user->email?>',
+            buyer_name : '<?=$user->name?>',
+            buyer_tel : '<?=$user->hp?>',
+        }, function(rsp) {
+            if ( rsp.success ) {
+                if (removeComma($('input#amount').val()) != rsp.paid_amount) {
+                    alert("결제요청된 금액과 실제 결제된 금액이 상이합니다. 고객센터로 문의해주세요.");
+                    return false;
+                }
+                jQuery.ajax({
+                    url: "/pay/import-pay", 
+                    method: 'POST',
+                    type: 'json',
+                    data: {
+                        imp_uid: rsp.imp_uid,
+                        merchant_uid: rsp.merchant_uid,
+                        pay_method: rsp.pay_method,
+                        paid_amount: rsp.paid_amount,
+                        coupon_amount: coupon_amount,
+                        receipt_url: rsp.receipt_url,
+                        paid_at: rsp.paid_at,
+                        pg_tid: rsp.pg_tid
+                    }
+                }).done(function(data) {
+                    if (data.status == 'success') { 
+                        $("#is_paid").val(1);
+                        $("#pay_id").val(data.pay_id);
+
+                        var msg = '결제가 완료되었습니다.';
+                        msg += '\n결제 금액 : ' + rsp.paid_amount;
+
+                        alert(msg);
+
+                        $("#issue_stream_key").click();
+                        setTimeout(function () {
+                            $("#save").click();
+                        }, 500);
+
+                    } else {
+                        alert("결제에 실패하였습니다. 잠시 후 다시 시도해 주세요.")
+                    }
+                });
+                
+            } else {
+                var msg = '결제에 실패하였습니다.';
+                msg += '내용 : ' + rsp.error_msg;
+
+                alert(msg);
+            }
+        });
+    });
     
     //remove comma
     function removeComma(obj) {
         var amount = obj.replace(",","");
         return amount
     }
+
+    //금액 설정
+    var amount = 0;
+    var halfday_price = [];
+    var allday_price = [];
+    
+    var i = 50;
+    <?php foreach ($prices as $price) : ?>
+        halfday_price[i] = <?=$price->halfday_price?>;
+        allday_price[i] = <?=$price->allday_price?>;
+        i += 50; 
+    <?php endforeach; ?>
+
+    $(document).on("change", "#people", function () {
+
+        if ($("#time").val() == 18000) {
+            
+            switch($("#people").val()) {
+                case "50" : amount = halfday_price[50]; break;
+                case "100" : amount = halfday_price[100]; break;
+                case "150" : amount = halfday_price[150]; break;
+                case "200" : amount = halfday_price[200]; break;
+                case "250" : amount = halfday_price[250]; break;
+                case "300" : amount = halfday_price[300]; break;
+                case "350" : amount = halfday_price[350]; break;
+                case "400" : amount = halfday_price[400]; break;
+                case "450" : amount = halfday_price[450]; break;
+                case "500" : amount = halfday_price[500]; break;
+            }
+
+        } else {
+
+            switch($("#people").val()) {
+                case "50" : amount = allday_price[50]; break;
+                case "100" : amount = allday_price[100]; break;
+                case "150" : amount = allday_price[150]; break;
+                case "200" : amount = allday_price[200]; break;
+                case "250" : amount = allday_price[250]; break;
+                case "300" : amount = allday_price[300]; break;
+                case "350" : amount = allday_price[350]; break;
+                case "400" : amount = allday_price[400]; break;
+                case "450" : amount = allday_price[450]; break;
+                case "500" : amount = allday_price[500]; break;
+            }
+        }
+        var cal = amount - <?=$exhibitionStream->coupon_amount?> - <?=$exhibitionStream->amount?>;
+        coupon_amount = cal * discount_rate / 100;
+        var price = cal - coupon_amount;
+        $("#amount").val(price.toLocaleString());
+        if ($("#amount").val() == 0) {
+            $("#is_paid").val(1);
+        } else {
+            $("#is_paid").val(0);
+        }
+    });
+
+    $(document).on("change", "#time", function () {
+
+        if ($("#time").val() == 18000) {
+            
+            switch($("#people").val()) {
+                case "50" : amount = halfday_price[50]; break;
+                case "100" : amount = halfday_price[100]; break;
+                case "150" : amount = halfday_price[150]; break;
+                case "200" : amount = halfday_price[200]; break;
+                case "250" : amount = halfday_price[250]; break;
+                case "300" : amount = halfday_price[300]; break;
+                case "350" : amount = halfday_price[350]; break;
+                case "400" : amount = halfday_price[400]; break;
+                case "450" : amount = halfday_price[450]; break;
+                case "500" : amount = halfday_price[500]; break;
+            }
+
+        } else {
+
+            switch($("#people").val()) {
+                case "50" : amount = allday_price[50]; break;
+                case "100" : amount = allday_price[100]; break;
+                case "150" : amount = allday_price[150]; break;
+                case "200" : amount = allday_price[200]; break;
+                case "250" : amount = allday_price[250]; break;
+                case "300" : amount = allday_price[300]; break;
+                case "350" : amount = allday_price[350]; break;
+                case "400" : amount = allday_price[400]; break;
+                case "450" : amount = allday_price[450]; break;
+                case "500" : amount = allday_price[500]; break;
+            }
+        }
+        var cal = amount - <?=$exhibitionStream->coupon_amount?> - <?=$exhibitionStream->amount?>;
+        coupon_amount = cal * discount_rate / 100;
+        var price = cal - coupon_amount;
+        $("#amount").val(price);
+        if ($("#amount").val() == 0) {
+            $("#is_paid").val(1);
+        } else {
+            $("#is_paid").val(0);
+        }
+    });
 
     //탭 컨트롤
     var dec = $("#tab").val();
@@ -522,14 +944,12 @@
         
         if ($(this).attr("name") == "btn_off") {
             $(this).attr("name", "btn_on");
-            $(this).removeClass("sett-btn");
-            $(this).addClass("save-btn");
+            $(this).addClass("black");
             $(this).html("저장");
             alert("탭 설정이 활성화 되었습니다.");
         } else {
             $(this).attr("name", "btn_off");
-            $(this).removeClass("save-btn");
-            $(this).addClass("sett-btn");
+            $(this).removeClass("black");
             $(this).html("메뉴설정");
             $("#save").click();
         }
