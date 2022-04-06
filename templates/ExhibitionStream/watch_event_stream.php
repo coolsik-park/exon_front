@@ -441,7 +441,7 @@
     //naver share
     function naverShare() {
         var url = encodeURI(encodeURIComponent($("#url").val()));
-        var title = encodeURI('EXON');
+        var title = encodeURI('EXON 행사 공유');
         var shareURL = "https://share.naver.com/web/shareView?url=" + url + "&title=" + title;
         window.open(shareURL);
     }
