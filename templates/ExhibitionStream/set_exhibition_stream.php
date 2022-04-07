@@ -228,6 +228,12 @@
 </div>        
 
 <script>
+    var exhibition_status = "<?=$exhibition->status?>";
+    if (exhibition_status == 4) {
+        alert("임시저장 행사입니다.\n행사 개설 후 웨비나 송출 설정이 가능합니다.");
+        location.replace("/exhibition/edit/<?=$exhibition_id?>");
+    }
+
     //button alert  
     $(".btn-alert").hide();
     $("#setting_btn").mouseover(function() {

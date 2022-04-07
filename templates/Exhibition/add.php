@@ -46,6 +46,9 @@
     #detail_html {
         width: 99%;
     }
+    #member_div {
+        margin-top: 20px;
+    }
     @media  screen and (max-width: 768px) {
         .sect1 .photo {
             height: 214px;
@@ -198,6 +201,14 @@
                         <span class="chk-dsg"><input type="radio" name="is_event" id="is_event2" value="1"><label for="is_event2">등록</label></span>
                     </div>
                 </div>
+                <div id="member_div" class="sect6">
+                    <div class="sect-tit">
+                        <h4 class="s-hty2"><em class="st">*</em>참가자 명단</h4>
+                    </div>
+                    <div>
+                        <input type="text" id="event_member" name="event_member" placeholder="참가자1, 참가자2···." class="ipt">
+                    </div>
+                </div>
                 <div class="sect3">
                     <div class="row2">
                         <div class="col-th"><h4 class="s-hty2">행사유료화</h4></div>
@@ -284,6 +295,14 @@
                         <!-- <span class="chk-dsg"><input type="checkbox" id="require_age" name="require_age" value="1"><label for="require_age">나이</label></span> -->
                         <span class="chk-dsg"><input type="checkbox" id="require_group" name="require_group" value="1"><label for="require_group">소속</label></span>
                         <span class="chk-dsg"><input type="checkbox" id="require_sex" name="require_sex" value="1"><label for="require_sex">성별</label></span>
+                    </div>
+                </div>
+                <div class="sect7 mgtS1">
+                    <h4 class="s-hty2">웨비나 송출 설정</h4>
+                    <p class="p-noti">원하는 웨비나 송출 방법을 선택합니다.(중복 선택 가능)</p>
+                    <div class="list-chks">
+                        <span class="chk-dsg"><input type="checkbox" id="live" checked="checked" class="is_vod"><label for="live">라이브 송출</label></span>
+                        <span class="chk-dsg"><input type="checkbox" id="vod" class="is_vod"><label for="vod">VOD 송출</label></span>
                     </div>
                 </div>
                 <div class="sect7 mgtS1">
@@ -379,6 +398,29 @@
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" />
 
 <script>
+    //is_event 컨트롤
+    $("#member_div").hide();
+    $("#is_event1").on("change", function () {
+        if ($(this).prop("checked") == true) {
+            $("#member_div").hide();
+        }
+    });
+    $("#is_event2").on("change", function () {
+        if ($(this).prop("checked") == true) {
+            $("#member_div").show();
+        }
+    });
+
+    //is_vod 컨트롤
+    $(".is_vod").on("change", function() {
+        if ($(this).attr("id") == "live" && $("#live").prop("checked") == false && $("#vod").prop("checked") == false) {
+            $("#vod").prop("checked", true);
+        }
+        if ($(this).attr("id") == "vod" && $("#live").prop("checked") == false && $("#vod").prop("checked") == false) {
+            $("#live").prop("checked", true);
+        }
+    });
+
     //naver editor
     var oEditors = [];
     nhn.husky.EZCreator.createInIFrame({
@@ -720,6 +762,23 @@
             return false
         }
 
+        if ($("#is_event2").prop("checked") == true) {
+            if ($("#event_member").val().length == 0) {
+                alert('참가자 명단을 입력해주세요.');
+                $("#event_member").focus();
+                return false
+            }
+        }
+
+        var is_vod = 0;
+        if ($("#vod").prop("checked") == true && $("#live").prop("checked") == false) {
+            is_vod = 1;
+        }
+        if ($("#live").prop("checked") == true && $("#vod").prop("checked") == true) {
+            is_vod = 2;
+        }
+        formData = formData + '&is_vod=' + is_vod;
+
         jQuery.ajax({
             url: "/exhibition/add/",
             method: 'POST',
@@ -845,6 +904,15 @@
                 return false
             }
         }
+
+        var is_vod = 0;
+        if ($("#vod").prop("checked") == true && $("#live").prop("checked") == false) {
+            is_vod = 1;
+        }
+        if ($("#live").prop("checked") == true && $("#vod").prop("checked") == true) {
+            is_vod = 2;
+        }
+        formData = formData + '&is_vod=' + is_vod;
         
         jQuery.ajax({
             url: "/exhibition/add/",
