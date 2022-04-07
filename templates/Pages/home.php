@@ -32,7 +32,7 @@
         background: inherit;
         position: absolute;
         left: 0;
-        top: 2038px;
+        top: 240vh;
     }
     .slider5Div {
         width: 100%;
@@ -40,7 +40,7 @@
         background: inherit;
         position: absolute;
         left: 0;
-        top: 2400px;
+        top: 280vh;
     }
     .hotImg {
         width: 580px; height: 292px;
@@ -59,6 +59,11 @@
     .bannerM {
         display: none; 
     }
+    #live-img {
+        position: absolute;
+        width: 12%;
+        margin-left: 240px;
+    }
     @media  screen and (max-width: 768px) {
         .kakao-chat {
             width:45%;
@@ -75,7 +80,7 @@
             height:239.78px;
         }
         .main-slider3 .swiper-slide img {
-            height: 95px;
+            height: 86px;
         }
         .slider2Div {
             display: none;
@@ -109,7 +114,7 @@
             font-size: 0.8rem;
         }
         .main-slider3 .swiper-slide {
-            height: 95px;
+            height: 86px;
         }
         .hotImg {
             height: 190px;
@@ -124,21 +129,37 @@
 </style>
 <div id="container">
         <div class="main">
-            <div class="main-visual ">                
+            <div class="main-visual ">
                 <div class="swiper-container ">
                     <div class="swiper-wrapper ">
                         <?php $i = 0; ?>
-						<?php foreach ($banner as $list): ?>
-							<div class="swiper-slide">
-                                <a href="/boards/notice" class="imgs "><img name="bannerImg<?=$i?>" src="<?php echo $list->img_path . $list->img_name;?>" class="responsiveImg bannerPC" data-media-web="<?php echo $list->img_path . $list->img_name;?>" data-media-mobile="<?php echo $list->img_path . $list->img_name;?>" alt="" ></a>	
-                                <a href="/boards/notice" class="imgs "><img name="bannerImg<?=$i?>" src="/images/모바일_상단 배너_01.jpg" class="responsiveImg bannerM" data-media-web="/images/모바일_상단 배너_01.jpg" data-media-mobile="/images/모바일_상단 배너_01.jpg" alt="" ></a>
-							</div>
+                        <?php foreach ($banner as $list): ?>
+                            <div class="swiper-slide bannerPC">
+                                <a href="/boards/notice" class="imgs"><img name="bannerImg<?=$i?>" src="<?php echo $list->img_path . $list->img_name;?>" class="responsiveImg bannerPC" data-media-web="<?php echo $list->img_path . $list->img_name;?>" data-media-mobile="<?php echo $list->img_path . $list->img_name;?>" alt="" ></a>
+                            </div>
                             <?php $i++;?>
-						<?php endforeach; ?>
+                        <?php endforeach; ?>
                     </div>
-                    <div class="swiper-button-next"></div> 
-                    <div class="swiper-button-prev"></div>    
-                    <div class="swiper-pagination pagination-num"></div>                   
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <!-- <div class="swiper-pagination pagination-num"></div> -->
+                    <div class="swiper-pagination pagination-bottom"></div>
+                </div>
+            </div>
+            <div class="main-visual ">
+                <div class="swiper-container ">
+                    <div class="swiper-wrapper ">
+                        <?php $y = 0; ?>
+                        <?php foreach ($banner_m as $list): ?>
+                            <div class="swiper-slide bannerM">
+                                <a href="/boards/notice" class="imgs"><img name="bannerImg<?=$y?>" src="<?php echo $list->img_path . $list->img_name;?>" class="responsiveImg bannerM" data-media-web="<?php echo $list->img_path . $list->img_name;?>" data-media-mobile="<?php echo $list->img_path . $list->img_name;?>" alt="" ></a>
+                            </div>
+                            <?php $y++;?>
+                        <?php endforeach; ?>
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <!-- <div class="swiper-pagination pagination-num"></div> -->
                     <div class="swiper-pagination pagination-bottom"></div>
                 </div>
             </div>
@@ -235,6 +256,64 @@
                             <div class="swiper-pagination"></div>
                         </div>
                     </div>
+                </div>
+                <div class="main-sect4">
+                    <div class="h-ty1-wp">
+                        <h2 class="h-ty1"><span class="t2">EXON<br>온포터즈 1기</span></h2>
+                        <a href="/exhibition/contest-search">더 보기</a>
+                    </div>     
+                    <?php if (!empty($contest)) : ?>               
+                    <div class="main-slider4">
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                            <?php foreach($contest as $index => $list): ?>
+                                <div class="swiper-slide">
+                                    <div class="swiper-slide">
+                                        <div class="main-sd-item">
+                                            <?php if ($list['live_started'] != '0000-00-00 00:00:00') : ?>
+                                            <a href="/exhibition/view/<?php echo $list['exhibition_id']; ?>">
+                                            <div class="imgs"><img id="live-img" src="/img/live.png"><img style="width:280px; height:155px;" src="<?php echo DS . $list['img_path'] .DS. $list['img_name'];?>" alt=""></div>
+                                            <?php else : ?>
+                                            <a href="/exhibition-stream/watch-event-vod/<?php echo $list['exhibition_id']; ?>">
+                                            <div class="imgs"><img style="width:280px; height:155px;" src="<?php echo DS . $list['img_path'] .DS. $list['img_name'];?>" alt=""></div>
+                                            <?php endif; ?>
+                                            <div class="desc" style="width: 271px;">
+                                                <div class="info">
+                                                    <span class="state">
+                                                    <?php 
+                                                        if ($list['live_started'] != '0000-00-00 00:00:00') {
+                                                            echo 'LIVE';
+                                                        }else {
+                                                            echo 'VOD';
+                                                        }
+                                                    ?>
+                                                    </span>
+                                                    <?php if ($list['live_started'] != '0000-00-00 00:00:00') : ?>
+                                                    <span class="date">
+                                                        누적 시청자&nbsp;&nbsp;<?=$list['watched']?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;추천&nbsp;&nbsp;<?=$list['liked']?>
+                                                    </span>
+                                                    <?php else : ?>
+                                                    <span class="date">
+                                                        조회&nbsp;&nbsp;<?=$list['viewer']?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;추천&nbsp;&nbsp;<?=$list['liked']?>
+                                                    </span>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <h3 class="h-ty3"><?php echo $list['title']; ?></h3>
+                                                <p class="tx-1"><?php echo $list['description']; ?></p>
+                                            </div>
+                                            </a>
+                                        </div>                                    
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                            </div>
+                        </div>
+                        <div class="swiper-button-next"></div> 
+                        <div class="swiper-button-prev"></div>   
+                    </div>      
+                    <?php endif; ?>              
+                </div>
+                <div class="slider4Div">
                 </div>
                 <div class="main-sect4">
                     <div class="h-ty1-wp">

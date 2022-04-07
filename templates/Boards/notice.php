@@ -44,8 +44,13 @@
             <div id="list">
                 <h3 class="s-hty1">공지사항</h3>
                 <ul class="board-lists" id="board-lists">
+                    <?php $i = 1; ?>
                     <?php foreach ($boards as $board): ?>
+                        <?php if ($event == 1 && $i == $notice_id) : ?>
+                        <li id="li" class="on">
+                        <?php else : ?>
                         <li id="li">
+                        <?php $i ++; endif; ?>
                             <button type="button" class="b-tit b-noti-tit">
                                 <span class="tit"><?= $board->title ?></span>
                                 <span class="date"><?= date("Y.m.d", strtotime($board->created)); ?></span>

@@ -29,6 +29,7 @@ class ExhibitionStreamTableTest extends TestCase
         'app.Pay',
         'app.Coupon',
         'app.ExhibitionStreamChatLog',
+        'app.ExhibitionUsers',
     ];
 
     /**
@@ -59,6 +60,7 @@ class ExhibitionStreamTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
+     * @uses \App\Model\Table\ExhibitionStreamTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -69,6 +71,7 @@ class ExhibitionStreamTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
+     * @uses \App\Model\Table\ExhibitionStreamTable::buildRules()
      */
     public function testBuildRules(): void
     {

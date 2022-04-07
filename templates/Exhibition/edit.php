@@ -236,6 +236,17 @@
                     </div>
                 </div>
                 <div class="sect3">
+                    <h4 class="s-hty2">온포터즈 1기</h4>
+                    <p class="p-noti">온포터즈 1기 웨비나 행사로 등록하시겠습니까?</p>
+                    <div class="ln-rdo">
+                        <span class="chk-dsg"><input type="radio" name="is_event" id="is_event1" value="0" checked="checked"><label for="is_event1">등록안함</label></span>
+                    </div>
+                    
+                    <div class="ln-rdo">
+                        <span class="chk-dsg"><input type="radio" name="is_event" id="is_event2" value="1"><label for="is_event2">등록</label></span>
+                    </div>
+                </div>
+                <div class="sect3">
                     <div class="row2">
                         <div class="col-th"><h4 class="s-hty2">행사유료화</h4></div>
                         <div class="col-td">
