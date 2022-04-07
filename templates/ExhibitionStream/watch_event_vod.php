@@ -35,6 +35,9 @@
         #url-copy {
             margin-left: 5px;
         }
+        .wb-cont2 .w-desc p {
+            width: 70%;
+        }
     </style>
 </head>
 
