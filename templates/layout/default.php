@@ -268,4 +268,9 @@
             }
         });
     });
+
+    //refresh go top
+    $(window).on('beforeunload', function(){
+        $(window).scrollTop(0);
+    });
 </script>
