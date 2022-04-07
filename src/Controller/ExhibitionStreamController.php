@@ -1713,8 +1713,6 @@ class ExhibitionStreamController extends AppController
         
         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
         return $response;
-<<<<<<< HEAD
-=======
     }
 
     public function comment($id = null)
@@ -1809,6 +1807,5 @@ class ExhibitionStreamController extends AppController
         }
 
         return $response;
->>>>>>> bomi
     }
 }
