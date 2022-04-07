@@ -48,7 +48,7 @@
                     </video>
                 </div>   
                 <div class="wb-cont2">
-                    <h3 class="w-tit">title</h3>
+                    <h3 class="w-tit"><?=$exhibitionStream[0]['title']?></h3>
                     <div class="w-desc">
                         <p class="wd1"><span id="viewer" class="w-dt">조회수 <?=$exhibitionStream[0]['viewer']?></span></p>
                         <div class="wd2">
