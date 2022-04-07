@@ -145,13 +145,14 @@ class BoardsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function notice()
+    public function notice($event = null)
     {
         $this->paginate = ['limit' => 10];
         
         $notice_table = TableRegistry::get('Notice');
+        $notice_id = 1;
         $boards = $this->paginate($notice_table->find('all')->order(['created' => 'DESC']));
-        $this->set(compact('boards'));
+        $this->set(compact('boards', 'event', 'notice_id'));
     }
 
     public function searchTitle()

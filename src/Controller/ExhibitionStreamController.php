@@ -62,6 +62,11 @@ class ExhibitionStreamController extends AppController
                 'action' => 'home'
             ]);
         }
+        if ($exhibition->is_event == 1) {
+            return $this->redirect([
+                'action' => 'setEventStream', $exhibition_id
+            ]);
+        }
 
         $users_id = $this->getTableLocator()->get('Exhibition')->get($exhibition_id)->users_id;
         $title = $this->getTableLocator()->get('Exhibition')->get($exhibition_id)->title;
@@ -130,22 +135,11 @@ class ExhibitionStreamController extends AppController
             ]);
         }
 
-        // $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
-        // $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id])->toArray();
-
-        // $now = date('Y-m-d H:i:s', time()+32370);
-        
-        // foreach($exhibitionUsers as $exhibitionUser) {
-
-        //     if ($exhibitionUser['last_view_time'] != null) {
-        //         $to_time = $now;
-        //         $from_time = date('Y-m-d H:i:s', strtotime($exhibitionUser['last_view_time']->format('Y-m-d H:i:s'))+32400);
-
-        //         if ($to_time <= $from_time) {
-        //             if ($exhibitionUser->id)
-        //         }
-        //     }
-        // }
+        if ($exhibition->is_event == 1) {
+            return $this->redirect([
+                'action' => 'watchEventStream', $id, $exhibition_users_id, $cert
+            ]);
+        }
 
         if (empty($exhibitionStream)) {
             $this->redirect(['action' => 'stream_not_exist']);
@@ -870,6 +864,11 @@ class ExhibitionStreamController extends AppController
                 'action' => 'home'
             ]);
         }
+        if ($exhibition->is_event == 1) {
+            return $this->redirect([
+                'action' => 'editEventStream', $exhibition_id
+            ]);
+        }
         
         $users_id = $this->getTableLocator()->get('Exhibition')->get($exhibition_id)->users_id;
         if ($this->Auth->user('id') != $users_id) {
@@ -1402,9 +1401,15 @@ class ExhibitionStreamController extends AppController
         return $response;
     }
 
-    public function watchExhibitionVod()
+    public function watchEventVod($exhibition_id = null)
     {
+        $exhibition = $this->getTableLocator()->get('Exhibition')->get($exhibition_id);
+        $Users = $this->getTableLocator()->get('Users');
+        $user = $Users->get($exhibition->users_id);
+        $ExhibitionStream = $this->getTableLocator()->get('ExhibitionStream');
+        $exhibitionStream = $ExhibitionStream->find('all')->where(['exhibition_id' => $exhibition_id])->toArray();
         
+        $this->set(compact('user', 'exhibitionStream', 'exhibition_id'));
     }
 
     public function uploadVod()
@@ -1414,6 +1419,15 @@ class ExhibitionStreamController extends AppController
 
     public function setEventStream($exhibition_id = null)
     {
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $exhibition = $Exhibition->get($exhibition_id);
+        if ($exhibition->status == 8) {
+            return $this->redirect([
+                'controller' => 'pages',
+                'action' => 'home'
+            ]);
+        }
+
         $users_id = $this->getTableLocator()->get('Exhibition')->get($exhibition_id)->users_id;
         $title = $this->getTableLocator()->get('Exhibition')->get($exhibition_id)->title;
         if ($this->Auth->user('id') != $users_id) {
@@ -1428,14 +1442,23 @@ class ExhibitionStreamController extends AppController
                 $data = $this->request->getData();
                 
                 $exhibitionStream->exhibition_id = $exhibition_id;
+                if ($data['pay_id'] != 0) {
+                    $exhibitionStream->pay_id = $data['pay_id'];
+                }
+                if ($data['coupon_id'] != "0") :
+                $exhibitionStream->coupon_id = $data['coupon_id'];
+                endif;
                 $exhibitionStream->title = $data['title'];
                 $exhibitionStream->description = $data['description'];
                 $exhibitionStream->stream_key = $data['stream_key'];
-                $exhibitionStream->time = 1800;
-                $exhibitionStream->people = 300;
+                $exhibitionStream->time = $data['time'];
+                $exhibitionStream->people = $data['people'];
+                $exhibitionStream->amount = (int)str_replace(",", "", $data['amount']);
+                $exhibitionStream->coupon_amount = $data['coupon_amount'];
                 $exhibitionStream->url = $data['url'];
                 $exhibitionStream->ip = $this->Auth->user('ip');
                 $exhibitionStream->tab = $data['tab'];
+                $exhibitionStream->is_upload = $data['is_upload'];
 
                 if (!$this->ExhibitionStream->save($exhibitionStream)) {
                     $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
@@ -1446,7 +1469,7 @@ class ExhibitionStreamController extends AppController
             }
             
         } else {
-            return $this->redirect(['action' => 'editEventStream', $exhibition_id]);
+            return $this->redirect(['action' => 'editExhibitionStream', $exhibition_id]);
         }
         
         $exhibition = $this->ExhibitionStream->Exhibition->find('list', ['limit' => 200]);
@@ -1460,6 +1483,15 @@ class ExhibitionStreamController extends AppController
 
     public function editEventStream($exhibition_id = null)
     {
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $exhibition = $Exhibition->get($exhibition_id);
+        if ($exhibition->status == 8) {
+            return $this->redirect([
+                'controller' => 'pages',
+                'action' => 'home'
+            ]);
+        }
+        
         $users_id = $this->getTableLocator()->get('Exhibition')->get($exhibition_id)->users_id;
         if ($this->Auth->user('id') != $users_id) {
             $this->redirect(['controller' => 'pages', 'action' => 'home']);
@@ -1472,11 +1504,28 @@ class ExhibitionStreamController extends AppController
         $stream_id = $this->ExhibitionStream->find()->select(['id'])->where(['exhibition_id' => $exhibition_id])->toArray()[0]->id;
         $exhibitionStream = $this->ExhibitionStream->get($stream_id);
 
+        if ($exhibitionStream->coupon_id != null) {
+            $coupon = $this->ExhibitionStream->Coupon->findById($exhibitionStream->coupon_id)->toArray();
+        } else {
+            $coupon = [];
+        }
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
+                
+            if ($data['coupon_id'] != "0") :
+            $exhibitionStream->coupon_id = $data['coupon_id'];
+            endif;
             $exhibitionStream->title = $data['title'];
             $exhibitionStream->description = $data['description'];
+            $exhibitionStream->time = $data['time'];
+            $exhibitionStream->people = $data['people'];
+            $exhibitionStream->amount = $exhibitionStream->amount + (int)str_replace(",", "", $data['amount']);
+            if ($data['coupon_amount'] != "0") : 
+            $exhibitionStream->coupon_amount = $data['coupon_amount'];
+            endif;
             $exhibitionStream->tab = $data['tab'];
+            $exhibitionStream->is_upload = $data['is_upload'];
 
             if (!$this->ExhibitionStream->save($exhibitionStream)) {
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
@@ -1490,7 +1539,180 @@ class ExhibitionStreamController extends AppController
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray(); 
         $prices = $this->getTableLocator()->get('ExhibitionStreamDefaultPrice')->find('all')->toArray();
         $user = $this->Auth->user();
-        $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'tabs', 'exhibition_id', 'prices', 'user'));
+        $this->set(compact('exhibitionStream', 'exhibition', 'pay', 'coupon', 'tabs', 'exhibition_id', 'prices', 'user'));
+    }
+
+    public function watchEventStream ($id = null, $exhibition_users_id = null, $cert = null)
+    {
+        $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $id])->toArray();
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $exhibition = $Exhibition->get($id);
+        if ($exhibition->status == 8) {
+            return $this->redirect([
+                'controller' => 'pages',
+                'action' => 'home'
+            ]);
+        }
+
+        if (empty($exhibitionStream)) {
+            $this->redirect(['action' => 'stream_not_exist']);
+        } 
+        
+        if (strtotime($exhibition->sdate->format('Y-m-d H:i:s')) - 1800 - strtotime(date('Y-m-d H:i:s', time()+32400)) > 0) {
+            $this->redirect(['action' => 'stream_not_exist']);
+        }
+
+        if (empty($this->Auth->user()) && $exhibition_users_id == null) {
+            $this->redirect(['action' => 'certification', $id]);
+        }
+
+        if ($exhibition->require_cert == 1 && $cert != 1) {
+            $this->redirect(['action' => 'certification', $id]);
+        }
+
+        $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
+        $front_url = FRONT_URL;
+        $this->set(compact('exhibitionStream', 'tabs', 'exhibition_users_id', 'front_url', 'id'));
+    }
+
+    public function addLike ($exhibition_stream_id = null)
+    {
+        $ip = $this->request->ClientIp();
+        $path = 'liked_ip' . DS . date("Y") . DS . date("m") . DS . date("d") . DS . $exhibition_stream_id;
+                
+        if (!file_exists(WWW_ROOT . $path)) {
+            $oldMask = umask(0);
+            mkdir(WWW_ROOT . $path, 0777, true);
+            chmod(WWW_ROOT . $path, 0777);
+            umask($oldMask);
+            
+            $file_handle = fopen(WWW_ROOT . $path . DS . 'data.txt', 'a+');
+            fwrite($file_handle, $ip);
+            fwrite($file_handle, "\n");
+            fclose($file_handle);
+        } else {
+            $is_exist = 0;
+            $file_handle = fopen(WWW_ROOT . $path . DS . 'data.txt', 'r');
+            while (!feof($file_handle)) {
+                $ip_data = fgets($file_handle);
+                if ((string)$ip_data == (string)$ip . "\n") {
+                    $is_exist = 1;
+                }
+            } 
+            fclose($file_handle);
+
+            if ($is_exist == 0) {
+                $file_handle = fopen(WWW_ROOT . $path . DS . 'data.txt', 'a+');
+                fwrite($file_handle, $ip);
+                fwrite($file_handle, "\n");
+                fclose($file_handle);
+            } else {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'exist']));
+                return $response;
+            }
+        }
+
+        $exhibitionStream = $this->ExhibitionStream->get($exhibition_stream_id);
+        $exhibitionStream->liked = $exhibitionStream->liked + 1;
+
+        if (!$this->ExhibitionStream->save($exhibitionStream)) {
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+            return $response; 
+        }
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'liked' => $exhibitionStream->liked]));
+        return $response;
+    }
+
+    public function addViewer ($exhibition_stream_id = null)
+    {
+        $ip = $this->request->ClientIp();
+        $path = 'viewer_ip' . DS . date("Y") . DS . date("m") . DS . date("d") . DS . $exhibition_stream_id;
+                
+        if (!file_exists(WWW_ROOT . $path)) {
+            $oldMask = umask(0);
+            mkdir(WWW_ROOT . $path, 0777, true);
+            chmod(WWW_ROOT . $path, 0777);
+            umask($oldMask);
+            
+            $file_handle = fopen(WWW_ROOT . $path . DS . 'data.txt', 'a+');
+            fwrite($file_handle, $ip);
+            fwrite($file_handle, "\n");
+            fclose($file_handle);
+        } else {
+            $is_exist = 0;
+            $file_handle = fopen(WWW_ROOT . $path . DS . 'data.txt', 'r');
+            while (!feof($file_handle)) {
+                $ip_data = fgets($file_handle);
+                if ((string)$ip_data == (string)$ip . "\n") {
+                    $is_exist = 1;
+                }
+            } 
+            fclose($file_handle);
+
+            if ($is_exist == 0) {
+                $file_handle = fopen(WWW_ROOT . $path . DS . 'data.txt', 'a+');
+                fwrite($file_handle, $ip);
+                fwrite($file_handle, "\n");
+                fclose($file_handle);
+            } else {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'exist']));
+                return $response;
+            }
+        }
+
+        $exhibitionStream = $this->ExhibitionStream->get($exhibition_stream_id);
+        $exhibitionStream->viewer = $exhibitionStream->viewer + 1;
+
+        $this->ExhibitionStream->save($exhibitionStream);
+        
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'viewer' => $exhibitionStream->viewer]));
+        return $response;
+    }
+
+    public function addWatched ($exhibition_stream_id = null)
+    {
+        $ip = $this->request->ClientIp();
+        $path = 'watched_ip' . DS . $exhibition_stream_id;
+                
+        if (!file_exists(WWW_ROOT . $path)) {
+            $oldMask = umask(0);
+            mkdir(WWW_ROOT . $path, 0777, true);
+            chmod(WWW_ROOT . $path, 0777);
+            umask($oldMask);
+            
+            $file_handle = fopen(WWW_ROOT . $path . DS . 'data.txt', 'a+');
+            fwrite($file_handle, $ip);
+            fwrite($file_handle, "\n");
+            fclose($file_handle);
+        } else {
+            $is_exist = 0;
+            $file_handle = fopen(WWW_ROOT . $path . DS . 'data.txt', 'r');
+            while (!feof($file_handle)) {
+                $ip_data = fgets($file_handle);
+                if ((string)$ip_data == (string)$ip . "\n") {
+                    $is_exist = 1;
+                }
+            } 
+            fclose($file_handle);
+
+            if ($is_exist == 0) {
+                $file_handle = fopen(WWW_ROOT . $path . DS . 'data.txt', 'a+');
+                fwrite($file_handle, $ip);
+                fwrite($file_handle, "\n");
+                fclose($file_handle);
+            } else {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'exist']));
+                return $response;
+            }
+        }
+
+        $exhibitionStream = $this->ExhibitionStream->get($exhibition_stream_id);
+        $exhibitionStream->watched = $exhibitionStream->watched + 1;
+
+        $this->ExhibitionStream->save($exhibitionStream);
+        
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+        return $response;
     }
 
     public function comment($id = null)

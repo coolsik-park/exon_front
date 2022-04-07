@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\ExhibitionStreamTable;
+use App\Model\Table\ExhibitionCommentTable;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\ExhibitionStreamTable Test Case
+ * App\Model\Table\ExhibitionCommentTable Test Case
  */
-class ExhibitionStreamTableTest extends TestCase
+class ExhibitionCommentTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\ExhibitionStreamTable
+     * @var \App\Model\Table\ExhibitionCommentTable
      */
-    protected $ExhibitionStream;
+    protected $ExhibitionComment;
 
     /**
      * Fixtures
@@ -24,12 +24,9 @@ class ExhibitionStreamTableTest extends TestCase
      * @var array
      */
     protected $fixtures = [
+        'app.ExhibitionComment',
         'app.ExhibitionStream',
-        'app.Exhibition',
-        'app.Pay',
-        'app.Coupon',
-        'app.ExhibitionStreamChatLog',
-        'app.ExhibitionUsers',
+        'app.Users',
     ];
 
     /**
@@ -40,8 +37,8 @@ class ExhibitionStreamTableTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('ExhibitionStream') ? [] : ['className' => ExhibitionStreamTable::class];
-        $this->ExhibitionStream = $this->getTableLocator()->get('ExhibitionStream', $config);
+        $config = $this->getTableLocator()->exists('ExhibitionComment') ? [] : ['className' => ExhibitionCommentTable::class];
+        $this->ExhibitionComment = $this->getTableLocator()->get('ExhibitionComment', $config);
     }
 
     /**
@@ -51,7 +48,7 @@ class ExhibitionStreamTableTest extends TestCase
      */
     public function tearDown(): void
     {
-        unset($this->ExhibitionStream);
+        unset($this->ExhibitionComment);
 
         parent::tearDown();
     }
@@ -60,7 +57,7 @@ class ExhibitionStreamTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\ExhibitionStreamTable::validationDefault()
+     * @uses \App\Model\Table\ExhibitionCommentTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -71,7 +68,7 @@ class ExhibitionStreamTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @uses \App\Model\Table\ExhibitionStreamTable::buildRules()
+     * @uses \App\Model\Table\ExhibitionCommentTable::buildRules()
      */
     public function testBuildRules(): void
     {

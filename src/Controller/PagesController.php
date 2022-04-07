@@ -77,6 +77,16 @@ class PagesController extends AppController
                         ->where(['Banner.status'=>1, 'now() between Banner.sdate AND Banner.edate', 'Banner.type'=>'main'])
                         ->order(['Banner.sort'])
                         ->toArray();
+
+        $banner_m = $this->Banner->find('all')
+                        ->select(['Banner.id', 'Banner.exhibition_id', 'Banner.img_path', 'Banner.img_name', 'Exhibition.title'])
+                        ->contain(['Exhibition'])
+                        // ->leftJoinWith('Exhibition', function ($q) {
+                        //     return $q->where(['Exhibition.title' => '테스트']);
+                        // })
+                        ->where(['Banner.status'=>1, 'now() between Banner.sdate AND Banner.edate', 'Banner.type'=>'mobile'])
+                        ->order(['Banner.sort'])
+                        ->toArray();
         
         //HOT 10
         // $hot = $this->Banner->find('all')
@@ -106,7 +116,7 @@ class PagesController extends AppController
         $query .= "FROM ";
         $query .= "  exhibition  ";
         $query .= "WHERE ";
-        $query .= "  private = 0 AND date_ADD(now(), INTERVAL 9 HOUR) < edate ";
+        $query .= "  private = 0 AND status != 8 AND date_ADD(now(), INTERVAL 9 HOUR) < edate ";
         $query .= "ORDER BY ";
         $query .= "  sdate ";
         $query .= "LIMIT ";
@@ -139,7 +149,7 @@ class PagesController extends AppController
         $query .= "FROM ";
         $query .= "  exhibition  ";
         $query .= "WHERE ";
-        $query .= "  private = 0 AND date_ADD(now(), INTERVAL 9 HOUR) < edate AND date_format(sdate, '%m') = date_format(date_ADD(now(), INTERVAL 9 HOUR), '%m') ";
+        $query .= "  private = 0 AND status != 8 AND date_ADD(now(), INTERVAL 9 HOUR) < edate AND date_format(sdate, '%m') = date_format(date_ADD(now(), INTERVAL 9 HOUR), '%m') ";
         $query .= "ORDER BY ";
         $query .= "  sdate ";
         $query .= "LIMIT ";
@@ -170,7 +180,7 @@ class PagesController extends AppController
         $query .= "FROM ";
         $query .= "  exhibition  ";
         $query .= "WHERE ";
-        $query .= "  private = 0 AND date_ADD(now(), INTERVAL 9 HOUR) < edate ";
+        $query .= "  private = 0 AND status != 8 AND date_ADD(now(), INTERVAL 9 HOUR) < edate ";
         $query .= "ORDER BY ";
         $query .= "  id desc ";
         $query .= "LIMIT ";
@@ -178,6 +188,25 @@ class PagesController extends AppController
         
         $stmt = $conn->query($query);
         $normal = $stmt->fetchAll('assoc');
+
+        //CONTEST 10
+        $query  = " SELECT ";
+        $query .= "  E.id AS exhibition_id, ";
+        $query .= "  E.title AS title, E.image_path as img_path, E.image_name as img_name, ";
+        $query .= "  E.description AS description, ES.live_started as live_started, ES.vod_index as vod_index, ";
+        $query .= "  ES.viewer as viewer, ES.watched as watched, ES.liked as liked, ES.is_upload as is_upload ";
+        $query .= "FROM ";
+        $query .= "  exhibition_stream ES ";
+        $query .= "LEFT JOIN exhibition E ON ES.exhibition_id = E.id ";
+        $query .= "WHERE ";
+        $query .= "  E.private = 0 AND E.is_event = 1 AND E.status != 8 AND (live_started != '0000-00-00 00:00:00' OR vod_index != 0 AND is_upload = 1) ";
+        $query .= "ORDER BY ";
+        $query .= "  ES.live_started desc ";
+        $query .= "LIMIT ";
+        $query .= "  10 ";
+        
+        $stmt = $conn->query($query);
+        $contest = $stmt->fetchAll('assoc');
 
        /* case 2 : Custom Query */ 
         // $this->conn = ConnectionManager::get('default'); 
@@ -266,7 +295,7 @@ class PagesController extends AppController
         // echo("<pre>");print_r($hot);exit;
 
         try {
-            $this->set(compact('banner', 'hot', 'new', 'normal')); //key-value 연관배열을 쌍으로 적용('banner'=>$banner)
+            $this->set(compact('banner', 'banner_m', 'hot', 'new', 'normal', 'contest')); //key-value 연관배열을 쌍으로 적용('banner'=>$banner)
             return $this->render(implode('/', $path));
         } catch (MissingTemplateException $exception) {
             if (Configure::read('debug')) {

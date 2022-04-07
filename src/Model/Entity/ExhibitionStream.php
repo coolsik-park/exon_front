@@ -10,10 +10,10 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property int $exhibition_id
- * @property int $pay_id
+ * @property int|null $pay_id
  * @property int|null $coupon_id
  * @property string $title
- * @property string $description
+ * @property string|null $description
  * @property string $stream_key
  * @property int $time
  * @property int $people
@@ -21,6 +21,14 @@ use Cake\ORM\Entity;
  * @property int $coupon_amount
  * @property string|null $url
  * @property string $ip
+ * @property int $tab
+ * @property \Cake\I18n\FrozenTime|null $live_started
+ * @property int|null $live_duration
+ * @property int $is_upload
+ * @property int $vod_index
+ * @property int $viewer
+ * @property int $watched
+ * @property int $liked
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
  *
@@ -28,6 +36,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\Pay $pay
  * @property \App\Model\Entity\Coupon $coupon
  * @property \App\Model\Entity\ExhibitionStreamChatLog[] $exhibition_stream_chat_log
+ * @property \App\Model\Entity\ExhibitionUser[] $exhibition_users
  */
 class ExhibitionStream extends Entity
 {
@@ -53,12 +62,20 @@ class ExhibitionStream extends Entity
         'coupon_amount' => true,
         'url' => true,
         'ip' => true,
+        'tab' => true,
+        'live_started' => true,
+        'live_duration' => true,
+        'is_upload' => true,
+        'vod_index' => true,
+        'viewer' => true,
+        'watched' => true,
+        'liked' => true,
         'created' => true,
         'modified' => true,
-        'tab' => true,
         'exhibition' => true,
         'pay' => true,
         'coupon' => true,
         'exhibition_stream_chat_log' => true,
+        'exhibition_users' => true,
     ];
 }

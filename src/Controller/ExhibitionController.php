@@ -256,6 +256,7 @@ class ExhibitionController extends AppController
                 if (!empty($data['status'])) :
                 $exhibition->status = $data['status'];
                 endif;
+                $exhibition->is_event = $data['is_event'];
 
                 if ($result = $this->Exhibition->save($exhibition)) {
                     
@@ -505,6 +506,7 @@ class ExhibitionController extends AppController
                 if (!empty($data['status'])) :
                 $exhibition->status = $data['status'];
                 endif;
+                $exhibition->is_event = $data['is_event'];
 
                 if ($this->Exhibition->save($exhibition)) {
                     $ExhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup');
@@ -1243,18 +1245,6 @@ class ExhibitionController extends AppController
     {
         
     }
-
-    // public function search()
-    // {
-    //     $this->paginate['maxLimit'] = 999;
-    //     $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
-    //     $exhibition_users = $this->paginate($exhibition_users_table->find('search', ['search' => $this->request->getQuery()]))->toArray();
-
-    //     $this->set(compact('exhibition_users'));
-    //     $this->set('_serialize', ['exhibition_users']);
-
-    //     return $this->redirect(['action' => 'managerPerson', $exhibition_user->exhibition_id]);
-    // }
 
     public function sendEmailToParticipant($id = null)
     {
@@ -2180,6 +2170,102 @@ class ExhibitionController extends AppController
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $contents, 'commonCategory' => $commonCategory, 'count' => $count]));
                 return $response;
             }
+        }
+    }
+
+    public function contestSearch ($key = null) 
+    {
+        $this->paginate = ['ExhibitionStream' => ['limit' => 12]];
+        $exhibitions = $this->paginate($this->getTableLocator()->get('ExhibitionStream')->find()
+            ->select([
+                'Exhibition.id', 'Exhibition.title', 'Exhibition.image_path', 'Exhibition.image_name',
+                'ExhibitionStream.live_started', 'ExhibitionStream.vod_index', 'ExhibitionStream.viewer', 'ExhibitionStream.watched', 'ExhibitionStream.liked', 'ExhibitionStream.is_upload'
+            ])
+            ->LeftJoinWith('Exhibition')
+            ->where([
+                'Exhibition.title LIKE' => '%'.$key.'%',
+                'Exhibition.status IS NOT' => 8,
+                'Exhibition.private' => 0,
+                'Exhibition.is_event' => 1,
+                'OR' => [['ExhibitionStream.live_started IS NOT' => '0000-00-00 00:00:00'], ['ExhibitionStream.is_upload' => 1, 'ExhibitionStream.vod_index' => 1]],
+            ])
+            ->order(['ExhibitionStream.live_started' => 'DESC', 'Exhibition.created' => 'DESC']))->toArray();
+
+        $count = count($this->getTableLocator()->get('ExhibitionStream')->find()
+        ->select([
+            'Exhibition.id', 'Exhibition.title', 'Exhibition.image_path', 'Exhibition.image_name',
+            'ExhibitionStream.live_started', 'ExhibitionStream.vod_index', 'ExhibitionStream.viewer', 'ExhibitionStream.watched', 'ExhibitionStream.liked', 'ExhibitionStream.is_upload'
+        ])
+        ->LeftJoinWith('Exhibition')
+        ->where([
+            'Exhibition.title LIKE' => '%'.$key.'%',
+            'Exhibition.status IS NOT' => 8,
+            'Exhibition.private' => 0,
+            'Exhibition.is_event' => 1,
+            'OR' => [['ExhibitionStream.live_started IS NOT' => '0000-00-00 00:00:00'], ['ExhibitionStream.is_upload' => 1, 'ExhibitionStream.vod_index' => 1]],
+        ])->toArray());        
+
+        $this->set(compact('exhibitions', 'key', 'count'));
+        
+        if ($this->request->is('put')) {
+            $key = $this->request->getData('key');
+            $order = $this->request->getData('order');
+
+            $this->paginate = ['ExhibitionStream' => ['limit' => 12]];
+
+            if ($order == "popular") :
+                $exhibitions = $this->paginate($this->getTableLocator()->get('ExhibitionStream')->find()
+                    ->select([
+                        'Exhibition.id', 'Exhibition.title', 'Exhibition.image_path', 'Exhibition.image_name',
+                        'ExhibitionStream.live_started', 'ExhibitionStream.vod_index', 'ExhibitionStream.viewer', 'ExhibitionStream.watched', 'ExhibitionStream.liked', 'ExhibitionStream.is_upload'
+                    ])
+                    ->LeftJoinWith('Exhibition')
+                    ->where([
+                        'Exhibition.title LIKE' => '%'.$key.'%',
+                        'Exhibition.status IS NOT' => 8,
+                        'Exhibition.private' => 0,
+                        'Exhibition.is_event' => 1,
+                        'OR' => [['ExhibitionStream.live_started IS NOT' => '0000-00-00 00:00:00'], ['ExhibitionStream.is_upload' => 1, 'ExhibitionStream.vod_index' => 1]],
+                    ])
+                    ->order(['ExhibitionStream.live_started' => 'DESC', 'ExhibitionStream.liked' => 'DESC']))->toArray();
+            
+            else :
+                $exhibitions = $this->paginate($this->getTableLocator()->get('ExhibitionStream')->find()
+                    ->select([
+                        'Exhibition.id', 'Exhibition.title', 'Exhibition.image_path', 'Exhibition.image_name',
+                        'ExhibitionStream.live_started', 'ExhibitionStream.vod_index', 'ExhibitionStream.viewer', 'ExhibitionStream.watched', 'ExhibitionStream.liked', 'ExhibitionStream.is_upload'
+                    ])
+                    ->LeftJoinWith('Exhibition')
+                    ->where([
+                        'Exhibition.title LIKE' => '%'.$key.'%',
+                        'Exhibition.status IS NOT' => 8,
+                        'Exhibition.private' => 0,
+                        'Exhibition.is_event' => 1,
+                        'OR' => [['ExhibitionStream.live_started IS NOT' => '0000-00-00 00:00:00'], ['ExhibitionStream.is_upload' => 1, 'ExhibitionStream.vod_index' => 1]],
+                    ])
+                    ->order(['ExhibitionStream.live_started' => 'DESC', 'Exhibition.created' => 'DESC']))->toArray();
+            endif;
+
+            $count = count($this->getTableLocator()->get('ExhibitionStream')->find()
+                ->select([
+                    'Exhibition.id', 'Exhibition.title', 'Exhibition.image_path', 'Exhibition.image_name',
+                    'ExhibitionStream.live_started', 'ExhibitionStream.vod_index', 'ExhibitionStream.viewer', 'ExhibitionStream.watched', 'ExhibitionStream.liked', 'ExhibitionStream.is_upload'
+                ])
+                ->LeftJoinWith('Exhibition')
+                ->where([
+                    'Exhibition.title LIKE' => '%'.$key.'%',
+                    'Exhibition.status IS NOT' => 8,
+                    'Exhibition.private' => 0,
+                    'Exhibition.is_event' => 1,
+                    'OR' => [['ExhibitionStream.live_started IS NOT' => '0000-00-00 00:00:00'], ['ExhibitionStream.is_upload' => 1, 'ExhibitionStream.vod_index' => 1]],
+                ])->toArray());   
+
+            $view = new \Cake\View\View($this->request, $this->response);                                
+            $view->set(compact('exhibitions', 'key', 'count'));
+            $contents = $view->element('contest_search'); 
+
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'data' => $contents, 'count' => $count]));
+            return $response;
         }
     }
 
