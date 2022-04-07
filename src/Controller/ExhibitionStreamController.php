@@ -8,6 +8,7 @@ use Cake\Utility\Text;
 use Cake\I18n\FrozenTime;
 use Cake\Event\EventInterface;
 use Cake\Mailer\Mailer;
+use Cake\ORM\TableRegistry;
 
 class ExhibitionStreamController extends AppController
 {
@@ -1711,6 +1712,100 @@ class ExhibitionStreamController extends AppController
         $this->ExhibitionStream->save($exhibitionStream);
         
         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+        return $response;
+    }
+
+    public function comment($id = null)
+    {
+        $exhibition_comment_table = TableRegistry::get('ExhibitionComment');
+        $exhibition_comments = $exhibition_comment_table->find('all')->toArray();
+        // $exhibition_comment = $exhibition_comment->where(['exhibition_stream_id' => $id])->toArray();
+        $exhibition_comments_unders = $exhibition_comment_table->find('all')->where(['parent_id != 0'])->toArray();
+
+        $commentUnder[] = null;
+        foreach ($exhibition_comments_unders as $exhibition_comments_under) {
+            $i = 0;
+            if (array_key_exists($exhibition_comments_under->parent_id, $commentUnder)) {
+                $i = count($commentUnder[$exhibition_comments_under->parent_id]) + 1;
+                $commentUnder[$exhibition_comments_under->parent_id][$i] = $exhibition_comments_under;
+            } else {
+                $commentUnder[$exhibition_comments_under->parent_id][0] = $exhibition_comments_under;
+            }
+        }
+
+        $user = $this->Auth->user('id');
+        $this->set(compact('exhibition_comments', 'commentUnder', 'user'));
+    }
+
+    public function commentAdd()
+    {
+        $exhibition_comment_table = TableRegistry::get('ExhibitionComment');
+        $comment = $exhibition_comment_table->newEmptyEntity();
+
+        $users_table = TableRegistry::get('Users');
+        $user_name = $users_table->find()->where(['id' => $this->Auth->user('id')])->toArray();
+
+        if ($this->request->is('post')) {
+            $comment->exhibition_stream_id = $this->request->getData('exhibition_stream_id');
+            $comment->users_id = $this->request->getData('users_id');
+            if ($this->request->getData('parent_id') != null) {
+                $comment->parent_id = $this->request->getData('parent_id');
+            }
+            $comment->message = $this->request->getData('message');
+            $comment->liked = 0;
+            $comment->user_name = $user_name[0]->name;
+        }
+
+        if ($exhibition_comment_table->save($comment)) {
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'count' => count($exhibition_comment_table->find()->toArray())]));
+        } else {
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+        }
+
+        return $response;
+    }
+
+    public function commentEdit($id = null)
+    {
+        $exhibition_comment_table = TableRegistry::get('ExhibitionComment');
+        $exhibition_comment = $exhibition_comment_table->get($id);
+
+        if ($this->request->is('patch')) {
+            $exhibition_comment->message = $this->request->getData('message');
+
+            if ($exhibition_comment_table->save($exhibition_comment)) {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                return $response;
+            } else {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+            }
+
+            return $response;
+        }
+    }
+
+    public function commentDelete($id = null)
+    {
+        $connection = ConnectionManager::get('default');
+        $connection->begin();
+        
+        $exhibition_comment_table = TableRegistry::get('ExhibitionComment');
+
+        if ($connection->delete('exhibition_comment',['id' => $id])) {
+            if (count($exhibition_comment_table->find('all')->where(['parent_id' => $id])->toArray()) != 0) {
+                if ($connection->delete('exhibition_comment',['parent_id' => $id])) {
+                    $connection->commit();
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                } else {
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                }
+            }
+            $connection->commit();
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+        } else {
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+        }
+
         return $response;
     }
 }
