@@ -32,7 +32,7 @@
         background: inherit;
         position: absolute;
         left: 0;
-        top: 240vh;
+        top: 300vh;
     }
     .slider5Div {
         width: 100%;
@@ -40,7 +40,7 @@
         background: inherit;
         position: absolute;
         left: 0;
-        top: 280vh;
+        top: 350vh;
     }
     .hotImg {
         width: 580px; height: 292px;
@@ -124,6 +124,24 @@
         }
         .bannerM {
             display: block; 
+        }
+    }
+    @media  screen and (min-width: 1600px) {
+        .slider4Div {
+            width: 100%;
+            height: 260px;
+            background: inherit;
+            position: absolute;
+            left: 0;
+            top: 240vh;
+        }
+        .slider5Div {
+            width: 100%;
+            height: 260px;
+            background: inherit;
+            position: absolute;
+            left: 0;
+            top: 280vh;
         }
     }
 </style>

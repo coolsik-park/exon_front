@@ -285,6 +285,8 @@
     .section4--box__wrap {
         justify-content: space-around;
         position: absolute;
+        width: 100%;
+        top: 60vh;
     }
     .section4--box__div {
         width: 15%;
