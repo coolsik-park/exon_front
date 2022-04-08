@@ -1,6 +1,7 @@
 <style>
     * {
         box-sizing: inherit;
+        font-family: 'NanumBarunGothic';
     }
     .wrap {
         font-family: 'NanumBarunGothic';
@@ -228,6 +229,7 @@
         font-size: 16px;
         color: #CBCBCB;
         margin-top: 1vh;
+        line-height: 20px;
     }
     #section3--slide {
         height: 100vh;
@@ -286,7 +288,7 @@
         justify-content: space-around;
         position: absolute;
         width: 100%;
-        top: 60vh;
+        top: 61vh;
     }
     .section4--box__div {
         width: 15%;
@@ -298,6 +300,22 @@
         border-radius: 12px;
         margin: 0 auto;
         box-shadow: 10px 10px 28px #ABABAB;
+        position: relative;
+    }
+    .section4--img {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 0;
+    }
+    .unselect {
+        background-color: #ffffff;
+    }
+    /* .unselect:hover {
+        background-color: #FD4659;
+    } */
+    .select {
+        background-color: #FD4659;
     }
     .section4--box__txt {
         width: 100%;
@@ -311,13 +329,15 @@
         font-size: 1.5rem;
         font-weight: 600;
         margin-top: 1vh;
+        animation: fade .8s .5s both;
     }
     .section4--box__txt3 {
         width: 100%;
         font-size: 0.8rem;
         color: #ABABAB;
-        line-height: 2vh;
+        line-height: 20px;
         margin-top: 1vh;
+        animation: bottomFly 2s 1s both;
     }
     
 
@@ -327,17 +347,288 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+        position: relative;
+    }
+    .section5--title__div {
+        color: white;
+        width: 40%;
+        text-align: right;
+        position: absolute;
+        top: 22vh;
+        margin-right: 10vh;
+    }
+    .section5--box__txt {
+        width: 100%;
+        font-size: 7rem;
+        font-weight: 600;
+        margin-top: 2vh;
+        animation: rightFly 3s 0s both;
+    }
+    .section5--box__txt2 {
+        width: 100%;
+        font-size: 2rem;
+        font-weight: 400;
+        margin-top: 4vh;
+        line-height: 45px;
+        animation: rightFly 3s .5s both;
+    }
+    .section5--box__txt3 {
+        width: 100%;
+        font-size: 1rem;
+        color: #E9E8E8;
+        line-height: 30px;
+        margin-top: 4vh;
+        animation: rightFly 3s 1s both;
+    }
+    .section5--txt__bold {
+        font-weight: 800;
+        color: white;
+        font-size: 2.5rem;
+    }
+    .section5--txt3__bold {
+        font-weight: 800;
+        font-size: 1.25rem;
+        color: white;
+    }
+    .section5--img__div {
+        width: 45%;
+        position: absolute;
+        right: 10vh;
+        top: 13vh;
+    }
+    .section5--img {
+        width: 100%;
     }
 
     /* Section6 */
     .section6 {
-
+        background-image: url('/img/introduce/section6-배경.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
     }
+    .container {
+        position: relative;
+    }
+    .section6--title__div {
+        position: absolute;
+        right: 0;
+        top: 75vh;
+    }
+    .section6--title__txt {
+        font-size: 60px;
+        font-weight: 700;
+    }
+    .section6--title__txt2 {
+        font-size: 24px;
+        font-weight: 400;
+        color: #ABABAB;
+        margin-top: 1vh;
+        line-height: 30px;
+    }
+    .section6--img__div {
+        position: absolute;
+        top: 4em;
+    }
+    .section6-img1 {
+        display: inline-block;
+        width: 100%;
+        height: 59vh;
+        border-top-left-radius: 45%;
+        border-top-right-radius: 45%;
+    }
+    .section6-img2 {
+        display: inline-block;
+        width: 100%;
+        height: 22vh;
+        margin-top: 1.5em;
+    }
+    .section6-img3 {
+        display: inline-block;
+        width: 100%;
+        height: 40vh;
+        margin-top: 5em;
+        border-top-left-radius: 45%;
+    }
+    .section6-img4 {
+        display: inline-block;
+        width: 100%;
+        height: 30vh;
+        margin-top: 1.5em;
+        border-bottom-right-radius: 50%;
+    }
+    .section6--img__ul {
+        column-width: 330px;
+	    column-gap: 1.5em;
+        width: 60%;
+        column-count: 2;
+        background-color: white;
+    }
+    .section6--img__li1:before {
+        content:'';
+        color: white;
+        background: linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.8));
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        opacity: 0;
+        border-top-left-radius: 45%;
+        border-top-right-radius: 45%;
+    }
+    .section6--img__li1:after {
+        content: '웨비나';
+        color: white;
+        position: absolute;
+        left: 40%;
+        top: 50%;
+        font-size: 1.5rem;
+        font-weight: 700;
+        opacity: 0;
+    }
+    .section6--img__li1 {
+        position: relative;
+    }
+    .section6--img__li1:hover:before {
+        opacity: 1;
+    }
+    .section6--img__li1:hover:after {
+        opacity: 1;
+    }
+    .section6--img__li2:before {
+        content:'';
+        color: white;
+        background: linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.8));
+        width: 100%;
+        height: 90%;
+        bottom: 0;
+        position: absolute;
+        opacity: 0;
+    }
+    .section6--img__li2:after {
+        content: '컨퍼런스/포럼';
+        color: white;
+        position: absolute;
+        left: 30%;
+        top: 50%;
+        font-size: 1.5rem;
+        font-weight: 700;
+        opacity: 0;
+    }
+    .section6--img__li2 {
+        position: relative;
+    }
+    .section6--img__li2:hover:before {
+        opacity: 1;
+    }
+    .section6--img__li2:hover:after {
+        opacity: 1;
+    }
+
+    .section6--img__li3:before {
+        content:'';
+        color: white;
+        background: linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.8));
+        width: 100%;
+        height: 82%;
+        bottom: 0;
+        position: absolute;
+        opacity: 0;
+        border-top-left-radius: 45%;
+    }
+    .section6--img__li3:after {
+        content: '교육/강의';
+        color: white;
+        position: absolute;
+        left: 35%;
+        top: 55%;
+        font-size: 1.5rem;
+        font-weight: 700;
+        opacity: 0;
+    }
+    .section6--img__li3 {
+        position: relative;
+    }
+    .section6--img__li3:hover:before {
+        opacity: 1;
+    }
+    .section6--img__li3:hover:after {
+        opacity: 1;
+    }
+
+    .section6--img__li4:before {
+        content:'';
+        color: white;
+        background: linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.8));
+        width: 100%;
+        height: 93%;
+        position: absolute;
+        bottom: 0;
+        opacity: 0;
+        border-bottom-right-radius: 50%;
+    }
+    .section6--img__li4:after {
+        content: 'E-sports';
+        color: white;
+        position: absolute;
+        left: 37%;
+        top: 50%;
+        font-size: 1.5rem;
+        font-weight: 700;
+        opacity: 0;
+    }
+    .section6--img__li4 {
+        position: relative;
+    }
+    .section6--img__li4:hover:before {
+        opacity: 1;
+    }
+    .section6--img__li4:hover:after {
+        opacity: 1;
+    }
+
 
     /* Section7 */
     .section7 {
         background-color: #FD4659;
-        height: 70vh;
+        height: 80vh;
+        position: relative;
+        border: none;
+    }
+    .section7--title__div {
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: white;
+        position: relative;
+        top: 18vh;
+    }
+    .section7--logo {
+        width: 30vh;
+    }
+    .section7__button {
+        width: 200px;
+        height: 50px;
+        color: #FD4659;
+        border-radius: 8px;
+        font-weight: 700;
+        background-color: white;
+        font-size: 1.25rem;
+        margin-top: 30px;
+    }
+    .section7__button:active,
+    .section7__button:hover,
+    .section7__button:focus {
+        outline: 0;
+    }
+    .section7--title__txt {
+        font-size: 3rem;
+        font-weight: 800;
+    }
+    .section7--title__txt2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-top: 30px;
     }
 
 
@@ -388,6 +679,29 @@
             top: 200px;
             animation: fade 1s .2s both;
         }
+        .section6-img1 {
+            display: inline-block;
+            width: 100%;
+            height: 59vh;
+        }
+        .section6-img2 {
+            display: inline-block;
+            width: 100%;
+            height: 20vh;
+            margin-top: 1.5em;
+        }
+        .section6-img3 {
+            display: inline-block;
+            width: 100%;
+            height: 40vh;
+            margin-top: 5.5em;
+        }
+        .section6-img4 {
+            display: inline-block;
+            width: 100%;
+            height: 30vh;
+            margin-top: 1.5em;
+        }
     }
 
     @keyframes fade {
@@ -420,10 +734,26 @@
     to {
         transform: translateX(0px);
     }
-    }	 
+    }
+    @keyframes rightFly {
+        from{
+            transform: translateX(-1000px);
+        }
+        to {
+            transform: translateX(0px);
+        }
+    }
+    @keyframes bottomFly {
+        from{
+            transform: translateY(500px);
+        }
+        to {
+            transform: translateY(0px);
+        }
+    }
+    
 </style>
 
-<div class="wrap">
     <section class="section1">
         <div id="section1--slide" class="swiper-container">
             <ul class="swiper-wrapper">
@@ -519,7 +849,7 @@
                                         <div class="section3--txt__words3">행사 개설, 모집, 운영, 송출, VOD, 데이터 제공 등 All-in-one 솔루션</div>
                                     </div>
                                 </div>
-                            <div class="section3--slide__img"><img src="/img/introduce/섹션3-1.png" class="section3--img section3--img__shadow"></div>
+                            <div class="section3--slide__img"><img src="/img/introduce/section3-img-2.png" class="section3--img section3--img__shadow"></div>
                         </div>
                     </li>
                     <li class="swiper-slide">
@@ -532,7 +862,7 @@
                                         <div class="section3--txt__words3">송출,저장,트랜스코딩 등 OVP(Online Video Platform)를 활용한 실시간 스트리밍 지원</div>
                                     </div>
                                 </div>
-                            <div class="section3--slide__img"><img src="/img/introduce/섹션3-1.png" class="section3--img section3--img__shadow"></div>
+                            <div class="section3--slide__img"><img src="/img/introduce/section3-img-3.png" class="section3--img section3--img__shadow"></div>
                         </div>
                     </li>
                     <li class="swiper-slide">
@@ -545,7 +875,7 @@
                                         <div class="section3--txt__words3">참가자, 행사신청, 설문, 스트리밍 시청 데이터 </div>
                                     </div>
                                 </div>
-                            <div class="section3--slide__img"><img src="/img/introduce/섹션3-1.png" class="section3--img section3--img__shadow"></div>
+                            <div class="section3--slide__img"><img src="/img/introduce/section3-img-4.png" class="section3--img section3--img__shadow"></div>
                         </div>
                     </li>
                 </ul>
@@ -553,7 +883,7 @@
             </div>
         </div>
     </section>
-    <section class="section4">
+    <section id="section4"class="section4">
         <div class="container">
             <div class="section4--title">
                 <div class="section4--title__txt">How</div>
@@ -566,7 +896,9 @@
             </div>
             <div class="section4--box__wrap d-flex">
                 <div class="section4--box__div">
-                    <div class="section4--box__img select"></div>
+                    <div class="section4--box__img select" style="box-shadow: 0px 0px 0px #000000;">
+                        <!-- <img src="/img/introduce/행사개설-아이콘-dark.png" class="section4--img"> -->
+                    </div>
                     <div class="section4--box__txt">STEP 01</div>
                     <div class="section4--box__txt2">행사 개설/모집</div>
                     <div class="section4--box__txt3">
@@ -577,7 +909,7 @@
                     </div>
                 </div>
                 <div class="section4--box__div">
-                    <div class="section4--box__img"></div>
+                    <div class="section4--box__img unselect"></div>
                     <div class="section4--box__txt">STEP 02</div>
                     <div class="section4--box__txt2">웨비나 세팅</div>
                     <div class="section4--box__txt3">
@@ -587,7 +919,7 @@
                     </div>
                 </div>
                 <div class="section4--box__div">
-                    <div class="section4--box__img"></div>
+                    <div class="section4--box__img unselect"></div>
                     <div class="section4--box__txt">STEP 03</div>
                     <div class="section4--box__txt2">웨비나 진행</div>
                     <div class="section4--box__txt3">
@@ -597,7 +929,7 @@
                     </div>
                 </div>
                 <div class="section4--box__div">
-                    <div class="section4--box__img"></div>
+                    <div class="section4--box__img unselect"></div>
                     <div class="section4--box__txt">STEP 04</div>
                     <div class="section4--box__txt2">행사 종료</div>
                     <div class="section4--box__txt3">
@@ -608,19 +940,47 @@
             </div>
         </div>
     </section>
-    <section class="section5">
-        <div class="container">
-        </div>
+    <section class="section5 d-flex">
+            <div class="section5--title__div">
+                <div class="section5--box__txt">What</div>
+                <div class="section5--box__txt2"><span class="section5--txt__bold">EXON</span>은 차별화된 <br><span class="section5--txt__bold">서비스</span>를 제공합니다</div>
+                <div class="section5--box__txt3">
+                    사용자 중심의 UI/UX 디자인 <span class="section5--txt3__bold">행사 개설/모집</span> <br>
+                    RTMP 방식의 고화질 영상 송출이 가능한 <span class="section5--txt3__bold">안정적인 스트리밍 서비스</span> <br>
+                    회원가입 없이도 시청 가능한 <span class="section5--txt3__bold">참가자들의 쉬운 접근성 </span><br>
+                    경제적인 웨비나 진행으로 인한 <span class="section5--txt3__bold">행사 운영 비용 절감 </span> <br>
+                    참가자들의 행사 참여 패턴을 분석한 <span class="section5--txt3__bold"> 데이터를 활용한 행사 분석 </span>
+                </div>
+            </div>
+            <div class="section5--img__div"><img src="/img/introduce/스타벅스카드.png" class="section5--img"></div>
     </section>
     <section class="section6">
         <div class="container">
+            <div class="section6--img__div">
+                <ul class="section6--img__ul">
+                    <li class="section6--img__li1"><img src="/img/introduce/section6-img1.png" class="section6-img1"></li>
+                    <li class="section6--img__li2"><img src="/img/introduce/section6-img2.png" class="section6-img2"></li>
+                    <li class="section6--img__li3"><img src="/img/introduce/section6-img3.png" class="section6-img3"></li>
+                    <li class="section6--img__li4"><img src="/img/introduce/section6-img4.png" class="section6-img4"></li>
+                </ul>
+            </div>
+            <div class="section6--title__div">
+                <div class="section6--title__txt">Where</div>
+                <div class="section6--title__txt2">EXON 플랫폼은 Live와 VOD가 <br>필요한 여러 분야에 활용 가능합니다</div>
+            </div>
         </div>
     </section>
     <section class="section7">
         <div class="container">
+            <div class="section7--title__div">
+                <div class="section7--title__logo"><img src="/images/EXON-로고-검은색.png" class="section7--logo"></div>
+                <div class="section7--title__txt">쉽고 빠른 웨비나 행사 개설</div>
+                <div class="section7--title__txt2">지금 바로 행사를 개설해보세요.</div>
+                <div class="section7--title__btn"><button class="section7__button" type="button">행사 개설하기</button></div>
+            </div>
         </div>
     </section>
-</div>
+
 
 
 
@@ -665,5 +1025,17 @@
             delay: 3000,
             disableOnInteraction: false,
         },
+    });
+
+    const section4BoxTxt2 = $('.section4--box__txt2');
+    const section4 = $('#section4');
+    var rect = section4.getBoundingClientRect();
+    const section4Height = rect.top;
+    console.log(window.scrollY);
+    document.addEventListener('scroll', ()=>{
+        if(window.scrollY > section4Height) {
+            section4BoxTxt2.style.animation = "fade .8s .5s both";
+            alert("section4");
+        }
     });
 </script>
