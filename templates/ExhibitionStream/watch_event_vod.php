@@ -35,6 +35,12 @@
         #url-copy {
             margin-left: 5px;
         }
+        .wb-cont2 .w-desc p {
+            width: 70%;
+        }
+        #member {
+            width: 50%;
+        }
     </style>
 </head>
 
@@ -46,18 +52,25 @@
                     <video id="vid1" class="video-js vjs-big-play-centered" poster="https://orcaexon.co.kr/videos/<?=$exhibitionStream[0]['stream_key']?>/thumbnail.png">
                         <source src="https://orcaexon.co.kr/videos/<?=$exhibitionStream[0]['stream_key']?>/EXON_VOD.mp4" type="video/mp4" />
                     </video>
-                </div>   
+                </div>
                 <div class="wb-cont2">
-                    <h3 class="w-tit">title</h3>
                     <div class="w-desc">
-                        <p class="wd1"><span id="viewer" class="w-dt">조회수 <?=$exhibitionStream[0]['viewer']?></span></p>
+                        <p class="wd1"><span class="w-dt"></span></p>
                         <div class="wd2">
-                            <span id="liked" class="w-dt">추천 <?=$exhibitionStream[0]['liked']?></span>&nbsp;&nbsp;&nbsp;
+                            <span id="viewer" class="w-dt">조회수 <?=$exhibitionStream[0]['viewer']?></span>&nbsp;&nbsp;&nbsp;
+                            <span id="liked" class="w-dt">추천 <?=$exhibitionStream[0]['liked']?></span>
+                        </div>
+                    </div>   
+                    <h3 class="w-tit"><?=$exhibitionStream[0]['title']?></h3>
+                    <div class="w-desc">
+                        <div id="member" class="wd1">
+                            <span class="w-dt"><?=$exhibition->event_member?></p>
+                        </div>
+                        <div class="wd2">
                             <span id="like" class="w-dt">&nbsp;<img id="thumb-img" src="/img/thumb1.png">&nbsp;추천하기</span>&nbsp;&nbsp;&nbsp;
                             <span id="share" class="w-dt" data-toggle="modal" data-target="#shareModal" data-backdrop="static" data-keyboard="false">&nbsp;<img id="share-img" src="/img/share.png">&nbsp;공유하기</span>
                         </div>
                     </div>
-                    <h3 class="w-tit"><?=$user->name?></h3>
                 </div>         
                 <br>        
             </div>

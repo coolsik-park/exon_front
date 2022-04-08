@@ -257,6 +257,10 @@ class ExhibitionController extends AppController
                 $exhibition->status = $data['status'];
                 endif;
                 $exhibition->is_event = $data['is_event'];
+                if (!empty($data['event_member'])) {
+                    $exhibition->event_member = $data['event_member'];
+                }
+                $exhibition->is_vod = $data['is_vod'];
 
                 if ($result = $this->Exhibition->save($exhibition)) {
                     
@@ -507,6 +511,10 @@ class ExhibitionController extends AppController
                 $exhibition->status = $data['status'];
                 endif;
                 $exhibition->is_event = $data['is_event'];
+                if (!empty($data['event_member'])) {
+                    $exhibition->event_member = $data['event_member'];
+                }
+                $exhibition->is_vod = $data['is_vod'];
 
                 if ($this->Exhibition->save($exhibition)) {
                     $ExhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup');

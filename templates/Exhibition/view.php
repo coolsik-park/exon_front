@@ -20,7 +20,6 @@
     }
     .apply-sect3-cont {
         word-break:break-all;
-        white-space: pre;
     }
     table {
             table-layout: auto;

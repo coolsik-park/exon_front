@@ -114,7 +114,6 @@ class ExhibitionStreamController extends AppController
             return $this->redirect(['action' => 'editExhibitionStream', $exhibition_id]);
         }
         
-        $exhibition = $this->ExhibitionStream->Exhibition->find('list', ['limit' => 200]);
         $pay = $this->ExhibitionStream->Pay->find('list', ['limit' => 200]);
         $coupon = $this->ExhibitionStream->Coupon->find('list', ['limit' => 200]);
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
@@ -1404,12 +1403,10 @@ class ExhibitionStreamController extends AppController
     public function watchEventVod($exhibition_id = null)
     {
         $exhibition = $this->getTableLocator()->get('Exhibition')->get($exhibition_id);
-        $Users = $this->getTableLocator()->get('Users');
-        $user = $Users->get($exhibition->users_id);
         $ExhibitionStream = $this->getTableLocator()->get('ExhibitionStream');
         $exhibitionStream = $ExhibitionStream->find('all')->where(['exhibition_id' => $exhibition_id])->toArray();
         
-        $this->set(compact('user', 'exhibitionStream', 'exhibition_id'));
+        $this->set(compact('exhibitionStream', 'exhibition_id', 'exhibition'));
     }
 
     public function uploadVod()
@@ -1472,7 +1469,6 @@ class ExhibitionStreamController extends AppController
             return $this->redirect(['action' => 'editExhibitionStream', $exhibition_id]);
         }
         
-        $exhibition = $this->ExhibitionStream->Exhibition->find('list', ['limit' => 200]);
         $pay = $this->ExhibitionStream->Pay->find('list', ['limit' => 200]);
         $coupon = $this->ExhibitionStream->Coupon->find('list', ['limit' => 200]);
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
@@ -1807,5 +1803,15 @@ class ExhibitionStreamController extends AppController
         }
 
         return $response;
+    }
+
+    public function watchExhibitionVod($exhibition_stream_id = null, $exhibition_vod_id = null)
+    {
+        
+    }
+
+    public function vodChapter($exhibition_stream_id = null)
+    {
+        $ExhibitionVod = $this->getTableLocator()->get('ExhibitionVod');
     }
 }

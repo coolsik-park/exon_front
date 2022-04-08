@@ -51,6 +51,9 @@
     #detail_html {
         width: 99%;
     }
+    #member_div {
+        margin-top: 20px;
+    }
     @media  screen and (max-width: 768px) {
         .sect1 .photo {
             height: 214px;
@@ -246,6 +249,14 @@
                         <span class="chk-dsg"><input type="radio" name="is_event" id="is_event2" value="1"><label for="is_event2">등록</label></span>
                     </div>
                 </div>
+                <div id="member_div" class="sect6">
+                    <div class="sect-tit">
+                        <h4 class="s-hty2"><em class="st">*</em>참가자 명단</h4>
+                    </div>
+                    <div>
+                        <input type="text" id="event_member" name="event_member" placeholder="참가자1, 참가자2···." class="ipt">
+                    </div>
+                </div>
                 <div class="sect3">
                     <div class="row2">
                         <div class="col-th"><h4 class="s-hty2">행사유료화</h4></div>
@@ -333,6 +344,14 @@
                     </div>
                 </div>
                 <div class="sect7 mgtS1">
+                    <h4 class="s-hty2">웨비나 송출 설정</h4>
+                    <p class="p-noti">원하는 웨비나 송출 방법을 선택합니다.(중복 선택 가능)</p>
+                    <div class="list-chks">
+                        <span class="chk-dsg"><input type="checkbox" id="live" class="is_vod"><label for="live">라이브 송출</label></span>
+                        <span class="chk-dsg"><input type="checkbox" id="vod" class="is_vod"><label for="vod">VOD 송출</label></span>
+                    </div>
+                </div>
+                <div class="sect7 mgtS1">
                     <h4 class="s-hty2">웨비나 접속 시 본인 인증</h4>
                     <p class="p-noti">웨비나 접속 시 인증 절차를 진행합니다.</p>
                     <div class="list-chks">
@@ -400,6 +419,16 @@
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" />
 
 <script>
+    //is_vod 컨트롤
+    $(".is_vod").on("change", function() {
+        if ($(this).attr("id") == "live" && $("#live").prop("checked") == false && $("#vod").prop("checked") == false) {
+            $("#vod").prop("checked", true);
+        }
+        if ($(this).attr("id") == "vod" && $("#live").prop("checked") == false && $("#vod").prop("checked") == false) {
+            $("#live").prop("checked", true);
+        }
+    });
+
     //naver editor
     var oEditors = [];
     var detail = $("#hidden_detail").val();
@@ -492,6 +521,7 @@
     $("#name").val("<?=$exhibition->name?>");
     $("#tel").val("<?=$exhibition->tel?>");
     $("#email").val("<?=$exhibition->email?>");
+    $("#event_member").val("<?=$exhibition->event_member?>");
     if ($('input:checkbox[name="require_name"]').val() == "<?=$exhibition->require_name?>") { 
         $('input:checkbox[name="require_name"]').prop("checked", true); 
     }
@@ -514,6 +544,29 @@
     $("input:radio[name='email_notice']:radio[value='<?=$exhibition->email_notice?>']").prop("checked", true);
     $("input:radio[name='additional']:radio[value='<?=$exhibition->additional?>']").prop("checked", true);
     $("input:radio[name='is_event']:radio[value='<?=$exhibition->is_event?>']").prop("checked", true);
+    var vod_val = "<?=$exhibition->is_vod?>";
+    if (vod_val == 0) {
+        $("#live").prop("checked", true);
+    } else if (vod_val == 1) {
+        $("#vod").prop("checked", true);
+    } else {
+        $("#live").prop("checked", true);
+        $("#vod").prop("checked", true);
+    }
+
+    if ($("#is_event1").prop("checked") == true) {
+        $("#member_div").hide();
+    }
+    $("#is_event1").on("change", function () {
+        if ($(this).prop("checked") == true) {
+            $("#member_div").hide();
+        }
+    });
+    $("#is_event2").on("change", function () {
+        if ($(this).prop("checked") == true) {
+            $("#member_div").show();
+        }
+    });
 
     //그룹 데이터 불러오기
     var groupIndex = 0;
@@ -895,6 +948,23 @@
             return false
         }
 
+        if ($("#is_event2").prop("checked") == true) {
+            if ($("#event_member").val().length == 0) {
+                alert('참가자 명단을 입력해주세요.');
+                $("#event_member").focus();
+                return false
+            }
+        }
+
+        var is_vod = 0;
+        if ($("#vod").prop("checked") == true && $("#live").prop("checked") == false) {
+            is_vod = 1;
+        }
+        if ($("#live").prop("checked") == true && $("#vod").prop("checked") == true) {
+            is_vod = 2;
+        }
+        formData = formData + '&is_vod=' + is_vod;
+
         jQuery.ajax({
             url: "/exhibition/edit/<?=$id?>",
             method: 'PUT',
@@ -1028,6 +1098,15 @@
                 return false
             }
         }
+
+        var is_vod = 0;
+        if ($("#vod").prop("checked") == true && $("#live").prop("checked") == false) {
+            is_vod = 1;
+        }
+        if ($("#live").prop("checked") == true && $("#vod").prop("checked") == true) {
+            is_vod = 2;
+        }
+        formData = formData + '&is_vod=' + is_vod;
         
         jQuery.ajax({
             url: "/exhibition/edit/<?=$id?>",

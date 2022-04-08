@@ -153,7 +153,7 @@
                         <?php $i = 0; ?>
                         <?php foreach ($banner as $list): ?>
                             <div class="swiper-slide bannerPC">
-                                <a href="/boards/notice" class="imgs"><img name="bannerImg<?=$i?>" src="<?php echo $list->img_path . $list->img_name;?>" class="responsiveImg bannerPC" data-media-web="<?php echo $list->img_path . $list->img_name;?>" data-media-mobile="<?php echo $list->img_path . $list->img_name;?>" alt="" ></a>
+                                <a class="imgs"><img name="bannerImg<?=$i?>" src="<?php echo $list->img_path . $list->img_name;?>" class="responsiveImg bannerPC" data-media-web="<?php echo $list->img_path . $list->img_name;?>" data-media-mobile="<?php echo $list->img_path . $list->img_name;?>" alt="" ></a>
                             </div>
                             <?php $i++;?>
                         <?php endforeach; ?>
@@ -170,7 +170,7 @@
                         <?php $y = 0; ?>
                         <?php foreach ($banner_m as $list): ?>
                             <div class="swiper-slide bannerM">
-                                <a href="/boards/notice" class="imgs"><img name="bannerImg<?=$y?>" src="<?php echo $list->img_path . $list->img_name;?>" class="responsiveImg bannerM" data-media-web="<?php echo $list->img_path . $list->img_name;?>" data-media-mobile="<?php echo $list->img_path . $list->img_name;?>" alt="" ></a>
+                                <a class="imgs"><img name="bannerImg<?=$y?>" src="<?php echo $list->img_path . $list->img_name;?>" class="responsiveImg bannerM" data-media-web="<?php echo $list->img_path . $list->img_name;?>" data-media-mobile="<?php echo $list->img_path . $list->img_name;?>" alt="" ></a>
                             </div>
                             <?php $y++;?>
                         <?php endforeach; ?>
