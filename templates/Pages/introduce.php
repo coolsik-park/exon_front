@@ -976,7 +976,7 @@
                 <div class="section7--title__logo"><img src="/images/EXON-로고-검은색.png" class="section7--logo"></div>
                 <div class="section7--title__txt">쉽고 빠른 웨비나 행사 개설</div>
                 <div class="section7--title__txt2">지금 바로 행사를 개설해보세요.</div>
-                <div class="section7--title__btn"><button class="section7__button" type="button">행사 개설하기</button></div>
+                <div class="section7--title__btn"><a href="/exhibition/add"><button class="section7__button" type="button">행사 개설하기</button></a></div>
             </div>
         </div>
     </section>
