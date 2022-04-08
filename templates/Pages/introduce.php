@@ -434,8 +434,8 @@
         display: inline-block;
         width: 100%;
         height: 59vh;
-        border-top-left-radius: 45%;
-        border-top-right-radius: 45%;
+        /* border-top-left-radius: 45%;
+        border-top-right-radius: 45%; */
     }
     .section6-img2 {
         display: inline-block;
@@ -448,14 +448,14 @@
         width: 100%;
         height: 40vh;
         margin-top: 5em;
-        border-top-left-radius: 45%;
+        /* border-top-left-radius: 45%; */
     }
     .section6-img4 {
         display: inline-block;
         width: 100%;
         height: 30vh;
         margin-top: 1.5em;
-        border-bottom-right-radius: 50%;
+        /* border-bottom-right-radius: 50%; */
     }
     .section6--img__ul {
         column-width: 330px;
@@ -472,8 +472,8 @@
         height: 100%;
         position: absolute;
         opacity: 0;
-        border-top-left-radius: 45%;
-        border-top-right-radius: 45%;
+        /* border-top-left-radius: 45%;
+        border-top-right-radius: 45%; */
     }
     .section6--img__li1:after {
         content: '웨비나';
@@ -533,7 +533,7 @@
         bottom: 0;
         position: absolute;
         opacity: 0;
-        border-top-left-radius: 45%;
+        /* border-top-left-radius: 45%; */
     }
     .section6--img__li3:after {
         content: '교육/강의';
@@ -564,7 +564,7 @@
         position: absolute;
         bottom: 0;
         opacity: 0;
-        border-bottom-right-radius: 50%;
+        /* border-bottom-right-radius: 50%; */
     }
     .section6--img__li4:after {
         content: 'E-sports';
