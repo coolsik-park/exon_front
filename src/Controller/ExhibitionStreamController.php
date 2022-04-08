@@ -1409,7 +1409,27 @@ class ExhibitionStreamController extends AppController
         $ExhibitionStream = $this->getTableLocator()->get('ExhibitionStream');
         $exhibitionStream = $ExhibitionStream->find('all')->where(['exhibition_id' => $exhibition_id])->toArray();
         
-        $this->set(compact('user', 'exhibitionStream', 'exhibition_id'));
+        $exhibition_comment_table = TableRegistry::get('ExhibitionComment');
+        $exhibition_comments = $exhibition_comment_table->find()->where(['exhibition_stream_id' => $exhibitionStream[0]->id])->toArray();
+        $exhibition_comments_unders = $exhibition_comment_table->find('all')->where(['parent_id != 0'])->toArray();
+        $commentUnder[] = null;
+        foreach ($exhibition_comments_unders as $exhibition_comments_under) {
+            $i = 0;
+            if (array_key_exists($exhibition_comments_under->parent_id, $commentUnder)) {
+                $i = count($commentUnder[$exhibition_comments_under->parent_id]) + 1;
+                $commentUnder[$exhibition_comments_under->parent_id][$i] = $exhibition_comments_under;
+            } else {
+                $commentUnder[$exhibition_comments_under->parent_id][0] = $exhibition_comments_under;
+            }
+        }
+
+        if ($this->Auth->user('id') == null) {
+            $login_user = 'null';
+        } else {
+            $login_user = $this->Auth->user('id');
+        }
+        
+        $this->set(compact('user', 'exhibitionStream', 'exhibition_id', 'exhibition_comments', 'commentUnder', 'login_user'));
     }
 
     public function uploadVod()
@@ -1715,7 +1735,7 @@ class ExhibitionStreamController extends AppController
         return $response;
     }
 
-    public function comment($id = null)
+    public function comment()
     {
         $exhibition_comment_table = TableRegistry::get('ExhibitionComment');
         $exhibition_comments = $exhibition_comment_table->find('all')->toArray();
@@ -1733,12 +1753,23 @@ class ExhibitionStreamController extends AppController
             }
         }
 
-        $user = $this->Auth->user('id');
+        if ($this->Auth->user('id') == null) {
+            $user = 'null';
+        } else {
+            $user = $this->Auth->user('id');
+        }
+        // debug($user);
+
         $this->set(compact('exhibition_comments', 'commentUnder', 'user'));
     }
 
     public function commentAdd()
     {
+        if ($this->request->getData('users_id') == null) {
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'not_user']));
+            return $response;
+        }
+
         $exhibition_comment_table = TableRegistry::get('ExhibitionComment');
         $comment = $exhibition_comment_table->newEmptyEntity();
 
