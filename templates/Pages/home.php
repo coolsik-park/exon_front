@@ -185,7 +185,7 @@
             <div class="static">
                 <a href="https://pf.kakao.com/_HxkNJb/chat" target="_blank"><img class="kakao-chat" src="/images/kakaochat.png"></a>
                 <div class="main-sect1">
-                    <div><a href="/boards/notice" class="arr-link1"><span>공지사항</span></a></div>
+                    <div><a href="/pages/introduce" class="arr-link1"><span>EXON 소개</span></a></div>
                     <div><a href="/exhibition/add" class="arr-link1"><span>행사개설</span></a></div>
                 </div>
                 <div class="main-sect2">
