@@ -38,6 +38,9 @@
             margin: 0 auto;
             width:100%;
         }
+        #apply_button {
+            width:28%;
+        }
     }
     @media  screen and (min-width: 768px) {
         .photos img {
