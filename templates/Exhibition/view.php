@@ -34,6 +34,10 @@
         .apply-sect1-cont .photos {
             max-height: 40%;
         }
+        .apply-sect1-cont .conts .btns .btn-join {
+            margin: 0 auto;
+            width:100%;
+        }
     }
     @media  screen and (min-width: 768px) {
         .photos img {
