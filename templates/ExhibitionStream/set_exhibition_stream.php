@@ -728,6 +728,9 @@
         }
     });
 
+    $("#tab").val(17);
+    $("#li5").attr("class", "active");
+    $("#li9").attr("class", "active");
     $("#btn_tab0").click(function () {
         if ($("#setting_btn").attr("name") == "btn_on") {
             if ($("#li0").attr("class") == "") {
