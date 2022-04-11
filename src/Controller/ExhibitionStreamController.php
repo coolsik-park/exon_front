@@ -1428,7 +1428,7 @@ class ExhibitionStreamController extends AppController
             $login_user = $this->Auth->user('id');
         }
         
-        $this->set(compact('user', 'exhibitionStream', 'exhibition_id', 'exhibition_comments', 'commentUnder', 'login_user', 'exhibition'));
+        $this->set(compact('user', 'exhibitionStream', 'exhibition_id', 'exhibition_comments', 'commentUnder', 'login_user'));
     }
 
     public function uploadVod()
