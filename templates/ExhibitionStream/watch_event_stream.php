@@ -446,7 +446,9 @@
             type: 'json',
         }).done(function(data) {
             if (data.end == 1) {
-                window.location.replace("/exhibition-stream/stream-not-exist");
+                setTimeout(function() {
+                    window.location.replace("/exhibition-stream/stream-not-exist");
+                }, 30000);
             }
         });
     }
