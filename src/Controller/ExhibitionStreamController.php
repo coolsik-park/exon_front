@@ -60,7 +60,7 @@ class ExhibitionStreamController extends AppController
             return $this->redirect([
                 'controller' => 'pages',
                 'action' => 'home'
-            ]);
+            ]); 
         }
         if ($exhibition->is_event == 1) {
             return $this->redirect([
@@ -158,7 +158,7 @@ class ExhibitionStreamController extends AppController
 
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
         $front_url = FRONT_URL;
-        $this->set(compact('exhibitionStream', 'tabs', 'exhibition_users_id', 'front_url'));
+        $this->set(compact('exhibitionStream', 'tabs', 'exhibition_users_id', 'front_url', 'exhibition'));
     }
 
     public function watchExhibitionStreamMasterKey($id = null)
@@ -915,7 +915,7 @@ class ExhibitionStreamController extends AppController
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
             return $response;
         }
-        $exhibition = $this->ExhibitionStream->Exhibition->find('list', ['limit' => 200]);
+        
         $pay = $this->ExhibitionStream->Pay->find('list', ['limit' => 200]);
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray(); 
         $prices = $this->getTableLocator()->get('ExhibitionStreamDefaultPrice')->find('all')->toArray();
@@ -1552,7 +1552,7 @@ class ExhibitionStreamController extends AppController
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
             return $response;
         }
-        $exhibition = $this->ExhibitionStream->Exhibition->find('list', ['limit' => 200]);
+        
         $pay = $this->ExhibitionStream->Pay->find('list', ['limit' => 200]);
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray(); 
         $prices = $this->getTableLocator()->get('ExhibitionStreamDefaultPrice')->find('all')->toArray();
@@ -1590,7 +1590,7 @@ class ExhibitionStreamController extends AppController
 
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
         $front_url = FRONT_URL;
-        $this->set(compact('exhibitionStream', 'tabs', 'exhibition_users_id', 'front_url', 'id'));
+        $this->set(compact('exhibitionStream', 'tabs', 'exhibition_users_id', 'front_url', 'id', 'exhibition'));
     }
 
     public function addLike ($exhibition_stream_id = null)
@@ -1840,13 +1840,34 @@ class ExhibitionStreamController extends AppController
         return $response;
     }
 
-    public function watchExhibitionVod($exhibition_stream_id = null, $exhibition_vod_id = null)
+    public function watchExhibitionVod($exhibition_id = null, $exhibition_vod_id = null, $exhibition_users_id = null)
     {
+        $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $exhibition_id])->toArray();
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $exhibition = $Exhibition->get($exhibition_id);
+        $ExhibitionVod = $this->getTableLocator()->get('ExhibitionVod');
+        $exhibitionVod = $ExhibitionVod->get($exhibition_vod_id);
         
+        $this->set(compact('exhibitionStream', 'exhibitionVod', 'exhibition_users_id', 'exhibition'));
     }
 
-    public function vodChapter($exhibition_stream_id = null)
+    public function vodChapter($exhibition_id = null, $exhibition_users_id = null)
     {
+        $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $exhibition_id])->toArray();
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $exhibition = $Exhibition->get($exhibition_id);
         $ExhibitionVod = $this->getTableLocator()->get('ExhibitionVod');
+        $exhibitionVod = $ExhibitionVod->find('all', ['contain' => 'ChildExhibitionVod'])->where(['ExhibitionVod.exhibition_id' => $exhibition_id, 'ExhibitionVod.parent_id IS' => null])->toArray();
+        
+        $this->set(compact('exhibitionStream', 'exhibitionVod', 'exhibition_users_id', 'exhibition'));
+    }
+
+    public function vodChapterTab($exhibition_id = null, $exhibition_users_id = null)
+    {
+        $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $exhibition_id])->toArray();
+        $ExhibitionVod = $this->getTableLocator()->get('ExhibitionVod');
+        $exhibitionVod = $ExhibitionVod->find('all', ['contain' => 'ChildExhibitionVod'])->where(['ExhibitionVod.exhibition_id' => $exhibition_id, 'ExhibitionVod.parent_id IS' => null])->toArray();
+        
+        $this->set(compact('exhibitionStream', 'exhibitionVod',  'exhibition_users_id'));
     }
 }

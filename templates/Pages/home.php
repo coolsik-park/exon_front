@@ -32,7 +32,7 @@
         background: inherit;
         position: absolute;
         left: 0;
-        top: 300vh;
+        top: 240vh;
     }
     .slider5Div {
         width: 100%;
@@ -40,7 +40,7 @@
         background: inherit;
         position: absolute;
         left: 0;
-        top: 350vh;
+        top: 280vh;
     }
     .hotImg {
         width: 580px; height: 292px;
@@ -124,24 +124,6 @@
         }
         .bannerM {
             display: block; 
-        }
-    }
-    @media  screen and (min-width: 1600px) {
-        .slider4Div {
-            width: 100%;
-            height: 260px;
-            background: inherit;
-            position: absolute;
-            left: 0;
-            top: 240vh;
-        }
-        .slider5Div {
-            width: 100%;
-            height: 260px;
-            background: inherit;
-            position: absolute;
-            left: 0;
-            top: 280vh;
         }
     }
 </style>
@@ -335,7 +317,7 @@
                 </div>
                 <div class="main-sect4">
                     <div class="h-ty1-wp">
-                        <h2 class="h-ty1"><span class="t1">Top 10</span><span class="t2">이번 달에 새로<br>열리는 전시</span></h2>
+                        <h2 class="h-ty1"><span class="t1">Top 10</span><span class="t2">이번 달에 새로<br>열리는 행사</span></h2>
                         <!-- <a href="#">자세히 보기</a> -->
                     </div>     
                     <?php if (!empty($new)) : ?>               
@@ -383,7 +365,7 @@
                 </div>
                 <div class="main-sect5">
                     <div class="h-ty1-wp">
-                        <h2 class="h-ty1"><span class="t1">Top 10</span><span class="t2">일반 전시</span></h2>
+                        <h2 class="h-ty1"><span class="t1">Top 10</span><span class="t2">일반 행사</span></h2>
                         <!-- <a href="#">자세히 보기</a> -->
                     </div>       
                     <?php if (!empty($normal)) : ?>             

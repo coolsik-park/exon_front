@@ -917,7 +917,7 @@
         jQuery.ajax({
             url: "/exhibition/add/",
             method: 'POST',
-            type: 'json',
+            type: 'json', 
             data: formData
         }).done(function (data) {
             if (data.status == 'success') {
