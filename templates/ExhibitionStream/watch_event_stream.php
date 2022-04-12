@@ -49,6 +49,33 @@
         #url-copy {
             margin-left: 5px;
         }
+        .chapter {
+            font-size: 25px;
+        }
+        .vod-ul {
+            margin:2% 0 2% 3%;
+            font-size: 20px;
+        }
+        .vod-li {
+            margin-top: 1%;
+        }
+        .vod-time {
+            float: right;
+        }
+        .w-dt {
+            vertical-align:middle;
+        }
+        @media  screen and (max-width: 768px) {
+            .wd2 {
+                width: 98%;
+            }
+            #thumb-img {
+                width: 8%;
+            }
+            #share-img {
+                width: 8%;
+            }
+        }
     </style>
 </head>
 
@@ -90,6 +117,7 @@
                                 <li id="li2" class="" style="display:none;"><button type="button" id="tab2" name="개설자 정보">개설자 정보</button></li>
                                 <li id="li1" class="" style="display:none;"><button type="button" id="tab1" name="행사 정보">행사 정보</button></li>
                                 <li id="li0" class="" style="display:none;"><button type="button" id="tab0" name="자료">자료</button></li>
+                                <li id="vod" class=""><button type="button" id="tabVod" name="vod">VOD</button></li>
                             </ul>
                         </div>                            
                     </div>
@@ -161,7 +189,7 @@
     //잘못된 접근 차단
     var ref = document.referrer;
     var pass = 0;
-    if (ref != '<?=$front_url?>/exhibition/view/<?=$exhibitionStream[0]['exhibition_id']?>' && ref != '<?=$front_url?>/exhibition-users/sign-up/application' && ref != '<?=$front_url?>/exhibition-stream/certification/<?=$exhibitionStream[0]['exhibition_id']?>' && ref != document.location.href) {
+    if (ref != '<?=$front_url?>/exhibition/view/<?=$exhibitionStream[0]['exhibition_id']?>' && ref != '<?=$front_url?>/exhibition-users/sign-up/application' && ref != '<?=$front_url?>/exhibition-stream/certification/<?=$exhibitionStream[0]['exhibition_id']?>' && ref != document.location.href && ref.indexOf("/exhibition-stream/vod-chpater") != -1 && ref.indexOf("/exhibition-stream/watch-exhibition-vod") != -1) {
         alert('허용되지 않는 잘못된 접근입니다.');
         history.go(-1);
     }
@@ -219,6 +247,7 @@
             $("#li7").attr("class", "");
             $("#li8").attr("class", "");
             $("#li9").attr("class", "");
+            $("#vod").attr("class", "");
         });
 
         $("#li1").click(function () {
@@ -234,6 +263,7 @@
             $("#li7").attr("class", "");
             $("#li8").attr("class", "");
             $("#li9").attr("class", "");
+            $("#vod").attr("class", "");
         });
 
         $("#li2").click(function () {
@@ -249,7 +279,7 @@
             $("#li7").attr("class", "");
             $("#li8").attr("class", "");
             $("#li9").attr("class", "");
-            
+            $("#vod").attr("class", "");
         });
 
         $("#li3").click(function () {
@@ -265,7 +295,7 @@
             $("#li7").attr("class", "");
             $("#li8").attr("class", "");
             $("#li9").attr("class", "");
-            
+            $("#vod").attr("class", "");
         });
 
         $("#li4").click(function () {
@@ -281,7 +311,7 @@
             $("#li7").attr("class", "");
             $("#li8").attr("class", "");
             $("#li9").attr("class", "");
-            
+            $("#vod").attr("class", "");
         });
 
         $("#li5").click(function () {
@@ -297,7 +327,7 @@
             $("#li7").attr("class", "");
             $("#li8").attr("class", "");
             $("#li9").attr("class", "");
-            
+            $("#vod").attr("class", "");
         });
 
         $("#li6").click(function () {
@@ -313,7 +343,7 @@
             $("#li7").attr("class", "");
             $("#li8").attr("class", "");
             $("#li9").attr("class", "");
-            
+            $("#vod").attr("class", "");
         });
 
         $("#li7").click(function () {
@@ -329,7 +359,7 @@
             $("#li7").attr("class", "active");
             $("#li8").attr("class", "");
             $("#li9").attr("class", "");
-            
+            $("#vod").attr("class", "");
         });
 
         $("#li8").click(function () {
@@ -345,7 +375,7 @@
             $("#li7").attr("class", "");
             $("#li8").attr("class", "active");
             $("#li9").attr("class", "");
-            
+            $("#vod").attr("class", "");
         });
 
         $("#li9").click(function () {
@@ -360,7 +390,22 @@
             $("#li7").attr("class", "");
             $("#li8").attr("class", "");
             $("#li9").attr("class", "active");               
-            
+            $("#vod").attr("class", "");
+        });
+
+        $("#vod").click(function () {
+            $(".webinar-tab-body").load("/exhibition-stream/vod-chapter-tab/<?= $exhibitionStream[0]['exhibition_id'] ?>/<?=$exhibition_users_id?>");
+            $("#li0").attr("class", "");
+            $("#li1").attr("class", "");
+            $("#li2").attr("class", "");
+            $("#li3").attr("class", "");
+            $("#li4").attr("class", "");
+            $("#li5").attr("class", "");
+            $("#li6").attr("class", "");
+            $("#li7").attr("class", "");
+            $("#li8").attr("class", "");
+            $("#li9").attr("class", "");               
+            $("#vod").attr("class", "active");
         });
     });
 
@@ -401,7 +446,9 @@
             type: 'json',
         }).done(function(data) {
             if (data.end == 1) {
-                window.location.replace("/exhibition-stream/stream-not-exist");
+                setTimeout(function() {
+                    window.location.replace("/exhibition-stream/stream-not-exist");
+                }, 30000);
             }
         });
     }

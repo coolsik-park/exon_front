@@ -259,7 +259,7 @@ class ExhibitionController extends AppController
                 $exhibition->is_event = $data['is_event'];
                 if (!empty($data['event_member'])) {
                     $exhibition->event_member = $data['event_member'];
-                }
+                } 
                 $exhibition->is_vod = $data['is_vod'];
 
                 if ($result = $this->Exhibition->save($exhibition)) {

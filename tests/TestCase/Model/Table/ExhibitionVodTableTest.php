@@ -25,7 +25,7 @@ class ExhibitionVodTableTest extends TestCase
      */
     protected $fixtures = [
         'app.ExhibitionVod',
-        'app.Exhibition',
+        'app.ExhibitionStream',
     ];
 
     /**

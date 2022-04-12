@@ -953,7 +953,7 @@
                 alert('참가자 명단을 입력해주세요.');
                 $("#event_member").focus();
                 return false
-            }
+            } 
         }
 
         var is_vod = 0;

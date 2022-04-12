@@ -39,6 +39,10 @@
     .conts {
         text-align: center;
     }
+    .btn-ty3 {
+        padding-left:0;
+        padding-right:0;
+    }
     @media  screen and (max-width: 768px) {
         .photos img {
             position: absolute;
@@ -100,7 +104,7 @@
                     foreach ($exhibition_users as $key => $exhibition_user): 
                         $d_today = strtotime(date('Y-m-d H:i:s', time()) . "+9 hours");
                         $sdate = strtotime($exhibition_user->exhibition['sdate']);
-                        $sdate_before = strtotime("-1800 seconds" . $exhibition_user->exhibition['sdate']);
+                        $sdate_before = strtotime("-900 seconds" . $exhibition_user->exhibition['sdate']);
                         $edate = strtotime($exhibition_user->exhibition['edate']);
                         $apply_edate = strtotime($exhibition_user->exhibition['apply_edate']);
                         $method = '';
@@ -248,17 +252,23 @@
                             <?php if ($exhibition_user->status != 8){ ?>
                                 <div class="con">
                                     <p><a href="/exhibition-users/download-pdf/<?= $exhibition_user->exhibition['id'] ?>/<?= $exhibition_user->id ?>" class="btn-ty3 bor">증빙</a></p>
-                                    <?php                                    
+                                    <?php                         
                                     if ($d_today > $edate):
                                     else:
-                                        if ($d_today >= $sdate):
-                                            echo '진행중인 행사입니다.';
+                                        // if ($d_today >= $sdate):
                                             if ($exhibition_user->status == 4 && $d_today >= $sdate_before):
                                     ?>
-                                                <p><a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition_user->exhibition_id ?>/<?= $exhibition_user->id ?>" class="btn-ty3 bor" id="exhibitionSee">웨비나 시청</a></p>
+                                                <?php if ($exhibition_user->exhibition['is_vod'] == 0) : ?>
+                                                    <p><a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition_user->exhibition_id ?>/<?= $exhibition_user->id ?>" class="btn-ty3 bor" id="exhibitionSee">라이브 시청</a></p>
+                                                <?php elseif ($exhibition_user->exhibition['is_vod'] == 1) : ?>
+                                                    <p><a href="/exhibition-stream/vod-chapter/<?= $exhibition_user->exhibition_id ?>/<?= $exhibition_user->id ?>" class="btn-ty3 bor" id="exhibitionSee">VOD 시청</a></p>
+                                                <?php else : ?>
+                                                    <p><a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition_user->exhibition_id ?>/<?= $exhibition_user->id ?>" class="btn-ty3 bor" id="exhibitionSee">라이브 시청</a></p>
+                                                    <p><a href="/exhibition-stream/vod-chapter/<?= $exhibition_user->exhibition_id ?>/<?= $exhibition_user->id ?>" class="btn-ty3 bor" id="exhibitionSee">VOD 시청</a></p>
+                                                <?php endif; ?>
                                     <?php
                                             endif;
-                                        else:
+                                        // else:
                                             if ($d_today <= $apply_edate):
                                     ?>
                                             <button type="button" class="btn-ty3 red" style="cursor:pointer;" data-toggle="modal" data-target="#signUpCancelModal" data-backdrop="static" data-keyboard="false" onClick="signUpCancel(<?= $key ?>, '<?=$method?>', <?=$same_day?>)">
@@ -266,7 +276,7 @@
                                             </button>
                                     <?php 
                                             endif;
-                                        endif;
+                                        // endif;
                                     endif;
                                     ?>
                                 </div>

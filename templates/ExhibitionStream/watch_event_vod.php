@@ -35,6 +35,9 @@
         #url-copy {
             margin-left: 5px;
         }
+        .w-dt {
+            vertical-align:middle;
+        }
         
         * {
         margin: 0;
@@ -94,6 +97,18 @@
         padding-bottom: 1em;
         font-size: 0.8em;
         }
+
+        @media  screen and (max-width: 768px) {
+            .wd2 {
+                width: 500px;
+            }
+            #thumb-img {
+                width: 8%;
+            }
+            #share-img {
+                width: 8%;
+            }
+        }
     </style>
 </head>
 
@@ -107,13 +122,13 @@
                     </video>
                 </div>   
                 <div class="wb-cont2">
-                    <h3 class="w-tit">title</h3>
+                    <h3 class="w-tit"><?=$exhibitionStream[0]['title']?></h3>
                     <div class="w-desc">
-                        <p class="wd1"><span id="viewer" class="w-dt">조회수 <?=$exhibitionStream[0]['viewer']?></span></p>
+                        <p class="wd1"><span id="viewer" class="w-dt">조회수<?=$exhibitionStream[0]['viewer']?></span></p>
                         <div class="wd2">
-                            <span id="liked" class="w-dt">추천 <?=$exhibitionStream[0]['liked']?></span>&nbsp;&nbsp;&nbsp;
-                            <span id="like" class="w-dt">&nbsp;<img id="thumb-img" src="/img/thumb1.png">&nbsp;추천하기</span>&nbsp;&nbsp;&nbsp;
-                            <span id="share" class="w-dt" data-toggle="modal" data-target="#shareModal" data-backdrop="static" data-keyboard="false">&nbsp;<img id="share-img" src="/img/share.png">&nbsp;공유하기</span>
+                            <span id="liked" class="w-dt">추천<?=$exhibitionStream[0]['liked']?></span>&nbsp;&nbsp;&nbsp;
+                            &nbsp;<img id="thumb-img" src="/img/thumb1.png"><span id="like" class="w-dt">&nbsp;추천하기</span>&nbsp;&nbsp;&nbsp;
+                            &nbsp;<img id="share-img" src="/img/share.png"><span id="share" class="w-dt" data-toggle="modal" data-target="#shareModal" data-backdrop="static" data-keyboard="false">&nbsp;공유하기</span>
                         </div>
                     </div>
                     <h3 class="w-tit"><?=$user->name?></h3>
@@ -127,7 +142,7 @@
                             <input type="text" class="ipt" id="commentMessage">
                         </div>
                         <div style="float:right;">
-                            <button type="button" class="btn-ty3" id="commentButton">답글</button>
+                            <button type="button" class="btn-ty3" id="commentButton">댓글</button>
                         </div>
                     </div>
                     <br><br><br>
@@ -319,7 +334,11 @@
 
     $(document).on('click', 'button[id=commentButton]', function() {
         var message = document.getElementById('commentMessage').value;
-        console.log(message);
+
+        if (message.length == 0) {
+            alert("입력된 내용이 없습니다.");
+            return false;
+        }
 
         $.ajax({
             url: '/exhibition-stream/comment-add',
@@ -363,6 +382,11 @@
     $(document).on('click', 'button[id=commentEidtButton]', function() {
         var id = $('#commentEidtButton').attr('name');
         var message = document.getElementById('commentEditMessage').value;
+
+        if (message.length == 0) {
+            alert("입력된 내용이 없습니다.");
+            return false;
+        }
         
         $.ajax({
             url: '/exhibition-stream/comment-edit/' + id,
@@ -416,6 +440,11 @@
         var id = $("#underCommentAddButton").attr('name');
         var message = document.getElementById('underCommentAddMessage').value;
 
+        if (message.length == 0) {
+            alert("입력된 내용이 없습니다.");
+            return false;
+        }
+
         $.ajax({
             url: '/exhibition-stream/comment-add',
             method: 'POST',
@@ -460,6 +489,11 @@
     $(document).on('click', 'button[id=underUnderCommentAddButton]', function() {
         var id = $('#underUnderCommentAddButton').attr('name');
         var message = document.getElementById('underUnderCommentAddMessage').value;
+
+        if (message.length == 0) {
+            alert("입력된 내용이 없습니다.");
+            return false;
+        }
 
         $.ajax({
             url: '/exhibition-stream/comment-add',
@@ -506,6 +540,11 @@
     $(document).on('click', 'button[id=underCommentEidtButton]', function() {
         var id = $('#underCommentEidtButton').attr('name');
         var message = document.getElementById('underCommentEditMessage').value;
+
+        if (message.length == 0) {
+            alert("입력된 내용이 없습니다.");
+            return false;
+        }
         
         $.ajax({
             url: '/exhibition-stream/comment-edit/' + id,

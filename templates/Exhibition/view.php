@@ -34,6 +34,13 @@
         .apply-sect1-cont .photos {
             max-height: 40%;
         }
+        .apply-sect1-cont .conts .btns .btn-join {
+            margin: 0 auto;
+            width:100%;
+        }
+        #apply_button {
+            width:28%;
+        }
     }
     @media  screen and (min-width: 768px) {
         .photos img {
@@ -184,9 +191,20 @@
                             <?php 
                                     else:
                                         if ($exhibitionUsers[0]->status == 4):
-                                            if (date('Y-m-d H:i:s', strtotime($exhibition->edate)) >= date('Y-m-d H:i:s', time()+32400)):
+                                            if (date('Y-m-d H:i:s', strtotime($exhibition->edate)) >= date('Y-m-d H:i:s', time()+32400) && date('Y-m-d H:i:s', strtotime($exhibition->sdate)) <= date('Y-m-d H:i:s', time()+33300)):
                             ?>
-                                            <a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition->id ?>/<?=$users_id?>" class="btn-join" id="btn-join">웨비나 접속</a>
+                                            <?php if ($exhibition->is_vod == 0) : ?>
+                                                <a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition->id ?>/<?=$users_id?>" class="btn-join" id="btn-join">라이브 시청</a>
+                                            <?php elseif($exhibition->is_vod == 1) : ?>
+                                                <a href="/exhibition-stream/vod-chapter/<?= $exhibition->id ?>/<?=$users_id?>" class="btn-join" id="btn-join">VOD 시청</a>
+                                            <?php else : ?>
+                                                <a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition->id ?>/<?=$users_id?>" class="btn-join" id="btn-join">라이브 시청</a>
+                                                <a href="/exhibition-stream/vod-chapter/<?= $exhibition->id ?>/<?=$users_id?>" class="btn-join" id="btn-join" style="margin-left:30px;">VOD 시청</a>
+                                            <?php endif; ?>
+                            <?php
+                                            else:
+                            ?>
+                                            <a class="btn-join" id="btn-join" style="color:white;">웨비나 시작 전</a>
                             <?php
                                             endif;
                                         else:

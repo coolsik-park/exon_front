@@ -11,7 +11,8 @@ use Cake\Validation\Validator;
 /**
  * ExhibitionVod Model
  *
- * @property \App\Model\Table\ExhibitionTable&\Cake\ORM\Association\BelongsTo $Exhibition
+ * @property \App\Model\Table\ExhibitionVodTable&\Cake\ORM\Association\BelongsTo $ParentExhibitionVod
+ * @property \App\Model\Table\ExhibitionVodTable&\Cake\ORM\Association\HasMany $ChildExhibitionVod
  *
  * @method \App\Model\Entity\ExhibitionVod newEmptyEntity()
  * @method \App\Model\Entity\ExhibitionVod newEntity(array $data, array $options = [])
@@ -51,6 +52,14 @@ class ExhibitionVodTable extends Table
             'foreignKey' => 'exhibition_id',
             'joinType' => 'INNER',
         ]);
+        $this->belongsTo('ParentExhibitionVod', [
+            'className' => 'ExhibitionVod',
+            'foreignKey' => 'parent_id',
+        ]);
+        $this->hasMany('ChildExhibitionVod', [
+            'className' => 'ExhibitionVod',
+            'foreignKey' => 'parent_id',
+        ]);
     }
 
     /**
@@ -66,8 +75,14 @@ class ExhibitionVodTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
+            ->scalar('type')
+            ->maxLength('type', 50)
+            ->requirePresence('type', 'create')
+            ->notEmptyString('type');
+
+        $validator
             ->scalar('title')
-            ->maxLength('title', 50)
+            ->maxLength('title', 255)
             ->requirePresence('title', 'create')
             ->notEmptyString('title');
 
@@ -84,6 +99,7 @@ class ExhibitionVodTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['exhibition_id'], 'Exhibition'), ['errorField' => 'exhibition_id']);
+        $rules->add($rules->existsIn(['parent_id'], 'ParentExhibitionVod'), ['errorField' => 'parent_id']);
 
         return $rules;
     }

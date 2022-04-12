@@ -75,6 +75,7 @@
         <?php
             foreach ($exhibition_comments as $exhibition_comment):
                 if ($exhibition_comment->parent_id == null):
+
         ?>
                     <div class="replies__item">
                         <div class="head">
@@ -100,7 +101,7 @@
                         <div id="commentText"><?= $exhibition_comment->message ?></div>
                         <br>
                         <?php 
-                            if (array_key_exists($exhibition_comment->id, $commentUnder)): 
+                            if (array_key_exists($exhibition_comment->id, $commentUnder)):
                         ?>
                             <div class="foot">
                                 <details>
@@ -153,8 +154,12 @@
     var user_id = <?= $user ?>;
 
     $(document).on('click', 'button[id=commentButton]', function() {
-        // console.log(user_id);
         var message = document.getElementById('commentMessage').value;
+
+        if (message.length == 0) {
+            alert("입력된 내용이 없습니다.");
+            return false;
+        }
 
         $.ajax({
             url: '/exhibition-stream/comment-add',
@@ -199,6 +204,11 @@
     $(document).on('click', 'button[id=commentEidtButton]', function() {
         var id = $('#commentEidtButton').attr('name');
         var message = document.getElementById('commentEditMessage').value;
+
+        if (message.length == 0) {
+            alert("입력된 내용이 없습니다.");
+            return false;
+        }
         
         $.ajax({
             url: '/exhibition-stream/comment-edit/' + id,
@@ -254,6 +264,11 @@
         var id = $("#underCommentAddButton").attr('name');
         var message = document.getElementById('underCommentAddMessage').value;
 
+        if (message.length == 0) {
+            alert("입력된 내용이 없습니다.");
+            return false;
+        }
+
         $.ajax({
             url: '/exhibition-stream/comment-add',
             method: 'POST',
@@ -298,6 +313,11 @@
     $(document).on('click', 'button[id=underUnderCommentAddButton]', function() {
         var id = $('#underUnderCommentAddButton').attr('name');
         var message = document.getElementById('underUnderCommentAddMessage').value;
+
+        if (message.length == 0) {
+            alert("입력된 내용이 없습니다.");
+            return false;
+        }
 
         $.ajax({
             url: '/exhibition-stream/comment-add',
@@ -344,6 +364,11 @@
     $(document).on('click', 'button[id=underCommentEidtButton]', function() {
         var id = $('#underCommentEidtButton').attr('name');
         var message = document.getElementById('underCommentEditMessage').value;
+
+        if (message.length == 0) {
+            alert("입력된 내용이 없습니다.");
+            return false;
+        }
         
         $.ajax({
             url: '/exhibition-stream/comment-edit/' + id,
