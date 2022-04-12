@@ -38,11 +38,7 @@
         background: inherit;
         position: absolute;
         left: 0;
-<<<<<<< HEAD
         top: 281vh;
-=======
-        top: 240vh;
->>>>>>> 5758c8dab893076821c57e9f9e88fafed9e58116
     }
     .slider5Div {
         width: 100%;
@@ -50,7 +46,6 @@
         background: inherit;
         position: absolute;
         left: 0;
-<<<<<<< HEAD
         top: 333vh;
     }
     .slider6Div {
@@ -60,9 +55,6 @@
         position: absolute;
         left: 0;
         top: 380vh;
-=======
-        top: 280vh;
->>>>>>> 5758c8dab893076821c57e9f9e88fafed9e58116
     }
     .hotImg {
         width: 580px; height: 292px;
@@ -151,7 +143,6 @@
             display: block; 
         }
     }
-<<<<<<< HEAD
     @media  screen and (min-width: 1600px) {
         .slider4Div {
             top: 230vh;
@@ -163,8 +154,6 @@
             top: 304vh;
         }
     }   
-=======
->>>>>>> 5758c8dab893076821c57e9f9e88fafed9e58116
 </style>
 <div id="container">
         <div class="main">
