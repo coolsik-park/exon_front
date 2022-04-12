@@ -19,14 +19,14 @@
     <br>
     <?php foreach ($exhibitions as $exhibition) : ?>
     <div class="searchBox" id="<?=$exhibition["id"]?>">
-        <div class="photo">
-            <p>
-                <?php if ($exhibition["image_path"] == null) : ?>
-                <img src="../../images/img-no.png">
-                <?php else : ?>
-                <img src="/<?=$exhibition["image_path"]?>/<?=$exhibition["image_name"]?>" style=" height:155px; width:280px;">
-                <?php endif; ?>
-            </p>
+        <div class="product-title">
+            <div class="product-img-div photo">
+                    <?php if ($exhibition["image_path"] != '') : ?>
+                    <img  style="width: 100%; height: 155px; visibility: visible; margin-top: 0px;" class="product-img" src="/<?=$exhibition["image_path"]?>/<?=$exhibition["image_name"]?>">
+                    <?php else : ?>
+                    <img class="noImg"src="../../images/img-no.png"style="visibility: visible; height:100%; width: 155px; margin-top: 0px;" >
+                    <?php endif; ?>
+            </div>
         </div>
         <div class="tr-row">
             <div class="td-col col1">
