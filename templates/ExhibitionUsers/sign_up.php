@@ -39,6 +39,10 @@
     .conts {
         text-align: center;
     }
+    .btn-ty3 {
+        padding-left:0;
+        padding-right:0;
+    }
     @media  screen and (max-width: 768px) {
         .photos img {
             position: absolute;
@@ -254,7 +258,14 @@
                                         // if ($d_today >= $sdate):
                                             if ($exhibition_user->status == 4 && $d_today >= $sdate_before):
                                     ?>
-                                                <p><a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition_user->exhibition_id ?>/<?= $exhibition_user->id ?>" class="btn-ty3 bor" id="exhibitionSee">웨비나 시청</a></p>
+                                                <?php if ($exhibition_user->exhibition['is_vod'] == 0) : ?>
+                                                    <p><a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition_user->exhibition_id ?>/<?= $exhibition_user->id ?>" class="btn-ty3 bor" id="exhibitionSee">라이브 시청</a></p>
+                                                <?php elseif ($exhibition_user->exhibition['is_vod'] == 1) : ?>
+                                                    <p><a href="/exhibition-stream/vod-chapter/<?= $exhibition_user->exhibition_id ?>/<?= $exhibition_user->id ?>" class="btn-ty3 bor" id="exhibitionSee">VOD 시청</a></p>
+                                                <?php else : ?>
+                                                    <p><a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition_user->exhibition_id ?>/<?= $exhibition_user->id ?>" class="btn-ty3 bor" id="exhibitionSee">라이브 시청</a></p>
+                                                    <p><a href="/exhibition-stream/vod-chapter/<?= $exhibition_user->exhibition_id ?>/<?= $exhibition_user->id ?>" class="btn-ty3 bor" id="exhibitionSee">VOD 시청</a></p>
+                                                <?php endif; ?>
                                     <?php
                                             endif;
                                         // else:
