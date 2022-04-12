@@ -62,6 +62,20 @@
         .vod-time {
             float: right;
         }
+        .w-dt {
+            vertical-align:middle;
+        }
+        @media  screen and (max-width: 768px) {
+            .wd2 {
+                width: 98%;
+            }
+            #thumb-img {
+                width: 8%;
+            }
+            #share-img {
+                width: 8%;
+            }
+        }
     </style>
 </head>
 
