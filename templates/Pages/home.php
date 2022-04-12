@@ -15,6 +15,12 @@
     .swiper-button-prev {
         display: none;
     }
+    .main-slider6 .swiper-button-prev:after {
+        color: black;
+    }
+    .main-slider6 .swiper-button-next {
+        color: black;
+    }
     .visible {
         display: block;
     }
@@ -32,7 +38,7 @@
         background: inherit;
         position: absolute;
         left: 0;
-        top: 300vh;
+        top: 281vh;
     }
     .slider5Div {
         width: 100%;
@@ -40,7 +46,15 @@
         background: inherit;
         position: absolute;
         left: 0;
-        top: 350vh;
+        top: 333vh;
+    }
+    .slider6Div {
+        width: 100%;
+        height: 260px;
+        background: inherit;
+        position: absolute;
+        left: 0;
+        top: 380vh;
     }
     .hotImg {
         width: 580px; height: 292px;
@@ -91,6 +105,9 @@
         .slider5Div {
             display: none;
         }
+        .slider6Div {
+            display: none;
+        }
         .main-sect2-hot-item {
             flex-direction: column;
         }
@@ -128,22 +145,15 @@
     }
     @media  screen and (min-width: 1600px) {
         .slider4Div {
-            width: 100%;
-            height: 260px;
-            background: inherit;
-            position: absolute;
-            left: 0;
-            top: 240vh;
+            top: 230vh;
         }
         .slider5Div {
-            width: 100%;
-            height: 260px;
-            background: inherit;
-            position: absolute;
-            left: 0;
-            top: 280vh;
+            top: 268vh;
         }
-    }
+        .slider6Div {
+            top: 304vh;
+        }
+    }   
 </style>
 <div id="container">
         <div class="main">
@@ -333,13 +343,13 @@
                 </div>
                 <div class="slider4Div">
                 </div>
-                <div class="main-sect4">
+                <div class="main-sect5">
                     <div class="h-ty1-wp">
                         <h2 class="h-ty1"><span class="t1">Top 10</span><span class="t2">이번 달에 새로<br>열리는 전시</span></h2>
                         <!-- <a href="#">자세히 보기</a> -->
                     </div>     
                     <?php if (!empty($new)) : ?>               
-                    <div class="main-slider4">
+                    <div class="main-slider5">
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
                             <?php foreach($new as $index => $list): ?>
@@ -379,7 +389,7 @@
                     </div>      
                     <?php endif; ?>              
                 </div>
-                <div class="slider4Div">
+                <div class="slider5Div">
                 </div>
                 <div class="main-sect5">
                     <div class="h-ty1-wp">
@@ -387,7 +397,7 @@
                         <!-- <a href="#">자세히 보기</a> -->
                     </div>       
                     <?php if (!empty($normal)) : ?>             
-                    <div class="main-slider5">
+                    <div class="main-slider6">
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
                             <?php foreach($normal as $index => $list): ?>
@@ -427,7 +437,7 @@
                     </div>   
                     <?php endif;?> 
                 </div>
-                <div class="slider5Div">
+                <div class="slider6Div">
                 </div>              
             </div>       
         </div>
@@ -514,6 +524,30 @@
         });
         $('.main-slider5 .swiper-button-next').mouseleave(function(){
             $('.main-slider5 .swiper-button-next').removeClass('visible');
+        });
+
+        //slider6 화살표 / 영역 hover 시 
+        $('.slider6Div').mouseover(function(){
+            $('.main-slider6 .swiper-button-next').addClass('visible');
+            $('.main-slider6 .swiper-button-prev').addClass('visible');
+        });
+        $('.slider6Div').mouseleave(function(){
+            $('.main-slider6 .swiper-button-next').removeClass('visible');
+            $('.main-slider6 .swiper-button-prev').removeClass('visible');
+        });
+
+        //slider6 화살표 / 화살표 영역 hover 시 
+        $('.main-slider6 .swiper-button-prev').mouseover(function(){
+            $('.main-slider6 .swiper-button-prev').addClass('visible');
+        });
+        $('.main-slider6 .swiper-button-prev').mouseleave(function(){
+            $('.main-slider6 .swiper-button-prev').removeClass('visible');
+        });
+        $('.main-slider6 .swiper-button-next').mouseover(function(){
+            $('.main-slider6 .swiper-button-next').addClass('visible');
+        });
+        $('.main-slider6 .swiper-button-next').mouseleave(function(){
+            $('.main-slider6 .swiper-button-next').removeClass('visible');
         });
 
         //채팅상담 스크롤

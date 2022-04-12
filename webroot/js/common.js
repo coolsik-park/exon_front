@@ -178,6 +178,30 @@
                     },
                 });    
             },
+            mainSlider6 : function(){    
+                var $slider6 = new Swiper(".main-slider6 .swiper-container", {
+                    slidesPerView: 'auto',
+                    spaceBetween: 20,
+                    navigation: {
+                        nextEl: ".main-slider6 .swiper-button-next",
+                        prevEl: ".main-slider6 .swiper-button-prev",
+                    },
+                    breakpoints: {
+                        768: {
+                            slidesPerView: 'auto',
+                            spaceBetween: 20,
+                        },  
+                        1024: {
+                            slidesPerView: 'auto',
+                            spaceBetween: 20,
+                        },
+                        1200: {
+                            slidesPerView: 3,
+                            spaceBetween: 10,
+                        },
+                    },
+                });    
+            },
             photoSlider : function(){    
                 var $photoSlider = new Swiper(".apply-sect3-photos .swiper-container", {                   
                     slidesPerView: 'auto',

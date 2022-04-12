@@ -46,7 +46,6 @@
         color: white;
         position: absolute;
         right: 45px;
-        animation: arrow 2s .2s both;
         animation-iteration-count: infinite;
     }
     .section1>.swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet {
@@ -126,6 +125,12 @@
         position: absolute;
         margin-bottom: 35vh;
     }
+    .section1--title__m {
+        display: none;
+    }
+    #section1--slide {
+        display: block;
+    }
 
     /* Section2 */
     .section2 {
@@ -167,6 +172,17 @@
         animation: fade2 5s .2s both;
     }
     #section2--slide .swiper-slide {
+    }
+    #section2--slideM .swiper-slide.swiper-slide-active img{
+        animation: fade2 5s .2s both;
+    }
+    #section2--slideM .swiper-slide {
+    }
+    #section2--slide {
+        display: block;
+    }
+    #section2--slideM {
+        display: none;
     }
 
     /* Section3 */
@@ -433,33 +449,34 @@
     .section6-img1 {
         display: inline-block;
         width: 100%;
-        height: 59vh;
-        /* border-top-left-radius: 45%;
-        border-top-right-radius: 45%; */
+        height: 50vh;
+        margin-top: 9vh;
+        border-top-left-radius: 45%;
+        border-top-right-radius: 45%;
     }
     .section6-img2 {
         display: inline-block;
         width: 100%;
         height: 22vh;
-        margin-top: 1.5em;
+        /* margin-top: 0.5em; */
     }
     .section6-img3 {
         display: inline-block;
         width: 100%;
         height: 40vh;
         margin-top: 5em;
-        /* border-top-left-radius: 45%; */
+        border-top-left-radius: 45%;
     }
     .section6-img4 {
         display: inline-block;
         width: 100%;
         height: 30vh;
-        margin-top: 1.5em;
-        /* border-bottom-right-radius: 50%; */
+        margin-top: 0.5em;
+        border-bottom-right-radius: 60%;
     }
     .section6--img__ul {
         column-width: 330px;
-	    column-gap: 1.5em;
+	    column-gap: 0.5em;
         width: 60%;
         column-count: 2;
         background-color: white;
@@ -469,11 +486,12 @@
         color: white;
         background: linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.8));
         width: 100%;
-        height: 100%;
+        height: 85%;
+        bottom: 0;
         position: absolute;
         opacity: 0;
-        /* border-top-left-radius: 45%;
-        border-top-right-radius: 45%; */
+        border-top-left-radius: 45%;
+        border-top-right-radius: 45%;
     }
     .section6--img__li1:after {
         content: '웨비나';
@@ -499,7 +517,7 @@
         color: white;
         background: linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.8));
         width: 100%;
-        height: 90%;
+        height: 100%;
         bottom: 0;
         position: absolute;
         opacity: 0;
@@ -516,6 +534,7 @@
     }
     .section6--img__li2 {
         position: relative;
+        margin-top: 0.5em;
     }
     .section6--img__li2:hover:before {
         opacity: 1;
@@ -529,11 +548,11 @@
         color: white;
         background: linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.8));
         width: 100%;
-        height: 82%;
+        height: 81%;
         bottom: 0;
         position: absolute;
         opacity: 0;
-        /* border-top-left-radius: 45%; */
+        border-top-left-radius: 45%;
     }
     .section6--img__li3:after {
         content: '교육/강의';
@@ -560,11 +579,11 @@
         color: white;
         background: linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.8));
         width: 100%;
-        height: 93%;
+        height: 98%;
         position: absolute;
         bottom: 0;
         opacity: 0;
-        /* border-bottom-right-radius: 50%; */
+        border-bottom-right-radius: 60%;
     }
     .section6--img__li4:after {
         content: 'E-sports';
@@ -637,6 +656,9 @@
             font-size: 3rem;
             line-height: 7vh;
         }
+        .section1 {
+            height: 100vh;
+        }
         .section1--title__second {
             margin-left: 0px;
         }
@@ -647,7 +669,7 @@
         .section1__button {
             height: 55px;
             width: 100%;
-            margin-top: 80px;
+            margin-top: 20px;
         }
         .section1--title {
             padding-top: 25vh;
@@ -659,6 +681,45 @@
             top: 350px;
             font-size: 1.23rem;
             left: 20px;
+        }
+        .section1--title__m {
+            display: block;
+        }
+        #section1--slide {
+            display: none;
+        }
+        
+        .section2--title__txt {
+            font-size: 40px;
+        }
+        .section2--title__txt2 {
+            font-size: 20px;
+        }
+        .section2--title__txt3 {
+            font-size: 12px;
+        }
+        .section2--container {
+            left: 2vh;
+            top: 100px;
+            right: 0;
+        }
+        #section2--slide {
+            display: none;
+        }
+        #section2--slideM {
+            display: block;
+        }
+        /* .section2--img {
+            position: absolute;
+            bottom: 0;
+            margin-top: 0;
+        } */
+        .section3--slide__div {
+            flex-direction: column;
+        }
+
+        .section7--title__txt {
+            text-align: center;
         }
     }
     @media  screen and (min-width: 1200px) {
@@ -682,13 +743,11 @@
         .section6-img1 {
             display: inline-block;
             width: 100%;
-            height: 59vh;
         }
         .section6-img2 {
             display: inline-block;
             width: 100%;
             height: 20vh;
-            margin-top: 1.5em;
         }
         .section6-img3 {
             display: inline-block;
@@ -700,7 +759,6 @@
             display: inline-block;
             width: 100%;
             height: 30vh;
-            margin-top: 1.5em;
         }
     }
 
@@ -789,6 +847,19 @@
             <!-- <div class="swiper-button-prev"></div> --> 
             <div class="swiper-pagination"></div> 
         </div>
+        <div class="section1--title__m">
+            <div class="container">
+                <div class="section1--title h-100 justify-content-center d-flex">
+                    <div class="section1--title__div">
+                        <div class="section1--title__txt">웨비나 행사를</div>
+                        <div class="section1--title__txt section1--title__second">쉽고 빠르게</div>
+                    </div>
+                    <div class="section1--title__img"><img src="/images/EXON-로고-흰색.png" class="section1--img"></div>
+                    <div class="section1--title__button"><button class="section1__button" type="button">지금 시작하기</button></div>
+                    <div class="section1--title__bottom">Your Imagination Becomes Reality</div>
+                </div>
+            </div>
+        </div>
     </section>
     <section class="section2 d-flex" style="padding-left: 0px;">
         <div id="section2--slide" class="swiper-container">
@@ -804,6 +875,22 @@
                 </li>
                 <li class="swiper-slide">
                     <div class="section2--title__img"><img src="/img/introduce/Section-2-배경-7.png" class="section2--img"></div>
+                </li>
+            </ul>
+        </div>
+        <div id="section2--slideM" class="swiper-container">
+            <ul class="swiper-wrapper">
+                <li class="swiper-slide">
+                    <div class="section2--title__img"><img src="/img/introduce/Section-2-배경m-.png" class="section2--img"></div>
+                </li>
+                <li class="swiper-slide">
+                    <div class="section2--title__img"><img src="/img/introduce/Section-2-배경m-3.png" class="section2--img"></div>
+                </li>
+                <li class="swiper-slide">
+                    <div class="section2--title__img"><img src="/img/introduce/Section-2-배경m-5.png" class="section2--img"></div>
+                </li>
+                <li class="swiper-slide">
+                    <div class="section2--title__img"><img src="/img/introduce/Section-2-배경m-7.png" class="section2--img"></div>
                 </li>
             </ul>
         </div>
@@ -827,15 +914,15 @@
             <div id="section3--slide" class="swiper-container">
                 <ul class="swiper-wrapper">
                     <li class="swiper-slide">
-                        <div class="section3--slide__div">
+                        <div class="section3--slide__div d-flex">
                             <div class="section3--slide__txt">
                                 <div class="section3--txt__num">01</div>
-                                    <div class="section3--txt__words">
-                                        <div class="section3--txt__words1">Easy & Fast</div>
-                                        <div class="section3--txt__words2">간단한 사용 방법</div>
-                                        <div class="section3--txt__words3">행사 주최자, 참석자 모두 쉽게 사용할 수 있는 인터페이스</div>
-                                    </div>
+                                <div class="section3--txt__words">
+                                    <div class="section3--txt__words1">Easy & Fast</div>
+                                    <div class="section3--txt__words2">간단한 사용 방법</div>
+                                    <div class="section3--txt__words3">행사 주최자, 참석자 모두 쉽게 사용할 수 있는 인터페이스</div>
                                 </div>
+                            </div>
                             <div class="section3--slide__img"><img src="/img/introduce/섹션3-1.png" class="section3--img section3--img__shadow"></div>
                         </div>
                     </li>
@@ -1005,6 +1092,13 @@
         },
     });
     const slide2 = new Swiper('#section2--slide', {
+        loop : true,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+    });
+    const slide2m = new Swiper('#section2--slideM', {
         loop : true,
         autoplay: {
             delay: 5000,
