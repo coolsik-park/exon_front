@@ -191,7 +191,7 @@
                             <?php 
                                     else:
                                         if ($exhibitionUsers[0]->status == 4):
-                                            if (date('Y-m-d H:i:s', strtotime($exhibition->edate)) >= date('Y-m-d H:i:s', time()+32400) && date('Y-m-d H:i:s', strtotime($exhibition->sdate)) <= date('Y-m-d H:i:s', time()+32400)):
+                                            if (date('Y-m-d H:i:s', strtotime($exhibition->edate)) >= date('Y-m-d H:i:s', time()+32400) && date('Y-m-d H:i:s', strtotime($exhibition->sdate)) <= date('Y-m-d H:i:s', time()+33300)):
                             ?>
                                             <a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition->id ?>/<?=$users_id?>" class="btn-join" id="btn-join">웨비나 접속</a>
                             <?php
