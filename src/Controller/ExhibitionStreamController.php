@@ -1735,10 +1735,11 @@ class ExhibitionStreamController extends AppController
 
     public function comment()
     {
+        $id = 59;
         $exhibition_comment_table = TableRegistry::get('ExhibitionComment');
         $exhibition_comments = $exhibition_comment_table->find('all')->toArray();
         // $exhibition_comment = $exhibition_comment->where(['exhibition_stream_id' => $id])->toArray();
-        $exhibition_comments_unders = $exhibition_comment_table->find('all')->where(['parent_id != 0'])->toArray();
+        $exhibition_comments_unders = $exhibition_comment_table->find('all')->where(['parent_id != 0', 'exhibition_stream_id' => $id])->toArray();
 
         $commentUnder[] = null;
         foreach ($exhibition_comments_unders as $exhibition_comments_under) {
@@ -1750,13 +1751,14 @@ class ExhibitionStreamController extends AppController
                 $commentUnder[$exhibition_comments_under->parent_id][0] = $exhibition_comments_under;
             }
         }
+        unset($commentUnder[0]);
+        // debug($commentUnder);
 
         if ($this->Auth->user('id') == null) {
             $user = 'null';
         } else {
             $user = $this->Auth->user('id');
         }
-        // debug($user);
 
         $this->set(compact('exhibition_comments', 'commentUnder', 'user'));
     }
