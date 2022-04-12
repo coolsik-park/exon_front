@@ -697,6 +697,36 @@ body {
 .main-sect5 .swiper-button-next {
 	right: -65px;
 }
+.main-sect6 {
+	position: relative;
+	margin-top: 100px;
+}
+.main-sect6:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+.main-sect6 .h-ty1-wp {
+	float: left;
+	width: 300px;
+}
+.main-sect6 .h-ty1-wp a {
+	margin-top: 50px;
+	font-size: 1rem;
+	font-weight: 500;
+	line-height: 1.5;
+	color: #afafaf;
+}
+.main-sect6 .main-slider5 {
+	float: right;
+	width: 880px;
+}
+.main-sect6 .swiper-button-prev {
+	left: 220px;
+}
+.main-sect6 .swiper-button-next {
+	right: -65px;
+}
 .main-slider2 .swiper-button-prev,
 .main-slider2 .swiper-button-next,
 .main-slider4 .swiper-button-prev,
@@ -1789,17 +1819,22 @@ body {
 		padding-left: 40px;
 	}
 	.main-sect4 .h-ty1-wp,
-	.main-sect5 .h-ty1-wp {
+	.main-sect5 .h-ty1-wp,
+	.main-sect6 .h-ty1-wp {
 		width: 20%;
 	}
 	.main-sect4 .main-slider4,
-	.main-sect5 .main-slider5 {
+	.main-sect5 .main-slider5,
+	.main-sect5 .main-slider6 {
 		width: 80%;
 	}
 	.main-sect4 .swiper-button-next {
 		right: 0;
 	}
 	.main-sect5 .swiper-button-next {
+		right: 0;
+	}
+	.main-sect6 .swiper-button-next {
 		right: 0;
 	}
 	.popup-wrap.popup-ty3 {
@@ -1955,12 +1990,14 @@ body {
 		margin-top: 10.74vw;
 	}
 	.main-sect4,
-	.main-sect5 {
+	.main-sect5,
+	.main-sect6 {
 		padding-left: 4vw;
 		margin-top: 9.76vw;
 	}
 	.main-sect4 .h-ty1-wp,
-	.main-sect5 .h-ty1-wp {
+	.main-sect5 .h-ty1-wp,
+	.main-sect6 .h-ty1-wp {
 		float: none;
 		width: 100%;
 		display: flex;
@@ -1970,14 +2007,16 @@ body {
 		padding-right: 2.92vw;
 	}
 	.main-sect4 .h-ty1-wp a,
-	.main-sect5 .h-ty1-wp a {
+	.main-sect5 .h-ty1-wp a,
+	.main-sect6 .h-ty1-wp a {
 		margin-top: 0;
 	}
 	.main-sect4 .h-ty1-wp .t2 br {
 		display: none;
 	}
 	.main-sect4 .main-slider4,
-	.main-sect5 .main-slider5 {
+	.main-sect5 .main-slider5,
+	.main-sect6 .main-slider6 {
 		float: none;
 		width: 100%;
 	}
@@ -2173,7 +2212,8 @@ body {
 		padding: 2.33vw 4vw;
 	}
 	.main-sect4 .h-ty1-wp a,
-	.main-sect5 .h-ty1-wp a {
+	.main-sect5 .h-ty1-wp a,
+	.main-sect6 .h-ty1-wp a {
 		display: none;
 	}
 	#footer .footer-top a {
@@ -2220,7 +2260,8 @@ body {
 		font-size: 2.4vw;
 	}
 	.main-sect4,
-	.main-sect5 {
+	.main-sect5,
+	.main-sect6 {
 		margin-top: 16vw;
 	}
 	.main-slider3 .swiper-pagination {

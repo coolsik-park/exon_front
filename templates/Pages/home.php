@@ -144,6 +144,9 @@
         }
     }
     @media  screen and (min-width: 1600px) {
+        .slider2Div {
+            top: 1443px;
+        }
         .slider4Div {
             top: 230vh;
         }
@@ -391,7 +394,7 @@
                 </div>
                 <div class="slider5Div">
                 </div>
-                <div class="main-sect5">
+                <div class="main-sect6">
                     <div class="h-ty1-wp">
                         <h2 class="h-ty1"><span class="t1">Top 10</span><span class="t2">일반 행사</span></h2>
                         <!-- <a href="#">자세히 보기</a> -->
@@ -445,13 +448,13 @@
 
     <script>
         //메인 배너 화살표 
-        $('.swiper-container').mouseover(function(){
-            $('.swiper-button-next').addClass('visible');
-            $('.swiper-button-prev').addClass('visible');
+        $('.main-visual .swiper-container').mouseover(function(){
+            $('.main-visual .swiper-button-next').addClass('visible');
+            $('.main-visual .swiper-button-prev').addClass('visible');
         });
-        $('.swiper-container').mouseleave(function(){
-            $('.swiper-button-next').removeClass('visible');
-            $('.swiper-button-prev').removeClass('visible');
+        $('.main-visual .swiper-container').mouseleave(function(){
+            $('.main-visual .swiper-button-next').removeClass('visible');
+            $('.main-visual .swiper-button-prev').removeClass('visible');
         });
 
         //slider2 화살표 / 영역 hover 시 
@@ -477,6 +480,14 @@
         $('.main-slider2 .swiper-button-next').mouseleave(function(){
             $('.main-slider2 .swiper-button-next').removeClass('visible');
         });
+        $('.main-slider2 .swiper-container').mouseover(function(){
+            $('.main-slider2 .swiper-button-next').addClass('visible');
+            $('.main-slider2 .swiper-button-prev').addClass('visible');
+        });
+        $('.main-slider2 .swiper-container').mouseleave(function(){
+            $('.main-slider2 .swiper-button-next').removeClass('visible');
+            $('.main-slider2 .swiper-button-prev').removeClass('visible');
+        });
 
         //slider4 화살표 / 영역 hover 시 
         $('.slider4Div').mouseover(function(){
@@ -500,6 +511,14 @@
         });
         $('.main-slider4 .swiper-button-next').mouseleave(function(){
             $('.main-slider4 .swiper-button-next').removeClass('visible');
+        });
+        $('.main-slider4 .swiper-container').mouseover(function(){
+            $('.main-slider4 .swiper-button-next').addClass('visible');
+            $('.main-slider4 .swiper-button-prev').addClass('visible');
+        });
+        $('.main-slider4 .swiper-container').mouseleave(function(){
+            $('.main-slider4 .swiper-button-next').removeClass('visible');
+            $('.main-slider4 .swiper-button-prev').removeClass('visible');
         });
 
          //slider5 화살표 / 영역 hover 시 
@@ -525,6 +544,14 @@
         $('.main-slider5 .swiper-button-next').mouseleave(function(){
             $('.main-slider5 .swiper-button-next').removeClass('visible');
         });
+        $('.main-slider5 .swiper-container').mouseover(function(){
+            $('.main-slider5 .swiper-button-next').addClass('visible');
+            $('.main-slider5 .swiper-button-prev').addClass('visible');
+        });
+        $('.main-slider5 .swiper-container').mouseleave(function(){
+            $('.main-slider5 .swiper-button-next').removeClass('visible');
+            $('.main-slider5 .swiper-button-prev').removeClass('visible');
+        });
 
         //slider6 화살표 / 영역 hover 시 
         $('.slider6Div').mouseover(function(){
@@ -548,6 +575,14 @@
         });
         $('.main-slider6 .swiper-button-next').mouseleave(function(){
             $('.main-slider6 .swiper-button-next').removeClass('visible');
+        });
+        $('.main-slider6 .swiper-container').mouseover(function(){
+            $('.main-slider6 .swiper-button-next').addClass('visible');
+            $('.main-slider6 .swiper-button-prev').addClass('visible');
+        });
+        $('.main-slider6 .swiper-container').mouseleave(function(){
+            $('.main-slider6 .swiper-button-next').removeClass('visible');
+            $('.main-slider6 .swiper-button-prev').removeClass('visible');
         });
 
         //채팅상담 스크롤
