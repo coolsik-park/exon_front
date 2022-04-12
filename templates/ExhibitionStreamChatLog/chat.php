@@ -213,12 +213,38 @@
 function enterkey() {
   if (!event.shiftKey && window.event.keyCode == 13) {
     var clientmsg = $("#usermsg").val().replace(/(?:\r\n|\r|\n)/g,'<br/>');
+    if (clientmsg == '<br/>') {
+      $("#usermsg").val("");
+      return false;
+    }
     $.post("/ExhibitionStreamChatLog/chatLog/<?=$stream_id?>", { text: clientmsg });
     $("#usermsg").val("");
     loadLog()
     return false;
   }
 }
+
+function loadLog(){     
+  var oldscrollHeight = $("#chatbox")[0].scrollHeight - 20; //Scroll height before the request
+  
+  $.ajax({
+      url: "/ExhibitionStreamChatLog/getChatLog/"+$("#last_id").val() + "/<?=$stream_id?>/<?=$now?>",
+      cache: false,
+      dataType: 'json',
+      success: function(data){     
+          $("#chatbox").append(data.contents); //Insert chat log into the #chatbox div                       
+          $("#last_id").val(data.last_id); 
+          
+          //Auto-scroll           
+          var newscrollHeight = $("#chatbox")[0].scrollHeight - 20; //Scroll height after the request
+          if(newscrollHeight > oldscrollHeight){
+              $("#chatbox").animate({ scrollTop: newscrollHeight }, 'normal'); //Autoscroll to bottom of div
+          }               
+      },
+  });
+}
+
+chatInterval = setInterval(loadLog, 1000);
 
 $(document).ready(function(){ 
     //If user wants to end session
@@ -235,28 +261,6 @@ $(document).ready(function(){
         loadLog()
         return false;
     });
-
-    function loadLog(){     
-        var oldscrollHeight = $("#chatbox")[0].scrollHeight - 20; //Scroll height before the request
-        
-        $.ajax({
-            url: "/ExhibitionStreamChatLog/getChatLog/"+$("#last_id").val() + "/<?=$stream_id?>/<?=$now?>",
-            cache: false,
-            dataType: 'json',
-            success: function(data){     
-                $("#chatbox").append(data.contents); //Insert chat log into the #chatbox div                       
-                $("#last_id").val(data.last_id); 
-                
-                //Auto-scroll           
-                var newscrollHeight = $("#chatbox")[0].scrollHeight - 20; //Scroll height after the request
-                if(newscrollHeight > oldscrollHeight){
-                    $("#chatbox").animate({ scrollTop: newscrollHeight }, 'normal'); //Autoscroll to bottom of div
-                }               
-            },
-        });
-    }
-
-    chatInterval = setInterval(loadLog, 1000);
 });
 
 </script>
