@@ -13,10 +13,10 @@
             cursor: pointer;
         }
         #thumb-img {
-            width: 4%;
+            width: 3%;
         }
         #share-img {
-            width: 4%;
+            width: 3%;
         }
         .popup-img {
             width: 10%;
@@ -131,7 +131,7 @@
                             &nbsp;<img id="share-img" src="/img/share.png"><span id="share" class="w-dt" data-toggle="modal" data-target="#shareModal" data-backdrop="static" data-keyboard="false">&nbsp;공유하기</span>
                         </div>
                     </div>
-                    <h3 class="w-tit"><?=$user->name?></h3>
+                    <h3 class="w-tit"><?=$exhibition->event_member?></h3>
                 </div>  
                 <div class="wb-cont3">
                     <div id="commentCount">
