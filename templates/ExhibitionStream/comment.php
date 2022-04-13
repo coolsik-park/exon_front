@@ -417,11 +417,6 @@
         html_1 += '<button type="button" id="underCommentDelete" onclick="underCommentDeleteButton('+ id + ')">삭제</button>';
         $('#underConfigButton'+id).html(html_1);
 
-<<<<<<< HEAD
-    $(document).on('click', 'button[id=underCommentEidtButton]', function() {
-        var id = $('#underCommentEidtButton').attr('name');
-        var message = document.getElementById('underCommentEditMessage').value;
-=======
         var html_2 = '';
         html_2 = message;
         $("#underCommentText"+id).html(html_2);
@@ -431,7 +426,6 @@
     //     var id = $('#underCommentEidtButton').attr('name');
     function underCommentEidtButton(id) {
         var message = document.getElementById('underCommentEditMessage'+id).value;
->>>>>>> bomi
 
         if (message.length == 0) {
             alert("입력된 내용이 없습니다.");
