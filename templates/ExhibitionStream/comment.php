@@ -16,6 +16,7 @@
     .replies__item {
       padding: 0 1em;
       font-size: 16px;
+      /* border-bottom: 1px solid #ddd; */
     }
 
     .replies__item+.replies__item {
@@ -60,14 +61,14 @@
   </style>
 <div class="container">
     <div id="commentCount">
-        <span>comment <?= count($exhibition_comments) ?>개</span>
+        <span><?= count($exhibition_comments) ?>개의 댓글</span>
     </div>
     <div class="col-dd col-cel">
         <div class="col-td">
-            <input type="text" class="ipt" id="commentMessage">
+            <input type="text" class="ipt" id="commentMessage" placeholder="댓글을 입력해 주세요.">
         </div>
         <div style="float:right;">
-            <button type="button" class="btn-ty3" id="commentButton">댓글</button>
+            <button type="button" class="btn-ty3" id="commentButton">댓글 등록</button>
         </div>
     </div>
     <br><br><br>
@@ -95,42 +96,43 @@
                         <div id="commentText<?= $exhibition_comment->id ?>"><?= $exhibition_comment->message ?></div>
                         <br>
                         <?php 
-                            // foreach ($exhibition_comments_unders as $exhibition_comments_under) {
-                            //     if ($exhibition_comments_under->id == $exhibition_comment->id) {
-                            //         $under_comment[] = $exhibition_comments_under;
-                            //     }
-                            // }
-                            // if (count($under_comment) != 0):
-                            if (array_key_exists($exhibition_comment->id, $commentUnder)):
+                            $comment_under = [];
+                            for ($i=0; $i<count($exhibition_comments_unders); $i++) {
+                                if ($exhibition_comments_unders[$i]->parent_id == $exhibition_comment->id) {
+                                    array_push($comment_under, $i);
+                                }
+                            }
+
+                            if (count($comment_under) != 0):
                         ?>
-                            <div class="foot">
-                                <details>
-                                    <summary>답글 <?= count($commentUnder[$exhibition_comment->id]) ?>개</summary>
-                                    <?php foreach ($commentUnder[$exhibition_comment->id] as $commentUnder): ?>
-                                        <div class="replies__item">
-                                            <div class="head">
-                                                <div>
-                                                    <span><?= $commentUnder->user_name ?></span>
-                                                    <span class="muted">
-                                                        <?php echo date("Y.m.d", strtotime($commentUnder->modified)); ?>
-                                                    </span>
-                                                </div>
-                                                <?php if ($user == $commentUnder->users_id): ?>
-                                                    <div id="underConfigButton<?= $commentUnder->id ?>">
-                                                        <button type="button" id="underCommentEdit" onclick="underCommentEditButton(<?= $commentUnder->id ?>)">수정</button>
-                                                        <button type="button" id="underCommentDelete" onclick="underCommentDeleteButton(<?= $commentUnder->id ?>)">삭제</button>
+                                <div class="foot">
+                                    <details>
+                                        <summary>답글 <?= count($comment_under) ?>개</summary>
+                                        <?php foreach ($comment_under as $commentUnder => $i): ?>
+                                            <div class="replies__item">
+                                                <div class="head">
+                                                    <div>
+                                                        <span><?= $exhibition_comments_unders[$i]->user_name ?></span>
+                                                        <span class="muted">
+                                                            <?php echo date("Y.m.d", strtotime($exhibition_comments_unders[$i]->modified)); ?>
+                                                        </span>
                                                     </div>
-                                                <?php endif; ?>
+                                                    <?php if ($user == $exhibition_comments_unders[$i]->users_id): ?>
+                                                        <div id="underConfigButton<?= $exhibition_comments_unders[$i]->id ?>">
+                                                            <button type="button" id="underCommentEdit" onclick="underCommentEditButton(<?= $exhibition_comments_unders[$i]->id ?>)">수정</button>
+                                                            <button type="button" id="underCommentDelete" onclick="underCommentDeleteButton(<?= $exhibition_comments_unders[$i]->id ?>)">삭제</button>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <div id="underCommentText<?= $exhibition_comments_unders[$i]->id ?>"><?= $exhibition_comments_unders[$i]->message ?></div>
                                             </div>
-                                            <div id="underCommentText<?= $commentUnder->id ?>"><?= $commentUnder->message ?></div>
+                                            <br>
+                                        <?php endforeach; ?>
+                                        <div id="underUnderCommentAddDiv<?= $exhibition_comment->id ?>">
+                                            <button type="button" id="underUnderComment" onclick="underUnderCommentButton(<?= $exhibition_comment->id ?>)">답글달기</button>
                                         </div>
-                                        <br>
-                                    <?php endforeach; ?>
-                                    <div id="underUnderCommentAddDiv<?= $exhibition_comment->id ?>">
-                                        <button type="button" id="underUnderComment" onclick="underUnderCommentButton(<?= $exhibition_comment->id ?>)">답글달기</button>
-                                    </div>
-                                </details>
-                            </div>
+                                    </details>
+                                </div>
                         <?php else: ?>
                             <div id="underCommentAddDiv<?= $exhibition_comment->id ?>">
                                 <button type="button" id="underComment" onclick="underCommentButton(<?= $exhibition_comment->id ?>)">답글달기</button>
@@ -143,6 +145,7 @@
             endforeach;
         ?>
     </div>
+    <hr style="border-bottom:1px solid #ddd;">
     <br><br><br><br>
 </div>
 <script>
@@ -280,7 +283,6 @@
     }
 
     function underCommentAddButton(id) {
-        console.log('aaaa');
         var message = document.getElementById('underCommentAddMessage'+id).value;
 
         if (message.length == 0) {
@@ -322,8 +324,6 @@
     }
 
     function underUnderCommentButton(id) {
-    // $(document).on('click', 'button[id=underUnderCommentAdd]', function() {
-    //     var id= $('#underUnderCommentAdd').attr('name');
         var html = '';
         html += '<div class="col-dd col-cell">';
         html += '   <div class="col-td">';
@@ -344,8 +344,6 @@
         $("#underUnderCommentAddDiv"+id).html(html);
     }
 
-    // $(document).on('click', 'button[id=underUnderCommentAddButton]', function() {
-    //     var id = $('#underUnderCommentAddButton').attr('name');
     function underUnderCommentAddButton(id) {
         var message = document.getElementById('underUnderCommentAddMessage'+id).value;
 
@@ -387,8 +385,6 @@
         });
     }
 
-    // $(document).on('click', 'button[id=underCommentEdit]', function() {
-    //     var id = $('#underCommentEdit').attr('name');
     function underCommentEditButton(id) {
         var message = document.getElementById('underCommentText'+id).innerHTML;
         var message_fun = "'" + message + "'";
@@ -422,8 +418,6 @@
         $("#underCommentText"+id).html(html_2);
     }
 
-    // $(document).on('click', 'button[id=underCommentEidtButton]', function() {
-    //     var id = $('#underCommentEidtButton').attr('name');
     function underCommentEidtButton(id) {
         var message = document.getElementById('underCommentEditMessage'+id).value;
 
@@ -450,8 +444,6 @@
         });
     }
 
-    // $(document).on('click', 'button[id=underCommentDelte]', function() {
-    //     var id = $('#underCommentDelte').attr('name');
     function underCommentDeleteButton(id) {
         if (confirm("답글을 삭제사히겠습니까?") == true) {
             $.ajax({
