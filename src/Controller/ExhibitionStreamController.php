@@ -1740,6 +1740,7 @@ class ExhibitionStreamController extends AppController
         $exhibition_comments = $exhibition_comment_table->find('all')->toArray();
         // $exhibition_comment = $exhibition_comment->where(['exhibition_stream_id' => $id])->toArray();
         $exhibition_comments_unders = $exhibition_comment_table->find('all')->where(['parent_id != 0', 'exhibition_stream_id' => $id])->toArray();
+        // debug($exhibition_comments_unders);
 
         $commentUnder[] = null;
         foreach ($exhibition_comments_unders as $exhibition_comments_under) {
@@ -1752,7 +1753,6 @@ class ExhibitionStreamController extends AppController
             }
         }
         unset($commentUnder[0]);
-        // debug($commentUnder);
 
         if ($this->Auth->user('id') == null) {
             $user = 'null';
@@ -1760,7 +1760,7 @@ class ExhibitionStreamController extends AppController
             $user = $this->Auth->user('id');
         }
 
-        $this->set(compact('exhibition_comments', 'commentUnder', 'user'));
+        $this->set(compact('exhibition_comments', 'exhibition_comments_unders', 'commentUnder', 'user'));
     }
 
     public function commentAdd()
