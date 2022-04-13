@@ -100,7 +100,7 @@
 
         @media  screen and (max-width: 768px) {
             .wd2 {
-                width: 500px;
+                width: 550px;
             }
             #thumb-img {
                 width: 8%;
