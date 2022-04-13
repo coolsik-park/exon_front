@@ -50,7 +50,7 @@
         margin: 0 auto;
         display: flex;
         flex-direction: column;
-        border: 1px solid #ddd;
+        /* border: 1px solid #ddd; */
         }
 
         .replies__item {
@@ -133,7 +133,7 @@
                     </div>
                     <h3 class="w-tit"><?=$exhibition->event_member?></h3>
                 </div>  
-                <div class="wb-cont3">
+                <div id="wb-cont3">
                     <div id="commentCount">
                         <span>comment <?= count($exhibition_comments) ?>개</span>
                     </div>
@@ -157,23 +157,17 @@
                                             <div>
                                                 <span><?= $exhibition_comment->user_name ?></span>
                                                 <span class="muted">
-                                                    <?php
-                                                        if ($exhibition_comment->created != $exhibition_comment->modified) {
-                                                            echo date("Y.m.d", strtotime($exhibition_comment->modified)). "(수정)";
-                                                        } else {
-                                                            echo date("Y.m.d", strtotime($exhibition_comment->created));
-                                                        } 
-                                                    ?>
+                                                    <?php echo date("Y.m.d", strtotime($exhibition_comment->modified)); ?>
                                                 </span>
                                             </div>
                                             <?php if ($login_user == $exhibition_comment->users_id): ?>
-                                                <div>
-                                                    <button type="button" id="commentEdit" name="<?= $exhibition_comment->id ?>">수정</button>
-                                                    <button type="button" id="commentDelte" name="<?= $exhibition_comment->id ?>">삭제</button>
+                                                <div id="configbutton<?= $exhibition_comment->id ?>">
+                                                    <button type="button" id="commentEdit" onclick="commentEditButton(<?= $exhibition_comment->id ?>)">수정</button>
+                                                    <button type="button" id="commentDelete" onclick="commentDeleteButton(<?= $exhibition_comment->id ?>)">삭제</button>
                                                 </div>
                                             <?php endif; ?>
                                         </div>
-                                        <div id="commentText"><?= $exhibition_comment->message ?></div>
+                                        <div id="commentText<?= $exhibition_comment->id ?>"><?= $exhibition_comment->message ?></div>
                                         <br>
                                         <!-- <?php if (array_key_exists($exhibition_comment->id, $commentUnder)): ?>
                                             <div class="foot">
@@ -185,13 +179,7 @@
                                                                 <div>
                                                                     <span><?= $commentUnder->user_name ?></span>
                                                                     <span class="muted">
-                                                                        <?php
-                                                                            if ($commentUnder->created != $commentUnder->modified) {
-                                                                                echo date("Y.m.d", strtotime($commentUnder->modified)). "(수정)";
-                                                                            } else {
-                                                                                echo date("Y.m.d", strtotime($commentUnder->created));
-                                                                            }
-                                                                        ?>
+                                                                        <?php echo date("Y.m.d", strtotime($commentUnder->modified)); ?>
                                                                     </span>
                                                                 </div>
                                                                 <?php if ($login_user == $commentUnder->users_id): ?>
@@ -222,6 +210,7 @@
                             endforeach;
                         ?>
                     </div>
+                    <br>
                 </div>       
                 <br>        
             </div>
@@ -351,8 +340,8 @@
             }
         }).done(function(data) {
             if (data.status == 'success') {
-                alert("답글 추가되었습니다.");
-                $('.wb-cont3').load(document.URL + "  .wb-cont3");
+                alert("댓글 추가되었습니다.");
+                $('#wb-cont3').load(document.URL + "  #wb-cont3");
             } else if (data.status == 'not_user') {
                 if (confirm("회원이 아닙니다.\n로그인을 하시겠습니까?")) {
                     location.href="/users/login";
@@ -360,27 +349,45 @@
                     alert("취소되었습니다.");
                 }
             } else {
-                alert("답글 추가에 실패하였습니다.");
+                alert("댓글 추가에 실패하였습니다.");
             }
         });
     });
 
-    $(document).on('click', 'button[id=commentEdit]', function() {
-        var id = $('#commentEdit').attr('name');
-        var message = document.getElementById('commentText').innerHTML;
-        var html = '';
-        html += '<div class="col-dd col-cell">';
-        html += '   <div class="col-td">';
-        html += '       <input type="text" class="ipt" id="commentEditMessage" value="' + message + '">';
-        html += '   </div>';
-        html += '   <button type="button" class="btn-ty3" id="commentEidtButton" name="' + id  + '" style="float:right;">수정하기</button>';
-        html += '   <br><br>'
-        html += '</div>';
-        $("#commentText").html(html);
-    });
+    function commentEditButton(id) {
+        var message = document.getElementById('commentText' + id).innerHTML;
+        var massage_fun = "'"+message+"'";
+        
+        var html_1 = '';
+        html_1 += '<button type="button" id="commentDelete" onclick="commentDeleteButton(' + id  + ')">삭제</button>';
+        $("#configbutton"+id).html(html_1);
 
-    $(document).on('click', 'button[id=commentEidtButton]', function() {
-        var id = $('#commentEidtButton').attr('name');
+        var html_2 = '';
+        html_2 += '<div class="col-dd col-cell">';
+        html_2 += '   <div class="col-td">';
+        html_2 += '       <input type="text" class="ipt" id="commentEditMessage" value="' + message + '">';
+        html_2 += '   </div>';
+        html_2 += '   <div style="float:right;">';
+        html_2 += '     <button type="button" class="btn-ty3" id="commentEidtButton" onclick="commentEidtButton(' + id  + ')">수정하기</button>';
+        html_2 += '     <button type="button" class="btn-ty3" id="commentCancelButton" onclick="commentCancelButton(' + id + ',' + massage_fun + ')">수정 취소하기</button>';
+        html_2 += '   </div>';
+        html_2 += '   <br><br>';
+        html_2 += '</div>';
+        $("#commentText"+id).html(html_2);
+    }
+
+    function commentCancelButton(id, message) {  
+        var html_1 = '';
+        html_1 += '<button type="button" id="commentEdit" onclick="commentEditButton(' + id  + ')">수정</button>';
+        html_1 += '<button type="button" id="commentDelete" onclick="commentDeleteButton(' + id  + ')">삭제</button>';
+        $("#configbutton"+id).html(html_1);
+
+        var html_2 = '';
+        html_2 += message;
+        $("#commentText"+id).html(html_2);
+    }
+
+    function commentEidtButton(id) {
         var message = document.getElementById('commentEditMessage').value;
 
         if (message.length == 0) {
@@ -397,31 +404,29 @@
             }
         }).done(function(data) {
             if (data.status == 'success') {
-                alert("답글 수정되었습니다.");
-                $('.wb-cont3').load(document.URL + "  .wb-cont3");
+                alert("댓글 수정되었습니다.");
+                $('#wb-cont3').load(document.URL + "  #wb-cont3");
             } else {
-                alert("답글 수정에 실패하였습니다.");
+                alert("댓글 수정에 실패하였습니다.");
             }
         });
-    });
+    }
 
-    $(document).on('click', 'button[id=commentDelte]', function() {
-        var id = $('#commentDelte').attr('name');
-
-        if (confirm("답글을 삭제사히겠습니까?") == true) {
+    function commentDeleteButton(id) {
+        if (confirm("댓글을 삭제사히겠습니까?") == true) {
             $.ajax({
                 url: '/exhibition-stream/comment-delete/' + id,
                 method: 'DELETE',
             }).done(function(data) {
                 if (data.status == 'success') {
-                    alert("답글 삭제에 되었습니다.");
-                    $('.wb-cont3').load(document.URL + "  .wb-cont3");
+                    alert("댓글 삭제에 되었습니다.");
+                    $('#wb-cont3').load(document.URL + "  #wb-cont3");
                 } else {
-                    alert("답글 삭제에 실패하였습니다.");
+                    alert("댓글 삭제에 실패하였습니다.");
                 }
             });
         }
-    });
+    }
 
     $(document).on('click', 'button[id=underCommentAdd]', function() {
         var id = $('#underCommentAdd').attr('name');
@@ -556,7 +561,7 @@
         }).done(function(data) {
             if (data.status == 'success') {
                 alert("답글 수정되었습니다.");
-                $('.wb-cont3').load(document.URL + "  .wb-cont3");
+                $('#wb-cont3').load(document.URL + "  #wb-cont3");
             } else {
                 alert("답글 수정에 실패하였습니다.");
             }
@@ -573,7 +578,7 @@
             }).done(function(data) {
                 if (data.status == 'success') {
                     alert("답글 삭제에 되었습니다.");
-                    $('.wb-cont3').load(document.URL + "  .wb-cont3");
+                    $('#wb-cont3').load(document.URL + "  #wb-cont3");
                 } else {
                     alert("답글 삭제에 실패하였습니다.");
                 }

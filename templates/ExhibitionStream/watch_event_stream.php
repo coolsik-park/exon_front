@@ -62,6 +62,7 @@
         .vod-time {
             float: right;
         }
+<<<<<<< HEAD
         .w-dt {
             vertical-align:middle;
         }
@@ -76,6 +77,8 @@
                 width: 8%;
             }
         }
+=======
+>>>>>>> bomi
     </style>
 </head>
 
