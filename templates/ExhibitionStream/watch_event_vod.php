@@ -184,7 +184,8 @@
                                         ?>
                                                 <div class="foot">
                                                     <details>
-                                                        <summary>답글 <?= count($comment_under) ?>개</summary>
+                                                        <summary>답글 <?= count($comment_under) ?>개</summary><br>
+                                                        <hr style="border-bottom:1px solid #ddd;">
                                                         <?php foreach ($comment_under as $commentUnder => $i): ?>
                                                             <div class="replies__item">
                                                                 <div class="head">
@@ -202,11 +203,11 @@
                                                                     <?php endif; ?>
                                                                 </div>
                                                                 <div id="underCommentText<?= $exhibition_comments_unders[$i]->id ?>"><?= $exhibition_comments_unders[$i]->message ?></div>
+                                                                <br>
                                                             </div>
-                                                            <br>
                                                         <?php endforeach; ?>
                                                         <div id="underUnderCommentAddDiv<?= $exhibition_comment->id ?>">
-                                                            <button type="button" id="underUnderComment" onclick="underUnderCommentButton(<?= $exhibition_comment->id ?>)">답글달기</button>
+                                                            <button type="button" id="underUnderComment" onclick="underUnderCommentButton(<?= $exhibition_comment->id ?>)" style="position: relative; left: 18px;">답글달기</button>
                                                         </div>
                                                     </details>
                                                 </div>
