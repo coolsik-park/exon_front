@@ -734,14 +734,6 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
         } else {
             $('#hpNoti').html('');
         }
-        
-        if (!getName.test($("#name").val())) {
-            $('#nameNoti').html('이름을 올바르게 입력해 주세요.');
-            $('#name').focus();
-            return false;
-        } else {
-            $('#nameNoti').html('');
-        }
 
         $.ajax({
             url: '/users/edit/<?= $user->id ?>',
