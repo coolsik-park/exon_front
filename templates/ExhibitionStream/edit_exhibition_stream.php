@@ -521,7 +521,7 @@
         $("#liveButtons").children().remove();
         $("#liveButtons").append('<button id="start" type="button" class="btn-ty4 black">방송시작</button>');
         liveEnd();
-        alert("저장된 VOD는 인코딩이 완료된 후 마이페이지>개설행사관리 페이지에서 다운로드 받으실 수 있습니다.");
+        alert("방송 종료 후 VOD 생성을 시작합니다.\n송출 프로그램 미종료 시 오류가 발생할 수 있으니,\n사용중인 송출 프로그램을 반드시 종료해주세요.");
     });
 
     function liveEnd () {

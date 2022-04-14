@@ -1411,16 +1411,6 @@ class ExhibitionStreamController extends AppController
         $exhibition_comment_table = TableRegistry::get('ExhibitionComment');
         $exhibition_comments = $exhibition_comment_table->find()->where(['exhibition_stream_id' => $exhibitionStream[0]->id])->toArray();
         $exhibition_comments_unders = $exhibition_comment_table->find('all')->where(['parent_id != 0'])->toArray();
-        $commentUnder[] = null;
-        foreach ($exhibition_comments_unders as $exhibition_comments_under) {
-            $i = 0;
-            if (array_key_exists($exhibition_comments_under->parent_id, $commentUnder)) {
-                $i = count($commentUnder[$exhibition_comments_under->parent_id]) + 1;
-                $commentUnder[$exhibition_comments_under->parent_id][$i] = $exhibition_comments_under;
-            } else {
-                $commentUnder[$exhibition_comments_under->parent_id][0] = $exhibition_comments_under;
-            }
-        }
 
         if ($this->Auth->user('id') == null) {
             $login_user = 'null';
@@ -1428,7 +1418,7 @@ class ExhibitionStreamController extends AppController
             $login_user = $this->Auth->user('id');
         }
         
-        $this->set(compact('user', 'exhibitionStream', 'exhibition_id', 'exhibition_comments', 'commentUnder', 'login_user'));
+        $this->set(compact('user', 'exhibitionStream', 'exhibition_id', 'exhibition_comments', 'exhibition_comments_unders', 'login_user', 'exhibition'));
     }
 
     public function uploadVod()
@@ -1741,26 +1731,13 @@ class ExhibitionStreamController extends AppController
         // $exhibition_comment = $exhibition_comment->where(['exhibition_stream_id' => $id])->toArray();
         $exhibition_comments_unders = $exhibition_comment_table->find('all')->where(['parent_id != 0', 'exhibition_stream_id' => $id])->toArray();
 
-        $commentUnder[] = null;
-        foreach ($exhibition_comments_unders as $exhibition_comments_under) {
-            $i = 0;
-            if (array_key_exists($exhibition_comments_under->parent_id, $commentUnder)) {
-                $i = count($commentUnder[$exhibition_comments_under->parent_id]) + 1;
-                $commentUnder[$exhibition_comments_under->parent_id][$i] = $exhibition_comments_under;
-            } else {
-                $commentUnder[$exhibition_comments_under->parent_id][0] = $exhibition_comments_under;
-            }
-        }
-        unset($commentUnder[0]);
-        // debug($commentUnder);
-
         if ($this->Auth->user('id') == null) {
             $user = 'null';
         } else {
             $user = $this->Auth->user('id');
         }
 
-        $this->set(compact('exhibition_comments', 'commentUnder', 'user'));
+        $this->set(compact('exhibition_comments', 'exhibition_comments_unders', 'user'));
     }
 
     public function commentAdd()

@@ -594,6 +594,7 @@
         //     }
         // });
 
+<<<<<<< HEAD
 	const mainSlider3 = new Swiper(".main-slider3 .swiper-container", {
                     slidesPerView: 1,
                     spaceBetween: 10,
@@ -626,3 +627,6 @@
                 });    
 
     </script>
+=======
+    </script>
+>>>>>>> fab6af86fb97a3b47d26e5878df13c74a5436950
