@@ -27,10 +27,10 @@
             cursor: pointer;
         }
         #thumb-img {
-            width: 4%;
+            width: 3%;
         }
         #share-img {
-            width: 4%;
+            width: 3%;
         }
         .popup-img {
             width: 10%;
@@ -67,7 +67,7 @@
         }
         @media  screen and (max-width: 768px) {
             .wd2 {
-                width: 98%;
+                width: 550px;
             }
             #thumb-img {
                 width: 8%;
@@ -90,10 +90,10 @@
                     <h3 class="w-tit"><?= $exhibitionStream[0]['title'] ?></h3>
                     <div class="w-desc">
                         <p class="wd1"><span class="w-dt"></span></p>
-                        <div class="wd2"><span class="w-dt">시청자 : </span><span id="viewer" class="w-dd">0명&nbsp;&nbsp;&nbsp;</span>
+                        <div class="wd2"><span class="w-dt">시청자 : </span><span id="viewer" class="w-dt">0명&nbsp;&nbsp;&nbsp;</span>
                         <span id="liked" class="w-dt">추천 <?=$exhibitionStream[0]['liked']?></span>&nbsp;&nbsp;&nbsp;
-                        <span id="like" class="w-dt">&nbsp;<img id="thumb-img" src="/img/thumb1.png">&nbsp;추천하기</span>&nbsp;&nbsp;&nbsp;
-                        <span id="share" class="w-dt" data-toggle="modal" data-target="#shareModal" data-backdrop="static" data-keyboard="false">&nbsp;<img id="share-img" src="/img/share.png">&nbsp;공유하기</span></div>
+                        &nbsp;<img id="thumb-img" src="/img/thumb1.png"><span id="like" class="w-dt">&nbsp;추천하기</span>&nbsp;&nbsp;&nbsp;
+                        &nbsp;<img id="share-img" src="/img/share.png"><span id="share" class="w-dt" data-toggle="modal" data-target="#shareModal" data-backdrop="static" data-keyboard="false">&nbsp;공유하기</span></div>
                     </div>
                 </div>                
             </div>
