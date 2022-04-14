@@ -277,9 +277,9 @@
                                         // else:
                                             if ($d_today <= $apply_edate):
                                     ?>
-                                            <button type="button" class="btn-ty3 red" style="cursor:pointer;" data-toggle="modal" data-target="#signUpCancelModal" data-backdrop="static" data-keyboard="false" onClick="signUpCancel(<?= $key ?>, '<?=$method?>', <?=$same_day?>)">
+                                            <p><button type="button" class="btn-ty3 red" style="cursor:pointer;" data-toggle="modal" data-target="#signUpCancelModal" data-backdrop="static" data-keyboard="false" onClick="signUpCancel(<?= $key ?>, '<?=$method?>', <?=$same_day?>)">
                                                 취소하기
-                                            </button>
+                                            </button></p>
                                     <?php 
                                             endif;
                                         // endif;
