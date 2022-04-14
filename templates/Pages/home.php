@@ -617,20 +617,20 @@
                     },
                 });    
 
-	const mainSlider3 = new Swiper(".main-slider3 .swiper-container", {
-                    slidesPerView: 1,
-                    spaceBetween: 10,
-                    pagination: {
-                        el: ".swiper-pagination",
-                        clickable: true,
-                    }
-                });
+	// const mainSlider3 = new Swiper(".main-slider3 .swiper-container", {
+    //                 slidesPerView: 1,
+    //                 spaceBetween: 10,
+    //                 pagination: {
+    //                     el: ".swiper-pagination",
+    //                     clickable: true,
+    //                 }
+    //             });
     const mainSlider4 = new Swiper(".main-slider4 .swiper-container", {
                     slidesPerView: 'auto',
                     spaceBetween: 20,
                     navigation: {
-                        nextEl: ".main-slider5 .swiper-button-next",
-                        prevEl: ".main-slider5 .swiper-button-prev",
+                        nextEl: ".main-slider4 .swiper-button-next",
+                        prevEl: ".main-slider4 .swiper-button-prev",
                     },
                     breakpoints: {  
                         768: {
@@ -673,8 +673,8 @@
                     slidesPerView: 'auto',
                     spaceBetween: 20,
                     navigation: {
-                        nextEl: ".main-slider5 .swiper-button-next",
-                        prevEl: ".main-slider5 .swiper-button-prev",
+                        nextEl: ".main-slider6 .swiper-button-next",
+                        prevEl: ".main-slider6 .swiper-button-prev",
                     },
                     breakpoints: {  
                         768: {
