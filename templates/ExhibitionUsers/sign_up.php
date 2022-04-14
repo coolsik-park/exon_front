@@ -54,8 +54,10 @@
             max-height: 40%;
         }
         .table-type .td-col .btn-ty3 {
-            width: 90%;
             font-size: 0.85rem;
+        }
+        .table-type .col8 .con {
+            flex-wrap: wrap;
         }
     }
     @media  screen and (min-width: 768px) {
