@@ -142,6 +142,15 @@
         .bannerM {
             display: block; 
         }
+        .main-slider6 .swiper-button-prev {
+            display: none;
+        }
+        .main-slider6 .swiper-button-next {
+            display: none;
+        }
+        .main-slider6 .swiper-slide {
+            width: 80%;
+        }
     }
     @media  screen and (min-width: 1600px) {
         .slider2Div {

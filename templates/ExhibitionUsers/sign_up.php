@@ -53,6 +53,10 @@
         .apply-sect1-cont .photos {
             max-height: 40%;
         }
+        .table-type .td-col .btn-ty3 {
+            width: 90%;
+            font-size: 0.85rem;
+        }
     }
     @media  screen and (min-width: 768px) {
         .photos img {
