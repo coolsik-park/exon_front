@@ -275,9 +275,8 @@
                             </div>
                         </div>
                         <div class="td-col col8">
-                            <?php if ($exhibition_user->status != 8){ ?>
+                            <?php if ($exhibition_user->status != 8) : ?>
                                 <div class="con">
-                                    <p><a href="/exhibition-users/download-pdf/<?= $exhibition_user->exhibition['id'] ?>/<?= $exhibition_user->id ?>" class="btn-ty3 bor">증빙</a></p>
                                     <?php                         
                                     if ($d_today > $edate):
                                     else:
@@ -294,19 +293,25 @@
                                                 <?php endif; ?>
                                     <?php
                                             endif;
-                                        // else:
-                                            if ($d_today <= $apply_edate):
+                                    endif; 
                                     ?>
-                                            <p><button type="button" class="btn-ty3 red" style="cursor:pointer;" data-toggle="modal" data-target="#signUpCancelModal" data-backdrop="static" data-keyboard="false" onClick="signUpCancel(<?= $key ?>, '<?=$method?>', <?=$same_day?>)">
-                                                취소하기
-                                            </button></p>
+                                    <p><a href="/exhibition-users/download-pdf/<?= $exhibition_user->exhibition['id'] ?>/<?= $exhibition_user->id ?>" class="btn-ty3 bor">증빙</a></p>
+                                    <?php                         
+                                    if ($d_today > $edate):
+                                    else:
+                                    ?>
+                                    <?php
+                                        if ($d_today <= $apply_edate):
+                                    ?>
+                                        <p><button type="button" class="btn-ty3 red" style="cursor:pointer;" data-toggle="modal" data-target="#signUpCancelModal" data-backdrop="static" data-keyboard="false" onClick="signUpCancel(<?= $key ?>, '<?=$method?>', <?=$same_day?>)">
+                                            취소하기
+                                        </button></p>
                                     <?php 
                                             endif;
-                                        // endif;
                                     endif;
                                     ?>
                                 </div>
-                            <?php } ?>
+                            <?php endif; ?>
                             <div id="popup"></div>
                         </div>
                     </div>
