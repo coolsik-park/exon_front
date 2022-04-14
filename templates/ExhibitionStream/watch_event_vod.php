@@ -124,7 +124,10 @@
                 <div class="wb-cont2">
                     <h3 class="w-tit"><?=$exhibitionStream[0]['title']?></h3>
                     <div class="w-desc">
-                        <p class="wd1"><span id="viewer" class="w-dt">조회수<?=$exhibitionStream[0]['viewer']?></span></p>
+                        <p class="wd1">
+                            <span id="viewer" class="w-dt">조회수<?=$exhibitionStream[0]['viewer']?></span>&nbsp;&nbsp;&nbsp;
+                            <span id="viewer" class="w-dt"><?=date('Y.m.d', strtotime($exhibitionStream[0]['live_ended']) + 32400)?></span>
+                        </p>
                         <div class="wd2">
                             <span id="liked" class="w-dt">추천<?=$exhibitionStream[0]['liked']?></span>&nbsp;&nbsp;&nbsp;
                             &nbsp;<img id="thumb-img" src="/img/thumb1.png"><span id="like" class="w-dt">&nbsp;추천하기</span>&nbsp;&nbsp;&nbsp;
@@ -137,7 +140,7 @@
                 <br>  
                 <div id="wb-cont3">
                     <div id="commentCount">
-                        <span><?= count($exhibition_comments) ?>개의 댓글</span>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;<?= count($exhibition_comments) ?>개의 댓글</span>
                     </div>
                     <br>
                     <div class="col-dd col-cel">
