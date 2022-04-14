@@ -208,7 +208,7 @@
             // console.log('pc');
             $('#container').css('min-height',cHt);
             $('.section-webinar4').css('min-height',cHt);
-            $('.section-webinar4 .webinar-tab-body').css('height',cHt - wbHt-10);
+            $('.section-webinar4 .webinar-tab-body').css('height',cHt - wbHt-80);
 
         } else {
             //console.log('모바일');            
