@@ -594,4 +594,35 @@
         //     }
         // });
 
+	const mainSlider3 = new Swiper(".main-slider3 .swiper-container", {
+                    slidesPerView: 1,
+                    spaceBetween: 10,
+                    pagination: {
+                        el: ".swiper-pagination",
+                        clickable: true,
+                    }
+                });
+    const mainSlider6 = new Swiper(".main-slider6 .swiper-container", {
+                    slidesPerView: 'auto',
+                    spaceBetween: 20,
+                    navigation: {
+                        nextEl: ".main-slider5 .swiper-button-next",
+                        prevEl: ".main-slider5 .swiper-button-prev",
+                    },
+                    breakpoints: {  
+                        768: {
+                            slidesPerView: 'auto',
+                            spaceBetween: 20,
+                        },
+                        1024: {
+                            slidesPerView:'auto',
+                            spaceBetween: 20,
+                        },
+                        1200: {
+                            slidesPerView: 3,
+                            spaceBetween: 10,
+                        },
+                    },
+                });    
+
     </script>
