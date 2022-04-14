@@ -46,6 +46,7 @@
         color: white;
         position: absolute;
         right: 45px;
+        /* animation: arrow 2s .2s both; */
         animation-iteration-count: infinite;
     }
     .section1>.swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet {
