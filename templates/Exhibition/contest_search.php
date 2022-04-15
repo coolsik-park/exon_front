@@ -61,7 +61,7 @@
         height: 180px;
     }
     .vod--div__title {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         margin-top: 2vh;
     }
     .vod--div__info {
