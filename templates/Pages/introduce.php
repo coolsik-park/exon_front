@@ -690,11 +690,12 @@
             display: none;
         }
         
+        
         .section2--title__txt {
             font-size: 40px;
         }
         .section2--title__txt2 {
-            font-size: 20px;
+            font-size: 1rem;
         }
         .section2--title__txt3 {
             font-size: 12px;
@@ -710,17 +711,194 @@
         #section2--slideM {
             display: block;
         }
-        /* .section2--img {
-            position: absolute;
-            bottom: 0;
+        .section2--img {
+            height: 100vh;
             margin-top: 0;
-        } */
+        }
+
         .section3--slide__div {
             flex-direction: column;
+            margin-top: 34vh;
+        }
+        .section3--title__txt {
+            font-size: 40px;
+        }
+        .section3--title__txt2 {
+            font-size: 1rem;
+        }
+        .section3--title__txt3 {
+            font-size: 12px;
+        }
+        .section3--slide__txt {
+            width: 100%;
+        }
+        .section3--img {
+            width: 100%;
+            height: auto;
+            margin-top: 3em;
+        }
+        .section3--txt__num {
+            font-size: 1.5em
+        }
+        .section3--txt__words1 {
+            font-size: 1.25em;
+        } 
+        .section3--txt__words2 {
+            font-size: 1.25em;
+        }   
+        .section3--txt__words3 {
+            font-size: 1em;
+        }   
+        #section3--slide>.swiper-pagination-bullets .swiper-pagination-bullet {
+            width: 35px;
+        }
+        #section3--slide>.swiper-pagination {
+            margin-left: 40px;
+        }
+        .section3--txt__words {
+            margin-left: 3vh;
+        }
+
+        .section4 {
+            height: 150vh;
+            background-image: url('/img/introduce/section4-backgroundM.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .section4--title {
+            width: 90%;
+            margin-right: 5%;
+        }
+        .section4--title__txt {
+            font-size: 40px;
+        }
+        .section4--title__txt2 {
+            font-size: 1rem;
+        }
+        .section4--title__txt3 {
+            font-size: 12px;
+        }
+        .section4--box__wrap {
+            flex-direction: column;
+            width: 96%;
+        }
+        .section4--txt__div {
+            flex-direction: row;
+            width: 50%;
+            margin-left: 2em;
+        }
+        .section4--box__div {
+            display: flex;
+            width: 80%;
+            margin-bottom: 1.75em;
+        }
+
+        .section5--img__div {
+            width: 90%;
+            position: absolute;
+            right: 5%;
+            top: 62%;
+        }
+        .section5--title__div {
+            color: white;
+            width: 90%;
+            text-align: center;
+            position: absolute;
+            top: 5vh;
+            margin-right: 5%;
+            margin-left: 5%;
+        }
+        .section5--box__txt {
+            font-size: 50px;
+        }
+        .section5--box__txt2 {
+            font-size: 1rem;
+        }
+        .section5--txt__bold {
+            font-size: 1.5rem;
+        }
+        .section5--box__txt3 {
+            font-size: 0.75rem;
+            margin-top: 2vh;
+        }
+        .section5--txt3__bold {
+            font-size: 0.9rem;
+        }
+
+        .section6 {
+            background-image: url('/img/introduce/section6-backgroundM.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .section6--title__div{
+            right: 15px;
+        }
+        .section6--title__txt {
+            font-size: 40px;
+        }
+        .section6--title__txt2 {
+            font-size: 1rem;
+        }
+        .section6--img__ul {
+            column-width: auto;
+            width: auto;
+            height: auto;
+            margin-right: 5%;
+        }
+        .section6-img1 {
+            height: auto;
+        }
+        .section6-img2 {
+            height: auto;
+        }
+        .section6-img3 {
+            height: auto;
+            margin-top: 8.7em;
+        }
+        .section6-img4 {
+            height: auto;
+        }
+        .section6--img__div {
+            top: 5.5em;
+        }
+        .section6--img__li1:before {
+            height: 78%;
+        }  
+        .section6--img__li1:after {
+            left: 31%;
+            top: 59%;
+        }
+        .section6--img__li3:before {
+            height: 50%;
+        }
+        .section6--img__li2:after {
+            left: 11%;
+            top: 37%;
+        }
+        .section6--img__li3:after {
+            left: 22%;
+            top: 71%;
+        }
+        .section6--img__li4:before {
+            height: 96%;
+        }
+        .section6--img__li4:after {
+            left: 23%;
+            top: 39%;
         }
 
         .section7--title__txt {
             text-align: center;
+            font-size: 1.5rem;
+        }
+        .section7--title__txt2 {
+            text-align: center;
+            font-size: 1rem;
+        }
+        .section7__button {
+            width: 300px;
         }
     }
     @media  screen and (min-width: 1200px) {
@@ -987,42 +1165,50 @@
                     <div class="section4--box__img select" style="box-shadow: 0px 0px 0px #000000;">
                         <!-- <img src="/img/introduce/행사개설-아이콘-dark.png" class="section4--img"> -->
                     </div>
-                    <div class="section4--box__txt">STEP 01</div>
-                    <div class="section4--box__txt2">행사 개설/모집</div>
-                    <div class="section4--box__txt3">
-                        일정, 모집 기간<br>
-                        행사 내용 작성 <br>
-                        유/무료 티켓 설정 <br>
-                        설문 작성 
+                    <div class="section4--txt__div">
+                        <div class="section4--box__txt">STEP 01</div>
+                        <div class="section4--box__txt2">행사 개설/모집</div>
+                        <div class="section4--box__txt3">
+                            일정, 모집 기간<br>
+                            행사 내용 작성 <br>
+                            유/무료 티켓 설정 <br>
+                            설문 작성 
+                        </div>
                     </div>
                 </div>
                 <div class="section4--box__div">
                     <div class="section4--box__img unselect"></div>
-                    <div class="section4--box__txt">STEP 02</div>
-                    <div class="section4--box__txt2">웨비나 세팅</div>
-                    <div class="section4--box__txt3">
-                        웨비나 중계팀 신청    <br>
-                        결제 진행 <br>
-                        스트리밍키 발급 
+                    <div class="section4--txt__div">
+                        <div class="section4--box__txt">STEP 02</div>
+                        <div class="section4--box__txt2">웨비나 세팅</div>
+                        <div class="section4--box__txt3">
+                            웨비나 중계팀 신청    <br>
+                            결제 진행 <br>
+                            스트리밍키 발급 
+                        </div>
                     </div>
                 </div>
                 <div class="section4--box__div">
                     <div class="section4--box__img unselect"></div>
-                    <div class="section4--box__txt">STEP 03</div>
-                    <div class="section4--box__txt2">웨비나 진행</div>
-                    <div class="section4--box__txt3">
-                        스트리밍 송출 <br>
-                        발표자료 Up/Down <br>
-                        Q&A 
+                    <div class="section4--txt__div">
+                        <div class="section4--box__txt">STEP 03</div>
+                        <div class="section4--box__txt2">웨비나 진행</div>
+                        <div class="section4--box__txt3">
+                            스트리밍 송출 <br>
+                            발표자료 Up/Down <br>
+                            Q&A 
+                        </div>
                     </div>
                 </div>
                 <div class="section4--box__div">
                     <div class="section4--box__img unselect"></div>
-                    <div class="section4--box__txt">STEP 04</div>
-                    <div class="section4--box__txt2">행사 종료</div>
-                    <div class="section4--box__txt3">
-                        통계 데이터 <br>
-                        행사 VOD 다운
+                    <div class="section4--txt__div">
+                        <div class="section4--box__txt">STEP 04</div>
+                        <div class="section4--box__txt2">행사 종료</div>
+                        <div class="section4--box__txt3">
+                            통계 데이터 <br>
+                            행사 VOD 다운
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1088,7 +1274,7 @@
             loop: true, //슬라이드 반복 
                     },
         autoplay: {
-            delay: 25000,
+            delay: 35000,
             disableOnInteraction: false,
         },
     });
