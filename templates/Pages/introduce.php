@@ -855,7 +855,7 @@
         }
         .section6-img3 {
             height: auto;
-            margin-top: 8.7em;
+            margin-top: 9em;
         }
         .section6-img4 {
             height: auto;
