@@ -38,7 +38,7 @@
         background: inherit;
         position: absolute;
         left: 0;
-        top: 281vh;
+        top: 268vh;
     }
     .slider5Div {
         width: 100%;
@@ -236,7 +236,6 @@
                                 <span class="date"><?php echo $hot[0]['sdate'] . " ~ " . $hot[0]['edate']; ?></span>
                             </div>
                             <h3 class="h-ty2"><?php echo $hot[0]['title']; ?></h3>
-                            <p class="tx"><?php echo $hot[0]['description']; ?></p>
                             <a href="exhibition/view/<?php echo $hot[0]['exhibition_id']; ?>" class="btn">자세히 보기</a>
                         </div>
                     </div>
@@ -267,7 +266,6 @@
                                                     <span class="date"><?php echo $list['sdate'] . " ~ " . $list['edate']; ?></span>
                                                 </div>
                                                 <h3 class="h-ty3"><?php echo $list['title']; ?></h3>
-                                                <p class="tx-1"><?php echo $list['description']; ?></p>
                                         </div>
                                     </a>                                    
                                     </div>
@@ -339,7 +337,6 @@
                                                     <?php endif; ?>
                                                 </div>
                                                 <h3 class="h-ty3"><?php echo $list['title']; ?></h3>
-                                                <p class="tx-1"><?php echo $list['description']; ?></p>
                                             </div>
                                             </a>
                                         </div>                                    
@@ -387,7 +384,6 @@
                                                     <span class="date"><?php echo $list['sdate'] . " ~ " . $list['edate']; ?></span>
                                                 </div>
                                                 <h3 class="h-ty3"><?php echo $list['title']; ?></h3>
-                                                <p class="tx-1"><?php echo $list['description']; ?></p>
                                             </div>
                                             </a>
                                         </div>                                    
@@ -435,7 +431,6 @@
                                                     <span class="date"><?php echo $list['sdate'] . " ~ " . $list['edate']; ?></span>
                                                 </div>
                                                 <h3 class="h-ty3"><?php echo $list['title']; ?></h3>
-                                                <p class="tx-1"><?php echo $list['description']; ?></p>
                                             </div>
                                             </a>
                                         </div>                                    
