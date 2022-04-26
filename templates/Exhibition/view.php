@@ -24,6 +24,10 @@
     table {
             table-layout: auto;
     }
+    .apply-sect1-cont .conts .btns {
+        justify-content: space-around;
+    }
+    
     @media  screen and (max-width: 768px) {
         .photos img {
             position: absolute;
