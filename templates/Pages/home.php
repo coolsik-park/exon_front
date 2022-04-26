@@ -27,7 +27,7 @@
     .slider2Div {
         width: 100%;
         height: 260px;
-        background: black;
+        background: inherit;
         position: absolute;
         left: 0;
         top: 1210px;
@@ -35,19 +35,15 @@
     .slider4Div {
         width: 100%;
         height: 260px;
-        background: black;
+        background: inherit;
         position: absolute;
         left: 0;
-<<<<<<< HEAD
         top: 1940px;
-=======
-        top: 268vh;
->>>>>>> 4cb1b7087b7bd55ef28a022973c949764c642b2d
     }
     .slider5Div {
         width: 100%;
         height: 260px;
-        background: black;
+        background: inherit;
         position: absolute;
         left: 0;
         top: 2300px;
