@@ -1811,9 +1811,9 @@ body {
 	#footer .footer-btm {
 		padding: 6vw 0 7.5vw;
 	}
-	.main-sect2-hot-item .imgs {
+	/* .main-sect2-hot-item .imgs {
 		width: 50%;
-	}
+	} */
 	.main-sect2-hot-item .desc {
 		width: 50%;
 		padding-left: 40px;
@@ -1825,7 +1825,7 @@ body {
 	}
 	.main-sect4 .main-slider4,
 	.main-sect5 .main-slider5,
-	.main-sect5 .main-slider6 {
+	.main-sect6 .main-slider6 {
 		width: 80%;
 	}
 	.main-sect4 .swiper-button-next {
