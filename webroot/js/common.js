@@ -178,30 +178,6 @@
                     },
                 });    
             },
-            mainSlider6 : function(){    
-                var $slider6 = new Swiper(".main-slider6 .swiper-container", {
-                    slidesPerView: 'auto',
-                    spaceBetween: 20,
-                    navigation: {
-                        nextEl: ".main-slider6 .swiper-button-next",
-                        prevEl: ".main-slider6 .swiper-button-prev",
-                    },
-                    breakpoints: {
-                        768: {
-                            slidesPerView: 'auto',
-                            spaceBetween: 20,
-                        },  
-                        1024: {
-                            slidesPerView: 'auto',
-                            spaceBetween: 20,
-                        },
-                        1200: {
-                            slidesPerView: 3,
-                            spaceBetween: 10,
-                        },
-                    },
-                });    
-            },
             photoSlider : function(){    
                 var $photoSlider = new Swiper(".apply-sect3-photos .swiper-container", {                   
                     slidesPerView: 'auto',
@@ -232,7 +208,7 @@
             // console.log('pc');
             $('#container').css('min-height',cHt);
             $('.section-webinar4').css('min-height',cHt);
-            $('.section-webinar4 .webinar-tab-body').css('height',cHt - wbHt-10);
+            $('.section-webinar4 .webinar-tab-body').css('height',cHt - wbHt-80);
 
         } else {
             //console.log('모바일');            

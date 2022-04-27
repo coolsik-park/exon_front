@@ -48,6 +48,7 @@
         display: flex;
         justify-content: flex-start;
         flex-wrap: wrap;
+        word-break:break-all;
     }
     .vod--div {
         width: 31%;
@@ -56,11 +57,11 @@
         margin: 7vh 2.5vh 0 0;
     }
     .div--img {
-        width: 350px;
+        width: 100%;
         height: 180px;
     }
     .vod--div__title {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         margin-top: 2vh;
     }
     .vod--div__info {
@@ -146,10 +147,10 @@
                 <div class="vod--div">
                     <a href="/exhibition/view/<?=$exhibition->_matchingData['Exhibition']['id']?>">
                         <div class="vod--div__img"><img id="live-img" src="/img/live.png"><img src="/<?=$exhibition->_matchingData['Exhibition']['image_path']?>/<?=$exhibition->_matchingData['Exhibition']['image_name']?>" class="div--img"></div>
-                        <div class="vod--div__title">
+                        <div class="vod--div__title h-ty3" style="font-size: 1.125rem;">
                             <?=$exhibition->_matchingData['Exhibition']['title']?>
                         </div>
-                        <div class="vod--div__info" style="color: gray;">
+                        <div class="vod--div__info tx-1" style="color: gray; font-size:0.875rem">
                             <div class="info--viewer">누적 시청자 <span class="info--viewr__num"> <?=$exhibition['watched']?></span></div>
                             <div class="info--good">추천 <span class="info--good__num"> <?=$exhibition['liked']?></span></div>
                         </div>
@@ -159,7 +160,7 @@
                 <div class="vod--div">
                     <a href="/exhibition-stream/watch-event-vod/<?=$exhibition->_matchingData['Exhibition']['id']?>">
                         <div class="vod--div__img"><img src="/<?=$exhibition->_matchingData['Exhibition']['image_path']?>/<?=$exhibition->_matchingData['Exhibition']['image_name']?>" class="div--img"></div>
-                        <div class="vod--div__title">
+                        <div class="vod--div__title h-ty3">
                             <?=$exhibition->_matchingData['Exhibition']['title']?>
                         </div>
                         <div class="vod--div__info" style="color: gray;">

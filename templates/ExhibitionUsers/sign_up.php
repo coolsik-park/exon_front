@@ -53,6 +53,19 @@
         .apply-sect1-cont .photos {
             max-height: 40%;
         }
+        .table-type .td-col .btn-ty3 {
+            font-size: 0.85rem;
+        }
+        .table-type .col8 .con {
+            flex-wrap: wrap;
+        }
+        .table-type .td-col .tit.fir {
+            width: 25%;
+            text-align: left;
+        }
+        .table-type1 .col3 .con .t1 {
+            width: 23%;
+        }
     }
     @media  screen and (min-width: 768px) {
         .photos img {
@@ -64,6 +77,9 @@
         }
         .apply-sect1-cont .photos{
             max-width: 38%;
+        }
+        .titleM {
+            display: none;
         }
     }
 </style>
@@ -198,10 +214,16 @@
                             </div>
                         </div>
                         <div class="td-col col4">
+                            <p class="tit fir titleM">참가비</p>
                             <div class="con">
                                 <?php
                                     if ($exhibition_user->exhibition_group != null) {
-                                        echo number_format(intval($exhibition_user->exhibition_group['amount'])) . "원";
+                                        if(number_format(intval($exhibition_user->exhibition_group['amount'])) == 0){
+                                            echo "무료";
+                                        }
+                                        else {
+                                            echo number_format(intval($exhibition_user->exhibition_group['amount'])) . "원";
+                                        }
                                     } else {
                                         echo '-';
                                     }
@@ -209,6 +231,7 @@
                             </div>
                         </div>
                         <div class="td-col col5">
+                            <p class="tit fir titleM">승인 상태</p>
                             <div class="con">
                                 <?php
                                     if ($exhibition_user->status == 1) {
@@ -224,16 +247,19 @@
                             </div>
                         </div>
                         <div class="td-col col6">
+                            <p class="tit fir titleM">출석 여부</p>
                             <div class="con">
                                 <?php
                                     $today = new DateTime();
 
                                     if ($exhibition_user->attend == 1) {
-                                        if ($d_today > $edate) {
-                                            echo '불참';
-                                        } else {
-                                            echo '-';
-                                        }
+                                        // if ($d_today > $edate) {
+                                        //     echo '불참';
+                                        // } 
+                                        // else {
+                                        //     echo '-';
+                                        // }
+                                        echo "불참";
                                     } elseif ($exhibition_user->attend == 2) {
                                         echo '참석';
                                     } elseif ($exhibition_user->attend == 4) {
@@ -243,15 +269,14 @@
                             </div>
                         </div>
                         <div class="td-col col7">
+                        <p class="tit fir titleM">그룹명</p>
                             <div class="con">
-                                <p>그룹명</p>
                                 <p><?= $exhibition_user->exhibition_group['name']; ?></p>
                             </div>
                         </div>
                         <div class="td-col col8">
-                            <?php if ($exhibition_user->status != 8){ ?>
+                            <?php if ($exhibition_user->status != 8) : ?>
                                 <div class="con">
-                                    <p><a href="/exhibition-users/download-pdf/<?= $exhibition_user->exhibition['id'] ?>/<?= $exhibition_user->id ?>" class="btn-ty3 bor">증빙</a></p>
                                     <?php                         
                                     if ($d_today > $edate):
                                     else:
@@ -268,19 +293,25 @@
                                                 <?php endif; ?>
                                     <?php
                                             endif;
-                                        // else:
-                                            if ($d_today <= $apply_edate):
+                                    endif; 
                                     ?>
-                                            <button type="button" class="btn-ty3 red" style="cursor:pointer;" data-toggle="modal" data-target="#signUpCancelModal" data-backdrop="static" data-keyboard="false" onClick="signUpCancel(<?= $key ?>, '<?=$method?>', <?=$same_day?>)">
-                                                취소하기
-                                            </button>
+                                    <p><a href="/exhibition-users/download-pdf/<?= $exhibition_user->exhibition['id'] ?>/<?= $exhibition_user->id ?>" class="btn-ty3 bor">증빙</a></p>
+                                    <?php                         
+                                    if ($d_today > $edate):
+                                    else:
+                                    ?>
+                                    <?php
+                                        if ($d_today <= $apply_edate):
+                                    ?>
+                                        <p><button type="button" class="btn-ty3 red" style="cursor:pointer;" data-toggle="modal" data-target="#signUpCancelModal" data-backdrop="static" data-keyboard="false" onClick="signUpCancel(<?= $key ?>, '<?=$method?>', <?=$same_day?>)">
+                                            취소하기
+                                        </button></p>
                                     <?php 
                                             endif;
-                                        // endif;
                                     endif;
                                     ?>
                                 </div>
-                            <?php } ?>
+                            <?php endif; ?>
                             <div id="popup"></div>
                         </div>
                     </div>

@@ -30,7 +30,7 @@
         background: inherit;
         position: absolute;
         left: 0;
-        top: 1297px;
+        top: 1210px;
     }
     .slider4Div {
         width: 100%;
@@ -38,7 +38,7 @@
         background: inherit;
         position: absolute;
         left: 0;
-        top: 281vh;
+        top: 1940px;
     }
     .slider5Div {
         width: 100%;
@@ -46,7 +46,7 @@
         background: inherit;
         position: absolute;
         left: 0;
-        top: 333vh;
+        top: 2300px;
     }
     .slider6Div {
         width: 100%;
@@ -54,7 +54,7 @@
         background: inherit;
         position: absolute;
         left: 0;
-        top: 380vh;
+        top: 2660px;
     }
     .hotImg {
         width: 580px; height: 292px;
@@ -78,6 +78,17 @@
         width: 12%;
         margin-left: 240px;
     }
+    .main-sect6 .swiper-button-prev {
+        left: 265px;
+    }
+    .main-sect4 .h-ty1-wp {
+        position: absolute;
+    }
+    .main-sect4 .h-ty1-wp a {
+        position: relative;
+        bottom: 0;
+        z-index: 1000;
+    }
     @media  screen and (max-width: 768px) {
         .kakao-chat {
             width:45%;
@@ -86,9 +97,9 @@
         .main-visual {
             padding: 0px;
         }
-        .main-visual .imgs img {
+        /* .main-visual .imgs img {
             height: 22vH;
-        }
+        } */
         .subBanner {
             width:375px; 
             height:239.78px;
@@ -142,19 +153,41 @@
         .bannerM {
             display: block; 
         }
+        .main-slider6 .swiper-button-prev {
+            display: none;
+        }
+        .main-slider6 .swiper-button-next {
+            display: none;
+        }
+        .main-slider6 .swiper-slide {
+            width: 80%;
+        }
+    }
+    @media  screen and (max-width: 1200px) {
+        .main-sd-item .imgs img {
+            width: 100%;
+        }
+    }
+    @media  screen and (max-width: 1600px) {
+        .main-sect6 {
+            width: 97%;
+        }
     }
     @media  screen and (min-width: 1600px) {
         .slider2Div {
-            top: 1443px;
+            top: 1280px;
         }
         .slider4Div {
-            top: 230vh;
+            top: 2040px;
         }
         .slider5Div {
-            top: 268vh;
+            top: 2390px;
         }
         .slider6Div {
-            top: 304vh;
+            top: 2750px;
+        }
+        .main-sect6 .swiper-button-prev {
+            left: 215px;
         }
     }   
 </style>
@@ -227,7 +260,6 @@
                                 <span class="date"><?php echo $hot[0]['sdate'] . " ~ " . $hot[0]['edate']; ?></span>
                             </div>
                             <h3 class="h-ty2"><?php echo $hot[0]['title']; ?></h3>
-                            <p class="tx"><?php echo $hot[0]['description']; ?></p>
                             <a href="exhibition/view/<?php echo $hot[0]['exhibition_id']; ?>" class="btn">자세히 보기</a>
                         </div>
                     </div>
@@ -258,7 +290,6 @@
                                                     <span class="date"><?php echo $list['sdate'] . " ~ " . $list['edate']; ?></span>
                                                 </div>
                                                 <h3 class="h-ty3"><?php echo $list['title']; ?></h3>
-                                                <p class="tx-1"><?php echo $list['description']; ?></p>
                                         </div>
                                     </a>                                    
                                     </div>
@@ -330,7 +361,6 @@
                                                     <?php endif; ?>
                                                 </div>
                                                 <h3 class="h-ty3"><?php echo $list['title']; ?></h3>
-                                                <p class="tx-1"><?php echo $list['description']; ?></p>
                                             </div>
                                             </a>
                                         </div>                                    
@@ -378,7 +408,6 @@
                                                     <span class="date"><?php echo $list['sdate'] . " ~ " . $list['edate']; ?></span>
                                                 </div>
                                                 <h3 class="h-ty3"><?php echo $list['title']; ?></h3>
-                                                <p class="tx-1"><?php echo $list['description']; ?></p>
                                             </div>
                                             </a>
                                         </div>                                    
@@ -426,7 +455,6 @@
                                                     <span class="date"><?php echo $list['sdate'] . " ~ " . $list['edate']; ?></span>
                                                 </div>
                                                 <h3 class="h-ty3"><?php echo $list['title']; ?></h3>
-                                                <p class="tx-1"><?php echo $list['description']; ?></p>
                                             </div>
                                             </a>
                                         </div>                                    
@@ -593,5 +621,106 @@
         //         console.log("2")
         //     }
         // });
+  
+    const mainSlider2 = new Swiper(".main-slider2 .swiper-container", {
+                    slidesPerView: "auto",
+                    spaceBetween: 20,   
+                    navigation: {
+                        nextEl: ".main-slider2 .swiper-button-next",
+                        prevEl: ".main-slider2 .swiper-button-prev",
+                    },
+                    breakpoints: {                        
+                        768: {
+                            slidesPerView: 'auto',
+                            spaceBetween: 20,
+                        },
+                        1024: {
+                            slidesPerView: 'auto',
+                            spaceBetween: 20,
+                        },
+                        1200: {
+                            slidesPerView: 4,
+                            spaceBetween: 20,
+                        },
+                    },
+                });    
 
+	// const mainSlider3 = new Swiper(".main-slider3 .swiper-container", {
+    //                 slidesPerView: 1,
+    //                 spaceBetween: 10,
+    //                 pagination: {
+    //                     el: ".swiper-pagination",
+    //                     clickable: true,
+    //                 }
+    //             });
+    const mainSlider4 = new Swiper(".main-slider4 .swiper-container", {
+                    slidesPerView: 'auto',
+                    spaceBetween: 20,
+                    navigation: {
+                        nextEl: ".main-slider4 .swiper-button-next",
+                        prevEl: ".main-slider4 .swiper-button-prev",
+                    },
+                    breakpoints: {  
+                        768: {
+                            slidesPerView: 'auto',
+                            spaceBetween: 20,
+                        },
+                        1024: {
+                            slidesPerView:'auto',
+                            spaceBetween: 20,
+                        },
+                        1200: {
+                            slidesPerView: 3,
+                            spaceBetween: 10,
+                        },
+                    },
+                });
+    const mainSlider5 = new Swiper(".main-slider5 .swiper-container", {
+                    slidesPerView: 'auto',
+                    spaceBetween: 20,
+                    navigation: {
+                        nextEl: ".main-slider5 .swiper-button-next",
+                        prevEl: ".main-slider5 .swiper-button-prev",
+                    },
+                    breakpoints: {  
+                        768: {
+                            slidesPerView: 'auto',
+                            spaceBetween: 20,
+                        },
+                        1024: {
+                            slidesPerView:'auto',
+                            spaceBetween: 20,
+                        },
+                        1200: {
+                            slidesPerView: 3,
+                            spaceBetween: 10,
+                        },
+                    },
+                });    
+    const mainSlider6 = new Swiper(".main-slider6 .swiper-container", {
+                    slidesPerView: 'auto',
+                    spaceBetween: 30,
+                    navigation: {
+                        nextEl: ".main-slider6 .swiper-button-next",
+                        prevEl: ".main-slider6 .swiper-button-prev",
+                    },
+                    breakpoints: {  
+                        768: {
+                            slidesPerView: 'auto',
+                            spaceBetween: 20,
+                        },
+                        1024: {
+                            slidesPerView:'auto',
+                            spaceBetween: 20,
+                        },
+                        1200: {
+                            slidesPerView: 3,
+                            spaceBetween: 0,
+                        },
+                        1600: {
+                            slidesPerView: 3,
+                            spaceBetween: 10,
+                        },
+                    },
+                });    
     </script>
