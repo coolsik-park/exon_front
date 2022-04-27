@@ -374,7 +374,7 @@
 
     function commentEditButton(id) {
         var message = document.getElementById('commentText' + id).innerHTML;
-        var message_span = message.replace('<br>', '\n');
+        var message_span = message.replaceAll('<br>', '\n');
         var massage_fun = "'"+message+"'";
         
         var html_1 = '';
@@ -568,7 +568,7 @@
 
     function underCommentEditButton(id) {
         var message = document.getElementById('underCommentText'+id).innerHTML;
-        var message_span = message.replace('<br>', '\n');
+        var message_span = message.replaceAll('<br>', '\n');
         var message_fun = "'" + message + "'";
 
         var html_1 = '';
