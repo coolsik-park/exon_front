@@ -46,7 +46,7 @@ class ExhibitionStreamController extends AppController
         $exhibitionStream = $this->ExhibitionStream->get($id, [
             'contain' => ['Exhibition', 'Pay', 'Coupon', 'ExhibitionStreamChatLog'],
         ]);
-        debug($exhibitionStream);
+        // debug($exhibitionStream);
 
         $this->set(compact('exhibitionStream'));
     }
@@ -1846,5 +1846,51 @@ class ExhibitionStreamController extends AppController
         $exhibitionVod = $ExhibitionVod->find('all', ['contain' => 'ChildExhibitionVod'])->where(['ExhibitionVod.exhibition_id' => $exhibition_id, 'ExhibitionVod.parent_id IS' => null])->toArray();
         
         $this->set(compact('exhibitionStream', 'exhibitionVod',  'exhibition_users_id'));
+    }
+
+    public function exhibitionVodAddViewer ($exhibition_vod_id = null) {
+        $ip = $this->request->ClientIp();
+        $path = 'exhibition_vod_viewer_ip' . DS . date("Y") . DS . date("m") . DS . date("d") . DS . $exhibition_vod_id;
+
+        if (!file_exists(WWW_ROOT . $path)) {
+            $oldMask = umask(0);
+            mkdir(WWW_ROOT . $path, 0777, true);
+            chmod(WWW_ROOT . $path, 0777);
+            umask($oldMask);
+
+            $file_handle = fopen(WWW_ROOT . $path . DS . 'data.txt'. 'a+');
+            fwrite($file_handle, $ip);
+            fwrite($file_handle, "\n");
+            fclose($file_handle);
+        } else {
+            $is_exist = 0;
+            $file_handle = fopen(WWW_ROOT . $path . DS . 'data.txt', 'r');
+            while (!feof($file_handle)) {
+                $ip_data = fgets($file_handle);
+                if ((string)$ip_data == (string)$ip . "\n") {
+                    $is_exist = 1;
+                }
+            } 
+            fclose($file_handle);
+
+            if ($is_exist == 0) {
+                $file_handle = fopen(WWW_ROOT . $path . DS . 'data.txt', 'a+');
+                fwrite($file_handle, $ip);
+                fwrite($file_handle, "\n");
+                fclose($file_handle);
+            } else {
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'exist']));
+                return $response;
+            }
+        }
+
+        $exhibitionVod_table = $this->getTableLocator()->get('ExhibitionVod');
+        $exhibitionVod = $exhibitionVod_table->find('all')->where(['id'=>$exhibition_vod_id])->toArray();
+        $exhibitionVod[0]->viewer = $exhibitionVod[0]->viewer + 1;
+
+        $exhibitionVod_table->save($exhibitionVod[0]);
+
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status'=>'success']));
+        return $response;
     }
 }
