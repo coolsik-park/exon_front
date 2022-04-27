@@ -76,6 +76,21 @@
         fluid: true,
     });
 
+    $(document).ready(function () {
+        console.log('aaaa');
+        $.ajax({
+            url: "/exhibition-stream/exhibition-vod-add-viewer/" + <?= $exhibitionVod->id ?>,
+            method: 'POST',
+            type: 'json',
+        }).done(function(data) {
+            if (data.status == 'success') {
+            } else if (data.status == 'exist') {
+            } else {
+                // alert('오류가 발생하였습니다. 잠시 후 다시 시도해주세요.');
+            }
+        });
+    });
+
     //탭 컨트롤 
     var dec = "<?=$exhibitionStream[0]['tab']?>";
     dec = parseInt(dec);

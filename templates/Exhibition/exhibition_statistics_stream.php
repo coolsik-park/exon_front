@@ -54,10 +54,14 @@
                 <li class="active">
                     <a href="">스트리밍</a>
                     <ul class="s-sub s-sub2" style="width:900px; border:none; padding:0px;">
-                        <li class="active"><a href="/exhibition/exhibition-statistics-stream/<?=$id?>">전체</a></li>
-                        <?php foreach ($exhibitionGroup as $exGroup) : ?>
-                        <li id="<?=$exGroup->id?>"><a href="/exhibition/exhibition-statistics-stream-by-group/<?=$id?>/<?=$exGroup->id?>"><?=$exGroup->name?></a></li>
-                        <?php endforeach; ?>
+                        <?php if ($exhibition[0]['is_vod'] == 0): ?>
+                            <li class="active"><a href="/exhibition/exhibition-statistics-stream/<?=$id?>">라이브</a></li>
+                        <?php elseif ($exhibition[0]['is_vod'] == 1): ?>
+                            <li class="active"><a href="/exhibition/exhibition-statistics-vod/<?=$id?>">VOD</a></li>
+                        <?php else: ?>
+                            <li class="active"><a href="/exhibition/exhibition-statistics-stream/<?=$id?>">라이브</a></li>
+                            <li class="active"><a href="/exhibition/exhibition-statistics-vod/<?=$id?>">VOD</a></li>
+                        <?php endif; ?>
                     </ul>
                 </li>
                 <li>
@@ -67,11 +71,14 @@
         </div>
         <div class="pr5-graph">
             <div class="cate" style="height:30px;">
-                <!-- <select>
-                    <option>1차 웨비나</option>
-                    <option>2차 웨비나</option>
-                </select> -->
+                <select onchange="if(this.value) location.href=(this.value);">
+                    <option value=""></option>
+                    <?php foreach ($exhibitionGroup as $exGroup): ?>
+                        <option value="/exhibition/exhibition-statistics-stream-by-group/<?=$id?>/<?=$exGroup->id?>"><?= $exGroup->name ?></option>
+                    <?php endforeach; ?>
+                </select>
             </div>
+            <br>
             <div class="pr-graph2">
                 <div class="graph-bx">
                     <h3 class="s-hty2">참가자 수</h3>

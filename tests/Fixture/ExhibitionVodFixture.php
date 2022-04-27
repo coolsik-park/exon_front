@@ -23,21 +23,22 @@ class ExhibitionVodFixture extends TestFixture
      */
     // phpcs:disable
     public $fields = [
-        'id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
         'type' => ['type' => 'string', 'length' => 50, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
         'exhibition_id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'title' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
         'parent_id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'viewer' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'created' => ['type' => 'timestamp', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'current_timestamp()', 'comment' => ''],
         'modified' => ['type' => 'timestamp', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'current_timestamp()', 'comment' => ''],
         '_indexes' => [
             'FK_exon_vod_exhibition' => ['type' => 'index', 'columns' => ['exhibition_id'], 'length' => []],
-            'FK_exon_vod_exon_vod' => ['type' => 'index', 'columns' => ['parent_id'], 'length' => []],
+            'FK_exhibition_vod_exhibition_vod' => ['type' => 'index', 'columns' => ['parent_id'], 'length' => []],
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'FK_exon_vod_exon_vod' => ['type' => 'foreign', 'columns' => ['parent_id'], 'references' => ['exhibition_vod', 'id'], 'update' => 'cascade', 'delete' => 'cascade', 'length' => []],
             'FK_exon_vod_exhibition' => ['type' => 'foreign', 'columns' => ['exhibition_id'], 'references' => ['exhibition', 'id'], 'update' => 'cascade', 'delete' => 'cascade', 'length' => []],
+            'FK_exhibition_vod_exhibition_vod' => ['type' => 'foreign', 'columns' => ['parent_id'], 'references' => ['exhibition_vod', 'id'], 'update' => 'cascade', 'delete' => 'cascade', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -59,8 +60,9 @@ class ExhibitionVodFixture extends TestFixture
                 'exhibition_id' => 1,
                 'title' => 'Lorem ipsum dolor sit amet',
                 'parent_id' => 1,
-                'created' => 1649658324,
-                'modified' => 1649658324,
+                'viewer' => 1,
+                'created' => 1649915413,
+                'modified' => 1649915413,
             ],
         ];
         parent::init();

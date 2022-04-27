@@ -1810,7 +1810,7 @@ class ExhibitionController extends AppController
             ->group('users_sex')->where(['attend IN' => [2, 4]])->toArray();
         
         $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
-        $this->set(compact('id', 'exhibitionGroup', 'participantData', 'answeredData', 'ages', 'genderRates'));
+        $this->set(compact('id', 'exhibitionGroup', 'participantData', 'answeredData', 'ages', 'genderRates', 'exhibition'));
     }
 
     public function exhibitionStatisticsStreamByGroup($id = null, $group = null)
@@ -1872,7 +1872,7 @@ class ExhibitionController extends AppController
             ->group('users_sex')->where(['attend IN' => [2, 4]])->toArray();
         
         $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
-        $this->set(compact('id', 'group', 'exhibitionGroup', 'participantData', 'answeredData', 'ages', 'genderRates'));
+        $this->set(compact('id', 'group', 'exhibitionGroup', 'participantData', 'answeredData', 'ages', 'genderRates', 'exhibition'));
     }
 
     public function exhibitionStatisticsExtra($id = null) 
@@ -2059,6 +2059,19 @@ class ExhibitionController extends AppController
 
         $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
         $this->set(compact('id', 'group', 'answerRates', 'applyRates', 'participatedData', 'exhibitionGroup'));
+    }
+
+    public function exhibitionStatisticsVod($id = null)
+    {
+        $exhibition = $this->getTableLocator()->get('Exhibition')->get($id);
+
+        $exhibitionVods = $this->getTableLocator()->get('ExhibitionVod')->find('all');
+        $sum = $exhibitionVods->where(['exhibition_id' => $id])->sumOf('viewer');
+        $vod_count = $exhibitionVods->where(['exhibition_id' => $id, 'parent_id is not' => NULL])->count('*');
+
+
+        // debug($vod_count);
+        $this->set(compact('id', 'exhibition', 'exhibitionVods', 'sum', 'vod_count'));
     }
 
     public function exhibitionSupervise($id = null, $type = null)

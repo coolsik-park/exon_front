@@ -138,7 +138,7 @@
                     <h3 class="w-tit"><?=$exhibition->event_member?></h3>
                 </div>
                 <br>  
-                <div id="wb-cont3">
+                <div id="wb-cont3" class="wb-cont2">
                     <div id="commentCount">
                         <span>&nbsp;&nbsp;&nbsp;&nbsp;<?= count($exhibition_comments) ?>개의 댓글</span>
                     </div>

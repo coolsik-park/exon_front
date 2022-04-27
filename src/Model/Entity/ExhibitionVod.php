@@ -13,10 +13,11 @@ use Cake\ORM\Entity;
  * @property int $exhibition_id
  * @property string $title
  * @property int|null $parent_id
+ * @property int $viewer
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
  *
- * @property \App\Model\Entity\ExhibitionStream $exhibition_stream
+ * @property \App\Model\Entity\Exhibition $exhibition
  * @property \App\Model\Entity\ExhibitionVod $parent_exhibition_vod
  * @property \App\Model\Entity\ExhibitionVod[] $child_exhibition_vod
  */
@@ -36,9 +37,10 @@ class ExhibitionVod extends Entity
         'exhibition_id' => true,
         'title' => true,
         'parent_id' => true,
+        'viewer' => true,
         'created' => true,
         'modified' => true,
-        'exhibition_stream' => true,
+        'exhibition' => true,
         'parent_exhibition_vod' => true,
         'child_exhibition_vod' => true,
     ];
