@@ -395,6 +395,9 @@
     .section4--box__img4 {
         animation: section4--box__color 1s 4s both;
     } */
+    .section4--progress__Mimg {
+        display: none;
+    }
     
 
     /* Section5 */
@@ -475,7 +478,7 @@
     .section6--title__div {
         position: absolute;
         right: 0;
-        top: 75vh;
+        top: 74vh;
     }
     .section6--title__txt {
         font-size: 60px;
@@ -724,7 +727,7 @@
             display: block;
         }
         .section1--title__bottom {
-            top: 350px;
+            top: 42vh;
             font-size: 1.23rem;
             left: 20px;
         }
@@ -736,7 +739,7 @@
         }
         
         .section2 {
-            height: 875px;
+            height: 780px;
         }
         .section2--title__txt {
             font-size: 40px;
@@ -755,7 +758,7 @@
         .section2--img {
             width: 1000px;
             height: auto;
-            margin-top: 15.5em;
+            margin-top: 155px;
         }
         #section2--slide {
             display: none;
@@ -815,6 +818,9 @@
             background-position: center;
             background-repeat: no-repeat;
         }
+        .section4--box__img {
+            left: 14px;
+        }
         .section4--box__txt {
             margin-top: 0;
         }
@@ -853,11 +859,14 @@
             width: 16px;
             position: absolute;
             background-color: #FD4659;
-            height: 110vh;
+            height: 140vh;
             border-radius: 12px;
-            left: 7.7vh;
-            top: 45vh;
+            left: 80px;
+            top: 370px;
             /* animation:  section4--progressM 8s 0.5s both; */
+        }
+        .section4--progress__Mimg {
+            display: block;
         }
 
         .section5--img__div {
@@ -1138,7 +1147,7 @@
             height: 23vh;
         }
         to {
-            height: 110vh;
+            height: 130vh;
         }
     }
     @keyframes section4--box__color {
@@ -1322,7 +1331,10 @@
                 </div>
             </div>
             <div class="section4--progress__PC"></div>
-            <div class="section4--progress__M"></div>
+            <div class="section4--progress__Mdiv">
+                <div class="section4--progress__M"></div>
+                <img class="section4--progress__Mimg" src="/img/introduce/section4-backgroundM.png">
+            </div>
             <div class="section4--box__wrap d-flex">
                 <div class="section4--box__div">
                     <div class="section4--box__img select">
