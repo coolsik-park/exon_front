@@ -478,7 +478,7 @@
     .section6--title__div {
         position: absolute;
         right: 0;
-        top: 74vh;
+        top: 575px;
     }
     .section6--title__txt {
         font-size: 60px;
