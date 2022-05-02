@@ -398,6 +398,30 @@
     .section4--progress__Mimg {
         display: none;
     }
+    .section4--progress__PCimg {
+        display: block;
+        height: 800px;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+    }
+    .step1Icon {
+        font-size: 35px;
+        margin-top: 20px;
+    }
+    .step2Icon {
+        font-size: 35px;
+        margin-top: 20px;
+        /* animation:  section4--icon__color  8s 1s both */
+    }
+    .step3Icon {
+        font-size: 35px;
+        margin-top: 20px;
+    }
+    .step4Icon {
+        font-size: 35px;
+        margin-top: 20px;
+    }
     
 
     /* Section5 */
@@ -820,6 +844,8 @@
         }
         .section4--box__img {
             left: 14px;
+            width: 80px;
+            height: 80px;
         }
         .section4--box__txt {
             margin-top: 0;
@@ -867,6 +893,26 @@
         }
         .section4--progress__Mimg {
             display: block;
+        }
+        .section4--progress__PCimg {
+            display: none;
+        }
+        .step1Icon {
+            font-size: 43px;
+            margin-top: 20px;
+        }
+        .step2Icon {
+            font-size: 43px;
+            margin-top: 20px;
+            /* animation:  section4--icon__color  8s 1s both */
+        }
+        .step3Icon {
+            font-size: 43px;
+            margin-top: 20px;
+        }
+        .step4Icon {
+            font-size: 43px;
+            margin-top: 20px;
         }
 
         .section5--img__div {
@@ -1052,6 +1098,23 @@
         .section4--box__wrap {
             top: 70vh;
         }
+        .step1Icon {
+            font-size: 50px;
+            margin-top: 25px;
+        }
+        .step2Icon {
+            font-size: 50px;
+            margin-top: 25px; 
+            /* animation:  section4--icon__color  8s 1s both */
+        }
+        .step3Icon {
+            font-size: 50px;
+            margin-top: 25px;
+        }
+        .step4Icon {
+            font-size: 50px;
+            margin-top: 25px;
+        }
 
         .section6-img1 {
             display: inline-block;
@@ -1156,6 +1219,14 @@
         }
         to {
             background: #FD4659;
+        }
+    }
+    @keyframes section4--icon__color {
+        from{
+           
+        }
+        to {
+            color: #ffffff;
         }
     }
     
@@ -1330,7 +1401,10 @@
                     회원가입 없이도 웨비나에 신청 참여할 수 있습니다.         
                 </div>
             </div>
-            <div class="section4--progress__PC"></div>
+            <div class="section4--progress__PCdiv">
+                <div class="section4--progress__PC"></div>
+                <img class="section4--progress__PCimg" src="/img/introduce/EXON-process-배경.png">
+            </div>
             <div class="section4--progress__Mdiv">
                 <div class="section4--progress__M"></div>
                 <img class="section4--progress__Mimg" src="/img/introduce/section4-backgroundM.png">
@@ -1338,7 +1412,7 @@
             <div class="section4--box__wrap d-flex">
                 <div class="section4--box__div">
                     <div class="section4--box__img select">
-                        <!-- <img src="/img/introduce/행사개설-아이콘-dark.png" class="section4--img"> -->
+                        <i class="fa-solid fa-chalkboard-user step1Icon" style="color: white;"></i>
                     </div>
                     <div class="section4--txt__div section4--txt__div1">
                         <div class="section4--box__txt">STEP 01</div>
@@ -1352,7 +1426,9 @@
                     </div>
                 </div>
                 <div class="section4--box__div">
-                    <div class="section4--box__img unselect section4--box__img2"></div>
+                    <div class="section4--box__img unselect section4--box__img2">
+                        <i class="fa-solid fa-gears step2Icon"></i>
+                    </div>
                     <div class="section4--txt__div section4--txt__div2">
                         <div class="section4--box__txt">STEP 02</div>
                         <div class="section4--box__txt2">웨비나 세팅</div>
@@ -1364,7 +1440,9 @@
                     </div>
                 </div>
                 <div class="section4--box__div">
-                    <div class="section4--box__img unselect section4--box__img3"></div>
+                    <div class="section4--box__img unselect section4--box__img3">
+                        <i class="fa-solid fa-forward-step step3Icon"></i>
+                    </div>
                     <div class="section4--txt__div section4--txt__div3">
                         <div class="section4--box__txt">STEP 03</div>
                         <div class="section4--box__txt2">웨비나 진행</div>
@@ -1376,7 +1454,9 @@
                     </div>
                 </div>
                 <div class="section4--box__div">
-                    <div class="section4--box__img unselect section4--box__img4"></div>
+                    <div class="section4--box__img unselect section4--box__img4">
+                        <i class="fa-solid fa-hourglass-end step4Icon"></i>
+                    </div>
                     <div class="section4--txt__div section4--txt__div4">
                         <div class="section4--box__txt">STEP 04</div>
                         <div class="section4--box__txt2">행사 종료</div>
@@ -1501,7 +1581,10 @@
     const section4TxtDiv4 = document.querySelector('.section4--txt__div4');
     const section4BoxImg2 = document.querySelector('.section4--box__img2');
     const section4BoxImg3 = document.querySelector('.section4--box__img3');
-    const section4BoxImg4 = document.querySelector('.section4--box__img4');
+    const section4BoxImg4 = document.querySelector('.section4--box__img4'); 
+    const step2Icon = document.querySelector('.step2Icon');
+    const step3Icon = document.querySelector('.step3Icon');
+    const step4Icon = document.querySelector('.step4Icon');
 
     const section5BoxTxt1 = document.querySelector('.section5--box__txt');
     const section5BoxTxt2 = document.querySelector('.section5--box__txt2');
@@ -1525,6 +1608,9 @@
             section4BoxImg2.style.animation = "section4--box__color 1s 2s both";
             section4BoxImg3.style.animation = "section4--box__color 1s 3s both";
             section4BoxImg4.style.animation = "section4--box__color 1s 4s both";
+            step2Icon.style.animation = "section4--icon__color  1s 2s both";
+            step3Icon.style.animation = "section4--icon__color  1s 3s both";
+            step4Icon.style.animation = "section4--icon__color  1s 4s both";
         } else {
             console.log("false");
         }
