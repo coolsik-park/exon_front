@@ -9,7 +9,6 @@ use Cake\ORM\Entity;
  * ExhibitionVod Entity
  *
  * @property int $id
- * @property string $type
  * @property int $exhibition_id
  * @property string $title
  * @property int|null $parent_id
@@ -33,7 +32,6 @@ class ExhibitionVod extends Entity
      * @var array
      */
     protected $_accessible = [
-        'type' => true,
         'exhibition_id' => true,
         'title' => true,
         'parent_id' => true,

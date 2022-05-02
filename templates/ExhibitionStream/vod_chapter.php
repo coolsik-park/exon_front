@@ -12,6 +12,9 @@
     .vod-time {
         float: right;
     }
+    .section-webinar4 .webinar-tab.close .webinar-tab-tg {
+        top: 78px;
+    }
 </style>
 
 <div id="container">       
@@ -78,6 +81,13 @@
 </div>
 
 <script>
+    //go top when open tab
+    $(document).on("click", ".webinar-tab-tg", function() {
+        if (!$("#toggle").hasClass("close")) {
+            window.scrollTo(0, 0);
+        }
+    });
+
     //탭 컨트롤 
     var dec = "<?=$exhibitionStream[0]['tab']?>";
     dec = parseInt(dec);

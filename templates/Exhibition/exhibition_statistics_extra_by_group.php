@@ -5,7 +5,14 @@
                 <li><a href="/exhibition/edit/<?= $id ?>">행사 설정 수정</a></li>
                 <li><a href="/exhibition/survey-data/<?= $id ?>">설문 데이터</a></li>
                 <li><a href="/exhibition/manager-person/<?= $id ?>">참가자 관리</a></li>
-                <li><a href="/exhibition-stream/set-exhibition-stream/<?= $id ?>">웨비나 송출 설정</a></li>
+                <?php if ($exhibition->is_vod == 0) : ?> 
+                <li><a href="/exhibition-stream/set-exhibition-stream/<?= $id ?>">웨비나 송출 설정(라이브)</a></li>
+                <?php elseif ($exhibition->is_vod == 1) : ?>
+                <li><a href="/exhibition-stream/set-exhibition-vod/<?= $id ?>">웨비나 송출 설정(VOD)</a></li>
+                <?php else : ?>
+                <li><a href="/exhibition-stream/set-exhibition-stream/<?= $id ?>">웨비나 송출 설정(라이브)</a></li>
+                <li><a href="/exhibition-stream/set-exhibition-vod/<?= $id ?>">웨비나 송출 설정(VOD)</a></li>
+                <?php endif; ?>
                 <li class="active"><a href="">행사 통계</a></li>
             </ul>
         </div>

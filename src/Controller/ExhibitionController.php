@@ -261,6 +261,8 @@ class ExhibitionController extends AppController
                     $exhibition->event_member = $data['event_member'];
                 } 
                 $exhibition->is_vod = $data['is_vod'];
+                $exhibition->live_tab = $data['live_tab'];
+                $exhibition->vod_tab = $data['vod_tab'];
 
                 if ($result = $this->Exhibition->save($exhibition)) {
                     
@@ -515,6 +517,8 @@ class ExhibitionController extends AppController
                     $exhibition->event_member = $data['event_member'];
                 }
                 $exhibition->is_vod = $data['is_vod'];
+                $exhibition->live_tab = $data['live_tab'];
+                $exhibition->vod_tab = $data['vod_tab'];
 
                 if ($this->Exhibition->save($exhibition)) {
                     $ExhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup');
@@ -980,8 +984,8 @@ class ExhibitionController extends AppController
                 }
             }
         }
-
-        $this->set(compact('id', 'exhibition_users', 'users', 'beforeParentData', 'beforeChildData'));
+        $exhibition = $this->Exhibition->get($id);
+        $this->set(compact('id', 'exhibition_users', 'users', 'beforeParentData', 'beforeChildData', 'exhibition'));
     }
 
     public function exhibitionUsersStatus()
@@ -1662,8 +1666,8 @@ class ExhibitionController extends AppController
                 }
             }
         }
-        
-        $this->set(compact('beforeParentData', 'beforeChildData', 'normalParentData', 'normalChildData', 'id'));
+        $exhibition = $this->Exhibition->get($id);
+        $this->set(compact('beforeParentData', 'beforeChildData', 'normalParentData', 'normalChildData', 'id', 'exhibition'));
     }
 
     public function exhibitionStatisticsApply($id = null)
@@ -1690,8 +1694,8 @@ class ExhibitionController extends AppController
                 }
             }
         }
-
-        $this->set(compact('id', 'applyRates', 'genderRates', 'ages'));
+        $exhibition = $this->Exhibition->get($id);
+        $this->set(compact('id', 'applyRates', 'genderRates', 'ages', 'exhibition'));
     }
 
     public function exhibitionStatisticsParticipant($id = null)
@@ -1720,7 +1724,8 @@ class ExhibitionController extends AppController
         }
 
         $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
-        $this->set(compact('id', 'applyRates', 'genderRates', 'ages', 'exhibitionGroup'));
+        $exhibition = $this->Exhibition->get($id);
+        $this->set(compact('id', 'applyRates', 'genderRates', 'ages', 'exhibitionGroup', 'exhibition'));
     }
 
     public function exhibitionStatisticsParticipantByGroup($id = null, $group = null)
@@ -1748,7 +1753,8 @@ class ExhibitionController extends AppController
             }
         }
         $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
-        $this->set(compact('id', 'group', 'applyRates', 'genderRates', 'ages', 'exhibitionGroup'));
+        $exhibition = $this->Exhibition->get($id);
+        $this->set(compact('id', 'group', 'applyRates', 'genderRates', 'ages', 'exhibitionGroup', 'exhibition'));
     }
 
     public function exhibitionStatisticsStream($id = null) 
@@ -1810,6 +1816,7 @@ class ExhibitionController extends AppController
             ->group('users_sex')->where(['attend IN' => [2, 4]])->toArray();
         
         $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
+        $exhibition = $this->Exhibition->get($id);
         $this->set(compact('id', 'exhibitionGroup', 'participantData', 'answeredData', 'ages', 'genderRates', 'exhibition'));
     }
 
@@ -1872,6 +1879,7 @@ class ExhibitionController extends AppController
             ->group('users_sex')->where(['attend IN' => [2, 4]])->toArray();
         
         $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
+        $exhibition = $this->Exhibition->get($id);
         $this->set(compact('id', 'group', 'exhibitionGroup', 'participantData', 'answeredData', 'ages', 'genderRates', 'exhibition'));
     }
 
@@ -1966,7 +1974,8 @@ class ExhibitionController extends AppController
         ];
 
         $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
-        $this->set(compact('id', 'answerRates', 'applyRates', 'participatedData', 'exhibitionGroup'));
+        $exhibition = $this->Exhibition->get($id);
+        $this->set(compact('id', 'answerRates', 'applyRates', 'participatedData', 'exhibitionGroup', 'exhibition'));
     }
 
     public function exhibitionStatisticsExtraByGroup ($id = null, $group = null) {
@@ -2058,7 +2067,8 @@ class ExhibitionController extends AppController
         ];
 
         $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
-        $this->set(compact('id', 'group', 'answerRates', 'applyRates', 'participatedData', 'exhibitionGroup'));
+        $exhibition = $this->Exhibition->get($id);
+        $this->set(compact('id', 'group', 'answerRates', 'applyRates', 'participatedData', 'exhibitionGroup', 'exhibition'));
     }
 
     public function exhibitionStatisticsVod($id = null)
