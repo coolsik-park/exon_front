@@ -1849,7 +1849,6 @@ class ExhibitionStreamController extends AppController
         
         $this->set(compact('exhibitionStream', 'exhibitionVod',  'exhibition_users_id'));
     }
-<<<<<<< HEAD
     
     public function setExhibitionVod($exhibition_id = null)
     {
@@ -1869,7 +1868,7 @@ class ExhibitionStreamController extends AppController
         $user = $this->Auth->user();
 
         $this->set(compact('exhibition', 'exhibition_id', 'exhibitionVod', 'file_size', 'user'));
-=======
+    }
 
     public function exhibitionVodAddViewer ($exhibition_vod_id = null) {
         $ip = $this->request->ClientIp();
@@ -1915,6 +1914,5 @@ class ExhibitionStreamController extends AppController
 
         $response = $this->response->withType('json')->withStringBody(json_encode(['status'=>'success']));
         return $response;
->>>>>>> a21a4b2fb71ccdeace973ea46b19b5bffaddaf77
     }
 }

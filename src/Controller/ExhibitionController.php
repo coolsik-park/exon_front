@@ -1812,10 +1812,7 @@ class ExhibitionController extends AppController
             ->group('users_sex')->where(['attend IN' => [2, 4]])->toArray();
         
         $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
-<<<<<<< HEAD
         $exhibition = $this->Exhibition->get($id);
-=======
->>>>>>> a21a4b2fb71ccdeace973ea46b19b5bffaddaf77
         $this->set(compact('id', 'exhibitionGroup', 'participantData', 'answeredData', 'ages', 'genderRates', 'exhibition'));
     }
 
@@ -1878,10 +1875,7 @@ class ExhibitionController extends AppController
             ->group('users_sex')->where(['attend IN' => [2, 4]])->toArray();
         
         $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
-<<<<<<< HEAD
         $exhibition = $this->Exhibition->get($id);
-=======
->>>>>>> a21a4b2fb71ccdeace973ea46b19b5bffaddaf77
         $this->set(compact('id', 'group', 'exhibitionGroup', 'participantData', 'answeredData', 'ages', 'genderRates', 'exhibition'));
     }
 
