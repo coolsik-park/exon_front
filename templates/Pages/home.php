@@ -81,9 +81,6 @@
     .main-sect6 .swiper-button-prev {
         left: 265px;
     }
-    .main-sect4 .h-ty1-wp {
-        position: absolute;
-    }
     .main-sect4 .h-ty1-wp a {
         position: relative;
         bottom: 0;
