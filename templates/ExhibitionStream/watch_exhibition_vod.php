@@ -15,6 +15,9 @@
         .vod-time {
             float: right;
         }
+        .section-webinar4 .webinar-tab.close .webinar-tab-tg {
+            top: 78px;
+        }
     </style>
 </head>
 
@@ -23,8 +26,8 @@
         <div class="section-webinar4">
             <div class="webinar-cont">
                 <div class="wb-cont1">
-                    <video id="vid1" class="video-js vjs-big-play-centered" poster="https://orcaexon.co.kr/videos/onporters1/thumbnail.png">
-                        <source src="https://orcaexon.co.kr/videos/onporters1/EXON_VOD.mp4" type="video/mp4" />
+                    <video id="vid1" class="video-js vjs-big-play-centered">
+                        <source src="/vod/<?=$exhibition->id?>/<?=$exhibitionVod->title?>.mp4" type="video/mp4" />
                     </video>
                 </div>                
             </div>
@@ -38,6 +41,7 @@
                         <div class="w-tab-wrap-inner">
                             <ul class="w-tab">
                                 <li id="li11" class=""><button type="button" id="tab11" name="목록">목록</button></li>
+                                <?php if ($exhibition_users_id != null) : ?>
                                 <?php if ($exhibition->is_vod == 2) : ?>
                                 <li id="li10" class=""><button type="button" id="tab10" name="라이브 시청">라이브 시청</button></li>
                                 <?php endif; ?>
@@ -51,6 +55,7 @@
                                 <li id="li2" class="" style="display:none;"><button type="button" id="tab2" name="개설자 정보">개설자 정보</button></li>
                                 <li id="li1" class="" style="display:none;"><button type="button" id="tab1" name="행사 정보">행사 정보</button></li>
                                 <li id="li0" class="" style="display:none;"><button type="button" id="tab0" name="자료">자료</button></li>
+                                <?php endif;?>
                             </ul>
                         </div>                            
                     </div>
@@ -74,6 +79,13 @@
         controls: true,
         preload: 'auto',
         fluid: true,
+    });
+
+    //go top when open tab
+    $(document).on("click", ".webinar-tab-tg", function() {
+        if (!$("#toggle").hasClass("close")) {
+            window.scrollTo(0, 0);
+        }
     });
 
     //탭 컨트롤 

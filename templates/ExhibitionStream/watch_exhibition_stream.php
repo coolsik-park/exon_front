@@ -30,6 +30,9 @@
         .vod-time {
             float: right;
         }
+        .section-webinar4 .webinar-tab.close .webinar-tab-tg {
+            top: 78px;
+        }
     </style>
 </head>
 
@@ -92,8 +95,22 @@
 <script> 
     var chatInterval
 
+    //go top when open tab
+    $(document).on("click", ".webinar-tab-tg", function() {
+        if (!$("#toggle").hasClass("close")) {
+            window.scrollTo(0, 0);
+        }
+    });
+
     //video.js
     var player = videojs('vid1', {
+        html5: {
+            vhs: {
+                overrideNative: !videojs.browser.IS_SAFARI
+            },
+            nativeAudioTracks: false,
+            nativeVideoTracks: false
+        },
         controls: true,
         autoplay: true,
         preload: 'auto',

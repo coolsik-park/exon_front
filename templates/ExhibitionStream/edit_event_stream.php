@@ -104,7 +104,14 @@
                 <li><a href="/exhibition/edit/<?= $exhibition_id ?>">행사 설정 수정</a></li>
                 <li><a href="/exhibition/survey-data/<?= $exhibition_id ?>">설문 데이터</a></li>
                 <li><a href="/exhibition/manager-person/<?= $exhibition_id ?>">참가자 관리</a></li>
-                <li class="active"><a href="">웨비나 송출 설정</a></li>
+                <?php if ($exhibition->is_vod == 0) : ?> 
+                <li class="active"><a href="/exhibition-stream/set-exhibition-stream/<?= $exhibition_id ?>">웨비나 송출 설정(라이브)</a></li>
+                <?php elseif ($exhibition->is_vod == 1) : ?>
+                <li><a href="/exhibition-stream/set-exhibition-vod/<?= $exhibition_id ?>">웨비나 송출 설정(VOD)</a></li>
+                <?php else : ?>
+                <li class="active"><a href="/exhibition-stream/set-exhibition-stream/<?= $exhibition_id ?>">웨비나 송출 설정(라이브)</a></li>
+                <li><a href="/exhibition-stream/set-exhibition-vod/<?= $exhibition_id ?>">웨비나 송출 설정(VOD)</a></li>
+                <?php endif; ?>
                 <li><a href="/exhibition/exhibition-statistics-apply/<?= $exhibition_id ?>">행사 통계</a></li>
             </ul>
         </div>
@@ -261,7 +268,7 @@
                 </div>
             </div>   
             <!-- // top -->
-            <div class="webinar-tab-body">  
+            <div class="webinar-tab-body" style="height: 600px;">  
                 <p class="tab-alert">※ '메뉴설정' 버튼을 누른 후 사용할 메뉴를 선택해 주세요.</p>   
             </div>
             <!-- body -->
@@ -272,6 +279,13 @@
 </div>        
 
 <script>
+    //go top when open tab
+    $(document).on("click", ".webinar-tab-tg", function() {
+        if (!$("#toggle").hasClass("close")) {
+            window.scrollTo(0, 0);
+        }
+    });
+
     //button alert  
     $(".btn-alert").hide();
     $("#setting_btn").mouseover(function() {
@@ -294,17 +308,7 @@
         }
     });
 
-    //hide sub-menu
-    $(document).on("click", ".webinar-tab-tg", function () {
-        if ($("#toggle").hasClass("close")) {
-            $(".sub-menu").show();
-        } else {
-            $(".sub-menu").hide();
-        }
-    });
-
     //페이지 로드시
-    $(".sub-menu").hide();
     setInterval("countViewer()" , 3000);
     setInterval("updateLiveDurationTime()" , 1000);
     setInterval("getRemainLiveDuration()" , 1000);

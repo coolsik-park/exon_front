@@ -11,6 +11,7 @@ use Cake\Validation\Validator;
 /**
  * ExhibitionVod Model
  *
+ * @property \App\Model\Table\ExhibitionTable&\Cake\ORM\Association\BelongsTo $Exhibition
  * @property \App\Model\Table\ExhibitionVodTable&\Cake\ORM\Association\BelongsTo $ParentExhibitionVod
  * @property \App\Model\Table\ExhibitionVodTable&\Cake\ORM\Association\HasMany $ChildExhibitionVod
  *
@@ -75,16 +76,14 @@ class ExhibitionVodTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->scalar('type')
-            ->maxLength('type', 50)
-            ->requirePresence('type', 'create')
-            ->notEmptyString('type');
-
-        $validator
             ->scalar('title')
             ->maxLength('title', 255)
             ->requirePresence('title', 'create')
             ->notEmptyString('title');
+
+        $validator
+            ->integer('viewer')
+            ->notEmptyString('viewer');
 
         return $validator;
     }

@@ -140,7 +140,7 @@ class ExhibitionStreamController extends AppController
             ]);
         }
 
-        if (empty($exhibitionStream)) {
+        if (empty($exhibitionStream) || $exhibitionStream[0]['live_started'] == null) {
             $this->redirect(['action' => 'stream_not_exist']);
         } 
         
@@ -165,7 +165,7 @@ class ExhibitionStreamController extends AppController
     {
         $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $id])->toArray();
 
-        if (empty($exhibitionStream)) {
+        if (empty($exhibitionStream) || $exhibitionStream[0]['live_started'] == null) {
             $this->redirect(['action' => 'stream_not_exist']);
         } 
         
@@ -701,7 +701,8 @@ class ExhibitionStreamController extends AppController
                     return $response;
                 
                 } else {
-                    $this->Flash->error(__('The Exhibition Question could not be deleted'));
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                    return $response;
                 }
             
             } else {
@@ -724,7 +725,8 @@ class ExhibitionStreamController extends AppController
                     return $response;
                 
                 } else {
-                    $this->Flash->error(__('The Exhibition Question could not be saved.'));
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                    return $response;
                 }
             }
         }
@@ -1562,7 +1564,7 @@ class ExhibitionStreamController extends AppController
             ]);
         }
 
-        if (empty($exhibitionStream)) {
+        if (empty($exhibitionStream) || $exhibitionStream[0]['live_started'] == null) {
             $this->redirect(['action' => 'stream_not_exist']);
         } 
         
@@ -1846,5 +1848,25 @@ class ExhibitionStreamController extends AppController
         $exhibitionVod = $ExhibitionVod->find('all', ['contain' => 'ChildExhibitionVod'])->where(['ExhibitionVod.exhibition_id' => $exhibition_id, 'ExhibitionVod.parent_id IS' => null])->toArray();
         
         $this->set(compact('exhibitionStream', 'exhibitionVod',  'exhibition_users_id'));
+    }
+    
+    public function setExhibitionVod($exhibition_id = null)
+    {
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $exhibition = $Exhibition->get($exhibition_id);
+
+        $ExhibitionVod = $this->getTableLocator()->get('ExhibitionVod');
+        $exhibitionVod = $ExhibitionVod->find('all', ['contain' => 'ChildExhibitionVod'])->where(['exhibition_id' => $exhibition_id, 'parent_id IS' => null])->toArray();
+
+        $file_size = 0;
+        $vods = $ExhibitionVod->find('all')->where(['exhibition_id' => $exhibition_id, 'parent_id IS NOT' => null])->toArray();
+
+        foreach ($vods as $data) {
+            $file_size += $data['file_size'];
+        }
+
+        $user = $this->Auth->user();
+
+        $this->set(compact('exhibition', 'exhibition_id', 'exhibitionVod', 'file_size', 'user'));
     }
 }
