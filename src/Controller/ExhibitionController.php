@@ -1812,7 +1812,10 @@ class ExhibitionController extends AppController
             ->group('users_sex')->where(['attend IN' => [2, 4]])->toArray();
         
         $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
+<<<<<<< HEAD
         $exhibition = $this->Exhibition->get($id);
+=======
+>>>>>>> a21a4b2fb71ccdeace973ea46b19b5bffaddaf77
         $this->set(compact('id', 'exhibitionGroup', 'participantData', 'answeredData', 'ages', 'genderRates', 'exhibition'));
     }
 
@@ -1875,7 +1878,10 @@ class ExhibitionController extends AppController
             ->group('users_sex')->where(['attend IN' => [2, 4]])->toArray();
         
         $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
+<<<<<<< HEAD
         $exhibition = $this->Exhibition->get($id);
+=======
+>>>>>>> a21a4b2fb71ccdeace973ea46b19b5bffaddaf77
         $this->set(compact('id', 'group', 'exhibitionGroup', 'participantData', 'answeredData', 'ages', 'genderRates', 'exhibition'));
     }
 
@@ -2065,6 +2071,19 @@ class ExhibitionController extends AppController
         $exhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup')->find('all')->where(['exhibition_id' => $id])->toArray();
         $exhibition = $this->Exhibition->get($id);
         $this->set(compact('id', 'group', 'answerRates', 'applyRates', 'participatedData', 'exhibitionGroup', 'exhibition'));
+    }
+
+    public function exhibitionStatisticsVod($id = null)
+    {
+        $exhibition = $this->getTableLocator()->get('Exhibition')->get($id);
+
+        $exhibitionVods = $this->getTableLocator()->get('ExhibitionVod')->find('all');
+        $sum = $exhibitionVods->where(['exhibition_id' => $id])->sumOf('viewer');
+        $vod_count = $exhibitionVods->where(['exhibition_id' => $id, 'parent_id is not' => NULL])->count('*');
+
+
+        // debug($vod_count);
+        $this->set(compact('id', 'exhibition', 'exhibitionVods', 'sum', 'vod_count'));
     }
 
     public function exhibitionSupervise($id = null, $type = null)

@@ -138,14 +138,14 @@
                     <h3 class="w-tit"><?=$exhibition->event_member?></h3>
                 </div>
                 <br>  
-                <div id="wb-cont3">
+                <div id="wb-cont3" class="wb-cont2">
                     <div id="commentCount">
                         <span>&nbsp;&nbsp;&nbsp;&nbsp;<?= count($exhibition_comments) ?>개의 댓글</span>
                     </div>
                     <br>
                     <div class="col-dd col-cel">
                         <div class="col-td">
-                            <input type="text" class="ipt" id="commentMessage" placeholder="댓글을 입력해 주세요.">
+                            <textarea class="ipt" id="commentMessage" placeholder="댓글을 입력해 주세요."></textarea>
                         </div>
                         <br>
                         <div style="float:right;">
@@ -161,8 +161,8 @@
                                     <div class="replies__item">
                                         <div class="head">
                                             <div>
-                                                <span><?= $exhibition_comment->user_name ?></span>
-                                                <span class="muted">
+                                                <span style="font-size: 17px; font-weight: bold; vertical-align: sub;"><?= $exhibition_comment->user_name ?></span>
+                                                <span class="muted" style="vertical-align: sub;">
                                                     <?php echo date("Y.m.d", strtotime($exhibition_comment->modified)); ?>
                                                 </span>
                                             </div>
@@ -173,7 +173,7 @@
                                                 </div>
                                             <?php endif; ?>
                                         </div>
-                                        <div id="commentText<?= $exhibition_comment->id ?>"><?= $exhibition_comment->message ?></div>
+                                        <div id="commentText<?= $exhibition_comment->id ?>" style="line-height: 24px; font-size: 17px;"><?= $exhibition_comment->message ?></div>
                                         <br>
                                         <?php 
                                             $comment_under = [];
@@ -193,8 +193,8 @@
                                                             <div class="replies__item">
                                                                 <div class="head">
                                                                     <div>
-                                                                        <span><?= $exhibition_comments_unders[$i]->user_name ?></span>
-                                                                        <span class="muted">
+                                                                        <span style="font-size: 17px; font-weight: bold; vertical-align: sub;"><?= $exhibition_comments_unders[$i]->user_name ?></span>
+                                                                        <span class="muted" style="vertical-align: sub;">
                                                                             <?php echo date("Y.m.d", strtotime($exhibition_comments_unders[$i]->modified)); ?>
                                                                         </span>
                                                                     </div>
@@ -205,7 +205,7 @@
                                                                         </div>
                                                                     <?php endif; ?>
                                                                 </div>
-                                                                <div id="underCommentText<?= $exhibition_comments_unders[$i]->id ?>"><?= $exhibition_comments_unders[$i]->message ?></div>
+                                                                <div id="underCommentText<?= $exhibition_comments_unders[$i]->id ?>" style="line-height: 24px; font-size: 17px;"><?= $exhibition_comments_unders[$i]->message ?></div>
                                                                 <br>
                                                             </div>
                                                         <?php endforeach; ?>
@@ -340,6 +340,7 @@
 
     $(document).on('click', 'button[id=commentButton]', function() {
         var message = document.getElementById('commentMessage').value;
+        message = message.replace(/(?:\r\n|\r|\n)/g,'<br>');
 
         if (message.length == 0) {
             alert("입력된 내용이 없습니다.");
@@ -373,6 +374,7 @@
 
     function commentEditButton(id) {
         var message = document.getElementById('commentText' + id).innerHTML;
+        var message_span = message.replaceAll('<br>', '\n');
         var massage_fun = "'"+message+"'";
         
         var html_1 = '';
@@ -382,7 +384,7 @@
         var html_2 = '';
         html_2 += '<div class="col-dd col-cell">';
         html_2 += '   <div class="col-td">';
-        html_2 += '       <input type="text" class="ipt" id="commentEditMessage" value="' + message + '">';
+        html_2 += '     <textarea class="ipt" id="commentEditMessage'+id+'">' + message_span + '</textarea>';
         html_2 += '   </div>';
         html_2 += '   <div style="float:right;">';
         html_2 += '     <button type="button" class="btn-ty3" id="commentEidtButton" onclick="commentEidtButton(' + id  + ')">수정하기</button>';
@@ -405,8 +407,9 @@
     }
 
     function commentEidtButton(id) {
-        var message = document.getElementById('commentEditMessage').value;
-
+        var message = document.getElementById('commentEditMessage'+id).value;
+        message = message.replace(/(?:\r\n|\r|\n)/g,'<br>');
+        
         if (message.length == 0) {
             alert("입력된 내용이 없습니다.");
             return false;
@@ -430,13 +433,13 @@
     }
 
     function commentDeleteButton(id) {
-        if (confirm("댓글을 삭제사히겠습니까?") == true) {
+        if (confirm("댓글을 삭제하시겠습니까?") == true) {
             $.ajax({
                 url: '/exhibition-stream/comment-delete/' + id,
                 method: 'DELETE',
             }).done(function(data) {
                 if (data.status == 'success') {
-                    alert("댓글 삭제에 되었습니다.");
+                    alert("댓글 삭제되었습니다.");
                     $('#wb-cont3').load(document.URL + "  #wb-cont3");
                 } else {
                     alert("댓글 삭제에 실패하였습니다.");
@@ -445,13 +448,11 @@
         }
     }
 
-    // $(document).on('click', 'button[id=underCommentAdd]', function() {
-    //     var id = $('#underCommentAdd').attr('name');
     function underCommentButton(id) {
         var html = '';
         html += '<div class="col-dd col-cell">';
         html += '   <div class="col-td">';
-        html += '       <input type="text" class="ipt" id="underCommentAddMessage'+id+'">';
+        html += '       <textarea class="ipt" id="underCommentAddMessage'+id+'" placeholder="답글을 입력해 주세요."></textarea>';
         html += '   </div>';
         html += '   <div style="float:right;">';
         html += '       <button type="button" class="btn-ty3" id="underCommentAdd" onclick="underCommentAddButton(' + id  + ')">답글</button>';
@@ -470,6 +471,7 @@
 
     function underCommentAddButton(id) {
         var message = document.getElementById('underCommentAddMessage'+id).value;
+        message = message.replace(/(?:\r\n|\r|\n)/g,'<br>');
 
         if (message.length == 0) {
             alert("입력된 내용이 없습니다.");
@@ -507,9 +509,9 @@
     
     function underUnderCommentButton(id) {
         var html = '';
-        html += '<div class="col-dd col-cell">';
+        html += '<div class="col-dd col-cell" style="position: relative; left: 18px;">';
         html += '   <div class="col-td">';
-        html += '       <input type="text" class="ipt" id="underUnderCommentAddMessage'+ id +'">';
+        html += '       <textarea class="ipt" id="underUnderCommentAddMessage'+id+'" placeholder="답글을 입력해 주세요."></textarea>';
         html += '   </div>';
         html += '   <div style="float:right;">';
         html += '       <button type="button" class="btn-ty3" id="underUnderCommentAdd" onclick="underUnderCommentAddButton(' + id  + ')">답글</button>';
@@ -528,6 +530,7 @@
 
     function underUnderCommentAddButton(id) {
         var message = document.getElementById('underUnderCommentAddMessage'+id).value;
+        message = message.replace(/(?:\r\n|\r|\n)/g,'<br>');
 
         if (message.length == 0) {
             alert("입력된 내용이 없습니다.");
@@ -565,6 +568,7 @@
 
     function underCommentEditButton(id) {
         var message = document.getElementById('underCommentText'+id).innerHTML;
+        var message_span = message.replaceAll('<br>', '\n');
         var message_fun = "'" + message + "'";
 
         var html_1 = '';
@@ -574,7 +578,7 @@
         var html_2 = '';
         html_2 += '<div class="col-dd col-cell">';
         html_2 += '   <div class="col-td">';
-        html_2 += '       <input type="text" class="ipt" id="underCommentEditMessage' + id + '" value="' + message + '">';
+        html_2 += '     <textarea class="ipt" id="underCommentEditMessage'+id+'">' + message_span + '</textarea>';
         html_2 += '   </div>';
         html_2 += '   <div style="float:right;">';
         html_2 += '     <button type="button" class="btn-ty3" id="underCommentEidt" onclick="underCommentEidtButton(' + id  + ')">수정하기</button>';
@@ -598,6 +602,7 @@
 
     function underCommentEidtButton(id) {
         var message = document.getElementById('underCommentEditMessage'+id).value;
+        message = message.replace(/(?:\r\n|\r|\n)/g,'<br>');
 
         if (message.length == 0) {
             alert("입력된 내용이 없습니다.");
@@ -622,13 +627,13 @@
     }
 
     function underCommentDeleteButton(id) {
-        if (confirm("답글을 삭제사히겠습니까?") == true) {
+        if (confirm("답글을 삭제하시겠습니까?") == true) {
             $.ajax({
                 url: '/exhibition-stream/comment-delete/' + id,
                 method: 'DELETE',
             }).done(function(data) {
                 if (data.status == 'success') {
-                    alert("답글 삭제에 되었습니다.");
+                    alert("답글 삭제되었습니다.");
                     $('#wb-cont3').load(document.URL + "  #wb-cont3");
                 } else {
                     alert("답글 삭제에 실패하였습니다.");
