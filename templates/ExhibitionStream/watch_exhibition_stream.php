@@ -91,6 +91,30 @@
         </div>
     </div>    
 </div>
+<div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color:transparent; border:none;">
+            <div class="popup-wrap popup-ty2">
+                <div class="popup-head">
+                    <h1>공유하기</h1>
+                    <button id="close" type="button" class="popup-close close" data-dismiss="modal" aria-label="Close">팝업닫기</button>
+                </div>
+                <br>
+                <div class="popup-body">
+                    <img id="blog" class="popup-img" src ="/img/blog.png" onclick="naverShare()">
+                    <img id="kakao" class="popup-img" src ="/img/kakao.png" onclick="kakaoShare()">
+                    <img id="inst" class="popup-img" src ="/img/inst.png" onclick="instShare()">
+                    <img id="fb" class="popup-img" src ="/img/fb.png" onclick="fbShare()">
+                    <div class="copy">
+                        <input type="text" id="url" value="https://exon.live/exhibition/view/<?=$id?>" readonly><button type="button" id="url-copy" class="btn">복사</button>
+                    </div>
+                </div>
+                <div class="popup-btm">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script> 
     var chatInterval
