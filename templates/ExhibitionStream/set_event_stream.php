@@ -205,24 +205,15 @@
         <!-- webinar-tab -->
         <div class="webinar-tab" id="toggle">
             <div class="webinar-tab-top">
-                <div class="webinar-toggle">
-                    <button type="button" class="webinar-tab-tg">토글버튼</button>
-                    <button type="button" id="setting_btn" name="btn_off" class="btn-ty4 sett-btn">메뉴설정</button>
-                    <p class="btn-alert">
-                        사용할 메뉴 선택 후 결제 진행 및 좌측의 저장 버튼을 누르면 설정이 저장됩니다. 
-                        <br>
-                        (방송 중에도 메뉴설정은 가능합니다.) 
-                    <p>
-                    <input type="hidden" id="tab" name="tab" value="0">
-                </div>                        
+                <input type="hidden" id="tab" name="tab" value="0">
                 <div class="w-tab-wrap">
                     <div class="w-tab-wrap-inner">
                         <ul class="w-tab">
                             <li id="li9" class=""><button type="button" id="btn_tab9" name="실시간 채팅">실시간 채팅</button></li>
+                            <li id="li5" class=""><button type="button" id="btn_tab5" name="출석체크">출석체크</button></li>
                             <li id="li8" class=""><button type="button" id="btn_tab8" name="설문">설문</button></li>
                             <li id="li7" class=""><button type="button" id="btn_tab7" name="공지사항">공지사항</button></li>
                             <li id="li6" class=""><button type="button" id="btn_tab6" name="질의 응답">질의 응답</button></li>
-                            <li id="li5" class=""><button type="button" id="btn_tab5" name="출석체크">출석체크</button></li>
                             <li id="li4" class=""><button type="button" id="btn_tab4" name="프로그램">프로그램</button></li>
                             <li id="li3" class=""><button type="button" id="btn_tab3" name="담당자 정보">담당자 정보</button></li>
                             <li id="li2" class=""><button type="button" id="btn_tab2" name="개설자 정보">개설자 정보</button></li>
@@ -234,7 +225,7 @@
             </div>   
             <!-- // top -->
             <div class="webinar-tab-body">  
-                <p class="tab-alert">'메뉴설정' 버튼을 누른 후 사용할 메뉴를 선택해 주세요.</p>   
+                <p class="tab-alert">[마이페이지] > [개설 행사 관리] > [행사 관리] 에서<br>사용할 탭을 설정할 수 있습니다.</p>   
             </div>
             <!-- body -->
         </div>
@@ -726,24 +717,24 @@
     });
 
     //탭 컨트롤    
-    $(document).on("click", "#setting_btn", function () {
-        
-        if ($(this).attr("name") == "btn_off") {
-            $(this).attr("name", "btn_on");
-            $(this).addClass("black");
-            $(this).html("설정완료");
-            alert("탭 설정이 활성화 되었습니다.");
-        } else {
-            $(this).attr("name", "btn_off");
-            $(this).removeClass("black");
-            $(this).html("메뉴설정");
-            alert("탭 설정이 비 활성화 되었습니다.");
+    $("#tab").val("<?=$exhibition->live_tab?>");
+    var dec = $("#tab").val();
+    dec = parseInt(dec);
+    var bin = dec.toString(2);
+    if (bin.length < 10) {
+        var zero = '';
+        for (i=0; i<10-bin.length; i++) {
+            zero += '0';
         }
-    });
+        bin = zero+bin;
+    }
+    for (i=0; i<bin.length; i++) {
+        var result = bin.substring(i,i+1);
+        if (parseInt(result) == 1) {
+            $("#li" + i).attr("class", "active");
+        }
+    }
 
-    $("#tab").val(17);
-    $("#li5").attr("class", "active");
-    $("#li9").attr("class", "active");
     $("#btn_tab0").click(function () {
         if ($("#setting_btn").attr("name") == "btn_on") {
             if ($("#li0").attr("class") == "") {

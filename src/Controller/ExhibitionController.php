@@ -261,6 +261,8 @@ class ExhibitionController extends AppController
                     $exhibition->event_member = $data['event_member'];
                 } 
                 $exhibition->is_vod = $data['is_vod'];
+                $exhibition->live_tab = $data['live_tab'];
+                $exhibition->vod_tab = $data['vod_tab'];
 
                 if ($result = $this->Exhibition->save($exhibition)) {
                     
@@ -515,6 +517,8 @@ class ExhibitionController extends AppController
                     $exhibition->event_member = $data['event_member'];
                 }
                 $exhibition->is_vod = $data['is_vod'];
+                $exhibition->live_tab = $data['live_tab'];
+                $exhibition->vod_tab = $data['vod_tab'];
 
                 if ($this->Exhibition->save($exhibition)) {
                     $ExhibitionGroup = $this->getTableLocator()->get('ExhibitionGroup');

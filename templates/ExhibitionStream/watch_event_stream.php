@@ -120,7 +120,7 @@
                                 <li id="li2" class="" style="display:none;"><button type="button" id="tab2" name="개설자 정보">개설자 정보</button></li>
                                 <li id="li1" class="" style="display:none;"><button type="button" id="tab1" name="행사 정보">행사 정보</button></li>
                                 <li id="li0" class="" style="display:none;"><button type="button" id="tab0" name="자료">자료</button></li>
-                                <li id="vod" class=""><button type="button" id="tabVod" name="vod">VOD</button></li>
+                                <!-- <li id="vod" class=""><button type="button" id="tabVod" name="vod">VOD</button></li> -->
                             </ul>
                         </div>                            
                     </div>
@@ -218,7 +218,7 @@
         setInterval("liveEndCheck()", 1000);
 
         //탭 컨트롤 
-        var dec = "<?=$exhibitionStream[0]['tab']?>";
+        var dec = "<?=$exhibition->live_tab?>";
         dec = parseInt(dec);
         var bin = dec.toString(2);
         if (bin.length < 10) {

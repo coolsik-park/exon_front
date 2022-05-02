@@ -259,14 +259,7 @@
         <!-- webinar-tab -->
         <div class="webinar-tab" id="toggle">
             <div class="webinar-tab-top">
-                <div class="webinar-toggle">
-                    <button type="button" class="webinar-tab-tg">토글버튼</button>
-                    <button type="button" id="setting_btn" name="btn_off" class="btn-ty4 sett-btn">메뉴설정</button>
-                    <p class="btn-alert">
-                        사용할 메뉴 선택 후 결제 진행 및 좌측의 저장 버튼을 누르면 설정이 저장됩니다. 
-                    <p>
-                    <input type="hidden" id="tab" name="tab" value="0">
-                </div>                        
+                <input type="hidden" id="tab" name="tab" value="0">                     
                 <div class="w-tab-wrap">
                     <div class="w-tab-wrap-inner">
                         <ul class="w-tab">
@@ -735,20 +728,23 @@
     //탭 컨트롤    
     $("#li10").attr("class", "active");   
 
-    $(document).on("click", "#setting_btn", function () {
-        
-        if ($(this).attr("name") == "btn_off") {
-            $(this).attr("name", "btn_on");
-            $(this).addClass("black");
-            $(this).html("설정완료");
-            alert("탭 설정이 활성화 되었습니다.");
-        } else {
-            $(this).attr("name", "btn_off");
-            $(this).removeClass("black");
-            $(this).html("메뉴설정");
-            alert("탭 설정이 비 활성화 되었습니다.");
+    $("#tab").val("<?=$exhibition->vod_tab?>");
+    var dec = $("#tab").val();
+    dec = parseInt(dec);
+    var bin = dec.toString(2);
+    if (bin.length < 10) {
+        var zero = '';
+        for (i=0; i<10-bin.length; i++) {
+            zero += '0';
         }
-    });
+        bin = zero+bin;
+    }
+    for (i=0; i<bin.length; i++) {
+        var result = bin.substring(i,i+1);
+        if (parseInt(result) == 1) {
+            $("#li" + i).attr("class", "active");
+        }
+    }
     
     $("#btn_tab0").click(function () {
         if ($("#setting_btn").attr("name") == "btn_on") {
