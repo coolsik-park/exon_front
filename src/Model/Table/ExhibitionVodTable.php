@@ -83,10 +83,7 @@ class ExhibitionVodTable extends Table
 
         $validator
             ->integer('viewer')
-<<<<<<< HEAD
-=======
             ->requirePresence('viewer', 'create')
->>>>>>> a21a4b2fb71ccdeace973ea46b19b5bffaddaf77
             ->notEmptyString('viewer');
 
         return $validator;
