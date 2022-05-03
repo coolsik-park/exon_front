@@ -204,6 +204,9 @@
         </div>
         <!-- webinar-tab -->
         <div class="webinar-tab" id="toggle">
+            <div class="webinar-toggle">
+                <button type="button" class="webinar-tab-tg">토글버튼</button>
+            </div>    
             <div class="webinar-tab-top">
                 <input type="hidden" id="tab" name="tab" value="0">
                 <div class="w-tab-wrap">
