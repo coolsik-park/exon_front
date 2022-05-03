@@ -696,7 +696,7 @@
                 });    
     const mainSlider6 = new Swiper(".main-slider6 .swiper-container", {
                     slidesPerView: 'auto',
-                    spaceBetween: 30,
+                    spaceBetween: 50,
                     navigation: {
                         nextEl: ".main-slider6 .swiper-button-next",
                         prevEl: ".main-slider6 .swiper-button-prev",

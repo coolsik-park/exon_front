@@ -65,6 +65,15 @@
             margin: -30px 0px 20px 0px;
         }
         @media  screen and (max-width: 768px) {
+        .header-search-mo .search-ipt-wp .ipt {
+            padding: 1.2vw 0 2vw 10vw;
+        }
+        .header-search-mo .search {
+            right: 2vh;
+        }
+        #header .static-mo {
+            padding: 4.3vw;
+        }
         .footer__info--imgDiv {
             float: left;
             margin: 20px 0px 20px 0px;

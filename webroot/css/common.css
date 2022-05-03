@@ -1924,7 +1924,7 @@ body {
 	.header-search-mo .search {
 		position: absolute;
 		top: 0.5vw;
-		left: 1.87vw;
+		right: 2vh;
 	}
 	.header-search-mo .cancel {
 		color: #a5a5a5;
