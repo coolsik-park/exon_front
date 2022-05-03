@@ -302,13 +302,13 @@
         position: absolute;
         right: 0;
         width: 45%;
-        top: 10vh;
+        top: 20vh;
     }
     .section4--box__wrap {
         justify-content: space-around;
         position: absolute;
         width: 100%;
-        top: 67.5vh;
+        top: 485px;
     }
     .section4--box__div {
         width: 15%;
@@ -399,11 +399,9 @@
         display: none;
     }
     .section4--progress__PCimg {
-        display: block;
+        display: none;
         height: 800px;
         width: 100%;
-        position: absolute;
-        bottom: 0;
     }
     .step1Icon {
         font-size: 35px;
@@ -1257,7 +1255,7 @@
                                 <div class="section1--title__txt section1--title__second">쉽고 빠르게</div>
                             </div>
                             <div class="section1--title__img"><img src="/images/EXON-로고-흰색.png" class="section1--img"></div>
-                            <div class="section1--title__button"><button class="section1__button" type="button">지금 시작하기</button></div>
+                            <div class="section1--title__button"><a href="/"><button class="section1__button" type="button">지금 시작하기</button></a></div>
                             <div class="section1--title__bottom">Your Imagination Becomes Reality</div>
                         </div>
                     </div>
