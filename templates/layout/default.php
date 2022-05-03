@@ -287,6 +287,17 @@
                 }
             }
         });
+        
+        $("#m-search").keydown(function(keyCode) {
+            if (keyCode.keyCode == 13) {
+                var key = $("#m-search").val();
+                if (key == '') {
+                    window.location.href = "/exhibition/search";
+                } else {
+                    window.location.href = "/exhibition/search/" + key;
+                }
+            }
+        });
     });
 
     //refresh go top
