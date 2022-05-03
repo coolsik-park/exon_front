@@ -127,8 +127,8 @@
             <button type="button" class="tg-search">검색</button>
             <div class="header-search-mo">
                 <div class="search-ipt-wp">
-                    <input type="text" placeholder="찾으시는 행사를 검색해주세요" class="ipt">
-                    <button type="button" class="search">검색</button>
+                    <input id="m-search" type="text" placeholder="찾으시는 행사를 검색해주세요" class="ipt">
+                    <button id="m-search-button" type="button" class="search">검색</button>
                 </div>                   
                 <button type="button" class="cancel">취소</button>
             </div>
@@ -260,6 +260,15 @@
 
     $(document).on("click", "#search-button", function () {
         var key = $("#search").val();
+        if (key == '') {
+            window.location.href = "/exhibition/search";
+        } else {
+            window.location.href = "/exhibition/search/" + key;
+        }
+    });
+
+    $(document).on("click", "#m-search-button", function () {
+        var key = $("#m-search").val();
         if (key == '') {
             window.location.href = "/exhibition/search";
         } else {
