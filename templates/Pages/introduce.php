@@ -353,7 +353,7 @@
     }
     .section4--box__txt3 {
         width: 100%;
-        font-size: 0.8rem;
+        font-size: 1rem;
         color: #ABABAB;
         line-height: 20px;
         margin-top: 1vh;
@@ -1076,6 +1076,10 @@
             right: 20vh;
             top: 200px;
             animation: fade 1s .2s both;
+        }
+        .section4--box__txt3 {
+            font-size: 1.2em;
+            line-height: 30px;
         }
 
         .section4--progress__PC {
