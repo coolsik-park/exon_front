@@ -363,7 +363,7 @@
         position: absolute;
         background-color: #FD4659;
         height: 1em;
-        top: 71.5vh;
+        top: 515px;
         left: -15%;
         border-radius: 12px;
         /* animation:  section4--progress 8s 1s both; */
@@ -1030,7 +1030,7 @@
             width: 300px;
         }
     }
-    @media  screen and (max-height: 800px) {
+    @media  screen and (max-height: 700px) {
         .section4 {
             height: 177vh;
         }
@@ -1081,7 +1081,7 @@
         .section4--progress__PC {
             width: 195%;
             left: -70%;
-            top:74.5vh;
+            top:697px;
             /* animation:  section4--progress1600 9s 1s both; */
         }
         /* .section4--txt__div2 {
@@ -1106,7 +1106,7 @@
             display: none;
         }
         .section4--box__wrap {
-            top: 70vh;
+            top: 660px;
         }
         .step1Icon {
             font-size: 50px;
