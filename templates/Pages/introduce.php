@@ -356,7 +356,7 @@
         font-size: 1rem;
         color: #ABABAB;
         line-height: 20px;
-        margin-top: 1vh;
+        margin-top: 3vh;
     }
     .section4--progress__PC {
         width: 130%;
@@ -831,16 +831,16 @@
         #section3--slide>.swiper-pagination-bullets .swiper-pagination-bullet {
             width: 35px;
         }
-        #section3--slide>.swiper-pagination {
+        /* #section3--slide>.swiper-pagination {
             margin-left: 8vh;
             bottom: 15vh;
-        }
+        } */
         .section3--txt__words {
             margin-left: 3vh;
         }
 
         .section4 {
-            height: 140vh;
+            height: 150vh;
             background-image: url('/img/introduce/section4-backgroundM.png');
             background-size: cover;
             background-position: center;
@@ -1032,7 +1032,7 @@
     }
     @media  screen and (max-height: 700px) {
         .section4 {
-            height: 177vh;
+            height: 182vh;
         }
     }
     @media  screen and (min-width: 1200px) {
