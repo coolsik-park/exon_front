@@ -789,6 +789,12 @@
             display: block;
         }
 
+        .section3 {
+            height: 850px;
+        }
+        #section3--slide {
+            height: 850px;
+        }
         .section3--slide__div {
             flex-direction: column;
             margin-top: 34vh;
@@ -826,15 +832,15 @@
             width: 35px;
         }
         #section3--slide>.swiper-pagination {
-            margin-left: 40px;
-            bottom: 1vh;
+            margin-left: 8vh;
+            bottom: 15vh;
         }
         .section3--txt__words {
             margin-left: 3vh;
         }
 
         .section4 {
-            height: 1300px;
+            height: 140vh;
             background-image: url('/img/introduce/section4-backgroundM.png');
             background-size: cover;
             background-position: center;
@@ -851,6 +857,7 @@
         .section4--title {
             width: 90%;
             margin-right: 5%;
+            top: 6vh;
         }
         .section4--title__txt {
             font-size: 40px;
@@ -883,10 +890,10 @@
             width: 16px;
             position: absolute;
             background-color: #FD4659;
-            height: 140vh;
+            height: 120vh;
             border-radius: 12px;
             left: 80px;
-            top: 370px;
+            top: 330px;
             /* animation:  section4--progressM 8s 0.5s both; */
         }
         .section4--progress__Mimg {
@@ -1021,6 +1028,11 @@
         }
         .section7__button {
             width: 300px;
+        }
+    }
+    @media  screen and (max-height: 800px) {
+        .section4 {
+            height: 177vh;
         }
     }
     @media  screen and (min-width: 1200px) {
@@ -1594,7 +1606,7 @@
             section5BoxTxt2.style.animation = "rightFly 3s .1s both";
             section5BoxTxt3.style.animation = "rightFly 4s .1s both";
         } else {
-            console.log("false");
+        
         }
 
         if(window.scrollY > section1Height + section2Height + (section3Height - 500)) {
@@ -1610,7 +1622,7 @@
             step3Icon.style.animation = "section4--icon__color  1s 3s both";
             step4Icon.style.animation = "section4--icon__color  1s 4s both";
         } else {
-            console.log("false");
+            
         }
 
     });

@@ -33,6 +33,11 @@
         .section-webinar4 .webinar-tab.close .webinar-tab-tg {
             top: 78px;
         }
+        .webinar-cont-ty1-body {
+            height: calc(100% - 100px);
+            overflow: hidden;
+            overflow-y: auto;
+        }
     </style>
 </head>
 
