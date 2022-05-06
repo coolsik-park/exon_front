@@ -1289,7 +1289,7 @@
                         <div class="section1--title__txt section1--title__second">쉽고 빠르게</div>
                     </div>
                     <div class="section1--title__img"><img src="/images/EXON-로고-흰색.png" class="section1--img"></div>
-                    <div class="section1--title__button"><a href="/"><button class="section1__button" type="button">지금 시작하기</button></a></div>
+                    <div class="section1--title__button"><button class="section1__button" type="button"><a href="/">지금 시작하기</a></button></div>
                     <div class="section1--title__bottom">Your Imagination Becomes Reality</div>
                 </div>
             </div>
