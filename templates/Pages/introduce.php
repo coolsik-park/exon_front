@@ -563,6 +563,9 @@
         opacity: 0;
         border-top-left-radius: 45%;
         border-top-right-radius: 45%;
+        animation: section6--img__before 10s infinite both;
+        animation-delay: 3s;
+        
     }
     .section6--img__li1:after {
         content: '웨비나';
@@ -573,16 +576,20 @@
         font-size: 1.5rem;
         font-weight: 700;
         opacity: 0;
+        /* animation: section6--img__after 5s 1s both; */
+        /* animation-iteration-count: infinite; */
+        animation: section6--img__before 10s infinite both;
+        animation-delay: 3s;
     }
     .section6--img__li1 {
         position: relative;
     }
-    .section6--img__li1:hover:before {
+    /* .section6--img__li1:hover:before {
         opacity: 1;
     }
     .section6--img__li1:hover:after {
         opacity: 1;
-    }
+    } */
     .section6--img__li2:before {
         content:'';
         color: white;
@@ -592,6 +599,9 @@
         bottom: 0;
         position: absolute;
         opacity: 0;
+        animation: section6--img__before 10s infinite both;
+        /* animation-iteration-count: infinite; */
+        animation-delay: 4s;
     }
     .section6--img__li2:after {
         content: '컨퍼런스/포럼';
@@ -602,17 +612,20 @@
         font-size: 1.5rem;
         font-weight: 700;
         opacity: 0;
+        animation: section6--img__before 10s infinite both;
+        animation-delay: 4s;
+        /* animation-iteration-count: infinite; */
     }
     .section6--img__li2 {
         position: relative;
         margin-top: 0.5em;
     }
-    .section6--img__li2:hover:before {
+    /* .section6--img__li2:hover:before {
         opacity: 1;
     }
     .section6--img__li2:hover:after {
         opacity: 1;
-    }
+    } */
 
     .section6--img__li3:before {
         content:'';
@@ -624,6 +637,8 @@
         position: absolute;
         opacity: 0;
         border-top-left-radius: 45%;
+        animation: section6--img__before 10s infinite both;
+        animation-delay: 6s;
     }
     .section6--img__li3:after {
         content: '교육/강의';
@@ -634,16 +649,18 @@
         font-size: 1.5rem;
         font-weight: 700;
         opacity: 0;
+        animation: section6--img__before 10s infinite both;
+        animation-delay: 6s;
     }
     .section6--img__li3 {
         position: relative;
     }
-    .section6--img__li3:hover:before {
+    /* .section6--img__li3:hover:before {
         opacity: 1;
     }
     .section6--img__li3:hover:after {
         opacity: 1;
-    }
+    } */
 
     .section6--img__li4:before {
         content:'';
@@ -655,6 +672,8 @@
         bottom: 0;
         opacity: 0;
         border-bottom-right-radius: 60%;
+        animation: section6--img__before 10s infinite both;
+        animation-delay: 5s;
     }
     .section6--img__li4:after {
         content: 'E-sports';
@@ -665,16 +684,18 @@
         font-size: 1.5rem;
         font-weight: 700;
         opacity: 0;
+        animation: section6--img__before 10s infinite both;
+        animation-delay: 5s;
     }
     .section6--img__li4 {
         position: relative;
     }
-    .section6--img__li4:hover:before {
+    /* .section6--img__li4:hover:before {
         opacity: 1;
     }
     .section6--img__li4:hover:after {
         opacity: 1;
-    }
+    } */
 
 
     /* Section7 */
@@ -1243,6 +1264,28 @@
             color: #ffffff;
         }
     }
+    @keyframes section6--img__before {
+        0% {
+            opacity: 0; 
+        }
+        70% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }	 
+    }
+    @keyframes section6--img__after {
+        0% {
+            opacity: 0; 
+        }
+        70% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }	 
+    }
     
 </style>
 <div class="wrap">
@@ -1628,6 +1671,6 @@
         } else {
             
         }
-
+        
     });
 </script>
