@@ -521,7 +521,7 @@
         display: inline-block;
         width: 100%;
         height: 50vh;
-        margin-top: 9vh;
+        margin-top: 65px;
         border-top-left-radius: 45%;
         border-top-right-radius: 45%;
     }
@@ -609,7 +609,7 @@
         position: absolute;
         left: 30%;
         top: 50%;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         font-weight: 700;
         opacity: 0;
         animation: section6--img__before 10s infinite both;
@@ -973,7 +973,7 @@
             margin-top: 2vh;
         }
         .section5--txt3__bold {
-            font-size: 0.9rem;
+            font-size: 0.7rem;
         }
 
         .section6 {
@@ -998,33 +998,33 @@
             margin-right: 5%;
         }
         .section6-img1 {
-            height: auto;
+            height: 215px;
         }
         .section6-img2 {
             height: auto;
         }
         .section6-img3 {
-            height: auto;
-            margin-top: 9em;
+            height: 140px;
+            margin-top: 111px;
         }
         .section6-img4 {
-            height: auto;
+            height: 120px;
         }
         .section6--img__div {
             top: 5.5em;
         }
         .section6--img__li1:before {
-            height: 78%;
+            height: 77%;
         }  
         .section6--img__li1:after {
             left: 31%;
             top: 59%;
         }
         .section6--img__li3:before {
-            height: 50%;
+            height: 56%;
         }
         .section6--img__li2:after {
-            left: 11%;
+            left: 15%;
             top: 37%;
         }
         .section6--img__li3:after {
@@ -1032,7 +1032,7 @@
             top: 71%;
         }
         .section6--img__li4:before {
-            height: 96%;
+            height: 94%;
         }
         .section6--img__li4:after {
             left: 23%;
