@@ -984,6 +984,19 @@ class ExhibitionController extends AppController
         $this->set(compact('id', 'exhibition_users', 'users', 'beforeParentData', 'beforeChildData'));
     }
 
+    public function vodWatching($id = null) {
+        $this->paginate = ['limit' => 10];
+
+        $exhibition_stream_table = TableRegistry::get('ExhibitionStream');
+        $exhibition_stream = $this->paginate($exhibition_stream_table->find()->where(['exhibition_id' => $id]))->toArray();
+
+        $exhibition_vod_table = TableRegistry::get('ExhibitionVod');
+        // $exhibition_vod_parent = $this->paginate($exhibition_vod_table->find()->where(['exhibition_id' => $id, 'parent_id is' => null]))->toArray();
+        // $exhibition_vod_child = $this->paginate($exhibition_vod_table->find()->where(['exhibition_id' => $id, 'parent_id is not' => null]))->toArray();
+        
+        $this->set(compact('id'));
+    }
+
     public function exhibitionUsersStatus()
     {
         $id = $this->request->getData('id');
