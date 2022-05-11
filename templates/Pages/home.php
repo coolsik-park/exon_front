@@ -81,9 +81,6 @@
     .main-sect6 .swiper-button-prev {
         left: 265px;
     }
-    .main-sect4 .h-ty1-wp {
-        position: absolute;
-    }
     .main-sect4 .h-ty1-wp a {
         position: relative;
         bottom: 0;
@@ -699,7 +696,7 @@
                 });    
     const mainSlider6 = new Swiper(".main-slider6 .swiper-container", {
                     slidesPerView: 'auto',
-                    spaceBetween: 30,
+                    spaceBetween: 50,
                     navigation: {
                         nextEl: ".main-slider6 .swiper-button-next",
                         prevEl: ".main-slider6 .swiper-button-prev",

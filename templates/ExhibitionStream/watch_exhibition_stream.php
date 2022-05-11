@@ -30,6 +30,14 @@
         .vod-time {
             float: right;
         }
+        .section-webinar4 .webinar-tab.close .webinar-tab-tg {
+            top: 78px;
+        }
+        .webinar-cont-ty1-body {
+            height: calc(100% - 100px);
+            overflow: hidden;
+            overflow-y: auto;
+        }
     </style>
 </head>
 
@@ -71,7 +79,7 @@
                                 <li id="li2" class="" style="display:none;"><button type="button" id="tab2" name="개설자 정보">개설자 정보</button></li>
                                 <li id="li1" class="" style="display:none;"><button type="button" id="tab1" name="행사 정보">행사 정보</button></li>
                                 <li id="li0" class="" style="display:none;"><button type="button" id="tab0" name="자료">자료</button></li>
-                                <li id="vod" class=""><button type="button" id="tabVod" name="vod">VOD</button></li>
+                                <!-- <li id="vod" class=""><button type="button" id="tabVod" name="vod">VOD</button></li> -->
                             </ul>
                         </div>                            
                     </div>
@@ -88,12 +96,50 @@
         </div>
     </div>    
 </div>
+<div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color:transparent; border:none;">
+            <div class="popup-wrap popup-ty2">
+                <div class="popup-head">
+                    <h1>공유하기</h1>
+                    <button id="close" type="button" class="popup-close close" data-dismiss="modal" aria-label="Close">팝업닫기</button>
+                </div>
+                <br>
+                <div class="popup-body">
+                    <img id="blog" class="popup-img" src ="/img/blog.png" onclick="naverShare()">
+                    <img id="kakao" class="popup-img" src ="/img/kakao.png" onclick="kakaoShare()">
+                    <img id="inst" class="popup-img" src ="/img/inst.png" onclick="instShare()">
+                    <img id="fb" class="popup-img" src ="/img/fb.png" onclick="fbShare()">
+                    <div class="copy">
+                        <input type="text" id="url" value="https://exon.live/exhibition/view/<?=$id?>" readonly><button type="button" id="url-copy" class="btn">복사</button>
+                    </div>
+                </div>
+                <div class="popup-btm">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script> 
     var chatInterval
 
+    //go top when open tab
+    $(document).on("click", ".webinar-tab-tg", function() {
+        if (!$("#toggle").hasClass("close")) {
+            window.scrollTo(0, 0);
+        }
+    });
+
     //video.js
     var player = videojs('vid1', {
+        html5: {
+            vhs: {
+                overrideNative: !videojs.browser.IS_SAFARI
+            },
+            nativeAudioTracks: false,
+            nativeVideoTracks: false
+        },
         controls: true,
         autoplay: true,
         preload: 'auto',
@@ -131,7 +177,7 @@
         setInterval("liveEndCheck()", 1000);
 
         //탭 컨트롤 
-        var dec = "<?=$exhibitionStream[0]['tab']?>";
+        var dec = "<?=$exhibition->live_tab?>";
         dec = parseInt(dec);
         var bin = dec.toString(2);
         if (bin.length < 10) {

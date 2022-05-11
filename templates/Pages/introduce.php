@@ -19,7 +19,7 @@
         margin-right: auto;
         margin-left: auto;
         width: 100%;
-        height: 100vh;
+        height: 800px;
         border: none;
     }
     .h-100 {
@@ -75,7 +75,7 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        height: 95vh;
+        height: 685px;
         border: none;
         position: relative;
     }
@@ -135,7 +135,7 @@
 
     /* Section2 */
     .section2 {
-        height: 100vh;
+        height: 800px;
         position: relative;
     }
     .section2--container {
@@ -150,7 +150,7 @@
     }
     .section2--img {
         width: 155vh;;
-        margin-top: 35px;
+        margin-top: 101px;
         opacity: 0;
 
     }
@@ -189,7 +189,7 @@
     /* Section3 */
     .section3 {
         background-color: #333333;
-        height: 100vh;
+        height: 800px;
         position: relative;
     }
     .section3--title {
@@ -249,7 +249,7 @@
         line-height: 20px;
     }
     #section3--slide {
-        height: 100vh;
+        height: 780px;
     }
     .section3--slide__img {
         /* position: absolute; */
@@ -276,9 +276,12 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+        height: 800px;
+        position: relative;
+        overflow: hidden;
     }
     .container {
-        position: relative;
+        
     }
     .section4--title__txt {
         font-size: 60px;
@@ -299,13 +302,13 @@
         position: absolute;
         right: 0;
         width: 45%;
-        top: 10vh;
+        top: 20vh;
     }
     .section4--box__wrap {
         justify-content: space-around;
         position: absolute;
         width: 100%;
-        top: 61vh;
+        top: 485px;
     }
     .section4--box__div {
         width: 15%;
@@ -346,15 +349,76 @@
         font-size: 1.5rem;
         font-weight: 600;
         margin-top: 1vh;
-        animation: fade .8s .5s both;
+        /* animation: fade .8s .5s both; */
     }
     .section4--box__txt3 {
         width: 100%;
-        font-size: 0.8rem;
+        font-size: 1rem;
         color: #ABABAB;
         line-height: 20px;
-        margin-top: 1vh;
-        animation: bottomFly 2s 1s both;
+        margin-top: 3vh;
+    }
+    .section4--progress__PC {
+        width: 130%;
+        position: absolute;
+        background-color: #FD4659;
+        height: 1em;
+        top: 515px;
+        left: -15%;
+        border-radius: 12px;
+        /* animation:  section4--progress 8s 1s both; */
+    }
+    /* .section4--progress__M {
+        width: 100%;
+        position: absolute;
+        background-color: #FD4659;
+        height: 1em;
+    } */
+    /* .section4--txt__div1 {
+        animation: bottomFly 1s 1s both;
+    } */
+    /* .section4--txt__div2 {
+        animation: bottomFly 1s 2s both;
+    } 
+    .section4--txt__div3 {
+        animation: bottomFly 1s 3s both;
+    } 
+    .section4--txt__div4 {
+        animation: bottomFly 1s 4s both;
+    } */
+    /* .section4--box__img2 {
+        animation: section4--box__color 1s 2s both;
+    }
+    .section4--box__img3 {
+        animation: section4--box__color 1s 3s both;
+    }
+    .section4--box__img4 {
+        animation: section4--box__color 1s 4s both;
+    } */
+    .section4--progress__Mimg {
+        display: none;
+    }
+    .section4--progress__PCimg {
+        display: none;
+        height: 800px;
+        width: 100%;
+    }
+    .step1Icon {
+        font-size: 35px;
+        margin-top: 20px;
+    }
+    .step2Icon {
+        font-size: 35px;
+        margin-top: 20px;
+        /* animation:  section4--icon__color  8s 1s both */
+    }
+    .step3Icon {
+        font-size: 35px;
+        margin-top: 20px;
+    }
+    .step4Icon {
+        font-size: 35px;
+        margin-top: 20px;
     }
     
 
@@ -365,6 +429,8 @@
         background-position: center;
         background-repeat: no-repeat;
         position: relative;
+        height: 800px;
+        overflow: hidden;
     }
     .section5--title__div {
         color: white;
@@ -379,7 +445,8 @@
         font-size: 7rem;
         font-weight: 600;
         margin-top: 2vh;
-        animation: rightFly 3s 0s both;
+        /* animation: rightFly 3s 0s both; */
+        opacity: 0;
     }
     .section5--box__txt2 {
         width: 100%;
@@ -387,7 +454,8 @@
         font-weight: 400;
         margin-top: 4vh;
         line-height: 45px;
-        animation: rightFly 3s .5s both;
+        /* animation: rightFly 3s .5s both; */
+        opacity: 0;
     }
     .section5--box__txt3 {
         width: 100%;
@@ -395,7 +463,8 @@
         color: #E9E8E8;
         line-height: 30px;
         margin-top: 4vh;
-        animation: rightFly 3s 1s both;
+        /* animation: rightFly 3s 1s both; */
+        opacity: 0;
     }
     .section5--txt__bold {
         font-weight: 800;
@@ -408,10 +477,10 @@
         color: white;
     }
     .section5--img__div {
-        width: 45%;
+        width: 57%;
         position: absolute;
-        right: 10vh;
-        top: 13vh;
+        right: 5vh;
+        top: 19vh;
     }
     .section5--img {
         width: 100%;
@@ -423,6 +492,7 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+        height: 800px;
     }
     .container {
         position: relative;
@@ -430,7 +500,7 @@
     .section6--title__div {
         position: absolute;
         right: 0;
-        top: 75vh;
+        top: 575px;
     }
     .section6--title__txt {
         font-size: 60px;
@@ -451,7 +521,7 @@
         display: inline-block;
         width: 100%;
         height: 50vh;
-        margin-top: 9vh;
+        margin-top: 65px;
         border-top-left-radius: 45%;
         border-top-right-radius: 45%;
     }
@@ -493,26 +563,33 @@
         opacity: 0;
         border-top-left-radius: 45%;
         border-top-right-radius: 45%;
+        animation: section6--img__before 10s infinite both;
+        animation-delay: 3s;
+        
     }
     .section6--img__li1:after {
         content: '웨비나';
         color: white;
         position: absolute;
         left: 40%;
-        top: 50%;
+        top: 60%;
         font-size: 1.5rem;
         font-weight: 700;
         opacity: 0;
+        /* animation: section6--img__after 5s 1s both; */
+        /* animation-iteration-count: infinite; */
+        animation: section6--img__before 10s infinite both;
+        animation-delay: 3s;
     }
     .section6--img__li1 {
         position: relative;
     }
-    .section6--img__li1:hover:before {
+    /* .section6--img__li1:hover:before {
         opacity: 1;
     }
     .section6--img__li1:hover:after {
         opacity: 1;
-    }
+    } */
     .section6--img__li2:before {
         content:'';
         color: white;
@@ -522,6 +599,9 @@
         bottom: 0;
         position: absolute;
         opacity: 0;
+        animation: section6--img__before 10s infinite both;
+        /* animation-iteration-count: infinite; */
+        animation-delay: 4s;
     }
     .section6--img__li2:after {
         content: '컨퍼런스/포럼';
@@ -529,20 +609,23 @@
         position: absolute;
         left: 30%;
         top: 50%;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         font-weight: 700;
         opacity: 0;
+        animation: section6--img__before 10s infinite both;
+        animation-delay: 4s;
+        /* animation-iteration-count: infinite; */
     }
     .section6--img__li2 {
         position: relative;
         margin-top: 0.5em;
     }
-    .section6--img__li2:hover:before {
+    /* .section6--img__li2:hover:before {
         opacity: 1;
     }
     .section6--img__li2:hover:after {
         opacity: 1;
-    }
+    } */
 
     .section6--img__li3:before {
         content:'';
@@ -554,26 +637,30 @@
         position: absolute;
         opacity: 0;
         border-top-left-radius: 45%;
+        animation: section6--img__before 10s infinite both;
+        animation-delay: 6s;
     }
     .section6--img__li3:after {
         content: '교육/강의';
         color: white;
         position: absolute;
         left: 35%;
-        top: 55%;
+        top: 60%;
         font-size: 1.5rem;
         font-weight: 700;
         opacity: 0;
+        animation: section6--img__before 10s infinite both;
+        animation-delay: 6s;
     }
     .section6--img__li3 {
         position: relative;
     }
-    .section6--img__li3:hover:before {
+    /* .section6--img__li3:hover:before {
         opacity: 1;
     }
     .section6--img__li3:hover:after {
         opacity: 1;
-    }
+    } */
 
     .section6--img__li4:before {
         content:'';
@@ -585,6 +672,8 @@
         bottom: 0;
         opacity: 0;
         border-bottom-right-radius: 60%;
+        animation: section6--img__before 10s infinite both;
+        animation-delay: 5s;
     }
     .section6--img__li4:after {
         content: 'E-sports';
@@ -595,16 +684,18 @@
         font-size: 1.5rem;
         font-weight: 700;
         opacity: 0;
+        animation: section6--img__before 10s infinite both;
+        animation-delay: 5s;
     }
     .section6--img__li4 {
         position: relative;
     }
-    .section6--img__li4:hover:before {
+    /* .section6--img__li4:hover:before {
         opacity: 1;
     }
     .section6--img__li4:hover:after {
         opacity: 1;
-    }
+    } */
 
 
     /* Section7 */
@@ -658,7 +749,7 @@
             line-height: 7vh;
         }
         .section1 {
-            height: 100vh;
+            height: 875px;
         }
         .section1--title__second {
             margin-left: 0px;
@@ -679,7 +770,7 @@
             display: block;
         }
         .section1--title__bottom {
-            top: 350px;
+            top: 42vh;
             font-size: 1.23rem;
             left: 20px;
         }
@@ -690,7 +781,9 @@
             display: none;
         }
         
-        
+        .section2 {
+            height: 780px;
+        }
         .section2--title__txt {
             font-size: 40px;
         }
@@ -705,17 +798,24 @@
             top: 100px;
             right: 0;
         }
+        .section2--img {
+            width: 1000px;
+            height: auto;
+            margin-top: 155px;
+        }
         #section2--slide {
             display: none;
         }
         #section2--slideM {
             display: block;
         }
-        .section2--img {
-            height: 100vh;
-            margin-top: 0;
-        }
 
+        .section3 {
+            height: 850px;
+        }
+        #section3--slide {
+            height: 850px;
+        }
         .section3--slide__div {
             flex-direction: column;
             margin-top: 34vh;
@@ -752,9 +852,10 @@
         #section3--slide>.swiper-pagination-bullets .swiper-pagination-bullet {
             width: 35px;
         }
-        #section3--slide>.swiper-pagination {
-            margin-left: 40px;
-        }
+        /* #section3--slide>.swiper-pagination {
+            margin-left: 8vh;
+            bottom: 15vh;
+        } */
         .section3--txt__words {
             margin-left: 3vh;
         }
@@ -766,9 +867,18 @@
             background-position: center;
             background-repeat: no-repeat;
         }
+        .section4--box__img {
+            left: 14px;
+            width: 80px;
+            height: 80px;
+        }
+        .section4--box__txt {
+            margin-top: 0;
+        }
         .section4--title {
             width: 90%;
             margin-right: 5%;
+            top: 6vh;
         }
         .section4--title__txt {
             font-size: 40px;
@@ -791,14 +901,54 @@
         .section4--box__div {
             display: flex;
             width: 80%;
-            margin-bottom: 1.75em;
+            margin-bottom: 3.75em;
+        }
+        .section4--progress__PC {
+            display: none;
+        }
+        .section4--progress__M {
+            display: block;
+            width: 16px;
+            position: absolute;
+            background-color: #FD4659;
+            height: 120vh;
+            border-radius: 12px;
+            left: 80px;
+            top: 330px;
+            /* animation:  section4--progressM 8s 0.5s both; */
+        }
+        .section4--progress__Mimg {
+            display: block;
+        }
+        .section4--progress__PCimg {
+            display: none;
+        }
+        .step1Icon {
+            font-size: 43px;
+            margin-top: 20px;
+        }
+        .step2Icon {
+            font-size: 43px;
+            margin-top: 20px;
+            /* animation:  section4--icon__color  8s 1s both */
+        }
+        .step3Icon {
+            font-size: 43px;
+            margin-top: 20px;
+        }
+        .step4Icon {
+            font-size: 43px;
+            margin-top: 20px;
         }
 
         .section5--img__div {
-            width: 90%;
+            width: 120%;
             position: absolute;
-            right: 5%;
-            top: 62%;
+            right: -12%;
+            top: 58%;
+        }
+        .section5--box__txt {
+            font-weight: 700;
         }
         .section5--title__div {
             color: white;
@@ -823,7 +973,7 @@
             margin-top: 2vh;
         }
         .section5--txt3__bold {
-            font-size: 0.9rem;
+            font-size: 0.7rem;
         }
 
         .section6 {
@@ -848,33 +998,33 @@
             margin-right: 5%;
         }
         .section6-img1 {
-            height: auto;
+            height: 215px;
         }
         .section6-img2 {
             height: auto;
         }
         .section6-img3 {
-            height: auto;
-            margin-top: 9em;
+            height: 140px;
+            margin-top: 111px;
         }
         .section6-img4 {
-            height: auto;
+            height: 120px;
         }
         .section6--img__div {
             top: 5.5em;
         }
         .section6--img__li1:before {
-            height: 78%;
+            height: 77%;
         }  
         .section6--img__li1:after {
             left: 31%;
             top: 59%;
         }
         .section6--img__li3:before {
-            height: 50%;
+            height: 56%;
         }
         .section6--img__li2:after {
-            left: 11%;
+            left: 15%;
             top: 37%;
         }
         .section6--img__li3:after {
@@ -882,7 +1032,7 @@
             top: 71%;
         }
         .section6--img__li4:before {
-            height: 96%;
+            height: 94%;
         }
         .section6--img__li4:after {
             left: 23%;
@@ -901,15 +1051,44 @@
             width: 300px;
         }
     }
+    @media  screen and (max-height: 700px) {
+        .section4 {
+            height: 182vh;
+        }
+    }
     @media  screen and (min-width: 1200px) {
         .container {
             max-width: 1200px;
         }
+        .section4--progress__M {
+            display: none;
+        }
     }
     @media  screen and (min-width: 1600px) {
+        .section1 {
+            height: 890px;
+        }
+        .section2 {
+            height: 980px;
+        }
+        .section3 {
+            height: 980px;
+        }
+        .section4 {
+            height: 1080px;
+        }
+        .section5 {
+            height: 980px;
+        }
+        .section6 {
+            height: 1080px;
+        }
+        #section3--slide {
+            height: 900px;
+        }
         #section3--slide>.swiper-pagination {
             width: 28vh;
-            bottom: 15vh;
+            bottom: 0vh;
         }
         .section2--container {
             margin-right: 150px;
@@ -919,6 +1098,59 @@
             top: 200px;
             animation: fade 1s .2s both;
         }
+        .section4--box__txt3 {
+            font-size: 1.2em;
+            line-height: 30px;
+        }
+
+        .section4--progress__PC {
+            width: 195%;
+            left: -70%;
+            top:697px;
+            /* animation:  section4--progress1600 9s 1s both; */
+        }
+        /* .section4--txt__div2 {
+            animation: bottomFly 1s 2s both;
+        } 
+        .section4--txt__div3 {
+            animation: bottomFly 1s 3s both;
+        } 
+        .section4--txt__div4 {
+            animation: bottomFly 1s 4s both;
+        }
+        .section4--box__img2 {
+            animation: section4--box__color 1s 2s both;
+        }
+        .section4--box__img3 {
+            animation: section4--box__color 1s 3s both;
+        }
+        .section4--box__img4 {
+            animation: section4--box__color 1s 4s both;
+        } */
+        .section4--progress__M {
+            display: none;
+        }
+        .section4--box__wrap {
+            top: 660px;
+        }
+        .step1Icon {
+            font-size: 50px;
+            margin-top: 25px;
+        }
+        .step2Icon {
+            font-size: 50px;
+            margin-top: 25px; 
+            /* animation:  section4--icon__color  8s 1s both */
+        }
+        .step3Icon {
+            font-size: 50px;
+            margin-top: 25px;
+        }
+        .step4Icon {
+            font-size: 50px;
+            margin-top: 25px;
+        }
+
         .section6-img1 {
             display: inline-block;
             width: 100%;
@@ -978,20 +1210,86 @@
         }
         to {
             transform: translateX(0px);
+            opacity: 1;
         }
     }
     @keyframes bottomFly {
         from{
-            transform: translateY(500px);
+            transform: translateY(600px);
+            opacity: 0;
         }
         to {
             transform: translateY(0px);
+            opacity: 1;
         }
+    }
+    @keyframes section4--progress {
+        from{
+            transform: translateX(-1200px);
+        }
+        to {
+            transform: translateX(0px);
+        }
+    }
+    @keyframes section4--progress1600 {
+        from{
+            transform: translateX(-1600px);
+        }
+        to {
+            transform: translateX(-100px);
+        }
+    }
+
+    @keyframes section4--progressM {
+        from{
+            height: 23vh;
+        }
+        to {
+            height: 130vh;
+        }
+    }
+    @keyframes section4--box__color {
+        from{
+            background: #ffffff;
+        }
+        to {
+            background: #FD4659;
+        }
+    }
+    @keyframes section4--icon__color {
+        from{
+           
+        }
+        to {
+            color: #ffffff;
+        }
+    }
+    @keyframes section6--img__before {
+        0% {
+            opacity: 0; 
+        }
+        70% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }	 
+    }
+    @keyframes section6--img__after {
+        0% {
+            opacity: 0; 
+        }
+        70% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }	 
     }
     
 </style>
-
-    <section class="section1">
+<div class="wrap">
+    <section id="section1" class="section1">
         <div id="section1--slide" class="swiper-container">
             <ul class="swiper-wrapper">
                 <li class="swiper-slide">
@@ -1016,7 +1314,7 @@
                                 <div class="section1--title__txt section1--title__second">쉽고 빠르게</div>
                             </div>
                             <div class="section1--title__img"><img src="/images/EXON-로고-흰색.png" class="section1--img"></div>
-                            <div class="section1--title__button"><button class="section1__button" type="button">지금 시작하기</button></div>
+                            <div class="section1--title__button"><a href="/"><button class="section1__button" type="button">지금 시작하기</button></a></div>
                             <div class="section1--title__bottom">Your Imagination Becomes Reality</div>
                         </div>
                     </div>
@@ -1034,13 +1332,13 @@
                         <div class="section1--title__txt section1--title__second">쉽고 빠르게</div>
                     </div>
                     <div class="section1--title__img"><img src="/images/EXON-로고-흰색.png" class="section1--img"></div>
-                    <div class="section1--title__button"><button class="section1__button" type="button">지금 시작하기</button></div>
+                    <div class="section1--title__button"><button class="section1__button" type="button"><a href="/">지금 시작하기</a></button></div>
                     <div class="section1--title__bottom">Your Imagination Becomes Reality</div>
                 </div>
             </div>
         </div>
     </section>
-    <section class="section2 d-flex" style="padding-left: 0px;">
+    <section  id="section2" class="section2 d-flex" style="padding-left: 0px;">
         <div id="section2--slide" class="swiper-container">
             <ul class="swiper-wrapper">
                 <li class="swiper-slide">
@@ -1084,7 +1382,7 @@
             </div>
         </div>
     </section>
-    <section class="section3">
+    <section  id="section3" class="section3">
         <div class="container">
             <div class="section3--title">
                 <div class="section3--title__txt">Why</div>
@@ -1160,12 +1458,20 @@
                     회원가입 없이도 웨비나에 신청 참여할 수 있습니다.         
                 </div>
             </div>
+            <div class="section4--progress__PCdiv">
+                <div class="section4--progress__PC"></div>
+                <img class="section4--progress__PCimg" src="/img/introduce/EXON-process-배경.png">
+            </div>
+            <div class="section4--progress__Mdiv">
+                <div class="section4--progress__M"></div>
+                <img class="section4--progress__Mimg" src="/img/introduce/section4-backgroundM.png">
+            </div>
             <div class="section4--box__wrap d-flex">
                 <div class="section4--box__div">
-                    <div class="section4--box__img select" style="box-shadow: 0px 0px 0px #000000;">
-                        <!-- <img src="/img/introduce/행사개설-아이콘-dark.png" class="section4--img"> -->
+                    <div class="section4--box__img select">
+                        <i class="fa-solid fa-chalkboard-user step1Icon" style="color: white;"></i>
                     </div>
-                    <div class="section4--txt__div">
+                    <div class="section4--txt__div section4--txt__div1">
                         <div class="section4--box__txt">STEP 01</div>
                         <div class="section4--box__txt2">행사 개설/모집</div>
                         <div class="section4--box__txt3">
@@ -1177,8 +1483,10 @@
                     </div>
                 </div>
                 <div class="section4--box__div">
-                    <div class="section4--box__img unselect"></div>
-                    <div class="section4--txt__div">
+                    <div class="section4--box__img unselect section4--box__img2">
+                        <i class="fa-solid fa-gears step2Icon"></i>
+                    </div>
+                    <div class="section4--txt__div section4--txt__div2">
                         <div class="section4--box__txt">STEP 02</div>
                         <div class="section4--box__txt2">웨비나 세팅</div>
                         <div class="section4--box__txt3">
@@ -1189,8 +1497,10 @@
                     </div>
                 </div>
                 <div class="section4--box__div">
-                    <div class="section4--box__img unselect"></div>
-                    <div class="section4--txt__div">
+                    <div class="section4--box__img unselect section4--box__img3">
+                        <i class="fa-solid fa-forward-step step3Icon"></i>
+                    </div>
+                    <div class="section4--txt__div section4--txt__div3">
                         <div class="section4--box__txt">STEP 03</div>
                         <div class="section4--box__txt2">웨비나 진행</div>
                         <div class="section4--box__txt3">
@@ -1201,8 +1511,10 @@
                     </div>
                 </div>
                 <div class="section4--box__div">
-                    <div class="section4--box__img unselect"></div>
-                    <div class="section4--txt__div">
+                    <div class="section4--box__img unselect section4--box__img4">
+                        <i class="fa-solid fa-hourglass-end step4Icon"></i>
+                    </div>
+                    <div class="section4--txt__div section4--txt__div4">
                         <div class="section4--box__txt">STEP 04</div>
                         <div class="section4--box__txt2">행사 종료</div>
                         <div class="section4--box__txt3">
@@ -1214,7 +1526,7 @@
             </div>
         </div>
     </section>
-    <section class="section5 d-flex">
+    <section id="section5"class="section5 d-flex">
             <div class="section5--title__div">
                 <div class="section5--box__txt">What</div>
                 <div class="section5--box__txt2"><span class="section5--txt__bold">EXON</span>은 차별화된 <br><span class="section5--txt__bold">서비스</span>를 제공합니다</div>
@@ -1226,7 +1538,7 @@
                     참가자들의 행사 참여 패턴을 분석한 <span class="section5--txt3__bold"> 데이터를 활용한 행사 분석 </span>
                 </div>
             </div>
-            <div class="section5--img__div"><img src="/img/introduce/스타벅스카드.png" class="section5--img"></div>
+            <div class="section5--img__div"><img src="/img/introduce/스타벅스카드.jpg" class="section5--img"></div>
     </section>
     <section class="section6">
         <div class="container">
@@ -1254,7 +1566,7 @@
             </div>
         </div>
     </section>
-
+</div>
 
 
 
@@ -1308,15 +1620,57 @@
         },
     });
 
-    const section4BoxTxt2 = $('.section4--box__txt2');
-    const section4 = $('#section4');
-    var rect = section4.getBoundingClientRect();
-    const section4Height = rect.top;
-    console.log(window.scrollY);
+    const section1 = document.querySelector('#section1');
+    const section1Height = section1.getBoundingClientRect().height;
+    const section2 = document.querySelector('#section2');
+    const section2Height = section2.getBoundingClientRect().height;
+    const section3 = document.querySelector('#section3');
+    const section3Height = section3.getBoundingClientRect().height;
+    const section4 = document.querySelector('#section4');
+    const section4Height = section4.getBoundingClientRect().height;
+    const section5 = document.querySelector('#section5');
+    const section5Height = section5.getBoundingClientRect().height;
+
+    const section4ProgressPc = document.querySelector('.section4--progress__PC');
+    const section4ProgressM = document.querySelector('.section4--progress__M');
+    const section4TxtDiv2 = document.querySelector('.section4--txt__div2');
+    const section4TxtDiv3 = document.querySelector('.section4--txt__div3');
+    const section4TxtDiv4 = document.querySelector('.section4--txt__div4');
+    const section4BoxImg2 = document.querySelector('.section4--box__img2');
+    const section4BoxImg3 = document.querySelector('.section4--box__img3');
+    const section4BoxImg4 = document.querySelector('.section4--box__img4'); 
+    const step2Icon = document.querySelector('.step2Icon');
+    const step3Icon = document.querySelector('.step3Icon');
+    const step4Icon = document.querySelector('.step4Icon');
+
+    const section5BoxTxt1 = document.querySelector('.section5--box__txt');
+    const section5BoxTxt2 = document.querySelector('.section5--box__txt2');
+    const section5BoxTxt3 = document.querySelector('.section5--box__txt3');
+    
     document.addEventListener('scroll', ()=>{
-        if(window.scrollY > section4Height) {
-            section4BoxTxt2.style.animation = "fade .8s .5s both";
-            alert("section4");
+        if(window.scrollY > section1Height + section2Height + section3Height + (section4Height - 500)) {
+            section5BoxTxt1.style.animation = "rightFly 3s .1s both";
+            section5BoxTxt2.style.animation = "rightFly 3s .1s both";
+            section5BoxTxt3.style.animation = "rightFly 4s .1s both";
+        } else {
+        
         }
+
+        if(window.scrollY > section1Height + section2Height + (section3Height - 500)) {
+            section4ProgressPc.style.animation = "section4--progress 8s 1s both";
+            section4ProgressM.style.animation = "section4--progressM 8s 0.5s both";
+            section4TxtDiv2.style.animation = "bottomFly 1s 2s both";
+            section4TxtDiv3.style.animation = "bottomFly 1s 3s both";
+            section4TxtDiv4.style.animation = "bottomFly 1s 4s both";
+            section4BoxImg2.style.animation = "section4--box__color 1s 2s both";
+            section4BoxImg3.style.animation = "section4--box__color 1s 3s both";
+            section4BoxImg4.style.animation = "section4--box__color 1s 4s both";
+            step2Icon.style.animation = "section4--icon__color  1s 2s both";
+            step3Icon.style.animation = "section4--icon__color  1s 3s both";
+            step4Icon.style.animation = "section4--icon__color  1s 4s both";
+        } else {
+            
+        }
+        
     });
 </script>

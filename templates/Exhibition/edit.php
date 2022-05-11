@@ -128,7 +128,14 @@
                     <li class ="active"><a href="">행사 설정 수정</a></li>
                     <li><a href="/exhibition/survey-data/<?= $id ?>">설문 데이터</a></li>
                     <li><a href="/exhibition/manager-person/<?= $id ?>">참가자 관리</a></li>
-                    <li><a href="/exhibition-stream/set-exhibition-stream/<?= $id ?>">웨비나 송출 설정</a></li>
+                    <?php if ($exhibition->is_vod == 0) : ?> 
+                    <li><a href="/exhibition-stream/set-exhibition-stream/<?= $id ?>">웨비나 송출 설정(라이브)</a></li>
+                    <?php elseif ($exhibition->is_vod == 1) : ?>
+                    <li><a href="/exhibition-stream/set-exhibition-vod/<?= $id ?>">웨비나 송출 설정(VOD)</a></li>
+                    <?php else : ?>
+                    <li><a href="/exhibition-stream/set-exhibition-stream/<?= $id ?>">웨비나 송출 설정(라이브)</a></li>
+                    <li><a href="/exhibition-stream/set-exhibition-vod/<?= $id ?>">웨비나 송출 설정(VOD)</a></li>
+                    <?php endif; ?>
                     <li><a href="/exhibition/exhibition-statistics-apply/<?= $id ?>">행사 통계</a></li>
                 </ul>
             </div>
@@ -351,6 +358,36 @@
                         <span class="chk-dsg"><input type="checkbox" id="vod" class="is_vod"><label for="vod">VOD 송출</label></span>
                     </div>
                 </div>
+                <input type="hidden" id="live_tab" name="live_tab" value="0">
+                <input type="hidden" id="vod_tab" name="vod_tab" value="0">
+                <div class="sect7 mgtS1" id="live-tab-div">
+                    <h4 class="s-hty2">라이브 탭 설정</h4>
+                    <p class="p-noti">표시할 탭을 선택합니다.</p>
+                    <div class="list-chks">
+                        <span class="chk-dsg"><input type="checkbox" class="live_tab_box" id="live_9" name="1" checked="checked"><label for="live_9">실시간 채팅</label></span>
+                        <span class="chk-dsg"><input type="checkbox" class="live_tab_box" id="live_5" name="16" checked="checked"><label for="live_5">출석체크</label></span>
+                        <span class="chk-dsg"><input type="checkbox" class="live_tab_box" id="live_8" name="2"><label for="live_8">설문</label></span>
+                        <span class="chk-dsg"><input type="checkbox" class="live_tab_box" id="live_7" name="4"><label for="live_7">공지사항</label></span>
+                        <span class="chk-dsg"><input type="checkbox" class="live_tab_box" id="live_6" name="8"><label for="live_6">질의 응답</label></span><br>
+                        <span class="chk-dsg"><input type="checkbox" class="live_tab_box" id="live_4" name="32"><label for="live_4">프로그램</label></span>
+                        <span class="chk-dsg"><input type="checkbox" class="live_tab_box" id="live_3" name="64"><label for="live_3">담당자 정보</label></span>
+                        <span class="chk-dsg"><input type="checkbox" class="live_tab_box" id="live_2" name="128"><label for="live_2">개설자 정보</label></span>
+                        <span class="chk-dsg"><input type="checkbox" class="live_tab_box" id="live_1" name="256"><label for="live_1">행사 정보</label></span>
+                        <span class="chk-dsg"><input type="checkbox" class="live_tab_box" id="live_0" name="512"><label for="live_0">자료</label></span>
+                    </div>
+                </div>
+                <div class="sect7 mgtS1" id="vod-tab-div">
+                    <h4 class="s-hty2">VOD 탭 설정</h4>
+                    <p class="p-noti">표시할 탭을 선택합니다.</p>
+                    <div class="list-chks">
+                        <span class="chk-dsg"><input type="checkbox" class="vod_tab_box" id="vod_8" name="2"><label for="vod_8">설문</label></span>
+                        <span class="chk-dsg"><input type="checkbox" class="vod_tab_box" id="vod_7" name="4"><label for="vod_7">공지사항</label></span>
+                        <span class="chk-dsg"><input type="checkbox" class="vod_tab_box" id="vod_3" name="64"><label for="vod_3">담당자 정보</label></span>
+                        <span class="chk-dsg"><input type="checkbox" class="vod_tab_box" id="vod_2" name="128"><label for="vod_2">개설자 정보</label></span>
+                        <span class="chk-dsg"><input type="checkbox" class="vod_tab_box" id="vod_1" name="256"><label for="vod_1">행사 정보</label></span>
+                        <span class="chk-dsg"><input type="checkbox" class="vod_tab_box" id="vod_0" name="512"><label for="vod_0">자료</label></span>
+                    </div>
+                </div>
                 <div class="sect7 mgtS1">
                     <h4 class="s-hty2">웨비나 접속 시 본인 인증</h4>
                     <p class="p-noti">웨비나 접속 시 인증 절차를 진행합니다.</p>
@@ -426,6 +463,32 @@
         }
         if ($(this).attr("id") == "vod" && $("#live").prop("checked") == false && $("#vod").prop("checked") == false) {
             $("#live").prop("checked", true);
+        }
+    });
+
+    $(document).on("ready", function () {
+        if ($("#live").prop("checked") == true) {
+            $("#live-tab-div").show();
+        } else {
+            $("#live-tab-div").hide();
+        }
+        if ($("#vod").prop("checked") == true) {
+            $("#vod-tab-div").show();
+        } else {
+            $("#vod-tab-div").hide();
+        }
+    });
+
+    $(".is_vod").on("change", function() {
+        if ($("#live").prop("checked") == true) {
+            $("#live-tab-div").show();
+        } else {
+            $("#live-tab-div").hide();
+        }
+        if ($("#vod").prop("checked") == true) {
+            $("#vod-tab-div").show();
+        } else {
+            $("#vod-tab-div").hide();
         }
     });
 
@@ -567,6 +630,40 @@
             $("#member_div").show();
         }
     });
+
+    var dec = "<?=$exhibition->live_tab?>";
+    dec = parseInt(dec);
+    var bin = dec.toString(2);
+    if (bin.length < 10) {
+        var zero = '';
+        for (i=0; i<10-bin.length; i++) {
+            zero += '0';
+        }
+        bin = zero+bin;
+    }
+    for (i=0; i<bin.length; i++) {
+        var result = bin.substring(i,i+1);
+        if (parseInt(result) == 1) {
+            $("#live_" + i).prop("checked", true);
+        }
+    }
+
+    var dec = "<?=$exhibition->vod_tab?>";
+    dec = parseInt(dec);
+    var bin = dec.toString(2);
+    if (bin.length < 10) {
+        var zero = '';
+        for (i=0; i<10-bin.length; i++) {
+            zero += '0';
+        }
+        bin = zero+bin;
+    }
+    for (i=0; i<bin.length; i++) {
+        var result = bin.substring(i,i+1);
+        if (parseInt(result) == 1) {
+            $("#vod_" + i).prop("checked", true);
+        }
+    }
 
     //그룹 데이터 불러오기
     var groupIndex = 0;
@@ -914,6 +1011,23 @@
         if (group_empty == 1) {
             return false
         }
+
+        var live_tab = 0;
+        var vod_tab = 0;
+        $(".live_tab_box").each(function () {
+            if ($(this).prop("checked") == true) {
+                live_tab += parseInt($(this).attr("name"));
+            }
+        });
+
+        $(".vod_tab_box").each(function () {
+            if ($(this).prop("checked") == true) {
+                vod_tab += parseInt($(this).attr("name"));
+            }
+        });
+
+        $("#live_tab").val(live_tab);
+        $("#vod_tab").val(vod_tab);
         
         oEditors.getById["detail_html"].exec("UPDATE_CONTENTS_FIELD", []);
         var formData = $("#editForm").serialize();
@@ -1052,6 +1166,23 @@
         if (group_empty == 1) {
             return false
         }
+
+        var live_tab = 0;
+        var vod_tab = 0;
+        $(".live_tab_box").each(function () {
+            if ($(this).prop("checked") == true) {
+                live_tab += parseInt($(this).attr("name"));
+            }
+        });
+
+        $(".vod_tab_box").each(function () {
+            if ($(this).prop("checked") == true) {
+                vod_tab += parseInt($(this).attr("name"));
+            }
+        });
+
+        $("#live_tab").val(live_tab);
+        $("#vod_tab").val(vod_tab);
 
         oEditors.getById["detail_html"].exec("UPDATE_CONTENTS_FIELD", []);
         var formData = $("#editForm").serialize();

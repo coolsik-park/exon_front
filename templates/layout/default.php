@@ -37,6 +37,8 @@
     <meta name="naver-site-verification" content="691220371d52b4ab2727e6f7cb48a6f25b810fa9" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
+    <script src="https://kit.fontawesome.com/5d52546e18.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />   
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon" sizes="16x16">
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/slick.js"></script>
@@ -63,6 +65,15 @@
             margin: -30px 0px 20px 0px;
         }
         @media  screen and (max-width: 768px) {
+        .header-search-mo .search-ipt-wp .ipt {
+            padding: 1.2vw 0 2vw 10vw;
+        }
+        .header-search-mo .search {
+            right: 2vh;
+        }
+        #header .static-mo {
+            padding: 4.3vw;
+        }
         .footer__info--imgDiv {
             float: left;
             margin: 20px 0px 20px 0px;
@@ -116,8 +127,8 @@
             <button type="button" class="tg-search">검색</button>
             <div class="header-search-mo">
                 <div class="search-ipt-wp">
-                    <input type="text" placeholder="찾으시는 행사를 검색해주세요" class="ipt">
-                    <button type="button" class="search">검색</button>
+                    <input id="m-search" type="text" placeholder="찾으시는 행사를 검색해주세요" class="ipt">
+                    <button id="m-search-button" type="button" class="search">검색</button>
                 </div>                   
                 <button type="button" class="cancel">취소</button>
             </div>
@@ -256,10 +267,30 @@
         }
     });
 
+    $(document).on("click", "#m-search-button", function () {
+        var key = $("#m-search").val();
+        if (key == '') {
+            window.location.href = "/exhibition/search";
+        } else {
+            window.location.href = "/exhibition/search/" + key;
+        }
+    });
+
     $(document).ready(function(e) {
         $("#search").keydown(function(keyCode) {
             if (keyCode.keyCode == 13) {
                 var key = $("#search").val();
+                if (key == '') {
+                    window.location.href = "/exhibition/search";
+                } else {
+                    window.location.href = "/exhibition/search/" + key;
+                }
+            }
+        });
+        
+        $("#m-search").keydown(function(keyCode) {
+            if (keyCode.keyCode == 13) {
+                var key = $("#m-search").val();
                 if (key == '') {
                     window.location.href = "/exhibition/search";
                 } else {
