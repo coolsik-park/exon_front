@@ -521,7 +521,7 @@
         display: inline-block;
         width: 100%;
         height: 50vh;
-        margin-top: 65px;
+        margin-top: 87px;
         border-top-left-radius: 45%;
         border-top-right-radius: 45%;
     }
@@ -999,6 +999,7 @@
         }
         .section6-img1 {
             height: 215px;
+            margin-top: 65px;
         }
         .section6-img2 {
             height: auto;
