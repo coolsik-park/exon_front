@@ -86,6 +86,8 @@
         if (!$("#toggle").hasClass("close")) {
             window.scrollTo(0, 0);
         }
+    });
+    
     $(document).ready(function () {
         console.log('aaaa');
         $.ajax({
