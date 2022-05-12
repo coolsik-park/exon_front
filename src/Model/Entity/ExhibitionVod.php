@@ -11,7 +11,11 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property int $exhibition_id
  * @property string $title
+ * @property string|null $description
+ * @property int|null $file_size
  * @property int|null $parent_id
+ * @property int|null $duration
+ * @property int|null $is_paid
  * @property int $viewer
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
@@ -34,7 +38,11 @@ class ExhibitionVod extends Entity
     protected $_accessible = [
         'exhibition_id' => true,
         'title' => true,
+        'description' => true,
+        'file_size' => true,
         'parent_id' => true,
+        'duration' => true,
+        'is_paid' => true,
         'viewer' => true,
         'created' => true,
         'modified' => true,

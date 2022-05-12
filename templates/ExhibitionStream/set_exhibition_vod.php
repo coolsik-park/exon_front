@@ -551,6 +551,16 @@
         var file = $(this).prop('files')[0];
 
         if (file != null) {
+            // 업로드 영상 재생시간(db 추가 부분 만들어야됨)
+            var video = document.createElement('video');
+            video.preload = 'metadata';
+            video.onloadedmetadata = function() {
+                window.URL.revokeObjectURL(video.src);
+                var video_duration = Math.floor(video.duration);
+                // console.log(Math.floor(video.duration));
+            }
+            video.src = URL.createObjectURL(file);
+
             selectFile(file)
             var html = "<span class='kb'>파일명 : " + file.name + " / 파일 사이즈 : " + (file.size/1024/1024).toFixed(1) + "MB</span>";
             $(this).parent().parent().children(".kb").remove();
@@ -653,7 +663,7 @@
         html += '    <form name="uploadForm" id="uploadForm">';
         html += '        <div class="mouse-area">';
         html += '            <label><span class="ico-plus-c">+</span></button>';
-        html += '            <input name="file" type="file" class="file" style="display:none">';
+        html += '            <input name="file" type="file" id="file_add" class="file" style="display:none">';
         html += '            <p>클릭하여 VOD를 업로드하세요.</p></label>';
         html += '        </div>';
         html += '        <br><br>';

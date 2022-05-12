@@ -89,7 +89,6 @@
     });
     
     $(document).ready(function () {
-        console.log('aaaa');
         $.ajax({
             url: "/exhibition-stream/exhibition-vod-add-viewer/" + <?= $exhibitionVod->id ?>,
             method: 'POST',
