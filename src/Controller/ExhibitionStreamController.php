@@ -1633,6 +1633,38 @@ class ExhibitionStreamController extends AppController
         return $response;
     }
 
+    public function vodAddViewer ($exhibition_vod_id = null) {
+        $user_id = $this->Auth->user('id');
+        $exhibition_vod_viewer_table = $this->getTableLocator()->get('ExhibitionVodViewer');
+        $exhibition_vod_viewer = $exhibition_vod_viewer_table->find()->where(['exhibition_vod_id' => $exhibition_vod_id, 'user_id' => $user_id])->toArray();
+
+        if (count($exhibition_vod_viewer) == 0) {
+            $connection = ConnectionManager::get('default');
+            $connection->begin();
+
+            if ($this->request->is(['post', 'put'])) {
+                $exhibition_vod_viewer_data = $exhibition_vod_viewer_table->newEmptyEntity();
+                $exhibition_vod_viewer_data->exhibition_vod_id = $exhibition_vod_id;
+                $exhibition_vod_viewer_data->user_id = $user_id;
+                
+                if ($result = $exhibition_vod_viewer_table->save($exhibition_vod_viewer_data)) {
+                    $connection->commit();
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'add_success']));
+                    return $response;
+                }
+            }
+        } else {
+            $exhibition_vod_viewer_data = $exhibition_vod_viewer_table->get($exhibition_vod_viewer[0]->id);
+            $exhibition_vod_viewer_data->watching_duration = $this->request->getData('current_time');
+
+            if ($exhibition_vod_viewer_table->save($exhibition_vod_viewer_data)) {
+                $connection->commit();
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'update_success']));
+                return $response;
+            }
+        }
+    }
+
     public function addViewer ($exhibition_stream_id = null)
     {
         $ip = $this->request->ClientIp();
