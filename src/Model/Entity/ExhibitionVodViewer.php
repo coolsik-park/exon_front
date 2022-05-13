@@ -9,6 +9,7 @@ use Cake\ORM\Entity;
  * ExhibitionVodViewer Entity
  *
  * @property int $id
+ * @property int|null $exhibition_id
  * @property int $exhibition_vod_id
  * @property int $user_id
  * @property int|null $watching_duration
@@ -30,6 +31,7 @@ class ExhibitionVodViewer extends Entity
      * @var array
      */
     protected $_accessible = [
+        'exhibition_id' => true,
         'exhibition_vod_id' => true,
         'user_id' => true,
         'watching_duration' => true,

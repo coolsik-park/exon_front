@@ -84,7 +84,7 @@
 
             //exhibition_vod_viewer 값 add
             $.ajax({
-                url: "/exhibition-stream/vod-add-viewer/" + <?= $exhibitionVod->id ?>,
+                url: "/exhibition-stream/vod-add-viewer/" + <?= $exhibition->id ?> +"/"+ <?= $exhibitionVod->id ?>,
                 method: 'POST',
                 type:'json',
                 data: {

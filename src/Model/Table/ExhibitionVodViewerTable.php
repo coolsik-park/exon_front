@@ -48,6 +48,9 @@ class ExhibitionVodViewerTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        $this->belongsTo('Exhibition', [
+            'foreignKey' => 'exhibition_id',
+        ]);
         $this->belongsTo('ExhibitionVod', [
             'foreignKey' => 'exhibition_vod_id',
             'joinType' => 'INNER',
@@ -86,6 +89,7 @@ class ExhibitionVodViewerTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
+        $rules->add($rules->existsIn(['exhibition_id'], 'Exhibition'), ['errorField' => 'exhibition_id']);
         $rules->add($rules->existsIn(['exhibition_vod_id'], 'ExhibitionVod'), ['errorField' => 'exhibition_vod_id']);
         $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
 
