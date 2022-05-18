@@ -82,8 +82,23 @@ class ExhibitionVodTable extends Table
             ->notEmptyString('title');
 
         $validator
+            ->scalar('description')
+            ->allowEmptyString('description');
+
+        $validator
+            ->integer('file_size')
+            ->allowEmptyFile('file_size');
+
+        $validator
+            ->integer('duration')
+            ->allowEmptyString('duration');
+
+        $validator
+            ->integer('is_paid')
+            ->allowEmptyString('is_paid');
+
+        $validator
             ->integer('viewer')
-            ->requirePresence('viewer', 'create')
             ->notEmptyString('viewer');
 
         return $validator;
