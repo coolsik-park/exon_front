@@ -63,9 +63,22 @@
         }
         .add-chapter-div {
             width: 100%;
+            position: relative;
         }
         #add-chapter {
             cursor: pointer;
+            position: absolute;
+            top: -34px;
+            right: 12px;
+        }
+        .p-noti2 {
+            font-size: 1rem;
+            color: #afafaf;
+            line-height: 1.5;
+            margin-top: 20px;
+            padding: 10px;
+            border-bottom: 1px solid;
+            text-align: right;
         }
         .add-vod {
             cursor: pointer;
@@ -107,6 +120,29 @@
         }
         .delete {
             cursor: pointer;
+        }
+        .sect--border {
+            border-radius: 0px;
+            border: none;
+            border-bottom: 1px solid;
+        }
+        .stream-sect .row2-wp .row2 {
+            width: 100%;
+        }
+        .stream-sect .row2-wp {
+            flex-wrap: wrap;
+        }
+        .date--style {
+            margin-bottom: 45px;
+        }
+        /* .endDate--style {
+            flex-direction: column;
+        } */
+        .endDate2--style {
+            margin-left: 7.5em;
+        }
+        .row2 .col-td {
+            margin-bottom: 20px;
         }
         @media  screen and (max-width: 768px) {
             .stream-sect .row2-wp .row2 {
@@ -155,25 +191,28 @@
     <div class="section-webinar4">
         <div class="webinar-cont">
             <div class="chapter-body">  
-                <?php if (!empty($exhibitionVod)) : ?>      
+            </div> 
+            <div class='wb-stream-sect'>
+                <div class="add-chapter-div">
+                    <a id="add-chapter"><img src="/img/plus.png" class="plus"><span class="btn-span">챕터 추가</span></a>
+                    <p class="p-noti2 noti">챕터를 추가하여 VOD들을 챕터별로 분류 할 수 있습니다.</p>
+                    <?php if (!empty($exhibitionVod)) : ?>      
                     <?php foreach ($exhibitionVod as $list) : ?>      
-                        <div class='wb-stream-sect'>
+                        <div class='wb-stream-sect sect--border'>
                             <div class="stream-sect">
-                                <div class="chaper-title" style="font-size:40px;"><?=$list['title']?><a style="float:right;" class="delete c" name="<?=$list['id']?>"><img class="chapter-icon" src="/img/trash_can-lov.png"></a></div>
+                                <div class="chapter-title" style="font-size:40px;"><?=$list['title']?><a style="float:right;" class="delete c" name="<?=$list['id']?>"><img class="chapter-icon" src="/img/trash_can-lov.png"></a></div>
                                 <?php foreach ($list['child_exhibition_vod'] as $child) : ?>
                                     <div class="vod-title" style="font-size:30px; margin:20px 0; padding-left:10px;"><a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition_id?>/<?=$child['id']?>"><?=$child['title']?></a><a style="float:right;" class="delete v" name="<?=$child['id']?>"><img class="vod-icon" src="/img/trash_can-lov.png"></a></div>
                                 <?php endforeach; ?>
                                 <br><br>
-                                <a id="<?=$list['id']?>" class="add-vod"><img src="/img/plus.png" class="plus"><span class="btn-span">VOD 추가</span></a>
+                                <a id="<?=$list['id']?>" class="add-vod"><img src="/img/plus.png" class="plus"><span class="btn-span"></span></a>
                             </div>   
                         </div>
                     <?php endforeach; ?>
                 <?php endif; ?>
-            </div>   
-            <div class="add-chapter-div">
-                <a id="add-chapter"><img src="/img/plus.png" class="plus"><span class="btn-span">챕터 추가</span></a>
-                <p class="p-noti2 noti">챕터를 추가하여 VOD들을 챕터별로 분류 할 수 있습니다.</p>
-            </div>       
+                </div>
+                <a id="<?=$list['id']?>" class="add-vod"><img src="/img/plus.png" class="plus"><span class="btn-span">VOD 추가</span></a>
+            </div>
             <div class="wb-stream-sect">
                 <h2 class="s-hty3">결제</h2>
                 <div class="stream-sect">
@@ -188,7 +227,7 @@
                     </div>
                     <div class="row2-wp">
                         <div class="row2">
-                            <div class="col-th">기간</div>
+                            <div class="col-th date--style">기간</div>
                             <div class="col-td">
                                 <label for="vod_sdate">시작 일시</label> 
                                 <div class="date-sett-wp">
@@ -205,8 +244,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row2">
-                            <div class="col-td">
+                        <div class="row2 endDate--style">
+                            <div class="col-td endDate2--style">
                                 <label for="vod_sdate">종료 일시</label> 
                                 <div class="date-sett-wp">
                                     <div class="date-sett">
@@ -625,7 +664,7 @@
         html += "    </div>";
         html += "</div>";
 
-        $(".chapter-body").append(html);
+        $(".noti").append(html);
     });
 
     $(document).on("click", ".chapter-name-btn", function () {
@@ -646,6 +685,46 @@
     });
 
     //vod 컨트롤
+    // $(document).on("click", ".add-vod", function () {
+    //     $(this).hide();
+    //     var html = '';
+    //     html += '<div class="webinar-cont-ty2">';
+    //     html += '    <form name="uploadForm" id="uploadForm">';
+    //     html += '        <div class="mouse-area">';
+    //     html += '            <label><span class="ico-plus-c">+</span></button>';
+    //     html += '            <input name="file" type="file" class="file" style="display:none">';
+    //     html += '            <p>클릭하여 VOD를 업로드하세요.</p></label>';
+    //     html += '        </div>';
+    //     html += '        <br><br>';
+    //     html += '        <div id="fileTableTbody" class="data-itmes">';
+    //     html += '        </div>';
+    //     html += '        <div class="stream-sect">';
+    //     html += '           <div class="row2">';
+    //     html += '               <div class="col-th">VOD 제목</div>';
+    //     html += '                   <div class="col-td">';
+    //     html += '                       <div class="stream-ipt1">';
+    //     html += '                           <input type="text" class="vod-input">';
+    //     html += '                       </div>';
+    //     html += '                   </div>';
+    //     html += '               </div>';
+    //     html += '               <div class="row2">';
+    //     html += '                  <div class="col-th">VOD 설명</div>';
+    //     html += '                      <div class="col-td">';
+    //     html += '                  <div class="stream-ipt1">';
+    //     html += '                      <textarea class="vod-input"></textarea>';
+    //     html += '                  </div>';
+    //     html += '               </div>';
+    //     html += '           </div>';
+    //     html += '        </div>';
+    //     html += '        <div class="wb10-btn">';
+    //     html += '            <button type="button" class="btn3 cancel-file">취소하기</button>';
+    //     html += '            <button type="button" class="btn3 add-file">저장하기</button>';
+    //     html += '        </div>';
+    //     html += '    </form>';               
+    //     html += '</div>';   
+    //     $(this).parent().append(html);
+    // });
+
     $(document).on("click", ".add-vod", function () {
         $(this).hide();
         var html = '';
@@ -683,7 +762,7 @@
         html += '        </div>';
         html += '    </form>';               
         html += '</div>';   
-        $(this).parent().append(html);
+        $('.add-chapter-div').append(html);
     });
 
     $(document).on("click", ".cancel-file", function () {

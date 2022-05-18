@@ -27,7 +27,7 @@
             <div class="webinar-cont">
                 <div class="wb-cont1">
                     <video id="vid1" class="video-js vjs-big-play-centered">
-                        <source src="/vod/<?=$exhibition->id?>/<?=$exhibitionVod->title?>.mp4" type="video/mp4" />
+                        <!-- <source src="/vod/<?=$exhibition->id?>/<?=$exhibitionVod->title?>.mp4" type="video/mp4" /> -->
                     </video>
                 </div>                
             </div>
@@ -80,6 +80,11 @@
         preload: 'auto',
         fluid: true,
     });
+    player.src({
+        src: '/vod/<?=$exhibition->id?>/<?=$exhibitionVod->title?>.mp4',
+        type: 'video/mp4'
+    });
+    player.play();
 
     //go top when open tab
     $(document).on("click", ".webinar-tab-tg", function() {
