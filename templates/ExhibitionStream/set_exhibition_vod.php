@@ -144,6 +144,38 @@
         .row2 .col-td {
             margin-bottom: 20px;
         }
+        .stream-sect {
+            position: relative;
+        }
+        .stream-sect > .add-vod {
+            position: absolute;
+            top: -2%;
+            right: 120px;
+        }
+        .delete--vod__1 {
+            position: absolute;
+            right: 95px;
+        }
+        .delete--vod__2 {
+            position: absolute;
+            right: 95px;
+        }
+        .view--vod__1 {
+            position: absolute;
+            right: 65px;
+        }
+        .view--vod__2 {
+            position: absolute;
+            right: 65px;
+        }
+        .move--vod__1 {
+            position: absolute;
+            right: 30px;
+        }
+        .move--vod__2 {
+            position: absolute;
+            right: 35px;
+        }
         @media  screen and (max-width: 768px) {
             .stream-sect .row2-wp .row2 {
                 width: 99%;
@@ -200,18 +232,33 @@
                     <?php foreach ($exhibitionVod as $list) : ?>      
                         <div class='wb-stream-sect sect--border'>
                             <div class="stream-sect">
-                                <div class="chapter-title" style="font-size:40px;"><?=$list['title']?><a style="float:right;" class="delete c" name="<?=$list['id']?>"><img class="chapter-icon" src="/img/trash_can-lov.png"></a></div>
+                                <div class="chapter-title" style="font-size:40px;"><?=$list['title']?>
+                                    <a style="" class="delete c delete--vod__1" name="<?=$list['id']?>">
+                                        <img class="chapter-icon" src="/img/trash_can-lov.png">
+                                    </a>
+                                    <a style="" class="c view--vod__1" name="<?=$list['id']?>">
+                                        <img class="chapter-icon" src="/img/view.png">
+                                    </a>
+                                    <a style="" class="c move--vod__1" name="<?=$list['id']?>">
+                                        <img class="chapter-icon" src="/img/list.png">
+                                    </a>
+                                </div>
                                 <?php foreach ($list['child_exhibition_vod'] as $child) : ?>
-                                    <div class="vod-title" style="font-size:30px; margin:20px 0; padding-left:10px;"><a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition_id?>/<?=$child['id']?>"><?=$child['title']?></a><a style="float:right;" class="delete v" name="<?=$child['id']?>"><img class="vod-icon" src="/img/trash_can-lov.png"></a></div>
+                                    <div class="vod-title" style="font-size:30px; margin:20px 0; padding-left:10px;">
+                                        <a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition_id?>/<?=$child['id']?>"><?=$child['title']?></a>
+                                        <a style="" class="delete v delete--vod__2" name="<?=$child['id']?>"><img class="vod-icon" src="/img/trash_can-lov.png"></a>
+                                        <a style="" class="v view--vod__2" name="<?=$child['id']?>"><img class="vod-icon" src="/img/view.png"></a>
+                                        <a style="" class="v move--vod__2" name="<?=$child['id']?>"><img class="vod-icon" src="/img/list.png"></a>
+                                    </div>
                                 <?php endforeach; ?>
                                 <br><br>
-                                <a id="<?=$list['id']?>" class="add-vod"><img src="/img/plus.png" class="plus"><span class="btn-span"></span></a>
+                                <a id="<?=$list['id']?>" class="add-vod add--vod__2"><img src="/img/plus.png" class="plus"><span class="btn-span"></span></a>
                             </div>   
                         </div>
                     <?php endforeach; ?>
                 <?php endif; ?>
                 </div>
-                <a id="<?=$list['id']?>" class="add-vod"><img src="/img/plus.png" class="plus"><span class="btn-span">VOD 추가</span></a>
+                <a id="<?=$list['id']?>" class="add-vod add--vod__1"><img src="/img/plus.png" class="plus"><span class="btn-span">VOD 추가</span></a>
             </div>
             <div class="wb-stream-sect">
                 <h2 class="s-hty3">결제</h2>
@@ -695,47 +742,47 @@
     });
 
     //vod 컨트롤
-    // $(document).on("click", ".add-vod", function () {
-    //     $(this).hide();
-    //     var html = '';
-    //     html += '<div class="webinar-cont-ty2">';
-    //     html += '    <form name="uploadForm" id="uploadForm">';
-    //     html += '        <div class="mouse-area">';
-    //     html += '            <label><span class="ico-plus-c">+</span></button>';
-    //     html += '            <input name="file" type="file" class="file" style="display:none">';
-    //     html += '            <p>클릭하여 VOD를 업로드하세요.</p></label>';
-    //     html += '        </div>';
-    //     html += '        <br><br>';
-    //     html += '        <div id="fileTableTbody" class="data-itmes">';
-    //     html += '        </div>';
-    //     html += '        <div class="stream-sect">';
-    //     html += '           <div class="row2">';
-    //     html += '               <div class="col-th">VOD 제목</div>';
-    //     html += '                   <div class="col-td">';
-    //     html += '                       <div class="stream-ipt1">';
-    //     html += '                           <input type="text" class="vod-input">';
-    //     html += '                       </div>';
-    //     html += '                   </div>';
-    //     html += '               </div>';
-    //     html += '               <div class="row2">';
-    //     html += '                  <div class="col-th">VOD 설명</div>';
-    //     html += '                      <div class="col-td">';
-    //     html += '                  <div class="stream-ipt1">';
-    //     html += '                      <textarea class="vod-input"></textarea>';
-    //     html += '                  </div>';
-    //     html += '               </div>';
-    //     html += '           </div>';
-    //     html += '        </div>';
-    //     html += '        <div class="wb10-btn">';
-    //     html += '            <button type="button" class="btn3 cancel-file">취소하기</button>';
-    //     html += '            <button type="button" class="btn3 add-file">저장하기</button>';
-    //     html += '        </div>';
-    //     html += '    </form>';               
-    //     html += '</div>';   
-    //     $(this).parent().append(html);
-    // });
+    $(document).on("click", ".add--vod__2", function () {
+        $(this).hide();
+        var html = '';
+        html += '<div class="webinar-cont-ty2">';
+        html += '    <form name="uploadForm" id="uploadForm">';
+        html += '        <div class="mouse-area">';
+        html += '            <label><span class="ico-plus-c">+</span></button>';
+        html += '            <input name="file" type="file" class="file" style="display:none">';
+        html += '            <p>클릭하여 VOD를 업로드하세요.</p></label>';
+        html += '        </div>';
+        html += '        <br><br>';
+        html += '        <div id="fileTableTbody" class="data-itmes">';
+        html += '        </div>';
+        html += '        <div class="stream-sect">';
+        html += '           <div class="row2">';
+        html += '               <div class="col-th">VOD 제목</div>';
+        html += '                   <div class="col-td">';
+        html += '                       <div class="stream-ipt1">';
+        html += '                           <input type="text" class="vod-input">';
+        html += '                       </div>';
+        html += '                   </div>';
+        html += '               </div>';
+        html += '               <div class="row2">';
+        html += '                  <div class="col-th">VOD 설명</div>';
+        html += '                      <div class="col-td">';
+        html += '                  <div class="stream-ipt1">';
+        html += '                      <textarea class="vod-input"></textarea>';
+        html += '                  </div>';
+        html += '               </div>';
+        html += '           </div>';
+        html += '        </div>';
+        html += '        <div class="wb10-btn">';
+        html += '            <button type="button" class="btn3 cancel-file">취소하기</button>';
+        html += '            <button type="button" class="btn3 add-file">저장하기</button>';
+        html += '        </div>';
+        html += '    </form>';               
+        html += '</div>';   
+        $(this).parent().append(html);
+    });
 
-    $(document).on("click", ".add-vod", function () {
+    $(document).on("click", ".add--vod__1", function () {
         $(this).hide();
         var html = '';
         html += '<div class="webinar-cont-ty2">';
@@ -776,7 +823,7 @@
     });
 
     $(document).on("click", ".cancel-file", function () {
-        $(this).parent().parent().parent().parent().find(".add-vod").show();
+        $(this).parent().parent().parent().parent().parent().find(".add-vod").show();
         $(this).parent().parent().parent().parent().find(".webinar-cont-ty2").remove();
     });
 
