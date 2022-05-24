@@ -32,9 +32,9 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                         <div class="col-dt"><em class="st">*</em>이메일 (아이디)</div>
                         <div class="col-dd">
                             <div class="col-email-wp">
-                                <input type="text" id="email" placeholder="이메일" title="이메일 (아이디)" autocomplete="off" readonly onclick="$(this).attr('readonly', false)" onblur="$(this).attr('readonly', true)">
+                                <input type="text" id="email" placeholder="이메일" title="이메일 (아이디)" autocomplete="off" >
                                 <span class="sp">@</span>
-                                <input type="text" id="emailTail" list="list" onmousedown="value = '';" autocomplete="off" readonly onclick="$(this).attr('readonly', false)" onblur="$(this).attr('readonly', true)">
+                                <input type="text" id="emailTail" list="list" onmousedown="value = '';" autocomplete="off" >
                                 <datalist id="list">
                                     <option value="naver.com" label="네이버">
                                     <option value="gmail.com" label="구글">
@@ -47,14 +47,14 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                     <div class="item-row">
                         <div class="col-dt"><em class="st">*</em>비밀번호</div>
                         <div class="col-dd">
-                            <input type="password" id="password" placeholder="최소 8자 이상" class="full" title="비밀번호" autocomplete="off" readonly onclick="$(this).attr('readonly', false)" onblur="$(this).attr('readonly', true)">
+                            <input type="password" id="password" placeholder="최소 8자 이상" class="full" title="비밀번호" autocomplete="off" >
                             <p id="lengthNoti" class="noti hc1"></p>
                         </div>
                     </div>
                     <div class="item-row">
                         <div class="col-dt"><em class="st">*</em>비밀번호 확인</div>
                         <div class="col-dd">
-                            <input type="password" id="confirm" placeholder="최소 8자 이상" class="full" title="비밀번호 확인" autocomplete="off" readonly onclick="$(this).attr('readonly', false)" onblur="$(this).attr('readonly', true)">
+                            <input type="password" id="confirm" placeholder="최소 8자 이상" class="full" title="비밀번호 확인" autocomplete="off" >
                             <p id="confirmNoti" class="noti hc1"></p>
                         </div>
                     </div>
