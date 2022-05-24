@@ -35,7 +35,7 @@ class ExhibitionStreamChatLogController extends AppController
         
     }
 
-    public function chat($exhibition_id = null, $now = null)
+    public function chat($exhibition_id = null, $now = null, $exhibition_users_id = null)
     {
 
         // if(!$this->getRequest()->getData('name')){
@@ -46,8 +46,9 @@ class ExhibitionStreamChatLogController extends AppController
 
         //세션 생성 (샘플이므로 별도 세션 생성, 원래는 로그인 정보로 이용)
         $user_name = '';
-        if (!empty($this->getRequest()->getSession()->read('exhibition_users_name'))) {
-            $users_name = $this->getRequest()->getSession()->consume('exhibition_users_name');
+        if ($this->Auth->user('name') == null) {
+            $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
+            $users_name = $Exhibitionusers->get($exhibition_users_id)->users_name;
         
         } else {
             $users_name = $this->Auth->user('name');
