@@ -104,7 +104,7 @@ class ExhibitionSurveyUsersAnswerTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['exhibition_survey_id'], 'ExhibitionSurvey'), ['errorField' => 'exhibition_survey_id']);
-        $rules->add($rules->existsIn(['users_id'], 'Users'), ['errorField' => 'users_id']);
+        $rules->add($rules->existsIn(['users_id'], 'ExhibitionUsers'), ['errorField' => 'users_id']);
         $rules->add($rules->existsIn(['parent_id'], 'ParentExhibitionSurveyUsersAnswer'), ['errorField' => 'parent_id']);
 
         return $rules;

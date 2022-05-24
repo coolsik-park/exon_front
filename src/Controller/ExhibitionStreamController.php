@@ -556,7 +556,7 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('groupedSurveys', 'id'));
     }
 
-    public function answerSurvey($id = null, $exhibition_users_id)
+    public function answerSurvey($id = null, $exhibition_users_id = null)
     {
         $ExhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey');
         $exhibitionSurveys = $ExhibitionSurvey->find('all', ['contain' => 'ChildExhibitionSurvey'])->where(['exhibition_id' => $id, 'parent_id IS' => null, 'is_display' => 'Y'])->toArray();
@@ -735,10 +735,10 @@ class ExhibitionStreamController extends AppController
     }
 
     //웨비나 종료 시점 이후에 출석 완료 되도록 수정 필요
-    public function setAttendance($id = null)
+    public function setAttendance($id = null, $exhibition_users_id = null)
     {
         $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
-        $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id, 'users_id' => $this->Auth->user('id')])->toArray();
+        $exhibitionUsers = $ExhibitionUsers->find('all')->where(['id' => $exhibition_users_id])->toArray();
         $exhibition_users_id = $exhibitionUsers[0]['id'];
         $status = $exhibitionUsers[0]['attend'];
         $num = 0;
@@ -758,6 +758,20 @@ class ExhibitionStreamController extends AppController
         }
         
         $this->set(compact('num'));
+    }
+
+    public function autoAttendance($exhibition_users_id = null)
+    {
+        $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
+        $exhibitionUser = $ExhibitionUsers->get($exhibition_users_id);
+
+        if ($exhibitionUser->attend == 1) {
+            $exhibitionUser->attend = 2;
+            $ExhibitionUsers->save($exhibitionUser);
+        }
+
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+        return $response;
     }
 
     public function program ($id = null) {
