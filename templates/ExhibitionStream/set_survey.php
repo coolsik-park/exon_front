@@ -33,8 +33,8 @@
                     <div class="b-list">
                     <?php $count = count($groupedSurvey['child_exhibition_survey']); ?>
                     <?php if ($count != 0) : ?>      
-                    <?php for ($i = 0; $i < $count; $i++) : ?>
-                        <p><?=$i+1?>. <?=$groupedSurvey['child_exhibition_survey'][$i]['text']?></p>
+                    <?php for ($j = 0; $j < $count; $j++) : ?>
+                        <p><?=$j+1?>. <?=$groupedSurvey['child_exhibition_survey'][$j]['text']?></p>
                     <?php endfor; ?>
                     <?php endif; ?> 
                     </div>
