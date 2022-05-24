@@ -556,7 +556,7 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('groupedSurveys', 'id'));
     }
 
-    public function answerSurvey($id = null, $exhibition_users_id)
+    public function answerSurvey($id = null, $exhibition_users_id = null)
     {
         $ExhibitionSurvey = $this->getTableLocator()->get('ExhibitionSurvey');
         $exhibitionSurveys = $ExhibitionSurvey->find('all', ['contain' => 'ChildExhibitionSurvey'])->where(['exhibition_id' => $id, 'parent_id IS' => null, 'is_display' => 'Y'])->toArray();
