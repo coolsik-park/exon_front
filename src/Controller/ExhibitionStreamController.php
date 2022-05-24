@@ -671,7 +671,7 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('notice', 'id'));
     }
 
-    public function setQuestion($id = null) {
+    public function setQuestion($id = null, $exhibition_users_id = null) {
         $ExhibitionSpeaker = $this->getTableLocator()->get('ExhibitionSpeaker');
         $exhibitionSpeakers = $ExhibitionSpeaker->find('all')->where(['exhibition_id' => $id])->toArray();
         
@@ -709,8 +709,7 @@ class ExhibitionStreamController extends AppController
                 $exhibitionQuestion = $ExhibitionQuestion->newEmptyEntity();
                 $speaker_id = $this->request->getData('target');
                 
-                $users_id = $ExhibitionUsers->find()->select(['id'])->where(['exhibition_id' => $id, 'users_id' => $this->Auth->user('id')])->toArray();
-                $exhibitionQuestion->exhibition_users_id = $users_id[0]['id'];
+                $exhibitionQuestion->exhibition_users_id = $exhibition_users_id;
                 
                 if ($speaker_id != 'all') {
                     $exhibitionQuestion->target_users_id = $speaker_id;
