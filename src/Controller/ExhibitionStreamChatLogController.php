@@ -124,11 +124,13 @@ class ExhibitionStreamChatLogController extends AppController
 
         $chat = $this->ExhibitionStreamChatLog->find('all')
                         ->select(['id', 'user_name', 'message','created'])
-                        ->where(['exhibition_stream_id'=>$stream_id, 'id >'=>$last_id, 'created >' => strtotime($now)])
+                        ->where(['exhibition_stream_id'=>$stream_id, 'id >'=>$last_id])
                         ->enableHydration(false)
                         ;
 
 
+
+        //'created >' => strtotime($now)
         $view = new \Cake\View\View($this->request, $this->response);                                
         $view->set('message', $chat->toArray());
         $contents = $view->element('chat'); 
