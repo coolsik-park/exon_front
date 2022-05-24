@@ -521,7 +521,7 @@
         display: inline-block;
         width: 100%;
         height: 50vh;
-        margin-top: 87px;
+        margin-top: 68px;
         border-top-left-radius: 45%;
         border-top-right-radius: 45%;
     }
@@ -632,7 +632,7 @@
         color: white;
         background: linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.8));
         width: 100%;
-        height: 81%;
+        height: 78%;
         bottom: 0;
         position: absolute;
         opacity: 0;
@@ -1171,6 +1171,176 @@
             display: inline-block;
             width: 100%;
             height: 30vh;
+        }
+        .section6-img1 {
+            display: inline-block;
+            width: 100%;
+            height: 50vh;
+            margin-top: 87px;
+            border-top-left-radius: 45%;
+            border-top-right-radius: 45%;
+        }
+        .section6-img2 {
+            display: inline-block;
+            width: 100%;
+            height: 22vh;
+            /* margin-top: 0.5em; */
+        }
+        .section6-img3 {
+            display: inline-block;
+            width: 100%;
+            height: 40vh;
+            margin-top: 5em;
+            border-top-left-radius: 45%;
+        }
+        .section6-img4 {
+            display: inline-block;
+            width: 100%;
+            height: 30vh;
+            margin-top: 0.5em;
+            border-bottom-right-radius: 60%;
+        }
+        .section6--img__ul {
+            column-width: 330px;
+            column-gap: 0.5em;
+            width: 60%;
+            column-count: 2;
+            background-color: white;
+        }
+        .section6--img__li1:before {
+            content:'';
+            color: white;
+            background: linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.8));
+            width: 100%;
+            height: 85%;
+            bottom: 0;
+            position: absolute;
+            opacity: 0;
+            border-top-left-radius: 45%;
+            border-top-right-radius: 45%;
+            animation: section6--img__before 10s infinite both;
+            animation-delay: 3s;
+            
+        }
+        .section6--img__li1:after {
+            content: '웨비나';
+            color: white;
+            position: absolute;
+            left: 40%;
+            top: 60%;
+            font-size: 1.5rem;
+            font-weight: 700;
+            opacity: 0;
+            /* animation: section6--img__after 5s 1s both; */
+            /* animation-iteration-count: infinite; */
+            animation: section6--img__before 10s infinite both;
+            animation-delay: 3s;
+        }
+        .section6--img__li1 {
+            position: relative;
+        }
+        /* .section6--img__li1:hover:before {
+            opacity: 1;
+        }
+        .section6--img__li1:hover:after {
+            opacity: 1;
+        } */
+        .section6--img__li2:before {
+            content:'';
+            color: white;
+            background: linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.8));
+            width: 100%;
+            height: 100%;
+            bottom: 0;
+            position: absolute;
+            opacity: 0;
+            animation: section6--img__before 10s infinite both;
+            /* animation-iteration-count: infinite; */
+            animation-delay: 4s;
+        }
+        .section6--img__li2:after {
+            content: '컨퍼런스/포럼';
+            color: white;
+            position: absolute;
+            left: 30%;
+            top: 50%;
+            font-size: 1.2rem;
+            font-weight: 700;
+            opacity: 0;
+            animation: section6--img__before 10s infinite both;
+            animation-delay: 4s;
+            /* animation-iteration-count: infinite; */
+        }
+        .section6--img__li2 {
+            position: relative;
+            margin-top: 0.5em;
+        }
+        /* .section6--img__li2:hover:before {
+            opacity: 1;
+        }
+        .section6--img__li2:hover:after {
+            opacity: 1;
+        } */
+
+        .section6--img__li3:before {
+            content:'';
+            color: white;
+            background: linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.8));
+            width: 100%;
+            height: 81%;
+            bottom: 0;
+            position: absolute;
+            opacity: 0;
+            border-top-left-radius: 45%;
+            animation: section6--img__before 10s infinite both;
+            animation-delay: 6s;
+        }
+        .section6--img__li3:after {
+            content: '교육/강의';
+            color: white;
+            position: absolute;
+            left: 35%;
+            top: 60%;
+            font-size: 1.5rem;
+            font-weight: 700;
+            opacity: 0;
+            animation: section6--img__before 10s infinite both;
+            animation-delay: 6s;
+        }
+        .section6--img__li3 {
+            position: relative;
+        }
+        /* .section6--img__li3:hover:before {
+            opacity: 1;
+        }
+        .section6--img__li3:hover:after {
+            opacity: 1;
+        } */
+
+        .section6--img__li4:before {
+            content:'';
+            color: white;
+            background: linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.8));
+            width: 100%;
+            height: 98%;
+            position: absolute;
+            bottom: 0;
+            opacity: 0;
+            border-bottom-right-radius: 60%;
+            animation: section6--img__before 10s infinite both;
+            animation-delay: 5s;
+        }
+        .section6--img__li4:after {
+            content: 'E-sports';
+            color: white;
+            position: absolute;
+            left: 37%;
+            top: 50%;
+            font-size: 1.5rem;
+            font-weight: 700;
+            opacity: 0;
+            animation: section6--img__before 10s infinite both;
+            animation-delay: 5s;
         }
     }
 

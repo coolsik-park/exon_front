@@ -18,6 +18,7 @@
         .section-webinar4 .webinar-tab.close .webinar-tab-tg {
             top: 78px;
         }
+        
     </style>
 </head>
 
@@ -75,45 +76,49 @@
 
 <script>
     //매초 영상 시청 %계산
-    var video = document.getElementById("vid1");
-    setInterval(function() {
-        if (video.paused == false) {
-            // 재생 할때
-            video_current_time = Math.floor(video.currentTime);
-            console.log(video_current_time);
+    // var video = document.getElementById("vid1");
+    // setInterval(function() {
+    //     if (video.paused == false) {
+    //         // 재생 할때
+    //         video_current_time = Math.floor(video.currentTime);
+    //         console.log(video_current_time);
 
-            //exhibition_vod_viewer 값 add
-            $.ajax({
-                url: "/exhibition-stream/vod-add-viewer/" + <?= $exhibition->id ?> +"/"+ <?= $exhibitionVod->id ?>,
-                method: 'POST',
-                type:'json',
-                data: {
-                    current_time: video_current_time
-                }
-            }).done(function (data) {
-                if (data.status == 'add_success' && data.status == 'update_success') {
-                    console.log('aaaa');
-                } else {
-                    console.log('bbbb');
-                }
-            });
-        } else {
-            // 재생 안 할때
-            console.log('cccc');
-        }
-    },1000);
+    //         //exhibition_vod_viewer 값 add
+    //         $.ajax({
+    //             url: "/exhibition-stream/vod-add-viewer/" + <?= $exhibition->id ?> +"/"+ <?= $exhibitionVod->id ?>,
+    //             method: 'POST',
+    //             type:'json',
+    //             data: {
+    //                 current_time: video_current_time
+    //             }
+    //         }).done(function (data) {
+    //             if (data.status == 'add_success' && data.status == 'update_success') {
+    //                 console.log('aaaa');
+    //             } else {
+    //                 console.log('bbbb');
+    //             }
+    //         });
+    //     } else {
+    //         // 재생 안 할때
+    //         console.log('cccc');
+    //     }
+    // },1000);
 
     //video.js
     var player = videojs('vid1', {
         controls: true,
         preload: 'auto',
         fluid: true,
+        autoplay: true,
+        // muted: true,
     });
     player.src({
-        src: '/vod/<?=$exhibition->id?>/<?=$exhibitionVod->title?>.mp4',
+        src: '/vod/1261/Untitled video - Clipchamp 제작.mp4',
         type: 'video/mp4'
     });
     player.play();
+    
+
 
     //go top when open tab
     $(document).on("click", ".webinar-tab-tg", function() {
