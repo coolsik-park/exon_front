@@ -165,7 +165,7 @@
     //잘못된 접근 차단
     var ref = document.referrer;
     var pass = 0;
-    if (ref != '<?=$front_url?>/exhibition/view/<?=$exhibitionStream[0]['exhibition_id']?>' && ref != '<?=$front_url?>/exhibition-users/sign-up/application' && ref != '<?=$front_url?>/exhibition-stream/certification/<?=$exhibitionStream[0]['exhibition_id']?>' && ref != document.location.href && ref.indexOf("/exhibition-stream/vod-chpater") != -1 && ref.indexOf("/exhibition-stream/watch-exhibition-vod") != -1) {
+    if (ref != '<?=$front_url?>/exhibition/view/<?=$exhibitionStream[0]['exhibition_id']?>' && ref != '<?=$front_url?>/exhibition-users/sign-up/application' && ref != '<?=$front_url?>/exhibition-stream/certification/<?=$exhibitionStream[0]['exhibition_id']?>') {
         alert('허용되지 않는 잘못된 접근입니다.');
         history.go(-1);
     }
