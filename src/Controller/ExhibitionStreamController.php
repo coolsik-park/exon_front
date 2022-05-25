@@ -730,7 +730,7 @@ class ExhibitionStreamController extends AppController
             }
         }
         $current_user_id = $this->Auth->user('id');
-        $this->set(compact('exhibitionSpeakers', 'exhibitionQuestions', 'ExhibitionUsers', 'id', 'current_user_id'));
+        $this->set(compact('exhibitionSpeakers', 'exhibitionQuestions', 'ExhibitionUsers', 'id', 'current_user_id', 'exhibition_users_id'));
     }
 
     //웨비나 종료 시점 이후에 출석 완료 되도록 수정 필요

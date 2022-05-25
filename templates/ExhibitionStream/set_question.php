@@ -87,7 +87,7 @@
             return false;
         }
         jQuery.ajax({
-            url: "/exhibition-stream/set-question/" + <?= $id ?>, 
+            url: "/exhibition-stream/set-question/" + <?= $id ?> + "/" + <?= $exhibition_users_id ?>, 
             method: 'POST',
             type: 'json',
             data: {
@@ -98,7 +98,7 @@
         }).done(function(data) {
             if (data.status == 'success') {
                 alert("저장되었습니다.");
-                $(".webinar-tab-body").load("/exhibition-stream/set_question/" + <?= $id ?>);
+                $(".webinar-tab-body").load("/exhibition-stream/set_question/<?= $id ?>/<?= $exhibition_users_id ?>");
             }
         });
     });
@@ -116,7 +116,7 @@
         }).done(function(res) {
             if (res.status == 'success') {
                 alert("삭제되었습니다.");
-                $(".webinar-tab-body").load("/exhibition-stream/set_question/" + <?= $id ?>);
+                $(".webinar-tab-body").load("/exhibition-stream/set_question/<?= $id ?>/<?= $exhibition_users_id ?>");
             }
         });
     }); 
