@@ -48,7 +48,7 @@ class ExhibitionStreamChatLogController extends AppController
         $user_name = '';
         if ($this->Auth->user('name') == null) {
             $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
-            $users_name = $Exhibitionusers->get($exhibition_users_id)->users_name;
+            $users_name = $ExhibitionUsers->get($exhibition_users_id)->users_name;
         
         } else {
             $users_name = $this->Auth->user('name');
