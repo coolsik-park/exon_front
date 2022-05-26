@@ -172,7 +172,7 @@
     //잘못된 접근 차단
     var ref = document.referrer;
     var pass = 0;
-    if (ref != '<?=$front_url?>/exhibition/view/<?=$exhibitionStream[0]['exhibition_id']?>' && ref != '<?=$front_url?>/exhibition-users/sign-up/application' && ref != '<?=$front_url?>/exhibition-stream/certification/<?=$exhibitionStream[0]['exhibition_id']?>') {
+    if (ref != '<?= $front_url ?>/exhibition/view/<?=$exhibitionStream[0]['exhibition_id']?>' && ref != '<?= $front_url ?>/exhibition-users/sign-up/application' && ref != '<?= $front_url ?>/exhibition-stream/certification/<?=$exhibitionStream[0]['exhibition_id']?>' && ref.indexOf('<?= $front_url ?>/exhibition-users/add/<?=$exhibitionStream[0]['exhibition_id']?>')) {
         alert('허용되지 않는 잘못된 접근입니다.');
         history.go(-1);
     }
@@ -315,7 +315,7 @@
 
         $("#li6").click(function () {
             clearInterval(chatInterval);
-            $(".webinar-tab-body").load("/exhibition-stream/set-question/" + <?= $exhibitionStream[0]['exhibition_id'] ?>);
+            $(".webinar-tab-body").load("/exhibition-stream/set-question/" + <?= $exhibitionStream[0]['exhibition_id'] ?> + '/' + <?= $exhibition_users_id ?>);
             $("#li0").attr("class", "");
             $("#li1").attr("class", "");
             $("#li2").attr("class", "");
@@ -362,7 +362,7 @@
         });
 
         $("#li9").click(function () {
-            $(".webinar-tab-body").load("/exhibition-stream-chat-log/chat/" + <?= $exhibitionStream[0]['exhibition_id'] ?> + "/" + now);
+            $(".webinar-tab-body").load("/exhibition-stream-chat-log/chat/" + <?= $exhibitionStream[0]['exhibition_id'] ?> + "/" + now + "/" + <?=$exhibition_users_id?>);
             $("#li0").attr("class", "");
             $("#li1").attr("class", "");
             $("#li2").attr("class", "");

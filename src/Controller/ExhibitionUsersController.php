@@ -51,6 +51,9 @@ class ExhibitionUsersController extends AppController
     //웨비나 신청
     public function add($id = null, $group_id = null)
     {
+        $exhibition_stream = $this->getTableLocator()->get('ExhibitionStream');
+        $exhition_stream_id = $exhibition_stream->find()->select('id')->where(['exhibition_id'=>$id])->toList();
+
         $connection = ConnectionManager::get('default');
         $connection->begin();
 
@@ -289,8 +292,7 @@ class ExhibitionUsersController extends AppController
                     endif;
                 }
                 
-
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'exhibition_user_id' => $exhibition_user->id]));
                 return $response;
 
             } else {
@@ -309,7 +311,7 @@ class ExhibitionUsersController extends AppController
         $pay = $this->ExhibitionUsers->Pay->find('list', ['limit' => 200]);
         $exhibitionSurveys = $this->getTableLocator()->get('ExhibitionSurvey')->find('all', ['contain' => 'ChildExhibitionSurvey'])->where(['exhibition_id' => $id, 'survey_type' => 'B', 'parent_id Is' => null]);
         $user = $this->Auth->user();
-        $this->set(compact('exhibitionUser', 'exhibition', 'exhibitionGroup', 'pay', 'exhibitionSurveys', 'id', 'user', 'amount', 'today', 'apply_sdate', 'apply_edate'));
+        $this->set(compact('exhibitionUser', 'exhibition', 'exhibitionGroup', 'pay', 'exhibitionSurveys', 'id', 'user', 'amount', 'today', 'apply_sdate', 'apply_edate', 'exhition_stream_id'));
     }
 
     public function existCheck($exhibition_id = null, $users_email = null) 
