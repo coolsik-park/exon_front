@@ -60,6 +60,12 @@
             text-align: left;
             padding: 10px;
         }
+        input[type="checkbox"] {
+            display: none;
+        }
+        input[type="radio"] {
+            display: none;
+        }
         @media  screen and (max-width: 768px) {
             .stream-sect .row2-wp .row2 {
                 width: 99%;

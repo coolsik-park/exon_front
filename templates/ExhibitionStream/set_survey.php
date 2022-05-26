@@ -13,6 +13,12 @@
         border-radius: 10px;
         box-shadow: inset 0px 0px 5px white;
     }
+    input[type="checkbox"] {
+        display: none;
+    }
+    input[type="radio"] {
+        display: none;
+    }
 </style>
 
 <div class="webinar-cont1">
