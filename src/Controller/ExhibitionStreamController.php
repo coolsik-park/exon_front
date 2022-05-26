@@ -152,9 +152,9 @@ class ExhibitionStreamController extends AppController
             $this->redirect(['action' => 'certification', $id]);
         }
 
-        if ($exhibition->require_cert == 1 && $cert != 1) {
-            $this->redirect(['action' => 'certification', $id]);
-        }
+        // if ($exhibition->require_cert == 1 && $cert != 1) {
+        //     $this->redirect(['action' => 'certification', $id]);
+        // }
 
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
         $front_url = FRONT_URL;
