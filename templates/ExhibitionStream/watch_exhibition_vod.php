@@ -113,7 +113,7 @@
         // muted: true,
     });
     player.src({
-        src: '/vod/1261/Untitled video - Clipchamp 제작.mp4',
+        src: '/vod/1261/33.mp4',
         type: 'video/mp4'
     });
     player.play();
