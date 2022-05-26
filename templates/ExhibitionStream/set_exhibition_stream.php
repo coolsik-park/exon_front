@@ -60,9 +60,6 @@
             text-align: left;
             padding: 10px;
         }
-        .sub-menu {
-            margin-top: 45px;
-        }
         @media  screen and (max-width: 768px) {
             .stream-sect .row2-wp .row2 {
                 width: 99%;
@@ -84,6 +81,9 @@
             }
             .btnDiv {
                 align-items: flex-end;
+            }
+            .sub-menu {
+                margin-top: 45px;
             }
         }
     </style>
