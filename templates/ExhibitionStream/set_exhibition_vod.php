@@ -248,12 +248,16 @@
                                     </a>
                                 </div>
                                 <?php foreach ($list['child_exhibition_vod'] as $child) : ?>
-                                    <div class="vod-title" style="font-size:30px; margin:20px 0; padding-left:10px;">
-                                        <a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition_id?>/<?=$child['id']?>"><?=$child['title']?></a>
-                                        <a style="" class="delete v delete--vod__2" name="<?=$child['id']?>"><img class="vod-icon" src="/img/trash_can-lov.png"></a>
-                                        <a style="" class="v view--vod__2" name="<?=$child['id']?>"><img class="vod-icon" src="/img/view.png"></a>
-                                        <a style="" class="v move--vod__2" name="<?=$child['id']?>"><img class="vod-icon" src="/img/list.png"></a>
-                                    </div>
+                                    <ul id="sortable2">
+                                        <li class="ui-state-default">  
+                                            <div class="vod-title" style="font-size:30px; margin:20px 0; padding-left:10px;">
+                                                <a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition_id?>/<?=$child['id']?>"><?=$child['title']?></a>
+                                                <a style="" class="delete v delete--vod__2" name="<?=$child['id']?>"><img class="vod-icon" src="/img/trash_can-lov.png"></a>
+                                                <a style="" class="v view--vod__2" name="<?=$child['id']?>"><img class="vod-icon" src="/img/view.png"></a>
+                                                <a style="" class="v move--vod__2" name="<?=$child['id']?>"><img class="vod-icon move--vod2" src="/img/list.png"></a>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 <?php endforeach; ?>
                                 <br><br>
                                 <a id="<?=$list['id']?>" class="add-vod add--vod__2"><img src="/img/plus.png" class="plus"><span class="btn-span"></span></a>
@@ -389,9 +393,19 @@
 
 <script>
     //move Div
-    $(document).on("click", ".move--vod", function(){
+    $(document).on("mousedown", ".move--vod", function(){
         $("#sortable").sortable({ 
-            placeholder:"itemBoxHighlight", /* 이동할 위치 css 적용 */ 
+            // placeholder:"itemBoxHighlight", /* 이동할 위치 css 적용 */ 
+            start:function(event,ui){ // 드래그 시작 시 호출 
+            }, 
+            stop:function(event,ui){ // 드래그 종료 시 호출 
+            
+            } 
+        });
+    });
+    $(document).on("mousedown", ".move--vod2", function(){
+        $("#sortable2").sortable({ 
+            // placeholder:"itemBoxHighlight", /* 이동할 위치 css 적용 */ 
             start:function(event,ui){ // 드래그 시작 시 호출 
             }, 
             stop:function(event,ui){ // 드래그 종료 시 호출 

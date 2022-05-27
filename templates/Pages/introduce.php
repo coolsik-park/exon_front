@@ -514,7 +514,7 @@
         line-height: 30px;
     }
     .section6--img__div {
-        position: absolute;
+        /* position: absolute; */
         top: 4em;
     }
     .section6-img1 {
@@ -1189,7 +1189,7 @@
         .section6-img3 {
             display: inline-block;
             width: 100%;
-            height: 40vh;
+            height: 41vh;
             margin-top: 5em;
             border-top-left-radius: 45%;
         }
@@ -1212,7 +1212,7 @@
             color: white;
             background: linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.8));
             width: 100%;
-            height: 85%;
+            height: 87%;
             bottom: 0;
             position: absolute;
             opacity: 0;
@@ -1287,7 +1287,7 @@
             color: white;
             background: linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.8));
             width: 100%;
-            height: 81%;
+            height: 83%;
             bottom: 0;
             position: absolute;
             opacity: 0;
