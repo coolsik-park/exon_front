@@ -158,6 +158,18 @@
   #submitmsg {
     margin-left: 3%;
   }
+  @media  screen and (max-width: 1200px) {
+    textarea {
+      padding: 0;
+    }
+    .webinar-cont-ty1-btm {
+      position: absolute;
+      bottom: 5%;
+    }
+    .webinar-cont-ty1 {
+      background: white;
+    }
+  }
 </style>
 
 <!-- <div id="wrapper">

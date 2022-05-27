@@ -13,14 +13,21 @@
         border-radius: 10px;
         box-shadow: inset 0px 0px 5px white;
     }
+    input[type="checkbox"] {
+        display: none;
+    }
+    input[type="radio"] {
+        display: none;
+    }
 </style>
 
 <div class="webinar-cont1">
     <h3 class="sr-only">설문</h3>
     <div class="webinar-cont-ty1">
-        <form id="surveyForm">
-            <div class="webinar-cont-ty1-body">                                    
-                <div class="poll-item-wrap" style="overflow: auto; height:659px;">
+        <!-- <form id="surveyForm"> -->
+            <div class="webinar-cont-ty1-body">       
+                <form id="surveyForm">                             
+                <div class="poll-item-wrap" style="overflow: auto;">
                     <?php if (!empty($exhibitionSurveys)) : ?>
                         <?php $i=0; ?>
                         <?php foreach ($exhibitionSurveys as $exhibitionSurvey) : ?>
@@ -61,8 +68,9 @@
                         <?php endforeach; ?>
                     <?php endif; ?>
                 </div>
+                </form>
             </div>
-        </form>
+    
         <div class="webinar-cont-ty1-btm">
             <div class="poll-submit">                                        
                 <button id="send" type="button" class="btn-ty4 redbg">확인</button>
@@ -132,7 +140,7 @@
         $(":input:radio").removeAttr("name");
         var formData = $("#surveyForm").serialize();
         jQuery.ajax({
-            url: "/exhibition-stream/answer-survey/<?= $id ?>/<?= $exhibition_users_id ?>",
+            url: "/exhibition-stream/answer-survey/<?= $id ?>/<?= $exhibition_users_id ?>", 
             method: 'POST',
             type: 'json',
             data: formData,

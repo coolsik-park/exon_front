@@ -1,6 +1,7 @@
 <style>
         .wb-stream-sect {
             margin-bottom: 70px;
+            /* margin-top: 0px; */
         }
         .pay {
             width: 244px;
@@ -176,6 +177,7 @@
             position: absolute;
             right: 35px;
         }
+        .itemBoxHighlight { border:solid 1px black; width: 100%; height: 200px; background-color:yellow; }
         @media  screen and (max-width: 768px) {
             .stream-sect .row2-wp .row2 {
                 width: 99%;
@@ -228,8 +230,10 @@
                 <div class="add-chapter-div">
                     <a id="add-chapter"><img src="/img/plus.png" class="plus"><span class="btn-span">챕터 추가</span></a>
                     <p class="p-noti2 noti">챕터를 추가하여 VOD들을 챕터별로 분류 할 수 있습니다.</p>
+                    <ul id="sortable">
                     <?php if (!empty($exhibitionVod)) : ?>      
-                    <?php foreach ($exhibitionVod as $list) : ?>      
+                    <?php foreach ($exhibitionVod as $list) : ?>
+                        <li class="ui-state-default">  
                         <div class='wb-stream-sect sect--border'>
                             <div class="stream-sect">
                                 <div class="chapter-title" style="font-size:40px;"><?=$list['title']?>
@@ -240,7 +244,7 @@
                                         <img class="chapter-icon" src="/img/view.png">
                                     </a>
                                     <a style="" class="c move--vod__1" name="<?=$list['id']?>">
-                                        <img class="chapter-icon" src="/img/list.png">
+                                        <img class="chapter-icon move--vod" src="/img/list.png">
                                     </a>
                                 </div>
                                 <?php foreach ($list['child_exhibition_vod'] as $child) : ?>
@@ -255,8 +259,10 @@
                                 <a id="<?=$list['id']?>" class="add-vod add--vod__2"><img src="/img/plus.png" class="plus"><span class="btn-span"></span></a>
                             </div>   
                         </div>
+                        </li>
                     <?php endforeach; ?>
                 <?php endif; ?>
+                </ul>
                 </div>
                 <a id="<?=$list['id']?>" class="add-vod add--vod__1"><img src="/img/plus.png" class="plus"><span class="btn-span">VOD 추가</span></a>
             </div>
@@ -377,10 +383,24 @@
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script> 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script> 
+<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.js"></script> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" />
 
 <script>
+    //move Div
+    $(document).on("click", ".move--vod", function(){
+        $("#sortable").sortable({ 
+            placeholder:"itemBoxHighlight", /* 이동할 위치 css 적용 */ 
+            start:function(event,ui){ // 드래그 시작 시 호출 
+            }, 
+            stop:function(event,ui){ // 드래그 종료 시 호출 
+            
+            } 
+        });
+    });
+   
+
     //go top when open tab
     $(document).on("click", ".webinar-tab-tg", function() {
         if (!$("#toggle").hasClass("close")) {
