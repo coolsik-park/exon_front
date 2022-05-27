@@ -46,7 +46,7 @@
         <div class="section-webinar4">
             <div class="webinar-cont">
                 <div class="wb-cont1">
-                    <video class="video-js vjs-default-skin vjs-big-play-centered" id="vid1"><source src="https://orcaexon.co.kr/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8" type="application/x-mpegURL"></video>
+                    <video class="video-js vjs-default-skin vjs-big-play-centered" id="vid1" autoplay muted playsinline><source src="https://orcaexon.co.kr/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8" type="application/x-mpegURL"></video>
                 </div>
                 <div class="wb-cont2">
                     <h3 class="w-tit"><?= $exhibitionStream[0]['title'] ?></h3>
