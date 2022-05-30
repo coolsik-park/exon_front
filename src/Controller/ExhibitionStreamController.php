@@ -1438,8 +1438,21 @@ class ExhibitionStreamController extends AppController
         } else {
             $login_user = $this->Auth->user('id');
         }
+
+        $ip = $this->request->ClientIp();
+        $path = 'liked_ip' . DS . date("Y") . DS . date("m") . DS . date("d") . DS . $exhibitionStream[0]->id;
+                
+        $is_exist = 0;
+        $file_handle = fopen(WWW_ROOT . $path . DS . 'data.txt', 'r');
+        while (!feof($file_handle)) {
+            $ip_data = fgets($file_handle);
+            if ((string)$ip_data == (string)$ip . "\n") {
+                $is_exist = 1;
+            }
+        } 
+        fclose($file_handle);
         
-        $this->set(compact('user', 'exhibitionStream', 'exhibition_id', 'exhibition_comments', 'exhibition_comments_unders', 'login_user', 'exhibition'));
+        $this->set(compact('user', 'exhibitionStream', 'exhibition_id', 'exhibition_comments', 'exhibition_comments_unders', 'login_user', 'exhibition', 'is_exist'));
     }
 
     public function uploadVod()
