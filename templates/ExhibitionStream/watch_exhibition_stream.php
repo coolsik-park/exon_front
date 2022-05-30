@@ -38,6 +38,9 @@
             overflow: hidden;
             overflow-y: auto;
         }
+        .msgln {
+            word-break: break-word;
+        }
     </style>
 </head>
 
