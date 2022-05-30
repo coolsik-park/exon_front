@@ -578,18 +578,24 @@ class ExhibitionStreamController extends AppController
 
         if ($this->request->is('post')) {
 
-            if ($update == 1) {
-                $answerData = $this->request->getData();
-                $i = 0;
+            if ($exhibitionSurveyUsersAnswer != []) {
                 foreach ($exhibitionSurveyUsersAnswer as $answer) {
-                    $data = $ExhibitionSurveyUsersAnswer->get($answer['id']);
-                    $data->text = $answerData['exhibition_survey_users_answer_'. $i .'_text'];
-                    $ExhibitionSurveyUsersAnswer->save($data);
-                    $i++;
+                    $tempAnswer = $ExhibitionSurveyUsersAnswer->get($answer['id']);
+                    $ExhibitionSurveyUsersAnswer->delete($tempAnswer);
                 }
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
-                return $response;
-            } else {
+            }
+            // if ($update == 1) {
+            //     $answerData = $this->request->getData();
+            //     $i = 0;
+            //     foreach ($exhibitionSurveyUsersAnswer as $answer) {
+            //         $data = $ExhibitionSurveyUsersAnswer->get($answer['id']);
+            //         $data->text = $answerData['exhibition_survey_users_answer_'. $i .'_text'];
+            //         $ExhibitionSurveyUsersAnswer->save($data);
+            //         $i++;
+            //     }
+            //     $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+            //     return $response;
+            // } else {
                 $connection = ConnectionManager::get('default');
                 $connection->begin();
 
@@ -657,7 +663,7 @@ class ExhibitionStreamController extends AppController
                 $connection->commit();
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
                 return $response;
-            }
+            // }
         }
 
         $this->set(compact('exhibitionSurveys', 'exhibitionSurveyUsersAnswer', 'id', 'update', 'exhibition_users_id'));
