@@ -222,6 +222,8 @@
 
 
 <script>
+chatInterval = setInterval(loadLog, 1000);
+
 function enterkey() {
   if (!event.shiftKey && window.event.keyCode == 13) {
     var clientmsg = $("#usermsg").val().replace(/(?:\r\n|\r|\n)/g,'<br/>');
@@ -231,7 +233,7 @@ function enterkey() {
     }
     $.post("/ExhibitionStreamChatLog/chatLog/<?=$stream_id?>", { text: clientmsg });
     $("#usermsg").val("");
-    loadLog()
+    // loadLog()
     return false;
   }
 }
@@ -256,8 +258,6 @@ function loadLog(){
   });
 }
 
-chatInterval = setInterval(loadLog, 1000);
-
 $(document).ready(function(){ 
     //If user wants to end session
     $("#exit").click(function(){
@@ -270,7 +270,7 @@ $(document).ready(function(){
         var clientmsg = $("#usermsg").val().replace(/(?:\r\n|\r|\n)/g,'<br/>');
         $.post("/ExhibitionStreamChatLog/chatLog/<?=$stream_id?>", { text: clientmsg });
         $("#usermsg").val("");
-        loadLog()
+        // loadLog()
         return false;
     });
 });
