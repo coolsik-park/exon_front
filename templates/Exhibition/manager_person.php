@@ -84,18 +84,8 @@
                                     <div class="con ag-ty1">
                                         <p class="tit fir"><?=$index?>.</p>
                                         <?php $index++; ?>
-                                        <p class="tit fir">
-                                            <?php 
-                                                if ($exhibition_user->users_id != null):
-                                                    for ($i=0; $i<count($users); $i++) {
-                                                        if ($exhibition_user->users_id == $users[$i]['id']) {
-                                                            echo $users[$i]['company'];
-                                                            break;
-                                                        }
-                                                    }
-                                                endif;
-                                            ?>
-                                        </p>
+                                        <p class="tit fir"><?= $exhibition_user->company ?></p>
+                                        <p class="tit fir"><?= $exhibition_user->title ?></p>
                                         <div class="u-name">
                                             <p class="name"><?= $exhibition_user->users_name ?></p>
                                             <p class="age">
