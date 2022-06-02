@@ -1601,7 +1601,7 @@ class ExhibitionController extends AppController
                     $question = $exhibitionSurvey[0]['text'];
 
                     $spreadsheet->setActiveSheetIndex($i)
-                    ->setTitle($question)
+                    // ->setTitle('질문')
                     ->setCellValue('A1', '');
 
                     $spreadsheet->setActiveSheetIndex($i)
@@ -1681,8 +1681,8 @@ class ExhibitionController extends AppController
                 }
             }
         }
-        $exhibition = $this->Exhibition->get($id);
-        $this->set(compact('beforeParentData', 'beforeChildData', 'normalParentData', 'normalChildData', 'id', 'exhibition'));
+        
+        $this->set(compact('beforeParentData', 'beforeChildData', 'normalParentData', 'normalChildData', 'id'));
     }
 
     public function exhibitionStatisticsApply($id = null)
