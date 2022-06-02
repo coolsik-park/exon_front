@@ -1,7 +1,10 @@
 <style>
         .wb-stream-sect {
-            margin-bottom: 70px;
-            /* margin-top: 0px; */
+            /* margin-bottom: 70px; */
+            margin-top: 0px;
+        }
+        .add--vod__1 {
+            margin-top: 40px
         }
         .pay {
             width: 244px;
@@ -247,8 +250,8 @@
                                         <img class="chapter-icon move--vod" src="/img/list.png">
                                     </a>
                                 </div>
+                                <ul id="sortable2">
                                 <?php foreach ($list['child_exhibition_vod'] as $child) : ?>
-                                    <ul id="sortable2">
                                         <li class="ui-state-default">  
                                             <div class="vod-title" style="font-size:30px; margin:20px 0; padding-left:10px;">
                                                 <a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition_id?>/<?=$child['id']?>"><?=$child['title']?></a>
@@ -257,8 +260,8 @@
                                                 <a style="" class="v move--vod__2" name="<?=$child['id']?>"><img class="vod-icon move--vod2" src="/img/list.png"></a>
                                             </div>
                                         </li>
-                                    </ul>
                                 <?php endforeach; ?>
+                                </ul>
                                 <br><br>
                                 <a id="<?=$list['id']?>" class="add-vod add--vod__2"><img src="/img/plus.png" class="plus"><span class="btn-span"></span></a>
                             </div>   
@@ -393,7 +396,7 @@
 
 <script>
     //move Div
-    $(document).on("mousedown", ".move--vod", function(){
+    // $(document).on("mousedown", ".move--vod__1", function(){
         $("#sortable").sortable({ 
             // placeholder:"itemBoxHighlight", /* 이동할 위치 css 적용 */ 
             start:function(event,ui){ // 드래그 시작 시 호출 
@@ -402,8 +405,8 @@
             
             } 
         });
-    });
-    $(document).on("mousedown", ".move--vod2", function(){
+    // });
+    // $(document).on("mousedown", ".move--vod__2", function(){
         $("#sortable2").sortable({ 
             // placeholder:"itemBoxHighlight", /* 이동할 위치 css 적용 */ 
             start:function(event,ui){ // 드래그 시작 시 호출 
@@ -412,8 +415,7 @@
             
             } 
         });
-    });
-   
+    // });
 
     //go top when open tab
     $(document).on("click", ".webinar-tab-tg", function() {

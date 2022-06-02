@@ -27,6 +27,12 @@
     .apply-sect1-cont .conts .btns {
         justify-content: space-around;
     }
+    .apply-sect3-cont {
+        width: 100%;
+    }
+    .info-list {
+        text-align: left;
+    }
     
     @media  screen and (max-width: 768px) {
         .photos img {

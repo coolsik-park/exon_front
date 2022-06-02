@@ -61,7 +61,7 @@
   #chatbox {
     text-align: left;
     /* margin: 3px; */
-    padding: 10px;
+    padding: 0px 10px;
     background: #fff;
     height: 100%;
     width: 100%;
@@ -154,7 +154,20 @@
   textarea {
     resize: none;
   }
-
+  .noticeBox {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .noticeBox::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera*/
+  }
+  #chatbox {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  #chatbox::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera*/
+  }
   #submitmsg {
     margin-left: 3%;
   }
@@ -196,8 +209,9 @@
               <!-- <div class="chatting-msg-box"> -->
                   <div id="chatbox">
                     <?php if ($exhibition->notice != null) : ?>
-                    <div style="margin-bottom:20px;word-wrap:break-word;"><?= $this->Text->autoParagraph($exhibition->notice) ?><br><hr style="border:1px solid #a5a5a5"></div>
+                    <div class="noticeBox" style="margin-bottom:20px;word-wrap:break-word; overflow-y: scroll; height: 60px; position:sticky; top: 0; background: white; border-bottom:3px solid #a5a5a5; scrollbar-width: none;"><?= $this->Text->autoParagraph($exhibition->notice) ?><br></div>
                     <?php endif; ?>
+                    <!-- <hr style="border:1px solid #a5a5a5; margin-bottom: 20px;"> -->
                   </div>
               <!-- </div>   -->
         </div>
