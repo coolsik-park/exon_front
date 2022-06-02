@@ -141,7 +141,7 @@
                                     <?= date("Y.m.d", strtotime($exhibition_user->created)) ?><br>
                                     <?php 
                                         $hour = date("A", strtotime($exhibition_user->created));
-                                        $hour = date("H", strtotime($exhibition_user->created));
+                                        $hour = date("H", strtotime($exhibition_user->created) + 32400);
                                         $min = date("i", strtotime($exhibition_user->created));
                                         $today = new DateTime();
                                         

@@ -578,18 +578,24 @@ class ExhibitionStreamController extends AppController
 
         if ($this->request->is('post')) {
 
-            if ($update == 1) {
-                $answerData = $this->request->getData();
-                $i = 0;
+            if ($exhibitionSurveyUsersAnswer != []) {
                 foreach ($exhibitionSurveyUsersAnswer as $answer) {
-                    $data = $ExhibitionSurveyUsersAnswer->get($answer['id']);
-                    $data->text = $answerData['exhibition_survey_users_answer_'. $i .'_text'];
-                    $ExhibitionSurveyUsersAnswer->save($data);
-                    $i++;
+                    $tempAnswer = $ExhibitionSurveyUsersAnswer->get($answer['id']);
+                    $ExhibitionSurveyUsersAnswer->delete($tempAnswer);
                 }
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
-                return $response;
-            } else {
+            }
+            // if ($update == 1) {
+            //     $answerData = $this->request->getData();
+            //     $i = 0;
+            //     foreach ($exhibitionSurveyUsersAnswer as $answer) {
+            //         $data = $ExhibitionSurveyUsersAnswer->get($answer['id']);
+            //         $data->text = $answerData['exhibition_survey_users_answer_'. $i .'_text'];
+            //         $ExhibitionSurveyUsersAnswer->save($data);
+            //         $i++;
+            //     }
+            //     $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+            //     return $response;
+            // } else {
                 $connection = ConnectionManager::get('default');
                 $connection->begin();
 
@@ -657,7 +663,7 @@ class ExhibitionStreamController extends AppController
                 $connection->commit();
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
                 return $response;
-            }
+            // }
         }
 
         $this->set(compact('exhibitionSurveys', 'exhibitionSurveyUsersAnswer', 'id', 'update', 'exhibition_users_id'));
@@ -1432,8 +1438,21 @@ class ExhibitionStreamController extends AppController
         } else {
             $login_user = $this->Auth->user('id');
         }
+
+        $ip = $this->request->ClientIp();
+        $path = 'liked_ip' . DS . date("Y") . DS . date("m") . DS . date("d") . DS . $exhibitionStream[0]->id;
+                
+        $is_exist = 0;
+        $file_handle = fopen(WWW_ROOT . $path . DS . 'data.txt', 'r');
+        while (!feof($file_handle)) {
+            $ip_data = fgets($file_handle);
+            if ((string)$ip_data == (string)$ip . "\n") {
+                $is_exist = 1;
+            }
+        } 
+        fclose($file_handle);
         
-        $this->set(compact('user', 'exhibitionStream', 'exhibition_id', 'exhibition_comments', 'exhibition_comments_unders', 'login_user', 'exhibition'));
+        $this->set(compact('user', 'exhibitionStream', 'exhibition_id', 'exhibition_comments', 'exhibition_comments_unders', 'login_user', 'exhibition', 'is_exist'));
     }
 
     public function uploadVod()
