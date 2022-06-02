@@ -208,7 +208,7 @@
             // console.log('pc');
             $('#container').css('min-height',cHt);
             $('.section-webinar4').css('min-height',cHt);
-            $('.section-webinar4 .webinar-tab-body').css('height',cHt - wbHt-80);
+            $('.section-webinar4 .webinar-tab-body').css('height',cHt - wbHt-80+100);
 
         } else {
             //console.log('모바일');            
@@ -216,7 +216,7 @@
             $('.section-webinar4').css('min-height',cHt);
             $('.section-webinar4 .webinar-tab').removeClass('close')            
             // $('.section-webinar4 .webinar-tab-body').css('height',wHt - hHt - wbHt - movHt-10);
-            $('.section-webinar4 .webinar-tab-body').css('height', '500px');
+            $('.section-webinar4 .webinar-tab-body').css('height', '550px');
             $('.section-webinar4 .wb-cont1').on('click',function(){               
 
                 if($('.section-webinar4 .wb-cont2').hasClass('open')){

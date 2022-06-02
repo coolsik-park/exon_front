@@ -149,10 +149,12 @@
 
   .webinar-cont-ty1-btm {
     height: auto;
+    position: static;
   }
 
   textarea {
     resize: none;
+    padding: 0;
   }
   .noticeBox {
     -ms-overflow-style: none; /* IE and Edge */
@@ -176,8 +178,8 @@
       padding: 0;
     }
     .webinar-cont-ty1-btm {
-      position: absolute;
-      bottom: 5%;
+      position: static;
+      margin-top: 20px;
     }
     .webinar-cont-ty1 {
       background: white;
@@ -218,7 +220,7 @@
         <div class="webinar-cont-ty1-btm">
             <div class="chatting-submit">
                 <input type="hidden" name="last_id" id="last_id" value="1">
-                <textarea id="usermsg" name="usermsg" placeholder="Message..." rows="2" cols="20" wrap="hard" onkeyup="enterkey()"></textarea>
+                <textarea id="usermsg" name="usermsg" placeholder="" rows="2" cols="20" wrap="hard" onkeyup="enterkey()"></textarea>
                 <button type="submit" id="submitmsg" name="submitmsg" class="btn-ty4 redbg">전송</button>
             </div>
         </div>
