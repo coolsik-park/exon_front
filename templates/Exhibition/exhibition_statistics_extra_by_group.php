@@ -121,6 +121,10 @@
                     scheme: 'brewer.PastelOne6',
                 },
             },
+            tooltips: {
+                titleFontSize: 8,
+                bodyFontSize: 8
+            },
             responsive: false, 
             scales: {
                 xAxes: [{
