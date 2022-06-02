@@ -113,6 +113,12 @@ class ExhibitionUsersController extends AppController
                         return $response;
                     }
                 }
+
+                if (!$connection->update('exhibition_users', ['company' => $answerData['company'], 'title' => $answerData['title']], ['id' => $exhibition_user->id])) {
+                    $connection->rollback();
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                    return $response;
+                }
                 
                 //설문 응답 저장
                 $exhibitionSurveys = $this->getTableLocator()->get('ExhibitionSurvey')->find('all')->where(['exhibition_id' => $id, 'survey_type' => 'B'])->toArray();
