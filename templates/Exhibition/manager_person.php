@@ -65,7 +65,7 @@
                     <div class="th-col col7"></div>
                 </div>
                 <?php 
-                    $index = 1;
+                    $index = $this->Paginator->current('ExhibitionUsers') * 10 - 9;
                     foreach ($exhibition_users as $key => $exhibition_user):
                         $method = '';
                         $same_day = 0;
