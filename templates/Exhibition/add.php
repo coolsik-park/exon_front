@@ -190,7 +190,7 @@
                         </div>              
                     </div>
                 </div>
-                <div class="sect3">
+                <div class="sect3" style="display:none;">
                     <h4 class="s-hty2">온포터즈 1기</h4>
                     <p class="p-noti">온포터즈 1기 웨비나 행사로 등록하시겠습니까?</p>
                     <div class="ln-rdo">
