@@ -28,7 +28,7 @@
             <div class="webinar-cont">
                 <div class="wb-cont1">
                     <video id="vid1" class="video-js vjs-big-play-centered">
-                        <!-- <source src="/vod/<?=$exhibition->id?>/<?=$exhibitionVod->title?>.mp4" type="video/mp4" /> -->
+                        <source src="https://orcaexon.co.kr/videos/<?=$exhibition->id?>/<?=$exhibitionVod->title?>.mp4" type="video/mp4" />
                     </video>
                 </div>                
             </div>
@@ -112,10 +112,10 @@
         autoplay: true,
         // muted: true,
     });
-    player.src({
-        src: '/vod/1261/33.mp4',
-        type: 'video/mp4'
-    });
+    // player.src({
+    //     src: '/vod/1261/33.mp4',
+    //     type: 'video/mp4'
+    // });
     player.play();
     
 
