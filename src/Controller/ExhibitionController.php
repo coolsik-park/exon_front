@@ -1502,17 +1502,18 @@ class ExhibitionController extends AppController
                     ->setTitle('질문' . ($i+1))
                     ->setCellValue('A1', '');
 
-                    $spreadsheet->getActiveSheet($i)
-                    ->setCellValue('B1', '이름')
-                    ->setCellValue('C1', '이메일')
-                    ->setCellValue('D1', '질문' . ($i+1));
+                    // $spreadsheet->getActiveSheet($i)
+                    // ->setCellValue('B1', '이름')
+                    // ->setCellValue('C1', '이메일')
+                    // ->setCellValue('D1', '질문' . ($i+1));
 
                     $spreadsheet->getActiveSheet($i)->getColumnDimension('A')->setAutoSize(true);
                     $spreadsheet->getActiveSheet($i)->getColumnDimension('C')->setAutoSize(true);
                     $spreadsheet->getActiveSheet($i)->getColumnDimension('D')->setAutoSize(true);
+                    $spreadsheet->getActiveSheet($i)->getColumnDimension('E')->setAutoSize(true);
 
-                    $spreadsheet->getActiveSheet($i)->getStyle('D')->getAlignment()->setWrapText(true);
-                    $spreadsheet->getActiveSheet($i)->getStyle('A:D')->getAlignment()->setHorizontal('left');
+                    $spreadsheet->getActiveSheet($i)->getStyle('E')->getAlignment()->setWrapText(true);
+                    $spreadsheet->getActiveSheet($i)->getStyle('A:E')->getAlignment()->setHorizontal('left');
                 }
 
                 $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
@@ -1613,26 +1614,28 @@ class ExhibitionController extends AppController
                     $spreadsheet->getActiveSheet($i)
                     ->setCellValue('B1', '이름')
                     ->setCellValue('C1', '이메일')
-                    ->setCellValue('D1', $question);
+                    ->setCellValue('D1', '전화번호')
+                    ->setCellValue('E1', $question);
 
                     for ($j = 0; $j < $rowCount; $j++) {
                             $spreadsheet->getActiveSheet($i)
                             ->setCellValue('A' . ($j+2), ($j+1))
                             ->setCellValue('B' . ($j+2), $exhibitionUsers[$j]['users_name'])
-                            ->setCellValue('C' . ($j+2), $exhibitionUsers[$j]['users_email']);           
+                            ->setCellValue('C' . ($j+2), $exhibitionUsers[$j]['users_email'])
+                            ->setCellValue('D' . ($j+2), $exhibitionUsers[$j]['users_hp']);         
                     }
                     for ($j = 0; $j < $rowCount; $j++) {
                         
                         if ($answerData[$j]['answered'][0] == '') {
                             $spreadsheet->getActiveSheet($i)
-                            ->setCellValue('D' . ($j+2), '');
+                            ->setCellValue('E' . ($j+2), '');
                         
                         } else {  
                             $text =  $answerData[$j]['answered'][$i];
                             $lists = explode(" ", $text);
                             
                             $spreadsheet->getActiveSheet($i)
-                            ->setCellValue('D' . ($j+2), $text);
+                            ->setCellValue('E' . ($j+2), $text);
                         }
                     }
                 }
