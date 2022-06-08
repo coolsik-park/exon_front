@@ -180,6 +180,17 @@
             position: absolute;
             right: 35px;
         }
+        .wb--stream__first {
+            margin-bottom: 30px;
+        }
+        .disable {
+            color: grey;
+        }
+        a.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+            cursor: default;
+        }
         .itemBoxHighlight { border:solid 1px black; width: 100%; height: 200px; background-color:yellow; }
         @media  screen and (max-width: 768px) {
             .stream-sect .row2-wp .row2 {
@@ -229,7 +240,7 @@
         <div class="webinar-cont">
             <div class="chapter-body">  
             </div> 
-            <div class='wb-stream-sect'>
+            <div class='wb-stream-sect wb--stream__first'>
                 <div class="add-chapter-div">
                     <a id="add-chapter"><img src="/img/plus.png" class="plus"><span class="btn-span">챕터 추가</span></a>
                     <p class="p-noti2 noti">챕터를 추가하여 VOD들을 챕터별로 분류 할 수 있습니다.</p>
@@ -243,8 +254,8 @@
                                     <a style="" class="delete c delete--vod__1" name="<?=$list['id']?>">
                                         <img class="chapter-icon" src="/img/trash_can-lov.png">
                                     </a>
-                                    <a style="" class="c view--vod__1" name="<?=$list['id']?>">
-                                        <img class="chapter-icon" src="/img/view.png">
+                                    <a style="" class="c view--vod__1 " name="<?=$list['id']?>">
+                                        <img id="view--vod__1" class="chapter-icon" src="/img/view.png">
                                     </a>
                                     <a style="" class="c move--vod__1" name="<?=$list['id']?>">
                                         <img class="chapter-icon move--vod" src="/img/list.png">
@@ -254,9 +265,9 @@
                                 <?php foreach ($list['child_exhibition_vod'] as $child) : ?>
                                         <li class="ui-state-default">  
                                             <div class="vod-title" style="font-size:30px; margin:20px 0; padding-left:10px;">
-                                                <a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition_id?>/<?=$child['id']?>"><?=$child['title']?></a>
+                                                <a class="vodTitle" href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition_id?>/<?=$child['id']?>"><?=$child['title']?></a>
                                                 <a style="" class="delete v delete--vod__2" name="<?=$child['id']?>"><img class="vod-icon" src="/img/trash_can-lov.png"></a>
-                                                <a style="" class="v view--vod__2" name="<?=$child['id']?>"><img class="vod-icon" src="/img/view.png"></a>
+                                                <a style="" class="v view--vod__2" name="<?=$child['id']?>"><img id="view--vod__2" class="vod-icon" src="/img/view.png"></a>
                                                 <a style="" class="v move--vod__2" name="<?=$child['id']?>"><img class="vod-icon move--vod2" src="/img/list.png"></a>
                                             </div>
                                         </li>
@@ -395,6 +406,42 @@
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" />
 
 <script>
+    //toggle show
+
+    //view--vod__1 
+    $(document).on("click", "#view--vod__1", function(){
+        if($(this).hasClass('hidden') == false){    
+            $(this).attr("src", "/img/hidden.png");
+            $(this).addClass('hidden');
+            $(this).parent().parent().parent().addClass('disable');
+            $(this).parent().parent().next().children( 'li.ui-state-default' ).children( '.vod-title' ).children( '.view--vod__2' ).children( '#view--vod__2' ).attr("src", "/img/hidden.png");
+            $(this).parent().parent().next().children( 'li.ui-state-default' ).children( '.vod-title' ).children( '.vodTitle' ).addClass('disabled');
+        }
+        else if($(this).hasClass('hidden') == true){
+            $(this).attr("src", "/img/view.png");
+            $(this).removeClass('hidden');
+            $(this).parent().parent().parent().removeClass('disable');
+            $(this).parent().parent().next().children( 'li.ui-state-default' ).children( '.vod-title' ).children( '.view--vod__2' ).children( '#view--vod__2' ).attr("src", "/img/view.png");
+            $(this).parent().parent().next().children( 'li.ui-state-default' ).children( '.vod-title' ).children( '.vodTitle' ).removeClass('disabled');
+        }
+    });
+
+     //view--vod__2 
+     $(document).on("click", "#view--vod__2", function(){
+        if($(this).hasClass('hidden') == false){    
+            $(this).attr("src", "/img/hidden.png");
+            $(this).addClass('hidden');
+            $(this).parent().prev().prev().addClass('disable');
+            $(this).parent().prev().prev().addClass('disabled');
+        }
+        else if($(this).hasClass('hidden') == true){
+            $(this).attr("src", "/img/view.png");
+            $(this).removeClass('hidden');
+            $(this).parent().prev().prev().removeClass('disable');
+            $(this).parent().prev().prev().removeClass('disabled');
+        }
+    });
+
     //move Div
     // $(document).on("mousedown", ".move--vod__1", function(){
         $("#sortable").sortable({ 
