@@ -282,7 +282,7 @@
                 <?php endif; ?>
                 </ul>
                 </div>
-                <a id="<?=$list['id']?>" class="add-vod add--vod__1"><img src="/img/plus.png" class="plus"><span class="btn-span">VOD 추가</span></a>
+                <a class="add-vod add--vod__1"><img src="/img/plus.png" class="plus"><span class="btn-span">VOD 추가</span></a>
             </div>
             <div class="wb-stream-sect">
                 <h2 class="s-hty3">결제</h2>

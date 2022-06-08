@@ -1684,8 +1684,8 @@ class ExhibitionController extends AppController
                 }
             }
         }
-        
-        $this->set(compact('beforeParentData', 'beforeChildData', 'normalParentData', 'normalChildData', 'id'));
+        $exhibition = $this->Exhibition->get($id);
+        $this->set(compact('beforeParentData', 'beforeChildData', 'normalParentData', 'normalChildData', 'id', 'exhibition'));
     }
 
     public function exhibitionStatisticsApply($id = null)
