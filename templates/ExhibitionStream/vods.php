@@ -1,40 +1,43 @@
-<head>
-    <link href="https://vjs.zencdn.net/7.17.0/video-js.css" rel="stylesheet" />
-    <script src="https://vjs.zencdn.net/7.17.0/video.min.js"></script>
-    <style>
-        .chapter {
-            font-size: 25px;
-        }
-        .vod-ul {
-            margin:2% 0 2% 3%;
-            font-size: 20px;
-        }
-        .vod-li {
-            margin-top: 1%;
-        }
-        .vod-time {
-            float: right;
-        }
-        .section-webinar4 .webinar-tab.close .webinar-tab-tg {
-            top: 78px;
-        }
-        
-    </style>
-</head>
+<style>
+    .chapter {
+        font-size: 25px;
+    }
+    .vod-ul {
+        margin:2% 0 2% 3%;
+        font-size: 1.5rem;
+    }
+    .vod-li {
+        margin-top: 1%;
+    }
+    .vod-time {
+        float: right;
+        font-size: 20px;
+    }
+    .section-webinar4 .webinar-tab.close .webinar-tab-tg {
+        top: 78px;
+    }
+</style>
 
 <div id="container">       
     <div class="contents">      
         <div class="section-webinar4">
             <div class="webinar-cont">
-                <div class="wb-cont1">
-                    <video id="vid1" class="video-js vjs-big-play-centered" poster="https://orcaexon.co.kr/videos/<?=$exhibition->id?>/<?=$exhibitionVod->title?>_thumbnail.png">
-                        <source src="https://orcaexon.co.kr/videos/<?=$exhibition->id?>/<?=$exhibitionVod->title?>.mp4" type="video/mp4" />
-                    </video>
-                </div>     
-                <div class="wb-cont2">
-                    <h3 class="w-tit"><?= $exhibitionVod->title ?></h3>
-                    <h4 style="margin-top:5px; color:gray;"><?= $exhibitionVod->description ?></h4>
-                </div>              
+                <div class="section-my">
+                    <h3 class="s-hty1"><?=$chapter['title']?></h3>
+                    <div class="table-type table-type2">                  
+                        <div class="tr-row">
+                            <ul class="vod-ul">
+                            <?php foreach ($vods as $vod) : ?>
+                                <li class="vod-li">
+                                    <a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition->id?>/<?=$vod['id']?>/<?=$exhibition_users_id?>"><?=$vod['title']?></a><span class="vod-time"><?=sprintf('%02d:%02d:%02d', (round($vod['duration'])/3600),(round($vod['duration'])/60%60), round($vod['duration'])%60)?></span>
+                                </li>
+                                <br>
+                            <?php endforeach; ?>
+                            </ul>
+                        </div>
+                        <br>
+                    </div>
+                </div>             
             </div>
             <!-- webinar-tab -->
             <div id="webinar-tab" class="webinar-tab">
@@ -46,7 +49,6 @@
                         <div class="w-tab-wrap-inner">
                             <ul class="w-tab">
                                 <li id="li11" class=""><button type="button" id="tab11" name="목록">목록</button></li>
-                                <?php if ($exhibition_users_id != null) : ?>
                                 <?php if ($exhibition->is_vod == 2) : ?>
                                 <li id="li10" class=""><button type="button" id="tab10" name="라이브 시청">라이브 시청</button></li>
                                 <?php endif; ?>
@@ -58,7 +60,6 @@
                                 <li id="li2" class="" style="display:none;"><button type="button" id="tab2" name="개설자 정보">개설자 정보</button></li>
                                 <li id="li1" class="" style="display:none;"><button type="button" id="tab1" name="행사 정보">행사 정보</button></li>
                                 <li id="li0" class="" style="display:none;"><button type="button" id="tab0" name="자료">자료</button></li>
-                                <?php endif;?>
                             </ul>
                         </div>                            
                     </div>
@@ -77,68 +78,15 @@
 </div>
 
 <script>
-    //매초 영상 시청 %계산
-    // var video = document.getElementById("vid1");
-    // setInterval(function() {
-    //     if (video.paused == false) {
-    //         // 재생 할때
-    //         video_current_time = Math.floor(video.currentTime);
-    //         console.log(video_current_time);
-
-    //         //exhibition_vod_viewer 값 add
-    //         $.ajax({
-    //             url: "/exhibition-stream/vod-add-viewer/" + <?= $exhibition->id ?> +"/"+ <?= $exhibitionVod->id ?>,
-    //             method: 'POST',
-    //             type:'json',
-    //             data: {
-    //                 current_time: video_current_time
-    //             }
-    //         }).done(function (data) {
-    //             if (data.status == 'add_success' && data.status == 'update_success') {
-    //                 console.log('aaaa');
-    //             } else {
-    //                 console.log('bbbb');
-    //             }
-    //         });
-    //     } else {
-    //         // 재생 안 할때
-    //         console.log('cccc');
-    //     }
-    // },1000);
-
-    //video.js
-    var player = videojs('vid1', {
-        controls: true,
-        preload: 'auto',
-        fluid: true,
-    });
-    player.play();
-    
-
-
     //go top when open tab
     $(document).on("click", ".webinar-tab-tg", function() {
         if (!$("#toggle").hasClass("close")) {
             window.scrollTo(0, 0);
         }
     });
-    
-    $(document).ready(function () {
-        $.ajax({
-            url: "/exhibition-stream/exhibition-vod-add-viewer/" + <?= $exhibitionVod->id ?>,
-            method: 'POST',
-            type: 'json',
-        }).done(function(data) {
-            if (data.status == 'success') {
-            } else if (data.status == 'exist') {
-            } else {
-                // alert('오류가 발생하였습니다. 잠시 후 다시 시도해주세요.');
-            }
-        });
-    });
 
     //탭 컨트롤 
-    var dec = "<?=$exhibition->vod_tab?>";
+    var dec = "<?=$exhibitionStream[0]['tab']?>";
     dec = parseInt(dec);
     var bin = dec.toString(2);
     if (bin.length < 10) {
@@ -161,7 +109,7 @@
 
     $("#li0").click(function () {
         clearInterval(chatInterval);
-        $(".webinar-tab-body").load("/exhibition-stream/exhibition-files/" + <?=$exhibition->id?>);
+        $(".webinar-tab-body").load("/exhibition-stream/exhibition-files/" +<?=$exhibition->id?>);
         $("#li0").attr("class", "active");
         $("#li1").attr("class", "");
         $("#li2").attr("class", "");
@@ -267,7 +215,7 @@
 
     $("#li6").click(function () {
         clearInterval(chatInterval);
-        $(".webinar-tab-body").load("/exhibition-stream/vod-set-question/" + <?=$exhibition->id?>);
+        $(".webinar-tab-body").load("/exhibition-stream/vod-set-question/<?=$exhibition->id?>/<?=$exhibition_users_id?>");
         $("#li0").attr("class", "");
         $("#li1").attr("class", "");
         $("#li2").attr("class", "");

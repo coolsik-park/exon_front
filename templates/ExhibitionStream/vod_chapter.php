@@ -15,6 +15,13 @@
     .section-webinar4 .webinar-tab.close .webinar-tab-tg {
         top: 78px;
     }
+    .chapter {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+    }
+    .tr {
+        margin-left: 20px;
+    }
 </style>
 
 <div id="container">       
@@ -22,18 +29,18 @@
         <div class="section-webinar4">
             <div class="webinar-cont">
                 <div class="section-my">
-                    <h3 class="s-hty1">VOD 목록</h3>
+                    <h3 class="s-hty1">Chapter 목록</h3>
                     <div class="table-type table-type2">      
                     <?php foreach ($exhibitionVod as $list) : ?>              
-                        <div class="tr-row">
+                        <div class="tr">
                             <div class="chapter">
-                                <p><?=$list['title']?></p>
+                                <p><a href="/exhibition-stream/vods/<?=$exhibition->id?>/<?=$exhibition_users_id?>/<?=$list['id']?>"><?=$list['title']?></a></p>
                             </div>
-                            <ul class="vod-ul">
+                            <!-- <ul class="vod-ul">
                             <?php foreach ($list['child_exhibition_vod'] as $vod) : ?>
                                 <li class="vod-li"><a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition->id?>/<?=$vod['id']?>/<?=$exhibition_users_id?>"><?=$vod['title']?></a><span class="vod-time"><?=sprintf('%02d:%02d:%02d', (round($vod['duration'])/3600),(round($vod['duration'])/60%60), round($vod['duration'])%60)?></span></li>
                             <?php endforeach; ?>
-                            </ul>
+                            </ul> -->
                         </div>
                         <br>
                     <?php endforeach; ?>
@@ -53,11 +60,9 @@
                                 <?php if ($exhibition->is_vod == 2) : ?>
                                 <li id="li10" class=""><button type="button" id="tab10" name="라이브 시청">라이브 시청</button></li>
                                 <?php endif; ?>
-                                <!-- <li id="li9" class="" style="display:none;"><button type="button" id="tab9" name="실시간 채팅">실시간 채팅</button></li> -->
                                 <li id="li8" class="" style="display:none;"><button type="button" id="tab8" name="설문">설문</button></li>
                                 <li id="li7" class="" style="display:none;"><button type="button" id="tab7" name="공지사항">공지사항</button></li>
                                 <li id="li6" class="" style="display:none;"><button type="button" id="tab6" name="질의 응답">질의 응답</button></li>
-                                <!-- <li id="li5" class="" style="display:none;"><button type="button" id="tab5" name="출석체크">출석체크</button></li> -->
                                 <li id="li4" class="" style="display:none;"><button type="button" id="tab4" name="프로그램">프로그램</button></li>
                                 <li id="li3" class="" style="display:none;"><button type="button" id="tab3" name="담당자 정보">담당자 정보</button></li>
                                 <li id="li2" class="" style="display:none;"><button type="button" id="tab2" name="개설자 정보">개설자 정보</button></li>
@@ -218,7 +223,7 @@
 
     $("#li6").click(function () {
         clearInterval(chatInterval);
-        $(".webinar-tab-body").load("/exhibition-stream/set-question/" + <?=$exhibition->id?>);
+        $(".webinar-tab-body").load("/exhibition-stream/vod-set-question/<?=$exhibition->id?>/<?=$exhibition_users_id?>");
         $("#li0").attr("class", "");
         $("#li1").attr("class", "");
         $("#li2").attr("class", "");

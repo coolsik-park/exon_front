@@ -1,8 +1,13 @@
+<style>
+    .tab-chapter {
+        font-size: 25px;
+    }
+</style>
 <div class="webinar-cont2">
     <div class="table-type table-type2" style="margin:20px;">      
     <?php foreach ($exhibitionVod as $list) : ?>              
         <div class="tr-row">
-            <div class="chapter">
+            <div class="tab-chapter">
                 <p><?=$list['title']?></p>
             </div>
             <ul class="vod-ul">

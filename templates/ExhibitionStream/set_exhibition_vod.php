@@ -1087,7 +1087,7 @@
                 $(".wb-alert").html($(this).attr('name')+' 탭이 비활성화되었습니다.');
             } 
         } else {
-            $(".webinar-tab-body").load("/exhibition-stream/question-menu/" + <?= $exhibition_id ?>);
+            $(".webinar-tab-body").load("/exhibition-stream/vod-question-menu/" + <?= $exhibition_id ?>);
         }
     });
 
