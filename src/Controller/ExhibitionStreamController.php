@@ -369,7 +369,15 @@ class ExhibitionStreamController extends AppController
         $ExhibitionQuestion = $this->getTableLocator()->get('ExhibitionQuestion');
         $answeredQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])
             ->where(['ExhibitionQuestion.parent_id IS NOT' => null, 'ExhibitionUsers.exhibition_id' => $id, 'is_vod' => 1])->toArray();
-        $exhibitionQuestions = $ExhibitionQuestion->find('all')->where(['parent_id IS' => null, 'exhibition_users_id IN' => $users_id, 'is_vod' => 1])->toArray();
+
+        $count = count($answeredQuestions);
+        $answeredQuestionId[] = '';
+
+        for ($i = 0; $i < $count; $i++) {
+            $answeredQuestionId[$i] = $answeredQuestions[$i]['parent_id'];
+        }
+
+        $exhibitionQuestions = $ExhibitionQuestion->find('all')->where(['ExhibitionQuestion.id NOT IN' => $answeredQuestionId, 'parent_id IS' => null, 'exhibition_users_id IN' => $users_id, 'is_vod' => 1])->toArray();
 
         if ($this->request->is('post')) {
 
@@ -411,6 +419,40 @@ class ExhibitionStreamController extends AppController
                 }
             }
         }
+        $current_user_id = $this->Auth->user('id');
+        $this->set(compact('exhibitionSpeakers', 'exhibitionQuestions', 'ExhibitionUsers', 'id', 'current_user_id', 'exhibition_users_id', 'answeredQuestions'));
+    }
+
+    public function vodGetAnswer ($id = null, $exhibition_users_id = null)
+    {
+        $ExhibitionSpeaker = $this->getTableLocator()->get('ExhibitionSpeaker');
+        $exhibitionSpeakers = $ExhibitionSpeaker->find('all')->where(['exhibition_id' => $id, 'is_vod' => 1])->toArray();
+        
+        $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
+        $exhibitionUsers = $ExhibitionUsers->find()->select(['id'])->where(['exhibition_id' => $id])->toArray();
+        
+        if (count($exhibitionUsers) != 0) {
+            $i = 0;
+            foreach ($exhibitionUsers as $user) {
+                $users_id[$i] = $user['id'];
+                $i++;
+            }
+        } else {
+            $users_id[] = '';
+        }
+        
+        $ExhibitionQuestion = $this->getTableLocator()->get('ExhibitionQuestion');
+        $answeredQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])
+            ->where(['ExhibitionQuestion.parent_id IS NOT' => null, 'ExhibitionUsers.exhibition_id' => $id, 'is_vod' => 1])->toArray();
+
+        $count = count($answeredQuestions);
+        $answeredQuestionId[] = '';
+
+        for ($i = 0; $i < $count; $i++) {
+            $answeredQuestionId[$i] = $answeredQuestions[$i]['parent_id'];
+        }
+        $exhibitionQuestions = $ExhibitionQuestion->find('all')->where(['ExhibitionQuestion.id IN' => $answeredQuestionId, 'parent_id IS' => null, 'exhibition_users_id IN' => $users_id, 'is_vod' => 1])->toArray();
+
         $current_user_id = $this->Auth->user('id');
         $this->set(compact('exhibitionSpeakers', 'exhibitionQuestions', 'ExhibitionUsers', 'id', 'current_user_id', 'exhibition_users_id', 'answeredQuestions'));
     }

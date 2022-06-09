@@ -1,7 +1,11 @@
 <div class="webinar-cont1">
     <h3 class="sr-only">질의 응답</h3>
     <div class="webinar-cont-ty1">
-        <div class="webinar-cont-ty4-body">                                    
+        <div class="webinar-cont-ty4-body">    
+            <ul class="wb-in-tab">
+                <li id="question" class="on" style="cursor:pointer"><a>질문</a></li>
+                <li id="answer" class="" style="cursor:pointer"><a>답변</a></li>
+            </ul>                                 
             <div class="sect-ovf1">
                 <ul class="ph-items">
                     <li class="box" id="all">
@@ -49,17 +53,6 @@
                             ?>
                             </p>
                             <p class="tx"><?php echo $exhibitionQuestion['contents'] ?></p>    
-                            <br>  
-                            <p class="s-hty2">
-                                연사자 답변
-                            </p>
-                            <p class="tx">
-                                <?php foreach($answeredQuestions as $answer): ?>
-                                    <?php if($answer['parent_id'] == $exhibitionQuestion['id']) : ?>
-                                        <?=$answer['contents']?>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                            </p> 
                         </div>
                         <?php
                             $user_id = $exhibitionUser[0]['users_id'];
@@ -132,5 +125,9 @@
                 }
             });
         }
+    });
+    
+    $("#answer").click(function () {
+        $(".webinar-tab-body").load("/exhibition-stream/vod-get-answer/<?=$id?>/<?=$exhibition_users_id?>");
     }); 
 </script>   
