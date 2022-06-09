@@ -67,7 +67,7 @@
                             <li class="active"><a href="/exhibition/exhibition-statistics-vod/<?=$id?>">VOD</a></li>
                         <?php else: ?>
                             <li class="active"><a href="/exhibition/exhibition-statistics-stream/<?=$id?>">라이브</a></li>
-                            <li class="active"><a href="/exhibition/exhibition-statistics-vod/<?=$id?>">VOD</a></li>
+                            <li><a href="/exhibition/exhibition-statistics-vod/<?=$id?>">VOD</a></li>
                         <?php endif; ?>
                     </ul>
                 </li>
