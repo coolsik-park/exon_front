@@ -245,7 +245,7 @@
                     <a id="add-chapter"><img src="/img/plus.png" class="plus"><span class="btn-span">챕터 추가</span></a>
                     <p class="p-noti2 noti">챕터를 추가하여 VOD들을 챕터별로 분류 할 수 있습니다.</p>
                     <ul id="sortable">
-                    <?php if (!empty($exhibitionVod)) : ?>      
+                    <?php if ($exhibitionVod != null) : ?>      
                     <?php foreach ($exhibitionVod as $list) : ?>
                         <li class="ui-state-default">  
                         <div class='wb-stream-sect sect--border'>
@@ -314,6 +314,12 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-td">
+                            <label for="vod_duration">설정 기간</label>     
+                                <div class="stream-itp2">
+                                    <input type="text" id="vod_duration" name="vod_duration" value="00시간 00분" readonly>
+                                </div>
+                            </div>
                         </div>
                         <div class="row2 endDate--style">
                             <div class="col-td endDate2--style">
@@ -332,19 +338,19 @@
                                 </div>
                             </div>
                             <div class="col-td">
-                            <label for="vod_duration">설정 기간</label>     
+                            <label for="left_duration">남은 기간</label>     
                                 <div class="stream-itp2">
-                                    <input type="text" id="vod_duration" name="vod_duration" value="00시간 00분" readonly>
+                                    <input type="text" id="left_duration" name="left_duration" value="00시간 00분" readonly>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row2-wp">
                         <div class="row2">
-                            <div class="col-th">파일 크기</div>
+                            <div class="col-th">영상 길이</div>
                             <div class="col-td">
                                 <div class="stream-itp2">
-                                    <input type="text" id="vod_size" name="vod_size" value="10GB" readonly>
+                                    <input type="text" id="vod_size" name="vod_size" value="00:00:00 / 00:00:00" readonly>
                                 </div>
                             </div>
                         </div>
@@ -374,11 +380,9 @@
                     <div class="w-tab-wrap-inner">
                         <ul class="w-tab">
                             <li id="li10" class=""><button type="button" id="btn_tab10" name="목록">목록</button></li>
-                            <!-- <li id="li9" class=""><button type="button" id="btn_tab9" name="실시간 채팅">실시간 채팅</button></li> -->
                             <li id="li8" class=""><button type="button" id="btn_tab8" name="설문">설문</button></li>
                             <li id="li7" class=""><button type="button" id="btn_tab7" name="공지사항">공지사항</button></li>
-                            <!-- <li id="li6" class=""><button type="button" id="btn_tab6" name="질의 응답">질의 응답</button></li> -->
-                            <!-- <li id="li5" class=""><button type="button" id="btn_tab5" name="출석체크">출석체크</button></li> -->
+                            <li id="li6" class=""><button type="button" id="btn_tab6" name="질의 응답">질의 응답</button></li>
                             <li id="li4" class=""><button type="button" id="btn_tab4" name="프로그램">프로그램</button></li>
                             <li id="li3" class=""><button type="button" id="btn_tab3" name="담당자 정보">담당자 정보</button></li>
                             <li id="li2" class=""><button type="button" id="btn_tab2" name="개설자 정보">개설자 정보</button></li>
@@ -522,10 +526,6 @@
         var day = msec / 1000 / 60 / 60 / 24
         $("#vod_duration").val(Math.floor(day) + " 일 " + Math.floor(hour) + " 시간 " + Math.floor(min) + " 분")
     });
-
-    //file_size
-    total = "<?=$file_size?>";
-    $("#vod_size").val(total + "MB");
 
     var amount = 0;
     var coupon_id = 0;

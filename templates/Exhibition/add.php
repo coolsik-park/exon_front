@@ -329,8 +329,9 @@
                     <div class="list-chks">
                         <span class="chk-dsg"><input type="checkbox" class="vod_tab_box" id="vod_2" name="2"><label for="vod_2">설문</label></span>
                         <span class="chk-dsg"><input type="checkbox" class="vod_tab_box" id="vod_4" name="4"><label for="vod_4">공지사항</label></span>
+                        <span class="chk-dsg"><input type="checkbox" class="vod_tab_box" id="vod_8" name="8"><label for="vod_8">질의응답</label></span>
                         <span class="chk-dsg"><input type="checkbox" class="vod_tab_box" id="vod_64" name="64"><label for="vod_64">담당자 정보</label></span>
-                        <span class="chk-dsg"><input type="checkbox" class="vod_tab_box" id="vod_128" name="128"><label for="vod_128">개설자 정보</label></span>
+                        <span class="chk-dsg"><input type="checkbox" class="vod_tab_box" id="vod_128" name="128"><label for="vod_128">개설자 정보</label></span><br>
                         <span class="chk-dsg"><input type="checkbox" class="vod_tab_box" id="vod_256" name="256"><label for="vod_256">행사 정보</label></span>
                         <span class="chk-dsg"><input type="checkbox" class="vod_tab_box" id="vod_512" name="512"><label for="vod_512">자료</label></span>
                     </div>

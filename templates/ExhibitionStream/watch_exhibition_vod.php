@@ -27,7 +27,7 @@
         <div class="section-webinar4">
             <div class="webinar-cont">
                 <div class="wb-cont1">
-                    <video id="vid1" class="video-js vjs-big-play-centered">
+                    <video id="vid1" class="video-js vjs-big-play-centered" poster="https://orcaexon.co.kr/videos/<?=$exhibition->id?>/<?=$exhibitionVod->title?>_thumbnail.png">
                         <source src="https://orcaexon.co.kr/videos/<?=$exhibition->id?>/<?=$exhibitionVod->title?>.mp4" type="video/mp4" />
                     </video>
                 </div>                
@@ -46,11 +46,9 @@
                                 <?php if ($exhibition->is_vod == 2) : ?>
                                 <li id="li10" class=""><button type="button" id="tab10" name="라이브 시청">라이브 시청</button></li>
                                 <?php endif; ?>
-                                <!-- <li id="li9" class="" style="display:none;"><button type="button" id="tab9" name="실시간 채팅">실시간 채팅</button></li> -->
                                 <li id="li8" class="" style="display:none;"><button type="button" id="tab8" name="설문">설문</button></li>
                                 <li id="li7" class="" style="display:none;"><button type="button" id="tab7" name="공지사항">공지사항</button></li>
                                 <li id="li6" class="" style="display:none;"><button type="button" id="tab6" name="질의 응답">질의 응답</button></li>
-                                <!-- <li id="li5" class="" style="display:none;"><button type="button" id="tab5" name="출석체크">출석체크</button></li> -->
                                 <li id="li4" class="" style="display:none;"><button type="button" id="tab4" name="프로그램">프로그램</button></li>
                                 <li id="li3" class="" style="display:none;"><button type="button" id="tab3" name="담당자 정보">담당자 정보</button></li>
                                 <li id="li2" class="" style="display:none;"><button type="button" id="tab2" name="개설자 정보">개설자 정보</button></li>
@@ -109,13 +107,7 @@
         controls: true,
         preload: 'auto',
         fluid: true,
-        autoplay: true,
-        // muted: true,
     });
-    // player.src({
-    //     src: '/vod/1261/33.mp4',
-    //     type: 'video/mp4'
-    // });
     player.play();
     
 
