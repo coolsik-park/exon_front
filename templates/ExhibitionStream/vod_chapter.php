@@ -14,7 +14,6 @@
     }
     .chapter {
         font-size: 2rem;
-        margin-bottom: 15px;
     }
     .tr {
         margin-left: 20px;
@@ -33,13 +32,13 @@
                             <div class="chapter">
                                 <p><a href="/exhibition-stream/vods/<?=$exhibition->id?>/<?=$exhibition_users_id?>/<?=$list['id']?>"><?=$list['title']?></a></p>
                             </div>
+                            <br><br>
                             <!-- <ul class="vod-ul">
                             <?php foreach ($list['child_exhibition_vod'] as $vod) : ?>
                                 <li class="vod-li"><a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition->id?>/<?=$vod['id']?>/<?=$exhibition_users_id?>"><?=$vod['title']?></a><span class="vod-time"><?=sprintf('%02d:%02d:%02d', (round($vod['duration'])/3600),(round($vod['duration'])/60%60), round($vod['duration'])%60)?></span></li>
                             <?php endforeach; ?>
                             </ul> -->
                         </div>
-                        <br>
                     <?php endforeach; ?>
                     </div>
                 </div>             
