@@ -49,6 +49,17 @@
                             ?>
                             </p>
                             <p class="tx"><?php echo $exhibitionQuestion['contents'] ?></p>    
+                            <br>  
+                            <p class="s-hty2">
+                                연사자 답변
+                            </p>
+                            <p class="tx">
+                                <?php foreach($answeredQuestions as $answer): ?>
+                                    <?php if($answer['parent_id'] == $exhibitionQuestion['id']) : ?>
+                                        <?=$answer['contents']?>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </p> 
                         </div>
                         <?php
                             $user_id = $exhibitionUser[0]['users_id'];
@@ -104,20 +115,22 @@
     });
 
     $(".btn-ty3").click(function () {
-        var id = $(this).attr("id");
-        jQuery.ajax({
-            url: "/exhibition-stream/vod-set-question/" + <?= $id ?>, 
-            method: 'POST',
-            type: 'json',
-            data: {
-                id: id,
-                action: 'delete'
-            }
-        }).done(function(res) {
-            if (res.status == 'success') {
-                alert("삭제되었습니다.");
-                $(".webinar-tab-body").load("/exhibition-stream/vod-set-question/<?= $id ?>/<? $exhibition_users_id ?>");
-            }
-        });
+        if (confirm('질문 삭제 시 더 이상 이 질문을 볼 수 없으며, 참가자들에게도 나타나지 않습니다.\n정말 삭제하시겠습니까?')) {
+            let id = $(this).attr("id");
+            jQuery.ajax({
+                url: "/exhibition-stream/vod-set-question/" + <?= $id ?>, 
+                method: 'POST',
+                type: 'json',
+                data: {
+                    id: id,
+                    action: 'delete'
+                }
+            }).done(function(res) {
+                if (res.status == 'success') {
+                    alert("삭제되었습니다.");
+                    $(".webinar-tab-body").load("/exhibition-stream/vod-set-question/<?= $id ?>/<? $exhibition_users_id ?>");
+                }
+            });
+        }
     }); 
 </script>   

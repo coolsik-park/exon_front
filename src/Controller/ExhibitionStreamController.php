@@ -367,6 +367,8 @@ class ExhibitionStreamController extends AppController
         }
         
         $ExhibitionQuestion = $this->getTableLocator()->get('ExhibitionQuestion');
+        $answeredQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])
+            ->where(['ExhibitionQuestion.parent_id IS NOT' => null, 'ExhibitionUsers.exhibition_id' => $id, 'is_vod' => 1])->toArray();
         $exhibitionQuestions = $ExhibitionQuestion->find('all')->where(['parent_id IS' => null, 'exhibition_users_id IN' => $users_id, 'is_vod' => 1])->toArray();
 
         if ($this->request->is('post')) {
@@ -410,7 +412,7 @@ class ExhibitionStreamController extends AppController
             }
         }
         $current_user_id = $this->Auth->user('id');
-        $this->set(compact('exhibitionSpeakers', 'exhibitionQuestions', 'ExhibitionUsers', 'id', 'current_user_id', 'exhibition_users_id'));
+        $this->set(compact('exhibitionSpeakers', 'exhibitionQuestions', 'ExhibitionUsers', 'id', 'current_user_id', 'exhibition_users_id', 'answeredQuestions'));
     }
 
     public function vodSetSpeaker ($id = null)
