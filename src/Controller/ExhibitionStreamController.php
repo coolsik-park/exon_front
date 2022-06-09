@@ -2193,7 +2193,7 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('exhibitionStream', 'exhibitionVod', 'exhibition_users_id', 'exhibition'));
     }
 
-    public function vodChapterTab($exhibition_id = null, $exhibition_users_id = null)
+    public function vodChapterTab($exhibition_id = null, $exhibition_users_id = 0)
     {
         $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $exhibition_id])->toArray();
         $ExhibitionVod = $this->getTableLocator()->get('ExhibitionVod');
