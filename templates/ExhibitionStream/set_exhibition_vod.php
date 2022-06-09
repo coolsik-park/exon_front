@@ -154,31 +154,38 @@
         .stream-sect > .add-vod {
             position: absolute;
             top: -2%;
-            right: 120px;
+            right: 130px;
         }
         .delete--vod__1 {
             position: absolute;
-            right: 95px;
+            right: 105px;
         }
         .delete--vod__2 {
             position: absolute;
-            right: 95px;
+            right: 105px;
         }
         .view--vod__1 {
             position: absolute;
-            right: 65px;
+            right: 75px;
         }
         .view--vod__2 {
             position: absolute;
-            right: 65px;
+            right: 75px;
         }
         .move--vod__1 {
             position: absolute;
-            right: 30px;
+            right: 40px;
         }
         .move--vod__2 {
             position: absolute;
-            right: 35px;
+            right: 40px;
+        }
+        .arrow--vod__1 {
+            position: absolute;
+            right: 0px;
+        }
+        .arrow--vod {
+            transform: rotate( 90deg );
         }
         .wb--stream__first {
             margin-bottom: 30px;
@@ -190,6 +197,24 @@
             opacity: 0.5;
             pointer-events: none;
             cursor: default;
+        }
+        .stream-ipt1 input {
+            color: black;
+        }
+        .vod-title {
+            position: relative;
+        }
+        .vod--title__icon {
+            font-size: 20px;
+            position: absolute;
+            left: 20px;
+            top: 8px;
+        }
+        .vodTitle {
+            margin-left: 30px;
+        }
+        #sortable2 {
+            display: none;
         }
         .itemBoxHighlight { border:solid 1px black; width: 100%; height: 200px; background-color:yellow; }
         @media  screen and (max-width: 768px) {
@@ -213,6 +238,12 @@
             }
             .btnDiv {
                 align-items: flex-end;
+            }
+            .sub-menu {
+                margin-top: 50px;
+            }
+            .wb-stream-sect {
+                margin-top: 20px;
             }
         }
     </style>
@@ -258,22 +289,25 @@
                                         <img id="view--vod__1" class="chapter-icon" src="/img/view.png">
                                     </a>
                                     <a style="" class="c move--vod__1" name="<?=$list['id']?>">
-                                        <img class="chapter-icon move--vod" src="/img/list.png">
+                                        <img id="move--vod__1" class="chapter-icon move--vod" src="/img/list.png">
+                                    </a>
+                                    <a style="" class="c arrow--vod__1" name="<?=$list['id']?>">
+                                        <img id="arrow--vod" class="chapter-icon arrow--vod" src="/img/arrow-down-sign-to-navigate.png">
                                     </a>
                                 </div>
                                 <ul id="sortable2">
                                 <?php foreach ($list['child_exhibition_vod'] as $child) : ?>
                                         <li class="ui-state-default">  
                                             <div class="vod-title" style="font-size:30px; margin:20px 0; padding-left:10px;">
-                                                <a class="vodTitle" href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition_id?>/<?=$child['id']?>"><?=$child['title']?></a>
+                                                <a class="vodTitle" href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition_id?>/<?=$child['id']?>"><span class="vod--title__icon">◆</span><?=$child['title']?></a>
                                                 <a style="" class="delete v delete--vod__2" name="<?=$child['id']?>"><img class="vod-icon" src="/img/trash_can-lov.png"></a>
                                                 <a style="" class="v view--vod__2" name="<?=$child['id']?>"><img id="view--vod__2" class="vod-icon" src="/img/view.png"></a>
-                                                <a style="" class="v move--vod__2" name="<?=$child['id']?>"><img class="vod-icon move--vod2" src="/img/list.png"></a>
+                                                <a style="" class="v move--vod__2" name="<?=$child['id']?>"><img id="move--vod__2" class="vod-icon move--vod2" src="/img/list.png"></a>
                                             </div>
                                         </li>
                                 <?php endforeach; ?>
                                 </ul>
-                                <br><br>
+                                
                                 <a id="<?=$list['id']?>" class="add-vod add--vod__2"><img src="/img/plus.png" class="plus"><span class="btn-span"></span></a>
                             </div>   
                         </div>
@@ -282,7 +316,7 @@
                 <?php endif; ?>
                 </ul>
                 </div>
-                <a class="add-vod add--vod__1"><img src="/img/plus.png" class="plus"><span class="btn-span">VOD 추가</span></a>
+                <a id="" class="add-vod add--vod__1"><img src="/img/plus.png" class="plus"><span class="btn-span">VOD 추가</span></a>
             </div>
             <div class="wb-stream-sect">
                 <h2 class="s-hty3">결제</h2>
@@ -406,11 +440,32 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script> 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script> 
 <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.js"></script> 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" />
 
 <script>
     //toggle show
+    $(document).on("click", ".arrow--vod", function(){
+        if($(this).parent().parent().next().is(":visible")){
+            $(this).parent().parent().next().slideUp();
+            $(this).css("transform","rotate(90deg)");
+        }
+        else {
+            $(this).parent().parent().next().slideDown();
+            $(this).css("transform","rotate(0deg)");
+        }
+    });
+
+    // window.onload = function() {
+    //     if($(ul[id="sortable2"])){
+    //         alert('asdasd');
+    //     }
+    //     else {
+    //         alert('false');
+    //     }
+    //     $('.sortable')
+    // };
 
     //view--vod__1 
     $(document).on("click", "#view--vod__1", function(){
@@ -447,7 +502,7 @@
     });
 
     //move Div
-    // $(document).on("mousedown", ".move--vod__1", function(){
+    // $(document).on("mousedown", ".move--vod", function(){
         $("#sortable").sortable({ 
             // placeholder:"itemBoxHighlight", /* 이동할 위치 css 적용 */ 
             start:function(event,ui){ // 드래그 시작 시 호출 
@@ -699,6 +754,7 @@
             }
         });
     });
+   
 
     //파일 컨트롤
     // 파일 리스트 번호
