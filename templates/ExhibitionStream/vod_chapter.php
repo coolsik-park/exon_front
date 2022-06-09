@@ -90,7 +90,7 @@
     });
 
     //탭 컨트롤 
-    var dec = "<?=$exhibitionStream[0]['tab']?>";
+    var dec = "<?=$exhibition->vod_tab?>";
     dec = parseInt(dec);
     var bin = dec.toString(2);
     if (bin.length < 10) {

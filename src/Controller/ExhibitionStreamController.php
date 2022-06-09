@@ -2198,8 +2198,10 @@ class ExhibitionStreamController extends AppController
         $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $exhibition_id])->toArray();
         $ExhibitionVod = $this->getTableLocator()->get('ExhibitionVod');
         $exhibitionVod = $ExhibitionVod->find('all', ['contain' => 'ChildExhibitionVod'])->where(['ExhibitionVod.exhibition_id' => $exhibition_id, 'ExhibitionVod.parent_id IS' => null])->toArray();
-        
-        $this->set(compact('exhibitionStream', 'exhibitionVod',  'exhibition_users_id'));
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $exhibition = $Exhibition->get($exhibition_id);
+
+        $this->set(compact('exhibitionStream', 'exhibitionVod',  'exhibition_users_id', 'exhibition'));
     }
     
     public function setExhibitionVod($exhibition_id = null)
