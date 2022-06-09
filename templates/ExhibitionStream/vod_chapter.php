@@ -1,7 +1,4 @@
 <style>
-    .chapter {
-        font-size: 25px;
-    }
     .vod-ul {
         margin:2% 0 2% 3%;
         font-size: 20px;
@@ -16,7 +13,7 @@
         top: 78px;
     }
     .chapter {
-        font-size: 2.5rem;
+        font-size: 2rem;
         margin-bottom: 15px;
     }
     .tr {
