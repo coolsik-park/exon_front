@@ -625,6 +625,135 @@
     }
 
     //결제
+    $("#payment-card").click(function () {
+        if ($('input#vod_amount').val() == 0) {
+            alert("결제할 금액이 없습니다. 시간과 인원수를 확인해주세요.");
+            return false;
+        }
+        var IMP = window.IMP; 
+        IMP.init('imp55727904');
+        IMP.request_pay({
+            pg : 'danal_tpay',
+            pay_method : 'card',
+            merchant_uid : 'merchant_' + new Date().getTime(),
+            name : '스트리밍 서비스',
+            amount : $('input#amount').val(),
+            buyer_email : '<?=$user->email?>',
+            buyer_name : '<?=$user->name?>',
+            buyer_tel : '<?=$user->hp?>',
+        }, function(rsp) {
+            if ( rsp.success ) {
+                if (removeComma($('input#vod_amount').val()) != rsp.paid_amount) {
+                    alert("결제요청된 금액과 실제 결제된 금액이 상이합니다. 고객센터로 문의해주세요.");
+                    return false;
+                }
+                jQuery.ajax({
+                    url: "/pay/import-pay", 
+                    method: 'POST',
+                    type: 'json',
+                    data: {
+                        imp_uid: rsp.imp_uid,
+                        merchant_uid: rsp.merchant_uid,
+                        pay_method: rsp.pay_method,
+                        paid_amount: rsp.paid_amount,
+                        coupon_amount: coupon_amount,
+                        receipt_url: rsp.receipt_url,
+                        paid_at: rsp.paid_at,
+                        pg_tid: rsp.pg_tid
+                    }
+                }).done(function(data) {
+                    if (data.status == 'success') { 
+                        $("#is_paid").val(1);
+                        $("#pay_id").val(data.pay_id);
+
+                        var msg = '결제가 완료되었습니다.';
+                        msg += '\n결제 금액 : ' + rsp.paid_amount;
+
+                        alert(msg);
+
+                        $("#issue_stream_key").click();
+                        setTimeout(function () {
+                            $("#save").click();
+                        }, 500);
+
+                    } else {
+                        alert("결제에 실패하였습니다. 잠시 후 다시 시도해 주세요.")
+                    }
+                });
+                
+            } else {
+                var msg = '결제에 실패하였습니다.';
+                msg += '내용 : ' + rsp.error_msg;
+
+                alert(msg);
+            }
+        });
+    });
+
+    $("#payment-trans").click(function () {
+        if ($('input#vod_amount').val() == 0) {
+            alert("결제할 금액이 존재하지 않습니다.\n시간과 인원수를 확인해주세요.");
+            return false;
+        }
+        var IMP = window.IMP; 
+        IMP.init('imp55727904');
+        IMP.request_pay({
+            pg : 'danal_tpay',
+            pay_method : 'trans',
+            merchant_uid : 'merchant_' + new Date().getTime(),
+            name : '스트리밍 서비스',
+            amount : $('input#amount').val(),
+            buyer_email : '<?=$user->email?>',
+            buyer_name : '<?=$user->name?>',
+            buyer_tel : '<?=$user->hp?>',
+        }, function(rsp) {
+            if ( rsp.success ) {
+                if (removeComma($('input#vod_amount').val()) != rsp.paid_amount) {
+                    alert("결제요청된 금액과 실제 결제된 금액이 상이합니다. 고객센터로 문의해주세요.");
+                    return false;
+                }
+                jQuery.ajax({
+                    url: "/pay/import-pay", 
+                    method: 'POST',
+                    type: 'json',
+                    data: {
+                        imp_uid: rsp.imp_uid,
+                        merchant_uid: rsp.merchant_uid,
+                        pay_method: rsp.pay_method,
+                        paid_amount: rsp.paid_amount,
+                        coupon_amount: coupon_amount,
+                        receipt_url: rsp.receipt_url,
+                        paid_at: rsp.paid_at,
+                        pg_tid: rsp.pg_tid
+                    }
+                }).done(function(data) {
+                    if (data.status == 'success') { 
+                        $("#is_paid").val(1);
+                        $("#pay_id").val(data.pay_id);
+
+                        var msg = '결제가 완료되었습니다.';
+                        msg += '\n결제 금액 : ' + rsp.paid_amount;
+
+                        alert(msg);
+
+                        $("#issue_stream_key").click();
+                        setTimeout(function () {
+                            $("#save").click();
+                        }, 500);
+
+                    } else {
+                        alert("결제에 실패하였습니다. 잠시 후 다시 시도해 주세요.")
+                    }
+                });
+                
+            } else {
+                var msg = '결제에 실패하였습니다.';
+                msg += '내용 : ' + rsp.error_msg;
+
+                alert(msg);
+            }
+        });
+    });
    
 
     //파일 컨트롤
