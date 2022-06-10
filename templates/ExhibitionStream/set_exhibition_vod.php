@@ -217,6 +217,10 @@
             display: none;
         }
         .itemBoxHighlight { border:solid 1px black; width: 100%; height: 200px; background-color:yellow; }
+        .progress { position:relative; width:100%; border: 1px solid #ddd;padding:1px; border-radius: 3px; }
+        .bar { background-color: #337ab7; width:0%; height:20px; border-radius:3px;}
+        .percent { position:absolute; display:inline-block; top:1px; left:48%;}
+
         @media  screen and (max-width: 768px) {
             .stream-sect .row2-wp .row2 {
                 width: 99%;
@@ -290,7 +294,7 @@
                                     </a>
                                     <a style="" class="c move--vod__1" name="<?=$list['id']?>">
                                         <img id="move--vod__1" class="chapter-icon move--vod" src="/img/list.png">
-                                    </a>
+                                    </a> 
                                     <a style="" class="c arrow--vod__1" name="<?=$list['id']?>">
                                         <img id="arrow--vod" class="chapter-icon arrow--vod" src="/img/arrow-down-sign-to-navigate.png">
                                     </a>
@@ -316,7 +320,24 @@
                 <?php endif; ?>
                 </ul>
                 </div>
-                <a id="" class="add-vod add--vod__1"><img src="/img/plus.png" class="plus"><span class="btn-span">VOD 추가</span></a>
+                <!-- <a id="" class="add-vod add--vod__1"><img src="/img/plus.png" class="plus"><span class="btn-span">VOD 추가</span></a> -->
+            </div>
+            <div class="modal fade" id="pleaseWaitDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>파일 업로드 중입니다. 잠시만 기다려주세요.</h3>
+                        </div>
+                        <div class="modal-body">
+                            <!-- progress , bar, percent를 표시할 div 생성한다. -->
+                            <div class="progress">
+                                <div class="bar"></div>
+                                <div class="percent">0%</div>
+                            </div>
+                            <div id="status"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="wb-stream-sect">
                 <h2 class="s-hty3">결제</h2>
@@ -436,6 +457,8 @@
     </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script> 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script> 
@@ -814,7 +837,7 @@
         } 
     }
 
-    //파일 등록
+    //파일 등록               
     $(document).on("click", ".add-file", function () {
         if ($(this).parent().prev().children().children().children().children().first().val().length == 0) {
             alert("VOD 제목을 입력해주세요.");
@@ -836,17 +859,56 @@
         formData.append('description', $(this).parent().prev().children().children().children().children().last().val());
         formData.append('file_size', ($(this).parent().prev().prev().prev().prev().prev().children().children(".file").prop("files")[0].size / 1024 / 1024).toFixed(0));
         formData.append('parent_id', $(this).parent().parent().parent().parent().find(".add-vod").attr("id"));
+        formData.append('parent_id', 62);
         
+        var bar = $('.bar');
+        var percent = $('.percent');
+        var status = $('#status');
+
         jQuery.ajax({
+            xhr: function() {
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener("progress", function(evt) {
+                    if (evt.lengthComputable) {
+                        var percentComplete = Math.floor((evt.loaded / evt.total) * 100);
+
+                        /* Do something with upload progress here */
+                        var percentVal = percentComplete + '%';
+                        bar.width(percentVal);
+                        percent.html(percentVal);
+
+                    }
+                }, false);
+                return xhr;
+            },
             url: 'https://orcaexon.co.kr/vod',
             processData: false,
             contentType: false,
             cache: false,
             data: formData,
             type: 'POST',
+            beforeSend:function(){
+                // progress Modal 열기
+                $("#pleaseWaitDialog").modal('show');
+
+                status.empty();
+                var percentVal = '0%';
+                bar.width(percentVal);
+                percent.html(percentVal);
+
+            },
+            complete:function(){
+                // progress Modal 닫기
+                $("#pleaseWaitDialog").modal('hide');
+
+            },
+            error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            },
+
             success: function () {
-                location.reload();
                 alert('저장되었습니다.');
+                location.reload();
             }
         });
     });
