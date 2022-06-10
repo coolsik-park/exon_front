@@ -162,7 +162,7 @@
         }
         .delete--vod__2 {
             position: absolute;
-            right: 105px;
+            right: 65px;
         }
         .view--vod__1 {
             position: absolute;
@@ -170,7 +170,7 @@
         }
         .view--vod__2 {
             position: absolute;
-            right: 75px;
+            right: 35px;
         }
         .move--vod__1 {
             position: absolute;
@@ -178,11 +178,12 @@
         }
         .move--vod__2 {
             position: absolute;
-            right: 40px;
+            right: 0px;
         }
         .arrow--vod__1 {
             position: absolute;
             right: 0px;
+            top: 0;
         }
         .arrow--vod {
             transform: rotate( 90deg );
@@ -207,7 +208,7 @@
         .vod--title__icon {
             font-size: 20px;
             position: absolute;
-            left: 20px;
+            left: 10px;
             top: 8px;
         }
         .vodTitle {
@@ -473,21 +474,22 @@
         if($(this).parent().parent().next().is(":visible")){
             $(this).parent().parent().next().slideUp();
             $(this).css("transform","rotate(90deg)");
+            $(this).parent().prev().children('.move--vod').css("display", "block");
         }
         else {
             $(this).parent().parent().next().slideDown();
             $(this).css("transform","rotate(0deg)");
+            $(this).parent().prev().children('.move--vod').css("display", "none");
         }
     });
 
     // window.onload = function() {
-    //     if($(ul[id="sortable2"])){
-    //         alert('asdasd');
+    //     if($('.arrow--vod').parent().parent().next().length > 0){
+    //         $(this).prev().childern('.arrow--vod__1').children('.arrow--vod').css("display", "none");
     //     }
     //     else {
-    //         alert('false');
+    //         $(this).css("display", "none");
     //     }
-    //     $('.sortable')
     // };
 
     //view--vod__1 
@@ -525,26 +527,30 @@
     });
 
     //move Div
-    // $(document).on("mousedown", ".move--vod", function(){
         $("#sortable").sortable({ 
             // placeholder:"itemBoxHighlight", /* 이동할 위치 css 적용 */ 
+            containment : '.wb--stream__first', //부모 요소 안에서만 이동 범위 제한
+            // items: '.ui-state-default',
+		    handle: '.move--vod',
+            cancel: '',
             start:function(event,ui){ // 드래그 시작 시 호출 
             }, 
             stop:function(event,ui){ // 드래그 종료 시 호출 
             
             } 
         });
-    // });
-    // $(document).on("mousedown", ".move--vod__2", function(){
+
         $("#sortable2").sortable({ 
             // placeholder:"itemBoxHighlight", /* 이동할 위치 css 적용 */ 
+            containment : '.wb--stream__first', //부모 요소 안에서만 이동 범위 제한
+            handle: '.move--vod2',
+            cancel: '',
             start:function(event,ui){ // 드래그 시작 시 호출 
             }, 
             stop:function(event,ui){ // 드래그 종료 시 호출 
             
             } 
         });
-    // });
 
     //go top when open tab
     $(document).on("click", ".webinar-tab-tg", function() {
@@ -647,136 +653,7 @@
         });
     }
 
-    //결제
-    $("#payment-card").click(function () {
-        if ($('input#vod_amount').val() == 0) {
-            alert("결제할 금액이 없습니다. 시간과 인원수를 확인해주세요.");
-            return false;
-        }
-        var IMP = window.IMP; 
-        IMP.init('imp55727904');
-        IMP.request_pay({
-            pg : 'danal_tpay',
-            pay_method : 'card',
-            merchant_uid : 'merchant_' + new Date().getTime(),
-            name : '스트리밍 서비스',
-            amount : $('input#amount').val(),
-            buyer_email : '<?=$user->email?>',
-            buyer_name : '<?=$user->name?>',
-            buyer_tel : '<?=$user->hp?>',
-        }, function(rsp) {
-            if ( rsp.success ) {
-                if (removeComma($('input#vod_amount').val()) != rsp.paid_amount) {
-                    alert("결제요청된 금액과 실제 결제된 금액이 상이합니다. 고객센터로 문의해주세요.");
-                    return false;
-                }
-                jQuery.ajax({
-                    url: "/pay/import-pay", 
-                    method: 'POST',
-                    type: 'json',
-                    data: {
-                        imp_uid: rsp.imp_uid,
-                        merchant_uid: rsp.merchant_uid,
-                        pay_method: rsp.pay_method,
-                        paid_amount: rsp.paid_amount,
-                        coupon_amount: coupon_amount,
-                        receipt_url: rsp.receipt_url,
-                        paid_at: rsp.paid_at,
-                        pg_tid: rsp.pg_tid
-                    }
-                }).done(function(data) {
-                    if (data.status == 'success') { 
-                        $("#is_paid").val(1);
-                        $("#pay_id").val(data.pay_id);
-
-                        var msg = '결제가 완료되었습니다.';
-                        msg += '\n결제 금액 : ' + rsp.paid_amount;
-
-                        alert(msg);
-
-                        $("#issue_stream_key").click();
-                        setTimeout(function () {
-                            $("#save").click();
-                        }, 500);
-
-                    } else {
-                        alert("결제에 실패하였습니다. 잠시 후 다시 시도해 주세요.")
-                    }
-                });
-                
-            } else {
-                var msg = '결제에 실패하였습니다.';
-                msg += '내용 : ' + rsp.error_msg;
-
-                alert(msg);
-            }
-        });
-    });
-
-    $("#payment-trans").click(function () {
-        if ($('input#vod_amount').val() == 0) {
-            alert("결제할 금액이 존재하지 않습니다.\n시간과 인원수를 확인해주세요.");
-            return false;
-        }
-        var IMP = window.IMP; 
-        IMP.init('imp55727904');
-        IMP.request_pay({
-            pg : 'danal_tpay',
-            pay_method : 'trans',
-            merchant_uid : 'merchant_' + new Date().getTime(),
-            name : '스트리밍 서비스',
-            amount : $('input#amount').val(),
-            buyer_email : '<?=$user->email?>',
-            buyer_name : '<?=$user->name?>',
-            buyer_tel : '<?=$user->hp?>',
-        }, function(rsp) {
-            if ( rsp.success ) {
-                if (removeComma($('input#vod_amount').val()) != rsp.paid_amount) {
-                    alert("결제요청된 금액과 실제 결제된 금액이 상이합니다. 고객센터로 문의해주세요.");
-                    return false;
-                }
-                jQuery.ajax({
-                    url: "/pay/import-pay", 
-                    method: 'POST',
-                    type: 'json',
-                    data: {
-                        imp_uid: rsp.imp_uid,
-                        merchant_uid: rsp.merchant_uid,
-                        pay_method: rsp.pay_method,
-                        paid_amount: rsp.paid_amount,
-                        coupon_amount: coupon_amount,
-                        receipt_url: rsp.receipt_url,
-                        paid_at: rsp.paid_at,
-                        pg_tid: rsp.pg_tid
-                    }
-                }).done(function(data) {
-                    if (data.status == 'success') { 
-                        $("#is_paid").val(1);
-                        $("#pay_id").val(data.pay_id);
-
-                        var msg = '결제가 완료되었습니다.';
-                        msg += '\n결제 금액 : ' + rsp.paid_amount;
-
-                        alert(msg);
-
-                        $("#issue_stream_key").click();
-                        setTimeout(function () {
-                            $("#save").click();
-                        }, 500);
-
-                    } else {
-                        alert("결제에 실패하였습니다. 잠시 후 다시 시도해 주세요.")
-                    }
-                });
-                
-            } else {
-                var msg = '결제에 실패하였습니다.';
-                msg += '내용 : ' + rsp.error_msg;
-
-                alert(msg);
-            }
-        });
-    });
+   
    
 
     //파일 컨트롤
@@ -793,6 +670,7 @@
     // 등록 가능한 총 파일 사이즈 MB
     var maxUploadSize = 10240;
 
+    let check = 0;
     //파일 불러오기
     $(document).on("change", "input[type=file]", function (e) {
         e.preventDefault();
@@ -812,7 +690,9 @@
             selectFile(file)
             var html = "<span class='kb'>파일명 : " + file.name + " / 파일 사이즈 : " + (file.size/1024/1024).toFixed(1) + "MB</span>";
             $(this).parent().parent().children(".kb").remove();
-            $(this).parent().parent().append(html);
+            if (check == 0) {
+                $(this).parent().parent().append(html);
+            }
         }
     });
 
@@ -829,10 +709,12 @@
         if ($.inArray(ext, ['mp4']) < 0) {
             // 확장자 체크
             alert("mp4 형식의 VOD만 등록 가능합니다. 파일 확장자를 확인해주세요.");
+            check = 1;
             return false;
         } else if (fileSize > uploadSize) {
             // 파일 사이즈 체크
             alert("용량 초과\n업로드 가능 용량 : " + uploadSize / 1024 + " GB");
+            check = 1;
             return false;
         } 
     }
