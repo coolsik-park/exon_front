@@ -571,7 +571,7 @@
             });  
             $(this).attr("src", "/img/hidden.png");
             $(this).addClass('hidden');
-            $(this).parent().prev().prev().addClass('disable');
+            // $(this).parent().prev().prev().addClass('disable');
             $(this).parent().prev().prev().addClass('disabled');
         }
         else if($(this).hasClass('hidden') == true){
@@ -589,7 +589,7 @@
             });  
             $(this).attr("src", "/img/view.png");
             $(this).removeClass('hidden');
-            $(this).parent().prev().prev().removeClass('disable');
+            // $(this).parent().prev().prev().removeClass('disable');
             $(this).parent().prev().prev().removeClass('disabled');
         }
     });
