@@ -13,7 +13,7 @@
     .vod-li {
         margin-top: 2%;
     }
-    .vod-ul {
+    .tab--ul {
         display: none;
     }
     .arrow--vod2 {
@@ -32,7 +32,7 @@
                     <img id="arrow--vod" class="chapter-icon arrow--vod2" src="/img/arrow-down-sign-to-navigate.png">
                 </a>
             </div>
-            <ul class="vod-ul">
+            <ul class="vod-ul tab--ul">
             <?php foreach ($list['child_exhibition_vod'] as $vod) : ?>
                 <li class="vod-li"><a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition->id?>/<?=$vod['id']?>/<?=$exhibition_users_id?>"><?=$vod['title']?></a><span class="vod-time"><?=sprintf('%02d:%02d:%02d', (round($vod['duration'])/3600),(round($vod['duration'])/60%60), round($vod['duration'])%60)?></span></li>
             <?php endforeach; ?>
