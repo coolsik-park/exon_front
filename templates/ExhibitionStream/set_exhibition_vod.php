@@ -190,6 +190,7 @@
         }
         .wb--stream__first {
             margin-bottom: 30px;
+            padding: 40px 40px 100px 40px;
         }
         .disable {
             color: grey;
@@ -320,6 +321,7 @@
                     <?php endforeach; ?>
                 <?php endif; ?>
                 </ul>
+                <br><br>
                 </div>
                 <!-- <a id="" class="add-vod add--vod__1"><img src="/img/plus.png" class="plus"><span class="btn-span">VOD 추가</span></a> -->
             </div>
