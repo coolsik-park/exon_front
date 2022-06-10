@@ -190,6 +190,7 @@
         }
         .wb--stream__first {
             margin-bottom: 30px;
+            padding: 40px 40px 100px 40px;
         }
         .disable {
             color: grey;
@@ -286,13 +287,23 @@
                         <li class="ui-state-default">  
                         <div class='wb-stream-sect sect--border'>
                             <div class="stream-sect">
+                                <?php if ($list['is_show'] == 0) : ?>
+                                <div class="chapter-title disable" style="font-size:40px;"><?=$list['title']?>
+                                <?php else : ?>
                                 <div class="chapter-title" style="font-size:40px;"><?=$list['title']?>
+                                <?php endif; ?>
                                     <a style="" class="delete c delete--vod__1" name="<?=$list['id']?>">
                                         <img class="chapter-icon" src="/img/trash_can-lov.png">
                                     </a>
-                                    <a style="" class="c view--vod__1 " name="<?=$list['id']?>">
+                                    <?php if ($list['is_show'] == 0) : ?>
+                                    <a style="" class="c view--vod__1" name="<?=$list['id']?>">
+                                        <img id="view--vod__1" class="chapter-icon hidden" src="/img/hidden.png">
+                                    </a>
+                                    <?php else : ?>
+                                    <a style="" class="c view--vod__1" name="<?=$list['id']?>">
                                         <img id="view--vod__1" class="chapter-icon" src="/img/view.png">
                                     </a>
+                                    <?php endif; ?>
                                     <a style="" class="c move--vod__1" name="<?=$list['id']?>">
                                         <img id="move--vod__1" class="chapter-icon move--vod" src="/img/list.png">
                                     </a> 
@@ -304,9 +315,17 @@
                                 <?php foreach ($list['child_exhibition_vod'] as $child) : ?>
                                         <li class="ui-state-default">  
                                             <div class="vod-title" style="font-size:30px; margin:20px 0; padding-left:10px;">
+                                                <?php if ($child['is_show'] == 0) : ?>
+                                                <a class="vodTitle disabled" href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition_id?>/<?=$child['id']?>"><span class="vod--title__icon">◆</span><?=$child['title']?></a>
+                                                <?php else : ?>
                                                 <a class="vodTitle" href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition_id?>/<?=$child['id']?>"><span class="vod--title__icon">◆</span><?=$child['title']?></a>
-                                                <a style="" class="delete v delete--vod__2" name="<?=$child['id']?>"><img class="vod-icon" src="/img/trash_can-lov.png"></a>
+                                                <?php endif; ?>
+                                                <a style="" class="deleted v delete--vod__2" name="<?=$child['id']?>"><img class="vod-icon" src="/img/trash_can-lov.png"></a>
+                                                <?php if ($child['is_show'] == 0) : ?>
+                                                <a style="" class="v view--vod__2" name="<?=$child['id']?>"><img id="view--vod__2" class="vod-icon hidden" src="/img/hidden.png"></a>
+                                                <?php else : ?>
                                                 <a style="" class="v view--vod__2" name="<?=$child['id']?>"><img id="view--vod__2" class="vod-icon" src="/img/view.png"></a>
+                                                <?php endif; ?>
                                                 <a style="" class="v move--vod__2" name="<?=$child['id']?>"><img id="move--vod__2" class="vod-icon move--vod2" src="/img/list.png"></a>
                                             </div>
                                         </li>
@@ -320,6 +339,7 @@
                     <?php endforeach; ?>
                 <?php endif; ?>
                 </ul>
+                <br><br>
                 </div>
                 <!-- <a id="" class="add-vod add--vod__1"><img src="/img/plus.png" class="plus"><span class="btn-span">VOD 추가</span></a> -->
             </div>
@@ -494,7 +514,19 @@
 
     //view--vod__1 
     $(document).on("click", "#view--vod__1", function(){
-        if($(this).hasClass('hidden') == false){    
+        if($(this).hasClass('hidden') == false){  
+            $.ajax({
+                url: "/exhibition-vod/hide-vod/" + $(this).parent().attr('name'),
+                method: 'POST',
+                type: 'json',
+                data: {
+                    action: 'hide'
+                },
+                error: function () {
+                    alert('오류가 발생하였습니다. 잠시 후 다시 시도해주세요.');
+                    return false;
+                }
+            });  
             $(this).attr("src", "/img/hidden.png");
             $(this).addClass('hidden');
             $(this).parent().parent().parent().addClass('disable');
@@ -502,6 +534,18 @@
             $(this).parent().parent().next().children( 'li.ui-state-default' ).children( '.vod-title' ).children( '.vodTitle' ).addClass('disabled');
         }
         else if($(this).hasClass('hidden') == true){
+            $.ajax({
+                url: "/exhibition-vod/hide-vod/" + $(this).parent().attr('name'),
+                method: 'POST',
+                type: 'json',
+                data: {
+                    action: 'show'
+                },
+                error: function () {
+                    alert('오류가 발생하였습니다. 잠시 후 다시 시도해주세요.');
+                    return false;
+                }
+            });  
             $(this).attr("src", "/img/view.png");
             $(this).removeClass('hidden');
             $(this).parent().parent().parent().removeClass('disable');
@@ -513,12 +557,36 @@
      //view--vod__2 
      $(document).on("click", "#view--vod__2", function(){
         if($(this).hasClass('hidden') == false){    
+            $.ajax({
+                url: "/exhibition-vod/hide-vod/" + $(this).parent().attr('name'),
+                method: 'POST',
+                type: 'json',
+                data: {
+                    action: 'hide'
+                },
+                error: function () {
+                    alert('오류가 발생하였습니다. 잠시 후 다시 시도해주세요.');
+                    return false;
+                }
+            });  
             $(this).attr("src", "/img/hidden.png");
             $(this).addClass('hidden');
             $(this).parent().prev().prev().addClass('disable');
             $(this).parent().prev().prev().addClass('disabled');
         }
         else if($(this).hasClass('hidden') == true){
+            $.ajax({
+                url: "/exhibition-vod/hide-vod/" + $(this).parent().attr('name'),
+                method: 'POST',
+                type: 'json',
+                data: {
+                    action: 'show'
+                },
+                error: function () {
+                    alert('오류가 발생하였습니다. 잠시 후 다시 시도해주세요.');
+                    return false;
+                }
+            });  
             $(this).attr("src", "/img/view.png");
             $(this).removeClass('hidden');
             $(this).parent().prev().prev().removeClass('disable');

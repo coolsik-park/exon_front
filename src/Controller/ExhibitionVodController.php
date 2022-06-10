@@ -92,4 +92,46 @@ class ExhibitionVodController extends AppController
             return $response;
         } 
     }
+
+    public function hideVod($id = null)
+    {
+        if ($this->request->is('post')) {
+            $exhibitionVod = $this->ExhibitionVod->get($id);
+            if ($this->request->getData('action') == 'hide') {
+                if ($exhibitionVod->parent_id == null) {
+                    $chapter = $this->ExhibitionVod->find('all', ['contain' => 'ChildExhibitionVod'])->where(['id' => $id])->toArray();
+                    foreach ($chapter[0]['child_exhibition_vod'] as $child) {
+                        $exhibitionVod = $this->ExhibitionVod->get($child['id']);
+                        $exhibitionVod->is_show = 0;
+                        $this->ExhibitionVod->save($exhibitionVod);
+                    }
+                    $exhibitionVod = $this->ExhibitionVod->get($chapter[0]['id']);
+                    $exhibitionVod->is_show = 0;
+                    $this->ExhibitionVod->save($exhibitionVod);
+                } else {
+                    $exhibitionVod = $this->ExhibitionVod->get($id);
+                    $exhibitionVod->is_show = 0;
+                    $this->ExhibitionVod->save($exhibitionVod);
+                }
+            } else {
+                if ($exhibitionVod->parent_id == null) {
+                    $chapter = $this->ExhibitionVod->find('all', ['contain' => 'ChildExhibitionVod'])->where(['id' => $id])->toArray();
+                    foreach ($chapter[0]['child_exhibition_vod'] as $child) {
+                        $exhibitionVod = $this->ExhibitionVod->get($child['id']);
+                        $exhibitionVod->is_show = 1;
+                        $this->ExhibitionVod->save($exhibitionVod);
+                    }
+                    $exhibitionVod = $this->ExhibitionVod->get($chapter[0]['id']);
+                    $exhibitionVod->is_show = 1;
+                    $this->ExhibitionVod->save($exhibitionVod);
+                } else {
+                    $exhibitionVod = $this->ExhibitionVod->get($id);
+                    $exhibitionVod->is_show = 1;
+                    $this->ExhibitionVod->save($exhibitionVod);
+                }
+            }
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));    
+            return $response;
+        } 
+    }
 }
