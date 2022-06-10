@@ -283,7 +283,7 @@ class ExhibitionStreamController extends AppController
                 return $response;
             }
         }
-        $displays = $ExhibitionSpeaker->find('all')->where(['exhibition_id' => $id]);
+        $displays = $ExhibitionSpeaker->find('all')->where(['exhibition_id' => $id, 'is_vod' => 0]);
         $this->set(compact('id', 'displays'));
     }
 
@@ -291,7 +291,7 @@ class ExhibitionStreamController extends AppController
     {
         $ExhibitionQuestion = $this->getTableLocator()->get('ExhibitionQuestion');
         $answeredQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])->select(['ExhibitionQuestion.parent_id'])
-            ->where(['ExhibitionQuestion.parent_id IS NOT' => null, 'ExhibitionUsers.exhibition_id' => $id])->toArray();
+            ->where(['ExhibitionQuestion.parent_id IS NOT' => null, 'ExhibitionUsers.exhibition_id' => $id, 'is_vod' => 0])->toArray();
         
         $count = count($answeredQuestions);
         $answeredQuestionId[] = '';
@@ -301,10 +301,10 @@ class ExhibitionStreamController extends AppController
         }
         if ($answeredQuestionId[0] != '') {
             $exhibitionQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])
-                ->where(['ExhibitionQuestion.id NOT IN' => $answeredQuestionId, 'ExhibitionQuestion.contents IS NOT' => '답변완료', 'ExhibitionUsers.exhibition_id' => $id])->toArray();
+                ->where(['ExhibitionQuestion.id NOT IN' => $answeredQuestionId, 'ExhibitionQuestion.contents IS NOT' => '답변완료', 'ExhibitionUsers.exhibition_id' => $id, 'is_vod' => 0])->toArray();
         } else {
             $exhibitionQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])
-            ->where(['ExhibitionQuestion.contents IS NOT' => '답변완료', 'ExhibitionUsers.exhibition_id' => $id])->toArray();
+            ->where(['ExhibitionQuestion.contents IS NOT' => '답변완료', 'ExhibitionUsers.exhibition_id' => $id, 'is_vod' => 0])->toArray();
         }
         
         
@@ -329,7 +329,7 @@ class ExhibitionStreamController extends AppController
     {
         $ExhibitionQuestion = $this->getTableLocator()->get('ExhibitionQuestion');
         $answeredQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])->select(['ExhibitionQuestion.parent_id'])
-            ->where(['ExhibitionQuestion.parent_id IS NOT' => null, 'ExhibitionUsers.exhibition_id' => $id])->toArray();
+            ->where(['ExhibitionQuestion.parent_id IS NOT' => null, 'ExhibitionUsers.exhibition_id' => $id, 'is_vod' => 0])->toArray();
     
         $count = count($answeredQuestions);
         $answeredQuestionId[] = '';
@@ -339,9 +339,293 @@ class ExhibitionStreamController extends AppController
         }
         
         $exhibitionQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])
-            ->where(['ExhibitionQuestion.id IN' => $answeredQuestionId, 'ExhibitionUsers.exhibition_id' => $id])->toArray();
+            ->where(['ExhibitionQuestion.id IN' => $answeredQuestionId, 'ExhibitionUsers.exhibition_id' => $id, 'is_vod' => 0])->toArray();
 
         $this->set(compact('exhibitionQuestions', 'id'));
+    }
+
+    public function vodQuestionMenu ($id = null) 
+    {
+        $this->set(compact('id'));
+    }
+
+    public function vodSetQuestion($id = null, $exhibition_users_id = null) {
+        $ExhibitionSpeaker = $this->getTableLocator()->get('ExhibitionSpeaker');
+        $exhibitionSpeakers = $ExhibitionSpeaker->find('all')->where(['exhibition_id' => $id, 'is_vod' => 1])->toArray();
+        
+        $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
+        $exhibitionUsers = $ExhibitionUsers->find()->select(['id'])->where(['exhibition_id' => $id])->toArray();
+        
+        if (count($exhibitionUsers) != 0) {
+            $i = 0;
+            foreach ($exhibitionUsers as $user) {
+                $users_id[$i] = $user['id'];
+                $i++;
+            }
+        } else {
+            $users_id[] = '';
+        }
+        
+        $ExhibitionQuestion = $this->getTableLocator()->get('ExhibitionQuestion');
+        $answeredQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])
+            ->where(['ExhibitionQuestion.parent_id IS NOT' => null, 'ExhibitionUsers.exhibition_id' => $id, 'is_vod' => 1])->toArray();
+
+        $count = count($answeredQuestions);
+        $answeredQuestionId[] = '';
+
+        for ($i = 0; $i < $count; $i++) {
+            $answeredQuestionId[$i] = $answeredQuestions[$i]['parent_id'];
+        }
+
+        $exhibitionQuestions = $ExhibitionQuestion->find('all')->where(['ExhibitionQuestion.id NOT IN' => $answeredQuestionId, 'parent_id IS' => null, 'exhibition_users_id IN' => $users_id, 'is_vod' => 1])->toArray();
+
+        if ($this->request->is('post')) {
+
+            if ($this->request->getData('action') == 'delete') {
+
+                $exhibitionQuestion = $ExhibitionQuestion->get($this->request->getData('id'));
+                if ($ExhibitionQuestion->delete($exhibitionQuestion)) {
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                    return $response;
+                
+                } else {
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                    return $response;
+                }
+            
+            } else {
+                $exhibitionQuestion = $ExhibitionQuestion->newEmptyEntity();
+                $speaker_id = $this->request->getData('target');
+                
+                $exhibitionQuestion->exhibition_users_id = $exhibition_users_id;
+                
+                if ($speaker_id != 'all') {
+                    $exhibitionQuestion->target_users_id = $speaker_id;
+                    $users_name = $ExhibitionSpeaker->find()->select(['name'])->where(['id' => $speaker_id])->toArray();
+                    $exhibitionQuestion->target_users_name = $users_name[0]['name'];
+                    $exhibitionQuestion->is_vod = 1;
+                }
+                
+                $exhibitionQuestion->contents = $this->request->getData('question');
+                $exhibitionQuestion->is_vod = 1;
+               
+                if ($ExhibitionQuestion->save($exhibitionQuestion)) {
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                    return $response;
+                
+                } else {
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                    return $response;
+                }
+            }
+        }
+        $current_user_id = $this->Auth->user('id');
+        $this->set(compact('exhibitionSpeakers', 'exhibitionQuestions', 'ExhibitionUsers', 'id', 'current_user_id', 'exhibition_users_id', 'answeredQuestions'));
+    }
+
+    public function vodGetAnswer ($id = null, $exhibition_users_id = null)
+    {
+        $ExhibitionSpeaker = $this->getTableLocator()->get('ExhibitionSpeaker');
+        $exhibitionSpeakers = $ExhibitionSpeaker->find('all')->where(['exhibition_id' => $id, 'is_vod' => 1])->toArray();
+        
+        $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
+        $exhibitionUsers = $ExhibitionUsers->find()->select(['id'])->where(['exhibition_id' => $id])->toArray();
+        
+        if (count($exhibitionUsers) != 0) {
+            $i = 0;
+            foreach ($exhibitionUsers as $user) {
+                $users_id[$i] = $user['id'];
+                $i++;
+            }
+        } else {
+            $users_id[] = '';
+        }
+        
+        $ExhibitionQuestion = $this->getTableLocator()->get('ExhibitionQuestion');
+        $answeredQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])
+            ->where(['ExhibitionQuestion.parent_id IS NOT' => null, 'ExhibitionUsers.exhibition_id' => $id, 'is_vod' => 1])->toArray();
+
+        $count = count($answeredQuestions);
+        $answeredQuestionId[] = '';
+
+        for ($i = 0; $i < $count; $i++) {
+            $answeredQuestionId[$i] = $answeredQuestions[$i]['parent_id'];
+        }
+        $exhibitionQuestions = $ExhibitionQuestion->find('all')->where(['ExhibitionQuestion.id IN' => $answeredQuestionId, 'parent_id IS' => null, 'exhibition_users_id IN' => $users_id, 'is_vod' => 1])->toArray();
+
+        $current_user_id = $this->Auth->user('id');
+        $this->set(compact('exhibitionSpeakers', 'exhibitionQuestions', 'ExhibitionUsers', 'id', 'current_user_id', 'exhibition_users_id', 'answeredQuestions'));
+    }
+
+    public function vodSetSpeaker ($id = null)
+    {
+        $ExhibitionSpeaker = $this->getTableLocator()->get('ExhibitionSpeaker');
+        
+        if ($this->request->is('post')) {
+
+            if ($this->request->getData('action') == 'image') {
+                $img = $this->request->getData()['image'];
+                $imgName = $img->getClientFilename();
+                $index = strpos(strrev($imgName), strrev('.'));
+                $expen = strtolower(substr($imgName, ($index * -1)));
+                $path = 'upload' . DS . 'speaker_temp' . DS . date("Y") . DS . date("m");
+                
+                if ($expen == 'jpeg' || $expen == 'jpg' || $expen == 'png') {
+                    
+                    if (!file_exists(WWW_ROOT . $path)) {
+                        $oldMask = umask(0);
+                        mkdir(WWW_ROOT . $path, 0777, true);
+                        chmod(WWW_ROOT . $path, 0777);
+                        umask($oldMask);
+                    }
+    
+                    // $imgName = $this->Auth->user('id') . "_main." . $expen;
+                    $destination = WWW_ROOT . $path . DS . $imgName;
+                    $img->moveTo($destination);
+
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success', 'path' => $path, 'imgName' => $imgName]));
+                    return $response;
+
+                }else {
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => '이미지 확장자명을 확인해주세요.',]));
+                    return $response;
+                }
+            } else {
+                $connection = ConnectionManager::get('default');
+                $connection->begin();
+
+                $names = $this->request->getData('names');
+                $images = $this->request->getData('images');
+                $speaker_dels = $this->request->getData("speaker_dels");
+            
+                if (!empty($names)) {
+                    $count = count($names);
+                
+                    for ($i = 0; $i < $count; $i++) {
+                        $exhibitionSpeaker = $ExhibitionSpeaker->newEmptyEntity();
+                        $exhibitionSpeaker->name = $names[$i];
+                        $exhibitionSpeaker->exhibition_id = $id;
+                        $exhibitionSpeaker->is_vod = 1;
+                        
+                        if ($result = $ExhibitionSpeaker->save($exhibitionSpeaker)) {
+                            $img = $images[$i];
+                            
+                            if ($img != 'undefined') {
+                                $imgName = $img->getClientFilename();
+                                $index = strpos(strrev($imgName), strrev('.'));
+                                $expen = strtolower(substr($imgName, ($index * -1)));
+                                $path = 'upload' . DS . 'speaker' . DS . date("Y") . DS . date("m");
+    
+                                if (!file_exists(WWW_ROOT . $path)) {
+                                    $oldMask = umask(0);
+                                    mkdir(WWW_ROOT . $path, 0777, true);
+                                    chmod(WWW_ROOT . $path, 0777);
+                                    umask($oldMask);
+                                }
+                                $imgName = $result->id . "_speaker." . $expen;
+                                $destination = WWW_ROOT . $path . DS . $imgName;
+    
+                                if ($connection->update('exhibition_speaker', ['image_path' => $path, 'image_name' => $imgName], ['id' => $result->id])) {
+                                    $img->moveTo($destination);
+    
+                                } else {
+                                    $connection->rollback(); 
+                                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                                    return $response;
+                                }
+                            }
+                            
+                        } else {
+                            $connection->rollback();
+                            $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                            return $response;
+                        }
+                    }
+                }
+
+                if (!empty($speaker_dels)) {
+                    $count = count($speaker_dels);
+
+                    for ($i = 0; $i < $count; $i ++) {
+
+                        if ($speaker_dels[$i] != 0) {
+                            $exhibitionSpeaker = $ExhibitionSpeaker->get($speaker_dels[$i]);
+                            if (!$ExhibitionSpeaker->delete($exhibitionSpeaker)) {
+                                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                                return $response;
+                            }
+                        }
+                    }
+                }
+                $connection->commit();
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                return $response;
+            }
+        }
+        $displays = $ExhibitionSpeaker->find('all')->where(['exhibition_id' => $id, 'is_vod' => 1]);
+        $this->set(compact('id', 'displays'));
+    }
+
+    public function vodSetAnswered ($id = null)
+    {
+        $ExhibitionQuestion = $this->getTableLocator()->get('ExhibitionQuestion');
+        $answeredQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])->select(['ExhibitionQuestion.parent_id'])
+            ->where(['ExhibitionQuestion.parent_id IS NOT' => null, 'ExhibitionUsers.exhibition_id' => $id, 'is_vod' => 1])->toArray();
+        
+        $count = count($answeredQuestions);
+        $answeredQuestionId[] = '';
+        
+        for ($i = 0; $i < $count; $i++) {
+            $answeredQuestionId[$i] = $answeredQuestions[$i]['parent_id'];
+        }
+        if ($answeredQuestionId[0] != '') {
+            $exhibitionQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])
+                ->where(['parent_id IS' => null, 'ExhibitionQuestion.id NOT IN' => $answeredQuestionId, 'ExhibitionUsers.exhibition_id' => $id, 'is_vod' => 1])->toArray();
+        } else {
+            $exhibitionQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])
+            ->where(['parent_id IS' => null, 'ExhibitionUsers.exhibition_id' => $id, 'is_vod' => 1])->toArray();
+        }
+        
+        if ($this->request->is('post')) {
+
+            if ($this->request->getData('action') == 'answered') {
+                $exhibitionQuestion = $ExhibitionQuestion->newEmptyEntity();
+                $exhibitionQuestion->exhibition_users_id = $this->request->getData('users_id');
+                $exhibitionQuestion->parent_id = $this->request->getData('parent_id');
+                $exhibitionQuestion->contents = $this->request->getData('contents');
+                $exhibitionQuestion->is_vod = 1;
+                $ExhibitionQuestion->save($exhibitionQuestion);
+            } else if ($this->request->getData('action') == 'edit') {
+                $child = $ExhibitionQuestion->find('all')->where(['parent_id' => $this->request->getData('parent_id')]) -> toArray();
+                $exhibitionQuestion = $ExhibitionQuestion->get($child[0]['id']);
+                $exhibitionQuestion->contents = $this->request->getData('contents');
+                $ExhibitionQuestion->save($exhibitionQuestion);
+            } else {
+                $exhibitionQuestion = $ExhibitionQuestion->get($this->request->getData('id'));
+                $ExhibitionQuestion->delete($exhibitionQuestion);
+            }
+        }
+
+        $this->set(compact('exhibitionQuestions', 'id'));
+    }
+
+    public function vodAnswered ($id = null)
+    {
+        $ExhibitionQuestion = $this->getTableLocator()->get('ExhibitionQuestion');
+        $answeredQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers'])
+            ->where(['ExhibitionQuestion.parent_id IS NOT' => null, 'ExhibitionUsers.exhibition_id' => $id, 'is_vod' => 1])->toArray();
+    
+        $count = count($answeredQuestions);
+        $answeredQuestionId[] = '';
+
+        for ($i = 0; $i < $count; $i++) {
+            $answeredQuestionId[$i] = $answeredQuestions[$i]['parent_id'];
+        }
+        
+        $exhibitionQuestions = $ExhibitionQuestion->find('all', ['contain' => 'ExhibitionUsers', 'ChildExhibitionQuestions'])
+            ->where(['ExhibitionQuestion.id IN' => $answeredQuestionId, 'ExhibitionUsers.exhibition_id' => $id, 'is_vod' => 1])->toArray();
+
+        $this->set(compact('exhibitionQuestions', 'answeredQuestions', 'id'));
     }
 
     public function attendance ($id = null)
@@ -679,7 +963,7 @@ class ExhibitionStreamController extends AppController
 
     public function setQuestion($id = null, $exhibition_users_id = null) {
         $ExhibitionSpeaker = $this->getTableLocator()->get('ExhibitionSpeaker');
-        $exhibitionSpeakers = $ExhibitionSpeaker->find('all')->where(['exhibition_id' => $id])->toArray();
+        $exhibitionSpeakers = $ExhibitionSpeaker->find('all')->where(['exhibition_id' => $id, 'is_vod' => 0])->toArray();
         
         $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
         $exhibitionUsers = $ExhibitionUsers->find()->select(['id'])->where(['exhibition_id' => $id])->toArray();
@@ -695,7 +979,7 @@ class ExhibitionStreamController extends AppController
         }
         
         $ExhibitionQuestion = $this->getTableLocator()->get('ExhibitionQuestion');
-        $exhibitionQuestions = $ExhibitionQuestion->find('all')->where(['parent_id IS' => null, 'exhibition_users_id IN' => $users_id])->toArray();
+        $exhibitionQuestions = $ExhibitionQuestion->find('all')->where(['parent_id IS' => null, 'exhibition_users_id IN' => $users_id, 'is_vod' => 0])->toArray();
 
         if ($this->request->is('post')) {
 
@@ -1909,13 +2193,15 @@ class ExhibitionStreamController extends AppController
         $this->set(compact('exhibitionStream', 'exhibitionVod', 'exhibition_users_id', 'exhibition'));
     }
 
-    public function vodChapterTab($exhibition_id = null, $exhibition_users_id = null)
+    public function vodChapterTab($exhibition_id = null, $exhibition_users_id = 0)
     {
         $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $exhibition_id])->toArray();
         $ExhibitionVod = $this->getTableLocator()->get('ExhibitionVod');
         $exhibitionVod = $ExhibitionVod->find('all', ['contain' => 'ChildExhibitionVod'])->where(['ExhibitionVod.exhibition_id' => $exhibition_id, 'ExhibitionVod.parent_id IS' => null])->toArray();
-        
-        $this->set(compact('exhibitionStream', 'exhibitionVod',  'exhibition_users_id'));
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $exhibition = $Exhibition->get($exhibition_id);
+
+        $this->set(compact('exhibitionStream', 'exhibitionVod',  'exhibition_users_id', 'exhibition'));
     }
     
     public function setExhibitionVod($exhibition_id = null)
@@ -1982,5 +2268,19 @@ class ExhibitionStreamController extends AppController
 
         $response = $this->response->withType('json')->withStringBody(json_encode(['status'=>'success']));
         return $response;
+    }
+
+    public function vods($exhibition_id = null, $exhibition_users_id = null, $chapter_id = null)
+    {
+        $ExhibitionVod = $this->getTableLocator()->get('ExhibitionVod');
+        $chapter = $ExhibitionVod->get($chapter_id)->toArray();
+        $vods = $ExhibitionVod->find('all')->where(['parent_id' => $chapter_id])->toArray();
+
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $exhibition = $Exhibition->get($exhibition_id);
+
+        $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $exhibition_id])->toArray();
+
+        $this->set(compact('chapter', 'vods', 'exhibition', 'exhibition_users_id', 'exhibitionStream'));
     }
 }

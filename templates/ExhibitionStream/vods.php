@@ -1,22 +1,20 @@
 <style>
+    .chapter {
+        font-size: 25px;
+    }
     .vod-ul {
         margin:2% 0 2% 3%;
-        font-size: 20px;
+        font-size: 1.5rem;
     }
     .vod-li {
         margin-top: 1%;
     }
     .vod-time {
         float: right;
+        font-size: 20px;
     }
     .section-webinar4 .webinar-tab.close .webinar-tab-tg {
         top: 78px;
-    }
-    .chapter {
-        font-size: 2rem;
-    }
-    .tr {
-        margin-left: 20px;
     }
 </style>
 
@@ -25,21 +23,19 @@
         <div class="section-webinar4">
             <div class="webinar-cont">
                 <div class="section-my">
-                    <h3 class="s-hty1">Chapter 목록</h3>
-                    <div class="table-type table-type2">      
-                    <?php foreach ($exhibitionVod as $list) : ?>              
-                        <div class="tr">
-                            <div class="chapter">
-                                <p><a href="/exhibition-stream/vods/<?=$exhibition->id?>/<?=$exhibition_users_id?>/<?=$list['id']?>"><?=$list['title']?></a></p>
-                            </div>
-                            <br><br>
-                            <!-- <ul class="vod-ul">
-                            <?php foreach ($list['child_exhibition_vod'] as $vod) : ?>
-                                <li class="vod-li"><a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition->id?>/<?=$vod['id']?>/<?=$exhibition_users_id?>"><?=$vod['title']?></a><span class="vod-time"><?=sprintf('%02d:%02d:%02d', (round($vod['duration'])/3600),(round($vod['duration'])/60%60), round($vod['duration'])%60)?></span></li>
+                    <h3 class="s-hty1"><?=$chapter['title']?></h3>
+                    <div class="table-type table-type2">                  
+                        <div class="tr-row">
+                            <ul class="vod-ul">
+                            <?php foreach ($vods as $vod) : ?>
+                                <li class="vod-li">
+                                    <a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition->id?>/<?=$vod['id']?>/<?=$exhibition_users_id?>"><?=$vod['title']?></a><span class="vod-time"><?=sprintf('%02d:%02d:%02d', (round($vod['duration'])/3600),(round($vod['duration'])/60%60), round($vod['duration'])%60)?></span>
+                                </li>
+                                <br>
                             <?php endforeach; ?>
-                            </ul> -->
+                            </ul>
                         </div>
-                    <?php endforeach; ?>
+                        <br>
                     </div>
                 </div>             
             </div>

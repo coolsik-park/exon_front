@@ -30,7 +30,11 @@
                     <video id="vid1" class="video-js vjs-big-play-centered" poster="https://orcaexon.co.kr/videos/<?=$exhibition->id?>/<?=$exhibitionVod->title?>_thumbnail.png">
                         <source src="https://orcaexon.co.kr/videos/<?=$exhibition->id?>/<?=$exhibitionVod->title?>.mp4" type="video/mp4" />
                     </video>
-                </div>                
+                </div>     
+                <div class="wb-cont2">
+                    <h3 class="w-tit"><?= $exhibitionVod->title ?></h3>
+                    <h4 style="margin-top:5px; color:gray;"><?= $exhibitionVod->description ?></h4>
+                </div>              
             </div>
             <!-- webinar-tab -->
             <div id="webinar-tab" class="webinar-tab">
@@ -263,7 +267,7 @@
 
     $("#li6").click(function () {
         clearInterval(chatInterval);
-        $(".webinar-tab-body").load("/exhibition-stream/set-question/" + <?=$exhibition->id?>);
+        $(".webinar-tab-body").load("/exhibition-stream/vod-set-question/" + <?=$exhibition->id?>);
         $("#li0").attr("class", "");
         $("#li1").attr("class", "");
         $("#li2").attr("class", "");
