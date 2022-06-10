@@ -18,6 +18,9 @@
         .section-webinar4 .webinar-tab.close .webinar-tab-tg {
             top: 78px;
         }
+        .arrow--vod2 {
+            width: 20px;
+        }
         
     </style>
 </head>
@@ -267,7 +270,7 @@
 
     $("#li6").click(function () {
         clearInterval(chatInterval);
-        $(".webinar-tab-body").load("/exhibition-stream/vod-set-question/" + <?=$exhibition->id?>);
+        $(".webinar-tab-body").load("/exhibition-stream/vod-set-question/<?=$exhibition->id?>/<?= $exhibition_users_id ?>");
         $("#li0").attr("class", "");
         $("#li1").attr("class", "");
         $("#li2").attr("class", "");
