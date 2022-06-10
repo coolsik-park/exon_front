@@ -10,6 +10,15 @@
     .table-type .tr-row {
         height: 40px;
     }
+    .vod-li {
+        margin-top: 2%;
+    }
+    .vod-ul {
+        display: none;
+    }
+    .arrow--vod2 {
+        transform: rotate( 90deg );
+    }
 </style>
 
 
@@ -20,7 +29,7 @@
             <div class="tab-chapter">
                 <p><?=$list['title']?></p> 
                 <a style="" class="c arrow--vod__1" name="<?=$list['id']?>">
-                    <img id="arrow--vod" class="chapter-icon arrow--vod" src="/img/arrow-down-sign-to-navigate.png">
+                    <img id="arrow--vod" class="chapter-icon arrow--vod2" src="/img/arrow-down-sign-to-navigate.png">
                 </a>
             </div>
             <ul class="vod-ul">
@@ -33,3 +42,16 @@
     <?php endforeach; ?>
     </div>                   
 </div>
+
+<script>
+     $(document).on("click", ".arrow--vod2", function(){
+        if($(this).parent().parent().next().is(":visible")){
+            $(this).parent().parent().next().slideUp();
+            $(this).css("transform","rotate(90deg)");
+        }
+        else {
+            $(this).parent().parent().next().slideDown();
+            $(this).css("transform","rotate(0deg)");
+        }
+    });
+</script>

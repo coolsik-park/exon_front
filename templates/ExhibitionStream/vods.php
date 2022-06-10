@@ -16,6 +16,9 @@
     .section-webinar4 .webinar-tab.close .webinar-tab-tg {
         top: 78px;
     }
+     .arrow--vod2 {
+        width: 20px;
+    }
 </style>
 
 <div id="container">       

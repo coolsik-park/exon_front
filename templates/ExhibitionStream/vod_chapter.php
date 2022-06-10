@@ -18,6 +18,9 @@
     .tr {
         margin-left: 20px;
     }
+    .arrow--vod2 {
+        width: 20px;
+    }
 </style>
 
 <div id="container">       
