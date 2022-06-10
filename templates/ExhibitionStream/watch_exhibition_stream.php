@@ -41,9 +41,6 @@
         .msgln {
             word-break: break-word;
         }
-        .arrow--vod2 {
-            width: 20px;
-        }
     </style>
 </head>
 
