@@ -1,5 +1,5 @@
 <style>
-    .chapter {
+    .tab-chapter {
         position: relative;
     }
     .arrow--vod__1 {
