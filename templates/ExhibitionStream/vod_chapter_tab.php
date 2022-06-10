@@ -8,7 +8,7 @@
     <?php foreach ($exhibitionVod as $list) : ?>              
         <div class="tr-row">
             <div class="tab-chapter">
-                <p><a href="/exhibition-stream/vods/<?=$exhibition->id?>/<?=$exhibition_users_id?>/<?=$list['id']?>"><?=$list['title']?></a></p>
+                <p><?=$list['title']?></p>
             </div>
             <ul class="vod-ul">
             <?php foreach ($list['child_exhibition_vod'] as $vod) : ?>
