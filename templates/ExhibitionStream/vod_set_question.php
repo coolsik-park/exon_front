@@ -121,7 +121,7 @@
             }).done(function(res) {
                 if (res.status == 'success') {
                     alert("삭제되었습니다.");
-                    $(".webinar-tab-body").load("/exhibition-stream/vod-set-question/<?= $id ?>/<? $exhibition_users_id ?>");
+                    $(".webinar-tab-body").load("/exhibition-stream/vod-set_question/<?= $id ?>/<?= $exhibition_users_id ?>");
                 }
             });
         }
