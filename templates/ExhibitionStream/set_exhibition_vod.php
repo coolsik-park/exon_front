@@ -672,6 +672,7 @@
     // 등록 가능한 총 파일 사이즈 MB
     var maxUploadSize = 10240;
 
+    let check = 0;
     //파일 불러오기
     $(document).on("change", "input[type=file]", function (e) {
         e.preventDefault();
@@ -691,7 +692,9 @@
             selectFile(file)
             var html = "<span class='kb'>파일명 : " + file.name + " / 파일 사이즈 : " + (file.size/1024/1024).toFixed(1) + "MB</span>";
             $(this).parent().parent().children(".kb").remove();
-            $(this).parent().parent().append(html);
+            if (check == 0) {
+                $(this).parent().parent().append(html);
+            }
         }
     });
 
@@ -708,10 +711,12 @@
         if ($.inArray(ext, ['mp4']) < 0) {
             // 확장자 체크
             alert("mp4 형식의 VOD만 등록 가능합니다. 파일 확장자를 확인해주세요.");
+            check = 1;
             return false;
         } else if (fileSize > uploadSize) {
             // 파일 사이즈 체크
             alert("용량 초과\n업로드 가능 용량 : " + uploadSize / 1024 + " GB");
+            check = 1;
             return false;
         } 
     }
