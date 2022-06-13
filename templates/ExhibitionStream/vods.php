@@ -1,4 +1,7 @@
 <style>
+    #container {
+        position: relative;
+    }
     .chapter {
         font-size: 25px;
     }
@@ -7,7 +10,8 @@
         font-size: 1.5rem;
     }
     .vod-li {
-        margin-top: 1%;
+        margin-top: 5%;
+        padding: 0px 0px 20px 0px;
     }
     .vod-time {
         float: right;
@@ -19,21 +23,43 @@
      .arrow--vod2 {
         width: 20px;
     }
+    .table-type .tr-row {
+        border-bottom: 0px;
+    }
+    .chapter--menu__div {
+        font-size: 1rem;
+        position: absolute;
+        right: 0%;
+        top: 20%;
+    }
+    .section-my {
+        position: relative;
+    }
+    .chapter--menu__img {
+        width: 20px;
+    }
 </style>
 
-<div id="container">       
+<div id="container">      
     <div class="contents">      
         <div class="section-webinar4">
             <div class="webinar-cont">
                 <div class="section-my">
+                    <div class="chapter--menu__div">
+                        <a class="chapter--menu__a" href="">
+                            <img class="chapter--menu__img" src="/img/menu-button-of-three-horizontal-lines.png" /> <span>목록 보기</span>
+                        </a>
+                    </div> 
                     <h3 class="s-hty1"><?=$chapter['title']?></h3>
                     <div class="table-type table-type2">                  
                         <div class="tr-row">
                             <ul class="vod-ul">
                             <?php foreach ($vods as $vod) : ?>
+                                <a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition->id?>/<?=$vod['id']?>/<?=$exhibition_users_id?>" style="width: 100%;   border-bottom: 1px solid black;">
                                 <li class="vod-li">
-                                    <a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition->id?>/<?=$vod['id']?>/<?=$exhibition_users_id?>"><?=$vod['title']?></a><span class="vod-time"><?=sprintf('%02d:%02d:%02d', (round($vod['duration'])/3600),(round($vod['duration'])/60%60), round($vod['duration'])%60)?></span>
+                                    <span><?=$vod['title']?></span><span class="vod-time"><?=sprintf('%02d:%02d:%02d', (round($vod['duration'])/3600),(round($vod['duration'])/60%60), round($vod['duration'])%60)?></span>
                                 </li>
+                                </a>
                                 <br>
                             <?php endforeach; ?>
                             </ul>

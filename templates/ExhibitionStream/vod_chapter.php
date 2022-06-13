@@ -17,9 +17,25 @@
     }
     .tr {
         margin-left: 20px;
+        border-bottom: 1px solid black;
+        margin-bottom: 20px;
+        position: relative;
     }
     .arrow--vod2 {
         width: 20px;
+    }
+    .table-type2 {
+        display: flex;
+        flex-direction: column;
+    }
+    .chapter--title {
+        margin-left: 20px;
+        font-size: 1.6rem;
+    }
+    .chapter--title__char {
+        font-size: 12px;
+        top: 8px;
+        position: absolute;
     }
 </style>
 
@@ -28,20 +44,22 @@
         <div class="section-webinar4">
             <div class="webinar-cont">
                 <div class="section-my">
-                    <h3 class="s-hty1">Chapter 목록</h3>
+                    <h3 class="s-hty1">목록</h3>
                     <div class="table-type table-type2">      
-                    <?php foreach ($exhibitionVod as $list) : ?>              
-                        <div class="tr">
-                            <div class="chapter">
-                                <p><a href="/exhibition-stream/vods/<?=$exhibition->id?>/<?=$exhibition_users_id?>/<?=$list['id']?>"><?=$list['title']?></a></p>
+                    <?php foreach ($exhibitionVod as $list) : ?>    
+                        <a href="/exhibition-stream/vods/<?=$exhibition->id?>/<?=$exhibition_users_id?>/<?=$list['id']?>">          
+                            <div class="tr">
+                                <div class="chapter" style="display: flex;">
+                                    <span class="chapter--title__char">○</span><p class="chapter--title"><?=$list['title']?></p>
+                                </div>
+                                <br><br>
+                                <!-- <ul class="vod-ul">
+                                <?php foreach ($list['child_exhibition_vod'] as $vod) : ?>
+                                    <li class="vod-li"><a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition->id?>/<?=$vod['id']?>/<?=$exhibition_users_id?>"><?=$vod['title']?></a><span class="vod-time"><?=sprintf('%02d:%02d:%02d', (round($vod['duration'])/3600),(round($vod['duration'])/60%60), round($vod['duration'])%60)?></span></li>
+                                <?php endforeach; ?>
+                                </ul> -->
                             </div>
-                            <br><br>
-                            <!-- <ul class="vod-ul">
-                            <?php foreach ($list['child_exhibition_vod'] as $vod) : ?>
-                                <li class="vod-li"><a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition->id?>/<?=$vod['id']?>/<?=$exhibition_users_id?>"><?=$vod['title']?></a><span class="vod-time"><?=sprintf('%02d:%02d:%02d', (round($vod['duration'])/3600),(round($vod['duration'])/60%60), round($vod['duration'])%60)?></span></li>
-                            <?php endforeach; ?>
-                            </ul> -->
-                        </div>
+                        </a>
                     <?php endforeach; ?>
                     </div>
                 </div>             

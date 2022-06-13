@@ -10,8 +10,12 @@
     .table-type .tr-row {
         height: 40px;
     }
-    .vod-li {
+    .vod--tab__ul .vod-li {
         margin-top: 2%;
+    }
+    .vod-li {
+        margin-top: 5%;
+        padding: 0px 0px 20px 0px;
     }
     .tab--ul {
         display: none;
@@ -32,7 +36,7 @@
                     <img id="arrow--vod" class="chapter-icon arrow--vod2" src="/img/arrow-down-sign-to-navigate.png">
                 </a>
             </div>
-            <ul class="vod-ul tab--ul">
+            <ul class="vod-ul tab--ul vod--tab__ul">
             <?php foreach ($list['child_exhibition_vod'] as $vod) : ?>
                 <li class="vod-li"><a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition->id?>/<?=$vod['id']?>/<?=$exhibition_users_id?>"><?=$vod['title']?></a><span class="vod-time"><?=sprintf('%02d:%02d:%02d', (round($vod['duration'])/3600),(round($vod['duration'])/60%60), round($vod['duration'])%60)?></span></li>
             <?php endforeach; ?>

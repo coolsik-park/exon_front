@@ -320,7 +320,7 @@
                                                 <?php else : ?>
                                                 <a class="vodTitle" href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition_id?>/<?=$child['id']?>"><span class="vod--title__icon">◆</span><?=$child['title']?></a>
                                                 <?php endif; ?>
-                                                <a style="" class="deleted v delete--vod__2" name="<?=$child['id']?>"><img class="vod-icon" src="/img/trash_can-lov.png"></a>
+                                                <a style="" class="delete v delete--vod__2" name="<?=$child['id']?>"><img class="vod-icon" src="/img/trash_can-lov.png"></a>
                                                 <?php if ($child['is_show'] == 0) : ?>
                                                 <a style="" class="v view--vod__2" name="<?=$child['id']?>"><img id="view--vod__2" class="vod-icon hidden" src="/img/hidden.png"></a>
                                                 <?php else : ?>
