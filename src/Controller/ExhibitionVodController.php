@@ -141,4 +141,17 @@ class ExhibitionVodController extends AppController
             return $response;
         } 
     }
+
+    public function sort()
+    {
+        $i = 1;
+        foreach ($this->request->getData('ids') as $id) {
+            $exhibitionVod = $this->ExhibitionVod->get($id);
+            $exhibitionVod->idx = $i;
+            $this->ExhibitionVod->save($exhibitionVod);
+            $i++;
+        }
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));    
+        return $response;
+    }
 }

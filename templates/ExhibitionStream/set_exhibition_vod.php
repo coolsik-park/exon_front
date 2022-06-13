@@ -311,7 +311,7 @@
                                         <img id="arrow--vod" class="chapter-icon arrow--vod" src="/img/arrow-down-sign-to-navigate.png">
                                     </a>
                                 </div>
-                                <ul id="sortable2">
+                                <ul id="sortable2" class = "<?=$list['id']?>">
                                 <?php foreach ($list['child_exhibition_vod'] as $child) : ?>
                                         <li class="ui-state-default">  
                                             <div class="vod-title" style="font-size:30px; margin:20px 0; padding-left:10px;">
@@ -326,7 +326,7 @@
                                                 <?php else : ?>
                                                 <a style="" class="v view--vod__2" name="<?=$child['id']?>"><img id="view--vod__2" class="vod-icon" src="/img/view.png"></a>
                                                 <?php endif; ?>
-                                                <a style="" class="v move--vod__2" name="<?=$child['id']?>"><img id="move--vod__2" class="vod-icon move--vod2" src="/img/list.png"></a>
+                                                <a style="" class="v move--vod__2 <?=$list['id']?>" name="<?=$child['id']?>"><img id="move--vod__2" class="vod-icon move--vod2" src="/img/list.png"></a>
                                             </div>
                                         </li>
                                 <?php endforeach; ?>
@@ -603,8 +603,20 @@
             cancel: '',
             start:function(event,ui){ // 드래그 시작 시 호출 
             }, 
-            stop:function(event,ui){ // 드래그 종료 시 호출 
-            
+            stop:function(event,ui){ // 드래그 종료 시 호출
+                let chapters = document.getElementsByClassName('move--vod__1');
+                let chapter_ids = [];
+                for(let i = 0; i < chapters.length; i++) {
+                    chapter_ids[i] = chapters[i].name;
+                }
+                $.ajax({
+                    url: "/exhibition-vod/sort",
+                    method: 'POST',
+                    type: 'json',
+                    data: {
+                        ids: chapter_ids
+                    }
+                });
             } 
         });
 
@@ -616,7 +628,21 @@
             start:function(event,ui){ // 드래그 시작 시 호출 
             }, 
             stop:function(event,ui){ // 드래그 종료 시 호출 
-            
+                let vods = document.getElementsByClassName($(this)[0].classList[0]);
+                let vod_ids = [];
+                let j = 1;
+                for(let i = 0; i < vods.length-1; i++) {
+                    vod_ids[i] = vods[j].name;
+                    j++;
+                }
+                $.ajax({
+                    url: "/exhibition-vod/sort",
+                    method: 'POST',
+                    type: 'json',
+                    data: {
+                        ids: vod_ids
+                    }
+                });
             } 
         });
 
@@ -809,7 +835,6 @@
         formData.append('description', $(this).parent().prev().children().children().children().children().last().val());
         formData.append('file_size', ($(this).parent().prev().prev().prev().prev().prev().children().children(".file").prop("files")[0].size / 1024 / 1024).toFixed(0));
         formData.append('parent_id', $(this).parent().parent().parent().parent().find(".add-vod").attr("id"));
-        formData.append('parent_id', 62);
         
         var bar = $('.bar');
         var percent = $('.percent');
