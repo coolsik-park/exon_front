@@ -46,7 +46,7 @@
             <div class="webinar-cont">
                 <div class="section-my">
                     <div class="chapter--menu__div">
-                        <a class="chapter--menu__a" href="">
+                        <a class="chapter--menu__a" href="/exhibition-stream/vod-chapter/<?=$exhibition->id?>/<?=$exhibition_users_id?>">
                             <img class="chapter--menu__img" src="/img/menu-button-of-three-horizontal-lines.png" /> <span>목록 보기</span>
                         </a>
                     </div> 
