@@ -1,3 +1,8 @@
+<style>
+    *{
+        font-size:1.06rem;
+    }
+</style>
 <div class="webinar-cont1">
     <h3 class="sr-only">질의 응답</h3>
     <div class="webinar-cont-ty1">
@@ -39,7 +44,7 @@
                 ?>
                     <li>
                         <div class="con1">
-                            <p class="s-hty2"><?php echo $user_name ?> > 
+                            <p class="s-hty2"><?php echo $user_name ?> → 
                             <?php
                                 if ($exhibitionQuestion['target_users_name'] == null) {
                                     echo '전체';
@@ -82,11 +87,13 @@
     });
 
     $("button#add").click(function () {
+        // console.log("aaa");
         if ($("#target").val() == '') {
             alert("질문 대상을 선택해주세요.");
             return false;
         }
         jQuery.ajax({
+            // url: "/exhibition-stream/set-question/" + <?= $id ?>, 
             url: "/exhibition-stream/set-question/" + <?= $id ?> + "/" + <?= $exhibition_users_id ?>, 
             method: 'POST',
             type: 'json',
@@ -98,6 +105,7 @@
         }).done(function(data) {
             if (data.status == 'success') {
                 alert("저장되었습니다.");
+                // $(".webinar-tab-body").load("/exhibition-stream/set_question/" + <?= $id ?>);
                 $(".webinar-tab-body").load("/exhibition-stream/set_question/<?= $id ?>/<?= $exhibition_users_id ?>");
             }
         });
@@ -116,7 +124,8 @@
         }).done(function(res) {
             if (res.status == 'success') {
                 alert("삭제되었습니다.");
-                $(".webinar-tab-body").load("/exhibition-stream/set_question/<?= $id ?>/<?= $exhibition_users_id ?>");
+                // $(".webinar-tab-body").load("/exhibition-stream/set_question/" + <?= $id ?>);
+                $(".webinar-tab-body").load("/exhibition-stream/set_question/<?= $id ?>/<? $exhibition_users_id ?>");
             }
         });
     }); 

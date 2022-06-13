@@ -1,3 +1,8 @@
+<style>
+    *{
+        font-size:1.06rem;
+    }
+</style>
 <div class="webinar-cont1">
     <h3 class="sr-only">질의 응답</h3>
     <div class="webinar-cont-ty1">

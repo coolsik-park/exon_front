@@ -1,3 +1,8 @@
+<style>
+    *{
+        font-size:1.06rem;
+    }
+</style>
 <div id="wbCon3">
     <h4 class="sr-only">답변완료</h4>
     <ul class="ph2-items">
@@ -10,11 +15,11 @@
                 <?php
                     if ($exhibitionQuestion['target_users_name'] == null) {
                 ?> 
-                    > <?php echo '전체'; ?>
+                    → <?php echo '전체'; ?>
                 <?php
                      } else {
                 ?>
-                    > <?php echo $exhibitionQuestion['target_users_name'] ?>
+                    → <?php echo $exhibitionQuestion['target_users_name'] ?>
                 <?php
                      }
                 ?>

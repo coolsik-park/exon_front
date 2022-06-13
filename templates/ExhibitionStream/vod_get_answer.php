@@ -1,3 +1,8 @@
+<style>
+    *{
+        font-size:1.06rem;
+    }
+</style>
 <div class="webinar-cont1">
     <h3 class="sr-only">질의 응답</h3>
     <div class="webinar-cont-ty1">
@@ -43,7 +48,7 @@
                 ?>
                     <li>
                         <div class="con1">
-                            <p class="s-hty2"><?php echo $user_name ?> > 
+                            <p class="s-hty2"><?php echo $user_name ?> → 
                             <?php
                                 if ($exhibitionQuestion['target_users_name'] == null) {
                                     echo '전체';
