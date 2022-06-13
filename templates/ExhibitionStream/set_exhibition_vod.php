@@ -207,13 +207,14 @@
             position: relative;
         }
         .vod--title__icon {
-            font-size: 20px;
+            font-size: 18px;
             position: absolute;
             left: 10px;
             top: 8px;
         }
         .vodTitle {
             margin-left: 30px;
+            font-size: 1.6rem;
         }
         #sortable2 {
             display: none;
@@ -222,6 +223,13 @@
         .progress { position:relative; width:100%; border: 1px solid #ddd;padding:1px; border-radius: 3px; }
         .bar { background-color: #337ab7; width:0%; height:20px; border-radius:3px;}
         .percent { position:absolute; display:inline-block; top:1px; left:48%;}
+
+        .chapter--title__char {
+            font-size: 16px;
+            top: 8px;
+            left: -24px;
+            position: absolute;
+        }
 
         @media  screen and (max-width: 768px) {
             .stream-sect .row2-wp .row2 {
@@ -288,9 +296,9 @@
                         <div class='wb-stream-sect sect--border'>
                             <div class="stream-sect">
                                 <?php if ($list['is_show'] == 0) : ?>
-                                <div class="chapter-title disable" style="font-size:40px;"><?=$list['title']?>
+                                <div class="chapter-title disable" style="font-size:1.8rem;"><span class="chapter--title__char">○</span><?=$list['title']?>
                                 <?php else : ?>
-                                <div class="chapter-title" style="font-size:40px;"><?=$list['title']?>
+                                <div class="chapter-title" style="font-size:1.8rem;"><span class="chapter--title__char">○</span><?=$list['title']?>
                                 <?php endif; ?>
                                     <a style="" class="delete c delete--vod__1" name="<?=$list['id']?>">
                                         <img class="chapter-icon" src="/img/trash_can-lov.png">
