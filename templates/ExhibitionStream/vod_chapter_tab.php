@@ -23,6 +23,9 @@
     .arrow--vod2 {
         transform: rotate( 90deg );
     }
+    .chapterTab--li__title {
+        font-size: 1.2rem;
+    }
 </style>
 
 
@@ -38,7 +41,7 @@
             </div>
             <ul class="vod-ul tab--ul vod--tab__ul">
             <?php foreach ($list['child_exhibition_vod'] as $vod) : ?>
-                <li class="vod-li"><a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition->id?>/<?=$vod['id']?>/<?=$exhibition_users_id?>"><?=$vod['title']?></a><span class="vod-time"><?=sprintf('%02d:%02d:%02d', (round($vod['duration'])/3600),(round($vod['duration'])/60%60), round($vod['duration'])%60)?></span></li>
+                <li class="vod-li chapterTab--li__title"><a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition->id?>/<?=$vod['id']?>/<?=$exhibition_users_id?>"><?=$vod['title']?></a><span class="vod-time"><?=sprintf('%02d:%02d:%02d', (round($vod['duration'])/3600),(round($vod['duration'])/60%60), round($vod['duration'])%60)?></span></li>
             <?php endforeach; ?>
             </ul>
         </div>
@@ -48,14 +51,27 @@
 </div>
 
 <script>
-     $(document).on("click", ".arrow--vod2", function(){
-        if($(this).parent().parent().next().is(":visible")){
+    $(document).on("click", ".arrow--vod2", function(){
+        if($(this).parent().parent().next().hasClass('visible')){
             $(this).parent().parent().next().slideUp();
             $(this).css("transform","rotate(90deg)");
+            $(this).parent().parent().next().removeClass('visible')
         }
         else {
             $(this).parent().parent().next().slideDown();
             $(this).css("transform","rotate(0deg)");
+            $(this).parent().parent().next().addClass('visible')
         }
     });
+    $(document).on("click", ".tr-row", function(){
+        if($(this).children('.tab-chapter').next().is(":visible")){
+            $(this).children('.tab-chapter').next().slideUp();
+            $(this).children('.tab-chapter').children('.arrow--vod__1').children('.arrow--vod2').css("transform","rotate(90deg)");
+        }
+        else {
+            $(this).children('.tab-chapter').next().slideDown();
+            $(this).children('.tab-chapter').children('.arrow--vod__1').children('.arrow--vod2').css("transform","rotate(0deg)");
+        }
+    });
+    
 </script>
