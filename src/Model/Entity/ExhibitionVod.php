@@ -15,7 +15,9 @@ use Cake\ORM\Entity;
  * @property int|null $file_size
  * @property int|null $parent_id
  * @property int|null $duration
- * @property int|null $is_paid
+ * @property int $is_paid
+ * @property int $is_show
+ * @property int|null $idx
  * @property int $viewer
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
@@ -43,6 +45,8 @@ class ExhibitionVod extends Entity
         'parent_id' => true,
         'duration' => true,
         'is_paid' => true,
+        'is_show' => true,
+        'idx' => true,
         'viewer' => true,
         'created' => true,
         'modified' => true,

@@ -61,6 +61,9 @@ class ExhibitionVodTable extends Table
             'className' => 'ExhibitionVod',
             'foreignKey' => 'parent_id',
         ]);
+        $this->hasMany('ExhibitionVodViewer', [
+            'foreignKey' => 'exhibition_vod_id',
+        ]);
     }
 
     /**
@@ -95,7 +98,15 @@ class ExhibitionVodTable extends Table
 
         $validator
             ->integer('is_paid')
-            ->allowEmptyString('is_paid');
+            ->notEmptyString('is_paid');
+
+        $validator
+            ->integer('is_show')
+            ->notEmptyString('is_show');
+
+        $validator
+            ->integer('idx')
+            ->allowEmptyString('idx');
 
         $validator
             ->integer('viewer')

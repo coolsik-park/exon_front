@@ -29,10 +29,17 @@ class ExhibitionVodController extends AppController
     
     public function addChapter($exhibition_id = null)
     {
+        $prevs = $this->ExhibitionVod->find('all')->where(['exhibition_id' => $exhibition_id, 'parent_id IS' => null])->toArray();
+        $last_index = 0;
+        if (count($prevs) != 0) {
+            $last_index = $prevs[count($prevs)-1]['idx'] + 1;
+        }
+
         $exhibitionVod = $this->ExhibitionVod->newEmptyEntity();
-        
+    
         $exhibitionVod->exhibition_id = $exhibition_id;
         $exhibitionVod->title = $this->request->getData('title');
+        $exhibitionVod->idx = $last_index;
         
         if ($this->ExhibitionVod->save($exhibitionVod)) {
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));    
