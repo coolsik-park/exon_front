@@ -70,15 +70,15 @@ class ExhibitionVodController extends AppController
 
     public function edit($id = null)
     {
-        $exhibitionVod = $this->ExhibitionVod->get($id);
-
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $exhibitionVod = $this->ExhibitionVod->patchEntity($exhibitionVod, $this->request->getData());
+            $exhibitionVod = $this->ExhibitionVod->get($id);
+
+            $exhibitionVod->title = $this->request->getData('title');
+            $exhibitionVod->description = $this->request->getData('description');
             if ($this->ExhibitionVod->save($exhibitionVod)) {
-
-            } else {
-
-            }
+                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));    
+                return $response;
+            } 
         }
     }
 
