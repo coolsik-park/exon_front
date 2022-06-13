@@ -71,7 +71,7 @@
         </div>
         <div class="webinar-cont-ty1-btm">
             <div class="poll-submit">
-                <input type="text" id="question" style="width:70%">                                        
+                <input type="text" id="text" style="width:70%">                                        
                 <button id="add" type="button" class="btn-ty4 redbg">제출</button>
                 <input type="hidden" id="target">
             </div>
@@ -97,7 +97,7 @@
             data: {
                 action: 'add',
                 target: $("#target").val(),
-                question: $("#question").val()
+                question: $("#text").val()
             }
         }).done(function(data) {
             if (data.status == 'success') {
@@ -121,7 +121,7 @@
             }).done(function(res) {
                 if (res.status == 'success') {
                     alert("삭제되었습니다.");
-                    $(".webinar-tab-body").load("/exhibition-stream/vod-set-question/<?= $id ?>/<? $exhibition_users_id ?>");
+                    $(".webinar-tab-body").load("/exhibition-stream/vod-set_question/<?= $id ?>/<?= $exhibition_users_id ?>");
                 }
             });
         }
