@@ -30,7 +30,7 @@
         <div class="section-webinar4">
             <div class="webinar-cont">
                 <div class="wb-cont1">
-                    <video id="vid1" class="video-js vjs-big-play-centered" poster="https://orcaexon.co.kr/videos/<?=$exhibition->id?>/<?=$exhibitionVod->title?>_thumbnail.png">
+                    <video id="vid1" class="video-js vjs-big-play-centered">
                         <source src="https://orcaexon.co.kr/videos/<?=$exhibition->id?>/<?=$exhibitionVod->title?>.mp4" type="video/mp4" />
                     </video>
                 </div>     
