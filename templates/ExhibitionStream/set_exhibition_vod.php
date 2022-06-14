@@ -246,6 +246,12 @@
         .btn3 {
             font-size: 16px;
         }
+        .vod--chapter__cancle {
+            margin-left: 12px;
+        }
+        .chapter-name-btn {
+            margin-left: 12px;
+        }
 
         @media  screen and (max-width: 768px) {
             .stream-sect .row2-wp .row2 {
@@ -519,16 +525,22 @@
 <script>
     //setting chapter
     $(".set--vod__1").click(function () {
-        $(this).hide();
+        $(this).children().css("display", "none");
         var html = "";
-        // html += "<div class='wb-stream-sect'>";
-        html += "    <div class='stream-ipt1' style='margin-top: 25px'>";
-        html += "        <input type='text' class='c-name' placeholder='챕터 제목을 입력해주세요.'><button type='button' class='btn-ty2 bor chapter-name-btn'>확인</button>";
+        html += "<div class='wb-stream-sect' style='border: none;'>";
+        html += "    <div class='stream-ipt1'>";
+        html += "        <input type='text' class='c-name' placeholder='챕터 제목을 입력해주세요.'><button type='button' class='btn-ty2 bor chapter-name-btn'>확인</button><button type='button' class='btn-ty2 bor vod--chapter__cancle'>취소</button>";
         html += "    </div>";
-        // html += "</div>";
+        html += "</div>";
 
 
         $(this).parent().append(html);
+    });
+
+    //setting chapter cancle btn
+    $(document).on("click", ".vod--chapter__cancle", function(){
+        $(this).parent().parent().prev().prev().prev().prev().prev().children().css("display", "block");
+        $(this).parent().parent().remove();
     });
 
     // setting vod 
@@ -564,12 +576,18 @@
         html += '           </div>';
         html += '        </div>';
         html += '        <div class="wb10-btn">';
-        html += '            <button type="button" class="btn3 cancel-file">취소하기</button>';
+        html += '            <button type="button" class="btn3 vod--vod__cancle">취소하기</button>';
         html += '            <button type="button" class="btn3 add-file">수정하기</button>';
         html += '        </div>';
         html += '    </form>';               
         html += '</div>';   
         $(this).parent().append(html);
+    });
+
+    //setting vod cancle btn
+    $(document).on("click", ".vod--vod__cancle", function(){
+        $(this).parent().parent().parent().prev().show();
+        $(this).parent().parent().parent().remove();
     });
 
     //toggle show
@@ -976,9 +994,9 @@
     //챕터 컨트롤
     $("#add-chapter").click(function () {
         var html = "";
-        html += "<div class='wb-stream-sect'>";
+        html += "<div class='wb-stream-sect' style='border: none'>";
         html += "    <div class='stream-ipt1'>";
-        html += "        <input type='text' class='c-name' placeholder='챕터 제목을 입력해주세요.'><button type='button' class='btn-ty2 bor chapter-name-btn'>확인</button>";
+        html += "        <input type='text' class='c-name' placeholder='챕터 제목을 입력해주세요.'><button type='button' class='btn-ty2 bor chapter-name-btn'>확인</button><button type='button' class='btn-ty2 bor vod--chapter__cancle'>취소</button>";
         html += "    </div>";
         html += "</div>";
 
