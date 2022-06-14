@@ -326,6 +326,12 @@
     .btn3 {
         font-size: 16px;
     }
+    .vod--chapter__cancle {
+        margin-left: 12px;
+    }
+    .chapter-name-btn {
+        margin-left: 12px;
+    }
 
     @media screen and (max-width: 768px) {
         .stream-sect .row2-wp .row2 {
@@ -617,7 +623,7 @@
     
     //setting chapter
     $(".set--vod__1").click(function() {
-        $(this).hide();
+        $(this).children().css("display", "none");
         var html = "";
         html += "<div class='wb-stream-sect' style='border: none;'>";
         html += "    <div class='stream-ipt1'>";
