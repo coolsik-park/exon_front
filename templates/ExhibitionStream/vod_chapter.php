@@ -16,36 +16,67 @@
         font-size: 2rem;
     }
     .tr {
-        margin-left: 20px;
+        /* margin-left: 20px; */
        /* padding: 18px 0px 0px 0px; */
-        position: relative;
+        /* position: relative; */
     }
     .arrow--vod2 {
         width: 20px;
     }
     .table-type2 {
         display: flex;
-        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: flex-start;
     }
-    /* .table-type2 a:nth-child(2n) {
-        background-color: lightgrey;
-    } */
+    .table-type2 a:nth-child(2n) .chapter--div {
+        background-color: #ffbbcc;
+    }
+    .table-type2 a:nth-child(3n) .chapter--div {
+        background-color: #ffeecc;
+    }
+    .table-type2 a:nth-child(4n) .chapter--div{
+        background-color: #ccddff;
+    }
     /* .table-type2 a:nth-child(odd) {
         background-color: lightgrey;
     } */
     .table-type2 a {
   
     }
+    .table-type .tr-row {
+        padding: 15px 0px 15px 0px;
+    }
     .chapter--title {
-        margin-left: 20px;
+        /* margin-left: 20px; */
         font-size: 1.6rem;
-        margin-top: 20px;
+        margin-top: 30px;
     }
     .chapter--title__char {
         font-size: 12px;
         top: 28px;
         position: absolute;
     }
+    .chapter--div {
+        width: 90%;
+        height: 270px;
+        margin-bottom: 30px;
+        margin-right: 15px;
+        background-color: #F2D6B8;
+        border-radius: 15%;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .table-type2 a {
+        width: 25%;
+    }
+    /* .chapter--title {
+        width: 100px;
+        position: absolute;
+        top: 40%;
+        left: 27%;
+    } */
 </style>
 
 <div id="container">       
@@ -56,11 +87,13 @@
                     <h3 class="s-hty1">목록</h3>
                     <div class="table-type table-type2">      
                     <?php foreach ($exhibitionVod as $list) : ?>  
-                        <div class="chapter--div"> 
-                            <a href="/exhibition-stream/vods/<?=$exhibition->id?>/<?=$exhibition_users_id?>/<?=$list['id']?>">          
+                        
+                            <a href="/exhibition-stream/vods/<?=$exhibition->id?>/<?=$exhibition_users_id?>/<?=$list['id']?>">      
+                            <div class="chapter--div">     
                                 <div class="tr">
                                     <div class="chapter" style="display: flex;">
-                                        <span class="chapter--title__char">○</span><p class="chapter--title"><?=$list['title']?></p>
+                                        <!-- <span class="chapter--title__char">○</span> -->
+                                        <p class="chapter--title"><?=$list['title']?></p>
                                     </div>
                                     <br><br>
                                     <!-- <ul class="vod-ul">
@@ -69,8 +102,9 @@
                                     <?php endforeach; ?>
                                     </ul> -->
                                 </div>
+                                </div>
                             </a>
-                        </div>
+                  
                     <?php endforeach; ?>
                     </div>
                 </div>             

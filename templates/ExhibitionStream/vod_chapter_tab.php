@@ -15,7 +15,6 @@
     }
     .vod-li {
         margin-top: 5%;
-        padding: 0px 0px 20px 0px;
     }
     .tab--ul {
         display: none;
