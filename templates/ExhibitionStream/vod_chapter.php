@@ -15,11 +15,6 @@
     .chapter {
         font-size: 2rem;
     }
-    .tr {
-        /* margin-left: 20px; */
-       /* padding: 18px 0px 0px 0px; */
-        /* position: relative; */
-    }
     .arrow--vod2 {
         width: 20px;
     }

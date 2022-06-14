@@ -243,6 +243,9 @@
             left: -24px;
             position: absolute;
         }
+        .btn3 {
+            font-size: 16px;
+        }
 
         @media  screen and (max-width: 768px) {
             .stream-sect .row2-wp .row2 {
@@ -514,6 +517,61 @@
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" />
 
 <script>
+    //setting chapter
+    $(".set--vod__1").click(function () {
+        $(this).hide();
+        var html = "";
+        // html += "<div class='wb-stream-sect'>";
+        html += "    <div class='stream-ipt1' style='margin-top: 25px'>";
+        html += "        <input type='text' class='c-name' placeholder='챕터 제목을 입력해주세요.'><button type='button' class='btn-ty2 bor chapter-name-btn'>확인</button>";
+        html += "    </div>";
+        // html += "</div>";
+
+
+        $(this).parent().append(html);
+    });
+
+    // setting vod 
+    $(document).on("click", ".set--vod__2", function () {
+        $(this).hide();
+        var html = '';
+        html += '<div class="webinar-cont-ty2">';
+        html += '    <form name="uploadForm" id="uploadForm">';
+        html += '        <div class="mouse-area">';
+        html += '            <label><span class="ico-plus-c">+</span></button>';
+        html += '            <input name="file" type="file" class="file" style="display:none">';
+        html += '            <p>클릭하여 VOD를 업로드하세요.</p></label>';
+        html += '        </div>';
+        html += '        <br><br>';
+        html += '        <div id="fileTableTbody" class="data-itmes">';
+        html += '        </div>';
+        html += '        <div class="stream-sect">';
+        html += '           <div class="row2">';
+        html += '               <div class="col-th">VOD 제목</div>';
+        html += '                   <div class="col-td">';
+        html += '                       <div class="stream-ipt1">';
+        html += '                           <input type="text" class="vod-input">';
+        html += '                       </div>';
+        html += '                   </div>';
+        html += '               </div>';
+        html += '               <div class="row2">';
+        html += '                  <div class="col-th">VOD 설명</div>';
+        html += '                      <div class="col-td">';
+        html += '                  <div class="stream-ipt1">';
+        html += '                      <textarea class="vod-input"></textarea>';
+        html += '                  </div>';
+        html += '               </div>';
+        html += '           </div>';
+        html += '        </div>';
+        html += '        <div class="wb10-btn">';
+        html += '            <button type="button" class="btn3 cancel-file">취소하기</button>';
+        html += '            <button type="button" class="btn3 add-file">수정하기</button>';
+        html += '        </div>';
+        html += '    </form>';               
+        html += '</div>';   
+        $(this).parent().append(html);
+    });
+
     //toggle show
     $(document).on("click", ".arrow--vod", function(){
         if($(this).parent().parent().next().is(":visible")){
