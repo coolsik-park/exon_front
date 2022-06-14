@@ -57,12 +57,12 @@
         position: absolute;
     }
     .chapter--div {
-        width: 90%;
-        height: 270px;
+        width: 82%;
+        height: 360px;
         margin-bottom: 30px;
         margin-right: 15px;
         background-color: #F2D6B8;
-        border-radius: 15%;
+        border-radius: 10%;
         position: relative;
         display: flex;
         justify-content: center;

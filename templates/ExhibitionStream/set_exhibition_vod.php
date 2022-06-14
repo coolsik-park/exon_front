@@ -151,10 +151,10 @@
         .stream-sect {
             position: relative;
         }
-        .stream-sect > .add-vod {
+        .add--vod__2{
             position: absolute;
-            top: -2%;
-            right: 130px;
+            top: -1%;
+            right: 160px;
         }
         .delete--vod__1 {
             position: absolute;
@@ -179,6 +179,16 @@
         .move--vod__2 {
             position: absolute;
             right: 0px;
+        }
+        .set--vod__1 {
+            position: absolute;
+            right: 135px;
+            top: 0;
+        }
+        .set--vod__2 {
+            position: absolute;
+            right: 95px;
+            top: 0;
         }
         .arrow--vod__1 {
             position: absolute;
@@ -218,6 +228,9 @@
         }
         #sortable2 {
             display: none;
+        }
+        #sortable2 > li {
+            border-bottom: 1px solid black;
         }
         .itemBoxHighlight { border:solid 1px black; width: 100%; height: 200px; background-color:yellow; }
         .progress { position:relative; width:100%; border: 1px solid #ddd;padding:1px; border-radius: 3px; }
@@ -300,6 +313,9 @@
                                 <?php else : ?>
                                 <div class="chapter-title" style="font-size:1.8rem;"><span class="chapter--title__char">○</span><?=$list['title']?>
                                 <?php endif; ?>
+                                    <a style="" class="c set--vod__1" name="<?=$list['id']?>">
+                                        <img id="set--vod" class="chapter-icon set--vod" src="/img/setting.png">
+                                    </a>
                                     <a style="" class="delete c delete--vod__1" name="<?=$list['id']?>">
                                         <img class="chapter-icon" src="/img/trash_can-lov.png">
                                     </a>
@@ -335,6 +351,7 @@
                                                 <a style="" class="v view--vod__2" name="<?=$child['id']?>"><img id="view--vod__2" class="vod-icon" src="/img/view.png"></a>
                                                 <?php endif; ?>
                                                 <a style="" class="v move--vod__2 <?=$list['id']?>" name="<?=$child['id']?>"><img id="move--vod__2" class="vod-icon move--vod2" src="/img/list.png"></a>
+                                                <a style="" class="v set--vod__2 <?=$list['id']?>" name="<?=$child['id']?>"><img id="set--vod__2" class="vod-icon set--vod2" src="/img/setting.png"></a>
                                             </div>
                                         </li>
                                 <?php endforeach; ?>
@@ -503,11 +520,13 @@
             $(this).parent().parent().next().slideUp();
             $(this).css("transform","rotate(90deg)");
             $(this).parent().prev().children('.move--vod').css("display", "block");
+            $(this).parent().parent().css("margin-bottom", "10px");
         }
         else {
             $(this).parent().parent().next().slideDown();
             $(this).css("transform","rotate(0deg)");
             $(this).parent().prev().children('.move--vod').css("display", "none");
+            $(this).parent().parent().css("margin-bottom", "60px");
         }
     });
 
