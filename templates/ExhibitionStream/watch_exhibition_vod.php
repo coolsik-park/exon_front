@@ -80,34 +80,29 @@
 </div>
 
 <script>
-    //매초 영상 시청 %계산
-    // var video = document.getElementById("vid1");
-    // setInterval(function() {
-    //     if (video.paused == false) {
-    //         // 재생 할때
-    //         video_current_time = Math.floor(video.currentTime);
-    //         console.log(video_current_time);
+    //시청시간 계산
+    let video = document.getElementById("vid1");
 
-    //         //exhibition_vod_viewer 값 add
-    //         $.ajax({
-    //             url: "/exhibition-stream/vod-add-viewer/" + <?= $exhibition->id ?> +"/"+ <?= $exhibitionVod->id ?>,
-    //             method: 'POST',
-    //             type:'json',
-    //             data: {
-    //                 current_time: video_current_time
-    //             }
-    //         }).done(function (data) {
-    //             if (data.status == 'add_success' && data.status == 'update_success') {
-    //                 console.log('aaaa');
-    //             } else {
-    //                 console.log('bbbb');
-    //             }
-    //         });
-    //     } else {
-    //         // 재생 안 할때
-    //         console.log('cccc');
-    //     }
-    // },1000);
+    let insert;
+
+    function insertDB() {
+        $.ajax({
+            url: "/exhibition-stream/exhibition-vod-add-duration/<?=$exhibition->id?>/<?=$exhibition_users_id?>/<?= $exhibitionVod->id ?>", 
+            method: 'POST',
+        });
+    }
+    
+    function videoStartedPlaying() {
+        insert = setInterval(insertDB, 1000);
+    }
+    
+    function videoStoppedPlaying(event) {
+        clearInterval(insert);
+    }
+
+    video.addEventListener("play", videoStartedPlaying);
+    video.addEventListener("ended", videoStoppedPlaying);
+    video.addEventListener("pause", videoStoppedPlaying);
 
     //video.js
     var player = videojs('vid1', {
@@ -115,8 +110,6 @@
         preload: 'auto',
         fluid: true,
     });
-    player.play();
-    
 
 
     //go top when open tab
