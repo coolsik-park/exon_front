@@ -326,10 +326,16 @@
     .btn3 {
         font-size: 16px;
     }
+
     .vod--chapter__cancle {
         margin-left: 12px;
     }
+
     .chapter-name-btn {
+        margin-left: 12px;
+    }
+
+    .updateChapter {
         margin-left: 12px;
     }
 
@@ -365,9 +371,11 @@
         .sub-menu {
             margin-top: 50px;
         }
+
         .vod--chapter__cancle {
             margin-left: 12px;
         }
+
         .chapter-name-btn {
             margin-left: 12px;
         }
@@ -598,7 +606,7 @@
             </div>
             <!-- // top -->
             <div class="webinar-tab-body">
-                <p class="tab-alert">[마이페이지] > [개설 행사 관리] > [행사 관리] 에서<br>사용할 탭을 설정할 수 있습니다.</p>  
+                <p class="tab-alert">[마이페이지] > [개설 행사 관리] > [행사 관리] 에서<br>사용할 탭을 설정할 수 있습니다.</p>
             </div>
             <!-- body -->
         </div>
@@ -617,17 +625,17 @@
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" />
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $("#btn_tab10").click();
     });
-    
+
     //setting chapter
     $(".set--vod__1").click(function() {
         $(this).children().css("display", "none");
         var html = "";
         html += "<div class='wb-stream-sect' style='border: none;'>";
         html += "    <div class='stream-ipt1'>";
-        html += "        <input type='text' class='c-name' placeholder='챕터 제목을 입력해주세요.'><button type='button' class='btn-ty2 bor chapter-name-btn'>확인</button><button type='button' class='btn-ty2 bor vod--chapter__cancle'>취소</button>";
+        html += "        <input type='text' class='c-name' placeholder='챕터 제목을 입력해주세요.'><button type='button' class='btn-ty2 bor updateChapter' name='"+$(this).attr('name')+"'>확인</button><button type='button' class='btn-ty2 bor vod--chapter__cancle'>취소</button>";
         html += "    </div>";
         html += "</div>";
 
@@ -635,8 +643,30 @@
         $(this).parent().append(html);
     });
 
+    $(document).on('click', '.updateChapter', function () {
+        let chapter_id = $(this).attr('name');
+        let title = $(this).prev().val();
+
+        $.ajax({
+            url: "/exhibition-vod/update-chapter/" + chapter_id,
+            method: 'POST',
+            type: 'json',
+            data: {
+                title: title
+            },
+            success: function () {
+                alert('수정되었습니다.');
+                location.reload();
+            },
+            error: function() {
+                alert('오류가 발생하였습니다. 잠시 후 다시 시도해주세요.');
+                return false;
+            }
+        });
+    });
+
     //setting chapter cancle btn
-    $(document).on("click", ".vod--chapter__cancle", function(){
+    $(document).on("click", ".vod--chapter__cancle", function() {
         $(this).parent().parent().prev().prev().prev().prev().prev().children().css("display", "block");
         $(this).parent().parent().remove();
     });
@@ -647,14 +677,6 @@
         var html = '';
         html += '<div class="webinar-cont-ty2">';
         html += '    <form name="uploadForm" id="uploadForm">';
-        html += '        <div class="mouse-area">';
-        html += '            <label><span class="ico-plus-c">+</span></button>';
-        html += '            <input name="file" type="file" class="file" style="display:none">';
-        html += '            <p>클릭하여 VOD를 업로드하세요.</p></label>';
-        html += '        </div>';
-        html += '        <br><br>';
-        html += '        <div id="fileTableTbody" class="data-itmes">';
-        html += '        </div>';
         html += '        <div class="stream-sect">';
         html += '           <div class="row2">';
         html += '               <div class="col-th">VOD 제목</div>';
@@ -675,7 +697,7 @@
         html += '        </div>';
         html += '        <div class="wb10-btn">';
         html += '            <button type="button" class="btn3 vod--vod__cancle">취소하기</button>';
-        html += '            <button type="button" class="btn3 add-file">수정하기</button>';
+        html += '            <button type="button" class="btn3 add-file updateVod" name="'+$(this).attr('name')+'">수정하기</button>';
         html += '        </div>';
         html += '    </form>';
         html += '</div>';
@@ -683,7 +705,7 @@
     });
 
     //setting vod cancle btn
-    $(document).on("click", ".vod--vod__cancle", function(){
+    $(document).on("click", ".vod--vod__cancle", function() {
         $(this).parent().parent().parent().prev().show();
         $(this).parent().parent().parent().remove();
     });

@@ -75,13 +75,13 @@ class ExhibitionVodController extends AppController
         } 
     }
 
-    public function edit($id = null)
+    public function updateChapter($id = null)
     {
         if ($this->request->is(['patch', 'post', 'put'])) {
             $exhibitionVod = $this->ExhibitionVod->get($id);
 
             $exhibitionVod->title = $this->request->getData('title');
-            $exhibitionVod->description = $this->request->getData('description');
+            
             if ($this->ExhibitionVod->save($exhibitionVod)) {
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));    
                 return $response;
