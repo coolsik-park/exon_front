@@ -1952,39 +1952,6 @@ class ExhibitionStreamController extends AppController
         return $response;
     }
 
-    public function vodAddViewer ($exhibition_id = null, $exhibition_vod_id = null) {
-        $user_id = $this->Auth->user('id');
-        $exhibition_vod_viewer_table = $this->getTableLocator()->get('ExhibitionVodViewer');
-        $exhibition_vod_viewer = $exhibition_vod_viewer_table->find()->where(['exhibition_vod_id' => $exhibition_vod_id, 'user_id' => $user_id])->toArray();
-
-        if (count($exhibition_vod_viewer) == 0) {
-            $connection = ConnectionManager::get('default');
-            $connection->begin();
-
-            if ($this->request->is(['post', 'put'])) {
-                $exhibition_vod_viewer_data = $exhibition_vod_viewer_table->newEmptyEntity();
-                $exhibition_vod_viewer_data->exhibition_id = $exhibition_id;
-                $exhibition_vod_viewer_data->exhibition_vod_id = $exhibition_vod_id;
-                $exhibition_vod_viewer_data->user_id = $user_id;
-                
-                if ($result = $exhibition_vod_viewer_table->save($exhibition_vod_viewer_data)) {
-                    $connection->commit();
-                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'add_success']));
-                    return $response;
-                }
-            }
-        } else {
-            $exhibition_vod_viewer_data = $exhibition_vod_viewer_table->get($exhibition_vod_viewer[0]->id);
-            $exhibition_vod_viewer_data->watching_duration = $this->request->getData('current_time');
-
-            if ($exhibition_vod_viewer_table->save($exhibition_vod_viewer_data)) {
-                $connection->commit();
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'update_success']));
-                return $response;
-            }
-        }
-    }
-
     public function addViewer ($exhibition_stream_id = null)
     {
         $ip = $this->request->ClientIp();
@@ -2241,7 +2208,7 @@ class ExhibitionStreamController extends AppController
 
     public function exhibitionVodAddViewer ($exhibition_vod_id = null) {
         $ip = $this->request->ClientIp();
-        $path = 'exhibition_vod_viewer_ip' . DS . date("Y") . DS . date("m") . DS . date("d") . DS . $exhibition_vod_id;
+        $path = '/exhibition_vod_viewer_ip' . DS . date("Y") . DS . date("m") . DS . date("d") . DS . $exhibition_vod_id;
 
         if (!file_exists(WWW_ROOT . $path)) {
             $oldMask = umask(0);
@@ -2249,7 +2216,7 @@ class ExhibitionStreamController extends AppController
             chmod(WWW_ROOT . $path, 0777);
             umask($oldMask);
 
-            $file_handle = fopen(WWW_ROOT . $path . DS . 'data.txt'. 'a+');
+            $file_handle = fopen(WWW_ROOT . $path . DS . 'data.txt', 'a+');
             fwrite($file_handle, $ip);
             fwrite($file_handle, "\n");
             fclose($file_handle);
@@ -2280,6 +2247,31 @@ class ExhibitionStreamController extends AppController
         $exhibitionVod[0]->viewer = $exhibitionVod[0]->viewer + 1;
 
         $exhibitionVod_table->save($exhibitionVod[0]);
+
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status'=>'success']));
+        return $response;
+    }
+
+    public function exhibitionVodAddDuration($exhibition_id = null, $exhibition_users_id = null, $vod_id = null)
+    {
+        $ExhibitionVodViewer = $this->getTableLocator()->get('ExhibitionVodViewer');
+        $existViewer = $ExhibitionVodViewer->find('all')->where(['exhibition_vod_id' => $vod_id, 'user_id' => $exhibition_users_id])->toArray();
+
+        if (count($existViewer) == 0) {
+            $exhibitionVodViewer = $ExhibitionVodViewer->newEmptyEntity();
+            $exhibitionVodViewer->exhibition_id = $exhibition_id;
+            $exhibitionVodViewer->exhibition_vod_id = $vod_id;
+            $exhibitionVodViewer->user_id = $exhibition_users_id;
+
+            $ExhibitionVodViewer->save($exhibitionVodViewer);
+        } else {
+            $exhibitionVodViewer = $ExhibitionVodViewer->get($existViewer[0]['id']);
+
+            $watched_duration = $exhibitionVodViewer->watching_duration;
+            $exhibitionVodViewer->watching_duration = ($watched_duration + 1);
+
+            $ExhibitionVodViewer->save($exhibitionVodViewer);
+        }
 
         $response = $this->response->withType('json')->withStringBody(json_encode(['status'=>'success']));
         return $response;
