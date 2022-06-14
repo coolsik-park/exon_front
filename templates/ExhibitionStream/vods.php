@@ -107,6 +107,10 @@
 </div>
 
 <script>
+    $(document).ready(function () {
+        $("#li11").click();
+    });
+    
     //go top when open tab
     $(document).on("click", ".webinar-tab-tg", function() {
         if (!$("#toggle").hasClass("close")) {
