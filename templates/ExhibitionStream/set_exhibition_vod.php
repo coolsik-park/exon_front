@@ -697,11 +697,36 @@
         html += '        </div>';
         html += '        <div class="wb10-btn">';
         html += '            <button type="button" class="btn3 vod--vod__cancle">취소하기</button>';
-        html += '            <button type="button" class="btn3 add-file updateVod" name="'+$(this).attr('name')+'">수정하기</button>';
+        html += '            <button type="button" class="btn3 updateVod" name="'+$(this).attr('name')+'">수정하기</button>';
         html += '        </div>';
         html += '    </form>';
         html += '</div>';
         $(this).parent().append(html);
+    });
+
+    $(document).on('click', '.updateVod', function () {
+        let vod_id = $(this).attr('name');
+        let title = $(this).parent().prev().children().children().children().children('input').val();
+        let description = $('.updateVod').parent().prev().children().children().children().children('textarea').val();
+
+        $.ajax({
+            url: 'https://orcaexon.co.kr/update',
+            method: 'POST',
+            type: 'json',
+            data: {
+                id: vod_id,
+                title: title,
+                description: description
+            },
+            success: function () {
+                alert('수정되었습니다.');
+                location.reload();
+            },
+            error: function() {
+                alert('오류가 발생하였습니다. 잠시 후 다시 시도해주세요.');
+                return false;
+            }
+        });
     });
 
     //setting vod cancle btn
