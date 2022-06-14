@@ -12,6 +12,7 @@
     .vod-li {
         margin-top: 5%;
         padding: 0px 0px 20px 0px;
+        position: relative;
     }
     .vod-time {
         float: right;
@@ -38,6 +39,16 @@
     .chapter--menu__img {
         width: 20px;
     }
+    .vod--li__title {
+        margin-left: 25px;
+    }
+    .chapter--title__char {
+        font-size: 16px;
+        top: 8px;
+        left: 0px;
+        position: absolute;
+    }
+
 </style>
 
 <div id="container">      
@@ -57,7 +68,7 @@
                             <?php foreach ($vods as $vod) : ?>
                                 <a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition->id?>/<?=$vod['id']?>/<?=$exhibition_users_id?>" style="width: 100%;   border-bottom: 1px solid black;">
                                 <li class="vod-li">
-                                    <span><?=$vod['title']?></span><span class="vod-time"><?=sprintf('%02d:%02d:%02d', (round($vod['duration'])/3600),(round($vod['duration'])/60%60), round($vod['duration'])%60)?></span>
+                                <span class="chapter--title__char">○</span><span class="vod--li__title"><?=$vod['title']?></span><span class="vod-time"><?=sprintf('%02d:%02d:%02d', (round($vod['duration'])/3600),(round($vod['duration'])/60%60), round($vod['duration'])%60)?></span>
                                 </li>
                                 </a>
                                 <br>
