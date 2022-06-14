@@ -35,9 +35,6 @@
     /* .table-type2 a:nth-child(odd) {
         background-color: lightgrey;
     } */
-    .table-type2 a {
-  
-    }
     .table-type .tr-row {
         padding: 15px 0px 15px 0px;
     }
@@ -63,7 +60,7 @@
         justify-content: center;
         align-items: center;
     }
-    .table-type2 a {
+    .table-type2 a.vod--chapter {
         width: 25%;
     }
     /* .chapter--title {
@@ -83,7 +80,7 @@
                     <div class="table-type table-type2">      
                     <?php foreach ($exhibitionVod as $list) : ?>  
                         
-                            <a href="/exhibition-stream/vods/<?=$exhibition->id?>/<?=$exhibition_users_id?>/<?=$list['id']?>">      
+                            <a class="vod--chapter" href="/exhibition-stream/vods/<?=$exhibition->id?>/<?=$exhibition_users_id?>/<?=$list['id']?>">      
                             <div class="chapter--div">     
                                 <div class="tr">
                                     <div class="chapter" style="display: flex;">
