@@ -586,7 +586,7 @@
             </div>
             <!-- // top -->
             <div class="webinar-tab-body">
-                <!-- <p class="tab-alert">'메뉴설정' 버튼을 누른 후 사용할 메뉴를 선택해 주세요.</p> -->
+                <p class="tab-alert">[마이페이지] > [개설 행사 관리] > [행사 관리] 에서<br>사용할 탭을 설정할 수 있습니다.</p>  
             </div>
             <!-- body -->
         </div>
