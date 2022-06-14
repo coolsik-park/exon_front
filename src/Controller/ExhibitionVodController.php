@@ -29,7 +29,7 @@ class ExhibitionVodController extends AppController
     
     public function addChapter($exhibition_id = null)
     {
-        $prevs = $this->ExhibitionVod->find('all')->where(['exhibition_id' => $exhibition_id, 'parent_id IS' => null])->toArray();
+        $prevs = $this->ExhibitionVod->find('all')->where(['exhibition_id' => $exhibition_id, 'parent_id IS' => null])->order(['idx' => 'ASC'])->toArray();
         $last_index = 0;
         if (count($prevs) != 0) {
             $last_index = $prevs[count($prevs)-1]['idx'] + 1;
@@ -140,5 +140,18 @@ class ExhibitionVodController extends AppController
             $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));    
             return $response;
         } 
+    }
+
+    public function sort()
+    {
+        $i = 1;
+        foreach ($this->request->getData('ids') as $id) {
+            $exhibitionVod = $this->ExhibitionVod->get($id);
+            $exhibitionVod->idx = $i;
+            $this->ExhibitionVod->save($exhibitionVod);
+            $i++;
+        }
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));    
+        return $response;
     }
 }
