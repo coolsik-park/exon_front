@@ -102,6 +102,58 @@ class ExhibitionUsersController extends AppController
                 $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'exist']));
                 return $response;
             }
+
+            //11월 행사 전용 코드
+            $tmp_ids = [295, 296, 297];
+            foreach ($tmp_ids as $tmp_id) {
+                $tmpUser = $this->ExhibitionUsers->newEmptyEntity();
+
+                if ($this->Auth->user() != null) {
+                    $tmpUser->users_id = $this->Auth->user('id');
+                }
+                $tmpUser->exhibition_id = $tmp_id;
+                
+                if (!empty($answerData['exhibition_group_id'])) :
+                    $tmpUser->exhibition_group_id = $answerData['exhibition_group_id'];
+                endif;
+                
+                $tmpUser->users_email = $answerData['users_email'];
+                
+                $tmpUser->users_name = $answerData['users_name'];
+                
+                if ($answerData['users_hp'] != '010') :
+                    $tmpUser->users_hp = $answerData['users_hp'];
+                else : 
+                    $tmpUser->users_hp = null;
+                endif;
+                
+                if ($answerData['users_sex'] == '') :
+                    $tmpUser->users_sex = null;
+                else :
+                    $tmpUser->users_sex = $answerData['users_sex'];
+                endif;
+                
+                if ($answerData['pay_amount'] != 0) :
+                    $tmpUser->pay_id = $answerData['pay_id'];
+                    $tmpUser->pay_amount = $answerData['pay_amount'];
+                endif;
+                
+                if ($exhibition->auto_approval == 0 || $exhibition->apply_edate->format('Y-m-d H:i:s') < date('Y-m-d H:i:s', time()+32400)) :
+                    $tmpUser->status = 2;
+                else :
+                    $tmpUser->status = 4;
+                endif;
+
+                if ($answerData['company'] != '') :
+                    $tmpUser->company = $answerData['company'];
+                endif;
+
+                if ($answerData['title'] != '') :
+                    $tmpUser->title = $answerData['title'];
+                endif;
+
+                $this->ExhibitionUsers->save($tmpUser);
+            }
             
             if ($exhibition_user = $this->ExhibitionUsers->save($exhibitionUser)) {
                 //회사 직함 저장
@@ -376,11 +428,11 @@ class ExhibitionUsersController extends AppController
                 $today = date('Y-m-d H:i:s', time()+32400);
 
                 if ($type == 'application') {
-                    $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_email' => $email, 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate >' => $today])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
+                    $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_email' => $email, 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate >' => $today, 'ExhibitionUsers.exhibition_id NOT IN' => [295, 296, 297]])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
                 } elseif ($type == 'close'){
-                    $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_email' => $email, 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate <' => $today])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
+                    $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_email' => $email, 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate <' => $today, 'ExhibitionUsers.exhibition_id NOT IN' => [295, 296, 297]])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
                 } elseif ($type == 'cancel') {
-                    $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_email' => $email, 'ExhibitionUsers.status' => 8])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
+                    $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_email' => $email, 'ExhibitionUsers.status' => 8, 'ExhibitionUsers.exhibition_id NOT IN' => [295, 296, 297]])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
                 }
 
             } else if (!empty($hp)) {
@@ -388,9 +440,9 @@ class ExhibitionUsersController extends AppController
                 $today = date('Y-m-d H:i:s', time()+32400);
 
                 if ($type == 'application') {
-                    $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_hp' => $hp, 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate >' => $today])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
+                    $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_hp' => $hp, 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate >' => $today, 'ExhibitionUsers.exhibition_id NOT IN' => [295, 296, 297]])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
                 } elseif ($type == 'close'){
-                    $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_hp' => $hp, 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate <' => $today])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
+                    $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_hp' => $hp, 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate <' => $today, 'ExhibitionUsers.exhibition_id NOT IN' => [295, 296, 297]])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
                 } elseif ($type == 'cancel') {
                     $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_hp' => $hp, 'ExhibitionUsers.status' => 8])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
                 }
@@ -404,13 +456,13 @@ class ExhibitionUsersController extends AppController
             $today = date('Y-m-d H:i:s', time()+32400);
             
             if ($type == 'application') {
-                $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $this->Auth->user('id'), 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate >' => $today])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
+                $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $this->Auth->user('id'), 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate >' => $today, 'ExhibitionUsers.exhibition_id NOT IN' => [295, 296, 297]])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
             
             } elseif ($type == 'close'){
-                $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $this->Auth->user('id'), 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate <' => $today])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
+                $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $this->Auth->user('id'), 'ExhibitionUsers.status !=' => 8, 'Exhibition.edate <' => $today, 'ExhibitionUsers.exhibition_id NOT IN' => [295, 296, 297]])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
             
             } elseif ($type == 'cancel') {
-                $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $this->Auth->user('id'), 'ExhibitionUsers.status' => 8])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
+                $exhibition_users = $this->paginate($this->ExhibitionUsers->find('all', ['contain' => ['Exhibition', 'ExhibitionGroup', 'Pay']])->where(['ExhibitionUsers.users_id' => $this->Auth->user('id'), 'ExhibitionUsers.status' => 8, 'ExhibitionUsers.exhibition_id NOT IN' => [295, 296, 297]])->order(['ExhibitionUsers.id' => 'DESC']))->toArray();
             }
         }
         $this->set(compact('exhibition_users'));

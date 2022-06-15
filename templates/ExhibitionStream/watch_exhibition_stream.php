@@ -49,9 +49,15 @@
         <div class="section-webinar4">
             <div class="webinar-cont">
                 <div class="wb-cont1">
-                    <video class="video-js vjs-default-skin vjs-big-play-centered" id="vid1" autoplay muted playsinline><source src="https://orcaexon.co.kr/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8" type="application/x-mpegURL"></video>
+                    <video class="video-js vjs-default-skin vjs-big-play-centered" id="vid1" autoplay muted webkit-playsinline playsinline><source id="vid1-src" src="https://orcaexon.co.kr/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8" type="application/x-mpegURL"></video>
                 </div>
                 <div class="wb-cont2">
+                    <?php if ($exhibition->id == 295 || $exhibition->id == 296 || $exhibition->id == 297) : ?>
+                        <div class="w-desc">
+                            <p class="wd1"><span class="w-dt"></span></p>
+                            <p class="wd2"></span><button class="btn-ty4 red english">English</button></p>
+                        </div>
+                    <?php endif; ?>
                     <h3 class="w-tit"><?= $exhibitionStream[0]['title'] ?></h3>
                     <div class="w-desc">
                         <p class="wd1"><span class="w-dt"></span></p>
@@ -72,6 +78,9 @@
                     <div class="w-tab-wrap">
                         <div class="w-tab-wrap-inner">
                             <ul class="w-tab">
+                                <?php if ($exhibition->id == 295 || $exhibition->id == 296 || $exhibition->id == 297) : ?>
+                                    <li id="li10" class=""><button type="button" id="tab10" name="트랙 목록">트랙 목록</button></li>
+                                <?php endif; ?>
                                 <li id="li9" class="" style="display:none;"><button type="button" id="tab9" name="실시간 채팅">실시간 채팅</button></li>
                                 <li id="li8" class="" style="display:none;"><button type="button" id="tab8" name="설문">설문</button></li>
                                 <li id="li7" class="" style="display:none;"><button type="button" id="tab7" name="공지사항">공지사항</button></li>
@@ -142,7 +151,7 @@
     });
 
     //video.js
-    var player = videojs('vid1', {
+    let player = videojs('vid1', {
         html5: {
             vhs: {
                 overrideNative: !videojs.browser.IS_SAFARI
@@ -160,6 +169,37 @@
             trackingThreshold: 0
         }
     });
+
+    //11월 행사 전용 코드
+    let is_english = 0;
+
+    $(document).on('click', '.english', function () {
+        if (is_english === 0) {
+            if (!player.paused) {
+                player.pause();
+            }
+                
+            player.src({ type: 'application/x-mpegURL', src: 'https://orcaexon.co.kr/live/<?=$exhibitionStream[0]['stream_key']?>_eng/index.m3u8' });
+            
+            player.load();
+            player.play();
+
+            is_english = 1;
+            $(this).html('Korean');
+        } else {
+            if (!player.paused) {
+                player.pause();
+            }
+                
+            player.src({ type: 'application/x-mpegURL', src: 'https://orcaexon.co.kr/live/<?=$exhibitionStream[0]['stream_key']?>/index.m3u8' });
+            
+            player.load();
+            player.play();
+
+            is_english = 0;
+            $(this).html('English');
+        }
+    });
     
     // 방송 중 체크
     // $(document).ready(function () {
@@ -175,7 +215,7 @@
     //잘못된 접근 차단
     var ref = document.referrer;
     var pass = 0;
-    if (ref != '<?= $front_url ?>/exhibition/view/<?=$exhibitionStream[0]['exhibition_id']?>' && ref != '<?= $front_url ?>/exhibition-users/sign-up/application' && ref != '<?= $front_url ?>/exhibition-stream/certification/<?=$exhibitionStream[0]['exhibition_id']?>' && ref.indexOf('<?= $front_url ?>/exhibition-users/add/<?=$exhibitionStream[0]['exhibition_id']?>') && ref.indexOf('<?= $front_url ?>/exhibition-stream/vod-chapter/<?=$exhibitionStream[0]['exhibition_id']?>') && ref.indexOf('<?= $front_url ?>/exhibition-stream/vods/<?=$exhibitionStream[0]['exhibition_id']?>') && ref.indexOf('<?= $front_url ?>/exhibition-stream/watch-exhibition-vod/<?=$exhibitionStream[0]['exhibition_id']?>')) {
+    if (ref != '<?= $front_url ?>/exhibition/view/<?=$exhibitionStream[0]['exhibition_id']?>' && ref != '<?= $front_url ?>/exhibition-users/sign-up/application' && ref != '<?= $front_url ?>/exhibition-stream/certification/<?=$exhibitionStream[0]['exhibition_id']?>' && ref.indexOf('<?= $front_url ?>/exhibition-users/add/<?=$exhibitionStream[0]['exhibition_id']?>') && ref.indexOf('<?= $front_url ?>/exhibition-stream/vod-chapter/<?=$exhibitionStream[0]['exhibition_id']?>') && ref.indexOf('<?= $front_url ?>/exhibition-stream/vods/<?=$exhibitionStream[0]['exhibition_id']?>') && ref.indexOf('<?= $front_url ?>/exhibition-stream/watch-exhibition-vod/<?=$exhibitionStream[0]['exhibition_id']?>') && ref.indexOf('<?= $front_url ?>/exhibition-stream/tmp-chapter/298/') && ref.indexOf('<?= $front_url ?>/exhibition-stream/watch-exhibition-stream/')) {
         alert('허용되지 않는 잘못된 접근입니다.');
         history.go(-1);
     }
@@ -217,7 +257,8 @@
             $("#li6").attr("class", "");
             $("#li7").attr("class", "");
             $("#li8").attr("class", "");
-            $("#li9").attr("class", "active");        
+            $("#li9").attr("class", "active");
+            $("#li10").attr("class", "");           
         }
 
         $("#li0").click(function () {
@@ -249,6 +290,7 @@
             $("#li7").attr("class", "");
             $("#li8").attr("class", "");
             $("#li9").attr("class", "");
+            $("#li10").attr("class", "");   
             $("#vod").attr("class", "");
         });
 
@@ -265,6 +307,7 @@
             $("#li7").attr("class", "");
             $("#li8").attr("class", "");
             $("#li9").attr("class", "");
+            $("#li10").attr("class", "");   
             $("#vod").attr("class", "");
         });
 
@@ -281,6 +324,7 @@
             $("#li7").attr("class", "");
             $("#li8").attr("class", "");
             $("#li9").attr("class", "");
+            $("#li10").attr("class", "");   
             $("#vod").attr("class", "");
         });
 
@@ -297,6 +341,7 @@
             $("#li7").attr("class", "");
             $("#li8").attr("class", "");
             $("#li9").attr("class", "");
+            $("#li10").attr("class", "");   
             $("#vod").attr("class", "");
         });
 
@@ -313,6 +358,7 @@
             $("#li7").attr("class", "");
             $("#li8").attr("class", "");
             $("#li9").attr("class", "");
+            $("#li10").attr("class", "");   
             $("#vod").attr("class", "");
         });
 
@@ -329,6 +375,7 @@
             $("#li7").attr("class", "");
             $("#li8").attr("class", "");
             $("#li9").attr("class", "");
+            $("#li10").attr("class", "");   
             $("#vod").attr("class", "");
         });
 
@@ -345,6 +392,7 @@
             $("#li7").attr("class", "active");
             $("#li8").attr("class", "");
             $("#li9").attr("class", "");
+            $("#li10").attr("class", "");   
             $("#vod").attr("class", "");
         });
 
@@ -361,6 +409,7 @@
             $("#li7").attr("class", "");
             $("#li8").attr("class", "active");
             $("#li9").attr("class", "");
+            $("#li10").attr("class", "");   
             $("#vod").attr("class", "");
         });
 
@@ -375,11 +424,30 @@
             $("#li6").attr("class", "");
             $("#li7").attr("class", "");
             $("#li8").attr("class", "");
-            $("#li9").attr("class", "active");               
+            $("#li9").attr("class", "active"); 
+            $("#li10").attr("class", "");                 
+            $("#vod").attr("class", "");
+        });
+
+        $("#li10").click(function () {
+            clearInterval(chatInterval);
+            $(".webinar-tab-body").load("/exhibition-stream/tmp-chapter-tab/298/<?=$exhibition_users_id?>/<?=$cert?>");
+            $("#li0").attr("class", "");
+            $("#li1").attr("class", "");
+            $("#li2").attr("class", "");
+            $("#li3").attr("class", "");
+            $("#li4").attr("class", "");
+            $("#li5").attr("class", "");
+            $("#li6").attr("class", "");
+            $("#li7").attr("class", "");
+            $("#li8").attr("class", "");
+            $("#li9").attr("class", "");
+            $("#li10").attr("class", "active");               
             $("#vod").attr("class", "");
         });
 
         $("#vod").click(function () {
+            clearInterval(chatInterval);
             $(".webinar-tab-body").load("/exhibition-stream/vod-chapter-tab/<?= $exhibitionStream[0]['exhibition_id'] ?>/<?=$exhibition_users_id?>");
             $("#li0").attr("class", "");
             $("#li1").attr("class", "");
@@ -390,7 +458,8 @@
             $("#li6").attr("class", "");
             $("#li7").attr("class", "");
             $("#li8").attr("class", "");
-            $("#li9").attr("class", "");               
+            $("#li9").attr("class", "");      
+            $("#li10").attr("class", "");         
             $("#vod").attr("class", "active");
         });
     });
