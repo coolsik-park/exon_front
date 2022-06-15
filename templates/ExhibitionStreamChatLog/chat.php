@@ -126,6 +126,8 @@
     color: #666;
     font-size: 60%;
     vertical-align: super;
+    min-width:fit-content;
+    margin-right:3px;
   }
    
   .msgln b.user-name, .msgln b.user-name-left {
@@ -136,6 +138,7 @@
     font-size: 90%;
     border-radius: 4px;
     margin: 0 5px 0 0;
+    min-width:fit-content;
   }
    
   .msgln b.user-name-left {
