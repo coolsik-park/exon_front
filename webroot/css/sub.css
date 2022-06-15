@@ -1187,7 +1187,7 @@
 	flex: 0;
 }
 .webinar-tab-body {
-	background-color: #f9f9f9;
+	/* background-color: #f9f9f9; */
 	flex: 1;
 	overflow-y: hidden;
 }
