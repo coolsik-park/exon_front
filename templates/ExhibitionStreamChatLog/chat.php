@@ -174,9 +174,9 @@
     margin-left: 3%;
   }
 
-  /* .webinar-cont-ty1-body {
-    height: 600px;
-  } */
+  .webinar-cont-ty1-body {
+    height: 80%;
+  }
   
   @media  screen and (max-width: 1200px) {
     textarea {
