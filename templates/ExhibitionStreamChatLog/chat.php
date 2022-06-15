@@ -115,7 +115,7 @@
   } */
    
   .msgln {
-    margin: 0 0 5px 0;
+    margin: 5px 0 5px 0;
   }
    
   .msgln span.left-info {
@@ -174,9 +174,9 @@
     margin-left: 3%;
   }
 
-  .webinar-cont-ty1-body {
+  /* .webinar-cont-ty1-body {
     height: 600px;
-  }
+  } */
   
   @media  screen and (max-width: 1200px) {
     textarea {
