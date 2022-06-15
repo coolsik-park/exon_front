@@ -173,6 +173,11 @@
   #submitmsg {
     margin-left: 3%;
   }
+
+  .webinar-cont-ty1-body {
+    height: 600px;
+  }
+  
   @media  screen and (max-width: 1200px) {
     textarea {
       padding: 0;
@@ -184,6 +189,10 @@
     .webinar-cont-ty1 {
       background: white;
     }
+
+    .webinar-cont-ty1-body {
+    height: 410px;
+  }
   }
 </style>
 
@@ -205,14 +214,14 @@
 <div class="webinar-cont1">
     <h3 class="sr-only">실시간 채팅</h3>
     <div class="webinar-cont-ty1">
+        <?php if ($exhibition->notice != null) : ?>
+          <div class="noticeBox" style="word-wrap:break-word; overflow-y: scroll; height: 60px; position:sticky; top: 0; background: white; border-bottom:3px solid #a5a5a5; scrollbar-width: none;"><?= $this->Text->autoParagraph($exhibition->notice) ?><br></div>
+        <?php endif; ?>
         <div class="webinar-cont-ty1-body"> 
               <!-- <p class="wb-alert">사용할 탭을 선택해주세요</p>                                   
               <p class="wb-alert">실시간 채팅 탭이 활성화되었습니다</p>                                    -->
               <!-- <div class="chatting-msg-box"> -->
                   <div id="chatbox">
-                    <?php if ($exhibition->notice != null) : ?>
-                    <div class="noticeBox" style="margin-bottom:20px;word-wrap:break-word; overflow-y: scroll; height: 60px; position:sticky; top: 0; background: white; border-bottom:3px solid #a5a5a5; scrollbar-width: none;"><?= $this->Text->autoParagraph($exhibition->notice) ?><br></div>
-                    <?php endif; ?>
                     <!-- <hr style="border:1px solid #a5a5a5; margin-bottom: 20px;"> -->
                   </div>
               <!-- </div>   -->
