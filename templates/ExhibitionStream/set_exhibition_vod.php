@@ -438,7 +438,7 @@
                                                         <img id="arrow--vod" class="chapter-icon arrow--vod" src="/img/arrow-down-sign-to-navigate.png">
                                                     </a>
                                                     </div>
-                                                    <ul id="sortable2" class="<?= $list['id'] ?>">
+                                                    <ul id="sortable2" class="<?= $list['id'] ?>" name="sortable2">
                                                         <?php foreach ($list['child_exhibition_vod'] as $child) : ?>
                                                             <li class="ui-state-default">
                                                                 <div class="vod-title" style="font-size:30px; margin:20px 0; padding-left:10px;">
@@ -818,7 +818,7 @@
         }
     });
 
-    $("#sortable2").sortable({
+    $('[name=sortable2]').sortable({
         // placeholder:"itemBoxHighlight", /* 이동할 위치 css 적용 */ 
         containment: '.wb--stream__first', //부모 요소 안에서만 이동 범위 제한
         handle: '.move--vod2',
