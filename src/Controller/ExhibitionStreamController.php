@@ -2283,13 +2283,17 @@ class ExhibitionStreamController extends AppController
     public function exhibitionVodAddDuration($exhibition_id = null, $exhibition_users_id = null, $vod_id = null)
     {
         $ExhibitionVodViewer = $this->getTableLocator()->get('ExhibitionVodViewer');
-        $existViewer = $ExhibitionVodViewer->find('all')->where(['exhibition_vod_id' => $vod_id, 'user_id' => $exhibition_users_id])->toArray();
+        $existViewer = $ExhibitionVodViewer->find('all')->where(['exhibition_vod_id' => $vod_id, 'exhibition_users_id' => $exhibition_users_id])->toArray();
+
+        $ExhibitionVod = $this->getTableLocator()->get('ExhibitionVod');
+        $exhibitionVod = $ExhibitionVod->get($vod_id);
 
         if (count($existViewer) == 0) {
             $exhibitionVodViewer = $ExhibitionVodViewer->newEmptyEntity();
             $exhibitionVodViewer->exhibition_id = $exhibition_id;
             $exhibitionVodViewer->exhibition_vod_id = $vod_id;
-            $exhibitionVodViewer->user_id = $exhibition_users_id;
+            $exhibitionVodViewer->exhibition_users_id = $exhibition_users_id;
+            $exhibitionVodViewer->vod_duration = $exhibitionVod->duration;
 
             $ExhibitionVodViewer->save($exhibitionVodViewer);
         } else {
