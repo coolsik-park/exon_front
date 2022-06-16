@@ -92,7 +92,7 @@ class ExhibitionVodViewerTable extends Table
     {
         $rules->add($rules->existsIn(['exhibition_id'], 'Exhibition'), ['errorField' => 'exhibition_id']);
         $rules->add($rules->existsIn(['exhibition_vod_id'], 'ExhibitionVod'), ['errorField' => 'exhibition_vod_id']);
-        $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
+        $rules->add($rules->existsIn(['exhibition_uesrs_id'], 'ExhibitionUsers'), ['errorField' => 'exhibition_users_id']);
 
         return $rules;
     }
