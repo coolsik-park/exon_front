@@ -17,9 +17,11 @@
             <div class="info">
                 <p>이메일 : <?php echo $user['email'] ?></p>
                 <p>연락처 : 
-                    <?= 
-                        substr($user['hp'], 0, 3) . '-' . substr($user['hp'], 3, 4) . '-' . substr($user['hp'], 7, 4)  
-                    ?>
+                    <?php if (strlen($user['hp']) == 11) : ?>
+                        <?= substr($user['hp'], 0, 3) . '-' . substr($user['hp'], 3, 4) . '-' . substr($user['hp'], 7, 4) ?>
+                    <?php else : ?>
+                        <?= substr($user['hp'], 0, 2) . '-' . substr($user['hp'], 2, 4) . '-' . substr($user['hp'], 6, 4) ?>
+                    <?php endif; ?>
                 </p>
             </div>
         </div>
