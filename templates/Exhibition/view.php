@@ -317,7 +317,11 @@
                     </div>
                     <div class="info3">
                         <h3>연락처</h3>
-                        <p><?= substr($exhibition->tel, 0, 3) ?>-<?= substr($exhibition->tel, 3, 4) ?>-<?= substr($exhibition->tel, 7, 4) ?></p>
+                        <?php if (strlen($exhibition->tel) == 11) : ?>
+                            <p><?= substr($exhibition->tel, 0, 3) ?>-<?= substr($exhibition->tel, 3, 4) ?>-<?= substr($exhibition->tel, 7, 4) ?></p>
+                        <?php else : ?>
+                            <p><?= substr($exhibition->tel, 0, 2) ?>-<?= substr($exhibition->tel, 2, 4) ?>-<?= substr($exhibition->tel, 6, 4) ?></p>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
