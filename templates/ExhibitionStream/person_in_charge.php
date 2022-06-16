@@ -9,9 +9,11 @@
             <div class="info">
                 <p>이메일 : <?php echo $exhibition[0]['email'] ?></p>
                 <p>연락처 : 
-                    <?= 
-                        substr($exhibition[0]['tel'], 0, 3) . '-' . substr($exhibition[0]['tel'], 3, 4) . '-' . substr($exhibition[0]['tel'], 7, 4)  
-                    ?>
+                    <?php if (strlen($exhibition[0]['tel']) == 11) : ?>
+                        <?= substr($exhibition[0]['tel'], 0, 3) . '-' . substr($exhibition[0]['tel'], 3, 4) . '-' . substr($exhibition[0]['tel'], 7, 4) ?>
+                    <?php else : ?>
+                        <?= substr($exhibition[0]['tel'], 0, 2) . '-' . substr($exhibition[0]['tel'], 2, 4) . '-' . substr($exhibition[0]['tel'], 6, 4) ?>
+                    <?php endif; ?>
                 </p>
             </div>
         </div>
