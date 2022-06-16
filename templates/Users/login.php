@@ -76,7 +76,7 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&clie
                 }
 
                 var before_page = document.referrer;
-                if (before_page.includes('exon.live')) {
+                if (before_page.includes('exon.live') && !before_page.includes('exon.live/users/login')) {
                     location.href=before_page;
                 } else {
                     location.href='/';

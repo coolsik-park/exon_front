@@ -124,6 +124,16 @@ class ExhibitionStreamController extends AppController
 
     public function watchExhibitionStream($id = null, $exhibition_users_id = null, $cert = null) 
     {   
+        if (empty($this->Auth->user()) && $exhibition_users_id == null) {
+            $this->redirect(['action' => 'certification', $id]);
+        }
+
+        //11월 행사 전용 코드
+        if ($id == 298) {
+            return $this->redirect([
+                'action' => 'tmpChapter', $id, $exhibition_users_id, $cert
+            ]);
+        }
         $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $id])->toArray();
         $Exhibition = $this->getTableLocator()->get('Exhibition');
         $exhibition = $Exhibition->get($id);
@@ -148,17 +158,35 @@ class ExhibitionStreamController extends AppController
             $this->redirect(['action' => 'stream_not_exist']);
         }
 
-        if (empty($this->Auth->user()) && $exhibition_users_id == null) {
-            $this->redirect(['action' => 'certification', $id]);
-        }
-
         // if ($exhibition->require_cert == 1 && $cert != 1) {
         //     $this->redirect(['action' => 'certification', $id]);
         // }
 
         $tabs = $this->getTableLocator()->get('CommonCategory')->findByTypes('tab')->toArray();
         $front_url = FRONT_URL;
-        $this->set(compact('exhibitionStream', 'tabs', 'exhibition_users_id', 'front_url', 'exhibition'));
+        $this->set(compact('exhibitionStream', 'tabs', 'exhibition_users_id', 'front_url', 'exhibition', 'cert'));
+    }
+
+    public function tmpChapter($id = null, $exhibition_users_id = null, $cert = null)
+    {
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+
+        $exhibition = $Exhibition->get($id);
+        $tmp_exhibitions = $Exhibition->find('all')->where(['id IN' => [295, 296, 297]])->toArray();
+        $tmp_exhibition_streams = $this->ExhibitionStream->find('all')->where(['exhibition_id IN' => [295, 296, 297]])->toArray();
+
+        $this->set(compact('id', 'exhibition_users_id', 'cert', 'tmp_exhibitions', 'exhibition', 'tmp_exhibition_streams'));
+    }
+
+    public function tmpChapterTab($id = null, $exhibition_users_id = null, $cert = null)
+    {
+        $Exhibition = $this->getTableLocator()->get('Exhibition');
+
+        $exhibition = $Exhibition->get($id);
+        $tmp_exhibitions = $Exhibition->find('all')->where(['id IN' => [295, 296, 297]])->toArray();
+        $tmp_exhibition_streams = $this->ExhibitionStream->find('all')->where(['exhibition_id IN' => [295, 296, 297]])->toArray();
+
+        $this->set(compact('id', 'exhibition_users_id', 'cert', 'tmp_exhibitions', 'exhibition', 'tmp_exhibition_streams'));
     }
 
     public function watchExhibitionStreamMasterKey($id = null)
@@ -2255,13 +2283,17 @@ class ExhibitionStreamController extends AppController
     public function exhibitionVodAddDuration($exhibition_id = null, $exhibition_users_id = null, $vod_id = null)
     {
         $ExhibitionVodViewer = $this->getTableLocator()->get('ExhibitionVodViewer');
-        $existViewer = $ExhibitionVodViewer->find('all')->where(['exhibition_vod_id' => $vod_id, 'user_id' => $exhibition_users_id])->toArray();
+        $existViewer = $ExhibitionVodViewer->find('all')->where(['exhibition_vod_id' => $vod_id, 'exhibition_users_id' => $exhibition_users_id])->toArray();
+
+        $ExhibitionVod = $this->getTableLocator()->get('ExhibitionVod');
+        $exhibitionVod = $ExhibitionVod->get($vod_id);
 
         if (count($existViewer) == 0) {
             $exhibitionVodViewer = $ExhibitionVodViewer->newEmptyEntity();
             $exhibitionVodViewer->exhibition_id = $exhibition_id;
             $exhibitionVodViewer->exhibition_vod_id = $vod_id;
-            $exhibitionVodViewer->user_id = $exhibition_users_id;
+            $exhibitionVodViewer->exhibition_users_id = $exhibition_users_id;
+            $exhibitionVodViewer->vod_duration = $exhibitionVod->duration;
 
             $ExhibitionVodViewer->save($exhibitionVodViewer);
         } else {

@@ -990,6 +990,43 @@ class ExhibitionController extends AppController
         $this->set(compact('id', 'exhibition_users', 'users', 'beforeParentData', 'beforeChildData', 'exhibition'));
     }
 
+    public function vodData($id = null)
+    {
+        $this->paginate = ['limit' => 10];
+
+        $exhibition_users_table = TableRegistry::get('ExhibitionUsers');
+        $exhibition_users = $this->paginate($exhibition_users_table->find('all', array('contain' => array('Exhibition', 'ExhibitionGroup', 'Pay', 'ExhibitionVodViewer')))->where(['ExhibitionUsers.exhibition_id' => $id, 'ExhibitionUsers.status IS NOT' => 8]))->toArray();
+
+        $users_table = TableRegistry::get('Users');
+        $users = [];
+        for ($i=0; $i<count($exhibition_users); $i++) {
+            if ($exhibition_users[$i]->users_id != null) {
+                $users_data = $users_table->find()->where(['id' => $exhibition_users[$i]->users_id])->toArray();
+                $users[$i]['id'] = $users_data[0]->id;
+                if ($users_data[0]->birthday != null) {
+                    $users[$i]['age'] = date('Y') - (int)$users_data[0]->birthday->i18nFormat('yyyy') + 1;
+                } else {
+                    $users[$i]['age'] = '연령 미상';
+                }
+                $users[$i]['company'] = $users_data[0]->company;
+            } else {
+                $users[$i]['id'] = 0;
+            }
+        }
+
+        $ExhibitionVod = $this->getTableLocator()->get('ExhibitionVod');
+        $exhibitionVods = $ExhibitionVod->find('all', ['contain' => 'ExhibitionVodViewer'])->where(['exhibition_id' => $id, 'parent_id IS NOT' => null])->toArray();
+
+        $total_duration = 0;
+        foreach ($exhibitionVods as $vod) {
+            $total_duration = $total_duration + $vod['duration'];
+        }
+
+        $exhibition = $this->Exhibition->get($id);
+        $this->set(compact('id', 'exhibition_users', 'users', 'exhibition', 'exhibitionVods', 'total_duration'));
+    }
+
+
     public function vodWatching($id = null) {
         $this->paginate = ['limit' => 10];
 

@@ -11,6 +11,7 @@ use Cake\Validation\Validator;
 /**
  * ExhibitionVodViewer Model
  *
+ * @property \App\Model\Table\ExhibitionTable&\Cake\ORM\Association\BelongsTo $Exhibition
  * @property \App\Model\Table\ExhibitionVodTable&\Cake\ORM\Association\BelongsTo $ExhibitionVod
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  *
@@ -55,8 +56,8 @@ class ExhibitionVodViewerTable extends Table
             'foreignKey' => 'exhibition_vod_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('Users', [
-            'foreignKey' => 'user_id',
+        $this->belongsTo('ExhibitionUsers', [
+            'foreignKey' => 'exhibition_users_id',
             'joinType' => 'INNER',
         ]);
     }
@@ -91,7 +92,7 @@ class ExhibitionVodViewerTable extends Table
     {
         $rules->add($rules->existsIn(['exhibition_id'], 'Exhibition'), ['errorField' => 'exhibition_id']);
         $rules->add($rules->existsIn(['exhibition_vod_id'], 'ExhibitionVod'), ['errorField' => 'exhibition_vod_id']);
-        $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
+        $rules->add($rules->existsIn(['exhibition_uesrs_id'], 'ExhibitionUsers'), ['errorField' => 'exhibition_users_id']);
 
         return $rules;
     }
