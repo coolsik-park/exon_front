@@ -43,6 +43,7 @@
                     <li><a href="/exhibition/manager-person/<?= $id ?>">참가자</a></li>
                     <li><a href="/exhibition/send-sms-to-participant/<?= $id ?>">문자</a></li>
                     <li class="active"><a href="">이메일</a></li>
+                    <li><a href="/exhibition/vod-data/<?=$id?>">VOD</a></li>
                 </ul>
                 <h3 class="s-hty1">이메일</h3>      
             </div>
