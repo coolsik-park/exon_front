@@ -61,6 +61,11 @@
             </ul>
         </div>
         <div class="pr5-graph">
+            <?php echo $this->Form->create(); ?>
+                <div class="btn-wp" style="text-align:right;">
+                        <input id="download" type="submit" value="다운로드" class="btn-ty2 bor">
+                </div>
+            <?php echo $this->Form->end(); ?>
             <div class="cate" style="height:30px;"></div>
             <div class="pr-graph2">
                 <div class="graph-bx">
@@ -72,7 +77,7 @@
                 <div class="graph-bx">
                     <h3 class="s-hty2">평균 조회수<p style="color:gray; font-size:5px;">평균 조회수 = 총 조회수/VOD개수</p></h3>
                     <div style="text-align: center;">
-                        <strong><?= $sum/$vod_count ?>회</strong>
+                        <strong><?= round($sum/$vod_count, 1) ?>회</strong>
                     </div>
                 </div>
             </div>
@@ -86,7 +91,7 @@
                             <th>조회수</th>
                         </tr>
                         <?php
-                            foreach ($exhibitionVods as $exhibitionVod):
+                            foreach ($vods as $exhibitionVod):
                                 if ($exhibitionVod->parent_id != null):
                         ?>
                                     <tr>

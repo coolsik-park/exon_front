@@ -1527,8 +1527,8 @@ class ExhibitionController extends AppController
                 //Specify the properties for this document
                 $spreadsheet->getProperties()
                     ->setTitle('설문 데이터')
-                    ->setCreator('EXON.com')
-                    ->setLastModifiedBy('EXON.com');
+                    ->setCreator('EXON.live')
+                    ->setLastModifiedBy('EXON.live');
 
                 for ($i = 0; $i < ($count-1); $i++) {
                     $spreadsheet->createSheet();
@@ -2130,13 +2130,141 @@ class ExhibitionController extends AppController
     {
         $exhibition = $this->getTableLocator()->get('Exhibition')->get($id);
 
-        $exhibitionVods = $this->getTableLocator()->get('ExhibitionVod')->find('all');
-        $sum = $exhibitionVods->where(['exhibition_id' => $id])->sumOf('viewer');
-        $vod_count = $exhibitionVods->where(['exhibition_id' => $id, 'parent_id is not' => NULL])->count('*');
+        $vods = $this->getTableLocator()->get('ExhibitionVod')->find('all');
+        $sum = $vods->where(['exhibition_id' => $id])->sumOf('viewer');
+        $vod_count = $vods->where(['exhibition_id' => $id, 'parent_id is not' => NULL])->count('*');
 
+        $ExhibitionVod = $this->getTableLocator()->get('ExhibitionVod');
+        $exhibitionVods = $ExhibitionVod->find('all', ['contain' => ['ExhibitionVodViewer', 'ParentExhibitionVod']])->where(['ExhibitionVod.exhibition_id' => $id, 'ExhibitionVod.parent_id IS NOT' => null])->order(['ParentExhibitionVod.idx' => 'ASC', 'ExhibitionVod.idx' => 'ASC'])->toArray();
 
-        // debug($vod_count);
-        $this->set(compact('id', 'exhibition', 'exhibitionVods', 'sum', 'vod_count'));
+        $total_duration = 0;
+        foreach ($exhibitionVods as $exhibitionVod) {
+            $total_duration = $total_duration + $exhibitionVod['duration'];
+        }
+
+        $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
+        $exhibitionUsers = $ExhibitionUsers->find('all')->where(['exhibition_id' => $id])->toArray();
+
+        if ($this->request->is('post')) {
+        
+            $spreadsheet = new Spreadsheet();
+
+            $spreadsheet->getProperties()
+                ->setTitle('VOD 데이터')
+                ->setCreator('EXON.live')
+                ->setLastModifiedBy('EXON.live');
+
+            $spreadsheet->setActiveSheetIndex(0)
+                ->setTitle('VOD 데이터')
+                ->setCellValue('A1', '');
+
+            $spreadsheet->getActiveSheet(0)->getColumnDimension('A')->setWidth(15);
+            
+            $i = 2;
+            foreach ($exhibitionUsers as $exhibitionUser) {
+                $j = "B";
+                $spreadsheet->getActiveSheet(0)
+                    ->setCellValue('A' . $i, $exhibitionUser['users_name']);
+
+                foreach ($exhibitionVods as $exhibitionVod) {
+                    $watching_duration = 0;
+                    $cal = 0;
+                    
+                    foreach ($exhibitionVod->exhibition_vod_viewer as $viewer) {
+                        if ($exhibitionUser['id'] == $viewer['exhibition_users_id']) {
+                            $watching_duration = $viewer['watching_duration'];
+                        }
+                        $cal = round(($watching_duration / $viewer['vod_duration']) * 100, 0);
+                    }
+                    if ($cal >= 100) {
+                        $cal = '시청완료';
+                    } else {
+                        $cal = $cal . "%";
+                    }
+                    $spreadsheet->getActiveSheet(0)
+                        ->setCellValue($j . $i, $cal);
+                    $j++;
+                }
+                $i++;
+            }
+
+            $k = "B";
+            foreach ($exhibitionVods as $exhibitionVod) {
+                $spreadsheet->getActiveSheet(0)->getColumnDimension($k)->setWidth(20);
+                $spreadsheet->getActiveSheet(0)
+                    ->setCellValue($k . '1', $exhibitionVod['title']);
+                $k++;
+            }
+
+            $last_column = $spreadsheet->getActiveSheet(0)->getHighestColumn();
+            $next_column = chr(ord($last_column) + 1);
+            $spreadsheet->getActiveSheet(0)->getColumnDimension($next_column)->setWidth(20);
+            $spreadsheet->getActiveSheet(0)
+                    ->setCellValue($next_column . '1', '평균 시청 시간');
+
+            $x = 2;
+            foreach ($exhibitionUsers as $exhibitionUser) {
+                $watching_duration = 0;
+                foreach ($exhibitionVods as $exhibitionVod) {
+                    foreach ($exhibitionVod->exhibition_vod_viewer as $viewer) {
+                        if ($exhibitionUser['id'] == $viewer['exhibition_users_id']) {
+                            $watching_duration = $watching_duration + $viewer['watching_duration'];
+                        }
+                    }
+                }
+                $cal = round(($watching_duration / $total_duration) * 100, 0);
+
+                $spreadsheet->getActiveSheet(0)
+                    ->setCellValue($next_column . $x , $cal . '%');
+                $x++;
+            }
+            
+
+            $path = 'download' . DS . 'vod' . DS . date("Y") . DS . date("m");
+    
+            if (!file_exists(WWW_ROOT . $path)) {
+                $oldMask = umask(0);
+                mkdir(WWW_ROOT . $path, 0777, true);
+                chmod(WWW_ROOT . $path, 0777);
+                umask($oldMask);
+            }
+
+            $exhibition = $this->Exhibition->get($id);
+            $fileName = $exhibition->title . "_vod_data." . "xlsx";
+            $destination = WWW_ROOT . $path . DS . $fileName;
+
+            $writer = IOFactory::createWriter($spreadsheet, "Xlsx"); //Xls is also possible
+            $writer->save($destination);
+            
+            //엑셀 파일 다운로드
+            $down = $destination;
+            
+            if(file_exists($down)) {
+                header("Content-Type:application/octet-stream");
+                header("Content-Disposition:attachment;filename=$fileName");
+                header("Content-Transfer-Encoding:binary");
+                header("Content-Length:".filesize($down));
+                header("Cache-Control:cache,must-revalidate");
+                header("Pragma:no-cache");
+                header("Expires:0");
+                
+                if(is_file($down)){
+                    $fp = fopen($down,"r");
+                    
+                    while(!feof($fp)){
+                        $buf = fread($fp,8096);
+                        $read = strlen($buf);
+                        print($buf);
+                        flush();
+                    }
+                fclose($fp);
+                }
+            } else {
+                
+            }
+        }
+
+        $this->set(compact('id', 'exhibition', 'vods', 'sum', 'vod_count'));
     }
 
     public function exhibitionSupervise($id = null, $type = null)
