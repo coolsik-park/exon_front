@@ -18,7 +18,7 @@
                         <?php else : ?>
                         <div class="photo"><img id="speakerImg_<?=$displayIndex?>" src="/<?=$display->image_path?>/<?=$display->image_name?>"></div>
                         <?php endif; ?>
-                        <div class="tx"><input type="text" style="width:90px; height:24px;" value="<?=$display->name?>" readonly></div>
+                        <div class="tx"><input type="text" style="width:90px; height:24px; padding:0;" value="<?=$display->name?>" readonly></div>
                         <button type="button" class="btn-del" onclick="deleteSpeaker(<?=$displayIndex?>, <?=$display->id?>)">삭제</button>
                     </div>
                 </li>
@@ -44,7 +44,7 @@
         html += '   <div class="ph-item">';
         html += '       <label for="'+speakerIndex+'"><div class="photo"><img id="speakerImg_'+speakerIndex+'"></div>';
         html += '       <input type="file" id="'+speakerIndex+'" name="image[]" style="display:none">';
-        html += '       <div class="tx"><input type="text" name="name[]" style="width:90px; height:24px;"></div>';
+        html += '       <div class="tx"><input type="text" name="name[]" style="width:90px; height:24px; padding:0;"></div>';
         html += '       <button type="button" class="btn-del" onclick="deleteSpeaker('+speakerIndex+', 0)">삭제</button>';
         html += '   </div>';
         html += '</li>'
