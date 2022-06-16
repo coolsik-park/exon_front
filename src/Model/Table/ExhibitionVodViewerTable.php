@@ -11,6 +11,7 @@ use Cake\Validation\Validator;
 /**
  * ExhibitionVodViewer Model
  *
+ * @property \App\Model\Table\ExhibitionTable&\Cake\ORM\Association\BelongsTo $Exhibition
  * @property \App\Model\Table\ExhibitionVodTable&\Cake\ORM\Association\BelongsTo $ExhibitionVod
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  *
@@ -55,8 +56,8 @@ class ExhibitionVodViewerTable extends Table
             'foreignKey' => 'exhibition_vod_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('Users', [
-            'foreignKey' => 'user_id',
+        $this->belongsTo('ExhibitionUsers', [
+            'foreignKey' => 'exhibition_users_id',
             'joinType' => 'INNER',
         ]);
     }

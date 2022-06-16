@@ -61,7 +61,13 @@ class ExhibitionUsersTable extends Table
         $this->belongsTo('Pay', [
             'foreignKey' => 'pay_id',
         ]);
+        
         $this->hasMany('ExhibitionQuestion', [
+            'foreignKey' => 'exhibition_users_id',
+            'joinType' => 'INNER',
+        ]);
+
+        $this->hasMany('ExhibitionVodViewer', [
             'foreignKey' => 'exhibition_users_id',
             'joinType' => 'INNER',
         ]);
