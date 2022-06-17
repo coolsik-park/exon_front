@@ -49,6 +49,10 @@
     #member_div {
         margin-top: 20px;
     }
+    .sect1 .photo {
+        width: 384px;
+        height: 216px;
+    }
     @media  screen and (max-width: 768px) {
         .sect1 .photo {
             height: 214px;

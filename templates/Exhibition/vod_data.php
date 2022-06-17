@@ -121,7 +121,14 @@
                                         foreach ($exhibition_user->exhibition_vod_viewer as $viewer) {
                                             $watched_duration = $watched_duration + $viewer['watching_duration'];
                                         }
-                                        echo $watched_duration . '/' . $total_duration;
+                                        // echo $watched_duration . '/' . $total_duration;
+                                        if($total_duration == 0){
+                                            echo '0%';
+                                        }
+                                        else {
+                                            $a = $watched_duration / $total_duration * 100;
+                                            echo $a . '%';
+                                        }
                                     ?>
                                 </div>
                                 <div class="td-col col4">
