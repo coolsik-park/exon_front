@@ -2187,7 +2187,7 @@ class ExhibitionStreamController extends AppController
         $Exhibition = $this->getTableLocator()->get('Exhibition');
         $exhibition = $Exhibition->get($exhibition_id);
         $ExhibitionVod = $this->getTableLocator()->get('ExhibitionVod');
-        $exhibitionVod = $ExhibitionVod->find('all', ['contain' => 'ChildExhibitionVod'])->where(['ExhibitionVod.exhibition_id' => $exhibition_id, 'ExhibitionVod.parent_id IS' => null, 'is_show' => 1])->order(['idx' => 'ASC']);
+        $exhibitionVod = $ExhibitionVod->find('all', ['contain' => 'ChildExhibitionVod'])->where(['ExhibitionVod.exhibition_id' => $exhibition_id, 'ExhibitionVod.parent_id IS' => null, 'is_show' => 1, 'is_paid' => 1])->order(['idx' => 'ASC']);
         $exhibitionVod->contain([
             'ChildExhibitionVod' => [
                 'sort' => ['ChildExhibitionVod.idx' => 'ASC']
@@ -2201,7 +2201,7 @@ class ExhibitionStreamController extends AppController
     {
         $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $exhibition_id])->toArray();
         $ExhibitionVod = $this->getTableLocator()->get('ExhibitionVod');
-        $exhibitionVod = $ExhibitionVod->find('all')->where(['ExhibitionVod.exhibition_id' => $exhibition_id, 'ExhibitionVod.parent_id IS' => null, 'is_show' => 1])->order(['idx' => 'ASC']);
+        $exhibitionVod = $ExhibitionVod->find('all')->where(['ExhibitionVod.exhibition_id' => $exhibition_id, 'ExhibitionVod.parent_id IS' => null, 'is_show' => 1, 'is_paid' => 1])->order(['idx' => 'ASC']);
         $exhibitionVod->contain([
             'ChildExhibitionVod' => [
                 'sort' => ['ChildExhibitionVod.idx' => 'ASC']
@@ -2226,16 +2226,22 @@ class ExhibitionStreamController extends AppController
             ]
         ])->toArray();
 
-        $file_size = 0;
+        $total_duration = 0;
+        $unpaid_duration = 0;
         $vods = $ExhibitionVod->find('all')->where(['exhibition_id' => $exhibition_id, 'parent_id IS NOT' => null])->toArray();
 
         foreach ($vods as $data) {
-            $file_size += $data['file_size'];
+            if ($data['is_paid'] == 0) {
+                $total_duration = $total_duration + $data['duration'];
+                $unpaid_duration = $unpaid_duration + $data['duration'];
+            } else {
+                $total_duration = $total_duration + $data['duration'];
+            }
         }
 
         $user = $this->Auth->user();
 
-        $this->set(compact('exhibition', 'exhibition_id', 'exhibitionVod', 'file_size', 'user'));
+        $this->set(compact('exhibition', 'exhibition_id', 'exhibitionVod', 'user', 'total_duration', 'unpaid_duration'));
     }
 
     public function exhibitionVodAddViewer ($exhibition_vod_id = null) {
@@ -2317,7 +2323,7 @@ class ExhibitionStreamController extends AppController
     {
         $ExhibitionVod = $this->getTableLocator()->get('ExhibitionVod');
         $chapter = $ExhibitionVod->get($chapter_id)->toArray();
-        $vods = $ExhibitionVod->find('all')->where(['parent_id' => $chapter_id])->order(['idx' => 'ASC'])->toArray();
+        $vods = $ExhibitionVod->find('all')->where(['parent_id' => $chapter_id, 'is_paid' => 1])->order(['idx' => 'ASC'])->toArray();
 
         $Exhibition = $this->getTableLocator()->get('Exhibition');
         $exhibition = $Exhibition->get($exhibition_id);

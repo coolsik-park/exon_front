@@ -43,6 +43,9 @@
         padding-left:0;
         padding-right:0;
     }
+    .table-type .td-col .tit {
+        word-break:keep-all;
+    }
     @media  screen and (max-width: 768px) {
         .photos img {
             position: absolute;
@@ -282,6 +285,8 @@
                                     else:
                                         // if ($d_today >= $sdate):
                                             if ($exhibition_user->status == 4 && $d_today >= $sdate_before):
+                                                // echo $d_today . "\n";
+                                                // echo $sdate_before;
                                     ?>
                                                 <?php if ($exhibition_user->exhibition['is_vod'] == 0) : ?>
                                                     <p><a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition_user->exhibition_id ?>/<?= $exhibition_user->id ?>" class="btn-ty3 bor" id="exhibitionSee">라이브 시청</a></p>

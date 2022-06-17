@@ -504,7 +504,7 @@
                         <div class="col-td">
                             <div class="stream-ipt1">
                                 <input type="text" id="coupon_code" name="coupon_code">
-                                <button type="button" id="confirm_coupon" name="confirm_coupon" onclick="validateCoupon()" class="btn-ty2 bor">확인</button>
+                                <button type="button" id="coupon_btn" class="btn-ty2 bor">확인</button>
                             </div>
                         </div>
                     </div>
@@ -573,8 +573,6 @@
                             <div class="col-td">
                                 <div class="stream-ipt1 btnDiv">
                                     <input type="text" id="vod_amount" name="vod_amount" value="0" readonly>
-                                    <input type="hidden" id="is_paid">
-                                    <input type="hidden" id="vod_pay_id" name="vod_pay_id">
                                     <button type="button" id="payment-card" class="btn-ty2 bor pay" style="width: 100%;">결제(카드 결제)</button>
                                     <button type="button" id="payment-trans" class="btn-ty2 bor pay" style="width: 100%;">결제(계좌 이체)</button>
                                 </div>
@@ -616,6 +614,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
@@ -627,6 +626,194 @@
 <script>
     $(document).ready(function() {
         $("#btn_tab10").click();
+    });
+
+    let amount = 0;
+    let coupon_id = 0;
+    let discount_rate = 0;
+    let coupon_amount = 0;
+
+    //금액 컨트롤
+    $('#vod_amount').val()
+
+    //쿠폰 검증
+    $(document).on('click', '#coupon_btn', function () {
+        if (coupon_amount != 0) {
+            alert("프로모션이 이미 적용되어 있습니다.");
+            return false
+        }
+        var coupon_code = $("#coupon_code").val();
+        $.ajax({
+            url: "/exhibition-stream/validate-coupon/",
+            method: 'POST',
+            type: 'json',
+            data: {
+                coupon_code: coupon_code,
+            }
+        }).done(function(data) {
+            if (data.status == 'success') {
+                
+                if (data.discount_rate != 100) {
+                    alert("프로모션이 적용되었습니다.");
+                    coupon_amount = removeComma($('#vod_amount').val()) * data.discount_rate / 100;
+                    let cal = removeComma($('#vod_amount').val()) - (removeComma($('input#amount').val()) * data.discount_rate / 100);
+                    $("#vod_amount").val(cal.toLocaleString());
+                    discount_rate = data.discount_rate
+                    coupon_id = data.coupon_id;
+                
+                } else {
+                    if (confirm("프로모션 적용으로 무료로 진행되는 행사입니다.\n결제 과정 없이 VOD 등록이 완료됩니다.\n사용된 프로모션 키는 재사용이 불가합니다.")) {
+                        $.ajax({
+                            url: "/exhibition-vod/update-is-paid/<?= $exhibition_id ?>",
+                            method: 'POST',
+                            success: function () {
+                                location.reload();
+                            },
+                            error: function() {
+                                alert('오류가 발생하였습니다. 잠시 후 다시 시도해주세요.');
+                                return false;
+                            }
+                        });
+                    }
+                }
+    
+            } else {
+                alert("이미 사용되거나 잘못된 프로모션 키 입니다.\n프로모션 키 번호를 다시 확인해주세요.");
+            }
+        });
+    });
+
+    //결제
+    $("#payment-card").click(function () {
+        if ($('#vod_amount').val() == 0) {
+            alert("결제할 금액이 존재하지 않습니다.\n금액을 확인해주세요.");
+            return false;
+        }
+        var IMP = window.IMP; 
+        IMP.init('imp55727904');
+        IMP.request_pay({
+            pg : 'danal_tpay',
+            pay_method : 'card',
+            merchant_uid : 'merchant_' + new Date().getTime(),
+            name : '스트리밍 서비스',
+            amount : $('#vod_amount').val(),
+            buyer_email : '<?=$user->email?>',
+            buyer_name : '<?=$user->name?>',
+            buyer_tel : '<?=$user->hp?>',
+        }, function(rsp) {
+            if ( rsp.success ) {
+                if (removeComma($('#vod_amount').val()) != rsp.paid_amount) {
+                    alert("결제요청된 금액과 실제 결제된 금액이 상이합니다. 고객센터로 문의해주세요.");
+                    return false;
+                }
+                jQuery.ajax({
+                    url: "/pay/import-pay", 
+                    method: 'POST',
+                    type: 'json',
+                    data: {
+                        imp_uid: rsp.imp_uid,
+                        merchant_uid: rsp.merchant_uid,
+                        pay_method: rsp.pay_method,
+                        paid_amount: rsp.paid_amount,
+                        coupon_amount: coupon_amount,
+                        receipt_url: rsp.receipt_url,
+                        paid_at: rsp.paid_at,
+                        pg_tid: rsp.pg_tid
+                    }
+                }).done(function(data) {
+                    if (data.status == 'success') { 
+                        $.ajax({
+                            url: "/exhibition-vod/update-is-paid/<?= $exhibition_id ?>",
+                            method: 'POST',
+                            success: function () {
+                                location.reload();
+                            },
+                            error: function() {
+                                alert('오류가 발생하였습니다. 잠시 후 다시 시도해주세요.');
+                                return false;
+                            }
+                        });
+
+                        let msg = '결제가 완료되었습니다.';
+                        msg += '\n결제 금액 : ' + rsp.paid_amount;
+
+                        alert(msg);
+                        
+                    } else {
+                        alert("오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.")
+                    }
+                });
+                
+            } else {
+                alert(rsp.error_msg);
+            }
+        });
+    });
+
+    $("#payment-trans").click(function () {
+        if ($('#vod_amount').val() == 0) {
+            alert("결제할 금액이 존재하지 않습니다.\n금액을 확인해주세요.");
+            return false;
+        }
+        var IMP = window.IMP; 
+        IMP.init('imp55727904');
+        IMP.request_pay({
+            pg : 'danal_tpay',
+            pay_method : 'trans',
+            merchant_uid : 'merchant_' + new Date().getTime(),
+            name : '스트리밍 서비스',
+            amount : $('#vod_amount').val(),
+            buyer_email : '<?=$user->email?>',
+            buyer_name : '<?=$user->name?>',
+            buyer_tel : '<?=$user->hp?>',
+        }, function(rsp) {
+            if ( rsp.success ) {
+                if (removeComma($('#vod_amount').val()) != rsp.paid_amount) {
+                    alert("결제요청된 금액과 실제 결제된 금액이 상이합니다. 고객센터로 문의해주세요.");
+                    return false;
+                }
+                jQuery.ajax({
+                    url: "/pay/import-pay", 
+                    method: 'POST',
+                    type: 'json',
+                    data: {
+                        imp_uid: rsp.imp_uid,
+                        merchant_uid: rsp.merchant_uid,
+                        pay_method: rsp.pay_method,
+                        paid_amount: rsp.paid_amount,
+                        coupon_amount: coupon_amount,
+                        receipt_url: rsp.receipt_url,
+                        paid_at: rsp.paid_at,
+                        pg_tid: rsp.pg_tid
+                    }
+                }).done(function(data) {
+                    if (data.status == 'success') { 
+                        $.ajax({
+                            url: "/exhibition-vod/update-is-paid/<?= $exhibition_id ?>",
+                            method: 'POST',
+                            success: function () {
+                                location.reload();
+                            },
+                            error: function() {
+                                alert('오류가 발생하였습니다. 잠시 후 다시 시도해주세요.');
+                                return false;
+                            }
+                        });
+
+                        let msg = '결제가 완료되었습니다.';
+                        msg += '\n결제 금액 : ' + rsp.paid_amount;
+
+                        alert(msg);
+
+                    } else {
+                        alert("오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.")
+                    }
+                });
+                
+            } else {
+                alert(rsp.error_msg);
+            }
+        });
     });
 
     //setting chapter
@@ -949,50 +1136,6 @@
         var day = msec / 1000 / 60 / 60 / 24
         $("#vod_duration").val(Math.floor(day) + " 일 " + Math.floor(hour) + " 시간 " + Math.floor(min) + " 분")
     });
-
-    var amount = 0;
-    var coupon_id = 0;
-    var discount_rate = 0;
-    var coupon_amount = 0;
-
-    //쿠폰 검증
-    function validateCoupon() {
-        if (coupon_amount != 0) {
-            alert("프로모션이 이미 적용되어 있습니다.");
-            return false
-        }
-        var coupon_code = $("#coupon_code").val();
-        $.ajax({
-            url: "/exhibition-stream/validate-coupon/",
-            method: 'POST',
-            type: 'json',
-            data: {
-                coupon_code: coupon_code,
-            }
-        }).done(function(data) {
-            if (data.status == 'success') {
-                if (data.discount_rate != 100) {
-                    alert("프로모션이 적용되었습니다.");
-                    $("#coupon_code").attr("readonly", true);
-                    vod_coupon_amount = removeComma($('input#vod_amount').val()) * data.discount_rate / 100;
-                    var cal = removeComma($('input#vod_amount').val()) - (removeComma($('input#vod_amount').val()) * data.discount_rate / 100);
-                    $("#vod_amount").val(cal.toLocaleString());
-
-                } else {
-                    if (confirm("프로모션 적용으로 무료로 진행되는 행사입니다.\n결제 과정 없이 VOD 송출 설정이 완료되오니 다시한번 확인해주시기 바랍니다.\n사용된 프로모션 키는 재사용이 불가합니다.")) {
-                        $("#is_paid").val(1);
-                        $("#pay_id").val(0);
-                        coupon_id = data.coupon_id;
-                        coupon_amount = removeComma($('input#vod_amount').val());
-                    }
-                }
-            } else {
-                alert("이미 사용되거나 잘못된 프로모션 키 입니다.\n프로모션 키 번호를 다시 확인해주세요.");
-            }
-        });
-    }
-
-
 
 
     //파일 컨트롤
