@@ -87,6 +87,29 @@
     .table-type .td-col .btn-ty3 {
         width: 70%;
     }
+    .modal--col1 {
+        width: 44%;
+    }
+    .modal--col2__span {
+        position: absolute;
+        top: 40%;
+        right: 40%;
+    }
+    .modal--col3__span {
+        position: absolute;
+        top: 40%;
+        right: 10%;
+    }
+
+    .table-type3 .col2 {
+        position: relative;
+    }
+    .table-type3 .col3 {
+        position: relative;
+    }
+    .modal--user__info {
+        font-size: 11px;
+    }
     @media  screen and (min-width: 1100px) {
         .modal-dialog {
             margin: 25px auto;
@@ -228,14 +251,14 @@
                                                     </div>
                                                     <div class="popup-body">  
                                                         <div class="pop-poll-items-wrap">
-                                                            <div class="tr-row">
-                                                                <div class="th-col col1">인적 사항</div>          
-                                                                <div class="th-col col2">총 조회수</div>
-                                                                <div class="th-col col3">시청 시간</div>
+                                                            <div class="tr-row" style="background: #F8F8F8;">
+                                                                <div class="th-col col1" style="width: 33%;">인적 사항</div>          
+                                                                <div class="th-col col2" style="width: 33%;">총 조회수</div>
+                                                                <div class="th-col col3" style="width: 33%;">시청 시간</div>
                                                             </div>
                                                               
                                                             <div class="tr-row">
-                                                                <div class="th-col col1">
+                                                                <div class="th-col col1 modal--col1" style="width: 33%;">
                                                                     <div class="con ag-ty1">
                                                                         <p class="tit fir"><?= $exhibition_user->company ?></p>
                                                                         <p class="tit fir"><?= $exhibition_user->title ?></p>
@@ -263,14 +286,17 @@
                                                                                 ?>
                                                                             </p>
                                                                         </div>
-                                                                        <p><?= $exhibition_user->users_email ?></p>
-                                                                        <p><?= substr($exhibition_user->users_hp, 0, 3) ?>-<?= substr($exhibition_user->users_hp, 3, 4) ?>-<?= substr($exhibition_user->users_hp, 7, 4) ?></p>
+                                                                        <p class="modal--user__info"><?= $exhibition_user->users_email ?></p>
+                                                                        <p class="modal--user__info"><?= substr($exhibition_user->users_hp, 0, 3) ?>-<?= substr($exhibition_user->users_hp, 3, 4) ?>-<?= substr($exhibition_user->users_hp, 7, 4) ?></p>
                                                                     </div> 
                                                                 </div>          
-                                                                <div class="th-col col2">
-                                                                    <?php echo count($exhibition_user->exhibition_vod_viewer); ?>
+                                                                <div class="th-col col2" style="width: 33%;">
+                                                                    <span class="modal--col2__span">
+                                                                    <?php echo count($exhibition_user->exhibition_vod_viewer).'회'; ?>
+                                                                    <span>
                                                                 </div>
-                                                                <div class="th-col col3">
+                                                                <div class="th-col col3" style="width: 33%;">
+                                                                    <!-- <span class="modal--col3__span">
                                                                     <?php
                                                                         $watched_duration = 0;
                                                                         foreach ($exhibition_user->exhibition_vod_viewer as $viewer) {
@@ -278,9 +304,33 @@
                                                                         }
                                                                         echo $watched_duration . '/' . $total_duration;
                                                                     ?>
+                                                                    </span> -->
+                                                                    <div class="modal--col3__span">
+                                                                    <?php
+                                                                        $watched_duration = 0;
+                                                                        $a = 0;
+                                                                        $b = 0;
+                                                                        foreach ($exhibition_user->exhibition_vod_viewer as $viewer) {
+                                                                            $watched_duration = $watched_duration + $viewer['watching_duration'];
+                                                                        }
+                                                                        if($total_duration == 0){
+                                                                            echo '0%';
+                                                                        }
+                                                                        else {
+                                                                            $b = $watched_duration / $total_duration * 100;
+                                                                            $a = round($b);
+                                                                            
+                                                                            echo $a . '%';
+                                                                        }
+                                                                    ?>
+                                                                    </div>
+                                                                    <div class="skill" style="margin-left: 0px; margin-top: 53px;">
+                                                                        <div class="skill-bar skill1" style="width: <?=$a?>%;">
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="tr-row">
+                                                            <div class="tr-row" style="margin-top: 30px; background: #F8F8F8;">
                                                                 <div class="th-col col1">VOD 제목</div>
                                                                 <div class="th-col col2">시청 여부</div>
                                                                 <div class="th-col col3">시청 시간</div>
@@ -306,8 +356,11 @@
                                                                         ?>
                                                                     </div>
                                                                     <div class="th-col col3">
+                                                                    <div class="modal--col3__span" style="top: 25%;">
                                                                         <?php
                                                                             $watching_duration = 0;
+                                                                            $a = 0;
+                                                                            $b = 0;
                                                                             if ($vod->exhibition_vod_viewer != null) {
                                                                                 foreach ($vod->exhibition_vod_viewer as $viewer) {
                                                                                     if ($viewer['exhibition_users_id'] == $exhibition_user['id']) {
@@ -315,8 +368,21 @@
                                                                                     }
                                                                                 }
                                                                             }
-                                                                            echo $watching_duration . '/' . $total_duration;
+                                                                            if($total_duration == 0){
+                                                                                echo '0%';
+                                                                            }
+                                                                            else {
+                                                                                $b = $watched_duration / $total_duration * 100;
+                                                                                $a = round($b);
+                                                                                
+                                                                                echo $a . '%';
+                                                                            }
                                                                         ?>
+                                                                         </div>
+                                                                    <div class="skill" style="margin-left: 0px; margin-top: 8px;">
+                                                                        <div class="skill-bar skill1" style="width: <?=$a?>%;">
+                                                                        </div>
+                                                                    </div>
                                                                     </div>
                                                                 </div>
                                                             <?php endforeach; ?>
