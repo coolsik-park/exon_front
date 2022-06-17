@@ -207,7 +207,7 @@
                 <div class="product-title">
                     <div class="product-img-div photo">
                             <?php if ($exhibition["image_path"] != '') : ?>
-                            <img  style="width: 100%; height: 155px; visibility: visible; margin-top: 0px;" class="product-img" src="/<?=$exhibition["image_path"]?>/<?=$exhibition["image_name"]?>">
+                            <img  style=" height: 155px; visibility: visible; margin-top: 0px;" class="product-img" src="/<?=$exhibition["image_path"]?>/<?=$exhibition["image_name"]?>">
                             <?php else : ?>
                             <img class="noImg"src="../../images/img-no.png"style="visibility: visible; height:100%; width: 155px; margin-top: 0px;" >
                             <?php endif; ?>
