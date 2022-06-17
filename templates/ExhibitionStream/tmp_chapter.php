@@ -100,31 +100,28 @@
                     <h3 class="s-hty1"><?= $exhibition->title ?></h3>
                     <div class="table-type table-type2">
                         <div class="tr-row">
-                          
-                                <?php $i = 0; ?>
-                                <?php foreach ($tmp_exhibitions as $tmp_exhibition) : ?>
-                                    <ul class="vod-ul">
-                                        <li class="vod-li vod--title__div">
-                                            <span class="chapter--title__char">○</span>
-                                            <span class="vod--li__title"><?= $tmp_exhibition['title'] ?></span>
-                                            <?php if ($tmp_exhibition_streams[$i]['live_started'] == null) : ?>
-                                                <button type="button" id="copy_stream_key" class="btn-ty2 bor vod-time">라이브 시청</button>
-                                            <?php else : ?>
-                                                <a class="vod--a" href="/exhibition-stream/watch-exhibition-stream/<?= $tmp_exhibition['id'] ?>/<?= $exhibitionUsers[$i]['id'] ?>/<?= $cert ?>" style="">
-                                                    <button type="button" id="copy_stream_key" class="btn-ty2 red vod-time"> 라이브 시청 </button>
-                                                </a>
-                                            <?php endif; ?>
-                                        </li>
-                                        <li class="vod-li vod--info__div">
-                                            <span class="vod--li__date"><?=$tmp_exhibition['sdate']?> ~ <?=$tmp_exhibition['edate']?></span><br><br>
-                                            <span class="vod--li__description"><?=$tmp_exhibition['description']?></span>
-                                        </li>
-                                    </ul>
-                                <?php $i++; ?>
-                                <?php endforeach; ?>
-                           
+                            <?php $i = 0; ?>
+                            <?php foreach ($tmp_exhibitions as $tmp_exhibition) : ?>
+                                <ul class="vod-ul">
+                                    <li class="vod-li vod--title__div">
+                                        <span class="chapter--title__char">○</span>
+                                        <span class="vod--li__title"><?= $tmp_exhibition['title'] ?></span>
+                                        <?php if ($tmp_exhibition_streams[$i]['live_started'] == null) : ?>
+                                            <button type="button" id="copy_stream_key" class="btn-ty2 bor vod-time">라이브 시청</button>
+                                        <?php else : ?>
+                                            <a class="vod--a" href="/exhibition-stream/watch-exhibition-stream/<?= $tmp_exhibition['id'] ?>/<?= $exhibitionUsers[$i]['id'] ?>/<?= $cert ?>" style="">
+                                                <button type="button" id="copy_stream_key" class="btn-ty2 red vod-time"> 라이브 시청 </button>
+                                            </a>
+                                        <?php endif; ?>
+                                    </li>
+                                    <li class="vod-li vod--info__div">
+                                        <span class="vod--li__date"><?=$tmp_exhibition['sdate']?> ~ <?=$tmp_exhibition['edate']?></span><br><br>
+                                        <span class="vod--li__description"><?=$tmp_exhibition['description']?></span>
+                                    </li>
+                                </ul>
+                            <?php $i++; ?>
+                            <?php endforeach; ?>
                         </div>
-                        <br>
                     </div>
                 </div>
             </div>
