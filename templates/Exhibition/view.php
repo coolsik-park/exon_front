@@ -19,7 +19,7 @@
         text-align: center;
     }
     .apply-sect3-cont {
-        word-break:break-all;
+        word-break:keep-all;
     }
     table {
             table-layout: auto;
@@ -28,6 +28,9 @@
         justify-content: space-around;
     }
     .apply-sect3-cont {
+        width: 100%;
+    }
+    .apply-sect3-cont > p > img {
         width: 100%;
     }
     .info-list {
