@@ -16,7 +16,7 @@
         height: 300px;
     }
     .conts {
-        text-align: center;
+        /* text-align: center; */
     }
     .apply-sect3-cont {
         word-break:keep-all;
