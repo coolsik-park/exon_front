@@ -110,6 +110,9 @@
     .modal--user__info {
         font-size: 11px;
     }
+    .popup-body .popup-btm .btn-ty2 {
+        margin-top: 25px;
+    }
     @media  screen and (min-width: 1100px) {
         .modal-dialog {
             margin: 25px auto;
