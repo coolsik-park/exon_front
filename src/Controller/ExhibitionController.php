@@ -220,7 +220,7 @@ class ExhibitionController extends AppController
                 $exhibition->name = $data['name'];
                 endif;
                 if (!empty($data['tel'])) :
-                $exhibition->tel = $data['tel'];
+                $exhibition->tel = str_replace("-", "", $data['tel']);
                 endif;
                 if (!empty($data['email'])) :
                 $exhibition->email = $data['email'];
