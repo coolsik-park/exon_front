@@ -10,7 +10,7 @@
         visibility: hidden;
     }
     .apply-sect1-cont .conts h3{
-        word-break:keep-word;
+        word-break:keep-all;
     }
     .height {
         height: 300px;
