@@ -1537,4 +1537,18 @@
         $("#li9").attr("class", "");
 
     });
+
+
+    $(document).on("click", ".tr-row", function(){
+        if($(this).children('.tab-chapter').next().is(":visible")){
+            $(this).children('.tab-chapter').next().slideUp();
+            $(this).children('.tab-chapter').children('.arrow--vod__2').children('.arrow--vod2').css("transform","rotate(90deg)");
+           
+        }
+        else {
+            $(this).children('.tab-chapter').next().slideDown();
+            $(this).children('.tab-chapter').children('.arrow--vod__2').children('.arrow--vod2').css("transform","rotate(0deg)");
+            // $(this).prop("disabled", true);
+        }
+    });
 </script>
