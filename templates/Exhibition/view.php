@@ -96,7 +96,7 @@
                     </div>
                     <div class="conts">
                         <h3><?= $exhibition->title ?></h3>
-                        <p class="tx"><?= $exhibition->description ?></p>
+                        <p class="tx" style=" word-break:keep-all;"><?= $exhibition->description ?></p>
                         <ul class="info-list">
                             <li>
                                 <span class="dt">모집 일시</span>
