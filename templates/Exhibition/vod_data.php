@@ -375,11 +375,12 @@
                                                                                 echo '0%';
                                                                             }
                                                                             else {
-                                                                                $b = $watched_duration / $total_duration * 100;
+                                                                                $b = $watching_duration / $total_duration * 100;
                                                                                 $a = round($b);
                                                                                 
                                                                                 echo $a . '%';
                                                                             }
+                                                                           
                                                                         ?>
                                                                          </div>
                                                                     <div class="skill" style="margin-left: 0px; margin-top: 8px;">
