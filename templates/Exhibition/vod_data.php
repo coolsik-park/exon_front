@@ -201,7 +201,7 @@
                                         }
                                         else {
                                             $b = $watched_duration / $total_duration * 100;
-                                            $a = floor($b);
+                                            $a = round($b);
                                             
                                             echo $a . '%';
                                         }
