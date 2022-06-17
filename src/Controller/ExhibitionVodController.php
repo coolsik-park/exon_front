@@ -154,4 +154,19 @@ class ExhibitionVodController extends AppController
         $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));    
         return $response;
     }
+
+    public function updateIsPaid($exhibition_id = null)
+    {
+        $vods = $this->ExhibitionVod->find('all')->where(['exhibition_id' => $exhibition_id])->toArray();
+
+        foreach ($vods as $vod) {
+            $exhibitionVod = $this->ExhibitionVod->get($vod['id']);
+            $exhibitionVod->is_paid = 1;
+            $this
+            ->ExhibitionVod->save($exhibitionVod);
+        }
+
+        $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));    
+        return $response;
+    }
 }
