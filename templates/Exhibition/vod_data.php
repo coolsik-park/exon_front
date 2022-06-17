@@ -192,6 +192,7 @@
                                     <?php
                                         $watched_duration = 0;
                                         $a = 0;
+                                        $b = 0;
                                         foreach ($exhibition_user->exhibition_vod_viewer as $viewer) {
                                             $watched_duration = $watched_duration + $viewer['watching_duration'];
                                         }
@@ -199,7 +200,9 @@
                                             echo '0%';
                                         }
                                         else {
-                                            $a = $watched_duration / $total_duration * 100;
+                                            $b = $watched_duration / $total_duration * 100;
+                                            $a = floor($b);
+                                            
                                             echo $a . '%';
                                         }
                                     ?>
