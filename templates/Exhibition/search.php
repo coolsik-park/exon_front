@@ -79,6 +79,7 @@
     .product-img {
         max-width:320px;
         max-height:240px;
+        width: 280px;
     }
     .searchBox {
             border-bottom: 1px solid #cecece;
