@@ -507,8 +507,10 @@
     });
     
     //방송 송출 시작 이후 행사명 변경 불가 처리
-    var live_duration = "<?=$live_duration?>";
-    if (live_duration != 0) {
+    let live_duration = "<?=$live_duration?>";
+    let current_id = "<?=$exhibition->id?>";
+    let tmp_ids = [295, 296, 297, 298, 1];
+    if (live_duration != 0 && current_id != tmp_ids[0] && current_id != tmp_ids[1] && current_id != tmp_ids[2] && current_id != tmp_ids[3] && current_id != tmp_ids[4]) {
         $("#title").attr("readonly", true);
         $("#data_apply_sdate").attr("readonly", true);
         $("#data_apply_edate").attr("readonly", true);
