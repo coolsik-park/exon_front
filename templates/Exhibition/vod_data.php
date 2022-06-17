@@ -15,6 +15,78 @@
     .board-sh {
         margin: 0 auto;
     } 
+    .table-type3 .col1 {
+        width: 25%;
+    }
+    .table-type3 .col2 {
+        width: 25%;
+    }
+    .table-type3 .col3 {
+        width: 25%;
+        position: relative;
+    }
+    .skill {
+        margin-bottom: -10px;
+        position: relative;
+        width: 60%;
+        margin-left: 10%;
+    }
+    
+    .skill > p {
+        font-size: 18px;
+        font-weight: 700;
+        color: #1a1716;
+        margin: 0;
+    }
+    
+    .skill:before {
+        width: 100%;
+        height: 10px;
+        content: "";
+        display: block;
+        position: absolute;
+        background: #959595;
+        bottom: 0;
+        border-radius: 2rem;
+    }
+    
+    .skill-bar {
+        width: 100%;
+        height: 10px;;
+        background:#e76f51;
+        display: block;
+        position: relative;
+        border-radius: 2rem;
+    }
+    
+    .skill-bar span {
+        position: absolute;
+        top: -30px;
+        padding: 0;
+        font-size: 18px;
+        padding: 3px 0;
+        font-weight: 500;
+    }
+    
+    .skill-bar {
+        position: relative;
+    }
+    
+    .skill1 .skill-count1 {
+        right: 0;
+    }
+    
+    .skill1 {
+        width: 95%;
+    }
+    .watch--progress__span {
+        position: absolute;
+        right: 18%;
+        top: 46%;
+    }
+    .table-type .td-col .btn-ty3 {
+        width: 70%;
+    }
     @media  screen and (min-width: 1100px) {
         .modal-dialog {
             margin: 25px auto;
@@ -113,11 +185,13 @@
                                     </div>                            
                                 </div>
                                 <div class="td-col col2">
-                                    <?php echo count($exhibition_user->exhibition_vod_viewer); ?>
+                                    <?php echo count($exhibition_user->exhibition_vod_viewer).'회'; ?>
                                 </div>
-                                <div class="td-col col3">
+                                <div class="td-col col3" style="">
+                                <div class="watch--progress__span">
                                     <?php
                                         $watched_duration = 0;
+                                        $a = 0;
                                         foreach ($exhibition_user->exhibition_vod_viewer as $viewer) {
                                             $watched_duration = $watched_duration + $viewer['watching_duration'];
                                         }
@@ -129,6 +203,11 @@
                                             echo $a . '%';
                                         }
                                     ?>
+                                    </div>
+                                     <div class="skill">
+                                        <div class="skill-bar skill1" style="width: <?=$a?>%;">
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="td-col col4">
                                     <div class="con">
