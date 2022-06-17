@@ -110,16 +110,15 @@
                                             <?php if ($tmp_exhibition_streams[$i]['live_started'] == null) : ?>
                                                 <button type="button" id="copy_stream_key" class="btn-ty2 bor vod-time">라이브 시청</button>
                                             <?php else : ?>
-                                                <a class="vod--a" href="/exhibition-stream/watch-exhibition-stream/<?= $tmp_exhibition['id'] ?>/<?= $exhibition_users_id ?>/<?= $cert ?>" style="">
+                                                <a class="vod--a" href="/exhibition-stream/watch-exhibition-stream/<?= $tmp_exhibition['id'] ?>/<?= $exhibitionUsers[$i]['id'] ?>/<?= $cert ?>" style="">
                                                     <button type="button" id="copy_stream_key" class="btn-ty2 red vod-time"> 라이브 시청 </button>
                                                 </a>
                                             <?php endif; ?>
                                         </li>
-                                    <li class="vod-li vod--info__div">
+                                        <li class="vod-li vod--info__div">
                                             <span class="vod--li__date"><?=$tmp_exhibition['sdate']?> ~ <?=$tmp_exhibition['edate']?></span><br><br>
                                             <span class="vod--li__description"><?=$tmp_exhibition['description']?></span>
-                                    </li>
-                                    <br>
+                                        </li>
                                     </ul>
                                 <?php $i++; ?>
                                 <?php endforeach; ?>
