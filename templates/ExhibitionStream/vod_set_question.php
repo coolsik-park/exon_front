@@ -2,6 +2,12 @@
     *{
         font-size:1.06rem;
     }
+
+    .tx {
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+    }
 </style>
 <div class="webinar-cont1">
     <h3 class="sr-only">질의 응답</h3>
@@ -30,7 +36,7 @@
                             <?php else : ?>
                             <div class="photo"><img style = "width:100%; height:100%;" src = <?= DS . $exhibitionSpeaker['image_path'] . DS . $exhibitionSpeaker['image_name'] ?>></div>
                             <?php endif; ?>
-                            <div class="tx"><?php echo $exhibitionSpeaker['name']; ?></div>
+                            <div class="tx" title="<?=$exhibitionSpeaker['name']?>"><?php echo $exhibitionSpeaker['name']; ?></div>
                         </div>
                     </li>
                     <?php 

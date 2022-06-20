@@ -54,5 +54,32 @@
 </div>
 
 <script>
-  
+    // $(document).on("click", ".arrow--vod__2", function(){
+    //     if($(this).parent().parent().next().hasClass('visible')){
+    //         $(this).parent().parent().next().css("display", "none");
+    //         $(this).css("transform","rotate(0deg)");
+    //         $(this).parent().parent().next().removeClass('visible');
+    //         // $(this).parent().parent().next().next().css("height", "50px");
+    //         // $(this).parent().parent().next().next().children('.tab-chapter').children( 'p' ).css("margin-top", "15px");
+    //     }
+    //     else {
+    //         $(this).parent().parent().next().css("display", "block");
+    //         $(this).css("transform","rotate(0deg)");
+    //         $(this).parent().parent().next().addClass('visible')
+    //         // $(this).parent().parent().next().next().css("height", "37px");
+    //     }
+    // });
+    // $(document).on("click", ".tr-row", function(){
+    //     if($(this).children('.tab-chapter').next().is(":visible")){
+    //         $(this).children('.tab-chapter').next().slideUp();
+    //         $(this).children('.tab-chapter').children('.arrow--vod__2').children('.arrow--vod2').css("transform","rotate(90deg)");
+           
+    //     }
+    //     else {
+    //         $(this).children('.tab-chapter').next().slideDown();
+    //         $(this).children('.tab-chapter').children('.arrow--vod__2').children('.arrow--vod2').css("transform","rotate(0deg)");
+    //         // $(this).prop("disabled", true);
+    //     }
+    // });
+    
 </script>

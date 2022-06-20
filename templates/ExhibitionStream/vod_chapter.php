@@ -78,12 +78,13 @@
         width: 25%;
     }
 
-    /* .chapter--title {
-        width: 100px;
-        position: absolute;
-        top: 40%;
-        left: 27%;
-    } */
+    .chapter--title {
+        font-size:20px;
+    }
+
+    .tr {
+        text-align:center;
+    }
 </style>
 
 <div id="container">
@@ -397,5 +398,18 @@
         $("#li10").attr("class", "");
         $("#li11").attr("class", "active");
 
+    });
+
+    $(document).on("click", ".tr-row", function(){
+        if($(this).children('.tab-chapter').next().is(":visible")){
+            $(this).children('.tab-chapter').next().slideUp();
+            $(this).children('.tab-chapter').children('.arrow--vod__2').children('.arrow--vod2').css("transform","rotate(90deg)");
+           
+        }
+        else {
+            $(this).children('.tab-chapter').next().slideDown();
+            $(this).children('.tab-chapter').children('.arrow--vod__2').children('.arrow--vod2').css("transform","rotate(0deg)");
+            // $(this).prop("disabled", true);
+        }
     });
 </script>
