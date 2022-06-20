@@ -46,6 +46,10 @@
     .table-type .td-col .tit {
         word-break:keep-all;
     }
+    .sign--title {
+        width: 25%;
+        text-align: left;
+    }
     @media  screen and (max-width: 768px) {
         .photos img {
             position: absolute;
@@ -69,6 +73,9 @@
         .table-type1 .col3 .con .t1 {
             width: 23%;
         }
+        .sign--title {
+            width: 100%;
+        }
     }
     @media  screen and (min-width: 768px) {
         .photos img {
@@ -84,6 +91,7 @@
         .titleM {
             display: none;
         }
+       
     }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -139,6 +147,7 @@
                 ?>
                     <div class="tr-row">
                         <div class="td-col col1">
+                        <p class="tit fir titleM">신청 일시</p>
                             <div class="con">
                                 <div class="date">
                                     <?= date("Y.m.d", strtotime($exhibition_user->created)) ?><br>
@@ -170,7 +179,7 @@
                         </div>
                         <div class="td-col col2">
                             <div class="con ag-ty1">
-                                <p class="tit fir tit-name clickTitle" onclick="window.location.href = '/exhibition/view/<?=$exhibition_user->exhibition['id']?>'"><?= $exhibition_user->exhibition['title'] ?></p>
+                                <p class="tit tit-name clickTitle sign--title" onclick="window.location.href = '/exhibition/view/<?=$exhibition_user->exhibition['id']?>'"><?= $exhibition_user->exhibition['title'] ?></p>
                                 <p id="photos" class="conts height photo" style="overflow: hidden">
                                     <?php if ($exhibition_user->exhibition['image_path'] == null) { ?>
                                         <img src="../../images/img-no3.png" onclick="window.location.href = '/exhibition/view/<?=$exhibition_user->exhibition['id']?>'"  id="photosImg">
