@@ -75,6 +75,7 @@
     .vod--li__description {
         position: relative;
         /* margin-left: 25px; */
+        line-height: 25px; 
     }
     .vod--info__div {
         margin-top: 80px;
@@ -134,6 +135,53 @@
         margin-bottom: 10px;
         font-weight: 500;
     }
+
+    @media  screen and (max-width: 768px) {
+        .section-my {
+            padding: 0px 4%;
+        }
+        .section-my .s-hty1 {
+            margin-top: 80px;
+            margin-bottom: 50px;
+        }
+        .tr-row__vod {
+            display: flex;
+            flex-direction: column;
+            width: 92%;
+            position: relative;
+            padding-bottom: 40px;
+            font-size: 18px;
+            align-items: space-around;
+            margin-left: 4%;
+        }
+        .vod--img__div {
+            width: 100%;
+            margin-top: 70px;
+        }
+        .vod--date__div {
+            width: 100%;
+            height: 100px;
+            padding: 0px 0px;
+            display: flex;
+            flex-direction: column;
+        }
+        .vod--dec__div {
+            width: 100%;
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            word-break:keep-all;
+            padding: 0;
+            margin-bottom: 50px;
+        }   
+        #copy_stream_key {
+            cursor: pointer;
+            position: absolute;
+            bottom: 0px;
+            left: 0;
+            width: 100%;
+        }
+    }
 </style>
 
 
@@ -151,23 +199,22 @@
                                         <span class="chapter--title__char">○</span>
                                         <span class="vod--li__title"><?= $tmp_exhibition['title'] ?></span>
                                         <?php if ($tmp_exhibition_streams[$i]['live_started'] == null) : ?>
-                                        <button type="button" id="copy_stream_key" class="btn-ty2 bor vod-time">라이브 시청</button>
+                                            <button type="button" id="copy_stream_key" class="btn-ty2 bor vod-time">라이브 시청</button>
                                         <?php else : ?>
-                                        <a class="vod--a" href="/exhibition-stream/watch-exhibition-stream/<?= $tmp_exhibition['id'] ?>/<?= $exhibitionUsers[$i]['id'] ?>/<?= $cert ?>" style="">
-                                            <button type="button" id="copy_stream_key" class="btn-ty2 red vod-time"> 라이브 시청 </button>
-                                        </a>
+                                            <a class="vod--a" href="/exhibition-stream/watch-exhibition-stream/<?= $tmp_exhibition['id'] ?>/<?= $exhibitionUsers[$i]['id'] ?>/<?= $cert ?>" style="">
+                                                <button type="button" id="copy_stream_key" class="btn-ty2 red vod-time"> 라이브 시청 </button>
+                                            </a>
                                         <?php endif; ?>
 
                                             <div class="vod-li vod--img__div">
-                                                <img src="/img/@item7.jpg" class="vod--img" />
+                                                <img src="/<?=$tmp_exhibition['image_path']?>/<?=$tmp_exhibition['image_name']?>" class="vod--img" />
                                             </div>
                                             <div class="vod-li vod--date__div">
                                                 <span class="vod--title__span">일시</span>
-                                                <span class="vod--li__date"><?=$tmp_exhibition['sdate']?> ~ <br> <?=$tmp_exhibition['edate']?></span><br><br>
+                                                <span class="vod--li__date"><?=date("Y.m.d A h:i", strtotime($tmp_exhibition['sdate']))?> ~ <br> <?=date("Y.m.d A h:i", strtotime($tmp_exhibition['edate']))?></span><br><br>
                                             </div>
                                             <div class="vod-li vod--dec__div">
                                                 <span class="vod--title__span">- 행사 내용</span>
-                                                <span class="vod--dec__char">*</sapn>
                                                 <span class="vod--li__description"><?=$tmp_exhibition['description']?></span>
                                             </div>
                                     </div>
