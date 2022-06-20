@@ -79,7 +79,7 @@
     }
 
     .chapter--title {
-        font-size:20px;
+        font-size:18px;
     }
 
     .tr {
