@@ -24,14 +24,18 @@
      .arrow--vod2 {
         width: 20px;
     }
-    .table-type .tr-row {
+    .table-type .tr-row2 {
         border-bottom: 0px;
+    }
+    .table-type .tr-row {
+        padding: 15px 0;
     }
     .chapter--menu__div {
         font-size: 1rem;
         position: absolute;
         right: 0%;
         top: 20%;
+        z-index: 999;
     }
     .section-my {
         position: relative;
@@ -63,7 +67,7 @@
                     </div> 
                     <h3 class="s-hty1"><?=$chapter['title']?></h3>
                     <div class="table-type table-type2">                  
-                        <div class="tr-row">
+                        <div class="tr-row2">
                             <ul class="vod-ul">
                             <?php foreach ($vods as $vod) : ?>
                                 <a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition->id?>/<?=$vod['id']?>/<?=$exhibition_users_id?>" style="width: 100%;   border-bottom: 1px solid black;">

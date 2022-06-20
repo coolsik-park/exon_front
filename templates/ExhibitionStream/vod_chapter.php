@@ -78,12 +78,13 @@
         width: 25%;
     }
 
-    /* .chapter--title {
-        width: 100px;
-        position: absolute;
-        top: 40%;
-        left: 27%;
-    } */
+    .chapter--title {
+        font-size:18px;
+    }
+
+    .tr {
+        text-align:center;
+    }
 </style>
 
 <div id="container">

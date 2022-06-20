@@ -403,13 +403,13 @@ class ExhibitionStreamController extends AppController
             ->where(['ExhibitionQuestion.parent_id IS NOT' => null, 'ExhibitionUsers.exhibition_id' => $id, 'is_vod' => 1])->toArray();
 
         $count = count($answeredQuestions);
-        $answeredQuestionId[] = '';
+        $answeredQuestionId[] = 0;
 
         for ($i = 0; $i < $count; $i++) {
-            $answeredQuestionId[$i] = $answeredQuestions[$i]['parent_id'];
+            $answeredQuestionId[$i] = (int)$answeredQuestions[$i]['parent_id'];
         }
 
-        $exhibitionQuestions = $ExhibitionQuestion->find('all')->where(['ExhibitionQuestion.id NOT IN' => $answeredQuestionId, 'parent_id IS' => null, 'exhibition_users_id IN' => $users_id, 'is_vod' => 1])->toArray();
+        $exhibitionQuestions = $ExhibitionQuestion->find('all')->where(['id NOT IN' => $answeredQuestionId, 'parent_id IS' => null, 'exhibition_users_id IN' => $users_id, 'is_vod' => 1])->toArray();
 
         if ($this->request->is('post')) {
 
