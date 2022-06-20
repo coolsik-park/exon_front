@@ -1976,20 +1976,22 @@ class ExhibitionController extends AppController
             }
         }
 
-        $previousExhibition[] = '';
         $exhibition = $this->Exhibition->find('all', ['contain' => 'Users'])->where(['users_id' => $exhibition[0]->users_id])->toArray();
         $count = count($exhibition);    
-        for ($i = 0; $i < $count; $i++ ) {
-            if ((int)$exhibition[$i]->created->i18nFormat('yyyyMMddHHmmss') < (int)$currentExhibition[0]->created->i18nFormat('yyyyMMddHHmmss')) {
-                $previousExhibition[$i] = $exhibition[$i];
+        $previousExhibition[] = '';
+        if ($count != 0) {
+            for ($i = 0; $i < $count; $i++ ) {
+                if ((int)$exhibition[$i]->created->i18nFormat('yyyyMMddHHmmss') < (int)$currentExhibition[0]->created->i18nFormat('yyyyMMddHHmmss')) {
+                    $previousExhibition[$i] = $exhibition[$i];
+                }
             }
         }
         
-        if ($previousExhibition[0] != '') {
+        if (count($previousExhibition) != 1) {
             $previousExhibitionParticipant[] = '';
             $countI = count($previousExhibition);
             $k = 0;
-            for ($i = 0; $i < $countI; $i++) {
+            for ($i = 1; $i < $countI; $i++) {
                 $countJ = count($previousExhibition[$i]->users);
                 for ($j = 0; $j < $countJ; $j++) {
                     if ($previousExhibition[$i]->users[$j]->_joinData->status == 4) {
@@ -1998,9 +2000,10 @@ class ExhibitionController extends AppController
                     }  
                 }
             }
+            
             $previousExhibitionParticipant = array_unique($previousExhibitionParticipant);
             $previousExhibitionParticipant = array_values($previousExhibitionParticipant);
-
+            
             $countK = count($currentExhibitionParticipant);
             $countL = count($previousExhibitionParticipant);
             for ($k = 0; $k < $countK; $k++) {
@@ -2078,11 +2081,11 @@ class ExhibitionController extends AppController
             }
         }
         
-        if ($previousExhibition[0] != '') {
+        if (count($previousExhibition) != 1) {
             $previousExhibitionParticipant[] = '';
             $countI = count($previousExhibition);
             $k = 0;
-            for ($i = 0; $i < $countI; $i++) {
+            for ($i = 1; $i < $countI; $i++) {
                 $countJ = count($previousExhibition[$i]->users);
                 for ($j = 0; $j < $countJ; $j++) {
                     if ($previousExhibition[$i]->users[$j]->_joinData->status == 4) {
