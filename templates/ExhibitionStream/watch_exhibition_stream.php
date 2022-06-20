@@ -215,7 +215,15 @@
     //잘못된 접근 차단
     var ref = document.referrer;
     var pass = 0;
-    if (ref != '<?= $front_url ?>/exhibition/view/<?=$exhibitionStream[0]['exhibition_id']?>' && ref != '<?= $front_url ?>/exhibition-users/sign-up/application' && ref != '<?= $front_url ?>/exhibition-stream/certification/<?=$exhibitionStream[0]['exhibition_id']?>' && ref.indexOf('<?= $front_url ?>/exhibition-users/add/<?=$exhibitionStream[0]['exhibition_id']?>') && ref.indexOf('<?= $front_url ?>/exhibition-stream/vod-chapter/<?=$exhibitionStream[0]['exhibition_id']?>') && ref.indexOf('<?= $front_url ?>/exhibition-stream/vods/<?=$exhibitionStream[0]['exhibition_id']?>') && ref.indexOf('<?= $front_url ?>/exhibition-stream/watch-exhibition-vod/<?=$exhibitionStream[0]['exhibition_id']?>') && ref.indexOf('<?= $front_url ?>/exhibition-stream/tmp-chapter/298/') && ref.indexOf('<?= $front_url ?>/exhibition-stream/watch-exhibition-stream/')) {
+    if (ref != '<?= $front_url ?>/exhibition/view/<?=$exhibitionStream[0]['exhibition_id']?>' 
+            && ref != '<?= $front_url ?>/exhibition-users/sign-up/application' 
+            && ref != '<?= $front_url ?>/exhibition-stream/certification/<?=$exhibitionStream[0]['exhibition_id']?>' 
+            && ref.indexOf('<?= $front_url ?>/exhibition-users/add/<?=$exhibitionStream[0]['exhibition_id']?>') 
+            && ref.indexOf('<?= $front_url ?>/exhibition-stream/vod-chapter/<?=$exhibitionStream[0]['exhibition_id']?>') 
+            && ref.indexOf('<?= $front_url ?>/exhibition-stream/vods/<?=$exhibitionStream[0]['exhibition_id']?>') 
+            && ref.indexOf('<?= $front_url ?>/exhibition-stream/watch-exhibition-vod/<?=$exhibitionStream[0]['exhibition_id']?>') 
+            && ref.indexOf('<?= $front_url ?>/exhibition-stream/tmp-chapter/298/') && ref.indexOf('<?= $front_url ?>/exhibition-stream/watch-exhibition-stream/')
+        ) {
         alert('허용되지 않는 잘못된 접근입니다.');
         history.go(-1);
     }
