@@ -240,7 +240,7 @@
                                 </div>
                                 <div class="td-col col4">
                                     <div class="con">
-                                        <button type="button" class="btn-ty3 bor" style="cursor:pointer;" data-toggle="modal" data-target="#surveyCheckModal" data-backdrop="static" data-keyboard="false" onClick="surveyCheck(<?= $exhibition_user->id ?>, <?= count($users) ?>)">
+                                        <button type="button" class="btn-ty3 bor" style="cursor:pointer;" data-toggle="modal" data-target="#surveyCheckModal" data-backdrop="static" data-keyboard="false">
                                             상세 보기
                                         </button>
                                     </div>
