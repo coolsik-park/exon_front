@@ -90,7 +90,7 @@
         }
         .sign--date {
             position: absolute;
-            top: 210px;
+            top: 240px;
         }
     }
     @media  screen and (min-width: 768px) {
