@@ -62,12 +62,14 @@
     }
 </style>
 
+    <?php $i = 0; ?>
     <?php foreach ($tmp_exhibitions as $tmp_exhibition) : ?>
         <ul class="vod-ul">
-            <a href="/exhibition-stream/watch-exhibition-stream/<?= $tmp_exhibition['id'] ?>/<?= $exhibition_users_id ?>/<?= $cert ?>">
+            <a href="/exhibition-stream/watch-exhibition-stream/<?= $tmp_exhibition['id'] ?>/<?= $tmp_exhibition_users[$i]['id'] ?>/<?= $cert ?>">
                 <li class="vod-li vod--title__div">
                     <span class="vod--li__title"><?= $tmp_exhibition['title'] ?></span>
                 </li>
             </a>
         </ul>
+        <?php $i++; ?>
     <?php endforeach; ?>
