@@ -113,6 +113,39 @@
     .popup-body .popup-btm .btn-ty2 {
         margin-top: 25px;
     }
+    @media  screen and (max-width: 768px) {
+        .table-type3 .col1 {
+            width: 100%;
+        }
+        .table-type3 .col2 {
+            width: 100%;
+            height: 70px;
+            padding: 12px 0 0 15px;
+        }
+        .table-type3 .col3 {
+            width: 100%;
+            height: 70px;
+            padding: 12px 0 0 0px;
+        }
+        .watch--progress__span {
+            top: 50%;
+        }
+        .popup-body .tr-row {
+            flex-direction: row;
+        }
+        .modal--col2__span {
+            right: 32%;
+        }
+        .modal--col3__span {
+            right: 28%;
+        }
+        .popup-body .skill {
+            display: none;
+        }
+        .popup-body .table-type3 .col2 {
+            padding: 10px 0;
+        }
+    }
     @media  screen and (min-width: 1100px) {
         .modal-dialog {
             margin: 25px auto;
@@ -416,7 +449,6 @@
         </div>    
     </div>        
 </div>
-<footer id="footer"></footer>
 
 <script>
     
