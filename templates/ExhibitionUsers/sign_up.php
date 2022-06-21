@@ -50,6 +50,12 @@
         width: 25%;
         text-align: left;
     }
+    .table-type .td-col .tit {
+        width: 100%;
+    }
+    .tr-row {
+        position: relative;
+    }
     @media  screen and (max-width: 768px) {
         .photos img {
             position: absolute;
@@ -75,6 +81,16 @@
         }
         .sign--title {
             width: 100%;
+        }
+        .table-type1 .col3 .con .tit-con {
+            width: 65%;
+        }
+        .table-type1 .col3 .con {
+            margin-top: 70px;
+        }
+        .sign--date {
+            position: absolute;
+            top: 210px;
         }
     }
     @media  screen and (min-width: 768px) {
@@ -146,7 +162,7 @@
                         }
                 ?>
                     <div class="tr-row">
-                        <div class="td-col col1">
+                        <div class="td-col col1 sign--date">
                         <p class="tit fir titleM">신청 일시</p>
                             <div class="con">
                                 <div class="date">
@@ -213,9 +229,9 @@
                                         
                                         if ($hour > 12) {
                                             $hour = $hour-12;
-                                            echo $date . " 오후 " . sprintf("%02d", $hour) . ":" . sprintf("%02d", $min);
+                                            echo "</br>" . $date . " 오후 " . sprintf("%02d", $hour) . ":" . sprintf("%02d", $min);
                                         } else {
-                                            echo $date . " 오전 " . sprintf("%02d", $hour) . ":" . sprintf("%02d", $min);
+                                            echo "</br>" . $date . " 오전 " . sprintf("%02d", $hour) . ":" . sprintf("%02d", $min);
                                         }
                                     ?>
                                 </p>
