@@ -185,12 +185,16 @@ class ExhibitionStreamController extends AppController
     public function tmpChapterTab($id = null, $exhibition_users_id = null, $cert = null)
     {
         $Exhibition = $this->getTableLocator()->get('Exhibition');
+        $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
 
         $exhibition = $Exhibition->get($id);
         $tmp_exhibitions = $Exhibition->find('all')->where(['id IN' => [295, 296, 297]])->toArray();
         $tmp_exhibition_streams = $this->ExhibitionStream->find('all')->where(['exhibition_id IN' => [295, 296, 297]])->toArray();
 
-        $this->set(compact('id', 'exhibition_users_id', 'cert', 'tmp_exhibitions', 'exhibition', 'tmp_exhibition_streams'));
+        $exhibition_users_email = $ExhibitionUsers->get($exhibition_users_id)->users_email;
+        $tmp_exhibition_users = $ExhibitionUsers->find('all')->where(['exhibition_id IN' => [295, 296, 297], 'users_email' => $exhibition_users_email])->toArray();
+
+        $this->set(compact('id', 'exhibition_users_id', 'cert', 'tmp_exhibitions', 'exhibition', 'tmp_exhibition_streams', 'tmp_exhibition_users'));
     }
 
     public function watchExhibitionStreamMasterKey($id = null)
