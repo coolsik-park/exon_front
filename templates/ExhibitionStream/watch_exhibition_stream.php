@@ -55,7 +55,7 @@
                     <?php if ($exhibition->id == 295 || $exhibition->id == 296 || $exhibition->id == 297) : ?>
                         <div class="w-desc">
                             <p class="wd1"><span class="w-dt"></span></p>
-                            <p class="wd2"></span><button class="btn-ty4 red english">English</button></p>
+                            <p class="wd2"></span><button class="btn-ty4 red korean" style="border:2px solid black;">Korean</button> <button class="btn-ty4 red english">English</button></p>
                         </div>
                     <?php endif; ?>
                     <h3 class="w-tit"><?= $exhibitionStream[0]['title'] ?></h3>
@@ -185,8 +185,13 @@
             player.play();
 
             is_english = 1;
-            $(this).html('Korean');
-        } else {
+            $(this).css('border', '2px solid black');
+            $(this).prev().css('border', '1px solid red');
+        }
+    });
+
+    $(document).on('click', '.korean', function () {
+        if (is_english === 1) {
             if (!player.paused) {
                 player.pause();
             }
@@ -197,7 +202,8 @@
             player.play();
 
             is_english = 0;
-            $(this).html('English');
+            $(this).css('border', '2px solid black');
+            $(this).next().css('border', '1px solid red');
         }
     });
     
