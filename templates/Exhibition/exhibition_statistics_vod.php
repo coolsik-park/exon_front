@@ -24,6 +24,9 @@
     #td_title {
         padding: 10px;
     }
+    tbody {
+        border-bottom: 2px solid;
+    }
 
     @media  screen and (max-width: 768px) {
         .btn-ty2.bor {
@@ -105,7 +108,7 @@
                     <table>
                         <tr id="first_tr" style="text-align: center; font-weight: bold;">
                             <th style="width: 90%; padding: 12px;">VOD 제목</th>
-                            <th>조회수</th>
+                            <th style="font-size: 16px; width: 15%;">조회수</th>
                         </tr>
                         <?php
                             foreach ($vods as $exhibitionVod):
