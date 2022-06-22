@@ -21,6 +21,16 @@
     tr + tr {
         border-top: 1px solid;
     }
+    #td_title {
+        padding: 10px;
+    }
+
+    @media  screen and (max-width: 768px) {
+        .btn-ty2.bor {
+            padding: 10px 50px;
+            margin-top: 50px;
+        }
+    }
 </style>
 
 <div id="container">
@@ -51,7 +61,7 @@
                 </li>
                 <li class="active">
                     <a href="">스트리밍</a>
-                    <ul class="s-sub s-sub2" style="width:900px; border:none; padding:0px;">
+                    <ul class="s-sub s-sub2" style=" border:none; padding:0px;">
                         <?php if ($exhibition['is_vod'] == 0): ?>
                             <li class="active"><a href="/exhibition/exhibition-statistics-stream/<?=$id?>">라이브</a></li>
                         <?php elseif ($exhibition['is_vod'] == 1): ?>
@@ -73,7 +83,7 @@
                         <input id="download" type="submit" value="다운로드" class="btn-ty2 bor">
                 </div>
             <?php echo $this->Form->end(); ?>
-            <div class="cate" style="height:30px;"></div>
+            <div class="cate" style="height:20px;"></div>
             <div class="pr-graph2">
                 <div class="graph-bx">
                     <h3 class="s-hty2">총 조회수<p style="color:gray; font-size:5px;">총 주회수 = 각 영상의 조회수의 합</p></h3>
@@ -94,7 +104,7 @@
                 <div class="graph-bx">
                     <table>
                         <tr id="first_tr" style="text-align: center; font-weight: bold;">
-                            <th style="width: 90%;">VOD 제목</th>
+                            <th style="width: 90%; padding: 12px;">VOD 제목</th>
                             <th>조회수</th>
                         </tr>
                         <?php
