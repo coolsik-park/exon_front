@@ -79,7 +79,7 @@
                         <div class="w-tab-wrap-inner">
                             <ul class="w-tab">
                                 <?php if ($exhibition->id == 295 || $exhibition->id == 296 || $exhibition->id == 297) : ?>
-                                    <li id="li10" class=""><button type="button" id="tab10" name="트랙 목록">트랙 목록</button></li>
+                                    <li id="li10" class=""><button type="button" id="tab10" name="트랙 이동">트랙 이동</button></li>
                                 <?php endif; ?>
                                 <li id="li9" class="" style="display:none;"><button type="button" id="tab9" name="실시간 채팅">실시간 채팅</button></li>
                                 <li id="li8" class="" style="display:none;"><button type="button" id="tab8" name="설문">설문</button></li>
