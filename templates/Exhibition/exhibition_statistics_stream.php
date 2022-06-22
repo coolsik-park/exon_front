@@ -60,7 +60,7 @@
                 </li>
                 <li class="active">
                     <a href="">스트리밍</a>
-                    <ul class="s-sub s-sub2" style="width:900px; border:none; padding:0px;">
+                    <ul class="s-sub s-sub2" style=" border:none; padding:0px;">
                         <?php if ($exhibition[0]['is_vod'] == 0): ?>
                             <li class="active"><a href="/exhibition/exhibition-statistics-stream/<?=$id?>">라이브</a></li>
                         <?php elseif ($exhibition[0]['is_vod'] == 1): ?>
