@@ -109,8 +109,8 @@ class PagesController extends AppController
         $query .= "  id AS exhibition_id, ";
         $query .= "  title AS title, image_path as img_path, image_name as img_name, ";
         $query .= "  description AS description, ";
-        $query .= "  date_format(sdate, '%m. %d. %H:%s') AS sdate, ";
-        $query .= "  date_format(edate, '%m. %d. %H:%s') AS edate, ";
+        $query .= "  date_format(sdate, '%m. %d. %H:%i') AS sdate, ";
+        $query .= "  date_format(edate, '%m. %d. %H:%i') AS edate, ";
         $query .= "  date_ADD(now(), INTERVAL 9 HOUR) between sdate ";
         $query .= "  and edate AS playing ";
         $query .= "FROM ";
@@ -142,8 +142,8 @@ class PagesController extends AppController
         $query .= "  id AS exhibition_id, ";
         $query .= "  title AS title, image_path as img_path, image_name as img_name, ";
         $query .= "  description AS description, ";
-        $query .= "  date_format(sdate, '%m. %d. %H:%s') AS sdate, ";
-        $query .= "  date_format(edate, '%m. %d. %H:%s') AS edate, ";
+        $query .= "  date_format(sdate, '%m. %d. %H:%i') AS sdate, ";
+        $query .= "  date_format(edate, '%m. %d. %H:%i') AS edate, ";
         $query .= "  date_ADD(now(), INTERVAL 9 HOUR) between sdate ";
         $query .= "  and edate AS playing ";
         $query .= "FROM ";
@@ -173,8 +173,8 @@ class PagesController extends AppController
         $query .= "  id AS exhibition_id, ";
         $query .= "  title AS title, image_path as img_path, image_name as img_name, ";
         $query .= "  description AS description, ";
-        $query .= "  date_format(sdate, '%m. %d. %H:%s') AS sdate, ";
-        $query .= "  date_format(edate, '%m. %d. %H:%s') AS edate, ";
+        $query .= "  date_format(sdate, '%m. %d. %H:%i') AS sdate, ";
+        $query .= "  date_format(edate, '%m. %d. %H:%i') AS edate, ";
         $query .= "  date_ADD(now(), INTERVAL 9 HOUR) between sdate ";
         $query .= "  and edate AS playing ";
         $query .= "FROM ";

@@ -158,6 +158,16 @@ class ExhibitionStreamController extends AppController
             $this->redirect(['action' => 'stream_not_exist']);
         }
 
+        $code = $this->generateCode();
+        $this->getRequest()->getSession()->write('exhibition_users_code', $code);
+
+        $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
+        $exhibitionUser = $ExhibitionUsers->get($exhibition_users_id);
+
+        $exhibitionUser->code = $code;
+
+        $ExhibitionUsers->save($exhibitionUser);
+
         // if ($exhibition->require_cert == 1 && $cert != 1) {
         //     $this->redirect(['action' => 'certification', $id]);
         // }
@@ -2335,5 +2345,22 @@ class ExhibitionStreamController extends AppController
         $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $exhibition_id])->toArray();
 
         $this->set(compact('chapter', 'vods', 'exhibition', 'exhibition_users_id', 'exhibitionStream'));
+    }
+
+    public function autoRedirect($exhibition_users_id = null)
+    {
+        $session = $this->request->getSession();
+        $code = $session->read('exhibition_users_code');
+
+        $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
+        $exhibitionUser = $ExhibitionUsers->get($exhibition_users_id);
+
+        if ($code != $exhibitionUser->code) {
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status'=>'redirect']));
+            return $response;
+        } else {
+            $response = $this->response->withType('json')->withStringBody(json_encode(['status'=>'stay']));
+            return $response;
+        }
     }
 }

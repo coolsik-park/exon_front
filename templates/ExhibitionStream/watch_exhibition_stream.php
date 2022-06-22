@@ -55,7 +55,7 @@
                     <?php if ($exhibition->id == 295 || $exhibition->id == 296 || $exhibition->id == 297) : ?>
                         <div class="w-desc">
                             <p class="wd1"><span class="w-dt"></span></p>
-                            <p class="wd2"></span><button class="btn-ty4 red english">English</button></p>
+                            <p class="wd2"></span><button class="btn-ty4 red korean" style="border:2px solid black;">Korean</button> <button class="btn-ty4 red english">English</button></p>
                         </div>
                     <?php endif; ?>
                     <h3 class="w-tit"><?= $exhibitionStream[0]['title'] ?></h3>
@@ -79,7 +79,7 @@
                         <div class="w-tab-wrap-inner">
                             <ul class="w-tab">
                                 <?php if ($exhibition->id == 295 || $exhibition->id == 296 || $exhibition->id == 297) : ?>
-                                    <li id="li10" class=""><button type="button" id="tab10" name="트랙 목록">트랙 목록</button></li>
+                                    <li id="li10" class=""><button type="button" id="tab10" name="트랙 이동">트랙 이동</button></li>
                                 <?php endif; ?>
                                 <li id="li9" class="" style="display:none;"><button type="button" id="tab9" name="실시간 채팅">실시간 채팅</button></li>
                                 <li id="li8" class="" style="display:none;"><button type="button" id="tab8" name="설문">설문</button></li>
@@ -136,6 +136,20 @@
 <script> 
     var chatInterval
 
+    //auto redirect
+    function autoRedirect() {
+        jQuery.ajax({
+            url: "/exhibition-stream/auto-redirect/" + <?= $exhibition_users_id ?>, 
+            method: 'POST',
+            success: function (data) {
+                if (data.status == 'redirect') {
+                    alert('다른 브라우저에서 접속하였습니다. 메인페이지로 이동합니다.');
+                    location.href = '/';
+                }
+            }
+        });
+    }
+
     //auto attendance
     jQuery.ajax({
         url: "/exhibition-stream/auto-attendance/" + <?= $exhibition_users_id ?>, 
@@ -185,8 +199,13 @@
             player.play();
 
             is_english = 1;
-            $(this).html('Korean');
-        } else {
+            $(this).css('border', '2px solid black');
+            $(this).prev().css('border', '1px solid red');
+        }
+    });
+
+    $(document).on('click', '.korean', function () {
+        if (is_english === 1) {
             if (!player.paused) {
                 player.pause();
             }
@@ -197,7 +216,8 @@
             player.play();
 
             is_english = 0;
-            $(this).html('English');
+            $(this).css('border', '2px solid black');
+            $(this).next().css('border', '1px solid red');
         }
     });
     
@@ -233,6 +253,7 @@
         setInterval("updateLastViewTime()" , 1000);
         setInterval("countViewer()" , 3000);
         setInterval("liveEndCheck()", 1000);
+        setInterval("autoRedirect()" , 5000);
 
         //탭 컨트롤 
         var dec = "<?=$exhibition->live_tab?>";
