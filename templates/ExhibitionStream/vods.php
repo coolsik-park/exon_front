@@ -35,7 +35,6 @@
         position: absolute;
         right: 0%;
         top: 20%;
-        z-index: 999;
     }
     .section-my {
         position: relative;
