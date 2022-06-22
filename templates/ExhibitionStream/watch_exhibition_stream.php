@@ -136,6 +136,20 @@
 <script> 
     var chatInterval
 
+    //auto redirect
+    function autoRedirect() {
+        jQuery.ajax({
+            url: "/exhibition-stream/auto-redirect/" + <?= $exhibition_users_id ?>, 
+            method: 'POST',
+            success: function (data) {
+                if (data.status == 'redirect') {
+                    alert('다른 브라우저에서 접속하였습니다. 메인페이지로 이동합니다.');
+                    location.href = '/';
+                }
+            }
+        });
+    }
+
     //auto attendance
     jQuery.ajax({
         url: "/exhibition-stream/auto-attendance/" + <?= $exhibition_users_id ?>, 
@@ -239,6 +253,7 @@
         setInterval("updateLastViewTime()" , 1000);
         setInterval("countViewer()" , 3000);
         setInterval("liveEndCheck()", 1000);
+        setInterval("autoRedirect()" , 5000);
 
         //탭 컨트롤 
         var dec = "<?=$exhibition->live_tab?>";
