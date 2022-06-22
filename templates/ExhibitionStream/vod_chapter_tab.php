@@ -1,15 +1,16 @@
 <style>
     .tab-chapter {
         position: relative;
+        padding: 12px;
     }
     .arrow--vod__2 {
         position: absolute;
         right: 0px;
         top: 0px;
     }
-    .table-type .tr-row {
+    /* .table-type .tr-row {
         height: 40px;
-    }
+    } */
     .vod--tab__ul .vod-li {
         margin-top: 2%;
     }
@@ -29,7 +30,7 @@
 
 
 <div class="webinar-cont2">
-    <div class="table-type table-type2" style="margin:20px;">      
+    <div class="table-type table-type2" style="margin:0px 20px;">      
     <?php foreach ($exhibitionVod as $list) : ?>              
         <div class="tr-row">
             <div class="tab-chapter">

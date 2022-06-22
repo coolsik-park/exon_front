@@ -52,13 +52,31 @@
         left: 0px;
         position: absolute;
     }
-
+    @media screen and (max-width: 768px) {
+        .section-my {
+            padding: 12px;
+            margin-bottom: 100px;
+        }
+        .section-my .s-hty1 {
+            margin-bottom: 65px;
+        }
+        .chapter--menu__div {
+            right: 4%;
+        }
+        .vod-time {
+            padding-right: 12px;
+        }
+        .table-type .tr-row {
+            padding: 0;
+        }
+      
+    }
 </style>
 
 <div id="container">      
     <div class="contents">      
         <div class="section-webinar4">
-            <div class="webinar-cont">
+            <div class="webinar-cont vods--div">
                 <div class="section-my">
                     <div class="chapter--menu__div">
                         <a class="chapter--menu__a" href="/exhibition-stream/vod-chapter/<?=$exhibition->id?>/<?=$exhibition_users_id?>">

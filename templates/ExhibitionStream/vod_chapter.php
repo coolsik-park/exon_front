@@ -85,6 +85,26 @@
     .tr {
         text-align:center;
     }
+    @media screen and (max-width: 768px) {
+        .table-type2 a.vod--chapter {
+            width: 50%;
+        }
+        .table-type2 a.vod--chapter {
+            width: 100%;
+        }
+        .chapter--div {
+            height: 130px;
+            border-radius: 0;
+            width: 100%;
+        }
+        .section-my .table-type {
+            position: static;
+            padding: 12px;
+        }
+        .section-my .s-hty1 {
+            margin-left: 12px;
+        }
+    }
 </style>
 
 <div id="container">
