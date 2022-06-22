@@ -383,6 +383,21 @@
         .wb-stream-sect {
             margin-top: 20px;
         }
+        .stream-ipt1 input {
+            width: 100%;
+        }
+        .stream-ipt1 .btn-ty2 {
+            width: 100%;
+        }
+        .stream-sect .row2-wp .row2 {
+            display: block;
+        }
+        .endDate2--style {
+            margin-left: 0;
+        }
+        .stream-sect .row2-wp .row2 .col-th {
+            width: 35%;
+        }
     }
 </style>
 
