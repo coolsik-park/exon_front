@@ -30,7 +30,7 @@
 
 
 <div class="webinar-cont2">
-    <div class="table-type table-type2" style="margin:20px;">      
+    <div class="table-type table-type2" style="margin:0px 20px;">      
     <?php foreach ($exhibitionVod as $list) : ?>              
         <div class="tr-row">
             <div class="tab-chapter">
