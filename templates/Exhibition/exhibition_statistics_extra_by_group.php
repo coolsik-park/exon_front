@@ -29,7 +29,7 @@
                 </li>
                 <li class="active">
                     <a href="">기타</a>
-                    <ul class="s-sub s-sub3" style="width:900px; border:none; padding:0px;">
+                    <ul class="s-sub s-sub3" style=" border:none; padding:0px;">
                         <li class=""><a href="/exhibition/exhibition-statistics-extra/<?=$id?>">전체</a></li>
                         <?php foreach ($exhibitionGroup as $exGroup) : ?>
                         <li id="<?=$exGroup->id?>"><a href="/exhibition/exhibition-statistics-extra-by-group/<?=$id?>/<?=$exGroup->id?>"><?=$exGroup->name?></a></li>
