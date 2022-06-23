@@ -54,11 +54,11 @@
     #member_div {
         margin-top: 20px;
     }
-    ..section1 .sect-tit .btn-ty4 {
-        width: 10rem;
+    .section1 .sect-tit .btn-ty4 {
+        width: 95px;
     }
     .sub-menu .tab > li > a {
-        font-size: 1.1rem;
+        /* font-size: 1.5rem; */
         /* width: 15rem; */
     }
     .sub-menu-inner {
@@ -126,7 +126,7 @@
             bottom: 90px;
         }
         .sub-menu .tab > li > a {
-        font-size: 0.9rem;
+        /* font-size: 0.9rem; */
             /* width: 15rem; */
         }
         .sub-menu-inner {
@@ -140,7 +140,7 @@
     .conts {
         text-align: center;
     }
-    @media  screen and (max-width: 1220px) {
+    @media  screen and (max-width: 1300px) {
         /* .btnMove {
             position: fixed;
             z-index: 1;
@@ -148,8 +148,12 @@
             top: 45px;
         } */
         .sub-menu-inner {
-            width: 110%;
+            width: 115%;
             margin: 0;
+        }
+        .sub-menu .tab > li > a {
+        font-size: 1.05rem;
+            /* width: 15rem; */
         }
     }
 </style>
