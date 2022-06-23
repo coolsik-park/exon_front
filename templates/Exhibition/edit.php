@@ -57,6 +57,14 @@
     ..section1 .sect-tit .btn-ty4 {
         width: 10rem;
     }
+    .sub-menu .tab > li > a {
+        font-size: 1.1rem;
+        /* width: 15rem; */
+    }
+    .sub-menu-inner {
+        width: 85%;
+        margin: 0;
+    }
     @media  screen and (max-width: 768px) {
         .sect1 .photo {
             height: 214px;
@@ -64,6 +72,7 @@
         .btn-wp {
             display: flex;
             justify-content: flex-end;
+            margin-top: 6px;
         }
         .section1 .sect-tit .btn-ty4 {
             width: 29%;
@@ -87,6 +96,10 @@
             background-color: rgba(255,255,255,1);
             border-bottom: 1px solid #dbdbdb;
             height: 50px;
+        }
+        .sub-menu-inner {
+            width: 100%;
+            margin: 0;
         }
     }
     @media  screen and (min-width: 768px) {
@@ -112,6 +125,14 @@
             margin-left: 414px;
             bottom: 90px;
         }
+        .sub-menu .tab > li > a {
+        font-size: 0.9rem;
+            /* width: 15rem; */
+        }
+        .sub-menu-inner {
+            width: 85%;
+            margin: 0 auto;
+        }
     }
     .apply-sect3-cont p{
         word-wrap:break-word;
@@ -120,11 +141,15 @@
         text-align: center;
     }
     @media  screen and (max-width: 1220px) {
-        .btnMove {
+        /* .btnMove {
             position: fixed;
             z-index: 1;
             right: 0px;
             top: 45px;
+        } */
+        .sub-menu-inner {
+            width: 110%;
+            margin: 0;
         }
     }
 </style>
