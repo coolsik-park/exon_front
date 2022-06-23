@@ -147,7 +147,7 @@
                     foreach ($exhibition_users as $key => $exhibition_user): 
                         $d_today = strtotime(date('Y-m-d H:i:s', time()) . "+9 hours");
                         $sdate = strtotime($exhibition_user->exhibition['sdate']);
-                        $sdate_before = strtotime("-900 seconds" . $exhibition_user->exhibition['sdate']);
+                        $sdate_before = strtotime("-1800 seconds" . $exhibition_user->exhibition['sdate']);
                         $edate = strtotime($exhibition_user->exhibition['edate']);
                         $apply_edate = strtotime($exhibition_user->exhibition['apply_edate']);
                         $method = '';
