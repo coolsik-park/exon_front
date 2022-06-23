@@ -103,9 +103,9 @@
                 <?php 
                     foreach ($exhibitions as $key => $exhibition): 
                         $today = strtotime(date('Y-m-d H:i:s', time()));
-                        $sdate = strtotime($exhibition->sdate);
-                        $edate = strtotime($exhibition->edate);
-                        $apply_edate = strtotime($exhibition->apply_edate);
+                        $sdate = strtotime($exhibition->sdate) + 32400;
+                        $edate = strtotime($exhibition->edate) + 32400;
+                        $apply_edate = strtotime($exhibition->apply_edate) + 32400;
                 ?>                  
                     <div class="tr-row" onclick="">
                         <div class="clickDiv">
