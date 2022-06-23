@@ -34,7 +34,7 @@
     .btnMove {
         position: fixed;
         z-index: 1;
-        right: 170px;
+        right: 0px;
         top: -25px;
     }
     .subMenuMove {
@@ -53,6 +53,9 @@
     }
     #member_div {
         margin-top: 20px;
+    }
+    ..section1 .sect-tit .btn-ty4 {
+        width: 10rem;
     }
     @media  screen and (max-width: 768px) {
         .sect1 .photo {
@@ -115,6 +118,14 @@
     }
     .conts {
         text-align: center;
+    }
+    @media  screen and (max-width: 1220px) {
+        .btnMove {
+            position: fixed;
+            z-index: 1;
+            right: 0px;
+            top: 45px;
+        }
     }
 </style>
 
