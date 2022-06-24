@@ -94,7 +94,7 @@
                                                 </div>
                                                 <div class="ipt-search">
                                                     <form id="searchForm">
-                                                        <input type="text" id="key" name="key" placeholder="이름">
+                                                        <input type="text" id="key" name="key" placeholder="이름" onkeyup="enterkey()">
                                                         <button type="button" id="searchButton"><span class="ico-sh">검색</span></button>
                                                     </form>
                                                 </div>
@@ -226,6 +226,14 @@
 </body>
     
 <script>
+    //enterkey
+    function enterkey() {
+        if (window.event.keyCode == 13) {
+            $("#searchButton").click();
+            return false;
+        }
+    }
+
     //발송
     $("#send").click(function () {
         var queryString = $("#postForm").serialize();
@@ -562,11 +570,4 @@
             }
         });
     });
-
-    //엔터키 입력 시
-    function enterkey() {
-        if (window.event.keyCode == 13) {
-            $("#searchButton").click();
-        }
-    }
 </script>  
