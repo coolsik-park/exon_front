@@ -78,10 +78,8 @@ class ExhibitionUsersController extends AppController
             endif;
             $exhibitionUser->users_email = $answerData['users_email'];
             $exhibitionUser->users_name = $answerData['users_name'];
-            if ($answerData['users_hp'] != '010') :
-                $exhibitionUser->users_hp = $answerData['users_hp'];
-            else : 
-                $exhibitionUser->users_hp = null;
+            if ($answerData['users_hp'] != null) :
+                $exhibitionUser->users_hp = str_replace(" ", "", str_replace("-", "", $answerData['users_hp']));
             endif;
             if ($answerData['users_sex'] == '') :
                 $exhibitionUser->users_sex = null;
