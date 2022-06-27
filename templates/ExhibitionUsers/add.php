@@ -188,7 +188,7 @@
                                 if ($amount == 0) {
                                     echo "무료";
                                 } else {
-                                    echo number_format($amount);
+                                    echo number_format($amount)."원";
                                 }
                             else :
                                 echo '무료';
