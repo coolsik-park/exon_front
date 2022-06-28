@@ -40,7 +40,7 @@
         padding-right: 17px;
     }
     .apply-sect1-cont .conts .btns .group select {
-        width: 68%;
+        width: 55%;
     }
     
     @media  screen and (max-width: 768px) {
