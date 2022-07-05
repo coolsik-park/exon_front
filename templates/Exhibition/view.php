@@ -36,6 +36,12 @@
     .info-list {
         text-align: left;
     }
+    .apply-sect1-cont .conts .btns .group .tx {
+        padding-right: 17px;
+    }
+    .apply-sect1-cont .conts .btns .group select {
+        width: 55%;
+    }
     
     @media  screen and (max-width: 768px) {
         .photos img {
@@ -364,7 +370,7 @@
         var people_count = value.split(';')[2];
 
         if (amount != 0) {
-            $('#spanGroup').replaceWith('<span class="tx" id="spanGroup">' + amount + '</span>');
+            $('#spanGroup').replaceWith('<span class="tx" id="spanGroup">' + amount + '원</span>');
         } else {
             $('#spanGroup').replaceWith('<span class="tx" id="spanGroup">무료</span>');
         }
