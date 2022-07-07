@@ -1441,6 +1441,7 @@
     });
 
     //탭 컨트롤    
+    
     $("#li10").attr("class", "active");
 
     $("#tab").val("<?= $exhibition->vod_tab ?>");
@@ -1449,12 +1450,13 @@
     var bin = dec.toString(2);
     if (bin.length < 10) {
         var zero = '';
-        for (i = 0; i < 10 - bin.length; i++) {
+        for (var i = 0; i < 10 - bin.length; i++) {
             zero += '0';
         }
         bin = zero + bin;
     }
-    for (i = 0; i < bin.length; i++) {
+    
+    for (var i = 0; i < bin.length; i++) {
         var result = bin.substring(i, i + 1);
         if (parseInt(result) == 1) {
             $("#li" + i).attr("class", "active");
@@ -1683,17 +1685,6 @@
 
     $("#btn_tab10").click(function() {
         $(".webinar-tab-body").load("/exhibition-stream/vod-chapter-tab/<?= $exhibition->id ?>/");
-        $("#li0").attr("class", "");
-        $("#li1").attr("class", "");
-        $("#li2").attr("class", "");
-        $("#li3").attr("class", "");
-        $("#li4").attr("class", "");
-        $("#li5").attr("class", "");
-        $("#li6").attr("class", "");
-        $("#li7").attr("class", "");
-        $("#li8").attr("class", "");
-        $("#li9").attr("class", "");
-
     });
 
 
