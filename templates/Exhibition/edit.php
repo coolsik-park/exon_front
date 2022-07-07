@@ -55,7 +55,7 @@
         margin-top: 20px;
     }
     .section1 .sect-tit .btn-ty4 {
-        width: 95px;
+        width: 110px;
     }
     .sub-menu .tab > li > a {
         /* font-size: 1.5rem; */

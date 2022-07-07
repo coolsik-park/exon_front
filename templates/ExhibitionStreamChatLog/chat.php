@@ -75,6 +75,16 @@
     flex: 1;
     border-radius: 4px;
     /* border: 1px solid #ff9800; */
+    display: block;
+  }
+  #usermsg2 {
+    display: none;
+  }
+  #submitmsg {
+    display: block;
+  }
+  #submitmsg2 {
+    display: none;
   }
    
   #name {
@@ -176,6 +186,9 @@
   #submitmsg {
     margin-left: 3%;
   }
+  #submitmsg2 {
+    margin-left: 3%;
+  }
 
   .webinar-cont-ty1-body {
     height: 80%;
@@ -196,6 +209,23 @@
     .webinar-cont-ty1-body {
     height: 410px;
   }
+  }
+  @media  screen and (max-width: 768px) {
+    #usermsg {
+      flex: 1;
+      border-radius: 4px;
+      /* border: 1px solid #ff9800; */
+      display: none;
+    }
+    #usermsg2 {
+      display: block;
+    }
+    #submitmsg {
+      display: none;
+    }
+    #submitmsg2 {
+      display: block;
+    }
   }
 </style>
 
@@ -218,7 +248,7 @@
     <h3 class="sr-only">실시간 채팅</h3>
     <div class="webinar-cont-ty1">
         <?php if ($exhibition->notice != null) : ?>
-          <div class="noticeBox" style="word-wrap:break-word; overflow-y: scroll; height: 60px; position:sticky; top: 0; background: white; border-bottom:3px solid #a5a5a5; scrollbar-width: none;"><?= $this->Text->autoParagraph($exhibition->notice) ?><br></div>
+          <div class="noticeBox" style="word-wrap:break-word; overflow-y: scroll; height: 55px; position:sticky; top: 0; background: white; border-bottom:3px solid #a5a5a5; scrollbar-width: none;"><?= $this->Text->autoParagraph($exhibition->notice) ?><br></div>
         <?php endif; ?>
         <div class="webinar-cont-ty1-body"> 
               <!-- <p class="wb-alert">사용할 탭을 선택해주세요</p>                                   
@@ -233,7 +263,9 @@
             <div class="chatting-submit">
                 <input type="hidden" name="last_id" id="last_id" value="1">
                 <textarea id="usermsg" name="usermsg" placeholder="" rows="2" cols="20" wrap="hard" onkeyup="enterkey()"></textarea>
+                <textarea id="usermsg2" name="usermsg" placeholder="" rows="2" cols="20" wrap="hard" onkeyup="enterkey2()"></textarea>
                 <button type="submit" id="submitmsg" name="submitmsg" class="btn-ty4 redbg">전송</button>
+                <button type="submit" id="submitmsg2" name="submitmsg" class="btn-ty4 redbg">전송</button>
             </div>
         </div>
     </div>                            
@@ -263,6 +295,15 @@ function enterkey() {
     $("#usermsg").val("");
     // loadLog()
     return false;
+  }
+}
+function enterkey2() {
+  if (!event.shiftKey && window.event.keyCode == 13) {
+    var clientmsg = $("#usermsg2").val().replace(/(?:\r\n|\r|\n)/g,'<br/>');
+    if (clientmsg == '<br/>') {
+      $("#usermsg").val("");
+      return false;
+    }
   }
 }
 
@@ -298,6 +339,14 @@ $(document).ready(function(){
         var clientmsg = $("#usermsg").val().replace(/(?:\r\n|\r|\n)/g,'<br/>');
         $.post("/ExhibitionStreamChatLog/chatLog/<?=$stream_id?>", { text: clientmsg });
         $("#usermsg").val("");
+        // loadLog()
+        return false;
+    });
+
+    $("#submitmsg2").click(function () {
+        var clientmsg = $("#usermsg2").val().replace(/(?:\r\n|\r|\n)/g,'<br/>');
+        $.post("/ExhibitionStreamChatLog/chatLog/<?=$stream_id?>", { text: clientmsg });
+        $("#usermsg2").val("");
         // loadLog()
         return false;
     });
