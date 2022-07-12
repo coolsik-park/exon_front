@@ -55,7 +55,7 @@
         margin-top: 20px;
     }
     .section1 .sect-tit .btn-ty4 {
-        width: 95px;
+        width: 110px;
     }
     .sub-menu .tab > li > a {
         /* font-size: 1.5rem; */
@@ -968,11 +968,11 @@
     //저장
     $(document).on("click", "button[name='save']", function() {
         //Validation
-        if ($("#mainImg").attr("src") == "../../images/img-no3.png") {
-            alert("행사 이미지를 등록해주세요.");
-            window.scrollTo(0,0);
-            return false;
-        }
+        // if ($("#mainImg").attr("src") == "../../images/img-no3.png") {
+        //     alert("행사 이미지를 등록해주세요.");
+        //     window.scrollTo(0,0);
+        //     return false;
+        // }
 
         if ($("#title").val().length == 0) {
             alert("행사이름을 입력해주세요.");
