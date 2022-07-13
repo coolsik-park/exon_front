@@ -397,8 +397,18 @@ class ExhibitionController extends AppController
                 }       
 
             } else {
-                $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
-                return $response;
+                $exhibition = $this->Exhibition->get($id);
+                $exhibition->image_path = 'img';
+                $exhibition->image_name = 'img-no3.png';
+
+                if ($this->Exhibition->save($exhibition)) {
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'success']));
+                    return $response;
+                } else {
+                    $connection->rollback(); 
+                    $response = $this->response->withType('json')->withStringBody(json_encode(['status' => 'fail']));
+                    return $response;
+                }     
             }
         }
     }
