@@ -40,7 +40,27 @@
         padding-right: 17px;
     }
     .apply-sect1-cont .conts .btns .group select {
-        width: 55%;
+        width: 72%;
+    }
+    .btns {
+        display: flex;
+        height: 100px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .apply-sect1-cont .conts .btns {
+        align-items: flex-start;
+    }
+    .btn__join {
+        /* margin-top: 30%; */
+    }
+    .btn__join2 {
+    }
+    .apply_btn_div {
+        margin-top: 5%;
+    }
+    .apply-sect1-cont .conts .btns .group {
+        width: 350px;
     }
     
     @media  screen and (max-width: 768px) {
@@ -58,8 +78,20 @@
             width:100%;
         }
         #apply_button {
-            width:28%;
+            width:45%;
         }
+        .apply_btn_div {
+            display: flex;
+            width: 95%;
+        }
+        .apply_btn_div {
+            margin-top: 2%;
+        }
+        .apply-sect1-cont .conts .btns {
+            height: 16%;
+            align-items: center;
+        }
+        
     }
     @media  screen and (min-width: 768px) {
         .photos img {
@@ -206,7 +238,10 @@
                                             <?= $this->Form->select('', $groups, ['id' => 'group']) ?>                                   
                                             <span class="tx" id="spanGroup"></span>
                                         </div>
-                                        <a id="apply_button" href="" class="btn-join" id="btn-join">참가 신청</a>
+                                        <div class="apply_btn_div">
+                                                <a id="apply_button" href="" class="btn-join btn__join" id="btn-join">참가 신청</a>
+                                                <a id="apply_button" href="/exhibition-uesrs/sign-up/application" class="btn-join btn__join2">신청 내역</a>
+                                        </div>
                             <?php 
                                     else:
                                         if ($exhibitionUsers[0]->status == 4):
@@ -232,7 +267,10 @@
                                                 <?= $this->Form->select('', $groups, ['id' => 'group']) ?>
                                                 <span class="tx" id="spanGroup"></span>
                                             </div>
-                                            <a id="apply_button" href="" class="btn-join" id="btn-join">참가 신청</a>
+                                            <div class="apply_btn_div">
+                                                <a id="apply_button" href="" class="btn-join btn__join" id="btn-join">참가 신청</a>
+                                                <a id="apply_button" href="/exhibition-uesrs/sign-up/application" class="btn-join btn__join2">신청 내역</a>
+                                            </div>
                             <?php
                                         endif;
                                     endif;
