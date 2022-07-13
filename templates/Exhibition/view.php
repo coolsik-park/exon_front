@@ -231,7 +231,7 @@
                                 </span>
                             </li>
                         </ul>
-                        <div class="btns" id="btns">
+                        <div class="btns btns-join" id="btns">
                             <?php 
                                 // $today = date('Y-m-d H:i:s', time()+32322);
                                 // if (date('Y-m-d H:i:s', strtotime($exhibition->apply_sdate)) <= $today && $today <= date('Y-m-d H:i:s', strtotime($exhibition->apply_edate))):
@@ -255,8 +255,10 @@
                                             <?php elseif($exhibition->is_vod == 1) : ?>
                                                 <a href="/exhibition-stream/vod-chapter/<?= $exhibition->id ?>/<?=$users_id?>" class="btn-join" id="btn-join">VOD 시청</a>
                                             <?php else : ?>
-                                                <a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition->id ?>/<?=$users_id?>" class="btn-join" id="btn-join">라이브 시청</a>
-                                                <a href="/exhibition-stream/vod-chapter/<?= $exhibition->id ?>/<?=$users_id?>" class="btn-join" id="btn-join" style="margin-left:30px;">VOD 시청</a>
+                                                <div>
+                                                    <a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition->id ?>/<?=$users_id?>" class="btn-join" id="btn-join">라이브 시청</a>
+                                                    <a href="/exhibition-stream/vod-chapter/<?= $exhibition->id ?>/<?=$users_id?>" class="btn-join" id="btn-join" style="margin-left:30px;">VOD 시청</a>
+                                                </div>
                                             <?php endif; ?>
                             <?php
                                             else:
