@@ -243,7 +243,7 @@
                                         </div>
                                         <div class="apply_btn_div">
                                                 <a id="apply_button" href="" class="btn-join btn__join" id="btn-join" style="margin-right: 2%;">참가 신청</a>
-                                                <a id="apply_button" href="/exhibition-uesrs/sign-up/application" class="btn-join btn__join2">신청 내역</a>
+                                                <a id="apply_button" href="/exhibition-users/sign-up/application" class="btn-join btn__join2">신청 내역</a>
                                         </div>
                             <?php 
                                     else:
@@ -272,7 +272,7 @@
                                             </div>
                                             <div class="apply_btn_div">
                                                 <a id="apply_button" href="" class="btn-join btn__join" id="btn-join" style="margin-right: 2%;">참가 신청</a>
-                                                <a id="apply_button" href="/exhibition-uesrs/sign-up/application" class="btn-join btn__join2">신청 내역</a>
+                                                <a id="apply_button" href="/exhibition-users/sign-up/application" class="btn-join btn__join2">신청 내역</a>
                                             </div>
                             <?php
                                         endif;
