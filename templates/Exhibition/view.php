@@ -74,15 +74,15 @@
             max-height: 40%;
         }
         .apply-sect1-cont .conts .btns .btn-join {
-            margin: 0 auto;
+            /* margin: 0 auto; */
             width:100%;
         }
         #apply_button {
-            width:48%;
+            width:100%;
         }
         .apply_btn_div {
             display: flex;
-            width: 95%;
+            width: 98%;
         }
         .apply_btn_div {
             margin-top: 2%;
@@ -90,6 +90,9 @@
         .apply-sect1-cont .conts .btns {
             height: 16%;
             align-items: center;
+        }
+        .btn__join2 {
+            margin-left: 2%;
         }
         
     }
@@ -239,7 +242,7 @@
                                             <span class="tx" id="spanGroup"></span>
                                         </div>
                                         <div class="apply_btn_div">
-                                                <a id="apply_button" href="" class="btn-join btn__join" id="btn-join">참가 신청</a>
+                                                <a id="apply_button" href="" class="btn-join btn__join" id="btn-join" style="margin-right: 2%;">참가 신청</a>
                                                 <a id="apply_button" href="/exhibition-uesrs/sign-up/application" class="btn-join btn__join2">신청 내역</a>
                                         </div>
                             <?php 
@@ -268,7 +271,7 @@
                                                 <span class="tx" id="spanGroup"></span>
                                             </div>
                                             <div class="apply_btn_div">
-                                                <a id="apply_button" href="" class="btn-join btn__join" id="btn-join">참가 신청</a>
+                                                <a id="apply_button" href="" class="btn-join btn__join" id="btn-join" style="margin-right: 2%;">참가 신청</a>
                                                 <a id="apply_button" href="/exhibition-uesrs/sign-up/application" class="btn-join btn__join2">신청 내역</a>
                                             </div>
                             <?php
