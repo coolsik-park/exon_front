@@ -94,6 +94,10 @@
         .btn__join2 {
             margin-left: 2%;
         }
+        .btn-live {
+            display: flex;
+            width: 100%;
+        }
         
     }
     @media  screen and (min-width: 768px) {
@@ -255,7 +259,7 @@
                                             <?php elseif($exhibition->is_vod == 1) : ?>
                                                 <a href="/exhibition-stream/vod-chapter/<?= $exhibition->id ?>/<?=$users_id?>" class="btn-join" id="btn-join">VOD 시청</a>
                                             <?php else : ?>
-                                                <div>
+                                                <div class="btn-live">
                                                     <a href="/exhibition-stream/watch-exhibition-stream/<?= $exhibition->id ?>/<?=$users_id?>" class="btn-join" id="btn-join">라이브 시청</a>
                                                     <a href="/exhibition-stream/vod-chapter/<?= $exhibition->id ?>/<?=$users_id?>" class="btn-join" id="btn-join" style="margin-left:30px;">VOD 시청</a>
                                                 </div>
