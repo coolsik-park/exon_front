@@ -78,7 +78,7 @@
             width:100%;
         }
         #apply_button {
-            width:45%;
+            width:48%;
         }
         .apply_btn_div {
             display: flex;
