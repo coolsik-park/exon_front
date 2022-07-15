@@ -48,7 +48,7 @@
     }
     .chapter--title__char {
         font-size: 16px;
-        top: 8px;
+        top: 5px;
         left: 0px;
         position: absolute;
     }
@@ -74,6 +74,19 @@
         }
         .table-type .tr-row {
             padding: 0;
+        }
+        .vod-ul {
+            margin:2% 0 2% 3%;
+            font-size: 0.9rem;
+        }
+        .vod-time {
+            font-size: 0.9rem;
+        }
+        .chapter--title__char {
+            font-size: 0.9rem;
+            top: 0px;
+            left: 0px;
+            position: absolute;
         }
       
     }

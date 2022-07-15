@@ -27,6 +27,8 @@
             <div class="sect-tit">
                 <h3 class="s-hty1">사전 설문 데이터<p style="color:gray; font-size:5px;"></p></h3>
                 <div class="btn-wp">
+                    <!-- <label class="chk-dsg2"><input type="checkbox" id="checkAll"><span>선택</span></label> 전체선택 -->
+                    <input id="checkAll" type="button" value="전체선택" class="btn-ty2 bor">
                     <input id="download" type="submit" value="다운로드" class="btn-ty2 bor">
                 </div>
             </div>
@@ -43,7 +45,7 @@
                     if ($count == 0 && $parentData['is_multiple'] == 'Y') {
             ?>
             <div class="p-data-item-wp">
-                <label class="chk-dsg2"><input type="checkbox" id="checked[]" name="checked[]"
+                <label class="chk-dsg2"><input type="checkbox" id="checked[]" name="checked[]" class="checkbox"
                         value=<?=$parentData['id'] ?> disabled="disabled"><span>선택</span></label>
                 <div class="p-data-item">
                     <h3 class="tit">
@@ -113,7 +115,7 @@
                     }else {
             ?>
             <div class="p-data-item-wp">
-                <label class="chk-dsg2"><input type="checkbox" id="checked[]" name="checked[]"
+                <label class="chk-dsg2"><input type="checkbox" id="checked[]" name="checked[]" class="checkbox"
                         value=<?=$parentData['id'] ?>><span>선택</span></label>
                 <div class="p-data-item">
                     <h3 class="tit">
@@ -191,6 +193,7 @@
                 <h3 class="s-hty1">설문 데이터<p style="color:gray; font-size:5px;"></p></h3>
                 <?php if ($beforeParentData[0] == '') : ?>
                 <div class="btn-wp">
+                    <input id="checkAll" type="button" value="전체선택" class="btn-ty2 bor">
                     <input id="download" type="submit" value="다운로드" class="btn-ty2 bor">
                 </div>
                 <?php endif; ?>
@@ -209,7 +212,7 @@
                     if ($count == 0 && $parentData['is_multiple'] == 'Y') {
             ?>
             <div class="p-data-item-wp">
-                <label class="chk-dsg2"><input type="checkbox" id="checked[]" name="checked[]"
+                <label class="chk-dsg2"><input type="checkbox" id="checked[]" name="checked[]" class="checkbox"
                         value=<?=$parentData['id'] ?> disabled="disabled"><span>선택</span></label>
                 <div class="p-data-item">
                     <h3 class="tit">
@@ -277,7 +280,7 @@
                     }else {
             ?>
             <div class="p-data-item-wp">
-                <label class="chk-dsg2"><input type="checkbox" id="checked[]" name="checked[]"
+                <label class="chk-dsg2"><input type="checkbox" id="checked[]" name="checked[]" class="checkbox"
                         value=<?=$parentData['id'] ?>><span>선택</span></label>
                 <div class="p-data-item">
                     <h3 class="tit">
@@ -361,7 +364,7 @@
 </div>
 
 <script>
-    $(document).on("click", "#download", function () {
-        
+    $(document).on("click", "#checkAll", function () {
+        $(".checkbox").prop("checked", true);
     });
 </script>
