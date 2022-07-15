@@ -21,6 +21,7 @@ class ExhibitionStreamController extends AppController
         $this->Auth->allow();
         $this->Auth->deny(['setExhibitionStream']);
         $this->Auth->deny(['editExhibitionStream']);
+        $this->Auth->deny(['setExhibitionVod']);
     }
 
     public function isAuthorized() {
