@@ -2201,7 +2201,7 @@ class ExhibitionStreamController extends AppController
         $Exhibition = $this->getTableLocator()->get('Exhibition');
         $exhibition = $Exhibition->get($exhibition_id);
         $ExhibitionVod = $this->getTableLocator()->get('ExhibitionVod');
-        $exhibitionVod = $ExhibitionVod->find('all', ['contain' => 'ChildExhibitionVod'])->where(['ExhibitionVod.exhibition_id' => $exhibition_id, 'ExhibitionVod.parent_id IS' => null, 'is_show' => 1, 'is_paid' => 1])->order(['idx' => 'ASC']);
+        $exhibitionVod = $ExhibitionVod->find('all', ['contain' => 'ChildExhibitionVod'])->where(['ExhibitionVod.exhibition_id' => $exhibition_id, 'ExhibitionVod.parent_id IS' => null, 'ExhibitionVod.is_show' => 1, 'ExhibitionVod.is_paid' => 1])->order(['idx' => 'ASC']);
         $exhibitionVod->contain([
             'ChildExhibitionVod' => [
                 'sort' => ['ChildExhibitionVod.idx' => 'ASC']
@@ -2215,12 +2215,18 @@ class ExhibitionStreamController extends AppController
     {
         $exhibitionStream = $this->ExhibitionStream->find('all')->where(['exhibition_id' => $exhibition_id])->toArray();
         $ExhibitionVod = $this->getTableLocator()->get('ExhibitionVod');
-        $exhibitionVod = $ExhibitionVod->find('all')->where(['ExhibitionVod.exhibition_id' => $exhibition_id, 'ExhibitionVod.parent_id IS' => null, 'is_show' => 1, 'is_paid' => 1])->order(['idx' => 'ASC']);
-        $exhibitionVod->contain([
-            'ChildExhibitionVod' => [
-                'sort' => ['ChildExhibitionVod.idx' => 'ASC']
-            ]
-        ])->toArray();
+        $exhibitionVod = $ExhibitionVod->find('all')->where(['ExhibitionVod.exhibition_id' => $exhibition_id, 'ExhibitionVod.parent_id IS' => null, 'ExhibitionVod.is_show' => 1, 'ExhibitionVod.is_paid' => 1])->order(['idx' => 'ASC']);
+        // $exhibitionVod->contain([
+        //     'ChildExhibitionVod' => [
+        //         'sort' => ['ChildExhibitionVod.idx' => 'ASC']
+        //     ]
+        // ])->toArray();
+        $exhibitionVod->contain('ChildExhibitionVod', function ($q) {
+            return $q
+                ->find('all')
+                ->where(['ChildExhibitionVod.is_show' => 1, 'ChildExhibitionVod.is_paid' => 1])
+                ->order(['ChildExhibitionVod.idx' => 'ASC']);
+        })->toArray();
         $Exhibition = $this->getTableLocator()->get('Exhibition');
         $exhibition = $Exhibition->get($exhibition_id);
 
@@ -2337,7 +2343,7 @@ class ExhibitionStreamController extends AppController
     {
         $ExhibitionVod = $this->getTableLocator()->get('ExhibitionVod');
         $chapter = $ExhibitionVod->get($chapter_id)->toArray();
-        $vods = $ExhibitionVod->find('all')->where(['parent_id' => $chapter_id, 'is_paid' => 1])->order(['idx' => 'ASC'])->toArray();
+        $vods = $ExhibitionVod->find('all')->where(['parent_id' => $chapter_id, 'is_show' => 1, 'is_paid' => 1])->order(['idx' => 'ASC'])->toArray();
 
         $Exhibition = $this->getTableLocator()->get('Exhibition');
         $exhibition = $Exhibition->get($exhibition_id);
