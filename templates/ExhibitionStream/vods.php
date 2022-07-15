@@ -11,7 +11,7 @@
     }
     .vod-li {
         margin-top: 5%;
-        padding: 0px 0px 20px 0px;
+        padding: 0px 0px 50px 0px;
         position: relative;
     }
     .vod-time {
@@ -34,7 +34,8 @@
         font-size: 1rem;
         position: absolute;
         right: 0%;
-        top: 20%;
+        top: 60px;
+        z-index: 10;
     }
     .section-my {
         position: relative;
@@ -51,6 +52,11 @@
         left: 0px;
         position: absolute;
     }
+    .vod-time {
+        position: absolute;
+        right: 0;
+        bottom: 10px;
+    }
     @media screen and (max-width: 768px) {
         .section-my {
             padding: 12px;
@@ -61,6 +67,7 @@
         }
         .chapter--menu__div {
             right: 4%;
+            top: 60px;
         }
         .vod-time {
             padding-right: 12px;
