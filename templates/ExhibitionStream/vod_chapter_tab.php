@@ -30,6 +30,16 @@
         font-size: 1rem;
         float: right;
     }
+
+    @media screen and (max-width: 768px) {
+        .chapterTab--li__title {
+            font-size: 0.9rem;
+        }
+        .tab-vod-time {
+            font-size: 0.9rem;
+            float: right;
+        }
+    }
 </style>
 
 
