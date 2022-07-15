@@ -60,6 +60,9 @@
         right: 0;
         bottom: 15px;
     }
+    .s-hty1 {
+        line-height: 0;
+    }
     @media screen and (max-width: 768px) {
         .section-my {
             padding: 12px;
