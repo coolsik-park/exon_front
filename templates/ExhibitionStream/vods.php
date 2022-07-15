@@ -51,14 +51,14 @@
     }
     .chapter--title__char {
         font-size: 16px;
-        top: 5px;
+        top: 0px;
         left: 0px;
         position: absolute;
     }
     .vod-time {
         position: absolute;
         right: 0;
-        bottom: 10px;
+        bottom: 15px;
     }
     @media screen and (max-width: 768px) {
         .section-my {
