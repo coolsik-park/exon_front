@@ -386,6 +386,16 @@
 </div>
 
 <script>
+    $(document).on('click', '.tg-menu', function () {
+        $('.sub-menu-inner').hide();
+        $('#btns').hide();
+    });
+
+    $(document).on('click', '.tg-close', function () {
+        $('.sub-menu-inner').show();
+        $('#btns').show();
+    });
+
     ui.slider.photoSlider();
 
     var tabArea = $('.tab');
