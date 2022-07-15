@@ -24,7 +24,10 @@
         transform: rotate( 90deg );
     }
     .chapterTab--li__title {
-        font-size: 1.2rem;
+        font-size: 1rem;
+    }
+    .vod-time {
+        font-size: 1rem;
     }
 </style>
 
