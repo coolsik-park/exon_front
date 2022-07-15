@@ -21,6 +21,22 @@
         .arrow--vod2 {
             width: 20px;
         }
+        .vod-time {
+            position: absolute;
+            right: 0;
+            bottom: 15px;
+        }
+        .vod-li {
+            margin-top: 5%;
+            padding: 0px 0px 15px 0px;
+            position: relative;
+            padding-left: 25px;
+            padding-right: 80px;
+            line-height: 24px;
+        }
+        .vod--li__title {
+            word-break: keep-all;
+        }
         
     </style>
 </head>
