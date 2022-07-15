@@ -62,7 +62,7 @@
     }
 
     .chapter--div {
-        width: 82%;
+        width: 90%;
         height: 360px;
         margin-bottom: 30px;
         margin-right: 15px;
@@ -79,7 +79,7 @@
     }
 
     .chapter--title {
-        font-size:18px;
+        font-size:17px;
     }
 
     .tr {
