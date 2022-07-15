@@ -17,6 +17,9 @@
     .vod-li {
         margin-top: 5%;
     }
+    .vod-liT {
+        padding-right: 0;
+    }
     .tab--ul {
         display: none;
     }
@@ -56,9 +59,9 @@
             <ul class="vod-ul tab--ul vod--tab__ul">
             <?php foreach ($list['child_exhibition_vod'] as $vod) : ?>
                 <?php if ($exhibition_users_id == 0) : ?>
-                    <li class="vod-li chapterTab--li__title"><a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition->id?>/<?=$vod['id']?>"><?=$vod['title']?></a><span class="tab-vod-time"><?=sprintf('%02d:%02d:%02d', (round($vod['duration'])/3600),(round($vod['duration'])/60%60), round($vod['duration'])%60)?></span></li>
+                    <li style="padding-right: 0px;" class="vod-li vod-liT chapterTab--li__title"><a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition->id?>/<?=$vod['id']?>"><?=$vod['title']?></a><span class="tab-vod-time"><?=sprintf('%02d:%02d:%02d', (round($vod['duration'])/3600),(round($vod['duration'])/60%60), round($vod['duration'])%60)?></span></li>
                 <?php else : ?>
-                    <li class="vod-li chapterTab--li__title"><a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition->id?>/<?=$vod['id']?>/<?=$exhibition_users_id?>"><?=$vod['title']?></a><span class="tab-vod-time"><?=sprintf('%02d:%02d:%02d', (round($vod['duration'])/3600),(round($vod['duration'])/60%60), round($vod['duration'])%60)?></span></li>
+                    <li style="padding-right: 0px;" class="vod-li chapterTab--li__title"><a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition->id?>/<?=$vod['id']?>/<?=$exhibition_users_id?>"><?=$vod['title']?></a><span class="tab-vod-time"><?=sprintf('%02d:%02d:%02d', (round($vod['duration'])/3600),(round($vod['duration'])/60%60), round($vod['duration'])%60)?></span></li>
                 <?php endif; ?>
             <?php endforeach; ?>
             </ul>

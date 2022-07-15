@@ -11,8 +11,11 @@
     }
     .vod-li {
         margin-top: 5%;
-        padding: 0px 0px 50px 0px;
+        padding: 0px 0px 15px 0px;
         position: relative;
+        padding-left: 25px;
+        padding-right: 80px;
+        line-height: 35px;
     }
     .vod-time {
         float: right;
@@ -40,11 +43,11 @@
     .section-my {
         position: relative;
     }
+    .vod--li__title {
+        word-break: keep-all;
+    }
     .chapter--menu__img {
         width: 20px;
-    }
-    .vod--li__title {
-        margin-left: 25px;
     }
     .chapter--title__char {
         font-size: 16px;
@@ -87,6 +90,14 @@
             top: 0px;
             left: 0px;
             position: absolute;
+        }
+        .vod-li {
+            margin-top: 5%;
+            padding: 0px 0px 15px 0px;
+            position: relative;
+            padding-left: 25px;
+            padding-right: 80px;
+            line-height: 24px;
         }
       
     }
