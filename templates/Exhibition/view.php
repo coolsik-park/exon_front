@@ -98,7 +98,9 @@
             display: flex;
             width: 100%;
         }
-        
+        .apply-sect1-cont .conts .btns .group .tx {
+            width: 40%;
+        }
     }
     @media  screen and (min-width: 768px) {
         .photos img {
