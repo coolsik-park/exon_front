@@ -2,6 +2,11 @@
     *{
         font-size:1.06rem;
     }
+    .tx {
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+    }
     .webinar-cont-ty4-body .sect-ovf1 {
         height: 100%;
     }
