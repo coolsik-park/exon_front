@@ -19,6 +19,12 @@
     input[type="radio"] {
         display: none;
     }
+    @media screen and (max-width: 768px) {
+        .webinar-cont-ty1-btm .btn-ty4 {
+            padding: 6px 0 7px;
+            margin-top: 6px;
+        }
+    }
 </style>
 
 <div class="webinar-cont1">
