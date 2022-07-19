@@ -70,6 +70,9 @@
         }
         .section-my .s-hty1 {
             margin-bottom: 65px;
+            /* padding-right: 90px; */
+            word-break: keep-all;
+            line-height: 40px;
         }
         .chapter--menu__div {
             right: 4%;
