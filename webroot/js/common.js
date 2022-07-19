@@ -208,7 +208,14 @@
             // console.log('pc');
             $('#container').css('min-height',cHt);
             $('.section-webinar4').css('min-height',cHt);
-            $('.section-webinar4 .webinar-tab-body').css('height',cHt - wbHt-80+70);
+            var sHt = $('.sub-menu').outerHeight();
+            if($('.sub-menu').length){
+                $('.section-webinar4 .webinar-tab-body').css('height',cHt - sHt - wbHt-80+70);
+            }
+            else {
+                $('.section-webinar4 .webinar-tab-body').css('height',cHt - wbHt-80+70);
+            }
+          
 
 
         } else {
