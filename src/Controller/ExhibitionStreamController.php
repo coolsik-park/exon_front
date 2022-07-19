@@ -2247,6 +2247,8 @@ class ExhibitionStreamController extends AppController
             ]
         ])->toArray();
 
+        $jsExhibitionVod = $ExhibitionVod->find('all')->where(['exhibition_id' => $exhibition_id])->toArray();
+
         $total_duration = 0;
         $unpaid_duration = 0;
         $vods = $ExhibitionVod->find('all')->where(['exhibition_id' => $exhibition_id, 'parent_id IS NOT' => null])->toArray();
@@ -2262,7 +2264,7 @@ class ExhibitionStreamController extends AppController
 
         $user = $this->Auth->user();
 
-        $this->set(compact('exhibition', 'exhibition_id', 'exhibitionVod', 'user', 'total_duration', 'unpaid_duration'));
+        $this->set(compact('exhibition', 'exhibition_id', 'exhibitionVod', 'user', 'total_duration', 'unpaid_duration', 'jsExhibitionVod'));
     }
 
     public function exhibitionVodAddViewer ($exhibition_vod_id = null) {

@@ -834,10 +834,22 @@
     //setting chapter
     $(".set--vod__1").click(function() {
         $(this).children().css("display", "none");
+
+        const jsExhibitionVod = '<?php echo json_encode($jsExhibitionVod);?>';
+        const exhibitionVod = JSON.parse(jsExhibitionVod);
+        
+        let vodTitle;
+
+        for (let i = 0; i < exhibitionVod.length; i++) {
+            if ($(this).attr('name') == exhibitionVod[i]['id']) {
+                vodTitle = exhibitionVod[i]['title'];
+            }
+        }
+
         var html = "";
         html += "<div class='wb-stream-sect' style='border: none;'>";
         html += "    <div class='stream-ipt1'>";
-        html += "        <input type='text' class='c-name' placeholder='챕터 제목을 입력해주세요.'><button type='button' class='btn-ty2 bor updateChapter' name='"+$(this).attr('name')+"'>확인</button><button type='button' class='btn-ty2 bor vod--chapter__cancle'>취소</button>";
+        html += "        <input type='text' class='c-name' placeholder='챕터 제목을 입력해주세요.' value='"+vodTitle+"'><button type='button' class='btn-ty2 bor updateChapter' name='"+$(this).attr('name')+"'>확인</button><button type='button' class='btn-ty2 bor vod--chapter__cancle'>취소</button>";
         html += "    </div>";
         html += "</div>";
 
@@ -875,6 +887,19 @@
 
     // setting vod 
     $(document).on("click", ".set--vod__2", function() {
+        const jsExhibitionVod = '<?php echo json_encode($jsExhibitionVod);?>';
+        const exhibitionVod = JSON.parse(jsExhibitionVod);
+        
+        let vodTitle;
+        let vodDescription;
+
+        for (let i = 0; i < exhibitionVod.length; i++) {
+            if ($(this).attr('name') == exhibitionVod[i]['id']) {
+                vodTitle = exhibitionVod[i]['title'];
+                vodDescription = exhibitionVod[i]['description'];
+            }
+        }
+
         $(this).hide();
         var html = '';
         html += '<div class="webinar-cont-ty2">';
@@ -884,7 +909,7 @@
         html += '               <div class="col-th">VOD 제목</div>';
         html += '                   <div class="col-td">';
         html += '                       <div class="stream-ipt1">';
-        html += '                           <input type="text" class="vod-input">';
+        html += '                           <input type="text" class="vod-input" value="'+vodTitle+'">';
         html += '                       </div>';
         html += '                   </div>';
         html += '               </div>';
@@ -892,7 +917,7 @@
         html += '                  <div class="col-th">VOD 설명</div>';
         html += '                      <div class="col-td">';
         html += '                  <div class="stream-ipt1">';
-        html += '                      <textarea class="vod-input"></textarea>';
+        html += '                      <textarea class="vod-input">'+vodDescription+'</textarea>';
         html += '                  </div>';
         html += '               </div>';
         html += '           </div>';
