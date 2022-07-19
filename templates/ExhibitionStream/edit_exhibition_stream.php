@@ -408,7 +408,7 @@
                     is_timeCheck = 0;
                     is_timeCheckBeforeTen = 0; 
 
-                    // liveEnd();
+                    liveEnd();
                     
                     player.dispose();
                     var html = '<video class="video-js vjs-default-skin vjs-big-play-centered" id="vid1"></video>';
