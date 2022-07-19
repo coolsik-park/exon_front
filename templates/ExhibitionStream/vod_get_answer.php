@@ -7,9 +7,12 @@
         overflow:hidden;
         text-overflow:ellipsis;
     }
+<<<<<<< HEAD
     .webinar-cont-ty4-body .sect-ovf1 {
         height: 45%;
     }
+=======
+>>>>>>> 4b76220b3c75572cf10d95e998ca2a46662e56e9
 </style>
 <div class="webinar-cont1">
     <h3 class="sr-only">질의 응답</h3>
