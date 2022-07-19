@@ -45,6 +45,7 @@
     }
     .vod--li__title {
         word-break: keep-all;
+        font-size: 20px;
     }
     .chapter--menu__img {
         width: 20px;
@@ -60,9 +61,9 @@
         right: 0;
         bottom: 15px;
     }
-    .s-hty1 {
+    /* .s-hty1 {
         line-height: 0;
-    }
+    } */
     @media screen and (max-width: 768px) {
         .section-my {
             padding: 12px;
@@ -104,6 +105,10 @@
             padding-left: 25px;
             padding-right: 80px;
             line-height: 24px;
+        }
+        .vod--li__title {
+            word-break: keep-all;
+            font-size: 16px;
         }
       
     }
