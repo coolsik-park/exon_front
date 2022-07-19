@@ -2,6 +2,11 @@
     *{
         font-size:1.06rem;
     }
+    .tx {
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+    }
 </style>
 <div class="webinar-cont1">
     <h3 class="sr-only">질의 응답</h3>
