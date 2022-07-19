@@ -8,6 +8,20 @@
         overflow:hidden;
         text-overflow:ellipsis;
     }
+    .webinar-cont-ty4-body .sect-ovf1 {
+        height: 100%;
+    }
+    .webinar-cont-ty4-body {
+        scrollbar-width: none; 
+    }
+    .webinar-cont-ty4-body {
+        overflow-y: hidden;
+    }
+    @media  screen and (min-width: 768px) {
+        .poll-submit{
+            padding: 0;
+        }
+    }
 </style>
 <div class="webinar-cont1">
     <h3 class="sr-only">질의 응답</h3>
