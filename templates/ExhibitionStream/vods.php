@@ -131,7 +131,11 @@
                             <?php foreach ($vods as $vod) : ?>
                                 <a href="/exhibition-stream/watch-exhibition-vod/<?=$exhibition->id?>/<?=$vod['id']?>/<?=$exhibition_users_id?>" style="width: 100%;   border-bottom: 1px solid black;">
                                 <li class="vod-li">
-                                <span class="chapter--title__char">○</span><span class="vod--li__title"><?=$vod['title']?></span><span class="vod-time"><?=sprintf('%02d:%02d:%02d', (round($vod['duration'])/3600),(round($vod['duration'])/60%60), round($vod['duration'])%60)?></span>
+                                <?php if (round($vod['duration'])/3600 < 1) : ?>
+                                    <span class="chapter--title__char">○</span><span class="vod--li__title"><?=$vod['title']?></span><span class="vod-time"><?=sprintf('%02d:%02d', (round($vod['duration'])/60%60), round($vod['duration'])%60)?></span>
+                                <?php else : ?>
+                                    <span class="chapter--title__char">○</span><span class="vod--li__title"><?=$vod['title']?></span><span class="vod-time"><?=sprintf('%02d:%02d:%02d', (round($vod['duration'])/3600),(round($vod['duration'])/60%60), round($vod['duration'])%60)?></span>
+                                <?php endif; ?>
                                 </li>
                                 </a>
                                 <br>
