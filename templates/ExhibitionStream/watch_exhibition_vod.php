@@ -96,6 +96,10 @@
 </div>
 
 <script>
+    $(document).ready(function () {
+        $("#tab11").click();
+    });
+
     //시청시간 계산
     let video = document.getElementById("vid1");
 
