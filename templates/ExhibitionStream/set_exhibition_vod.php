@@ -1253,6 +1253,11 @@
             return false;
         }
 
+        if ($(this).parent().prev().children().children().children().children().first().val().indexOf('/') !== -1) {
+            alert("'/' 슬래쉬 기호는 사용할 수 없습니다. VOD 제목을 수정해주세요.");
+            return false;
+        }
+
         // 등록할 파일 리스트를 formData로 데이터 입력
         var formData = new FormData();
         var exhibition_id = "<?= $exhibition_id ?>";

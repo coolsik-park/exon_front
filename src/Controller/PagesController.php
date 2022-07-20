@@ -118,7 +118,7 @@ class PagesController extends AppController
         $query .= "WHERE ";
         $query .= "  private = 0 AND status != 4 AND status != 8 AND date_ADD(now(), INTERVAL 9 HOUR) < edate ";
         $query .= "ORDER BY ";
-        $query .= "  sdate ";
+        $query .= "  sdate DESC ";
         $query .= "LIMIT ";
         $query .= "  10 ";
         

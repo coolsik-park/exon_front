@@ -1025,7 +1025,11 @@ class ExhibitionController extends AppController
         }
 
         $ExhibitionVod = $this->getTableLocator()->get('ExhibitionVod');
-        $exhibitionVods = $ExhibitionVod->find('all', ['contain' => 'ExhibitionVodViewer'])->where(['exhibition_id' => $id, 'parent_id IS NOT' => null])->toArray();
+        $exhibitionVods = $ExhibitionVod->find('all')->where(['ExhibitionVod.exhibition_id' => $id, 'ExhibitionVod.parent_id IS NOT' => null])->order(['ParentExhibitionVod.idx' => 'ASC', 'ExhibitionVod.idx' => 'ASC']);
+        $exhibitionVods->contain([
+            'ExhibitionVodViewer',
+            'ParentExhibitionVod',
+        ])->toArray();
 
         $total_duration = 0;
         foreach ($exhibitionVods as $vod) {
@@ -2190,13 +2194,15 @@ class ExhibitionController extends AppController
             $i = 2;
             foreach ($exhibitionUsers as $exhibitionUser) {
                 $j = "B";
+                $spreadsheet->getActiveSheet(0)->getColumnDimension($j)->setAutoSize(true);
                 $spreadsheet->getActiveSheet(0)
                     ->setCellValue('A' . $i, $exhibitionUser['users_name']);
 
+                $sum = 0;
                 foreach ($exhibitionVods as $exhibitionVod) {
                     $watching_duration = 0;
                     $cal = 0;
-                    
+            
                     foreach ($exhibitionVod->exhibition_vod_viewer as $viewer) {
                         if ($exhibitionUser['id'] == $viewer['exhibition_users_id']) {
                             $watching_duration = $viewer['watching_duration'];
@@ -2204,14 +2210,19 @@ class ExhibitionController extends AppController
                         $cal = round(($watching_duration / $viewer['vod_duration']) * 100, 0);
                     }
                     if ($cal >= 100) {
+                        $sum = $sum + 100;
                         $cal = '시청완료';
                     } else {
+                        $sum = $sum + $cal;
                         $cal = $cal . "%";
                     }
                     $spreadsheet->getActiveSheet(0)
                         ->setCellValue($j . $i, $cal);
                     $j++;
                 }
+                $spreadsheet->getActiveSheet(0)
+                        ->setCellValue($j . $i, round($sum / count($exhibitionVods), 0) . '%');
+            
                 $i++;
             }
 
@@ -2224,28 +2235,10 @@ class ExhibitionController extends AppController
             }
 
             $last_column = $spreadsheet->getActiveSheet(0)->getHighestColumn();
-            $next_column = chr(ord($last_column) + 1);
+            $next_column = chr(ord($last_column));
             $spreadsheet->getActiveSheet(0)->getColumnDimension($next_column)->setWidth(20);
             $spreadsheet->getActiveSheet(0)
                     ->setCellValue($next_column . '1', '평균 시청 시간');
-
-            $x = 2;
-            foreach ($exhibitionUsers as $exhibitionUser) {
-                $watching_duration = 0;
-                foreach ($exhibitionVods as $exhibitionVod) {
-                    foreach ($exhibitionVod->exhibition_vod_viewer as $viewer) {
-                        if ($exhibitionUser['id'] == $viewer['exhibition_users_id']) {
-                            $watching_duration = $watching_duration + $viewer['watching_duration'];
-                        }
-                    }
-                }
-                $cal = round(($watching_duration / $total_duration) * 100, 0);
-
-                $spreadsheet->getActiveSheet(0)
-                    ->setCellValue($next_column . $x , $cal . '%');
-                $x++;
-            }
-            
 
             $path = 'download' . DS . 'vod' . DS . date("Y") . DS . date("m");
     

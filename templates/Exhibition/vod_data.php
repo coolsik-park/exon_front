@@ -195,6 +195,7 @@
                 </div>
                 <?php 
                     $index = $this->Paginator->current('ExhibitionUsers') * 10 - 9;
+                    $idx =0;
                     foreach ($exhibition_users as $key => $exhibition_user):
                         $method = '';
                         $same_day = 0;
@@ -253,7 +254,11 @@
                                         $a = 0;
                                         $b = 0;
                                         foreach ($exhibition_user->exhibition_vod_viewer as $viewer) {
-                                            $watched_duration = $watched_duration + $viewer['watching_duration'];
+                                            if ($viewer['watching_duration'] > $viewer['vod_duration']) {
+                                                $watched_duration = $watched_duration + $viewer['vod_duration'];
+                                            } else {
+                                                $watched_duration = $watched_duration + $viewer['watching_duration'];
+                                            }
                                         }
                                         if($total_duration == 0){
                                             echo '0%';
@@ -266,18 +271,18 @@
                                         }
                                     ?>
                                     </div>
-                                     <div class="skill">
+                                     <div class="skill" title="<?=sprintf('%02d:%02d:%02d', (round($watched_duration)/3600),(round($watched_duration)/60%60), round($watched_duration)%60)?>">
                                         <div class="skill-bar skill1" style="width: <?=$a?>%;">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="td-col col4">
                                     <div class="con">
-                                        <button type="button" class="btn-ty3 bor" style="cursor:pointer;" data-toggle="modal" data-target="#surveyCheckModal" data-backdrop="static" data-keyboard="false">
+                                        <button type="button" class="btn-ty3 bor" style="cursor:pointer;" data-toggle="modal" data-target="#surveyCheckModal<?=$idx?>" data-backdrop="static" data-keyboard="false">
                                             상세 보기
                                         </button>
                                     </div>
-                                    <div class="modal fade" id="surveyCheckModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="surveyCheckModal<?=$idx?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content" style="background-color:transparent; border:none;">
                                                 <div class="popup-wrap">
@@ -336,7 +341,11 @@
                                                                     <?php
                                                                         $watched_duration = 0;
                                                                         foreach ($exhibition_user->exhibition_vod_viewer as $viewer) {
-                                                                            $watched_duration = $watched_duration + $viewer['watching_duration'];
+                                                                            if ($viewer['watching_duration'] > $viewer['vod_duration']) {
+                                                                                $watched_duration = $watched_duration + $viewer['vod_duration'];
+                                                                            } else {
+                                                                                $watched_duration = $watched_duration + $viewer['watching_duration'];
+                                                                            }
                                                                         }
                                                                         echo $watched_duration . '/' . $total_duration;
                                                                     ?>
@@ -347,7 +356,11 @@
                                                                         $a = 0;
                                                                         $b = 0;
                                                                         foreach ($exhibition_user->exhibition_vod_viewer as $viewer) {
-                                                                            $watched_duration = $watched_duration + $viewer['watching_duration'];
+                                                                            if ($viewer['watching_duration'] > $viewer['vod_duration']) {
+                                                                                $watched_duration = $watched_duration + $viewer['vod_duration'];
+                                                                            } else {
+                                                                                $watched_duration = $watched_duration + $viewer['watching_duration'];
+                                                                            }
                                                                         }
                                                                         if($total_duration == 0){
                                                                             echo '0%';
@@ -360,7 +373,7 @@
                                                                         }
                                                                     ?>
                                                                     </div>
-                                                                    <div class="skill" style="margin-left: 0px; margin-top: 53px;">
+                                                                    <div class="skill" style="margin-left: 0px; margin-top: 53px;" title="<?=sprintf('%02d:%02d:%02d', (round($watched_duration)/3600),(round($watched_duration)/60%60), round($watched_duration)%60)?>">
                                                                         <div class="skill-bar skill1" style="width: <?=$a?>%;">
                                                                         </div>
                                                                     </div>
@@ -371,6 +384,7 @@
                                                                 <div class="th-col col2">시청 여부</div>
                                                                 <div class="th-col col3">시청 시간</div>
                                                             </div>
+                                                            
                                                             <?php foreach ($exhibitionVods as $vod) : ?>
                                                                 <div class="tr-row">
                                                                     <div class="th-col col1">
@@ -395,20 +409,28 @@
                                                                     <div class="modal--col3__span" style="top: 25%;">
                                                                         <?php
                                                                             $watching_duration = 0;
-                                                                            $a = 0;
-                                                                            $b = 0;
-                                                                            if ($vod->exhibition_vod_viewer != null) {
-                                                                                foreach ($vod->exhibition_vod_viewer as $viewer) {
-                                                                                    if ($viewer['exhibition_users_id'] == $exhibition_user['id']) {
-                                                                                        $watching_duration = $viewer['watching_duration'];
+                                                                            $vod_duration = 0;
+                                                                            
+                                                                            if (!empty($vod['exhibition_vod_viewer'])) {
+                                                                                foreach($vod['exhibition_vod_viewer'] as $list) {
+                                                                                    if ($list['exhibition_users_id'] == $exhibition_user['id']) {
+                                                                                        if ($list['watching_duration'] > $list['vod_duration']) {
+                                                                                            $watching_duration = $list['vod_duration'];
+                                                                                        } else {
+                                                                                            $watching_duration = $list['watching_duration'];
+                                                                                        }
+                                                                                        $vod_duration = $list['vod_duration'];
                                                                                     }
                                                                                 }
                                                                             }
-                                                                            if($total_duration == 0){
+                                                                            $a = 0;
+                                                                            $b = 0;
+                                                                            
+                                                                            if($vod_duration == 0){
                                                                                 echo '0%';
                                                                             }
                                                                             else {
-                                                                                $b = $watching_duration / $total_duration * 100;
+                                                                                $b = $watching_duration / $vod_duration * 100;
                                                                                 $a = round($b);
                                                                                 
                                                                                 echo $a . '%';
@@ -416,7 +438,7 @@
                                                                            
                                                                         ?>
                                                                          </div>
-                                                                    <div class="skill" style="margin-left: 0px; margin-top: 8px;">
+                                                                    <div class="skill" style="margin-left: 0px; margin-top: 8px;" title="<?=sprintf('%02d:%02d:%02d', (round($watching_duration)/3600),(round($watching_duration)/60%60), round($watching_duration)%60)?>">
                                                                         <div class="skill-bar skill1" style="width: <?=$a?>%;">
                                                                         </div>
                                                                     </div>
@@ -436,6 +458,7 @@
                             </div>
                 <?php 
                         endif;
+                        $idx++;
                     endforeach;
                 ?>
             </div>

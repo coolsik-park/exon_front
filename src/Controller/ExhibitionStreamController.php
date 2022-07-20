@@ -2192,6 +2192,13 @@ class ExhibitionStreamController extends AppController
         $exhibition = $Exhibition->get($exhibition_id);
         $ExhibitionVod = $this->getTableLocator()->get('ExhibitionVod');
         $exhibitionVod = $ExhibitionVod->get($exhibition_vod_id);
+
+        $ExhibitionUsers = $this->getTableLocator()->get('ExhibitionUsers');
+        if ($exhibition_users_id != 0) {
+            $exhibitionUser = $ExhibitionUsers->get($exhibition_users_id);
+            $exhibitionUser->attend = 2;
+            $ExhibitionUsers->save($exhibitionUser);
+        }
         
         $this->set(compact('exhibitionStream', 'exhibitionVod', 'exhibition_users_id', 'exhibition'));
     }
