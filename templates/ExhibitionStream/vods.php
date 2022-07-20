@@ -110,7 +110,6 @@
             word-break: keep-all;
             font-size: 16px;
         }
-      
     }
 </style>
 
