@@ -2194,6 +2194,7 @@ class ExhibitionController extends AppController
             $i = 2;
             foreach ($exhibitionUsers as $exhibitionUser) {
                 $j = "B";
+                $spreadsheet->getActiveSheet(0)->getColumnDimension($j)->setAutoSize(true);
                 $spreadsheet->getActiveSheet(0)
                     ->setCellValue('A' . $i, $exhibitionUser['users_name']);
 
@@ -2238,24 +2239,6 @@ class ExhibitionController extends AppController
             $spreadsheet->getActiveSheet(0)->getColumnDimension($next_column)->setWidth(20);
             $spreadsheet->getActiveSheet(0)
                     ->setCellValue($next_column . '1', '평균 시청 시간');
-
-            // $x = 2;
-            // foreach ($exhibitionUsers as $exhibitionUser) {
-            //     $watching_duration = 0;
-            //     foreach ($exhibitionVods as $exhibitionVod) {
-            //         foreach ($exhibitionVod->exhibition_vod_viewer as $viewer) {
-            //             if ($exhibitionUser['id'] == $viewer['exhibition_users_id']) {
-            //                 $watching_duration = $watching_duration + $viewer['watching_duration'];
-            //             }
-            //         }
-            //     }
-            //     $cal = round(($watching_duration / $total_duration) * 100, 0);
-
-            //     $spreadsheet->getActiveSheet(0)
-            //         ->setCellValue($next_column . $x , $cal . '%');
-            //     $x++;
-            // }
-            
 
             $path = 'download' . DS . 'vod' . DS . date("Y") . DS . date("m");
     
