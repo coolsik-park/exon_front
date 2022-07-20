@@ -253,7 +253,11 @@
                                         $a = 0;
                                         $b = 0;
                                         foreach ($exhibition_user->exhibition_vod_viewer as $viewer) {
-                                            $watched_duration = $watched_duration + $viewer['watching_duration'];
+                                            if ($viewer['watching_duration'] > $viewer['vod_duration']) {
+                                                $watched_duration = $watched_duration + $viewer['vod_duration'];
+                                            } else {
+                                                $watched_duration = $watched_duration + $viewer['watching_duration'];
+                                            }
                                         }
                                         if($total_duration == 0){
                                             echo '0%';
@@ -336,7 +340,11 @@
                                                                     <?php
                                                                         $watched_duration = 0;
                                                                         foreach ($exhibition_user->exhibition_vod_viewer as $viewer) {
-                                                                            $watched_duration = $watched_duration + $viewer['watching_duration'];
+                                                                            if ($viewer['watching_duration'] > $viewer['vod_duration']) {
+                                                                                $watched_duration = $watched_duration + $viewer['vod_duration'];
+                                                                            } else {
+                                                                                $watched_duration = $watched_duration + $viewer['watching_duration'];
+                                                                            }
                                                                         }
                                                                         echo $watched_duration . '/' . $total_duration;
                                                                     ?>
@@ -347,7 +355,11 @@
                                                                         $a = 0;
                                                                         $b = 0;
                                                                         foreach ($exhibition_user->exhibition_vod_viewer as $viewer) {
-                                                                            $watched_duration = $watched_duration + $viewer['watching_duration'];
+                                                                            if ($viewer['watching_duration'] > $viewer['vod_duration']) {
+                                                                                $watched_duration = $watched_duration + $viewer['vod_duration'];
+                                                                            } else {
+                                                                                $watched_duration = $watched_duration + $viewer['watching_duration'];
+                                                                            }
                                                                         }
                                                                         if($total_duration == 0){
                                                                             echo '0%';
@@ -371,6 +383,7 @@
                                                                 <div class="th-col col2">시청 여부</div>
                                                                 <div class="th-col col3">시청 시간</div>
                                                             </div>
+                                                            
                                                             <?php foreach ($exhibitionVods as $vod) : ?>
                                                                 <div class="tr-row">
                                                                     <div class="th-col col1">
@@ -395,20 +408,24 @@
                                                                     <div class="modal--col3__span" style="top: 25%;">
                                                                         <?php
                                                                             $watching_duration = 0;
+                                                                            $vod_duration = 0;
+                                                                            
+                                                                            if (!empty($vod['exhibition_vod_viewer'])) {
+                                                                                if ($vod['exhibition_vod_viewer'][0]['watching_duration'] > $vod['exhibition_vod_viewer'][0]['vod_duration']) {
+                                                                                    $watching_duration = $vod['exhibition_vod_viewer'][0]['vod_duration'];
+                                                                                } else {
+                                                                                    $watching_duration = $vod['exhibition_vod_viewer'][0]['watching_duration'];
+                                                                                }
+                                                                                $vod_duration = $vod['exhibition_vod_viewer'][0]['vod_duration'];
+                                                                            }
                                                                             $a = 0;
                                                                             $b = 0;
-                                                                            if ($vod->exhibition_vod_viewer != null) {
-                                                                                foreach ($vod->exhibition_vod_viewer as $viewer) {
-                                                                                    if ($viewer['exhibition_users_id'] == $exhibition_user['id']) {
-                                                                                        $watching_duration = $viewer['watching_duration'];
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                            if($total_duration == 0){
+                                                                            
+                                                                            if($vod_duration == 0){
                                                                                 echo '0%';
                                                                             }
                                                                             else {
-                                                                                $b = $watching_duration / $total_duration * 100;
+                                                                                $b = $watching_duration / $vod_duration * 100;
                                                                                 $a = round($b);
                                                                                 
                                                                                 echo $a . '%';
