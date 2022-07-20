@@ -195,6 +195,7 @@
                 </div>
                 <?php 
                     $index = $this->Paginator->current('ExhibitionUsers') * 10 - 9;
+                    $idx =0;
                     foreach ($exhibition_users as $key => $exhibition_user):
                         $method = '';
                         $same_day = 0;
@@ -277,11 +278,11 @@
                                 </div>
                                 <div class="td-col col4">
                                     <div class="con">
-                                        <button type="button" class="btn-ty3 bor" style="cursor:pointer;" data-toggle="modal" data-target="#surveyCheckModal" data-backdrop="static" data-keyboard="false">
+                                        <button type="button" class="btn-ty3 bor" style="cursor:pointer;" data-toggle="modal" data-target="#surveyCheckModal<?=$idx?>" data-backdrop="static" data-keyboard="false">
                                             상세 보기
                                         </button>
                                     </div>
-                                    <div class="modal fade" id="surveyCheckModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="surveyCheckModal<?=$idx?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content" style="background-color:transparent; border:none;">
                                                 <div class="popup-wrap">
@@ -411,12 +412,16 @@
                                                                             $vod_duration = 0;
                                                                             
                                                                             if (!empty($vod['exhibition_vod_viewer'])) {
-                                                                                if ($vod['exhibition_vod_viewer'][0]['watching_duration'] > $vod['exhibition_vod_viewer'][0]['vod_duration']) {
-                                                                                    $watching_duration = $vod['exhibition_vod_viewer'][0]['vod_duration'];
-                                                                                } else {
-                                                                                    $watching_duration = $vod['exhibition_vod_viewer'][0]['watching_duration'];
+                                                                                foreach($vod['exhibition_vod_viewer'] as $list) {
+                                                                                    if ($list['exhibition_users_id'] == $exhibition_user['id']) {
+                                                                                        if ($list['watching_duration'] > $list['vod_duration']) {
+                                                                                            $watching_duration = $list['vod_duration'];
+                                                                                        } else {
+                                                                                            $watching_duration = $list['watching_duration'];
+                                                                                        }
+                                                                                        $vod_duration = $list['vod_duration'];
+                                                                                    }
                                                                                 }
-                                                                                $vod_duration = $vod['exhibition_vod_viewer'][0]['vod_duration'];
                                                                             }
                                                                             $a = 0;
                                                                             $b = 0;
@@ -453,6 +458,7 @@
                             </div>
                 <?php 
                         endif;
+                        $idx++;
                     endforeach;
                 ?>
             </div>
