@@ -409,7 +409,7 @@
                                 alert("모집일이 끝난 행사입니다.\n참가 대기로 접수됩니다.");
                             } else {
                                 alert("신청이 완료되었습니다.");
-                                location.href = "/exhibition-stream/watch-exhibition-stream/<?=$id?>/"+data.exhibition_user_id;
+                                location.href = "/exhibition/view/<?=$id?>";
                             }
                             // window.location.replace("/exhibition/view/<?=$id?>");
                         } else if (data.status == 'exist') {
