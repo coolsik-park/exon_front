@@ -8,7 +8,7 @@
         text-overflow:ellipsis;
     }
     .webinar-cont-ty4-body .sect-ovf1 {
-        height: 100%;
+        height: 93%;
     }
     .webinar-cont-ty4-body {
         scrollbar-width: none; 
