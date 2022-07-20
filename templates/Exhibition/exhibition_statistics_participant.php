@@ -75,7 +75,11 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="/exhibition/exhibition-statistics-stream/<?=$id?>">스트리밍</a>
+                    <?php if ($exhibition->is_vod == 1) : ?>
+                        <a href="/exhibition/exhibition-statistics-vod/<?=$id?>">스트리밍</a>
+                    <?php else : ?>
+                        <a href="/exhibition/exhibition-statistics-stream/<?=$id?>">스트리밍</a>
+                    <?php endif; ?>
                 </li>
                 <li>
                     <a href="/exhibition/exhibition-statistics-extra/<?=$id?>">기타</a>
