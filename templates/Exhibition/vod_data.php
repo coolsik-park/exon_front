@@ -271,7 +271,7 @@
                                         }
                                     ?>
                                     </div>
-                                     <div class="skill">
+                                     <div class="skill" title="<?=sprintf('%02d:%02d:%02d', (round($watched_duration)/3600),(round($watched_duration)/60%60), round($watched_duration)%60)?>">
                                         <div class="skill-bar skill1" style="width: <?=$a?>%;">
                                         </div>
                                     </div>
@@ -373,7 +373,7 @@
                                                                         }
                                                                     ?>
                                                                     </div>
-                                                                    <div class="skill" style="margin-left: 0px; margin-top: 53px;">
+                                                                    <div class="skill" style="margin-left: 0px; margin-top: 53px;" title="<?=sprintf('%02d:%02d:%02d', (round($watched_duration)/3600),(round($watched_duration)/60%60), round($watched_duration)%60)?>">
                                                                         <div class="skill-bar skill1" style="width: <?=$a?>%;">
                                                                         </div>
                                                                     </div>
@@ -438,7 +438,7 @@
                                                                            
                                                                         ?>
                                                                          </div>
-                                                                    <div class="skill" style="margin-left: 0px; margin-top: 8px;">
+                                                                    <div class="skill" style="margin-left: 0px; margin-top: 8px;" title="<?=sprintf('%02d:%02d:%02d', (round($watching_duration)/3600),(round($watching_duration)/60%60), round($watching_duration)%60)?>">
                                                                         <div class="skill-bar skill1" style="width: <?=$a?>%;">
                                                                         </div>
                                                                     </div>
