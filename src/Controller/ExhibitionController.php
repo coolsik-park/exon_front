@@ -1025,7 +1025,14 @@ class ExhibitionController extends AppController
         }
 
         $ExhibitionVod = $this->getTableLocator()->get('ExhibitionVod');
-        $exhibitionVods = $ExhibitionVod->find('all', ['contain' => 'ExhibitionVodViewer'])->where(['exhibition_id' => $id, 'parent_id IS NOT' => null])->toArray();
+        $exhibitionVods = $ExhibitionVod->find('all')->where(['ExhibitionVod.exhibition_id' => $id, 'ExhibitionVod.parent_id IS NOT' => null])->order(['ExhibitionVod.idx' => 'ASC']);
+        $exhibitionVods->contain([
+            'ExhibitionVodViewer',
+            'ParentExhibitionVod' => [
+                'sort' => ['ParentExhibitionVod.idx' => 'ASC']
+            ]
+        ])->toArray();
+
 
         $total_duration = 0;
         foreach ($exhibitionVods as $vod) {
