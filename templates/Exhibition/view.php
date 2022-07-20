@@ -86,6 +86,7 @@
         }
         .apply_btn_div {
             margin-top: 2%;
+            width: 100%;
         }
         .apply-sect1-cont .conts .btns {
             height: 16%;
@@ -444,7 +445,7 @@
         }).done(function(data) {
             if (data.status == 'success') {
                 if (data.test.length >= people_count) {
-                    $('#btn-join').replaceWith('<a href="" class="btn-join" id="btn-join">신청 만료</a>');
+                    $('#apply_button').replaceWith('<a href="" class="btn-join" id="#apply_button">신청 만료</a>');
                 } else {
                     $('#apply_button').replaceWith('<a id="apply_button" href="/exhibition-users/add/<?= $exhibition->id ?>/'+group_id+'" class="btn-join" id="btn-join">참가 신청</a>');
                 }
