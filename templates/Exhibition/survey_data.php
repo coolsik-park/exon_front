@@ -42,7 +42,7 @@
                             $count += $childData['count'];
                         }
                     }
-                    if ($count == 0 && $parentData['is_multiple'] == 'Y') {
+                    if ($count == 0) {
             ?>
             <div class="p-data-item-wp">
                 <label class="chk-dsg2"><input type="checkbox" id="checked[]" name="checked[]" class="checkbox"
@@ -209,7 +209,7 @@
                             $count += $childData['count'];
                         }
                     }
-                    if ($count == 0 && $parentData['is_multiple'] == 'Y') {
+                    if ($count == 0) {
             ?>
             <div class="p-data-item-wp">
                 <label class="chk-dsg2"><input type="checkbox" id="checked[]" name="checked[]" class="checkbox"
@@ -365,6 +365,10 @@
 
 <script>
     $(document).on("click", "#checkAll", function () {
-        $(".checkbox").prop("checked", true);
+        $(".checkbox").each(function () {
+            if ($(this).attr("disabled") != "disabled") {
+                $(this).prop("checked", true);
+            }
+        });
     });
 </script>
