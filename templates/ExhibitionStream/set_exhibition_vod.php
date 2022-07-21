@@ -119,6 +119,7 @@
 
     .chapter-title {
         margin-bottom: 10px;
+        font-size: 1.8rem;
     }
 
     .stream-ipt1 .vod-input {
@@ -188,38 +189,44 @@
 
     .add--vod__2 {
         position: absolute;
-        top: -1%;
+        top: -3px;
         right: 160px;
     }
 
     .delete--vod__1 {
         position: absolute;
         right: 105px;
+        top: 0px;
     }
 
     .delete--vod__2 {
         position: absolute;
         right: 65px;
+        top: 0px;
     }
 
     .view--vod__1 {
         position: absolute;
         right: 75px;
+        top: 0px;
     }
 
     .view--vod__2 {
         position: absolute;
         right: 35px;
+        top: 0px;
     }
 
     .move--vod__1 {
         position: absolute;
         right: 40px;
+        top: 0px;
     }
 
     .move--vod__2 {
         position: absolute;
         right: 0px;
+        top: 0px;
     }
 
     .set--vod__1 {
@@ -338,8 +345,26 @@
     .updateChapter {
         margin-left: 12px;
     }
+    .vod-title {
+        font-size: 30px;
+    }
 
     @media screen and (max-width: 768px) {
+        .vod--title__icon {
+            top: 37px;
+        }
+        .vod-title {
+            font-size: 20px;
+            padding-top: 35px;
+        }
+        .chapter-title {
+            margin-bottom: 10px;
+            font-size: 20px;
+            padding-top: 45px;
+        }
+        .chapter--title__char {
+            top: 46px;
+        }
         .stream-sect .row2-wp .row2 {
             width: 99%;
         }
@@ -398,6 +423,10 @@
         .stream-sect .row2-wp .row2 .col-th {
             width: 35%;
         }
+        .vodTitle {
+            font-size: 20px;
+            line-height: 30px;
+        }
     }
 </style>
 
@@ -435,9 +464,9 @@
                                     <div class='wb-stream-sect sect--border'>
                                         <div class="stream-sect">
                                             <?php if ($list['is_show'] == 0) : ?>
-                                                <div class="chapter-title disable" style="font-size:1.8rem;"><span class="chapter--title__char">○</span><?= $list['title'] ?>
+                                                <div class="chapter-title disable" style=""><span class="chapter--title__char">○</span><?= $list['title'] ?>
                                                 <?php else : ?>
-                                                    <div class="chapter-title" style="font-size:1.8rem;"><span class="chapter--title__char">○</span><?= $list['title'] ?>
+                                                    <div class="chapter-title" style=""><span class="chapter--title__char">○</span><?= $list['title'] ?>
                                                     <?php endif; ?>
                                                     <a style="" class="c set--vod__1" name="<?= $list['id'] ?>">
                                                         <img id="set--vod" class="chapter-icon set--vod" src="/img/setting.png">
@@ -464,7 +493,7 @@
                                                     <ul id="sortable2" class="<?= $list['id'] ?>" name="sortable2">
                                                         <?php foreach ($list['child_exhibition_vod'] as $child) : ?>
                                                             <li class="ui-state-default">
-                                                                <div class="vod-title" style="font-size:30px; margin:20px 0; padding-left:10px;">
+                                                                <div class="vod-title" style=" margin:20px 0; padding-left:10px;">
                                                                     <?php if ($child['is_show'] == 0) : ?>
                                                                         <a class="vodTitle disabled" href="/exhibition-stream/watch-exhibition-vod/<?= $exhibition_id ?>/<?= $child['id'] ?>"><span class="vod--title__icon">◆</span><?= $child['title'] ?></a>
                                                                     <?php else : ?>
