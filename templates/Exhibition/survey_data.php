@@ -41,6 +41,8 @@
                         foreach ($beforeChildData[$parentData['id']] as $childData) {
                             $count += $childData['count'];
                         }
+                    } else {
+                        $count = count($parentData['exhibition_survey_users_answer']);
                     }
                     if ($count == 0) {
             ?>
@@ -208,6 +210,8 @@
                         foreach ($normalChildData[$parentData['id']] as $childData) {
                             $count += $childData['count'];
                         }
+                    } else {
+                        $count = count($parentData['exhibition_survey_users_answer']);
                     }
                     if ($count == 0) {
             ?>
