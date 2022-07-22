@@ -305,7 +305,11 @@ class ExhibitionController extends AppController
                             $exhibitionSurvey->survey_type = $data['survey_type'][$i];
                             $exhibitionSurvey->is_duplicate = $data['is_duplicate'][$i];
                             $exhibitionSurvey->is_required = $data['is_required'][$i];
-                            $exhibitionSurvey->is_multiple = $data['is_multiple'][$i];
+                            if ($data['is_multiple'][$i] == 'N') {
+                                $exhibitionSurvey->is_multiple = 'N';
+                            } else {
+                                $exhibitionSurvey->is_multiple = 'Y';
+                            }
 
                             if (!$surveyResult = $ExhibitionSurvey->save($exhibitionSurvey)) {
                                 $connection->rollback(); 
@@ -609,7 +613,11 @@ class ExhibitionController extends AppController
                                 $exhibitionSurvey->survey_type = $data['survey_type'][$i];
                                 $exhibitionSurvey->is_duplicate = $data['is_duplicate'][$i];
                                 $exhibitionSurvey->is_required = $data['is_required'][$i];
-                                $exhibitionSurvey->is_multiple = $data['is_multiple'][$i];
+                                if ($data['is_multiple'][$i] == 'N') {
+                                    $exhibitionSurvey->is_multiple = 'N';
+                                } else {
+                                    $exhibitionSurvey->is_multiple = 'Y';
+                                }
                             
                             } else {
                                 $exhibitionSurvey = $ExhibitionSurvey->newEmptyEntity();
@@ -618,7 +626,11 @@ class ExhibitionController extends AppController
                                 $exhibitionSurvey->survey_type = $data['survey_type'][$i];
                                 $exhibitionSurvey->is_duplicate = $data['is_duplicate'][$i];
                                 $exhibitionSurvey->is_required = $data['is_required'][$i];
-                                $exhibitionSurvey->is_multiple = $data['is_multiple'][$i];
+                                if ($data['is_multiple'][$i] == 'N') {
+                                    $exhibitionSurvey->is_multiple = 'N';
+                                } else {
+                                    $exhibitionSurvey->is_multiple = 'Y';
+                                }
                             }
                             
                             if (!$surveyResult = $ExhibitionSurvey->save($exhibitionSurvey)) {

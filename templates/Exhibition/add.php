@@ -1043,6 +1043,7 @@
         html += '            <select id="is_multiple_'+i+'" name="is_multiple[]" class="0">';
         html += '                <option value="Y">객관식</option>';
         html += '                <option value="N">주관식</option>';
+        html += '                <option value="S">만족도</option>';
         html += '            </select>';
         html += '            <div class="chk-dsg-wp">';
         html += '                <span class="chk-dsg"><input type="checkbox" name="is_duplicate[]" id="dup_'+i+'" value="Y"><label for="dup_'+i+'">보기 중복 선택 가능</label></span>';
@@ -1114,6 +1115,7 @@
             html += '        <select id="is_multiple_'+index+'" name="is_multiple[]" class="0">';
             html += '            <option value="Y">객관식</option>';
             html += '            <option selected="selected" value="N">주관식</option>';
+            html += '            <option value="S">만족도</option>';
             html += '        </select>';
             html += '        <div class="chk-dsg-wp">';
             html += '                <span class="chk-dsg" id="req_span_'+index+'" style="display:none;"><input type="checkbox" name="is_required[]" id="req_'+index+'" value="Y"><label for="req_'+index+'" class="essential">필수</label></span>';
@@ -1138,7 +1140,7 @@
             $("#survey_" + index).children().remove();
             $("#survey_" + index).append(html);
         
-        } else {
+        } else if ($("option:selected", this).val() == 'Y') {
             var index = $(this).attr("id").substr($(this).attr("id"));
             index = index.split("_")[2];
             var html = '';
@@ -1147,6 +1149,7 @@
             html += '            <select id="is_multiple_'+index+'" name="is_multiple[]" class="0">';
             html += '                <option value="Y">객관식</option>';
             html += '                <option value="N">주관식</option>';
+            html += '                <option value="S">만족도</option>';
             html += '            </select>';
             html += '            <div class="chk-dsg-wp">';
             html += '                <span class="chk-dsg"><input type="checkbox" name="is_duplicate[]" id="dup_'+index+'" value="Y"><label for="dup_'+index+'">보기 중복 선택 가능</label></span>';
@@ -1180,6 +1183,71 @@
             html += '    </div>';
 
             j++;
+            $("#survey_" + index).children().remove();
+            $("#survey_" + index).append(html);
+        } else if ($("option:selected", this).val() == 'S') {
+            var index = $(this).attr("id").substr($(this).attr("id"));
+            index = index.split("_")[2];
+            var html = '';
+            html += '    <div class="survey-bx-sect1">';
+            html += '        <div class="tits">';
+            html += '            <select id="is_multiple_'+index+'" name="is_multiple[]" class="0">';
+            html += '                <option value="Y">객관식</option>';
+            html += '                <option value="N">주관식</option>';
+            html += '                <option selected="selected" value="S">만족도</option>';
+            html += '            </select>';
+            html += '            <div class="chk-dsg-wp">';
+            html += '                <span class="chk-dsg"><input type="checkbox" name="is_duplicate[]" id="dup_'+index+'" value="Y"><label for="dup_'+index+'">보기 중복 선택 가능</label></span>';
+            html += '                <input type="checkbox" name="is_duplicate[]" id="dup_hidden_'+index+'" value="N" checked="checked" style="display:none;">';
+            html += '                <span class="chk-dsg" id="req_span_'+index+'" style="display:none;"><input type="checkbox" name="is_required[]" id="req_'+index+'" value="Y"><label for="req_'+index+'" class="essential">필수</label></span>';
+            html += '                <input type="checkbox" name="is_required[]" id="req_hidden_'+index+'" value="N" checked="checked" style="display:none">';
+            html += '            </div>';                                
+            html += '        </div>';
+            html += '        <div class="btns">';                                
+            html += '            <button type="button" class="btn2" onclick="deleteSurvey('+index+', 0)">삭제</button>';
+            html += '        </div>';
+            html += '    </div>';
+            html += '    <div class="survey-bx-sect2">';
+            html += '        <input name="text[]" type="text" class="ipt" placeholder="질문을 입력하세요">';
+            html += '        <input name="survey_id[]" type="hidden" value="0">';
+            html += '        <select id="survey_type_'+index+'" name="survey_type[]">';
+            html += '            <option value="N">일반설문</option>';
+            html += '            <option value="B">사전설문</option>';
+            html += '        </select>';
+            html += '    </div>';
+            html += '    <p id="type_noti_'+index+'" class="p-noti_1">일반설문으로 설정하시면 행사 진행 중에 참가자분들이 설문에 참여할 수 있습니다.</p>';
+            html += '    <div id="rows_'+index+'" class="survey-bx-sect3">';
+            html += '        <div class="btns">';
+            html += '            <button type="button" onclick="addRow('+index+')">보기 추가</button>';
+            html += '        </div>';
+            html += '        <div id="row_'+j+'" class="wrt-after">';
+            html += '            <input name="child_text_'+index+'[]" type="text" class="ipt" placeholder="보기" value="매우 만족">';
+            html += '            <input name="child_survey_id_'+index+'[]" type="hidden" value="0">'
+            html += '            <button type="button" class="btn-del" onclick="deleteRow('+j+', 0)">보기 삭제</button>';
+            html += '        </div>';
+            html += '        <div id="row_'+(j+1)+'" class="wrt-after">';
+            html += '            <input name="child_text_'+index+'[]" type="text" class="ipt" placeholder="보기" value="만족">';
+            html += '            <input name="child_survey_id_'+index+'[]" type="hidden" value="0">'
+            html += '            <button type="button" class="btn-del" onclick="deleteRow('+(j+1)+', 0)">보기 삭제</button>';
+            html += '        </div>';
+            html += '        <div id="row_'+(j+2)+'" class="wrt-after">';
+            html += '            <input name="child_text_'+index+'[]" type="text" class="ipt" placeholder="보기" value="보통">';
+            html += '            <input name="child_survey_id_'+index+'[]" type="hidden" value="0">'
+            html += '            <button type="button" class="btn-del" onclick="deleteRow('+(j+2)+', 0)">보기 삭제</button>';
+            html += '        </div>';
+            html += '        <div id="row_'+(j+3)+'" class="wrt-after">';
+            html += '            <input name="child_text_'+index+'[]" type="text" class="ipt" placeholder="보기" value="불만족">';
+            html += '            <input name="child_survey_id_'+index+'[]" type="hidden" value="0">'
+            html += '            <button type="button" class="btn-del" onclick="deleteRow('+(j+3)+', 0)">보기 삭제</button>';
+            html += '        </div>';
+            html += '        <div id="row_'+(j+4)+'" class="wrt-after">';
+            html += '            <input name="child_text_'+index+'[]" type="text" class="ipt" placeholder="보기" value="매우 불만족">';
+            html += '            <input name="child_survey_id_'+index+'[]" type="hidden" value="0">'
+            html += '            <button type="button" class="btn-del" onclick="deleteRow('+(j+4)+', 0)">보기 삭제</button>';
+            html += '        </div>';
+            html += '    </div>';
+
+            j = j + 5;
             $("#survey_" + index).children().remove();
             $("#survey_" + index).append(html);
         }
